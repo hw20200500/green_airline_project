@@ -17,9 +17,9 @@
 			</div>
 
 			<div>
-			<form action="/notice" method="get">
+			<form action="/notice/noticeSearch" method="get">
 				<h3>키워드 검색</h3>
-				<input type="text" name="keyword" placeholder="검색어를 입력해주세요">
+				<input type="text" id="keyword" name="keyword" placeholder="검색어를 입력해주세요">
 				<button class="search--btn" type="submit">검색하기</button>
 			</form>
 		</div>

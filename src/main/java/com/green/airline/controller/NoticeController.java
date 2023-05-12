@@ -2,6 +2,7 @@ package com.green.airline.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,20 +39,28 @@ public class NoticeController {
 	public String noticeInsert(Notice notice) {
 		noticeService.createdNotice(notice);
 		
-		return "redirect:/notice";
+		return "redirect:/notice/noticeList";
 	}
 	
-	// 공지사항 페이지 
-	@GetMapping("/")
-	public String noticePage(Model model, @RequestParam String keyword) {
+	// 공지사항 페이지
+	@GetMapping("/noticeList")
+	public String noticePage(Model model) {
 		// Todo
 		// 공지사항 select
 		List<NoticeResponseDto> noticeList = noticeService.readNotice();
 		model.addAttribute("noticeList", noticeList);
 		List<NoticeCategory> categoryList =  noticeService.readNoticeCategory();
 		model.addAttribute("categoryList", categoryList);
-		List<NoticeRequestDto> noticeResponseDtos = noticeService.readNoticeByTitle(keyword);
-		model.addAttribute("noticeResponseDtos", noticeResponseDtos);
+		
+		return "/notice/noticeList";
+	}
+	
+	@GetMapping("/noticeSearch")
+	public String noticeSearch(@RequestParam String keyword, Model model) {
+		List<NoticeResponseDto> noticeList = noticeService.readNoticeByTitle(keyword);
+		model.addAttribute("noticeList", noticeList);
+		List<NoticeCategory> categoryList =  noticeService.readNoticeCategory();
+		model.addAttribute("categoryList", categoryList);
 		
 		return "/notice/noticeList";
 	}
@@ -66,13 +75,6 @@ public class NoticeController {
 //		return "redirect:/notice";
 //	}
 	
-	@PostMapping("")
-	public String noticeSearch(Model model, Notice notice) {
-		List<NoticeRequestDto> noticeRequestDtos = noticeService.readNoticeByTitle(notice.getTitle());
-		model.addAttribute("noticeRequestDtos", noticeRequestDtos);
-		
-		return "redirect:/notice/noticeList";
-	}
 	
 	@GetMapping("/noticeDetail/{id}")
 	public String noticeDetailPage(@PathVariable Integer id, Model model) {

@@ -34,25 +34,27 @@ public class NoticeService {
 	}
 
 	public List<NoticeResponseDto> readNotice() {
-		List<NoticeResponseDto> noticeList =  noticeRepository.selectNotice();
+		List<NoticeResponseDto> noticeList = noticeRepository.selectNotice();
 		return noticeList;
 	}
-	
-	public List<NoticeRequestDto> readNoticeByTitle(String keyword){
-		List<NoticeRequestDto> noticeRequestDtoList = noticeRepository.selectNoticeByTitle(keyword);
-		return noticeRequestDtoList;
+
+	public List<NoticeResponseDto> readNoticeByTitle(String keyword) {
+		keyword = "%" + keyword + "%";
+		List<NoticeResponseDto> noticeResponseDtoList = noticeRepository.selectNoticeByTitle(keyword);
+
+		return noticeResponseDtoList;
 	}
-	
+
 	public NoticeResponseDto readNoticeById(int id) {
 		NoticeResponseDto noticeResponseDto = noticeRepository.selectNoticeById(id);
-		
+
 		return noticeResponseDto;
 	}
-	
-	public List<NoticeResponseDto> readNoticeByCategoryId(int categoryId){
+
+	public List<NoticeResponseDto> readNoticeByCategoryId(int categoryId) {
 		List<NoticeResponseDto> noticeResponseDtos = noticeRepository.selectNoticeByCategoryId(categoryId);
-		
+
 		return noticeResponseDtos;
 	}
-	
+
 }

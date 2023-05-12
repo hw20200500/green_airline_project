@@ -12,6 +12,5 @@ public class NoticeRequestDto {
 	private String content;
 	private Timestamp createdAt;
 	private int categoryId;
-	private String keyword;
 	
 }

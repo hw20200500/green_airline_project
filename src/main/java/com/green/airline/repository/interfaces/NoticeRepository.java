@@ -22,7 +22,7 @@ public interface NoticeRepository {
 	List<NoticeResponseDto> selectNotice();
 	
 	// 공지사항 검색 기능
-	List<NoticeRequestDto> selectNoticeByTitle(String keyword);
+	List<NoticeResponseDto> selectNoticeByTitle(String keyword);
 	
 	// 공지사항 상세 페이지 이동
 	NoticeResponseDto selectNoticeById(int id);
