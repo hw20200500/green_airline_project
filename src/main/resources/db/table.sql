@@ -79,8 +79,8 @@ create table route_tb(
    destination varchar(50) not null,
    flight_time varchar(50) not null,
    flight_distance int not null,
-   foreign key (departure) references airport_tb(name),
-   foreign key (departure) references airport_tb(name)
+   foreign key (departure) references airport_tb (name),
+   foreign key (destination) references airport_tb (name)
 );
 
 
@@ -96,9 +96,9 @@ CREATE TABLE schedule_tb(
    id INT PRIMARY KEY AUTO_INCREMENT,
     departure_date TIMESTAMP NOT NULL,
     arrival_date TIMESTAMP NOT NULL,
-    airplane_id INT,
+    airplane_id INT NOT NULL,
     FOREIGN KEY (airplane_id) REFERENCES airplane_tb (id),
-    route_id INT, 
+    route_id INT NOT NULL, 
     FOREIGN KEY (route_id) REFERENCES route_tb (id)
 );
 
@@ -107,9 +107,9 @@ CREATE TABLE schedule_tb(
 CREATE TABLE ticket_tb(
    id INT PRIMARY KEY AUTO_INCREMENT,
     seat_count INT DEFAULT 1 NOT NULL,
-    member_id VARCHAR(50), 
+    member_id VARCHAR(50) NOT NULL, 
     FOREIGN KEY(member_id) REFERENCES member_tb(id),
-    schedule_id INT, 
+    schedule_id INT NOT NULL, 
     FOREIGN KEY(schedule_id) REFERENCES schedule_tb(id),
     reserved_date TIMESTAMP NOT NULL DEFAULT now()
 );
@@ -118,11 +118,11 @@ CREATE TABLE ticket_tb(
 -- 예약 좌석
 CREATE TABLE reserved_seat_tb(
    PRIMARY KEY (schedule_id, seat_id),
-   schedule_id INT, 
+   schedule_id INT NOT NULL, 
    FOREIGN KEY(schedule_id) REFERENCES schedule_tb(id),
-   seat_id INT, 
+   seat_id INT NOT NULL, 
    FOREIGN KEY(seat_id) REFERENCES seat_tb(id),
-   ticket_id INT, 
+   ticket_id INT NOT NULL, 
    FOREIGN KEY(ticket_id) REFERENCES ticket_tb(id)
 );
 
@@ -148,7 +148,7 @@ CREATE TABLE in_flight_service_tb(
 CREATE TABLE available_service_tb(
    id INT PRIMARY KEY AUTO_INCREMENT,
     flight_hours INT NOT NULL, -- 단위 0, 1, 2, 3, 4 ...
-    service_id INT, 
+    service_id INT NOT NULL, 
     FOREIGN KEY(service_id) REFERENCES in_flight_service_tb(id)
 );
 
@@ -165,7 +165,7 @@ CREATE TABLE in_flight_meal_tb(
 CREATE TABLE request_meal_tb(
    id INT PRIMARY KEY AUTO_INCREMENT,
     amount INT NOT NULL,
-    meal_id INT, 
+    meal_id INT NOT NULL, 
     FOREIGN KEY(meal_id) REFERENCES in_flight_meal_tb(id)
 );
 
@@ -183,7 +183,7 @@ CREATE TABLE notice_tb(
     title VARCHAR(100) NOT NULL,
     content TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT now(),
-    category_id INT, 
+    category_id INT NOT NULL, 
     FOREIGN KEY(category_id) REFERENCES notice_category_tb(id)
 );
 
@@ -195,7 +195,7 @@ create table recommend_board_tb(
    content text not null,
    user_id varchar(50) not null,
    view_count INT not null,
-   created_at TIMESTAMP default now(),
+   created_at TIMESTAMP default now() NOT NULL,
    FOREIGN KEY (user_id) REFERENCES user_tb (id)  
 );
 
@@ -213,8 +213,8 @@ create table board_image_tb (
 -- 게시글 좋아요 내역
 create table like_heart_tb(
    id int PRIMARY KEY AUTO_INCREMENT,
-   board_id int,
-   user_id varchar(50),
+   board_id int NOT NULL,
+   user_id varchar(50) NOT NULL,
    FOREIGN KEY (board_id) REFERENCES recommend_board_tb (id),
    FOREIGN KEY (user_id) REFERENCES user_tb (id)  
 );
