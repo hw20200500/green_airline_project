@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.airline.repository.interfaces.ProductRepository">
+
+	<insert id="insert">
+		insert into shop_product_tb(brand,name,price,count,product_image,gifticon_image)
+		values(#{brand},#{name},#{price},#{count},#{originFileName},#{originFileName2});
+	</insert>
+
+	<select id="selectProductList" resultType="com.green.airline.repository.model.ShopProduct">
+		SELECT * FROM SHOP_PRODUCT_TB 
+	</select>
+	<select id="selectById" resultType="com.green.airline.repository.model.ShopProduct">
+		SELECT * FROM  SHOP_PRODUCT_TB WHERE id = #{id};
+	</select>
+</mapper>

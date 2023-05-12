@@ -225,7 +225,7 @@ CREATE TABLE shop_product_tb(
    id INT PRIMARY KEY auto_increment,
    brand varchar(20) not null,
    name varchar(50) not null,
-   miles_price int not null,
+   price bigint not null,
    count int not null,
    product_image varchar(200) not null,
    gifticon_image varchar(200) not null
