@@ -3,7 +3,7 @@ package com.green.airline.dto;
 import lombok.Data;
 
 @Data
-public class BoardPage {
+public class BoardListDto {
 	
 	private int id;
 	private String title;

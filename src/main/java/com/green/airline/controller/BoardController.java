@@ -12,13 +12,13 @@ import com.green.airline.service.BoardService;
 
 @Controller
 public class BoardController {
-
+	
 	@Autowired
 	private BoardService boardService;
 
 	// 추천여행지 전체 보기
 	@GetMapping("/boardList")
-	public String test(Model model) {
+	public String boardListAllPage(Model model) {
 
 		List<Board> boardList = boardService.boardList();
 		if (boardList.isEmpty()) {
@@ -33,4 +33,7 @@ public class BoardController {
 	// 추천여행지 상세 보기
 
 	// 글쓰기 페이지
+
+	// 새 글 올리기
+	
 }
