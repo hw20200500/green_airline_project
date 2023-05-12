@@ -1,12 +1,19 @@
 package com.green.airline.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.green.airline.dto.response.SeatInfoResponseDto;
+import com.green.airline.dto.response.SeatStatusResponseDto;
+import com.green.airline.repository.interfaces.ReservedSeatRepository;
 import com.green.airline.repository.interfaces.SeatGradeRepository;
 import com.green.airline.repository.interfaces.SeatRepository;
 import com.green.airline.repository.interfaces.TicketPriceRepository;
+import com.green.airline.repository.model.ReservedSeat;
+import com.green.airline.repository.model.Seat;
 import com.green.airline.repository.model.SeatGrade;
 import com.green.airline.repository.model.TicketPrice;
 import com.green.airline.utils.NumberUtil;
@@ -27,6 +34,9 @@ public class SeatService {
 	
 	@Autowired
 	private SeatGradeRepository seatGradeRepository;
+	
+	@Autowired
+	private ReservedSeatRepository reservedSeatRepository;
 
 	/**
 	 * @return 특정 좌석 정보 (가격 포함)
@@ -51,6 +61,30 @@ public class SeatService {
 		seatInfoDto.setSeatPrice(price);
 		
 		return seatInfoDto;
+	}
+	
+	/**
+	 * @return 해당 스케줄에 운항하는 비행기의 좌석 리스트 (등급에 따라
+	 */
+	public List<SeatStatusResponseDto> readSeatListByScheduleIdAndGrade(Integer scheduleId, String grade) {
+		
+		List<SeatStatusResponseDto> seatEntityList = seatRepository.selectSeatListByScheduleIdAndGrade(scheduleId, grade);
+		
+		// 예약된 좌석
+		List<ReservedSeat> reservedSeatEntityList = reservedSeatRepository.selectByScheduleId(scheduleId);
+		List<String> reservedSeatNameList = new ArrayList<>();
+		reservedSeatEntityList.forEach(rs -> {
+			reservedSeatNameList.add(rs.getSeatName());
+		});
+		
+		for (SeatStatusResponseDto s : seatEntityList) {
+			// 이미 예약된 좌석이라면
+			if (reservedSeatNameList.contains(s.getName())) {
+				s.setStatus(true);
+			}
+		}
+		
+		return seatEntityList;
 	}
 	
 }

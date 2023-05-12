@@ -1,53 +1,90 @@
 
 
-function selectSeat(i) {
-	// 선택
-	if ($(`.economy--seat--${i}`).attr("src") == "/images/economy_not.png" && seatCount > 0) {
-		$(`.economy--seat--${i}`).attr("src", "/images/economy_sel.png");
-		$(`.economy--seat--${i}`).toggleClass("selected--seat");
-		seatCount --;
-		
-		let seatNumber = $(`.economy--seat--${i}`).attr("class").split("seat--")[1].split(" ")[0];
-		
-		if (seatNumber < 10) {
-			seatName = "E00" + seatNumber;
-		} else if (seatNumber < 100) {
-			seatName = "E0" + seatNumber;
-		} else {
-			seatName = "E" + seatNumber;
-		}
-			
-		$.ajax({
-			type: 'GET',
-			url: `/ticket/selectedSeatData?seatName=${seatName}&scheduleId=${scheduleId}`,
-			contentType: 'application/json; charset=utf-8'
-			
-		}).done((res) => {
-			console.log(res);
-			showSeatInfo(seatName, res.seatGrade, res.seatPrice);
-		}).fail((error) => {
-			console.log(error);
-		});
+function selectSeat(type, seatName) {
 	
-	// 선택 취소
-	} else if ($(`.economy--seat--${i}`).attr("src") == "/images/economy_sel.png" && seatCount >= 0) {
-		$(`.economy--seat--${i}`).attr("src", "/images/economy_not.png");
-		$(`.economy--seat--${i}`).toggleClass("selected--seat");
-		seatCount ++;
+	if (type == 'e') {
+		// 선택
+		if ($(`.economy--seat--${seatName}`).attr("src") == "/images/ticket/economy_not.png" && seatCount > 0) {
+			$(`.economy--seat--${seatName}`).attr("src", "/images/ticket/economy_sel.png");
+			seatCount --;
+			
+			console.log("df");
+				
+			$.ajax({
+				type: 'GET',
+				url: `/ticket/selectedSeatData?seatName=${seatName}&scheduleId=${scheduleId}`,
+				contentType: 'application/json; charset=utf-8'
+				
+			}).done((res) => {
+				console.log(res);
+				showSeatInfo(seatName, res.seatGrade, res.seatPrice);
+			}).fail((error) => {
+				console.log(error);
+			});
 		
-		let seatNumber = $(`.economy--seat--${i}`).attr("class").split("seat--")[1].split(" ")[0];
-		
-		if (seatNumber < 10) {
-			seatName = "E00" + seatNumber;
-		} else if (seatNumber < 100) {
-			seatName = "E0" + seatNumber;
-		} else {
-			seatName = "E" + seatNumber;
+		// 선택 취소
+		} else if ($(`.economy--seat--${seatName}`).attr("src") == "/images/ticket/economy_sel.png" && seatCount >= 0) {
+			$(`.economy--seat--${seatName}`).attr("src", "/images/ticket/economy_not.png");
+			seatCount ++;
+			
+			$(`#div${seatName}`).remove();
+			
 		}
 		
-		$(`#div${seatName}`).remove();
+	// 비즈니스 좌석이라면
+	} else if (type == 'b') {
 		
+		// 선택 (r)
+		if ($(`.business--seat--${seatName}`).attr("src") == "/images/ticket/business_r_not.png" && seatCount > 0) {
+			$(`.business--seat--${seatName}`).attr("src", "/images/ticket/business_r_sel.png");
+			seatCount --;
+			
+			$.ajax({
+				type: 'GET',
+				url: `/ticket/selectedSeatData?seatName=${seatName}&scheduleId=${scheduleId}`,
+				contentType: 'application/json; charset=utf-8'
+				
+			}).done((res) => {
+				console.log(res);
+				showSeatInfo(seatName, res.seatGrade, res.seatPrice);
+			}).fail((error) => {
+				console.log(error);
+			});
+			
+		// 선택 취소 (r)
+		} else if ($(`.business--seat--${seatName}`).attr("src") == "/images/ticket/business_r_sel.png" && seatCount >= 0) {
+			$(`.business--seat--${seatName}`).attr("src", "/images/ticket/business_r_not.png");
+			seatCount ++;
+			
+			$(`#div${seatName}`).remove();
+			
+		// 선택 (l)
+		} else if ($(`.business--seat--${seatName}`).attr("src") == "/images/ticket/business_l_not.png" && seatCount > 0) {
+			$(`.business--seat--${seatName}`).attr("src", "/images/ticket/business_l_sel.png");
+			seatCount --;
+			
+			$.ajax({
+				type: 'GET',
+				url: `/ticket/selectedSeatData?seatName=${seatName}&scheduleId=${scheduleId}`,
+				contentType: 'application/json; charset=utf-8'
+				
+			}).done((res) => {
+				console.log(res);
+				showSeatInfo(seatName, res.seatGrade, res.seatPrice);
+			}).fail((error) => {
+				console.log(error);
+			});
+			
+		// 선택 취소 (l)
+		} else if ($(`.business--seat--${seatName}`).attr("src") == "/images/ticket/business_l_sel.png" && seatCount >= 0) {
+			$(`.business--seat--${seatName}`).attr("src", "/images/ticket/business_l_not.png");
+			seatCount ++;
+			
+			$(`#div${seatName}`).remove();
+			
+		}
 	}
+	
 }
 
 // 선택된 좌석 정보 보이게

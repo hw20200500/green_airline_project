@@ -1,5 +1,7 @@
 package com.green.airline.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.green.airline.dto.response.SeatInfoResponseDto;
+import com.green.airline.dto.response.SeatStatusResponseDto;
+import com.green.airline.repository.model.Seat;
 import com.green.airline.service.SeatService;
 
 /**
@@ -31,8 +35,18 @@ public class TicketController {
 		// 선택할 좌석 수
 		model.addAttribute("seatCount", 3);
 		
+		Integer scheduleId = 1;
+		
 		// 현재 항공 일정 id
-		model.addAttribute("scheduleId", 1);
+		model.addAttribute("scheduleId", scheduleId);
+		
+		// 해당 스케줄에 운항하는 비행기의 이코노미 좌석 리스트 (예약 여부 포함)
+		List<SeatStatusResponseDto> eSeatList = seatService.readSeatListByScheduleIdAndGrade(scheduleId, "이코노미");
+		model.addAttribute("economyList", eSeatList);
+		
+		// 해당 스케줄에 운항하는 비행기의 비즈니스 좌석 리스트 (예약 여부 포함)
+		List<SeatStatusResponseDto> bSeatList = seatService.readSeatListByScheduleIdAndGrade(scheduleId, "비즈니스");
+		model.addAttribute("businessList", bSeatList);
 		
 		return "/ticket/selectSeat";
 	}

@@ -17,4 +17,14 @@
 
 </select>
 
+<select id="selectSeatListByScheduleIdAndGrade" resultType="com.green.airline.dto.response.SeatStatusResponseDto">
+	SELECT s.*
+	FROM seat_tb AS s
+	JOIN airplane_tb AS a
+	ON s.airplane_id = a.id
+	JOIN schedule_tb AS sc
+	ON a.id = sc.airplane_id
+	WHERE sc.id = #{scheduleId} AND s.grade = #{grade}
+</select>
+
 </mapper>

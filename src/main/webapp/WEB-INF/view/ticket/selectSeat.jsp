@@ -13,9 +13,14 @@
 		min-width: 600px;
 	}
 	
-	.seat--list img {
+	.e--seat img {
 		width: 70px;
 		height: 70px;
+	}
+	
+	.b--seat img {
+		width: 89px;
+		height: 135px;
 	}
 </style>
 
@@ -25,17 +30,63 @@
 	<main class="d-flex">
 		<div class="seat--list">
 			<p> 좌석 ${seatCount}개 선택 가능 </p>
-			<c:forEach var="i" begin="1" end="30">
-				<img alt="" src="/images/economy_not.png" class="economy--seat--${i}" onclick="selectSeat(${i});">
-				<c:choose>
-					<c:when test="${i % 6 == 0}">
-						<div style="margin: 20px;"></div>
-					</c:when>
-					<c:when test="${i % 3 == 0}">
-						<span style="margin: 50px;"> </span>
-					</c:when>
-				</c:choose>
-			</c:forEach>
+			<div class="b--seat">
+				<c:set var="b" value="1"/>
+				<c:forEach var="business" items="${businessList}">
+					<c:choose>
+						<%-- 홀수 번째라면 왼쪽 문 --%>
+						<c:when test="${b%2 == 1}">
+							<c:choose>
+								<c:when test="${business.status == true}">
+									<img alt="" src="/images/ticket/business_l_pre.png" class="business--seat--${business.name}" onclick="selectSeat('b', '${business.name}');">
+								</c:when>
+								<c:otherwise>
+									<img alt="" src="/images/ticket/business_l_not.png" class="business--seat--${business.name}" onclick="selectSeat('b', '${business.name}');">
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<%-- 짝수 번째라면 오른쪽 문 --%>
+						<c:otherwise>
+							<c:choose>
+								<c:when test="${business.status == true}">
+									<img alt="" src="/images/ticket/business_r_pre.png" class="business--seat--${business.name}" onclick="selectSeat('b', '${business.name}');">
+								</c:when>
+								<c:otherwise>
+									<img alt="" src="/images/ticket/business_r_not.png" class="business--seat--${business.name}" onclick="selectSeat('b', '${business.name}');">
+								</c:otherwise>
+							</c:choose>
+							<span style="margin: 30px;"> </span>
+						</c:otherwise>
+					</c:choose>
+					<c:set var="b" value="${b + 1}"/>
+				</c:forEach>
+			</div>
+			
+			<br>
+			
+			<div class="e--seat">
+				<c:set var="e" value="1"/>
+				<c:forEach var="economy" items="${economyList}">
+					<c:choose>
+						<c:when test="${economy.status == true}">
+							<img alt="" src="/images/ticket/economy_pre.png" class="economy--seat--${economy.name}" onclick="selectSeat('e', '${economy.name}');">
+						</c:when>
+						<c:otherwise>
+							<img alt="" src="/images/ticket/economy_not.png" class="economy--seat--${economy.name}" onclick="selectSeat('e', '${economy.name}');">
+						</c:otherwise>
+					</c:choose>
+					
+					<c:choose>
+						<c:when test="${e % 6 == 0}">
+							<div style="margin: 20px;"></div>
+						</c:when>
+						<c:when test="${e % 3 == 0}">
+							<span style="margin: 50px;"> </span>
+						</c:when>
+					</c:choose>
+					<c:set var="e" value="${e + 1}"/>
+				</c:forEach>
+				</div>
 		</div>
 		
 		<div class="seat--info">

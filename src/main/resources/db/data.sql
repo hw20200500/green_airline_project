@@ -2,10 +2,14 @@ INSERT INTO member_grade_tb
 VALUES ('골드');
 
 INSERT INTO user_tb 
-VALUES ('abc', '1234', '회원');
+VALUES 
+	('abc', '1234', '회원'),
+	('a123', '1234', '회원');
 
 INSERT INTO member_tb
-VALUES ('abc', '이서영', 'LEE SEOYOUNG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', '골드');
+VALUES 
+	('abc', '김홍아', 'LEE SEOYOUNG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', '골드'),
+	('a123', '홍길이', 'LEE SEOYOUNG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', '골드');
 
 INSERT INTO airport_tb (nation, name)
 VALUES 
@@ -53,6 +57,13 @@ VALUES
 	(1, 'E029', '이코노미'),
 	(1, 'E030', '이코노미');
 
+INSERT INTO seat_tb
+VALUES 
+	(1, 'B001', '비즈니스'),
+	(1, 'B002', '비즈니스'),
+	(1, 'B003', '비즈니스'),
+	(1, 'B004', '비즈니스');
+
 INSERT INTO route_tb
 VALUES (1, '부산', '서울', '1시간 05분');
 
@@ -62,7 +73,15 @@ VALUES (1, 86000);
 INSERT INTO schedule_tb
 VALUES (1, '2023-05-13 13:00', '2023-05-13 14:05', 1, 1);
 
+INSERT INTO ticket_tb
+VALUES (1, 4, 'a123', 1, '2023-05-13 12:00');
 
+INSERT INTO reserved_seat_tb
+VALUES 
+	(1, 'B001', 1),
+	(1, 'E011', 1),
+	(1, 'E012', 1),
+	(1, 'E013', 1);
 
 
 
