@@ -13,5 +13,4 @@ public class TestController {
 		return "/layout/main";
 	}
 	
-	
 }
