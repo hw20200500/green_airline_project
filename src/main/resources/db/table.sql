@@ -63,10 +63,10 @@ create table airplane_tb(
 
 -- 좌석
 create table seat_tb(
-   id int primary key AUTO_INCREMENT not null,
+    airplane_id int not null,
     name varchar(10) not null,
     grade varchar(10) not null,
-    airplane_id int not null,
+    PRIMARY KEY (airplane_id, name),
     foreign key (grade) references seat_grade_tb(name),
     foreign key (airplane_id) references airplane_tb(id)
 );
@@ -78,7 +78,6 @@ create table route_tb(
    departure varchar(50) not null,
    destination varchar(50) not null,
    flight_time varchar(50) not null,
-   flight_distance int not null,
    foreign key (departure) references airport_tb (name),
    foreign key (destination) references airport_tb (name)
 );
@@ -117,11 +116,11 @@ CREATE TABLE ticket_tb(
 
 -- 예약 좌석
 CREATE TABLE reserved_seat_tb(
-   PRIMARY KEY (schedule_id, seat_id),
+   PRIMARY KEY (schedule_id, seat_name),
    schedule_id INT NOT NULL, 
    FOREIGN KEY(schedule_id) REFERENCES schedule_tb(id),
-   seat_id INT NOT NULL, 
-   FOREIGN KEY(seat_id) REFERENCES seat_tb(id),
+   seat_name VARCHAR(10) NOT NULL, 
+   FOREIGN KEY(seat_name) REFERENCES seat_tb(name),
    ticket_id INT NOT NULL, 
    FOREIGN KEY(ticket_id) REFERENCES ticket_tb(id)
 );
