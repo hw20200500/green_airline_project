@@ -12,7 +12,7 @@
 
 			<div>
 				<c:forEach var="categoryList" items="${categoryList}">
-					<a href="#">${categoryList.name}</a>
+					<a href="/notice/noticeCategory/${categoryList.id}">${categoryList.name}</a>
 				</c:forEach>
 			</div>
 

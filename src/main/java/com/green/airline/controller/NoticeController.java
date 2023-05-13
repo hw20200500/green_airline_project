@@ -2,7 +2,6 @@ package com.green.airline.controller;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,24 +23,24 @@ public class NoticeController {
 
 	@Autowired
 	private NoticeService noticeService;
-	
-	// 관리자 측 공지사항 작성 페이지 
+
+	// 관리자 측 공지사항 작성 페이지
 	@GetMapping("/noticeInsert")
 	public String noticeInsertPage(NoticeCategory noticeCategory, Model model) {
-		List<NoticeCategory> categoryList =  noticeService.readNoticeCategory();
+		List<NoticeCategory> categoryList = noticeService.readNoticeCategory();
 		model.addAttribute("categoryList", categoryList);
 
 		return "/notice/noticeInsert";
 	}
-	
+
 	// 관리자 측 공지사항 작성 기능
 	@PostMapping("/noticeInsert")
 	public String noticeInsert(Notice notice) {
 		noticeService.createdNotice(notice);
-		
+
 		return "redirect:/notice/noticeList";
 	}
-	
+
 	// 공지사항 페이지
 	@GetMapping("/noticeList")
 	public String noticePage(Model model) {
@@ -49,40 +48,41 @@ public class NoticeController {
 		// 공지사항 select
 		List<NoticeResponseDto> noticeList = noticeService.readNotice();
 		model.addAttribute("noticeList", noticeList);
-		List<NoticeCategory> categoryList =  noticeService.readNoticeCategory();
+		List<NoticeCategory> categoryList = noticeService.readNoticeCategory();
 		model.addAttribute("categoryList", categoryList);
-		
+
 		return "/notice/noticeList";
 	}
-	
+
 	@GetMapping("/noticeSearch")
 	public String noticeSearch(@RequestParam String keyword, Model model) {
 		List<NoticeResponseDto> noticeList = noticeService.readNoticeByTitle(keyword);
 		model.addAttribute("noticeList", noticeList);
-		List<NoticeCategory> categoryList =  noticeService.readNoticeCategory();
+		List<NoticeCategory> categoryList = noticeService.readNoticeCategory();
 		model.addAttribute("categoryList", categoryList);
-		
+
 		return "/notice/noticeList";
 	}
-	
-//	// 공지사항 카테고리별 출력
-//	@GetMapping("/{categoryId}")
-//	public String noticeCategory(@PathVariable int categoryId, Model model) {
-//		// todo 
-//		// categoryId 받아오기
-//		System.out.println(noticeResponseDtos.get(0).getCategoryId());
-//		
-//		return "redirect:/notice";
-//	}
-	
-	
+
+	// 공지사항 카테고리별 출력
+	@GetMapping("/noticeCategory/{categoryId}")
+	public String noticeCategory(@PathVariable int categoryId, Model model) {
+		// todo
+		// categoryId 받아오기
+		List<NoticeResponseDto> noticeList = noticeService.readNoticeByCategoryId(categoryId);
+		model.addAttribute("noticeList", noticeList);
+		List<NoticeCategory> categoryList = noticeService.readNoticeCategory();
+		model.addAttribute("categoryList", categoryList);
+
+		return "/notice/noticeList";
+	}
+
 	@GetMapping("/noticeDetail/{id}")
 	public String noticeDetailPage(@PathVariable Integer id, Model model) {
 		NoticeResponseDto noticeResponseDto = noticeService.readNoticeById(id);
 		model.addAttribute("noticeResponseDto", noticeResponseDto);
-		
+
 		return "/notice/noticeDetail";
 	}
-	
 
 }
