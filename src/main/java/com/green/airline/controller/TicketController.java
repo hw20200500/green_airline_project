@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,12 +31,10 @@ public class TicketController {
 	/**
 	 * @return 좌석 선택 페이지
 	 */
-	@GetMapping("/selectSeat")
-	public String selectSeatPage(Model model) {
+	@GetMapping("/selectSeat/{scheduleId}")
+	public String selectSeatPage(Model model, @PathVariable Integer scheduleId) {
 		// 선택할 좌석 수
 		model.addAttribute("seatCount", 3);
-		
-		Integer scheduleId = 1;
 		
 		// 현재 항공 일정 id
 		model.addAttribute("scheduleId", scheduleId);
