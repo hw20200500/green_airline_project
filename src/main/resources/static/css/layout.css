@@ -36,13 +36,15 @@ header {
 }
 
 .header--top, nav {
-	width: 1500px;
+	width: 1300px;
 	min-width: 1000px;
 }
 
 main {
 	/* border: 1px solid #ccc; */
-	min-width: 1500px;
+	min-width: 1300px;
+	padding-left: 22px;
+	margin-bottom: 100px;
 }
 
 .header--top ul {
@@ -50,8 +52,14 @@ main {
 	justify-content: flex-end;
 }
 
+.header--top li {
+	font-size: 14px;
+	line-height: 1.6
+}
+
 .li--split {
 	margin: 0px 15px;
+	color: gray;
 }
 
 .material--li {
@@ -60,22 +68,19 @@ main {
 	margin-right: 5px;
 }
 
-.material-symbols-outlined {
-	padding-top: 1px;
-}
 
 .material-symbols-outlined:hover {
 	color: black;
 }
 
-.material-symbols-outlined-fill:hover {
+.material-symbols-outlined-white:hover {
 	color: white;
 }
 
 .logo {
-	min-width: 350px;
-	height: 100px;
-	margin: 0px 10px 10px 20px;
+	min-width: 250px;
+	height: 64px;
+	margin: 0px 10px 17px 20px;
 	color: white;
 	cursor: pointer;
 }
@@ -100,8 +105,8 @@ nav {
 
 .nav--depth1 li a {
 	display: inline-block;
-	padding: 19px 0;
-	font-size: 26px;
+	padding: 15px 0;
+	font-size: 23px;
 	font-weight: 600;
 	min-width: 100%;
 	text-align: center;
@@ -115,7 +120,7 @@ nav {
 .nav--bar {
 	background-color: #174481;
 	height: 7px;
-	width: 282px;
+	width: 257px;
 	display: none;
 	position: relative;
 }
@@ -147,7 +152,7 @@ nav {
 }
 
 .nav--div2 {
-	min-width: 357px; 
+	min-width: 257px; 
 	height: 100%;
 	background-color: #F3FCFE;
 }
@@ -155,7 +160,7 @@ nav {
 .nav--depth2 ul {
 	text-align: center;
 	padding: 10px;
-	min-width: 280px;
+	min-width: 255px;
 }
 
 .nav--split {
@@ -170,7 +175,7 @@ nav {
 }
 
 .nav--depth2--div li {
-	font-size: 20px;
+	font-size: 17px;
 	margin: 5px 0;
 	padding: 10px 0;
 }

@@ -1,8 +1,8 @@
 	//$(".header--menu--split").css("width", $(".page--container").width());
 	
-	//$(window).resize(function() {
-		//$(".header--menu--split").css("width", $(".page--container").width());
-	//});
+	$(window).resize(function() {
+		$(".nav--depth2--background").css("width", $(".nav--depth2--div").width());	
+	});
 
 	let menuIndex;
 	
@@ -23,6 +23,8 @@
 		if ($(".nav--bar").css("display") == "block") {
 			if (menuIndex == 3) {
 				$(".nav--bar").animate({left : navBarLeft + 2}, 700);			
+			} else if (menuIndex == 2) {
+				$(".nav--bar").animate({left : navBarLeft + 1}, 700);			
 			} else {
 				$(".nav--bar").animate({left : navBarLeft}, 700);
 			}
@@ -30,6 +32,8 @@
 			$(".nav--bar").css("display", "block");
 			if (menuIndex == 3) {
 				$(".nav--bar").css("left", navBarLeft + 2);
+			} else if (menuIndex == 2) {
+				$(".nav--bar").css("left", navBarLeft + 1);
  			} else {
 				$(".nav--bar").css("left", navBarLeft); 				
  			}
@@ -37,7 +41,7 @@
 			//$(".nav--depth2").css("width", $(".page--container").width());	
 			//$(".header--menu--split").css("width", $(".page--container").width());
 			// 세부 메뉴 밑으로는 어둡게 처리
-			let headerHeight = 590;
+			let headerHeight = 570;
 			let footerBottom = $("footer").position().top + $("footer").height();
 			let backgroundHeight;
 			if (footerBottom < window.innerHeight) {
@@ -79,9 +83,11 @@
 		}
 		$(".nav--bar").stop();
 		
-		let navBarLeft = menuIndex * 280;
+		let navBarLeft = menuIndex * 255;
 		if (menuIndex == 3) {
 			$(".nav--bar").animate({left : navBarLeft + 2}, 700);			
+		} else if (menuIndex == 2) {
+			$(".nav--bar").animate({left : navBarLeft + 1}, 700);			
 		} else {
 			$(".nav--bar").animate({left : navBarLeft}, 700);
 		}

@@ -19,15 +19,19 @@
 
 <style>
 .sub--menu {
-	height: 60px;
+	height: 100%;
 	background-color: #9b9b9e;
 	display: flex;
 	justify-content: flex-start;
-	width: 1500px;
+	min-width: 1300px;
 	z-index: 1;
 }
 
-.material-symbols-outlined-fill {
+.sub--menu div:first-of-type {
+	width: 22px;
+}
+
+.material-symbols-outlined-white {
   font-variation-settings:
   'FILL' 1,
   'wght' 400,
@@ -36,20 +40,25 @@
 }
 
 .sub--menu--button.home--button {
-	width: 200px;
-	
+	justify-content: center;
+	width: 150px;
+	padding: 0;
 }
 
 .sub--menu--button {
 	background: none;
-	width: 300px;
+	width: 220px;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
+	padding: 0 15px 0 30px;
 	height: 100%;
-	font-size: 18px;
+	font-size: 16px;
 	color: white;
 	font-weight: 600;
+	border: 1px solid #ccc;
+	border-top: hidden;
+	border-bottom: hidden;
 }
 
 .sub--menu--button > ul {
@@ -58,10 +67,11 @@
 
 .header--menu--split {
 	min-width: 100%;
-	height: 60px;
-	background-color: #ccc;
+	height: 50px;
+	background-color: #9b9b9e;
 	display: flex;
 	justify-content: center;	
+	margin-bottom: 30px;
 }
 
 </style>
@@ -72,32 +82,47 @@
 	<header>
 		<div class="header--top">
 			<ul>
-				<!-- 로그인되지 않은 경우 -->
-				<li class="material--li"><a href="#"><span class="material-symbols-outlined">login</span></a></li>
-				<li><a href="#">로그인</a></li>
-				<li class="li--split">ㅣ</li>
-				<li class="material--li"><a href="#"><span class="material-symbols-outlined">person_add</span></a></li>
-				<li><a href="#">회원가입</a></li>
-				<li class="li--split">ㅣ</li>
-				<li class="material--li"><a href="#"><span class="material-symbols-outlined">support_agent</span></a></li>
-				<li><a href="#">고객센터</a></li>
+				<c:choose>
+					<%-- 로그인되지 않은 경우 --%>
+					<c:when test="${principal == null}">
+						<li class="material--li"><a href="/login"><span class="material-symbols-outlined" style="font-size: 22px;">login</span></a></li>
+						<li><a href="/login">로그인</a></li>
+						<li class="li--split">ㅣ</li>
+						<li class="material--li"><a href="#"><span class="material-symbols-outlined" style="font-size: 22px;">person_add</span></a></li>
+						<li><a href="#">회원가입</a></li>
+						<li class="li--split">ㅣ</li>
+						<li class="material--li"><a href="#"><span class="material-symbols-outlined" style="font-size: 22px;">support_agent</span></a></li>
+						<li><a href="#">고객센터</a></li>
+					</c:when>
+					<c:otherwise>
+						<li class="material--li"><a href="/logout"><span class="material-symbols-outlined" style="font-size: 22px;">logout</span></a></li>
+						<li><a href="/logout">로그아웃</a></li>
+						<li class="li--split">ㅣ</li>
+						<li class="material--li"><a href="#"><span class="material-symbols-outlined" style="font-size: 22px;">badge</span></a></li>
+						<li><a href="#">마이페이지</a></li>
+						<li class="li--split">ㅣ</li>
+						<li class="material--li"><a href="#"><span class="material-symbols-outlined" style="font-size: 22px;">support_agent</span></a></li>
+						<li><a href="#">고객센터</a></li>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 		</div>
 		<nav>
 			<img alt="" src="/images/logo.jpg" class="logo" onclick="location.href='/';">
 			<div class="main--menu" style="width: 100%;">
+				<!-- todo : userRole에 따라 다르게 보이게 하기 -->
 				<ul class="nav--depth1">
 					<li>
-						<a href="#">메뉴 1</a>
+						<a href="#">예약</a>
 					</li>
 					<li>
-						<a href="#">메뉴 2</a>
+						<a href="#">기내서비스</a>
 					</li>
 					<li>
-						<a href="#">메뉴 3</a>
+						<a href="#">추천여행지</a>
 					</li>
 					<li>
-						<a href="#">메뉴 4</a>
+						<a href="#">마일리지</a>
 					</li>
 				</ul>
 				<div class="nav--bar"></div>
@@ -109,6 +134,18 @@
 						<div class="nav--div2"></div>
 						<div class="nav--split"></div>
 						<ul>
+							<li><a href="/ticket/selectSeat/1">좌석 선택</a>
+							<li><a href="#">세부메뉴</a>
+							<li><a href="#">세부메뉴</a>
+							<li><a href="#">세부메뉴</a>
+							<li><a href="#">세부메뉴</a>
+							<li><a href="#">세부메뉴</a>
+							<li><a href="#">세부메뉴</a>
+						</ul>
+						<div class="nav--split"></div>
+						<ul>
+							<li><a href="#">세부메뉴</a>
+							<li><a href="#">세부메뉴</a>
 							<li><a href="#">세부메뉴</a>
 							<li><a href="#">세부메뉴</a>
 							<li><a href="#">세부메뉴</a>
@@ -122,19 +159,14 @@
 							<li><a href="#">세부메뉴</a>
 							<li><a href="#">세부메뉴</a>
 							<li><a href="#">세부메뉴</a>
-						</ul>
-						<div class="nav--split"></div>
-						<ul>
-							<li><a href="#">세부메뉴</a>
-							<li><a href="#">세부메뉴</a>
-							<li><a href="#">세부메뉴</a>
-							<li><a href="#">세부메뉴</a>
-							<li><a href="#">세부메뉴</a>
 							<li><a href="#">세부메뉴</a>
 							<li><a href="#">세부메뉴</a>
 						</ul>
 						<div class="nav--split"></div>
 						<ul>
+							<li><a href="#">세부메뉴</a>
+							<li><a href="#">세부메뉴</a>
+							<li><a href="#">세부메뉴</a>
 							<li><a href="#">세부메뉴</a>
 							<li><a href="#">세부메뉴</a>
 							<li><a href="#">세부메뉴</a>
@@ -148,29 +180,38 @@
 		</nav>
 	
 	</header>
+	
+	<!-- 메인페이지가 아닐 때만 세부 메뉴 표시 -->
+	<c:if test="${isMain == null}">
 		<div class="header--menu--split">
 			<div class="sub--menu">
 				<div></div>
 				<div>
-					<button class="sub--menu--button home--button">
+					<button class="sub--menu--button home--button" onclick="location.href='/';">
 						<ul class="d-flex">
-							<li class="material--li"><span class="material-symbols-outlined material-symbols-outlined-fill">house</span></li>
+							<li class="material--li"><span class="material-symbols-outlined material-symbols-outlined-white">house</span></li>
 							<li>HOME</li>
 						</ul>
 					</button>
 				</div>
 				<div>
-					<button class="sub--menu--button">
-						
+					<button class="sub--menu--button" style="border-left: hidden;">
+						<ul class="d-flex justify-content-between" style="width: 100%">
+							<li>대메뉴</li>
+							<li class="material--li"><span class="material-symbols-outlined material-symbols-outlined-white">expand_more</span></li>
+						</ul>
 					</button>
 				</div>
 				<div>
-					<button class="sub--menu--button">
-						
+					<button class="sub--menu--button" style="border-left: hidden;">						
+						<ul class="d-flex justify-content-between" style="width: 100%">
+							<li>소메뉴</li>
+							<li class="material--li"><span class="material-symbols-outlined material-symbols-outlined-white">expand_more</span></li>
+						</ul>
 					</button>
 				</div>
 			</div>
 		</div>
-	
+	</c:if>		
 	
 	<script src="/js/layout.js"></script>
