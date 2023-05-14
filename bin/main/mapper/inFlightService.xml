@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.airline.repository.interfaces.InFlightServiceRepository">
+	<select id="selectInFlightService" resultType="com.green.airline.repository.model.InFlightService">
+		select * from in_flight_service_tb
+	</select>
+
+	<select id="selectInFlightServiceByName" resultType="com.green.airline.dto.response.InFlightServiceResponseDto">
+		select * from in_flight_service_tb 
+		where name like #{keyword}
+	</select>
+	
+	<select id="selectInFlightMeal" resultType="com.green.airline.repository.model.InFlightMeal">
+		select * from in_flight_meal_tb
+	</select>
+</mapper>
