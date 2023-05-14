@@ -6,10 +6,9 @@ var bno = 0;
 $(document).ready(function(){
 
 	// 새 글 쓰기 버튼 클릭
-	$("#createBtn").click(function(){
-		alert("11");
+	$("#createBtn").on("click",function(){
 		action='create';
-		type = 'POST'
+		type = 'POST';
 		$("#modal-title").text("새 글 작성");
 		$("#myModal").modal();
 	});
@@ -64,10 +63,10 @@ $(document).ready(function(){
 		$.ajax({
 			url : url,
 			type : type,
-			data : data
-		})
-		
-		location.reload();
+			data : data,
+			success: function(_data){ $("#myModal").modal('toggle'); },
+			complete: function(_data){location.reload(); }
+		});
 	});
 	
 

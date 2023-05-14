@@ -199,10 +199,6 @@ create table recommend_board_tb(
    FOREIGN KEY (user_id) REFERENCES user_tb (id)  
 );
 
-
-
-
-
 -- 게시글 이미지 (공지사항, 추천 여행지)
 create table board_image_tb (
    id int PRIMARY KEY AUTO_INCREMENT,
@@ -211,8 +207,6 @@ create table board_image_tb (
    board_id INT NOT NULL,
    FOREIGN KEY (board_id) REFERENCES recommend_board_tb (id)
 );
-
-
 
 -- 게시글 좋아요 내역
 create table like_heart_tb(

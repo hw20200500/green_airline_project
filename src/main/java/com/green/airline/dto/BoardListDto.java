@@ -7,6 +7,7 @@ public class BoardListDto {
 	
 	private int id;
 	private String title;
+	private String content;
 	private String userId;
 	private int viewCount;
 

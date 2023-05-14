@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.green.airline.dto.BoardListDto;
 import com.green.airline.repository.model.Board;
 import com.green.airline.service.BoardService;
 
@@ -17,7 +20,7 @@ public class BoardController {
 	private BoardService boardService;
 
 	// 추천여행지 전체 보기
-	@GetMapping("/boardList")
+	@GetMapping("/board/list")
 	public String boardListAllPage(Model model) {
 
 		List<Board> boardList = boardService.boardList();
@@ -29,11 +32,16 @@ public class BoardController {
 
 		return "/board/recommendBoard";
 	}
+	
+	// 글 작성하기
+	@PostMapping("/board/insert")
+	public String boardWirte(BoardListDto boardListDto) {
+		
+		boardService.insertBoard(boardListDto);
+		
+		return "/board/recommendBoard";
+	}
 
 	// 추천여행지 상세 보기
-
-	// 글쓰기 페이지
-
-	// 새 글 올리기
 	
 }
