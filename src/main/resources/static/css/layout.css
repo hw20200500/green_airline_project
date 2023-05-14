@@ -18,3 +18,168 @@ a {
 a:hover {
 	text-decoration: none;
 }
+
+.page--container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	min-width: 100em;
+	
+}
+
+header {
+	margin-top: 20px;
+}
+
+.header--top {
+	margin-bottom: 20px;
+}
+
+.header--top, nav {
+	width: 1500px;
+	min-width: 1000px;
+}
+
+main {
+	/* border: 1px solid #ccc; */
+	min-width: 1500px;
+}
+
+.header--top ul {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.li--split {
+	margin: 0px 15px;
+}
+
+.material--li {
+	display: flex; 
+	align-items: center;
+	margin-right: 5px;
+}
+
+.material-symbols-outlined {
+	padding-top: 1px;
+}
+
+.material-symbols-outlined:hover {
+	color: black;
+}
+
+.material-symbols-outlined-fill:hover {
+	color: white;
+}
+
+.logo {
+	min-width: 350px;
+	height: 100px;
+	margin: 0px 10px 10px 20px;
+	color: white;
+	cursor: pointer;
+}
+
+nav {
+	display: flex;
+	align-items: flex-end;
+}
+
+.nav--depth1 {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 0;
+	width: 100%;
+	margin-bottom: 17px;
+}
+
+.nav--depth1 li {
+	flex:1;
+}
+
+.nav--depth1 li a {
+	display: inline-block;
+	padding: 19px 0;
+	font-size: 26px;
+	font-weight: 600;
+	min-width: 100%;
+	text-align: center;
+	color: #314f79; 
+}
+
+.nav--depth1 li a:hover {
+	cursor: pointer;
+}
+
+.nav--bar {
+	background-color: #174481;
+	height: 7px;
+	width: 282px;
+	display: none;
+	position: relative;
+}
+
+.nav--depth2 {
+	border-top: 1px solid #ccc;
+	background-color: white;
+	width: 100%;
+	min-width: 1604px;
+	height: 420px; 
+	position: absolute;
+	left:0px;
+	display: none;
+	text-align: center;
+	z-index: 999;
+}
+
+.nav--depth2--div {
+	background-color: white;
+	display: flex;
+	min-width: 1604px;
+	justify-content: center;
+	height: 100%;
+}
+
+.nav--div1 {
+	min-width: 25px;
+	height: 100%;
+}
+
+.nav--div2 {
+	min-width: 357px; 
+	height: 100%;
+	background-color: #F3FCFE;
+}
+
+.nav--depth2 ul {
+	text-align: center;
+	padding: 10px;
+	min-width: 280px;
+}
+
+.nav--split {
+	min-width: 1px;
+	height: 100%;
+	background-color: #ccc;
+}
+
+.nav--depth2--background {
+	background: rgba(0, 0, 0, 0.5);
+	width: 100%;
+}
+
+.nav--depth2--div li {
+	font-size: 20px;
+	margin: 5px 0;
+	padding: 10px 0;
+}
+
+.nav--depth2--div li a {
+	display: inline-block;
+	width: 100%; 
+}
+
+.nav--depth2--div li a:hover {
+	font-weight: 600;
+}
