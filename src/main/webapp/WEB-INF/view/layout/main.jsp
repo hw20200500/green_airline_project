@@ -3,14 +3,13 @@
 
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 
-<div>
 	
 	<!-- 여기 안에 쓰기 -->
 	<main>
 		ㅇㅇ
 	</main>
 
-</div>
+
 
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
