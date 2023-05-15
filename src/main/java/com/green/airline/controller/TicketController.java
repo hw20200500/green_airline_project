@@ -27,6 +27,11 @@ public class TicketController {
 	@Autowired
 	private SeatService seatService;
 	
+	@GetMapping("/selectOption")
+	public String selectTicketOptionPage() {
+		return "/ticket/selectOption";
+	}
+	
 	
 	/**
 	 * @return 좌석 선택 페이지
@@ -58,9 +63,6 @@ public class TicketController {
 	@GetMapping("/selectedSeatData")
 	@ResponseBody
 	public SeatInfoResponseDto selectedSeatData(@RequestParam String seatName, @RequestParam Integer scheduleId) {
-		System.out.println(seatName);
-		System.out.println(scheduleId);
-		System.out.println("-------");
 		
 		SeatInfoResponseDto responseDto = seatService.readSeatInfoByNameAndScheduleId(seatName, scheduleId);
 		

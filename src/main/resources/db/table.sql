@@ -42,7 +42,7 @@ CREATE TABLE manager_tb(
 -- 공항
 CREATE TABLE airport_tb(
    id INT PRIMARY KEY AUTO_INCREMENT,
-    nation VARCHAR(50) NOT NULL,
+    region VARCHAR(50) NOT NULL,
     name VARCHAR(50) NOT NULL
 );
 

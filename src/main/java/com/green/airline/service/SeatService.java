@@ -48,6 +48,7 @@ public class SeatService {
 		// 좌석 가격 계산
 		// 운항시간 중 시간만 가져오기
 		Integer hours = Integer.parseInt(seatInfoDto.getFlightTime().split("시간")[0]);
+		System.out.println(hours+"시간");
 		
 		// 이코노미 기준 좌석 가격
 		TicketPrice ticketPriceEntity = ticketPriceRepository.selectByHours(hours);
