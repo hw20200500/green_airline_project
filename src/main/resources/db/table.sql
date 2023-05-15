@@ -166,8 +166,7 @@ CREATE TABLE request_meal_tb(
     amount INT NOT NULL,
     meal_id INT NOT NULL DEFAULT 1, 
     ticket_id INT NOT NULL,
-    FOREIGN KEY(ticket_id) REFERENCES ticket_tb(id)
-    meal_id INT NOT NULL, 
+    FOREIGN KEY(ticket_id) REFERENCES ticket_tb(id),
     FOREIGN KEY(meal_id) REFERENCES in_flight_meal_tb(id)
 );
 
@@ -176,7 +175,7 @@ CREATE TABLE in_flight_meal_detail_tb(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	name varchar(100) not null,
 	description text not null ,
-	meal_id INT NOT NULL, FOREIGN KEY(meal_id) REFERENCES in_flight_service_tb(id)
+	meal_id INT NOT NULL, FOREIGN KEY(meal_id) REFERENCES in_flight_meal_tb(id)
 );
 
 -- 공지사항 카테고리

@@ -8,7 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.green.airline.dto.response.InFlightMealResponseDto;
+import com.green.airline.repository.model.InFlightMeal;
 import com.green.airline.repository.model.InFlightService;
 import com.green.airline.service.InFlightSvService;
 
@@ -20,7 +23,7 @@ public class InFlightServiceController {
 	private InFlightSvService inFlightSvService;
 	
 	// 기내 서비스 페이지
-	@GetMapping("/inFlightServiceList")
+	@GetMapping("/list")
 	public String inFlightServiceListPage(Model model) {
 		List<InFlightService> inFlightServices = inFlightSvService.readInFlightService();
 		model.addAttribute("inFlightServices", inFlightServices);
@@ -44,7 +47,28 @@ public class InFlightServiceController {
 		
 		return "/in_flight/inFlightSearch";
 	}
-//	// 기내식 페이지
+	
+	// /inFlightServiceSpecialSearch?name=값
+//	@GetMapping("/inFlightServiceSpecialSearch")
+//	public String inFlightServiceSearch2(@RequestParam String name) {
+//		InFlightMeal flightMeal = inFlightSvService.selectInFlightMealByName(name);
+//		return "/in_flight/inFlightServiceSpecial";
+//	}
+	
+	// 특별 기내식 페이지
+	@GetMapping("/inFlightServiceSpecial")
+	public String inFlightServiceSpecialPage(Model model, @RequestParam(name="type", defaultValue = "유아식", required = false) String type, String name) {
+		List<InFlightMeal> inFlightMeals = inFlightSvService.readInFlightMeal(type);
+		model.addAttribute("inFlightMeals", inFlightMeals);
+		System.out.println(inFlightMeals);
+		List<InFlightMealResponseDto> inFlightMeal = inFlightSvService.readInFlightAllMeal();
+		model.addAttribute("inFlightMeal", inFlightMeal);
+		System.out.println(inFlightMeal);
+		
+		return "/in_flight/inFlightServiceSpecial";
+	}
+	
+	//	// 기내식 페이지
 //	@GetMapping("/inFlightList")
 //	public String inFlightMealPage() {
 //		
