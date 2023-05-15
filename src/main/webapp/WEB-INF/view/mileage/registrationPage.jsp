@@ -7,7 +7,7 @@
 
 	<!-- 여기 안에 쓰기 -->
 	<main>
-		<form action="/insert" method="post" enctype="multipart/form-data">
+		<form action="/product/insert" method="post" enctype="multipart/form-data">
 			<input type="text" name="brand" value="brand"> 
 			<input type="text" name="name" value="name"> 
 			<input type="text" name="price" value="1234"> 

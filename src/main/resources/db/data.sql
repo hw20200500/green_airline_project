@@ -2,15 +2,11 @@ INSERT INTO member_grade_tb
 VALUES ('골드');
 
 INSERT INTO user_tb 
-<<<<<<< HEAD
+
 VALUES ('abc', '1234', '회원');
 
 INSERT INTO shop_product_tb(brand,name,price,count,product_image,gifticon_image)
-		VALUES('brand','name',1234,100,'originFileName','originFileName2');
-=======
-VALUES 
-	('abc', '1234', '회원'),
-	('a123', '1234', '회원');
+		VALUES('brand','name',1234,100,'image.png','image2.png');
 
 INSERT INTO member_tb
 VALUES 
@@ -93,4 +89,3 @@ VALUES
 
 
 
->>>>>>> develop

@@ -28,4 +28,12 @@ public class ProductService {
 		ShopProduct shopProduct = productRepository.selectById(id);
 		return shopProduct;
 	}
+	public int productUpdate(ShopProduct shopProduct) {
+		int update = productRepository.updateProduct(shopProduct);
+		return update;
+	}
+	public int productDelete(int id) {
+		int delete = productRepository.deleteProduct(id);
+		return delete;
+	}
 }

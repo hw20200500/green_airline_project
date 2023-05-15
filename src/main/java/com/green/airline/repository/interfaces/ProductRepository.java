@@ -12,4 +12,6 @@ public interface ProductRepository {
 	public int insert(ShopProduct shopProduct);
 	public List<ShopProduct> selectProductList();
 	public ShopProduct selectById(int id);
+	public int updateProduct(ShopProduct shopProduct);
+	public int deleteProduct(int id);
 }

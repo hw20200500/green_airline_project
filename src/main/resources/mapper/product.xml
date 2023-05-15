@@ -9,9 +9,16 @@
 	</insert>
 
 	<select id="selectProductList" resultType="com.green.airline.repository.model.ShopProduct">
-		SELECT * FROM SHOP_PRODUCT_TB 
+		SELECT * FROM SHOP_PRODUCT_TB
 	</select>
 	<select id="selectById" resultType="com.green.airline.repository.model.ShopProduct">
-		SELECT * FROM  SHOP_PRODUCT_TB WHERE id = #{id};
+		SELECT * FROM SHOP_PRODUCT_TB WHERE id = #{id};
 	</select>
+	<update id="updateProduct">
+		update shop_product_tb set brand = #{brand},name=#{name},price=#{price},count=#{count},product_image=#{productImage},gifticon_image=#{gifticonImage}
+		where id = #{id};
+	</update>
+	<delete id="deleteProduct">
+		delete from shop_product_tb where id = #{id};
+	</delete>
 </mapper>

@@ -22,7 +22,7 @@ import com.green.airline.utils.Define;
 
 @Controller
 @MultipartConfig
-// @RequestMapping("/product")
+@RequestMapping("/product")
 public class ProductController {
 
 	@Autowired
@@ -37,6 +37,7 @@ public class ProductController {
 	public String productMainPage(Model model) {
 		List<ShopProduct> productList = productService.productList();
 		model.addAttribute("productList",productList);
+		System.out.println(productList.toString());
 		return "/mileage/productMainPage";
 		
 	}
@@ -91,12 +92,37 @@ public class ProductController {
 					}
 				}
 				productService.productRegistration(shopProduct);
-		return "/mileage/productMainPage";
+		return "redirect:/product/productMain";
 	}
+	
+	/**
+	 * 정다운
+	 * 마일리지 상품 수정
+	 * @param shopProduct
+	 * @return
+	 */
+	@PostMapping("/update")
+	public String productUpdate(ShopProduct shopProduct) {
+		productService.productUpdate(shopProduct);
+		
+		return "redirect:/product/productMain";
+	}
+	@GetMapping("/delete/{id}")
+	public String productDelete(@PathVariable int id) {
+		System.out.println(id);
+		productService.productDelete(id);
+		return "redirect:/product/productMain";
+	}
+	/**
+	 * 정다운
+	 * 상품 디테일 페이지
+	 * @param id
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/productdetail/{id}")
 	public String productDetailPage(@PathVariable int id,Model model) {
 		ShopProduct shopProduct = productService.productDetail(id);
-		System.out.println(shopProduct.toString());
 		 model.addAttribute(shopProduct);
 		return "/mileage/detailPage";
 	}

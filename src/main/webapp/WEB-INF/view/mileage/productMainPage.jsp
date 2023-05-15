@@ -7,14 +7,25 @@
 	
 	<!-- 여기 안에 쓰기 -->
 	<main>
+	<div class="visual_banner small_type mar_to50" style="background-image: url('/C/pc/image/sub/weeklydeals_visual_06.jpg');">
+		    <div class="banner_cont"> 
+		      <h4 class="fo_nor mar_to0">위클리 딜즈</h4>
+		      <p>매주 변경되는 다양한 위클리 딜즈 상품을 만나보세요!</p> 
+		    </div> 
+		    <div class="today"> 
+		        <p class="date">15</p> 
+		        <p class="month">May</p> 
+		    </div> 
+		  </div>
 	<!-- 상품 메인 페이지 -->
 		<div>
 			<c:forEach var="productList" items="${productList}">
 				<tr>
 					<td>
 						<!-- 이미지 불러오기 나중에 -->
+						<img alt="" src="C:\Users\GGG\Desktop\새 폴더\image.png">
 						<a href="productdetail/${productList.id}">${productList.productImage}</a>
-						${productList.gifticonImage}
+						<img alt="" src="https://placeimg.com/200/100/any"> ${productList.gifticonImage}
 						${productList.brand}
 						${productList.name}
 						${productList.price}
@@ -23,7 +34,7 @@
 				<br>
 			</c:forEach>
 		</div>
-		<h2><a href="/registration">등록 페이지</a></h2>
+		<h2><a href="/product/registration">등록 페이지</a></h2>
 	</main>
 </div>
 
