@@ -28,15 +28,19 @@ public class InFlightSvService {
 		return inFlightServices; 
 	}
 	
-	public List<InFlightMeal> readInFlightMeal(String type){
-		List<InFlightMeal> inFlightMeals = inFlightServiceRepository.selectInFlightMeal(type);
+	public List<InFlightMealResponseDto> readInFlightMeal(String type){
+		List<InFlightMealResponseDto> inFlightMeals = inFlightServiceRepository.selectInFlightMeal(type);
 		return inFlightMeals;
 	}
 	
 	public List<InFlightMealResponseDto> readInFlightAllMeal() {
-		List<InFlightMealResponseDto> inFlightMeal = inFlightServiceRepository.selectInFlightAllMeal();
-		System.out.println(inFlightMeal);
+		List<InFlightMealResponseDto> inFlightMeal = inFlightServiceRepository.selectInFlightDetailMeal();
 		return inFlightMeal;
+	}
+	
+	public List<InFlightMeal> readInFlightMealCategory(){
+		List<InFlightMeal> inFlightMeals = inFlightServiceRepository.selectInFlightMealCategory();
+		return inFlightMeals;
 	}
 	
 }

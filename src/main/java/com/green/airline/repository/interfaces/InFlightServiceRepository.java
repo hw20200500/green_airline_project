@@ -19,8 +19,11 @@ public interface InFlightServiceRepository {
 	List<InFlightService> selectInFlightServiceByName(String keyword);
 	
 	// 특별 기내식 조회 기능
-	List<InFlightMeal> selectInFlightMeal(@Param("type") String type);
+	List<InFlightMealResponseDto> selectInFlightMeal(String name);
 	
 	// 특별 기내식 상세 조회 기능
-	List<InFlightMealResponseDto> selectInFlightAllMeal();
+	List<InFlightMealResponseDto> selectInFlightDetailMeal();
+	
+	// 특별 기내식 조회 기능
+	List<InFlightMeal> selectInFlightMealCategory();
 }
