@@ -32,4 +32,11 @@ public class AirportRestController {
 		return reqList;
 	}
 	
+	// 지역에 해당하는 공항 리스트
+	@GetMapping("/list")
+	public List<Airport> airportByRegionData(@RequestParam String region) {
+		List<Airport> reqList = airportService.readByRegion(region);
+		return reqList;
+	}
+	
 }

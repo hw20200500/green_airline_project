@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.green.airline.dto.response.SeatInfoResponseDto;
 import com.green.airline.dto.response.SeatStatusResponseDto;
+import com.green.airline.repository.model.Airport;
 import com.green.airline.repository.model.Seat;
+import com.green.airline.service.AirportService;
 import com.green.airline.service.SeatService;
 
 /**
@@ -27,8 +29,18 @@ public class TicketController {
 	@Autowired
 	private SeatService seatService;
 	
+	@Autowired
+	private AirportService airportService;
+	
+	/**
+	 * @return 항공권 옵션 선택 페이지
+	 */
 	@GetMapping("/selectOption")
-	public String selectTicketOptionPage() {
+	public String selectTicketOptionPage(Model model) {
+		
+		List<Airport> regionList = airportService.readRegion();
+		model.addAttribute("regionList", regionList);
+		
 		return "/ticket/selectOption";
 	}
 	

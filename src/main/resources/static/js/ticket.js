@@ -1,11 +1,11 @@
 function selectedType(i) {
 	// 이미 선택되어 있다면
-	if ($(`#ticket--type${i}`).hasClass("selected--type")) {
+	if ($(`#ticketType${i}`).hasClass("selected--type")) {
 		return;
 	// 선택되어 있지 않다면
 	} else if ($(`#ticket--type${i}`).hasClass("selected--type") == false) {
-		$(`#ticket--type${i}`).addClass("selected--type");
-		$(`#ticket--type${i}`).siblings().removeClass("selected--type");
+		$(`#ticketType${i}`).addClass("selected--type");
+		$(`#ticketType${i}`).siblings().removeClass("selected--type");
 	}
 }
 
@@ -18,17 +18,20 @@ function airportSwap() {
 }
 
 // 키가 입력될 때마다 자동완성 불러오기
-$("#departure").on("keyup", function() {
-	// 양옆 공백은 무시하고 검색
-	let searchName = $("#departure").val().trim();
+$("#departure").on("keyup focus change", function() {
+	// 공백 입력 금지	
+	let searchName = $("#departure").val().replaceAll(" ", "");
+	$("#departure").val(searchName);
 	
-	// 공백 제거 (공백만 입력했을 때는 자동 완성 미작동)
+	// 공백일 때는 자동 완성 미작동
 	if (searchName == "") {
-		$("#departure--list").empty();
+		$("#departureList").empty();
 		return;
 	// 주소에 \가 들어가면 오류나서 막음
 	} else if (searchName.indexOf("\\") != -1) {
-		$("#departure--list").empty();
+		$("#departureList").empty();
+		var el = $("<li>검색 결과가 존재하지 않습니다.</li>");
+		$("#departureList").append(el);
 		return;
 	}
 	
@@ -37,17 +40,17 @@ $("#departure").on("keyup", function() {
 		url: `/airport/search?name=${searchName}`,
 		contentType: 'application/json; charset=utf-8'
 	}).done((res) => {
-		console.log(res);
-		$("#departure--list").empty();
+		$("#departureList").empty();
 		
 		if (res.length == 0) {
-			let el = $("<li>검색 결과가 존재하지 않습니다.</li>");
-			$("#departure--list").append(el);
+			var el = $("<li>검색 결과가 존재하지 않습니다.</li>");
+			$("#departureList").append(el);
 		} else {
 			for (let i = 0; i < res.length; i++){
-				let el = $("<li>");
+				var el = $("<li onclick=\"insertAutoComplete(" + i + ", 'departure');\">");
+				el.addClass("departure--li");
 				el.append(res[i].name);
-				$("#departure--list").append(el);
+				$("#departureList").append(el);
 			}
 		}
 		
@@ -57,17 +60,20 @@ $("#departure").on("keyup", function() {
 });
 
 // 키가 입력될 때마다 자동완성 불러오기
-$("#destination").on("keyup", function() {
-	// 양옆 공백은 무시하고 검색
-	let searchName = $("#destination").val().trim();
+$("#destination").on("keyup focus", function() {
+	// 공백 입력 금지	
+	let searchName = $("#destination").val().replaceAll(" ", "");
+	$("#destination").val(searchName);
 	
-	// 공백 제거 (공백만 입력했을 때는 자동 완성 미작동)
+	// 공백일 때는 자동 완성 미작동
 	if (searchName == "") {
-		$("#destination--list").empty();
+		$("#destinationList").empty();
 		return;
 	// 주소에 \가 들어가면 오류나서 막음
 	} else if (searchName.indexOf("\\") != -1) {
-		$("#destination--list").empty();
+		$("#destinationList").empty();
+		var el = $("<li>검색 결과가 존재하지 않습니다.</li>");
+		$("#destinationList").append(el);
 		return;
 	}
 	
@@ -76,16 +82,17 @@ $("#destination").on("keyup", function() {
 		url: `/airport/search?name=${searchName}`,
 		contentType: 'application/json; charset=utf-8'
 	}).done((res) => {
-		$("#destination--list").empty();
+		$("#destinationList").empty();
 		
 		if (res.length == 0) {
-			let el = $("<li>검색 결과가 존재하지 않습니다.</li>");
-			$("#destination--list").append(el);
+			var el = $("<li>검색 결과가 존재하지 않습니다.</li>");
+			$("#destinationList").append(el);
 		} else {
-			for (let i = 0; i < res.length; i++){
-				let el = $("<li>");
+			for (var i = 0; i < res.length; i++){
+				var el = $("<li onclick=\"insertAutoComplete(" + i + ", 'destination');\">");
+				el.addClass("destination--li");
 				el.append(res[i].name);
-				$("#destination--list").append(el);
+				$("#destinationList").append(el);
 			}
 		}
 		
@@ -94,21 +101,78 @@ $("#destination").on("keyup", function() {
 	});
 });
 
+// 지역 선택하면 해당하는 취항지 출력
+$(".region--li").on("click", function() {
+	$(this).addClass("region--li--selected");
+	$(this).siblings().removeClass("region--li--selected");
+	
+	let region = $(this).text();
+	$.ajax({
+		type: "GET",
+		url: `/airport/list?region=${region}`,
+		contentType: "application/json; charset=UTF-8"
+		
+	}).done((res) => {
+		$(".airport--ul").empty();
+		
+		if ($(".all--airport--modal").is(".depa")) {
+			for (var i = 0; i < res.length; i++) {
+				var el = $("<li onclick=\"insertAirport(" + i + ", 'departure');\">");
+				el.addClass("departure--airport--li");
+				el.append(res[i].name);
+				$(".airport--ul").append(el);
+			}			
+		} else if ($(".all--airport--modal").is(".dest")) {
+			for (var i = 0; i < res.length; i++) {
+				var el = $("<li onclick=\"insertAirport(" + i + ", 'destination');\">");
+				el.addClass("destination--airport--li");
+				el.append(res[i].name);
+				$(".airport--ul").append(el);
+			}
+		}
+		
+	}).fail((error) => {
+		console.log(error);
+	});
+	
+	
+});
+
+// 다른 곳을 클릭하면 팝업 닫기
+$(document).on("click", function(e) {
+	
+	if ($("#departureDiv").has(e.target).length === 0) {
+		$("#departureAirport").hide();
+	}
+	
+	if ($("#destinationDiv").has(e.target).length === 0) {
+		$("#destinationAirport").hide();
+	}
+});
+
+// input에 포커스를 두면 해당하는 팝업 보이게
 $("#departure").on("focus", function() {
-	$("#departure--airport").show();
+	$("#departureAirport").show();
 });
-$("#departure--div").on("blur", function() {
-	$("#departure--airport").hide();
-});
-
 $("#destination").on("focus", function() {
-	$("#destination--airport").show();
+	$("#destinationAirport").show();
 });
 
-$("#destination--div").on("blur", function() {
-	$("#destination--airport").hide();
-});
+// 자동 완성 항목 클릭하면 input에 value 들어감
+function insertAutoComplete(i, target) {
+	let liValue = $(`.${target}--li`).eq(i).text();
+	$(`#${target}`).val(liValue);
+	$(`#${target}Airport`).hide();
+}
 
+// 취항지 클릭하면 input에 value 들어감
+function insertAirport(i, target) {
+	let liValue = $(`.${target}--airport--li`).eq(i).text();
+	$(`#${target}`).val(liValue);
+	$('.all--airport--modal').modal('hide');
+}
+
+// 좌석 선택
 function selectSeat(type, seatName) {
 	
 	if (type == 'e') {

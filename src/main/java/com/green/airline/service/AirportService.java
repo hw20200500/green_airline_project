@@ -23,7 +23,18 @@ public class AirportService {
 	// 자동 완성에 사용할 검색된 공항 리스트
 	public List<Airport> readByLikeName(String searchName) {
 		List<Airport> airportEntityList = airportRepository.selectByLikeName(searchName);
-		
+		return airportEntityList;
+	}
+	
+	// 모든 지역 리스트
+	public List<Airport> readRegion() {
+		List<Airport> airportEntityList = airportRepository.selectRegion();
+		return airportEntityList;
+	}
+	
+	// 지역에 해당하는 공항 리스트
+	public List<Airport> readByRegion(String region) {
+		List<Airport> airportEntityList = airportRepository.selectByRegion(region);
 		return airportEntityList;
 	}
 	

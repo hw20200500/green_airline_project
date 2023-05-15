@@ -18,4 +18,10 @@ public interface AirportRepository {
 	// 자동 완성에 사용할 공항 리스트
 	public List<Airport> selectByLikeName(String searchName);
 	
+	// 지역만
+	public List<Airport> selectRegion();
+	
+	// 지역에 해당하는 공항만
+	public List<Airport> selectByRegion(String region);
+	
 }
