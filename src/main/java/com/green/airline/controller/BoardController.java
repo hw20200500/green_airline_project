@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.green.airline.dto.BoardListDto;
+import com.green.airline.repository.interfaces.BoardRepository;
 import com.green.airline.repository.model.Board;
 import com.green.airline.service.BoardService;
 
@@ -25,7 +26,9 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
-
+	@Autowired
+	private BoardRepository boardRepository;
+	
 	// 게시글 전체 보기
 	@GetMapping("/board/list")
 	public String boardListAllPage(Model model) {
@@ -51,13 +54,13 @@ public class BoardController {
 
 	// 추천여행지 상세 보기
 	@GetMapping("/board/detail/{i}")
-	public String boardDetail(@PathVariable String userId,
-			@RequestParam(name = "type", defaultValue = "value", required= false) String type, Model model) {
+	public String boardDetail(int id, Model model) {
 		
-		System.out.println("DDDD");
-		List<BoardListDto> detail = boardService.Detail(type, userId);
-		System.out.println(detail);
-		model.addAttribute("boardList", detail);
+		System.out.println("컨트롤러 진입");
+		List<Board> list = boardRepository.findByBoardList();
+		model.addAttribute("detail", boardService.Detail(id));
+		
+		System.out.println(list);
 		
 		return "board/modalDetail";
 	}

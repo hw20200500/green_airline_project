@@ -46,15 +46,11 @@ public class BoardService {
 	}
 	
 	// 추천 여행지 게시글 상세보기
-	public List<BoardListDto> Detail(String type, String userId) {
+	public Board Detail(int id) {
 		
-		List<BoardListDto> detail = boardRepository.findByBoardDetail(type, userId);
+		Board boardListDto = boardRepository.findByBoardDetail(id);
 		
-		if(detail == null) {
-			// todo 예외처리
-		}
-		
-		return detail;
+		return boardListDto;
 	}
 
 }

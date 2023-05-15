@@ -17,6 +17,6 @@
 	</insert>
 	
 	<select id="findByBoardDetail" resultType="com.green.airline.repository.model.Board">
-		select * from recommend_board_tb where user_id = #{user_id};
+		select * from recommend_board_tb where id = #{id};
 	</select>
 </mapper>

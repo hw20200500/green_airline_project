@@ -13,10 +13,11 @@ import com.green.airline.repository.model.Board;
 @Mapper
 public interface BoardRepository {
 	
+	// 게시물 목록 전체 조회
 	public List<Board> findByBoardList();
-	
+	// 게시물 쓰기
 	public int insertBoard(Board board);
-	
-	public List<BoardListDto> findByBoardDetail(@PathParam("type") String type, @Param("userId") String userId);
+	// 게시물 상세 보기
+	public Board findByBoardDetail(int id);
 	
 }

@@ -21,15 +21,15 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th>제목</th>
+								<td>제목</td><td>${board.title}</td>
 							</tr>
 							<tr>
-								<th>내용</th>
+								<td>내용</td><td>${board.content}</td>
 							</tr>
 							<tr>
-								<th>작성자 id</th>
-								<th>조회수</th>
-								<th>작성 날짜</th>
+								<td>작성자 id</td><td>${board.userId}</td>
+								<td>조회수</td><td>${board.viewCount}</td>
+								<td>작성 날짜</td><td>${board.formatDate()}</td>
 							</tr>
 						</thead>
 						<tbody>
