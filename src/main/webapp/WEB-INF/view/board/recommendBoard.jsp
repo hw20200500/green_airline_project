@@ -4,10 +4,11 @@
 
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <style>
-	tr{
-		text-align: center;
-	}
+.tr--boardList {
+	text-align: center;
+}
 </style>
+
 <h1>게시판 화면</h1>
 
 <div class="container">
@@ -16,22 +17,25 @@
 			<c:when test="${boardList!=null}">
 				<%-- 게시글이 있는 경우 --%>
 				<table>
-					<tr>
+					<tr class="tr--boardList">
 						<th>번호</th>
 						<th>제목</th>
 						<th>작성자id</th>
-						<th>작성일</th>
 						<th>조회수</th>
+						<th>작성일</th>
 					</tr>
-					<c:forEach var="board" items="${boardList}">
-						<tr>
+					 <c:forEach var="board" items="${boardList}">
+						<tr class="tr--boardList${id}" data-toggle="modal"
+							data-target="#modalDetailSelect" style="cursor: pointer;">
 							<td>${board.id}</td>
 							<td>${board.title}</td>
 							<td>${board.userId}</td>
-							<td>${board.createdAt}</td>
 							<td>${board.viewCount}</td>
+							<td>${board.formatDate()}</td>
 						</tr>
-					</c:forEach>
+					</c:forEach> 
+					
+					
 				</table>
 			</c:when>
 			<c:otherwise>
@@ -42,8 +46,10 @@
 	</table>
 	<%-- Button trigger modal --%>
 	<button type="button" class="btn btn-primary" data-toggle="modal"
-		data-target="#staticBackdrop">글 쓰기</button>
-	<jsp:include page="/WEB-INF/view/board/modal.jsp" flush="true" />
+		data-target="#modalWrite">글 쓰기</button>
+
+	<jsp:include page="/WEB-INF/view/board/modal.jsp" flush="false" />
+	<jsp:include page="/WEB-INF/view/board/modalDetail.jsp" flush="false" />
 
 </div>
 <!-- 

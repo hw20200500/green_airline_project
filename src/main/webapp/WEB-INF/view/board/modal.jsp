@@ -2,13 +2,13 @@
 	pageEncoding="UTF-8"%>
 <!-- Modal -->
 <form action="/board/insert" method="post">
-	<div class="modal fade" id="staticBackdrop" data-backdrop="static"
+	<div class="modal fade" id="modalWrite" data-backdrop="static"
 		data-keyboard="false" tabindex="-1"
 		aria-labelledby="staticBackdropLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+					<h5 class="modal-title" id="staticBackdropLabel">여행일지</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
