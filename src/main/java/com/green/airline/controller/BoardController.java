@@ -13,13 +13,18 @@ import com.green.airline.dto.BoardListDto;
 import com.green.airline.repository.model.Board;
 import com.green.airline.service.BoardService;
 
+
+
 @Controller
 public class BoardController {
-	
+
 	@Autowired
 	private BoardService boardService;
 
-	// 추천여행지 전체 보기
+	/**
+	 * @author 치승
+	 * 추천 여행지 게시글 전체 보기
+	 */	
 	@GetMapping("/board/list")
 	public String boardListAllPage(Model model) {
 
@@ -33,13 +38,16 @@ public class BoardController {
 		return "/board/recommendBoard";
 	}
 	
-	// 글 작성하기
+	/**
+	 * @author 치승
+	 * 추천 여행지 게시글 작성하기
+	 */	
 	@PostMapping("/board/insert")
 	public String boardWirte(BoardListDto boardListDto) {
 		
 		boardService.insertBoard(boardListDto);
 		
-		return "/board/recommendBoard";
+		return "redirect:/board/list";
 	}
 
 	// 추천여행지 상세 보기
