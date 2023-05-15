@@ -23,9 +23,10 @@
 				<tr>
 					<td>
 						<!-- 이미지 불러오기 나중에 -->
-						<img alt="" src="C:\Users\GGG\Desktop\새 폴더\image.png">
-						<a href="productdetail/${productList.id}">${productList.productImage}</a>
-						<img alt="" src="https://placeimg.com/200/100/any"> ${productList.gifticonImage}
+						
+						<a href="productdetail/${productList.id}"><img alt="" src="image/${productList.productImage}"></a>
+						<img alt="" src="image/${productList.gifticonImage}">
+						 ${productList.gifticonImage}
 						${productList.brand}
 						${productList.name}
 						${productList.price}

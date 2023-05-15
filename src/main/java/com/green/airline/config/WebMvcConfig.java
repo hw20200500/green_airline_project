@@ -10,7 +10,7 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	
 	 @Override
 	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	        registry.addResourceHandler("/mileage/productMainPage/**")
-	                .addResourceLocations("file:///C:\\Users\\GGG\\Desktop\\새 폴더");
+	        registry.addResourceHandler("/product/**")
+	                .addResourceLocations("file:///C:\\Users\\a\\Desktop\\image");
 	    }
 }

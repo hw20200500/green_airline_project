@@ -37,7 +37,6 @@ public class ProductController {
 	public String productMainPage(Model model) {
 		List<ShopProduct> productList = productService.productList();
 		model.addAttribute("productList",productList);
-		System.out.println(productList.toString());
 		return "/mileage/productMainPage";
 		
 	}
@@ -75,14 +74,17 @@ public class ProductController {
 						if (dir.exists() == false) {
 							dir.mkdirs(); // 폴더가 없으면 폴더 생성
 						}
-						UUID uuid = UUID.randomUUID();
 						String fileName =file.getOriginalFilename();
+						String fileName2 =file2.getOriginalFilename();
 						// 전체 경로를 지정
 						String uploadPath = Define.UPLOAD_DIRECTORY + File.separator + fileName;
+						String uploadPath2 = Define.UPLOAD_DIRECTORY + File.separator + fileName2;
 						File destination = new File(uploadPath);
+						File destination2 = new File(uploadPath2);
 						
 						// 좀 더 간편한 방법 사용해 보기 
 						file.transferTo(destination);
+						file2.transferTo(destination2);
 						
 						// 객체 상태 변경(dto) 
 						shopProduct.setOriginFileName(file.getOriginalFilename());
@@ -109,7 +111,6 @@ public class ProductController {
 	}
 	@GetMapping("/delete/{id}")
 	public String productDelete(@PathVariable int id) {
-		System.out.println(id);
 		productService.productDelete(id);
 		return "redirect:/product/productMain";
 	}
