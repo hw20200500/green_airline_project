@@ -30,11 +30,12 @@ $(document).ready(function() {
 				let radioNode = $("<input>");
 				radioNode.attr("type", "radio");
 				radioNode.attr("name", "ifmdName");
-				radioNode.attr("id", "ifmdName--label"+i);
+				radioNode.attr("id", "ifmdName--label" + i);
+				radioNode.attr("value", data[i].ifmdName);
 				modalIfmdName.append(radioNode);
 
 				let labelNode = $("<label>");
-				labelNode.attr("for", "ifmdName--label"+i);
+				labelNode.attr("for", "ifmdName--label" + i);
 				labelNode.append(data[i].ifmdName);
 				modalIfmdName.append(labelNode);
 				modalIfmdName.append("<br>");
@@ -47,9 +48,9 @@ $(document).ready(function() {
 				descriptionNode.attr("src", "/images/in_flight/" + data[i].image);
 			}
 
-			description.append(data[0].ifmName);
+			description.append(data[1].ifmName);
 			description.append(" : ");
-			description.append(data[0].ifmDescription);
+			description.append(data[1].ifmDescription);
 
 		}).fail(function(error) {
 			console.log(error);
@@ -57,23 +58,24 @@ $(document).ready(function() {
 	});
 });
 
-/*$(document).ready(function() {
+$(document).ready(function() {
 	$("#inflightmeal--request").on("click", function() {
-		let nameVal = $("#inFlightMeals--option").val();
-		$(".modal--ifmdName").empty();
+		// 체크박스 체크 여부 확인
+		let radioVal = $('input[name="ifmdName"]:checked').val();
+		let amountVal = $('input[name="amount"]').val();
+		console.log(radioVal);
+		console.log(amountVal);
 
 		$.ajax({
-			type: "POST",
-			url: "/inFlightService/specialMealReq",
+			type: "get",
+			url: "/inFlightService/specialMealReq?name=" + radioVal + "&amount=" + amountVal,
 			contentType: "application/json; charset=utf-8",
-
 		}).done(function(data) {
 			console.log("여기 오나요");
-
-
+			// 티켓 인원수 조회해서 특별식 신청 수량이 > 티켓 인원수 -> 오류 & alert창 + insert 처리 막기
 		}).fail(function(error) {
 			console.log(error);
 		})
 	});
-});*/
+});
 

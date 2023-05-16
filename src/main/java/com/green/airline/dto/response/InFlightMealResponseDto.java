@@ -12,5 +12,10 @@ public class InFlightMealResponseDto {
 	private String ifmdDescription;
 	private String image;
 	private int mealId;
+	private Integer amount;
+	private Integer ticketId;
+	private String name;
+	private String description;
+	private String memberId;
 	
 }

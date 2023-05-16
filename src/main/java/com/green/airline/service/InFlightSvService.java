@@ -6,10 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.green.airline.dto.request.InFlightMealRequestDto;
 import com.green.airline.dto.response.InFlightMealResponseDto;
 import com.green.airline.repository.interfaces.InFlightServiceRepository;
 import com.green.airline.repository.model.InFlightMeal;
+import com.green.airline.repository.model.InFlightMealDetail;
 import com.green.airline.repository.model.InFlightService;
 
 @Service
@@ -47,12 +47,18 @@ public class InFlightSvService {
 
 	// 기내식 신청 테이블 조회하고 값 userId 넣기
 	@Transactional
-	public InFlightMealRequestDto readInFlightMealRequestByUserId(Integer memberId) {
-		InFlightMealRequestDto inFlightMealRequestDto = inFlightServiceRepository
+	public void createInFlightMealRequest(String memberId, String name, Integer amount) {
+		// memberId로 가장 최근에 구매한 ticketId 가져오기
+		InFlightMealResponseDto inFlightMealRequestDto = inFlightServiceRepository
 				.selectInFlightMealRequestByUserId(memberId);
-		System.out.println(inFlightMealRequestDto);
-		int result = inFlightServiceRepository.insertInFlightMealRequest();
-		System.out.println(result);
-		return inFlightMealRequestDto;
+		
+		// name을 검색해서 mealId 가져오기
+		InFlightMealDetail inFlightMealDetailEntity = inFlightServiceRepository.selectInFlightMealDetailByName(name);
+		// if문 사용해서 먼저 in flight meal request tb에서 특별식 신청 수량 조회 해서 티켓에 있는 인원수랑 비교해서 그거보다 많으면 insert 처리 막기
+		// if(ticketEntity.seatCount < request meal tb에서 나온 특별식 신청 수량(좀 어려울지도?)) {// 오류 발생 + 예외처리} else {밑에 로직 처리}
+		int result = inFlightServiceRepository.insertInFlightMealRequest(amount, inFlightMealDetailEntity.getMealId(), inFlightMealRequestDto.getTicketId()); 
+		if(result != 1) {
+			System.out.println("실패");
+		}
 	}
 }

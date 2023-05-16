@@ -7,18 +7,27 @@
 		<div>
 			<div>항목 선택</div>
 			<select id="inFlightMeals--option">
-				<c:forEach var="flightMeals" items="${flightMeals}">
-					<option value="${flightMeals.name}">${flightMeals.name}</option>
+				<c:forEach var="flightMeals" items="${flightMeals}" varStatus="status">
+					<c:if test="${status.index>0}">
+						<option value="${flightMeals.name}">${flightMeals.name}</option>
+					</c:if>
 				</c:forEach>
 			</select>
 		</div>
 
 		<div id="inFlightMeals--image">
-			<img id="meals--image">
+			<img id="meals--image" src="/images/in_flight/${inFlightMeals.get(0).image}">
 		</div>
-		<div id="inFlightMeals--description"></div>
-		<div id="inFlightMeals--detail"></div>
+		<div id="inFlightMeals--description">
+			<span>${inFlightMeals.get(0).ifmName} : ${inFlightMeals.get(0).ifmDescription}</span>
+		</div>
 
+		<div id="inFlightMeals--detail">
+			<c:forEach var="inFlightMeals" items="${inFlightMeals}">
+				<span>${inFlightMeals.ifmdName}</span>
+				<p>${inFlightMeals.ifmdDescription}</p>
+			</c:forEach>
+		</div>
 
 		<div>
 			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#special--meal--req">특별 기내식 신청</button>
@@ -26,8 +35,8 @@
 
 		<!-- The Modal -->
 		<div class="modal" id="special--meal--req">
-				<div class="modal-dialog">
-					<div class="modal-content">
+			<div class="modal-dialog">
+				<div class="modal-content">
 					<form action="/inFlightService/specialMealReq" method="post">
 						<!-- Modal Header -->
 						<div class="modal-header">
@@ -42,17 +51,23 @@
 						<div class="modal-body">
 							<div>종류</div>
 							<div class="modal--ifmdName">
-								<div id="inFlightMeals--detail"></div>
+								<div id="inFlightMeals--detail">
+									<c:forEach var="inFlightMeals" items="${inFlightMeals}" varStatus="status">
+										<input type="radio" class="radio--ifmd" name="ifmdName" id="ifmdName--label${status.index}" value="${inFlightMeals.ifmdName}">
+										<label for="ifmdName--label${status.index}">${inFlightMeals.ifmdName}</label>
+										<br>
+									</c:forEach>
+								</div>
 							</div>
 							<div>
 								<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
-								수량<input type="number" name="amount" min="1">
+								수량 &nbsp;<input type="number" name="amount" min="1">
 							</div>
 						</div>
 
 						<!-- Modal footer -->
 						<div class="modal-footer">
-							<button type="submit" id="inflightmeal--request" class="btn btn-primary" data-dismiss="modal">Submit</button>
+							<button type="button" id="inflightmeal--request" class="btn btn-primary" data-dismiss="modal">Submit</button>
 							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 						</div>
 					</form>
