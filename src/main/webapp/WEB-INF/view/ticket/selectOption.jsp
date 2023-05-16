@@ -34,6 +34,7 @@
 		font-size: 30px;
 		width: 300px;
 		font-weight: 600;
+		border: 1px solid #ccc;
 	}
 	
 	#flightDate {
@@ -64,6 +65,7 @@
 		position: absolute;
 		padding: 15px 20px 20px;
 		display: none;
+		background-color: white;
 	}
 	
 	.datepicker--div--type1, .datepicker--div--type2 {
@@ -108,7 +110,7 @@
 		color: #3163aa;
 	}
 	
-	.all--airport {
+	.all--airport, .age--calculater {
 		color: rgba(0, 0, 0, 0.7);
 		border: 1px solid #ccc;
 		border-radius: 5px;
@@ -123,8 +125,22 @@
 		color: rgba(0, 0, 0, 0.7)
 	}
 	
-	.all--airport--modal {
+	.all--airport--modal, .age--calculater--modal {
 		margin-top: 200px;
+	}
+	
+	.age--calculater--modal .modal-body button {
+		background-color: gray;
+		padding: 2px 6px;
+		border: none;
+		border-radius: 5px;
+		color: white;
+		height: 28px;
+	}
+	
+	.age--calculater--modal input {
+		padding: 0px 3px 1px;
+		width: 120px;
 	}
 	
 	.modal--title--div {
@@ -176,6 +192,60 @@
 		cursor: pointer;
 	}
 	
+	input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+	  -webkit-appearance: none;
+	  margin: 0;
+	}
+
+	input[type=number] {
+	  -moz-appearance: textfield;
+	}
+	
+	.age--type--div {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 300px;
+		background-color: buttonshadow;
+		padding: 10px;
+		border: 1px solid #ccc;
+	}
+	
+	.age--type--div input {
+		border: none;
+		background: none;
+		outline: none; /*선택 시 나오는 테두리 없애기*/
+		width: 80px;
+		text-align: center;
+		font-size: 30px;
+	}
+	
+	.minus--button, .plus--button {
+		border: none;
+		font-size: 30px;
+		width: 45px;
+		height: 45px;
+		background-color: white;
+	}
+	
+	#ageTypeDiv {
+		display: flex;
+	}
+	
+	#calculaterResult {
+		text-align: center;
+		height: 40px;
+		margin-top: 30px;
+	}
+	
+	#calculaterResult span:first-of-type {
+		color: gray;
+	}
+	
+	#calculaterResult span:last-of-type {
+		color: #314f79;
+		font-weight: 600;
+	}
 	
 </style>
 
@@ -183,10 +253,9 @@
 	<main>
 	
 		<h2>항공권 옵션 선택</h2>
-		<hr>
-	
+		<hr><br>
 		<!-- 왕복/편도, 출발지/도착지, 탑승일, 탑승객 수/연령 -->
-		
+		<h5>여정/날짜 선택</h5>
 		<ul class="ticket--type">
 			<li id="ticketType1" onclick="selectedType(1);" class="selected--type">왕복
 			<li id="ticketType2" onclick="selectedType(2);">편도
@@ -283,10 +352,79 @@
 				</div>
 			</div>
 		</div>
-		<div>
-			<!-- 탑승 인원 선택 -->
-		</div>
+		<br>
+		<br>
 		
+		<h5>탑승인원 선택</h5>		
+		<div id="ageTypeDiv">
+			<!-- 탑승 인원 선택 -->
+			<div style="margin-right: 58px;">
+				<!-- 성인은 최소 1명 -->
+				<label>성인 (만 12세 이상)</label><br>
+				<div class="age--type--div">
+					<button class="minus--button">-</button>
+					<input type="number" min="0" max="99" value="0" id="ageType1" readonly>
+					<button class="plus--button">+</button>
+				</div>
+			</div>
+			
+			<div style="margin-right: 58px;">
+				<label>소아 (만 2세 이상 ~ 12세 미만)</label><br>
+				<div class="age--type--div">
+					<button class="minus--button">-</button>
+					<input type="number" min="0" max="99" value="0" id="ageType2" readonly>
+					<button class="plus--button">+</button>
+				</div>
+			</div>
+			
+			<div>
+				<label>유아 (만 2세 미만)</label><br>
+				<div class="age--type--div">
+					<button class="minus--button">-</button>
+					<input type="number" min="0" max="99" value="0" id="ageType3" readonly>
+					<button class="plus--button">+</button>
+				</div>
+			</div>
+		</div>
+		<br>
+		<button class="age--calculater">
+			<ul class="d-flex justify-content-center" style="margin: 0;">
+				<li><span class="material-symbols-outlined material--li" style="font-size: 22px;">calculate</span>
+				<li style="font-size: 15px;">나이 계산기
+			</ul>
+		</button>
+
+<script>
+	$(".minus--button").on("click", function() {
+		var currentNumber = $(this).next().val();
+		$(".datepicker--div--type1").hide();
+		$(".datepicker--div--type2").hide();
+		if (currentNumber > 0) {
+			// 성인 수 감소 버튼일 때 성인 수가 유아 수와 같다면 감소 불가능
+			if ($(this).next().is("#ageType1") && $("#ageType3").val() == $("#ageType1").val()) {
+				alert('유아의 수는 동반 성인의 수보다 많을 수 없습니다.');
+				return;
+			}
+			$(this).next().val(currentNumber - 1);			
+		}
+	});
+	$(".plus--button").on("click", function() {
+		var currentNumber = $(this).prev().val();
+		$(".datepicker--div--type1").hide();
+		$(".datepicker--div--type2").hide();
+		// 유아 수 증가 버튼일 때 유아 수가 성인 수와 같다면 증가 불가능
+		if ($(this).prev().is("#ageType3") && $("#ageType3").val() == $("#ageType1").val()) {
+			alert('유아의 수는 동반 성인의 수보다 많을 수 없습니다.');
+			return;
+		}
+		$(this).prev().val(parseInt(currentNumber) + 1);			
+	});
+	
+	$("#calculateBtn").on("click", function() {
+		
+	})
+</script>
+
 		<!-- 전체 공항 조회 모달 -->
 		<div class="modal fade header--modal all--airport--modal">
 			<div class="modal-dialog">
@@ -314,6 +452,43 @@
 							</ul>
 						</div>	
 					
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- 나이 계산기 모달 -->
+		<div class="modal fade header--modal age--calculater--modal">
+			<div class="modal-dialog" style="max-width: 350px;">
+				<div class="modal-content">
+					<div class="modal--title--div">
+						<h4 class="modal--title">나이 계산기</h4>
+						<button class="close--button" onclick="$('.age--calculater--modal').modal('hide');">
+							<span class="material-symbols-outlined">close</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="d-flex align-items-center justify-content-center" style="margin: 10px;">
+							<div style="margin-right: 20px;">
+								<div class="d-flex" style="margin-bottom: 10px;">
+									<label for="birthDate" style="width: 80px; margin: 0">생년월일</label>
+									<input type="text" id="birthDate" placeholder="yyyy-mm-dd">
+								</div>
+								<div class="d-flex">
+									<label for="thisDate" style="width: 80px; margin: 0">탑승일</label>
+									<input type="text" id="thisDate" placeholder="yyyy-mm-dd">
+								</div>
+							</div>
+							<button id="calculateBtn">							
+								<ul class="d-flex justify-content-center" style="margin: 0;">
+									<li style="height: 24px; margin-right: 2px;">조회
+									<li style="height: 24px;"><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 18px; padding-top: 4px;">search</span>
+								</ul>
+							</button>
+						</div>
+						<div id="calculaterResult">
+							탑승일 (<span>2023-05-11</span>) 기준으로 <span>유아</span>입니다.
+						</div>
 					</div>
 				</div>
 			</div>

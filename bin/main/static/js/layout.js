@@ -22,17 +22,15 @@
 		// 이미 메뉴가 내려와있는 상태라면
 		if ($(".nav--bar").css("display") == "block") {
 			if (menuIndex == 3) {
-				$(".nav--bar").animate({left : navBarLeft + 2}, 700);			
-			} else if (menuIndex == 2) {
-				$(".nav--bar").animate({left : navBarLeft + 1}, 700);			
+				$(".nav--bar").animate({left : navBarLeft + 1}, 700);						
 			} else {
 				$(".nav--bar").animate({left : navBarLeft}, 700);
 			}
+			$(this).children().css("color", "#314f79");
+			$(this).siblings().children().css("color", "#3e3e3e");
 		} else {
 			$(".nav--bar").css("display", "block");
 			if (menuIndex == 3) {
-				$(".nav--bar").css("left", navBarLeft + 2);
-			} else if (menuIndex == 2) {
 				$(".nav--bar").css("left", navBarLeft + 1);
  			} else {
 				$(".nav--bar").css("left", navBarLeft); 				
@@ -41,7 +39,7 @@
 			//$(".nav--depth2").css("width", $(".page--container").width());	
 			//$(".header--menu--split").css("width", $(".page--container").width());
 			// 세부 메뉴 밑으로는 어둡게 처리
-			let headerHeight = 570;
+			let headerHeight = 569;
 			let footerBottom = $("footer").position().top + $("footer").height();
 			let backgroundHeight;
 			if (footerBottom < window.innerHeight) {
@@ -50,6 +48,8 @@
 				backgroundHeight = footerBottom - headerHeight;
 			}
 			$(".nav--depth2--background").css("height", backgroundHeight);	
+			$(this).children().css("color", "#314f79");
+			$(this).siblings().children().css("color", "#3e3e3e");
 			$(".nav--depth2").slideDown(function() {
 				$(".nav--depth2--background").css("width", $(".nav--depth2--div").width());	
 			});
@@ -81,17 +81,18 @@
 			}
 			menuIndex = 3;
 		}
+		
 		$(".nav--bar").stop();
 		
-		let navBarLeft = menuIndex * 255;
+		let navBarLeft = menuIndex * 230;
 		if (menuIndex == 3) {
-			$(".nav--bar").animate({left : navBarLeft + 2}, 700);			
-		} else if (menuIndex == 2) {
 			$(".nav--bar").animate({left : navBarLeft + 1}, 700);			
 		} else {
 			$(".nav--bar").animate({left : navBarLeft}, 700);
 		}
 		
+		$(".nav--depth1 li").eq(menuIndex).children().css("color", "#314f79");
+		$(".nav--depth1 li").eq(menuIndex).siblings().children().css("color", "#3e3e3e");
 	});
 	
 	$(".main--menu").on("mouseleave", function() {
@@ -99,6 +100,7 @@
 		$(".nav--bar").css("display", "none");
 		$(".nav--depth1").css("margin-bottom", "17px");
 		$(".nav--depth2").css("display", "none");
+		$(".nav--depth1 li").children().css("color", "#3e3e3e");
 		
 	});
 	

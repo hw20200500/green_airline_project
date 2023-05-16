@@ -157,6 +157,11 @@ $(document).on("click", function(e) {
 		$("#destinationAirport").hide();
 	}
 
+	if ($(".age--calculater--modal").has(e.target).length === 0) {
+		$(".age--calculater--modal input").val("");
+		$("#calculaterResult").text("");
+	}
+
 });
 
 // input에 포커스를 두면 해당하는 팝업 보이게
@@ -230,7 +235,7 @@ $(".flight--date2").on("change", function() {
 			$(".flight--date2").val("");
 			return;
 
-		// 가는 날 이전 날짜를 선택했다면
+			// 가는 날 이전 날짜를 선택했다면
 		} else if ($(".flight--date1").val() > $(".flight--date2").val()) {
 			alert("가는 날 이후 날짜를 선택해주세요.");
 			$(".flight--date2").focus();
@@ -309,3 +314,87 @@ $(".all--airport").on("click", function() {
 		$("#departureAirport").hide();
 	}
 });
+
+// 나이 계산기 버튼
+$(".age--calculater").on("click", function() {
+	$('.age--calculater--modal').modal();
+	$(".datepicker--div--type1").hide();
+	$(".datepicker--div--type2").hide();
+})
+
+// 나이 계산기 thisDate birthDate
+$("#calculateBtn").on("click", function() {
+	// 날짜가 입력되지 않았다면
+	if ($("#birthDate").val() == "" || $("#thisDate").val() == "") {
+		$("#calculaterResult").text("날짜가 입력되지 않았습니다.");
+		return;
+	}
+	
+	// 날짜 형식으로 변환
+	let birthDate = stringToDate($("#birthDate").val());
+	let thisDate = stringToDate($("#thisDate").val());
+	
+	if (birthDate == "error" || thisDate == "error") {
+		$("#calculaterResult").text("유효하지 않은 날짜입니다.");
+		return;
+		
+	// 유효한 날짜 형식이라면 나이 계산
+	} else {
+		let bTime = birthDate.getTime();
+		let tTime = thisDate.getTime();
+		let timeDiff = tTime - bTime;
+		
+		if (timeDiff < 0) {
+			$("#calculaterResult").text("입력된 생년월일이 탑승일 이후입니다.");
+			return;
+		}
+		
+		let age = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365));
+		console.log(age + "살");
+		let result;
+		
+		if (age < 2) {
+			result = "유아";
+		} else if (age < 12) {
+			result = "소아";
+		} else {
+			result = "성인";
+		}
+		let thisDateStr = $("#thisDate").val();
+		$("#calculaterResult").html(`탑승일 <span>(${thisDateStr})</span> 기준으로 <span>${result}</span>입니다.`);
+			
+	}
+});
+
+// 날짜로 변환
+function stringToDate(str) {
+	let arr = str.split("-");
+	if (arr.length != 3) {
+		return "error";
+	}
+	let year = arr[0];
+	let month = arr[1];
+	let day = arr[2];
+
+	if (month == 2) {
+		if (day == 29) {
+			if (year % 4 != 0 || year % 100 == 0 && year % 400 != 0) {
+				return "error";
+			}
+		}
+		else if (day > 28) {
+			return "error";
+		}
+	} else if (month == 4 || month == 6 || month == 9 || month == 11) {
+		if (day > 30) {
+			return "error";
+		}
+	} else if (month > 12) {
+		return "error";	
+	} else {
+		if (day > 31) {
+			return "error";
+		}
+	}
+	return new Date(year, month-1, day);
+}
