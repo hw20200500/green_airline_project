@@ -11,31 +11,14 @@
 
 		<div class="container">
 			<div class="prd_detail mar_to50">
-
-				<div class="prd_info">
-
-					
-					<p class="title">[${shopProduct.brand}] ${shopProduct.name}</p>
-					<img alt="" src="image/${shopProduct.gifticonImage}"> 
-					<div class="mileage">
-						<div class="mile">
-							<span class="num">${shopProduct.price}</span>마일
-						</div>
-						<p class="desc">
-							<a href="javascript:sharpNothig();"
-								class="btn_arrow flow-action-login">로그인></a> 을 하시면 마일리지를 확인하실 수
-							있습니다.
-						</p>
-					</div>
-
-
-				</div>
 				<!-- 상품 정보영역 -->
 				<div class="prd_info">
+				
 					<p class="title">[${shopProduct.brand}] ${shopProduct.name}</p>
+				<img alt="" src="/product/${shopProduct.productImage}">
 					<div class="mileage">
-						<div class="mile">
-							<span class="num">${shopProduct.price}</span>마일
+						<div class="mile" >
+							<span class="num" >${shopProduct.price}</span>마일
 						</div>
 
 
@@ -51,7 +34,7 @@
 					</div>
 
 					<!-- 상품 선택영역 -->
-					<form name="frmDefault" id="frmDefault" method="post" action="">
+					<form name="frmDefault" id="frmDefault" method="post" action="/product/buyProduct">
 						<div class="select_area">
 							<select id="optionList" title="상품 선택" style="width: 100%">
 								<option value="">옵션을 선택해주세요.</option>
@@ -72,8 +55,8 @@
 								<div class="quantity">
 									<div class="btn_number_box small">
 
-										<input type="text" name="selectedCount" title="상품 개수"
-											value="1" data-option="001" data-min="1" data-max="5"
+										<input type="text" name="amount" title="상품 개수"
+											value="1" 
 											readonly="readonly">
 
 										<button type="button" class="btn_number minus">감소</button>
@@ -81,7 +64,7 @@
 									</div>
 								</div>
 								<div class="price">
-									<span class="num each_mile">${shopProduct.price}</span>마일
+									 <span class="num each_mile">${shopProduct.price}</span>마일
 								</div>
 								<a href="#none" class="btn_delete"><span class="hidden">삭제</span></a>
 							</div>
@@ -90,17 +73,18 @@
 							<dl class="total_mile">
 								<dt>총 필요 마일리지</dt>
 								<dd>
-									<span class="num">${shopProduct.price}</span>마일
+									 <span class="num">${shopProduct.price}</span>마일
+									 <!-- input hidden 으로 변경된 값 넣어서 xml에 보내기 -->
 								</dd>
 							</dl>
 
 							<div class="btn_area">
 
-								<button type="button" class="btn_M red flow-action-login">나의
-									마일리지 확인하기</button>
+								<button type="submit" class="btn_M red flow-action-login">구매하기 버튼으로 만들꺼임</button>
 
 							</div>
 						</div>
+						<input type="hidden" name="productId" value="${shopProduct.id}">
 					</form>
 					<!-- 상품 선택영역 -->
 
@@ -145,6 +129,7 @@
 				</div>
 
 			</div>
+			</div>
 	</main>
 
 </div>
@@ -163,7 +148,7 @@
 
 	// 삭제 버튼 클릭 시
 	$(".btn_delete").off("click").on("click", function() {
-		var countInput = $("input[name='selectedCount']");
+		var countInput = $("input[name='amount']");
 		var priceElement = $(".price .num.each_mile");
 		var totalPriceElement = $(".total_mile .num");
 		var initialPrice = parseInt(priceElement.text());
@@ -178,14 +163,14 @@
 			'click',
 			function() {
 				let countInput = document
-						.querySelector('input[name="selectedCount"]');
+						.querySelector('input[name="amount"]');
 				let countValue = parseInt(countInput.value);
 				let priceElement = document
 						.querySelector('.price .num.each_mile');
 				let totalPriceElement = document
 						.querySelector('.total_mile .num');
 				let price = parseInt(priceElement.textContent);
-
+				
 				if (countValue < 5) {
 					countInput.value = countValue + 1;
 					totalPriceElement.textContent = price * (countValue + 1);
@@ -199,7 +184,7 @@
 			'click',
 			function() {
 				let countInput = document
-						.querySelector('input[name="selectedCount"]');
+						.querySelector('input[name="amount"]');
 				let countValue = parseInt(countInput.value);
 				let priceElement = document
 						.querySelector('.price .num.each_mile');

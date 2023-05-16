@@ -5,6 +5,8 @@ INSERT INTO user_tb
 
 VALUES ('abc', '1234', '회원');
 
+
+
 INSERT INTO shop_product_tb(brand,name,price,count,product_image,gifticon_image)
 		VALUES('brand','name',1234,100,'image.png','image2.png');
 
@@ -12,6 +14,9 @@ INSERT INTO member_tb
 VALUES 
 	('abc', '김홍아', 'LEE SEOYOUNG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', '골드'),
 	('a123', '홍길이', 'LEE SEOYOUNG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', '골드');
+
+INSERT INTO mileage_tb(balance,member_id)
+VALUES(10000,'abc');
 
 INSERT INTO airport_tb (nation, name)
 VALUES 

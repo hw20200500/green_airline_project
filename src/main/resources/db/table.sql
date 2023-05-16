@@ -241,11 +241,24 @@ create table shop_order_tb(
 );
 
 -- 기프티콘
-create table giffticon_tb(
+create table gifticon_tb(
    id int primary key auto_increment,
     start_date date not null default (CURRENT_DATE),
     end_date date not null,
     order_id int not null,
     foreign key (order_id) references shop_order_tb (id)
+);
+
+-- 마일리지
+
+CREATE TABLE mileage_tb(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    balance INT NOT NULL,
+	use_mileage INT,
+	save_mileage INT,
+	mileage_date DATE DEFAULT (CURRENT_DATE),
+	description INT,
+	member_id VARCHAR(50),
+    FOREIGN KEY (member_id) REFERENCES member_tb(id)
 );
 

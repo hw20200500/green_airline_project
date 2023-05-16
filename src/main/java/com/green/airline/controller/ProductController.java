@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,8 +17,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.green.airline.dto.GifticonDto;
+import com.green.airline.dto.ShopProductDto;
+import com.green.airline.repository.model.ShopOrder;
 import com.green.airline.repository.model.ShopProduct;
+import com.green.airline.repository.model.User;
 import com.green.airline.service.ProductService;
+import com.green.airline.service.UserService;
 import com.green.airline.utils.Define;
 
 @Controller
@@ -28,6 +34,9 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
+	
+	@Autowired
+	private HttpSession session;
 	/**
 	 * 정다운
 	 * @param model
@@ -126,6 +135,25 @@ public class ProductController {
 		ShopProduct shopProduct = productService.productDetail(id);
 		 model.addAttribute(shopProduct);
 		return "/mileage/detailPage";
+	}
+	
+	/**
+	 * 정다운
+	 * 마일리지상품 구매 시
+	 * 상품 구매내역 + 기프티콘 + 마일리지 사용 insert
+	 * @param shopProductDto
+	 * @return
+	 */
+	@PostMapping("/buyProduct")
+	public String buyProductProc(ShopProductDto shopProductDto) {
+		GifticonDto gifticonDto = new GifticonDto();
+		User principal = (User)session.getAttribute(Define.PRINCIPAL);
+		shopProductDto.setMemberId(principal.getId());
+		productService.createByUserId(shopProductDto);
+		gifticonDto.setOrderId(productService.readShopOrder(principal.getId()).getId());
+		productService.createGifticon(gifticonDto);
+		productService.readMileage(principal.getId());
+		return "redirect:/product/productMain";
 	}
 	
 }

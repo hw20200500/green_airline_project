@@ -24,7 +24,7 @@
 					<td>
 						<!-- 이미지 불러오기 나중에 -->
 						
-						<a href="productdetail/${productList.id}"><img alt="" src="image/${productList.productImage}"></a>
+						<a href="productdetail/${productList.id}"><img alt="" src="/product/${productList.productImage}"></a>
 						<img alt="" src="image/${productList.gifticonImage}">
 						 ${productList.gifticonImage}
 						${productList.brand}
