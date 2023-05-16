@@ -35,7 +35,6 @@ public class InFlightSvService {
 	
 	public List<InFlightMealResponseDto> readInFlightAllMeal() {
 		List<InFlightMealResponseDto> inFlightMeal = inFlightServiceRepository.selectInFlightAllMeal();
-		System.out.println(inFlightMeal);
 		return inFlightMeal;
 	}
 	

@@ -60,10 +60,8 @@ public class InFlightServiceController {
 	public String inFlightServiceSpecialPage(Model model, @RequestParam(name="type", defaultValue = "유아식", required = false) String type, String name) {
 		List<InFlightMeal> inFlightMeals = inFlightSvService.readInFlightMeal(type);
 		model.addAttribute("inFlightMeals", inFlightMeals);
-		System.out.println(inFlightMeals);
 		List<InFlightMealResponseDto> inFlightMeal = inFlightSvService.readInFlightAllMeal();
 		model.addAttribute("inFlightMeal", inFlightMeal);
-		System.out.println(inFlightMeal);
 		
 		return "/in_flight/inFlightServiceSpecial";
 	}
