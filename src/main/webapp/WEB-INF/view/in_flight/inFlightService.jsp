@@ -5,7 +5,8 @@
 </style>
 <div>
 	<main>
-		<h1>기내 서비스 페이지</h1>
+		<h1>기내 서비스 순서 페이지</h1>
+		<h3>todo 기내 서비스 테이블 만들기</h3>
 		<div>
 			<c:forEach var="inFlightServices" items="${inFlightServices}">
 				<div>${inFlightServices.name}</div>

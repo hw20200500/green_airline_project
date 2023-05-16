@@ -10,6 +10,7 @@ public class InFlightMealResponseDto {
 	private String ifmdName;
 	private String ifmDescription;
 	private String ifmdDescription;
+	private String image;
 	private int mealId;
 	
 }

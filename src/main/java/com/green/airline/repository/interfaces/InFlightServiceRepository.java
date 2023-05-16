@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import com.green.airline.dto.request.InFlightMealRequestDto;
 import com.green.airline.dto.response.InFlightMealResponseDto;
 import com.green.airline.repository.model.InFlightMeal;
 import com.green.airline.repository.model.InFlightService;
@@ -21,9 +22,15 @@ public interface InFlightServiceRepository {
 	// 특별 기내식 조회 기능
 	List<InFlightMealResponseDto> selectInFlightMeal(String name);
 	
-	// 특별 기내식 상세 조회 기능
+	// 특별 기내식 조회 기능
 	List<InFlightMealResponseDto> selectInFlightDetailMeal();
 	
 	// 특별 기내식 조회 기능
 	List<InFlightMeal> selectInFlightMealCategory();
+	
+	// memberId 기반 특별 기내식 신청 조회 기능  
+	InFlightMealRequestDto selectInFlightMealRequestByUserId(Integer memberId);
+	
+	// 특별 기내식 신청 기능 (데이터 삽입)
+	int insertInFlightMealRequest();
 }

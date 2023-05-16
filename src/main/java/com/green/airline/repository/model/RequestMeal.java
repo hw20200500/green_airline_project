@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class RequestMeal {
 
-	private int id;
-	private int amount;
-	private int mealId;
-	private int ticketId;
+	private Integer id;
+	private Integer amount;
+	private Integer mealId;
+	private Integer ticketId;
 	
 }

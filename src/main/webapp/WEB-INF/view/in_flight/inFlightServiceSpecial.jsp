@@ -11,52 +11,58 @@
 					<option value="${flightMeals.name}">${flightMeals.name}</option>
 				</c:forEach>
 			</select>
-			<button type="button" id="inFlightServiceSpecial--btn">조회</button>
 		</div>
 
+		<div id="inFlightMeals--image">
+			<img id="meals--image">
+		</div>
 		<div id="inFlightMeals--description"></div>
 		<div id="inFlightMeals--detail"></div>
 
+
+		<div>
+			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#special--meal--req">특별 기내식 신청</button>
+		</div>
+
+		<!-- The Modal -->
+		<div class="modal" id="special--meal--req">
+				<div class="modal-dialog">
+					<div class="modal-content">
+					<form action="/inFlightService/specialMealReq" method="post">
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<div>
+								<h4 class="modal-title">특별 기내식 신청</h4>
+								<div>*특별 기내식을 신청하지 않으시면 기본 기내식이 제공됩니다.</div>
+							</div>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+
+						<!-- Modal body -->
+						<div class="modal-body">
+							<div>종류</div>
+							<div class="modal--ifmdName">
+								<div id="inFlightMeals--detail"></div>
+							</div>
+							<div>
+								<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
+								수량<input type="number" name="amount" min="1">
+							</div>
+						</div>
+
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<button type="submit" id="inflightmeal--request" class="btn btn-primary" data-dismiss="modal">Submit</button>
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 	</main>
 
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$("#inFlightServiceSpecial--btn").on("click", function() {
-				let nameVal = $("#inFlightMeals--option").val();
-				$("#inFlightMeals--description").empty();
-				$("#inFlightMeals--detail").empty();
-				
-				$.ajax({
-					type : "get",
-					url : "/changeCategory?name=" + nameVal,
-					contentType : "application/json; charset=utf-8"
-				}).done(function(data, textStatus, xhr) {
-					let description = $("#inFlightMeals--description");
-					let detail = $("#inFlightMeals--detail");
-
-					for (let i = 0; i < data.length; i++) {
-						// div태그 만들기
-						let divNode = $("<div>"); 
-						// 속성 추가
-						divNode.attr("class", "ifm--detail");
-						detail.append(divNode);
-						
-						let divNode2=$("<span>");
-						divNode.append(divNode2);
-						divNode2.append(data[i].ifmdName);
-						let divNode3=$("<p>");
-						divNode.append(divNode3);
-						divNode3.append(data[i].ifmdDescription);
-					}
-					
-					description.append(data[0].ifmName);
-					description.append(" : ");
-					description.append(data[0].ifmDescription);
-				}).fail(function(error) {
-					console.log(error);
-				})
-			});
-		});
+	<script src="/js/inFlightServiceSpecial.js">
+		
 	</script>
 
 </div>
