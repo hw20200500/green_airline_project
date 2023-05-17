@@ -7,14 +7,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.green.airline.dto.request.ScheduleSelectDto;
+import com.green.airline.dto.response.ScheduleInfoResponseDto;
 import com.green.airline.dto.response.SeatInfoResponseDto;
 import com.green.airline.dto.response.SeatStatusResponseDto;
 import com.green.airline.repository.model.Airport;
-import com.green.airline.repository.model.Seat;
 import com.green.airline.service.AirportService;
 import com.green.airline.service.SeatService;
 
@@ -43,7 +46,33 @@ public class TicketController {
 		
 		return "/ticket/selectOption";
 	}
+
+	/**
+	 * @return 선택한 옵션에 따른 운항스케줄 리스트 반환 (왕복)
+	 */
+	@PostMapping("/flightSchedule/1")
+	@ResponseBody
+	public String selectScheduleListData1(@RequestBody ScheduleSelectDto scheduleSelectDto) {
+		
+		
+		
+		System.out.println(scheduleSelectDto);
+		
+		return null;
+	}
 	
+	/**
+	 * @return 선택한 옵션에 따른 운항스케줄 리스트 반환 (편도)
+	 */
+	@PostMapping("/flightSchedule/2")
+	@ResponseBody
+	public ScheduleInfoResponseDto selectScheduleListData2(@RequestBody ScheduleSelectDto scheduleSelectDto) {
+		
+		System.out.println(scheduleSelectDto);
+		
+		
+		return null;
+	}
 	
 	/**
 	 * @return 좌석 선택 페이지
@@ -66,7 +95,6 @@ public class TicketController {
 		
 		return "/ticket/selectSeat";
 	}
-	
 	
 	/**
 	 * AJAX 통신용
