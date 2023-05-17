@@ -9,7 +9,7 @@
 		select * from recommend_board_tb;
 	</select>
 
-	<insert id="insertBoard">
+	<insert id="insertByBoard">
 		insert into recommend_board_tb
 		(title, content,
 		user_id, view_count)
@@ -20,12 +20,12 @@
 
 	<select id="findByBoardDetail"
 		resultType="com.green.airline.repository.model.Board">
-		select title, content, user_id, view_count
-		from recommend_board_tb 
+		select *
+		from recommend_board_tb
 		where id = #{id};
 	</select>
 
-	<update id="updateBoardCount">
+	<update id="updateByViewCount">
 		update recommend_board_tb
 		set view_count = view_count + 1
 		where id = #{id};

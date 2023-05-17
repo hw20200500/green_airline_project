@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class Board {
 
-	private int id;
+	private Integer id;
 	private String title;
 	private String content;
 	private String userId;
@@ -17,8 +17,8 @@ public class Board {
 	private Timestamp createdAt;
 
 	public String formatDate() {
-
 		return TimestampUtil.dateToString(createdAt);
 	}
+
 
 }

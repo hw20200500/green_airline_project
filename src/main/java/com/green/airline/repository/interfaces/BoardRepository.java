@@ -16,9 +16,9 @@ public interface BoardRepository {
 	// 게시물 목록 전체 조회
 	public List<Board> findByBoardList();
 	// 게시물 쓰기
-	public int insertBoard(Board board);
-	// 게시물 상세 보기
-	public BoardListDto findByBoardDetail(Integer id);
-	// 상세보기시 조회수 증가
-	public void updateBoardCount(Integer id);
+	public int insertByBoard(Board board);
+	// 게시물 상세 보기 클릭 시 조회수 증가
+	public Board findByBoardDetail(Integer id);
+	// 게시물 조회 수 증가
+	public void updateByViewCount(Integer viewCount);
 }

@@ -112,9 +112,7 @@ VALUES
 insert into recommend_board_tb
 (title, user_id, content, view_count)
 values
-('제목', 'abc', '게시글내용', 1);VALUES 
-	('abc', '1234', '회원'),
-	('a123', '1234', '회원');
+('제목', 'abc', '게시글내용', 0); 
 
 INSERT INTO member_tb
 VALUES 

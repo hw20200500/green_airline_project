@@ -53,14 +53,21 @@ values
 
 ==================================================
 
-Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
-[2m2023-05-16 02:05:21.113[0;39m [31mERROR[0;39m [35m19232[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.boot.SpringApplication              [0;39m [2m:[0;39m Application run failed
+### Error updating database.  Cause: org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException: Unique index or primary key violation: "PUBLIC.CONSTRAINT_INDEX_DA ON PUBLIC.RECOMMEND_BOARD_TB(USER_ID NULLS FIRST) VALUES ( /* 1 */ 'abc' )"; SQL statement:
+insert into recommend_board_tb
+		(title, content,
+		user_id, view_count)
+		values
+		(?, ?, ?,
+		?) [23505-214]
+### The error may exist in file [C:\Users\GGG\Desktop\green-airline\green_airline_project\bin\main\mapper\board.xml]
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: insert into recommend_board_tb   (title, content,   user_id, view_count)   values   (?, ?, ?,   ?);
 
-org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'boardController': Unsatisfied dependency expressed through field 'boardService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'boardService': Unsatisfied dependency expressed through field 'boardRepository'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'boardRepository' defined in file [C:\Users\chise\OneDrive\바탕 화면\그린에어\green_airline_project\bin\main\com\green\airline\repository\interfaces\BoardRepository.class]: Cannot resolve reference to bean 'sqlSessionTemplate' while setting bean property 'sqlSessionTemplate'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'sqlSessionTemplate' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Unsatisfied dependency expressed through method 'sqlSessionTemplate' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [org/mybatis/spring/boot/autoconfigure/MybatisAutoConfiguration.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception; nested exception is java.lang.Error: Unresolved compilation problems: 
-	The import org.apache cannot be resolved
-	Mapper cannot be resolved to a type
+-- 조회수 증가 + 쿠키값으로 중복방지 기능 도중 에러 발생
+-- user_id 테이블에 UNIQUE 값 삭제
 
--- Mapper 타입이 잘못된거같음 resultType 확인 -- 이상없음
--- BoardRepository에서 잘못 된거같음 확인 -- 이상없음
--- develop이랑 merge할 때 파일이 몇개 빠진거같음
--- 다시 git clone해서 해결
+=================================================
+
+
