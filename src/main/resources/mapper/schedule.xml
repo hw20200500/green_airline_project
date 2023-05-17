@@ -3,8 +3,22 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.airline.repository.interfaces.ScheduleRepository">
 
+<!-- MySQL로 바꾸면 LIKE문 수정 -->
+
 <select id="selectByAirportAndDepartureDate" resultType="com.green.airline.dto.response.ScheduleInfoResponseDto">
-	SELECT * FROM 
+SELECT s.id, departure_date, arrival_date, ap1.region AS departure_region, ap1.name AS departure_airport, ap2.region AS destination_region, ap2.name AS destination_airport, flight_time, a.name AS airplane_name
+FROM schedule_tb AS s
+JOIN route_tb AS r
+ON s.route_id = r.id
+JOIN airplane_tb AS a
+ON s.airplane_id = a.id
+JOIN airport_tb AS ap1
+ON r.departure = ap1.name
+JOIN airport_tb AS ap2
+ON r.destination = ap2.name
+WHERE departure_date LIKE ''||#{flightDate}||'%'
+AND r.departure = #{departure}
+AND r.destination = #{destination}
 </select>
 	
 </mapper>

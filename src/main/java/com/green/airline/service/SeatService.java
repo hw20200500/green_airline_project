@@ -81,6 +81,8 @@ public class SeatService {
 			// 이미 예약된 좌석이라면
 			if (reservedSeatNameList.contains(s.getName())) {
 				s.setStatus(true);
+			} else {
+				s.setStatus(false);
 			}
 		}
 		

@@ -562,7 +562,57 @@ $("#selectScheduleBtn").on("click", function() {
 			dataType: 'json'
 
 		}).done((res) => {
-			console.log(res);
+			$("#scheduleList1 h6 span").eq(1).text("편도");
+			$("#scheduleList1 h3 span").eq(0).text(airport1);
+			$("#scheduleList1 h3 span").eq(2).text(airport2);
+			
+			for (let i = 0; i < res.length; i++) {
+				//console.log(res[i]);
+				
+				let tr = $("<tr>");
+				let td1 = $("<td class=\"td--flight--time\">");
+				td1.text(res[i].strDepartureDate + ">" + res[i].flightTime + ">" + res[i].strArrivalDate);
+				let td2 = $("<td class=\"td--airplane--name\">");
+				td2.text(res[i].airplaneName);
+				let td3 = $("<td class=\"td--economy\">");
+				// 좌석이 존재하지 않는다면 '미운영'으로 표시
+				if (res[i].ecTotalCount == 0) {
+					td3.text("미운영");
+				} else {
+					// 잔여 좌석 수가 없다면 '매진'으로 표시
+					if (res[i].ecCurCount == 0) {
+						td3.text("매진");						
+					} else {
+						td3.text("잔여 " + res[i].ecCurCount + "석");
+					}
+				}
+				let td4 = $("<td class=\"td--business\">");
+				// 좌석이 존재하지 않는다면 '미운영'으로 표시
+				if (res[i].buTotalCount == 0) {
+					td4.text("미운영");
+				} else {
+					// 잔여 좌석 수가 없다면 '매진'으로 표시
+					if (res[i].buCurCount == 0) {
+						td4.text("매진");						
+					} else {
+						td4.text("잔여 " + res[i].buCurCount + "석");
+					}
+				}
+				let td5 = $("<td class=\"td--first\">");
+				// 좌석이 존재하지 않는다면 '미운영'으로 표시
+				if (res[i].fiTotalCount == 0) {
+					td5.text("미운영");
+				} else {
+					// 잔여 좌석 수가 없다면 '매진'으로 표시
+					if (res[i].fiCurCount == 0) {
+						td5.text("매진");						
+					} else {
+						td5.text("잔여 " + res[i].fiCurCount + "석");
+					}
+				}
+				tr.append(td1).append(td2).append(td3).append(td4).append(td5);
+				$("#scheduleList1 tbody").append(tr);
+			}
 			
 		}).fail((error) => {
 			console.log(error);

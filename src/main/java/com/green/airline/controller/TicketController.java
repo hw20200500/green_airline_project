@@ -1,5 +1,6 @@
 package com.green.airline.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,9 @@ import com.green.airline.dto.response.SeatInfoResponseDto;
 import com.green.airline.dto.response.SeatStatusResponseDto;
 import com.green.airline.repository.model.Airport;
 import com.green.airline.service.AirportService;
+import com.green.airline.service.ScheduleService;
 import com.green.airline.service.SeatService;
+import com.green.airline.utils.TicketUtil;
 
 /**
  * @author 서영
@@ -35,6 +38,10 @@ public class TicketController {
 	@Autowired
 	private AirportService airportService;
 	
+	@Autowired
+	private ScheduleService scheduleService;
+	
+	
 	/**
 	 * @return 항공권 옵션 선택 페이지
 	 */
@@ -48,30 +55,135 @@ public class TicketController {
 	}
 
 	/**
-	 * @return 선택한 옵션에 따른 운항스케줄 리스트 반환 (왕복)
+	 * @return 선택한 옵션에 따른 운항스케줄 리스트 반환
 	 */
-	@PostMapping("/flightSchedule/1")
+	@PostMapping("/flightSchedule/{type}")
 	@ResponseBody
-	public String selectScheduleListData1(@RequestBody ScheduleSelectDto scheduleSelectDto) {
+	public List<ScheduleInfoResponseDto> selectScheduleListData(@RequestBody ScheduleSelectDto scheduleSelectDto, @PathVariable Integer type) {
 		
+		List<ScheduleInfoResponseDto> responseList = new ArrayList<>();
 		
+		// 왕복
+		if (type == 1) {
+			// 첫 번째 여정에 해당하는 스케줄 리스트
+			List<ScheduleInfoResponseDto> firstScheduleList = scheduleService.readByAirportAndDepartureDate(scheduleSelectDto.getAirport1(), scheduleSelectDto.getAirport2(), scheduleSelectDto.getFlightDate1()); 
+			
+			firstScheduleList.forEach(s -> {
+				s.formatDate();
+				
+				List<SeatStatusResponseDto> eSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "이코노미");				
+				// 해당 스케줄에 운항하는 비행기의 전체 이코노미 좌석 수
+				Integer eTotalCount = eSeatList.size();
+				s.setEcTotalCount(eTotalCount);
+				
+				// 현재 예약 가능한 이코노미 좌석 수
+				Integer eCurCount = TicketUtil.currentSeatCount(eTotalCount, eSeatList);
+				s.setEcCurCount(eCurCount);
+				
+				
+				List<SeatStatusResponseDto> bSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "비즈니스");				
+				// 해당 스케줄에 운항하는 비행기의 전체 비즈니스 좌석 수
+				Integer bTotalCount = bSeatList.size();
+				s.setBuTotalCount(bTotalCount);
+				
+				// 현재 예약 가능한 비즈니스 좌석 수
+				Integer bCurCount = TicketUtil.currentSeatCount(bTotalCount, bSeatList);
+				s.setBuCurCount(bCurCount);
+				
+				
+				List<SeatStatusResponseDto> fSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "퍼스트");				
+				// 해당 스케줄에 운항하는 비행기의 전체 퍼스트 좌석 수
+				Integer fTotalCount = fSeatList.size();
+				s.setFiTotalCount(fTotalCount);
+				
+				// 현재 예약 가능한 퍼스트 좌석 수
+				Integer fCurCount = TicketUtil.currentSeatCount(fTotalCount, fSeatList);
+				s.setFiCurCount(fCurCount);
+				
+			});
+			
+			// 두 번째 여정에 해당하는 스케줄 리스트
+			List<ScheduleInfoResponseDto> secondScheduleList = scheduleService.readByAirportAndDepartureDate(scheduleSelectDto.getAirport2(), scheduleSelectDto.getAirport1(), scheduleSelectDto.getFlightDate2()); 
+			
+			// 좌석 정보
+			secondScheduleList.forEach(s -> {
+				s.formatDate();
+				
+				List<SeatStatusResponseDto> eSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "이코노미");				
+				// 해당 스케줄에 운항하는 비행기의 전체 이코노미 좌석 수
+				Integer eTotalCount = eSeatList.size();
+				s.setEcTotalCount(eTotalCount);
+				
+				// 현재 예약 가능한 이코노미 좌석 수
+				Integer eCurCount = TicketUtil.currentSeatCount(eTotalCount, eSeatList);
+				s.setEcCurCount(eCurCount);
+				
+				
+				List<SeatStatusResponseDto> bSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "비즈니스");				
+				// 해당 스케줄에 운항하는 비행기의 전체 비즈니스 좌석 수
+				Integer bTotalCount = bSeatList.size();
+				s.setBuTotalCount(bTotalCount);
+				
+				// 현재 예약 가능한 비즈니스 좌석 수
+				Integer bCurCount = TicketUtil.currentSeatCount(bTotalCount, bSeatList);
+				s.setBuCurCount(bCurCount);
+				
+				
+				List<SeatStatusResponseDto> fSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "퍼스트");				
+				// 해당 스케줄에 운항하는 비행기의 전체 퍼스트 좌석 수
+				Integer fTotalCount = fSeatList.size();
+				s.setFiTotalCount(fTotalCount);
+				
+				// 현재 예약 가능한 퍼스트 좌석 수
+				Integer fCurCount = TicketUtil.currentSeatCount(fTotalCount, fSeatList);
+				s.setFiCurCount(fCurCount);
+			});
+				
+			// 리스트 병합
+			responseList.addAll(firstScheduleList);
+			responseList.addAll(secondScheduleList);
+			
+		// 편도
+		} else {
+			responseList = scheduleService.readByAirportAndDepartureDate(scheduleSelectDto.getAirport1(), scheduleSelectDto.getAirport2(), scheduleSelectDto.getFlightDate1());
+			
+			// 좌석 정보
+			responseList.forEach(s -> {
+				s.formatDate();
+				
+				List<SeatStatusResponseDto> eSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "이코노미");				
+				// 해당 스케줄에 운항하는 비행기의 전체 이코노미 좌석 수
+				Integer eTotalCount = eSeatList.size();
+				s.setEcTotalCount(eTotalCount);
+				
+				// 현재 예약 가능한 이코노미 좌석 수
+				Integer eCurCount = TicketUtil.currentSeatCount(eTotalCount, eSeatList);
+				s.setEcCurCount(eCurCount);
+				
+				
+				List<SeatStatusResponseDto> bSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "비즈니스");				
+				// 해당 스케줄에 운항하는 비행기의 전체 비즈니스 좌석 수
+				Integer bTotalCount = bSeatList.size();
+				s.setBuTotalCount(bTotalCount);
+				
+				// 현재 예약 가능한 비즈니스 좌석 수
+				Integer bCurCount = TicketUtil.currentSeatCount(bTotalCount, bSeatList);
+				s.setBuCurCount(bCurCount);
+				
+				
+				List<SeatStatusResponseDto> fSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "퍼스트");				
+				// 해당 스케줄에 운항하는 비행기의 전체 퍼스트 좌석 수
+				Integer fTotalCount = fSeatList.size();
+				s.setFiTotalCount(fTotalCount);
+				
+				// 현재 예약 가능한 퍼스트 좌석 수
+				Integer fCurCount = TicketUtil.currentSeatCount(fTotalCount, fSeatList);
+				s.setFiCurCount(fCurCount);
+			});
+			
+		}
 		
-		System.out.println(scheduleSelectDto);
-		
-		return null;
-	}
-	
-	/**
-	 * @return 선택한 옵션에 따른 운항스케줄 리스트 반환 (편도)
-	 */
-	@PostMapping("/flightSchedule/2")
-	@ResponseBody
-	public ScheduleInfoResponseDto selectScheduleListData2(@RequestBody ScheduleSelectDto scheduleSelectDto) {
-		
-		System.out.println(scheduleSelectDto);
-		
-		
-		return null;
+		return responseList;
 	}
 	
 	/**

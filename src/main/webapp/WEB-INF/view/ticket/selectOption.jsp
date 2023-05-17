@@ -165,7 +165,43 @@
 					</button>
 				</div>
 			</div>
+			<br>
+			<hr style="width: 100%">
+			<br>
+	
+			<!-- 여기서부터 운항 스케줄 출력 -->
+			<div class="schedule--list--div" id="scheduleList1">
+				<h6 class="d-flex align-items-center" style="margin-bottom: 15px; color: #314f79">
+					<span class="material-symbols-outlined" style="font-size: 20px;">flight</span>&nbsp;
+					<!-- 왕복 : 가는 여정 / 편도 : 편도로 표시 -->
+					<span style="font-size: 18px;"></span>
+				</h6>
+				<h3 class="d-flex align-items-center" style="margin-bottom: 60px;">
+					<!-- 출발지 -->
+					<span></span>
+					<span style="font-size: 23px; margin: 0 12px 0 16px;">▶</span>
+					<!-- 도착지 -->
+					<span></span>
+				</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>출도착시간</th>
+							<th>항공편명</th>
+							<th>이코노미</th>
+							<th>비즈니스</th>
+							<th>퍼스트</th>
+						</tr>
+					</thead>
+					<tbody>
+						<!-- AJAX로 행 추가 -->
+					</tbody>
+				</table>
+				
+				
+			</div>
 		</div>
+		
 		
 		<!-- 전체 공항 조회 모달 -->
 		<div class="modal fade header--modal all--airport--modal">
@@ -232,13 +268,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<br>
-		<hr>
-
-		<!-- 여기서부터 운항 스케줄 출력 -->
-		<div>
-			dddd
 		</div>
 		
 	</main>
