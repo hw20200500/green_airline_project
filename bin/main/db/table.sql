@@ -175,6 +175,7 @@ CREATE TABLE in_flight_meal_detail_tb(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	name varchar(100) not null,
 	description text not null ,
+	image varchar(50) not null,
 	meal_id INT NOT NULL, FOREIGN KEY(meal_id) REFERENCES in_flight_meal_tb(id)
 );
 
