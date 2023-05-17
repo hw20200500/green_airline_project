@@ -82,7 +82,7 @@ $(document).ready(function() {
 
 		$.ajax({
 			type: "get",
-			url: "/inFlightService/specialMealReq?name=" + radioVal + "&amount=" + amountVal,
+			url: "/inFlightService/specialMealReq?name=" + radioVal + "&amount=" + amountVal +"&reservedDate=" + selectVal,
 			contentType: "application/json; charset=utf-8",
 		}).done(function(data) {
 			console.log("여기 오나요");

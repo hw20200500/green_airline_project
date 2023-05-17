@@ -194,6 +194,7 @@ CREATE TABLE notice_tb(
     content TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT now(),
     category_id INT NOT NULL, 
+    view_count INT default 0 NOT NULL,
     FOREIGN KEY(category_id) REFERENCES notice_category_tb(id)
 );
 

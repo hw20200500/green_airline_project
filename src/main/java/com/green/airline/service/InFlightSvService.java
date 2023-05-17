@@ -1,5 +1,6 @@
 package com.green.airline.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +48,10 @@ public class InFlightSvService {
 
 	// 기내식 신청 테이블 조회하고 값 userId 넣기
 	@Transactional
-	public void createInFlightMealRequest(String memberId, String name, Integer amount) {
+	public void createInFlightMealRequest(String memberId, String name, Integer amount, String reservedDate) {
 		// memberId로 가장 최근에 구매한 ticketId 가져오기
 		InFlightMealResponseDto inFlightMealRequestDto = inFlightServiceRepository
-				.selectInFlightMealRequestByUserId(memberId);
+				.selectInFlightMealRequestByUserId(memberId, reservedDate);
 		
 		// name을 검색해서 mealId 가져오기
 		InFlightMealDetail inFlightMealDetailEntity = inFlightServiceRepository.selectInFlightMealDetailByName(name);

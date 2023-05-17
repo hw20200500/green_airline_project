@@ -9,14 +9,14 @@ import lombok.Data;
 @Data
 public class InFlightMealResponseDto {
 
-	private int id;
+	private Integer id;
 	private Integer ticket_id;
 	private String ifmName;
 	private String ifmdName;
 	private String ifmDescription;
 	private String ifmdDescription;
 	private String image;
-	private int mealId;
+	private Integer mealId;
 	private Integer amount;
 	private Integer ticketId;
 	private String name;

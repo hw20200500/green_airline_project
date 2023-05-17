@@ -79,8 +79,7 @@
 		on rm.meal_id=ifm.id
 		inner join ticket_tb as t
 		on rm.ticket_id=t.id
-		where t.member_id=#{memberId}
-		order by t.id desc
+		where t.member_id=#{memberId} and t.reserved_date=#{reservedDate}
 	</select>
 	
 	<select id="selectInFlightMealDetailByName" resultType="com.green.airline.repository.model.InFlightMealDetail">
@@ -102,6 +101,7 @@
 		inner join ticket_tb as t
 		on rm.ticket_id=t.id
 		where t.member_id=#{memberId}
+		order by t.id desc
 	</select>
 
 	<select id="selectInFlightScheduleByMemberId" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
@@ -113,6 +113,7 @@
 		on rm.ticket_id=t.id
 		inner join schedule_tb as s
 		on t.schedule_id=s.id
+		where t.reserved_date>now()
 		order by t.id desc
 	</select>
 	

@@ -1,5 +1,6 @@
 package com.green.airline.repository.interfaces;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -29,7 +30,7 @@ public interface InFlightServiceRepository {
 	List<InFlightMeal> selectInFlightMealCategory();
 	
 	// memberId 기반 특별 기내식 신청 조회 기능  
-	InFlightMealResponseDto selectInFlightMealRequestByUserId(String memberId);
+	InFlightMealResponseDto selectInFlightMealRequestByUserId(@Param("memberId") String memberId, @Param("reservedDate") String reservedDate);
 	
 	// name 기반 상세 특별 기내식 조회 기능
 	InFlightMealDetail selectInFlightMealDetailByName(String name);

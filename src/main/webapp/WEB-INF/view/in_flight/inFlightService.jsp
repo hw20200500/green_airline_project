@@ -11,8 +11,12 @@
 		<h3>todo 기내 서비스 테이블 만들기</h3>
 		<div id="menu">
 			<c:forEach var="inFlightServices" items="${inFlightServices}">
-				<div>${inFlightServices.name}</div>
-				<div> <img alt="" src="/images/in_flight/${inFlightServices.image}"> </div>
+				<div>
+					<div>
+						<img alt="" src="/images/in_flight/${inFlightServices.image}">
+					</div>
+					<div>${inFlightServices.name}</div>
+				</div>
 			</c:forEach>
 		</div>
 		<c:forEach var="airportList" items="${airportList}">

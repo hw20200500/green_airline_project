@@ -9,11 +9,11 @@ import lombok.Data;
 @Data
 public class NoticeResponseDto {
 
-	private int id;
+	private Integer id;
 	private String title;
 	private String content;
 	private Timestamp createdAt;
-	private int categoryId;
+	private Integer categoryId;
 	private String name;
 	
 	public String dateFormat() {

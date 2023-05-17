@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.green.airline.dto.response.InFlightMealResponseDto;
-import com.green.airline.dto.response.InFlightServiceResponseDto;
 import com.green.airline.repository.model.Airport;
 import com.green.airline.repository.model.InFlightMeal;
 import com.green.airline.repository.model.InFlightService;
@@ -74,7 +73,6 @@ public class InFlightServiceController {
 	public String inFlightServiceSpecialPage(Model model,
 			@RequestParam(name = "name", defaultValue = "유아식 및 아동식", required = false) String name) {
 
-		System.out.println("name : " + name);
 		List<InFlightMealResponseDto> inFlightMeals = inFlightSvService.readInFlightMeal(name);
 		model.addAttribute("inFlightMeals", inFlightMeals);
 
@@ -98,24 +96,13 @@ public class InFlightServiceController {
 
 	// 특별 기내식 신청 페이지
 	@GetMapping("/specialMealReq")
-	public String specialMealReqProc(Model model, String memberId, @RequestParam String name,
-			@RequestParam Integer amount) {
+	public String specialMealReqProc(Model model, @RequestParam String name,
+			@RequestParam Integer amount, @RequestParam String reservedDate) {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		// todo
 		// 특별 기내식 상세 조회 기능 갖고 와야 함
 		// myInfo에 찍어줘야 함 (특별 기내식 신청 내역 페이지를 하나 만들던가 해야 함.)
-		inFlightSvService.createInFlightMealRequest(principal.getId(), name, amount);
-
-		// 한 사람이 여러개의 예약번호를 가질 수 있으니까 콤보 박스로 선택할 수 있도록
-		// 예약 번호를 갖고 와서 아직 여행을 가지 않은 것만 콤보 박스로 나오게 하고
-		// 노선도 보여주기
-
-		// 필요한 테이블
-		// 기본 테이블 -> request_meal_tb
-		// ticket_tb의 id를 가져와야 함 (예약 번호)
-
-		// 여행가지 않은 것만 갖고 오는 건 어떻게 함 ?
-		// 대안 1. service에서 resved_date와 현재 날짜를 비교하여 갖고 온다.
+		inFlightSvService.createInFlightMealRequest(principal.getId(), name, amount, reservedDate);
 
 		return "/in_flight/inFlightServiceSpecial";
 	}

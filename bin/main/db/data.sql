@@ -13,7 +13,7 @@ VALUES(1, '전체'),
 	(5, '기타안내');
 	
 INSERT INTO notice_tb(title, content, category_id)
-VALUES('asfd', 'asfd', 1);
+VALUES('6월 호국보훈의 달 국내선 특별할인 안내', '6월 호국 보훈의 달을 맞이하여 6월 한 달간 유공자 및 유족의 동반 보호자(1인)에게 아래와 같이 국내선 특별할인을 안내 드립니다. 아시아나항공 홈페이지/모바일에서 5월 22일(월) 부터 구매가 가능합니다. <br><br> 1. 할인 노선 <br> 국내선 전 노선 <br>  2. 적용 클래스 <br> 정상운임(Y CLS) (※ 비즈니스운임 제외) <br> 3. 할인 기간 <br> 2023년 6월 1일 ~ 6월 30일. 탑승일 기준', 2);
 
 INSERT INTO in_flight_service_tb(name, description, image)
 VALUES('식사', '식사 제공', 'serviceImage1.png'),
@@ -228,7 +228,7 @@ VALUES
 INSERT INTO ticket_tb
 VALUES 
 	(1, 4, 'abc', 1, '2023-05-13 12:00'),
-	(2, 4, 'abc', 1, '2023-05-15 13:00');
+	(2, 4, 'abc', 1, '2023-05-19 13:00');
 
 INSERT INTO reserved_seat_tb
 VALUES 
