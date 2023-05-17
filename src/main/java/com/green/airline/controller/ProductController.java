@@ -50,6 +50,8 @@ public class ProductController {
 	public String productMainPage(Model model) {
 		List<ShopProduct> productList = productService.productList();
 		model.addAttribute("productList",productList);
+			
+		
 		return "/mileage/productMainPage";
 		
 	}

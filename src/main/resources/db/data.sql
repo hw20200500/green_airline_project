@@ -7,7 +7,8 @@ VALUES ('abc', '1234', '회원');
 
 
 INSERT INTO shop_product_tb(brand,name,price,count,product_image,gifticon_image)
-		VALUES('brand','name',1234,3,'image.png','image2.png');
+		VALUES('brand','name',1234,3,'image.png','image2.png'),
+				('스타벅스','아이스 아메리카노',100,4,'image.png','image2.png');
 
 INSERT INTO member_tb
 VALUES 

@@ -29,6 +29,7 @@
 		delete from shop_product_tb where id = #{id};
 	</delete>
 
+<!-- 구매내역 입력 -->
 	<insert id="insertShopProductDto">
 		insert into shop_order_tb(amount,product_id,member_id)
 		values(#{amount},#{productId},#{memberId});
@@ -41,7 +42,7 @@
 		insert into gifticon_tb(end_date,order_id)
 		values(now(),#{orderId});
 	</insert>
-
+	<!-- 구매내역 조회 -->
 	<select id="selectShopOrder" resultType="com.green.airline.repository.model.ShopOrder">
 		select id from shop_order_tb
 		where member_id =#{memberId} order by id desc limit 1;
@@ -54,9 +55,12 @@
 	<select id="selectMileage" resultType="com.green.airline.repository.model.Mileage">
 	select * from mileage_tb where member_id = #{member_id} order by id desc limit 1;
 	</select>
+	<!-- 재고 수량 변경 -->
 	<update id="updateShopProductDto">
    	update shop_product_tb set count = #{hiddenCount} where id = #{productId};
    	</update>
+
+   	
 	<!-- 마일리지 적립할때 insert -->
 	<!-- <insert id=""> insert into mileage_tb(balance,save_mileage,description,member_id) valuse() </insert> -->
 
