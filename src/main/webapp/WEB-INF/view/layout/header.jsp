@@ -25,6 +25,294 @@
 </head>
 
 <style>
+<
+link
+ 
+rel
+="
+stylesheet
+"
+
+	
+href
+="
+https
+:
+//
+cdn
+.jsdelivr
+.net
+/
+npm
+/
+bootstrap
+@
+4
+.6
+.2
+/
+dist
+/
+css
+/
+bootstrap
+.min
+.css
+"
+>
+<
+link
+ 
+rel
+="
+stylesheet
+"
+ 
+href
+="/
+css
+/
+layout
+.css
+"
+>
+<
+link
+ 
+rel
+="
+stylesheet
+"
+
+	
+href
+="
+https
+:
+//
+fonts
+.googleapis
+.com
+/
+css2
+?
+family
+=
+Material
++
+Symbols
++
+Outlined
+:opsz
+,
+wght
+,
+FILL
+,
+GRAD
+@
+20
+.
+.48
+,
+100
+.
+.700
+,
+0
+.
+.1
+,
+-50
+.
+.200
+"
+/
+>
+<
+script
+
+	
+src
+="
+https
+:
+//
+cdn
+.jsdelivr
+.net
+/
+npm
+/
+jquery
+@
+3
+.6
+.4
+/
+dist
+/
+jquery
+.min
+.js
+"
+>
+</
+script
+>
+<
+script
+
+	
+src
+="
+https
+:
+//
+cdn
+.jsdelivr
+.net
+/
+npm
+/
+popper
+.js
+@
+1
+.16
+.1
+/
+dist
+/
+umd
+/
+popper
+.min
+.js
+"
+>
+</
+script
+>
+<
+script
+
+	
+src
+="
+https
+:
+//
+cdn
+.jsdelivr
+.net
+/
+npm
+/
+bootstrap
+@
+4
+.6
+.2
+/
+dist
+/
+js
+/
+bootstrap
+.bundle
+.min
+.js
+"
+>
+</
+script
+>
+<
+link
+ 
+rel
+="
+preconnect
+"
+ 
+href
+="
+https
+:
+//
+fonts
+.googleapis
+.com
+"
+>
+<
+link
+ 
+rel
+="
+preconnect
+"
+ 
+href
+="
+https
+:
+//
+fonts
+.gstatic
+.com
+"
+ 
+crossorigin
+>
+<
+link
+
+	
+href
+="
+https
+:
+//
+fonts
+.googleapis
+.com
+/
+css2
+?
+family
+=
+Noto
++
+Sans
++
+KR
+:wght
+@
+500
+;
+700
+;
+900
+&
+display
+=
+swap
+"
+
+	
+rel
+="
+stylesheet
+"
+>
+</
+head
+>
+<
+style
+>
 </style>
 
 <body>
@@ -84,27 +372,29 @@
 							<div class="nav--div2"></div>
 							<div class="nav--split"></div>
 							<ul>
+								<li><a href="/ticket/selectOption">항공권 옵션 선택</a>
 								<li><a href="/ticket/selectSeat/1">좌석 선택</a>
 								<li><a href="#">세부메뉴</a>
 								<li><a href="#">세부메뉴</a>
 								<li><a href="#">세부메뉴</a>
 								<li><a href="#">세부메뉴</a>
 								<li><a href="#">세부메뉴</a>
+							</ul>
+							<div class="nav--split"></div>
+							<ul>
+								<li><a href="/inFlightService/inFlightServiceSearch">기내
+										서비스</a>
+								<li><a href="/inFlightService/inFlightServiceList">기내
+										서비스 순서</a>
+								<li><a href="/inFlightService/inFlightServiceSpecial">특별
+										기내식</a>
+								<li><a href="#">세부메뉴</a>
+								<li><a href="#">세부메뉴</a>
 								<li><a href="#">세부메뉴</a>
 							</ul>
 							<div class="nav--split"></div>
 							<ul>
-								<li><a href="#">세부메뉴</a>
-								<li><a href="#">세부메뉴</a>
-								<li><a href="#">세부메뉴</a>
-								<li><a href="#">세부메뉴</a>
-								<li><a href="#">세부메뉴</a>
-								<li><a href="#">세부메뉴</a>
-								<li><a href="#">세부메뉴</a>
-							</ul>
-							<div class="nav--split"></div>
-							<ul>
-								<li><a href="/board/list">추천 여행지</a>
+								<li><a href="/board/list">여행일지</a>
 								<li><a href="#">세부메뉴</a>
 								<li><a href="#">세부메뉴</a>
 								<li><a href="#">세부메뉴</a>
@@ -169,3 +459,4 @@
 		</c:if>
 
 		<script src="/js/layout.js"></script>
+		

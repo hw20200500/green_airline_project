@@ -44,13 +44,13 @@ public class BoardService {
 		}
 
 	}
-	
+
 	// 추천 여행지 게시글 상세보기
-	public Board Detail(int id) {
-		
-		Board boardListDto = boardRepository.findByBoardDetail(id);
-		
-		return boardListDto;
+	public BoardListDto boardListDetail(Integer id) {
+
+		BoardListDto boardDto = boardRepository.findByBoardDetail(id);
+
+		return boardDto;
 	}
 
 }

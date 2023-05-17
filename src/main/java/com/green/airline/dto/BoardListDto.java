@@ -9,6 +9,6 @@ public class BoardListDto {
 	private String title;
 	private String content;
 	private String userId;
-	private int viewCount;
+	private Integer viewCount;
 
 }

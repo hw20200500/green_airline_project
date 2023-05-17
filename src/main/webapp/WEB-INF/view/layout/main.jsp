@@ -2,11 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
+
 	
 	<!-- 여기 안에 쓰기 -->
 	<main>
-		ㅇㅇ
+		
 	</main>
+
 
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

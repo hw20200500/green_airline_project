@@ -38,12 +38,8 @@
 				<div class="d-flex justify-content-center">
 					<button type="submit" class="btn btn-primary">로그인</button>
 				</div>
-				
 			</form>
 		</div>
 	</main>
-
-
-
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

@@ -65,6 +65,7 @@ main {
 .material--li {
 	display: flex; 
 	align-items: center;
+	margin-right: 3px;
 	margin-right: 5px;
 }
 
@@ -226,7 +227,7 @@ nav {
 	height: 100%;
 	font-size: 16px;
 	color: white;
-	font-weight: 600;
+	font-weight: 500;
 	border: 1px solid #ccc;
 	border-top: hidden;
 	border-bottom: hidden;

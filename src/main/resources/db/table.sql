@@ -42,7 +42,7 @@ CREATE TABLE manager_tb(
 -- 공항
 CREATE TABLE airport_tb(
    id INT PRIMARY KEY AUTO_INCREMENT,
-    nation VARCHAR(50) NOT NULL,
+    region VARCHAR(50) NOT NULL,
     name VARCHAR(50) NOT NULL
 );
 
@@ -155,7 +155,7 @@ CREATE TABLE available_service_tb(
 -- 기내식 종류
 CREATE TABLE in_flight_meal_tb(
    id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL DEFAULT '기본 기내식',
+    name VARCHAR(50) NOT NULL,
     description TEXT NOT NULL
 );
 
@@ -164,10 +164,19 @@ CREATE TABLE in_flight_meal_tb(
 CREATE TABLE request_meal_tb(
    id INT PRIMARY KEY AUTO_INCREMENT,
     amount INT NOT NULL,
-    meal_id INT NOT NULL, 
+    meal_id INT NOT NULL DEFAULT 1, 
+    ticket_id INT NOT NULL,
+    FOREIGN KEY(ticket_id) REFERENCES ticket_tb(id),
     FOREIGN KEY(meal_id) REFERENCES in_flight_meal_tb(id)
 );
 
+-- 기내식 상세 테이블
+CREATE TABLE in_flight_meal_detail_tb(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	name varchar(100) not null,
+	description text not null ,
+	meal_id INT NOT NULL, FOREIGN KEY(meal_id) REFERENCES in_flight_meal_tb(id)
+);
 
 -- 공지사항 카테고리
 CREATE TABLE notice_category_tb(

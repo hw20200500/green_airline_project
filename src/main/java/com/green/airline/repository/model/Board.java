@@ -13,7 +13,7 @@ public class Board {
 	private String title;
 	private String content;
 	private String userId;
-	private int viewCount;
+	private Integer viewCount;
 	private Timestamp createdAt;
 
 	public String formatDate() {
