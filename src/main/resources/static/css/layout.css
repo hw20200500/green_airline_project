@@ -36,13 +36,13 @@ header {
 }
 
 .header--top, nav {
-	width: 1300px;
+	width: 1200px;
 	min-width: 1000px;
 }
 
 main {
 	/* border: 1px solid #ccc; */
-	min-width: 1300px;
+	min-width: 1200px;
 	padding-left: 22px;
 	margin-bottom: 100px;
 }
@@ -54,7 +54,11 @@ main {
 
 .header--top li {
 	font-size: 14px;
-	line-height: 1.6
+	line-height: 1.6;
+}
+
+.header--top li a {
+	color: #3e3e3e;
 }
 
 .li--split {
@@ -65,7 +69,7 @@ main {
 .material--li {
 	display: flex; 
 	align-items: center;
-	margin-right: 5px;
+	margin-right: 3px;
 }
 
 
@@ -80,7 +84,7 @@ main {
 .logo {
 	min-width: 250px;
 	height: 64px;
-	margin: 0px 10px 17px 20px;
+	margin: 0px 10px 17px 17px;
 	color: white;
 	cursor: pointer;
 }
@@ -110,7 +114,8 @@ nav {
 	font-weight: 600;
 	min-width: 100%;
 	text-align: center;
-	color: #314f79; 
+	/*color: #314f79;*/
+	color: #373737; 
 }
 
 .nav--depth1 li a:hover {
@@ -120,7 +125,7 @@ nav {
 .nav--bar {
 	background-color: #174481;
 	height: 7px;
-	width: 257px;
+	width: 232px;
 	display: none;
 	position: relative;
 }
@@ -147,12 +152,12 @@ nav {
 }
 
 .nav--div1 {
-	min-width: 25px;
+	min-width: 23px;
 	height: 100%;
 }
 
 .nav--div2 {
-	min-width: 257px; 
+	min-width: 255px; 
 	height: 100%;
 	background-color: #F3FCFE;
 }
@@ -160,7 +165,7 @@ nav {
 .nav--depth2 ul {
 	text-align: center;
 	padding: 10px;
-	min-width: 255px;
+	min-width: 230px;
 }
 
 .nav--split {
@@ -176,8 +181,12 @@ nav {
 
 .nav--depth2--div li {
 	font-size: 17px;
-	margin: 5px 0;
-	padding: 10px 0;
+	padding: 15px 0;
+	border-bottom: 1px solid buttonshadow;
+}
+
+.nav--depth2--div li:last-of-type {
+	border-bottom: hidden;
 }
 
 .nav--depth2--div li a {
@@ -194,7 +203,7 @@ nav {
 	background-color: #9b9b9e;
 	display: flex;
 	justify-content: flex-start;
-	min-width: 1300px;
+	min-width: 1200px;
 	z-index: 1;
 }
 
@@ -226,7 +235,7 @@ nav {
 	height: 100%;
 	font-size: 16px;
 	color: white;
-	font-weight: 600;
+	font-weight: 500;
 	border: 1px solid #ccc;
 	border-top: hidden;
 	border-bottom: hidden;

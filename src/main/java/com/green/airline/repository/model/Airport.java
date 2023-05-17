@@ -7,7 +7,7 @@ import lombok.Data;
 public class Airport {
 
 	private Integer id;
-	private String nation;
+	private String region;
 	private String name;
 	
 }

@@ -105,6 +105,7 @@
 </script>
 
 <script src="/js/ticket.js"></script>
+<script src="/js/seat.js"></script>
 
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
