@@ -139,7 +139,8 @@ CREATE TABLE ticket_payment_tb(
 CREATE TABLE in_flight_service_tb(
    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
-    description TEXT NOT NULL
+    description TEXT NOT NULL,
+    image VARCHAR(50) NOT NULL
 );
 
 

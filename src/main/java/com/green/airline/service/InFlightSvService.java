@@ -61,4 +61,18 @@ public class InFlightSvService {
 			System.out.println("실패");
 		}
 	}
+	
+	// 특별 기내식 신청 전체 조회 기능 
+	// memberId 기반 운항 예약 번호를 가져와 
+//	public List<InFlightMealResponseDto> readInFlightMealRequest(String memberId) {
+//		List<InFlightMealResponseDto> inFlightMealResponseDtos = inFlightServiceRepository.selectInFlightMealRequestByMemberId(memberId);
+//		
+//		return inFlightMealResponseDtos;
+//	}
+	
+	public List<InFlightMealResponseDto> readInFlightMealSchedule(){
+		List<InFlightMealResponseDto> inFlightMealResponseDtos = inFlightServiceRepository.selectInFlightScheduleByMemberId();
+
+		return inFlightMealResponseDtos;
+	}
 }

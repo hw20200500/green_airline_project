@@ -3,6 +3,7 @@
 <div>
 	<main>
 		<h1>특별 기내식</h1>
+		<input type="hidden" name="memberId" value="memberId">
 
 		<div>
 			<div>항목 선택</div>
@@ -27,6 +28,7 @@
 				<span>${inFlightMeals.ifmdName}</span>
 				<p>${inFlightMeals.ifmdDescription}</p>
 			</c:forEach>
+
 		</div>
 
 		<div>
@@ -49,20 +51,37 @@
 
 						<!-- Modal body -->
 						<div class="modal-body">
-							<div>종류</div>
-							<div class="modal--ifmdName">
-								<div id="inFlightMeals--detail">
-									<c:forEach var="inFlightMeals" items="${inFlightMeals}" varStatus="status">
-										<input type="radio" class="radio--ifmd" name="ifmdName" id="ifmdName--label${status.index}" value="${inFlightMeals.ifmdName}">
-										<label for="ifmdName--label${status.index}">${inFlightMeals.ifmdName}</label>
-										<br>
-									</c:forEach>
+							<div>
+								<div>예약 일정</div>
+								<div class="modal--div--arrivaldate">
+									<div id="inFlight--arrival">
+										<select name="modal--name--arrivaldate" id="modal--id--arrivaldate">
+											<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}">
+												<option value="${inFlightServiceResponseDtos.reservedDateFormat()}" id="arrival--option">${inFlightServiceResponseDtos.reservedDateFormat()}</option>
+											</c:forEach>
+										</select> <br>
+									</div>
 								</div>
 							</div>
+							
+							<div>
+								<div>종류</div>
+								<div class="modal--ifmdName">
+									<div id="inFlightMeals--detail">
+										<c:forEach var="inFlightMeals" items="${inFlightMeals}" varStatus="status">
+											<input type="radio" class="radio--ifmd" name="ifmdName" id="ifmdName--label${status.index}" value="${inFlightMeals.ifmdName}">
+											<label for="ifmdName--label${status.index}">${inFlightMeals.ifmdName}</label>
+											<br>
+										</c:forEach>
+									</div>
+								</div>
+							</div>
+
 							<div>
 								<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
 								수량 &nbsp;<input type="number" name="amount" min="1">
 							</div>
+							<div></div>
 						</div>
 
 						<!-- Modal footer -->

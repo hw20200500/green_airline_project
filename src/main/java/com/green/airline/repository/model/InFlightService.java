@@ -8,5 +8,6 @@ public class InFlightService {
 	private int id;
 	private String name;
 	private String description;
+	private String image;
 	
 }

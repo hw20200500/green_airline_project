@@ -15,12 +15,12 @@ VALUES(1, '전체'),
 INSERT INTO notice_tb(title, content, category_id)
 VALUES('asfd', 'asfd', 1);
 
-INSERT INTO in_flight_service_tb(name, description)
-VALUES('식사', '식사 제공'),
-	('간식', '간식 제공'),
-	('식전 음료', '식전 음료 제공'),
-	('음료', '음료 제공'),
-	('면세품 판매', '면세품 판매 제공');
+INSERT INTO in_flight_service_tb(name, description, image)
+VALUES('식사', '식사 제공', 'serviceImage1.png'),
+	('간식', '간식 제공', 'serviceImage2.png'),
+	('식전 음료', '식전 음료 제공', 'serviceImage3.png'),
+	('음료', '음료 제공', 'serviceImage5.png'),
+	('면세품 판매', '면세품 판매 제공', 'serviceImage6.png');
 	
 INSERT INTO in_flight_meal_tb(name, description)
 VALUES
@@ -223,13 +223,12 @@ VALUES
 
 INSERT INTO schedule_tb 
 VALUES 
-	(1, '2023-06-13 13:00', '2023-06-13 14:05', 1, 1),
-	(2, '2023-06-10 08:00', '2023-06-11 11:45', 1, 2);
+	(1, '2023-06-13 13:00', '2023-06-13 14:05', 1, 1);
 
 INSERT INTO ticket_tb
 VALUES 
 	(1, 4, 'abc', 1, '2023-05-13 12:00'),
-	(2, 4, 'abc', 1, '2023-05-13 12:00');
+	(2, 4, 'abc', 1, '2023-05-15 13:00');
 
 INSERT INTO reserved_seat_tb
 VALUES 

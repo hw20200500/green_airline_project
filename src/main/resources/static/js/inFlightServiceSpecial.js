@@ -13,8 +13,10 @@ $(document).ready(function() {
 		}).done(function(data) {
 			let description = $("#inFlightMeals--description");
 			let detail = $("#inFlightMeals--detail");
+			let arrival = $("#inFlight--arrival");
 			let image = $("#inFlightMeals--image");
 			let modalIfmdName = $(".modal--ifmdName");
+			let modalDivArrialDate = $(".modal--div--arrivaldate");
 
 			for (let i = 0; i < data.length; i++) {
 				// div태그 만들기
@@ -26,6 +28,16 @@ $(document).ready(function() {
 				let divNode2 = $("<span>");
 				divNode.append(divNode2);
 				divNode2.append(data[i].ifmdName);
+
+				let selectNode = $("<select>");
+				selectNode.attr("name", "modal--name--arrivaldate");
+				selectNode.attr("id", "modal--id--arrivaldate" + i);
+				let optionNode = $("<option>");
+				optionNode.attr("value", data[i].departureDateFormat());
+				optionNode.attr("id", "arrival--label" + i);
+				modalDivArrialDate.append(arrival);
+				arrival.append(selectNode);
+				selectNode.append(optionNode);
 
 				let radioNode = $("<input>");
 				radioNode.attr("type", "radio");
@@ -63,8 +75,10 @@ $(document).ready(function() {
 		// 체크박스 체크 여부 확인
 		let radioVal = $('input[name="ifmdName"]:checked').val();
 		let amountVal = $('input[name="amount"]').val();
+		let selectVal = $('select[name="modal--name--arrivaldate"').val();
 		console.log(radioVal);
 		console.log(amountVal);
+		console.log(selectVal);
 
 		$.ajax({
 			type: "get",
