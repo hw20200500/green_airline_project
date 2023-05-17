@@ -47,13 +47,16 @@
 		where member_id =#{memberId} order by id desc limit 1;
 	</select>
 	<!-- 마일리지 사용할때 insert -->
-	<insert id=""> insert into mileage_tb(balance,use_mileage,description,member_id)
-		values(#{balance},,#{memberId})
+	<insert id="insertMileage"> insert into mileage_tb(balance,use_mileage,member_id)
+		values(#{balance}-#{useMileage},#{useMileage},#{memberId})
 	</insert>
 	<!-- 마일리지 조회 -->	
 	<select id="selectMileage" resultType="com.green.airline.repository.model.Mileage">
-	select * from mileage_tb where member_id = #{member_id}
+	select * from mileage_tb where member_id = #{member_id} order by id desc limit 1;
 	</select>
+	<update id="updateShopProductDto">
+   	update shop_product_tb set count = #{hiddenCount} where id = #{productId};
+   	</update>
 	<!-- 마일리지 적립할때 insert -->
 	<!-- <insert id=""> insert into mileage_tb(balance,save_mileage,description,member_id) valuse() </insert> -->
 

@@ -3,9 +3,10 @@ package com.green.airline.dto;
 import lombok.Data;
 
 @Data
-public class ShopProductDto {
+public class ShopOrderDto {
 
 	
+	private int amount;
 	private int productId;
-	private int hiddenCount;
+	private String memberId;
 }

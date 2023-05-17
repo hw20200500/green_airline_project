@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.green.airline.dto.GifticonDto;
+import com.green.airline.dto.MileageDto;
+import com.green.airline.dto.ShopOrderDto;
 import com.green.airline.dto.ShopProductDto;
 import com.green.airline.repository.interfaces.ProductRepository;
 import com.green.airline.repository.model.Mileage;
@@ -54,7 +56,7 @@ public class ProductService {
 	}
 	
 	
-	public int createByUserId(ShopProductDto productDto) {
+	public int createByUserId(ShopOrderDto productDto) {
 		int resultRowCount = productRepository.insertShopProductDto(productDto);
 		return resultRowCount;
 	}
@@ -73,5 +75,16 @@ public class ProductService {
 	public Mileage readMileage(String memberId) {
 		Mileage mileage = productRepository.selectMileage(memberId);
 		return mileage;
+	}
+	// 마일리지 사용 insert
+	public int createUseMileage(MileageDto mileageDto) {
+		int result = productRepository.insertMileage(mileageDto);
+		return result;
+	}
+	
+	// 재고 수량 수정
+	public int updateByProductId(ShopProductDto  shopProductDto) {
+		int result = productRepository.updateShopProductDto(shopProductDto);
+		return result;
 	}
 }

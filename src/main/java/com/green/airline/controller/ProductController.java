@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.green.airline.dto.GifticonDto;
+import com.green.airline.dto.MileageDto;
+import com.green.airline.dto.ShopOrderDto;
 import com.green.airline.dto.ShopProductDto;
+import com.green.airline.repository.model.Mileage;
 import com.green.airline.repository.model.ShopOrder;
 import com.green.airline.repository.model.ShopProduct;
 import com.green.airline.repository.model.User;
@@ -34,6 +37,7 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
+
 	
 	@Autowired
 	private HttpSession session;
@@ -132,8 +136,14 @@ public class ProductController {
 	 */
 	@GetMapping("/productdetail/{id}")
 	public String productDetailPage(@PathVariable int id,Model model) {
+		Mileage mileage = new Mileage();
+		User principal = (User)session.getAttribute(Define.PRINCIPAL);
+		if (principal != null) {
+			 mileage = productService.readMileage(principal.getId());
+		}
 		ShopProduct shopProduct = productService.productDetail(id);
-		 model.addAttribute(shopProduct);
+		model.addAttribute(shopProduct);
+		model.addAttribute(mileage);
 		return "/mileage/detailPage";
 	}
 	
@@ -145,14 +155,17 @@ public class ProductController {
 	 * @return
 	 */
 	@PostMapping("/buyProduct")
-	public String buyProductProc(ShopProductDto shopProductDto) {
+	public String buyProductProc(ShopOrderDto shopProductDto, MileageDto mileageDto, ShopProductDto shopProductDto2) {
 		GifticonDto gifticonDto = new GifticonDto();
 		User principal = (User)session.getAttribute(Define.PRINCIPAL);
 		shopProductDto.setMemberId(principal.getId());
 		productService.createByUserId(shopProductDto);
 		gifticonDto.setOrderId(productService.readShopOrder(principal.getId()).getId());
 		productService.createGifticon(gifticonDto);
-		productService.readMileage(principal.getId());
+		mileageDto.setMemberId(principal.getId());
+		mileageDto.setBalance(productService.readMileage(principal.getId()).getBalance());
+		productService.createUseMileage(mileageDto);
+		productService.updateByProductId(shopProductDto2);
 		return "redirect:/product/productMain";
 	}
 	

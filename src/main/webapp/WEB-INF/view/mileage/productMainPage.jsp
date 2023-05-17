@@ -30,6 +30,7 @@
 						${productList.brand}
 						${productList.name}
 						${productList.price}
+						${productList.count}
 					</td>
 				</tr>
 				<br>
@@ -39,5 +40,8 @@
 	</main>
 </div>
 
+<script>
+	
+</script>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
