@@ -17,5 +17,6 @@ public class InFlightMealResponseDto {
 	private String name;
 	private String description;
 	private String memberId;
+	private Integer portId;
 	
 }
