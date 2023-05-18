@@ -62,11 +62,17 @@ public class BoardController {
 	@ResponseBody
 	@GetMapping("/detail/{id}")
 	public Board boardDetail(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response) {
+		Board board = new Board();
 
-		Board board = boardService.boardListDetail(id);
-		
-		boardService.viewCountCookie(id, request, response);
-		
+		board = boardService.boardListDetail(id);
+
+		boolean viewUp = boardService.viewCountCookie(id, request, response);
+
+		// 모달창 띄웠을 때 조회수 증가한 화면 보여주기
+		if (viewUp) {
+			board.setViewCount(board.getViewCount() + 1);
+		}
+
 		return board;
 	}
 

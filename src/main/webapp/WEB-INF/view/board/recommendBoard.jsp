@@ -54,7 +54,7 @@
 		<div class="modal-dialog modal-dialog-scrollable">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel">디테일한 여행 일지</h5>
+					<h5 class="modal-title" id="staticBackdropLabel">${board.userId}님의 여행 일지</h5>
 					<button type="button" class="close" aria-label="Close"
 						data-dismiss="modal">
 						<span aria-hidden="true">&times;</span>

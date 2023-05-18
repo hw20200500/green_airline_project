@@ -20,5 +20,5 @@ public interface BoardRepository {
 	// 게시물 상세 보기 클릭 시 조회수 증가
 	public Board findByBoardDetail(Integer id);
 	// 게시물 조회 수 증가
-	public void updateByViewCount(Integer viewCount);
+	public void updateByViewCount(Integer id);
 }

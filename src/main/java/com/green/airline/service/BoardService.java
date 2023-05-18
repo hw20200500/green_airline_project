@@ -61,34 +61,12 @@ public class BoardService {
 		return board;
 	}
 
-	public void viewCountCookie(Integer id, HttpServletRequest request, HttpServletResponse response) {
+	// 게시글 상세보기 시 조회수 증가
+	public boolean viewCountCookie(Integer id, HttpServletRequest request, HttpServletResponse response) {
 
-		Board board = new Board();
+		Cookie oldCookie = null;
+
 		Cookie[] cookies = request.getCookies();
-		Cookie cookie = null;
-		boolean isCookie = false;
-
-		for (int i = 0; cookies != null && i < cookies.length; i++) {
-			// newMember 쿠키가 있으면 배열에 쿠키 넣기
-			if (!cookies[i].getName().equals("newMember")) {
-				cookie = cookies[i];
-
-				// 게시글 번호가 쿠키에 포함되어있지 않으면 조회수 증가
-				if (!cookie.getValue().contains("[" + id + "]")) {
-					boardRepository.updateByViewCount(id);
-					cookie.setValue(cookie.getValue() + "[" + id + "]");
-				}
-				isCookie = true;
-				break;
-			}
-		}
-
-		// 쿠키가 없으면 새 쿠키 생성, 조회수 증가
-		if (!isCookie) {
-			boardRepository.updateByViewCount(board.getViewCount());
-			cookie = new Cookie("newMember", "[" + id + "]");
-		}
-
 		// 쿠키 초기화 00시로 설정
 		// 현재 하루의 종료 시간, YYYY-MM-DDT23:59:59.9999999
 		LocalDateTime todayEndTime = LocalDate.now().atTime(LocalTime.MAX);
@@ -98,14 +76,39 @@ public class BoardService {
 		long todayEndSecond = todayEndTime.toEpochSecond(ZoneOffset.UTC);
 		// 현재 시간을 시간초로 변환
 		long currentSecond = currentTime.toEpochSecond(ZoneOffset.UTC);
-		// 모든 경로에서 접근 가능
-		cookie.setPath("/");
 
-		// 하루 종료시간 - 현재 시간
-		cookie.setMaxAge((int) (todayEndSecond - currentSecond));
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				// newMember 쿠키가 있으면 배열에 쿠키 넣기
+				if (cookie.getName().equals("newMember")) {
+					oldCookie = cookie;
+				}
+			}
+		}
+		
+		if (oldCookie != null) {
+			// 쿠키 값에 게시글 번호 없으면 조회수 증가
+			if (!oldCookie.getValue().contains("[" + id + "]")) {
+				boardRepository.updateByViewCount(id);
+				oldCookie.setValue(oldCookie.getValue() + "[" + id + "]");
+				// 모든 경로에서 접근 가능
+				oldCookie.setPath("/");
+				// 하루 종료시간 - 현재 시간
+				oldCookie.setMaxAge((int) (todayEndSecond - currentSecond));
+				response.addCookie(oldCookie);
+				return true;
+			}
+			// 쿠키가 없으면 새 쿠키 생성, 조회수 증가
+		} else {
+			boardRepository.updateByViewCount(id);
+			Cookie newCookie = new Cookie("newMember", "[" + id + "]");
+			newCookie.setPath("/");
+			newCookie.setMaxAge((int) (todayEndSecond - currentSecond));
+			response.addCookie(newCookie);
+			return true;
+		}
 
-		response.addCookie(cookie);
-
+		return false;
 	}
 
 }

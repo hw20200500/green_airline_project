@@ -5,10 +5,8 @@ $(document).ready(function() {
 		// $(this)는 이벤트가 발생한 대상 자체를 가리킴
 		// id 이름에서 board.id만 가져옴
 		let boardId = parseInt($(this).attr("id").split("boardDetail")[1]);
-		console.log(boardId);
 		
 		let date = ($(this).children().eq(4));
-		console.log(date.text());
 
 		$.ajax({
 			type: "GET",
