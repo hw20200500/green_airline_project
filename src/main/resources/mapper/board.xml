@@ -31,4 +31,18 @@
 		where id = #{id};
 	</update>
 
+	<insert id="insertByHeart">
+		insert into like_heart_tb (board_id, user_id)
+		values
+		(#{boardId}, #{userId});
+	</insert>
+
+	<delete id="deleteByHeart">
+		delete from like_heart_tb
+		where board_id = #{boardId}
+		and
+		user_id = #{userId}
+	</delete>
+
+
 </mapper>

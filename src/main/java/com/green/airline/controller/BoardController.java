@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.green.airline.dto.BoardListDto;
+import com.green.airline.dto.BoardHeartDto;
 import com.green.airline.repository.model.Board;
 import com.green.airline.service.BoardService;
 
@@ -51,9 +51,9 @@ public class BoardController {
 
 	// 게시글 작성하기
 	@PostMapping("/insert")
-	public String boardWirteProc(BoardListDto boardListDto) {
+	public String boardWirteProc(Board Board) {
 
-		boardService.insertBoard(boardListDto);
+		boardService.insertBoard(Board);
 
 		return "redirect:/board/list";
 	}
@@ -61,19 +61,18 @@ public class BoardController {
 	// 추천여행지 상세 보기
 	@ResponseBody
 	@GetMapping("/detail/{id}")
-	public Board boardDetail(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response) {
-		Board board = new Board();
-
-		board = boardService.boardListDetail(id);
+	public BoardHeartDto boardDetail(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response) {
+		
+		BoardHeartDto boardDto = boardService.boardListDetail(id);
 
 		boolean viewUp = boardService.viewCountCookie(id, request, response);
 
 		// 모달창 띄웠을 때 조회수 증가한 화면 보여주기
 		if (viewUp) {
-			board.setViewCount(board.getViewCount() + 1);
+			boardDto.setViewCount(boardDto.getViewCount() + 1);
 		}
 
-		return board;
+		return boardDto;
 	}
-
+	
 }

@@ -6,8 +6,9 @@ import javax.websocket.server.PathParam;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.ui.Model;
 
-import com.green.airline.dto.BoardListDto;
+import com.green.airline.dto.BoardHeartDto;
 import com.green.airline.repository.model.Board;
 
 @Mapper
@@ -17,8 +18,12 @@ public interface BoardRepository {
 	public List<Board> findByBoardList();
 	// 게시물 쓰기
 	public int insertByBoard(Board board);
-	// 게시물 상세 보기 클릭 시 조회수 증가
-	public Board findByBoardDetail(Integer id);
+	// 게시물 상세 보기
+	public BoardHeartDto findByBoardDetail(Integer id);
 	// 게시물 조회 수 증가
 	public void updateByViewCount(Integer id);
+	// 좋아요 
+	public void insertByHeart();
+	// 좋아요 취소
+	public void deleteByHeart();
 }

@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
-import com.green.airline.dto.BoardListDto;
+import com.green.airline.dto.BoardHeartDto;
 import com.green.airline.repository.interfaces.BoardRepository;
 import com.green.airline.repository.model.Board;
 
@@ -37,14 +38,12 @@ public class BoardService {
 	}
 
 	// 추천 여행지 게시글 작성
-	public void insertBoard(BoardListDto boardListDto) {
+	public void insertBoard(Board board) {
 
-		Board board = new Board();
-
-		board.setTitle(boardListDto.getTitle());
-		board.setUserId(boardListDto.getUserId());
-		board.setContent(boardListDto.getContent());
-		board.setViewCount(boardListDto.getViewCount());
+		board.setTitle(board.getTitle());
+		board.setUserId(board.getUserId());
+		board.setContent(board.getContent());
+		board.setViewCount(board.getViewCount());
 
 		int result = boardRepository.insertByBoard(board);
 		if (result != 1) {
@@ -54,9 +53,9 @@ public class BoardService {
 	}
 
 	// 추천 여행지 게시글 상세보기
-	public Board boardListDetail(Integer id) {
+	public BoardHeartDto boardListDetail(Integer id) {
 
-		Board board = boardRepository.findByBoardDetail(id);
+		BoardHeartDto board = boardRepository.findByBoardDetail(id);
 
 		return board;
 	}
@@ -110,5 +109,22 @@ public class BoardService {
 
 		return false;
 	}
+	
+	// 좋아요 추가, 취소
+	public BoardHeartDto giveLikeHeart(Model model, Integer id) {
+		
+		BoardHeartDto boardHeartDto;
+		
+		
+		return null;
+	}
 
 }
+
+
+
+
+
+
+
+

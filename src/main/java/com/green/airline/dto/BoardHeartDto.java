@@ -1,4 +1,4 @@
-package com.green.airline.repository.model;
+package com.green.airline.dto;
 
 import java.sql.Timestamp;
 
@@ -7,8 +7,8 @@ import com.green.airline.utils.TimestampUtil;
 import lombok.Data;
 
 @Data
-public class Board {
-
+public class BoardHeartDto {
+	
 	private Integer id;
 	private String title;
 	private String content;
@@ -20,6 +20,5 @@ public class Board {
 	public String formatDate() {
 		return TimestampUtil.dateToString(createdAt);
 	}
-
 
 }

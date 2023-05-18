@@ -47,54 +47,41 @@
 </main>
 
 <%-- Modal --%>
-<form action="/board/detail/${board.id}" method="get">
-	<div class="modal fade" id="modalDetail" data-backdrop="static"
-		data-keyboard="false" tabindex="-1"
-		aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-scrollable">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="staticBackdropLabel">${board.userId}님의 여행 일지</h5>
-					<button type="button" class="close" aria-label="Close"
-						data-dismiss="modal">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<%-- 모달 내용 입력 --%>
-					<table class="table_detail" border="1">
-						<tbody>
-							<tr>
-								<td class="board--title"></td>
-							</tr>
-							<tr>
-								<td class="board--content"></td>
-							</tr>
-							<tr>
-								<td class="board--userId"></td>
-							</tr>
-							<tr>
-								<td class="board--viewCount"></td>
-							</tr>
-							<tr>
-								<td class="board--date"></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+<div class="modal fade" id="modalDetail" data-backdrop="static"
+	data-keyboard="false" tabindex="-1"
+	aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">그린에어 여행일지</h5>
+				<button type="button" class="close" aria-label="Close"
+					data-dismiss="modal">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<%-- 모달 내용 입력 --%>
+				<div class="board--title"></div>
+				<div class="board--content"></div>
+				<div class="board--userId"></div>
+				<div class="board--viewCount"></div>
+				<div class="board--heart" id="boardDetail${board.heart}"
+					style="cursor: pointer;"></div>
+				<div class="board--date"></div>
 			</div>
 		</div>
 	</div>
-</form>
+</div>
 <script src="/js/board.js"></script>
 <!-- 
 === TODO ===
-페이징처리
-찜, 조회수
-조회수 : 쿠키시간 24시간(다른 게시글을 들어가도 24시-현재시간)만큼 유지시켜서
-쿠키 유지시간 늘어나는 경우 방지
-파일 업로드 (드래그앤드롭)
-추천순, 조회수 많은순 필터링 기능
+1. 페이징처리
+2. 찜 - 게시물 삭제, 사용자 삭제되면 하트 사라짐,
+사용자 닉네임 수정시 userId 수정
+2-1. 찜 + 조회수 / 게시물 = 높은 숫자 게시물 5개만
+상위에 보여주기
+3. 파일 업로드 (드래그앤드롭)
+4. 추천순, 조회수 많은순 필터링 기능
 -->
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
