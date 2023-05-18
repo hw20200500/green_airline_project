@@ -15,8 +15,6 @@ $(document).ready(function() {
 			let detail = $("#inFlightMeals--detail");
 			let arrival = $("#inFlight--arrival");
 			let image = $("#inFlightMeals--image");
-			let modalIfmdName = $(".modal--ifmdName");
-			let modalDivArrialDate = $(".modal--div--arrivaldate");
 
 			for (let i = 0; i < data.length; i++) {
 				// div태그 만들기
@@ -32,12 +30,12 @@ $(document).ready(function() {
 				let selectNode = $("<select>");
 				selectNode.attr("name", "modal--name--arrivaldate");
 				selectNode.attr("id", "modal--id--arrivaldate" + i);
-				let optionNode = $("<option>");
+				/*let optionNode = $("<option>");
 				optionNode.attr("value", data[i].departureDateFormat());
 				optionNode.attr("id", "arrival--label" + i);
 				modalDivArrialDate.append(arrival);
 				arrival.append(selectNode);
-				selectNode.append(optionNode);
+				selectNode.append(optionNode);*/
 
 				let radioNode = $("<input>");
 				radioNode.attr("type", "radio");
@@ -85,7 +83,6 @@ $(document).ready(function() {
 			url: "/inFlightService/specialMealReq?name=" + radioVal + "&amount=" + amountVal +"&reservedDate=" + selectVal,
 			contentType: "application/json; charset=utf-8",
 		}).done(function(data) {
-			console.log("여기 오나요");
 			// 티켓 인원수 조회해서 특별식 신청 수량이 > 티켓 인원수 -> 오류 & alert창 + insert 처리 막기
 		}).fail(function(error) {
 			console.log(error);
@@ -93,3 +90,7 @@ $(document).ready(function() {
 	});
 });
 
+$('.modal').on('hidden.bs.modal', function (e) {
+    console.log('modal close');
+  $(this).find('form')[0].reset()
+});

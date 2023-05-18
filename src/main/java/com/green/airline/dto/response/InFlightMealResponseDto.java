@@ -28,6 +28,7 @@ public class InFlightMealResponseDto {
 	private Integer airplaneId;
 	private Integer routeId;
 	private Timestamp reservedDate;
+	private Integer seatCount;
 	
 	public String arrivalDateFormat() {
 		return TimestampUtil.dateTimeToString(arrivalDate);

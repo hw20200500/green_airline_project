@@ -329,30 +329,30 @@ $("#calculateBtn").on("click", function() {
 		$("#calculaterResult").text("날짜가 입력되지 않았습니다.");
 		return;
 	}
-	
+
 	// 날짜 형식으로 변환
 	let birthDate = stringToDate($("#birthDate").val());
 	let thisDate = stringToDate($("#thisDate").val());
-	
+
 	if (birthDate == "error" || thisDate == "error") {
 		$("#calculaterResult").text("유효하지 않은 날짜입니다.");
 		return;
-		
-	// 유효한 날짜 형식이라면 나이 계산
+
+		// 유효한 날짜 형식이라면 나이 계산
 	} else {
 		let bTime = birthDate.getTime();
 		let tTime = thisDate.getTime();
 		let timeDiff = tTime - bTime;
-		
+
 		if (timeDiff < 0) {
 			$("#calculaterResult").text("입력된 생년월일이 탑승일 이후입니다.");
 			return;
 		}
-		
+
 		let age = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365));
 		console.log(age + "살");
 		let result;
-		
+
 		if (age < 2) {
 			result = "유아";
 		} else if (age < 12) {
@@ -362,7 +362,7 @@ $("#calculateBtn").on("click", function() {
 		}
 		let thisDateStr = $("#thisDate").val();
 		$("#calculaterResult").html(`탑승일 <span>(${thisDateStr})</span> 기준으로 <span>${result}</span>입니다.`);
-			
+
 	}
 });
 
@@ -390,11 +390,11 @@ function stringToDate(str) {
 			return "error";
 		}
 	} else if (month > 12) {
-		return "error";	
+		return "error";
 	} else {
 		if (day > 31) {
 			return "error";
 		}
 	}
-	return new Date(year, month-1, day);
+	return new Date(year, month - 1, day);
 }

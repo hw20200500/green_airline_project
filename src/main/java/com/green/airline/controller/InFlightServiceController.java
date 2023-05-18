@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,6 +42,10 @@ public class InFlightServiceController {
 
 		List<Airport> airportList = airportService.readAll();
 		model.addAttribute("airportList", airportList);
+		
+//		Airport airport = new Airport();
+		List<Airport> regionList =  airportService.readRegion();
+		model.addAttribute("regionList", regionList);
 
 		return "/in_flight/inFlightService";
 	}
@@ -50,10 +55,14 @@ public class InFlightServiceController {
 	public String inFlightServiceSearchPage(Model model) {
 		List<InFlightService> inFlightServices = inFlightSvService.readInFlightService();
 		model.addAttribute("inFlightServices", inFlightServices);
+		
+		List<Airport> regionList = airportService.readRegion();
+		model.addAttribute("regionList", regionList);
 
-		return "/in_flight/inFlightSearch";
+		return "/in_flight/inFlightSvSearch";
 	}
-
+	
+	
 	@PostMapping("/inFlightServiceSearch")
 	public String inFlightServiceSearch(Model model, String keyword) {
 		List<InFlightService> inFlightServices = inFlightSvService.readInFlightServiceByName(keyword);
@@ -86,13 +95,6 @@ public class InFlightServiceController {
 		return "/in_flight/inFlightServiceSpecial";
 	}
 
-	// // 기내식 페이지
-//	@GetMapping("/inFlightList")
-//	public String inFlightMealPage() {
-//		
-//		
-//		return "/in_flight/inFlightMeal";
-//	}
 
 	// 특별 기내식 신청 페이지
 	@GetMapping("/specialMealReq")

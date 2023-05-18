@@ -19,8 +19,8 @@ INSERT INTO in_flight_service_tb(name, description, image)
 VALUES('식사', '식사 제공', 'serviceImage1.png'),
 	('간식', '간식 제공', 'serviceImage2.png'),
 	('식전 음료', '식전 음료 제공', 'serviceImage3.png'),
-	('음료', '음료 제공', 'serviceImage5.png'),
-	('면세품 판매', '면세품 판매 제공', 'serviceImage6.png');
+	('음료', '음료 제공', 'serviceImage4.png'),
+	('면세품 판매', '면세품 판매 제공', 'serviceImage5.png');
 	
 INSERT INTO in_flight_meal_tb(name, description)
 VALUES

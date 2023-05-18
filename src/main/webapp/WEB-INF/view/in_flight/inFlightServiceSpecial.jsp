@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<style></style>
+
 <div>
 	<main>
-		<h1>특별 기내식</h1>
+		<h2>특별 기내식</h2>
 		<input type="hidden" name="memberId" value="memberId">
 
 		<div>
@@ -63,7 +65,7 @@
 									</div>
 								</div>
 							</div>
-							
+
 							<div>
 								<div>종류</div>
 								<div class="modal--ifmdName">
@@ -79,9 +81,10 @@
 
 							<div>
 								<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
-								수량 &nbsp;<input type="number" name="amount" min="1">
+								<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}" varStatus="status">
+								수량 &nbsp;<input type="number" id="seat--count--input${status.index}" name="amount" min="1" max="${inFlightServiceResponseDtos.seatCount}">
+								</c:forEach>
 							</div>
-							<div></div>
 						</div>
 
 						<!-- Modal footer -->
