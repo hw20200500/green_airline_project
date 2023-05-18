@@ -318,8 +318,8 @@ input[type=number] {
   cursor: pointer;
 }
 
-.td--seat input:disabled {
-  cursor: text;
+.td--seat input:disabled, .td--disabled--seat {
+  cursor: text !important;
 }
 
 .td--seat label {

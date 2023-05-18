@@ -653,12 +653,15 @@ $("#selectScheduleBtn").on("click", function() {
 						// 신청 인원 수보다 좌석 수가 적다면 라디오 버튼을 비활성화함 (유아는 좌석을 차지하지 않음)
 						if (res[i].ecCurCount < passengerCount) {
 							$(`#scheduleList1Ec${i}`).prop("disabled", true);
+							$(`#scheduleList1Ec${i}`).parent().children().addClass("td--disabled--seat");
 						}
 						if (res[i].buCurCount < passengerCount) {
 							$(`#scheduleList1Bu${i}`).prop("disabled", true);
+							$(`#scheduleList1Bu${i}`).parent().children().addClass("td--disabled--seat");
 						}
 						if (res[i].fiCurCount < passengerCount) {
 							$(`#scheduleList1Fi${i}`).prop("disabled", true);
+							$(`#scheduleList1Fi${i}`).parent().children().addClass("td--disabled--seat");
 						}
 					}
 					
@@ -749,12 +752,15 @@ $("#selectScheduleBtn").on("click", function() {
 						// 신청 인원 수보다 좌석 수가 적다면 라디오 버튼을 비활성화함 (유아는 좌석을 차지하지 않음)
 						if (res[i].ecCurCount < passengerCount) {
 							$(`#scheduleList2Ec${i}`).prop("disabled", true);
+							$(`#scheduleList2Ec${i}`).parent().children().addClass("td--disabled--seat");
 						}
 						if (res[i].buCurCount < passengerCount) {
 							$(`#scheduleList2Bu${i}`).prop("disabled", true);
+							$(`#scheduleList2Bu${i}`).parent().children().addClass("td--disabled--seat");
 						}
 						if (res[i].fiCurCount < passengerCount) {
 							$(`#scheduleList2Fi${i}`).prop("disabled", true);
+							$(`#scheduleList2Fi${i}`).parent().children().addClass("td--disabled--seat");
 						}
 					}
 				}
@@ -891,12 +897,15 @@ $("#selectScheduleBtn").on("click", function() {
 					// 신청 인원 수보다 좌석 수가 적다면 라디오 버튼을 비활성화함 (유아는 좌석을 차지하지 않음)
 					if (res[i].ecCurCount < passengerCount) {
 						$(`#scheduleList0Ec${i}`).prop("disabled", true);
+						$(`#scheduleList0Ec${i}`).parent().children().addClass("td--disabled--seat");
 					}
 					if (res[i].buCurCount < passengerCount) {
 						$(`#scheduleList0Bu${i}`).prop("disabled", true);
+						$(`#scheduleList0Bu${i}`).parent().children().addClass("td--disabled--seat");
 					}
 					if (res[i].fiCurCount < passengerCount) {
 						$(`#scheduleList0Fi${i}`).prop("disabled", true);
+						$(`#scheduleList0Fi${i}`).parent().children().addClass("td--disabled--seat");
 					}
 				}
 			}
