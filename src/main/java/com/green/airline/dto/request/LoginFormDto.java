@@ -1,4 +1,4 @@
-package com.green.airline.dto;
+package com.green.airline.dto.request;
 
 import lombok.Data;
 

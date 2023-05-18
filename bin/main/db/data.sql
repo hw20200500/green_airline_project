@@ -167,10 +167,11 @@ VALUES
 INSERT INTO seat_grade_tb
 VALUES
 	('이코노미', 1),
-	('비즈니스', 4);
+	('비즈니스', 3),
+	('퍼스트', 6);	
 	
 INSERT INTO airplane_tb (name)
-VALUES ('그린 403');
+VALUES ('G4503');
 
 INSERT INTO seat_tb
 VALUES 

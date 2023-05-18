@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.green.airline.dto.request.ScheduleSelectDto;
 import com.green.airline.dto.response.ScheduleInfoResponseDto;
 import com.green.airline.dto.response.SeatInfoResponseDto;
+import com.green.airline.dto.response.SeatPriceDto;
 import com.green.airline.dto.response.SeatStatusResponseDto;
 import com.green.airline.repository.model.Airport;
 import com.green.airline.service.AirportService;
@@ -45,13 +46,13 @@ public class TicketController {
 	/**
 	 * @return 항공권 옵션 선택 페이지
 	 */
-	@GetMapping("/selectOption")
+	@GetMapping("/selectSchedule")
 	public String selectTicketOptionPage(Model model) {
 		
 		List<Airport> regionList = airportService.readRegion();
 		model.addAttribute("regionList", regionList);
 		
-		return "/ticket/selectOption";
+		return "/ticket/selectSchedule";
 	}
 
 	/**
@@ -69,7 +70,15 @@ public class TicketController {
 			List<ScheduleInfoResponseDto> firstScheduleList = scheduleService.readByAirportAndDepartureDate(scheduleSelectDto.getAirport1(), scheduleSelectDto.getAirport2(), scheduleSelectDto.getFlightDate1()); 
 			
 			firstScheduleList.forEach(s -> {
+				// 형식 변환
 				s.formatDate();
+				
+				// 좌석 등급별 티켓 가격 가져오기
+				SeatPriceDto seatPriceDto = seatService.readSeatPriceByScheduleId(s.getId());
+				s.setEcPrice(seatPriceDto.getEconomyPrice());
+				s.setBuPrice(seatPriceDto.getBusinessPrice());
+				s.setFiPrice(seatPriceDto.getFirstPrice());
+				s.formatMoney();
 				
 				List<SeatStatusResponseDto> eSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "이코노미");				
 				// 해당 스케줄에 운항하는 비행기의 전체 이코노미 좌석 수
@@ -107,7 +116,15 @@ public class TicketController {
 			
 			// 좌석 정보
 			secondScheduleList.forEach(s -> {
+				// 형식 변환
 				s.formatDate();
+				
+				// 좌석 등급별 티켓 가격 가져오기
+				SeatPriceDto seatPriceDto = seatService.readSeatPriceByScheduleId(s.getId());
+				s.setEcPrice(seatPriceDto.getEconomyPrice());
+				s.setBuPrice(seatPriceDto.getBusinessPrice());
+				s.setFiPrice(seatPriceDto.getFirstPrice());
+				s.formatMoney();
 				
 				List<SeatStatusResponseDto> eSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "이코노미");				
 				// 해당 스케줄에 운항하는 비행기의 전체 이코노미 좌석 수
@@ -149,7 +166,15 @@ public class TicketController {
 			
 			// 좌석 정보
 			responseList.forEach(s -> {
+				// 형식 변환
 				s.formatDate();
+				
+				// 좌석 등급별 티켓 가격 가져오기
+				SeatPriceDto seatPriceDto = seatService.readSeatPriceByScheduleId(s.getId());
+				s.setEcPrice(seatPriceDto.getEconomyPrice());
+				s.setBuPrice(seatPriceDto.getBusinessPrice());
+				s.setFiPrice(seatPriceDto.getFirstPrice());
+				s.formatMoney();
 				
 				List<SeatStatusResponseDto> eSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "이코노미");				
 				// 해당 스케줄에 운항하는 비행기의 전체 이코노미 좌석 수

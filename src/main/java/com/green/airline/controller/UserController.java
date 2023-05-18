@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.green.airline.dto.LoginFormDto;
+import com.green.airline.dto.request.LoginFormDto;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.UserService;
