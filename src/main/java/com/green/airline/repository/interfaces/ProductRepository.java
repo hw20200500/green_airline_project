@@ -11,13 +11,12 @@ import com.green.airline.dto.ShopProductDto;
 import com.green.airline.repository.model.Mileage;
 import com.green.airline.repository.model.ShopOrder;
 import com.green.airline.repository.model.ShopProduct;
-import com.green.airline.repository.model.User;
 
 @Mapper
 public interface ProductRepository {
 
 	public int insert(ShopProduct shopProduct);
-	public List<ShopProduct> selectProductList();
+	public List<ShopProduct> selectProductList(String searchOrder);
 	public ShopProduct selectById(int id);
 	public int updateProduct(ShopProduct shopProduct);
 	public int deleteProduct(int id);

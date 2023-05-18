@@ -11,7 +11,18 @@
 
 	<!-- 상품 리스트 조회 -->
 	<select id="selectProductList" resultType="com.green.airline.repository.model.ShopProduct">
-		SELECT * FROM SHOP_PRODUCT_TB
+		<if test="searchOrder == 'clasic'">
+			SELECT * FROM SHOP_PRODUCT_TB
+		</if>
+		<if test="searchOrder == 'DESC'">
+			<!-- 높은순 -->
+			SELECT * FROM SHOP_PRODUCT_TB order by price desc
+
+		</if>
+		<if test="searchOrder == 'ASC'">
+			<!-- 낮은순 -->
+			SELECT * FROM SHOP_PRODUCT_TB order by price asc
+		</if>
 	</select>
 
 	<!-- 상품 상세 조회 -->
@@ -29,7 +40,7 @@
 		delete from shop_product_tb where id = #{id};
 	</delete>
 
-<!-- 구매내역 입력 -->
+	<!-- 구매내역 입력 -->
 	<insert id="insertShopProductDto">
 		insert into shop_order_tb(amount,product_id,member_id)
 		values(#{amount},#{productId},#{memberId});
@@ -51,16 +62,20 @@
 	<insert id="insertMileage"> insert into mileage_tb(balance,use_mileage,member_id)
 		values(#{balance}-#{useMileage},#{useMileage},#{memberId})
 	</insert>
-	<!-- 마일리지 조회 -->	
+
+	<!-- 마일리지 조회 -->
 	<select id="selectMileage" resultType="com.green.airline.repository.model.Mileage">
-	select * from mileage_tb where member_id = #{member_id} order by id desc limit 1;
+
+		select * from mileage_tb where member_id = #{member_id} order by id desc limit 1;
+
+
 	</select>
 	<!-- 재고 수량 변경 -->
 	<update id="updateShopProductDto">
-   	update shop_product_tb set count = #{hiddenCount} where id = #{productId};
-   	</update>
+		update shop_product_tb set count = #{hiddenCount} where id = #{productId};
+	</update>
 
-   	
+	
 	<!-- 마일리지 적립할때 insert -->
 	<!-- <insert id=""> insert into mileage_tb(balance,save_mileage,description,member_id) valuse() </insert> -->
 

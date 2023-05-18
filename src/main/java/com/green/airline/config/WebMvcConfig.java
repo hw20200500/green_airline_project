@@ -13,4 +13,6 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	        registry.addResourceHandler("/product/**")
 	                .addResourceLocations("file:///C:\\Users\\GGG\\Desktop\\image/");
 	    }
+	 
+	
 }

@@ -16,9 +16,9 @@
 					<p class="title">[${shopProduct.brand}] ${shopProduct.name}</p>
 					<img alt="" src="/product/${shopProduct.productImage}">
 					<div class="mileage">
-						<div class="mile">
+							<%--<div class="mile">
 							<span class="">${shopProduct.price}</span>마일
-						</div>
+						</div> --%>
 
 						<c:choose>
 							<c:when test="${principal == null}">
@@ -28,8 +28,9 @@
 							</c:when>
 							<c:otherwise>
 								<p>
-									현재 마일리지 : <span class="myMileage">${mileage.balance}</span>
+									현재 마일리지 : <span class="" >${mileage.balanceNumber()}</span>
 								</p>
+									<span class="myMileage" style="display: none">${mileage.balance}</span>
 							</c:otherwise>
 						</c:choose>
 
@@ -66,7 +67,9 @@
 									</div>
 								</div>
 								<div class="price">
-									<span class="num each_mile">${shopProduct.price}</span>마일
+									<span class="">${shopProduct.priceNumber()}</span>마일
+									<span class="num each_mile" style="display: none">${shopProduct.price}</span>마일
+									
 								</div>
 								<a href="#none" class="btn_delete"><span class="hidden">삭제</span></a>
 							</div>
@@ -82,16 +85,16 @@
 							</dl>
 
 							<div class="btn_area">
-								
+
 								<c:choose>
-								<c:when test="${principal != null}">
-								<p>이메일을 입력 해주세요</p>
-								<input type="text" name="email">
-								<button type="submit" class="buyButton" id="buyButton">구매하기 버튼으로 만들꺼임</button>
-								</c:when>
-								<c:otherwise>
-								<a href="/login" class="btn_arrow flow-action-login">로그인 페이지로 이동</a>
-								</c:otherwise>
+									<c:when test="${principal != null}">
+										<p>이메일을 입력 해주세요</p>
+										<input type="text" name="email">
+										<button type="submit" class="buyButton" id="buyButton">구매하기 버튼으로 만들꺼임</button>
+									</c:when>
+									<c:otherwise>
+										<a href="/login" class="btn_arrow flow-action-login">로그인 페이지로 이동</a>
+									</c:otherwise>
 								</c:choose>
 
 							</div>
@@ -156,8 +159,7 @@
 		$(this).val("");
 	});
 	
-
-
+	
 	// 삭제 버튼 클릭 시
 	$(".btn_delete").on("click", function() {
 		let countInput = $("input[name='amount']");
@@ -170,7 +172,6 @@
 		countInput.val(1);
 		totalPriceElement.text(initialPrice);
 		$(this).parent().hide();
-		flow.action.calcPrice();
 		
 	});
 	
@@ -182,6 +183,7 @@
 					function() {
 						let minusTarget = document
 						.querySelector('.btn_number.minus');
+						
 						let target = document
 								.querySelector('.btn_number.plus');
 						let countInput = document
@@ -196,12 +198,14 @@
 								.querySelector('input[name="useMileage"]');
 						let hiddenCount = document
 						.querySelector('input[name="hiddenCount"]');
+						
 						if (countValue < 5) {
 							countInput.value = countValue + 1;
-							totalPriceElement.textContent = price
-									* (countValue + 1);
+							totalPriceElement.textContent = priceToString(price
+									* (countValue + 1));
 							hiddenPrice.value = price * (countValue + 1);
 							hiddenCount.value = ${shopProduct.count} - countInput.value
+							
 							minusTarget.disabled = false;
 						}else if(countValue == 5){
 							alert('최대 5개 까지 선택 가능합니다');
@@ -239,16 +243,22 @@
 						
 						if (countValue > 1) {
 							countInput.value = countValue - 1;
-							totalPriceElement.textContent = price
-									* (countValue - 1);
-							hiddenPrice.value = price * (countValue - 1);
+							totalPriceElement.textContent = priceToString(price
+									* (countValue - 1));
+							hiddenPrice.value = priceToString(price * (countValue - 1));
 							hiddenCount.value = ${shopProduct.count} - countInput.value
+							console.log(hiddenPrice.value);							
 							target.disabled = false;
 						} else if (countValue > 0) {
 							minusTarget.disabled = true;
 							alert('최소 1개는 선택 해야합니다');
 						}
 					});
+	function priceToString(price1) {
+	    return price1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+	}
+	/* console.log(priceToString(myMileage)); */
+	
 	/* 마일리지 비교 */
 	document.querySelector('.buyButton')
 			.addEventListener('click',
@@ -270,6 +280,8 @@
 					
 				
 			});
+	
+	
 	
 	
 </script>

@@ -3,8 +3,12 @@ package com.green.airline.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import com.green.airline.dto.EmailDto;
 import com.green.airline.dto.GifticonDto;
 import com.green.airline.dto.MileageDto;
 import com.green.airline.dto.ShopOrderDto;
@@ -16,12 +20,15 @@ import com.green.airline.repository.model.ShopProduct;
 import com.green.airline.repository.model.User;
 
 @Service
+@Component
 public class ProductService {
 
 	
 	@Autowired
 	private ProductRepository productRepository; 
 	
+	@Autowired
+	private  JavaMailSender MailSender;
 	
 	// 상품 등록
 	public void productRegistration(ShopProduct shopProduct) {
@@ -29,9 +36,9 @@ public class ProductService {
 	}
 	
 	// 상품 리스트 조회
-	public List<ShopProduct> productList(){
+	public List<ShopProduct> productList(String searchOrder){
 		
-		List<ShopProduct> list = productRepository.selectProductList();
+		List<ShopProduct> list = productRepository.selectProductList(searchOrder);
 		return list;
 	}
 	// 상품 상세 조회
@@ -86,5 +93,16 @@ public class ProductService {
 	public int updateByProductId(ShopProductDto  shopProductDto) {
 		int result = productRepository.updateShopProductDto(shopProductDto);
 		return result;
+	}
+	
+	
+	// 키프티콘 메일 전송
+	public void sendMail(EmailDto mail) {
+		SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(mail.getAddress());
+//        message.setFrom(""); from 값을 설정하지 않으면 application.yml의 username값이 설정됩니다.
+        message.setSubject(mail.getTitle());
+        message.setText(mail.getMessage());
+        System.out.println(mail.toString());
 	}
 }
