@@ -27,15 +27,17 @@
 								</p>
 							</c:when>
 							<c:otherwise>
-								<p>현재 마일리지 : <span class="myMileage">${mileage.balance}</span></p>
+								<p>
+									현재 마일리지 : <span class="myMileage">${mileage.balance}</span>
+								</p>
 							</c:otherwise>
 						</c:choose>
 
 
 					</div>
-					<div class="dateinfo">
+					<!-- <div class="dateinfo">
 						<span class="date">2023-05-15 09:00 ~ 2023-05-22 08:59</span> <span class="deadline"><span class="num">7</span>일 남음</span>
-					</div>
+					</div> -->
 
 					<!-- 상품 선택영역 -->
 					<form name="frmDefault" id="frmDefault" method="post" action="/product/buyProduct">
@@ -51,7 +53,7 @@
 							<div class="selected_prd 001" style="display: none;">
 								<div class="tit">
 									<p>
-										[${shopProduct.brand}] ${shopProduct.name}<span class="type">[${shopProduct.brand}] ${shopProduct.name}</span>
+										<span class="type">[${shopProduct.brand}] ${shopProduct.name}</span>
 									</p>
 								</div>
 								<div class="quantity">
@@ -80,14 +82,21 @@
 							</dl>
 
 							<div class="btn_area">
-
-								<button type="submit" class="buyButton">구매하기 버튼으로 만들꺼임</button>
-								<button type="button" class="testbutton">test</button>
+								
+								<c:choose>
+								<c:when test="${principal != null}">
+								<p>이메일을 입력 해주세요</p>
+								<input type="text" name="email">
+								<button type="submit" class="buyButton" id="buyButton">구매하기 버튼으로 만들꺼임</button>
+								</c:when>
+								<c:otherwise>
+								<a href="/login" class="btn_arrow flow-action-login">로그인 페이지로 이동</a>
+								</c:otherwise>
+								</c:choose>
 
 							</div>
 						</div>
-						<input type="hidden" name="productId" value="${shopProduct.id}">
-						 <input type="hidden" name="hiddenCount" value="${shopProduct.count}">
+						<input type="hidden" name="productId" value="${shopProduct.id}"> <input type="hidden" name="hiddenCount" value="${shopProduct.count}">
 					</form>
 					<!-- 상품 선택영역 -->
 
@@ -132,6 +141,9 @@
 
 </div>
 <script>
+
+
+/* 제품 옵션 나오게 */
 	$("#optionList").on("change", function() {
 		let selectedOption = $(this).val();
 
@@ -143,6 +155,8 @@
 
 		$(this).val("");
 	});
+	
+
 
 	// 삭제 버튼 클릭 시
 	$(".btn_delete").on("click", function() {
@@ -182,8 +196,6 @@
 								.querySelector('input[name="useMileage"]');
 						let hiddenCount = document
 						.querySelector('input[name="hiddenCount"]');
-						 /* console.log(${shopProduct.count}) */ 
-						 console.log(hiddenCount.value) 
 						if (countValue < 5) {
 							countInput.value = countValue + 1;
 							totalPriceElement.textContent = price
@@ -223,6 +235,8 @@
 								.querySelector('input[name="useMileage"]');
 						let hiddenCount = document
 						.querySelector('input[name="hiddenCount"]');
+						
+						
 						if (countValue > 1) {
 							countInput.value = countValue - 1;
 							totalPriceElement.textContent = price
@@ -236,7 +250,7 @@
 						}
 					});
 	/* 마일리지 비교 */
-	document.querySelector('.testbutton')
+	document.querySelector('.buyButton')
 			.addEventListener('click',
 					function() {
 				let myMileage = document
@@ -245,6 +259,7 @@
 				.getElementById('spanPrice').innerHTML;
 				let hiddenCount = document
 				.querySelector('input[name="hiddenCount"]');
+				
 				
 				if(parseInt(myMileage) < parseInt(totalPriceElement)){
 					 event.preventDefault();
@@ -255,6 +270,8 @@
 					
 				
 			});
+	
+	
 </script>
 
 

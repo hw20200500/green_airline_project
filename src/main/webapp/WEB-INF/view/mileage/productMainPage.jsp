@@ -3,10 +3,13 @@
 
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <style>
-/* .product_card.soldout::before,.product_card.type2.soldout::before {content: '';display: block;position: absolute;width: 210px;height: 210px;border: 6px solid #a9a9a9;background-repeat: no-repeat;background-color: rgba(255,255,255,.7);z-index: 10;box-sizing: border-box;} */ 
+   /* .product_card.soldout::before{content: '';display: block;position: absolute;width: 210px;height: 210px;border: 6px solid #a9a9a9;background-repeat: no-repeat;background-color: rgba(255,255,255,.7);z-index: 10;box-sizing: border-box;} */   
+.product_card.soldout::before{
+content: '';display: block;position: absolute;width: 210px;height: 210px;border: 6px solid #a9a9a9;background-repeat: no-repeat;background-color: rgba(255,255,255,.7);z-index: 10;box-sizing: border-box;
+}
 
 </style>
-<div>
+<div >
 
 	<!-- 여기 안에 쓰기 -->
 	<main>
@@ -31,7 +34,7 @@
 		<!-- 상품 메인 페이지 -->
 
 		<c:forEach var="productList" items="${productList}">
-			<div class="product_card type2 soldout">
+			<div class="product_card" id="product">
 				<div class="prd_img">
 				<a class="aclass"></a>
 					<a href="productdetail/${productList.id}" ><img class="imgClass" alt="prd_img" src="/product/${productList.productImage}"></a>
@@ -47,7 +50,7 @@
 						<div class="date_info hidden">
 							<span class="date">23.05.15 ~ 23.05.22</span>
 						</div>
-						<input type="text" value="${productList.count}" name="count">
+						<input type="hidden" value="${productList.count}" name="countName" class="count">
 					</dd>
 				</dl>
 			</div>
@@ -59,25 +62,16 @@
 </div>
 
 <script>
-	let count = document.querySelector('input[name="count"]');
-	console.log(count.value);
-	let soldOut = document.getElementsByClassName('imgClass')
-	console.log(soldOut);
-	if (count.value == 3) {
-		/* let soldOut = document.querySelector('.aclass')
-		let img = document.getElementsByClassName('imgClass') */
-		/* lit img = document.querySelector('.imgClass') */
-		/* soldOut.style.content = ""; */
-		/* soldOut.style.display = "block"; */
-		/* soldOut.style.position = "relative"; */
-		/* soldOut.style.backgroundRepeat = "no-repeat"; */
-		/* soldOut.style.border = "6px solid #a9a9a9"; */
-		/* soldOut.style.height = "210px";
-		soldOut.style.width = "210px";
-		soldOut.style['background-color'] = 'rgba(255,255,255,.7)';
-		soldOut.style.zIndex = "100"; */
-		/* soldOut.style.boxSizing = "border-box";  */
+ let count = document.getElementsByClassName('count');
+let test = document.getElementsByClassName('product_card')[0].className
+let test1 = document.getElementById('product')
+console.log(test)
+ for(i = 0;i < count.length; i++){
+	if (count[i].value == 0) {
+		  document.getElementsByClassName('product_card')[i].className = 'product_card soldout';
+		  console.log(count[i].value);
 	}
+}
 </script>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
