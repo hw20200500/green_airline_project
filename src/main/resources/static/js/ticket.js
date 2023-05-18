@@ -6,14 +6,24 @@ function selectedType(i) {
 	} else if ($(`#ticket--type${i}`).hasClass("selected--type") == false) {
 		$(`#ticketType${i}`).addClass("selected--type");
 		$(`#ticketType${i}`).siblings().removeClass("selected--type");
-		// 탑승일 초기화
-		$(".flight--date").val("");
-		$(".flight--date1").val("");
+		// 첫 탑승일은 넘김
+		
+		// 왕복이라면
+		if (i == 1) {
+			let dateVal = $(".flight--date").val();
+			$(".flight--date1").val(dateVal);
+			$(".flight--date").val("");
+			$("#flightDate").val(dateVal + " ~ ");
+		} else {
+			let dateVal = $(".flight--date1").val();
+			$(".flight--date").val(dateVal);
+			$(".flight--date1").val("");
+			$("#flightDate").val(dateVal);
+			
+		}
 		$(".flight--date2").val("");
-		$("#flightDate").val("");
 		$(".datepicker--div--type1").hide();
 		$(".datepicker--div--type2").hide();
-		$("#flightDate").removeClass("flight--date--inserted");
 	}
 }
 
@@ -27,6 +37,13 @@ function airportSwap() {
 
 // 키가 입력될 때마다 자동완성 불러오기
 $("#departure").on("keyup focus change", function() {
+	// 만약 창이 숨겨진 상태라면
+	if ($("#departureAirport").is(":hidden")) {
+		$("#departureAirport").show();
+		$(".datepicker--div--type1").hide();
+		$(".datepicker--div--type2").hide();
+	}	
+
 	// 공백 입력 금지	
 	let searchName = $("#departure").val().replaceAll(" ", "");
 	$("#departure").val(searchName);
@@ -46,7 +63,7 @@ $("#departure").on("keyup focus change", function() {
 	$.ajax({
 		type: "GET",
 		url: `/airport/search?name=${searchName}`,
-		contentType: 'application/json; charset=utf-8'
+		
 	}).done((res) => {
 		$("#departureList").empty();
 
@@ -69,6 +86,13 @@ $("#departure").on("keyup focus change", function() {
 
 // 키가 입력될 때마다 자동완성 불러오기
 $("#destination").on("keyup focus", function() {
+	// 만약 창이 숨겨진 상태라면
+	if ($("#destinationAirport").is(":hidden")) {
+		$("#destinationAirport").show();
+		$(".datepicker--div--type1").hide();
+		$(".datepicker--div--type2").hide();
+	}
+	
 	// 공백 입력 금지	
 	let searchName = $("#destination").val().replaceAll(" ", "");
 	$("#destination").val(searchName);
@@ -88,7 +112,7 @@ $("#destination").on("keyup focus", function() {
 	$.ajax({
 		type: "GET",
 		url: `/airport/search?name=${searchName}`,
-		contentType: 'application/json; charset=utf-8'
+		
 	}).done((res) => {
 		$("#destinationList").empty();
 
@@ -118,7 +142,6 @@ $(".region--li").on("click", function() {
 	$.ajax({
 		type: "GET",
 		url: `/airport/list?region=${region}`,
-		contentType: "application/json; charset=UTF-8"
 
 	}).done((res) => {
 		$(".airport--ul").empty();
@@ -161,7 +184,7 @@ $(document).on("click", function(e) {
 		$(".age--calculater--modal input").val("");
 		$("#calculaterResult").text("");
 	}
-
+	
 });
 
 // input에 포커스를 두면 해당하는 팝업 보이게
@@ -190,13 +213,60 @@ $("#flightDate").on("focus", function() {
 // 자동 완성 항목 클릭하면 input에 value 들어감
 function insertAutoComplete(i, target) {
 	let liValue = $(`.${target}--li`).eq(i).text();
+	
+	// 반대 취항지에 존재하는 값이면 들어가지 못하게 함
+	if (target == "departure") {
+		if ($("#destination").val() == liValue) {
+			alert("도착지와 동일한 취항지입니다.");
+			return;
+		}
+	} else {
+		if ($("#departure").val() == liValue) {
+			alert("출발지와 동일한 취항지입니다.");
+			return;
+		}
+	}
+	
 	$(`#${target}`).val(liValue);
 	$(`#${target}Airport`).hide();
 }
 
+// 전체 공항 조회 버튼
+$(".all--airport").on("click", function() {
+	$(".airport--ul").empty();
+	$(".region--li").removeClass("region--li--selected");
+	
+	$(".all--airport--modal").modal();
+	if ($(this).is(".destination--button")) {
+		$(".all--airport--modal").addClass("dest");
+		$(".all--airport--modal").removeClass("depa");
+		$(".modal--title").text("도착지 선택");
+		$("#destinationAirport").hide();
+	} else if ($(this).is(".departure--button")) {
+		$(".all--airport--modal").addClass("depa");
+		$(".all--airport--modal").removeClass("dest");
+		$(".modal--title").text("출발지 선택");
+		$("#departureAirport").hide();
+	}
+});
+
 // 취항지 클릭하면 input에 value 들어감
 function insertAirport(i, target) {
 	let liValue = $(`.${target}--airport--li`).eq(i).text();
+	
+	// 반대 취항지에 존재하는 값이면 들어가지 못하게 함
+	if (target == "departure") {
+		if ($("#destination").val() == liValue) {
+			alert("도착지와 동일한 취항지입니다.");
+			return;
+		}
+	} else {
+		if ($("#departure").val() == liValue) {
+			alert("출발지와 동일한 취항지입니다.");
+			return;
+		}
+	}
+	
 	$(`#${target}`).val(liValue);
 	$('.all--airport--modal').modal('hide');
 }
@@ -298,23 +368,6 @@ function insertDatepicker(type) {
 	}
 }
 
-
-// 전체 공항 조회 버튼
-$(".all--airport").on("click", function() {
-	$(".all--airport--modal").modal();
-	if ($(this).is(".destination--button")) {
-		$(".all--airport--modal").addClass("dest");
-		$(".all--airport--modal").removeClass("depa");
-		$(".modal--title").text("도착지 선택");
-		$("#destinationAirport").hide();
-	} else if ($(this).is(".departure--button")) {
-		$(".all--airport--modal").addClass("depa");
-		$(".all--airport--modal").removeClass("dest");
-		$(".modal--title").text("출발지 선택");
-		$("#departureAirport").hide();
-	}
-});
-
 // 나이 계산기 버튼
 $(".age--calculater").on("click", function() {
 	$('.age--calculater--modal').modal();
@@ -398,3 +451,478 @@ function stringToDate(str) {
 	}
 	return new Date(year, month-1, day);
 }
+
+// 인원 수 감소 버튼
+$(".minus--button").on("click", function() {
+	var currentNumber = $(this).next().val();
+	$(".datepicker--div--type1").hide();
+	$(".datepicker--div--type2").hide();
+	
+	
+	if (currentNumber > 0) {
+		
+		// 성인 수 감소 버튼일 때
+		if ($(this).next().is("#ageType1")) {
+			// 성인 수가 1이라면 감소 불가능
+			if ($("#ageType1").val() == 1) {
+				alert("최소 1명의 성인이 필요합니다.");
+				return;
+			// 성인 수가 유아 수와 같다면 감소 불가능
+			} else if ($("#ageType3").val() == $("#ageType1").val()) {
+				alert('유아의 수는 동반 성인의 수보다 많을 수 없습니다.');
+				return;
+			}
+		}
+		$(this).next().val(currentNumber - 1);			
+	}
+});
+
+// 인원 수 증가 버튼
+$(".plus--button").on("click", function() {
+	var currentNumber = $(this).prev().val();
+	$(".datepicker--div--type1").hide();
+	$(".datepicker--div--type2").hide();
+	// 유아 수 증가 버튼일 때 유아 수가 성인 수와 같다면 증가 불가능
+	if ($(this).prev().is("#ageType3") && $("#ageType3").val() == $("#ageType1").val()) {
+		alert('유아의 수는 동반 성인의 수보다 많을 수 없습니다.');
+		return;
+	}
+	$(this).prev().val(parseInt(currentNumber) + 1);			
+});
+
+// 스케줄 조회
+$("#selectScheduleBtn").on("click", function() {
+	// 1 : 왕복, 2 : 편도
+	let ticketType = $(".selected--type").index() + 1;
+	// 취항지 1
+	let airport1 = $("#departure").val();
+	if (airport1 == "") {
+		alert("출발지가 선택되지 않았습니다.");
+		return;
+	}
+	
+	// 취항지 2
+	let airport2 = $("#destination").val();
+	if (airport2 == "") {
+		alert("도착지가 선택되지 않았습니다.");
+		return;
+	}
+	
+	// 성인
+	let ageType1 = parseInt($("#ageType1").val());
+	if (ageType1 == 0) {
+		alert("최소 1명의 성인이 필요합니다.");
+		return;
+	}
+	// 소아
+	let ageType2 = parseInt($("#ageType2").val());
+	let passengerCount = ageType1 + ageType2;
+	
+	// 유아
+	let ageType3 = parseInt($("#ageType3").val());
+	if (ageType3 > ageType1) {
+		alert('유아의 수는 동반 성인의 수보다 많을 수 없습니다.');		
+		return;
+	}
+	
+	// 왕복
+	if (ticketType == 1) {
+		// 왕복 - 탑승일 1 (가는 날)
+		let flightDate1 = $("#flightDate1").val();
+		// 왕복 - 탑승일 2 (오는 날)
+		let flightDate2 = $("#flightDate2").val();
+		
+		// 선택하지 않은 날짜가 있다면
+		if (flightDate1 == "" || flightDate2 == "") {
+			alert("선택되지 않은 날짜가 존재합니다.");
+			return;
+		}		
+		
+		let data = {
+			airport1 : airport1,
+			airport2 : airport2,
+			flightDate1 : stringToDate(flightDate1),
+			flightDate2 : stringToDate(flightDate2)
+		};
+		
+		$.ajax({
+			type: "POST",
+			url: `/ticket/flightSchedule/1`,
+			contentType: "application/json; charset=UTF-8",
+			data: JSON.stringify(data),
+			dataType: 'json'
+
+		}).done((res) => {
+			$("#scheduleList1").css("display", "flex");
+			$("#scheduleList2").css("display", "flex");
+			$("#scheduleList1 tbody").empty();
+			$("#scheduleList2 tbody").empty();
+			$("#scheduleList1 h6 span").eq(1).text("첫 번째 여정");
+			$("#scheduleList2 h6 span").eq(1).text("두 번째 여정");
+			$("#scheduleList1 h3 span").eq(0).text(airport1);
+			$("#scheduleList1 h3 span").eq(2).text(airport2);
+			$("#scheduleList2 h3 span").eq(0).text(airport2);
+			$("#scheduleList2 h3 span").eq(2).text(airport1);
+			
+			for (let i = 0; i < res.length; i++) {
+				
+				// 첫 번째 여정
+				if (res[i].departureAirport == airport1) {
+					let tr = $("<tr>");
+					let td1 = $("<td class=\"td--flight--time\">");
+					let td1Ul = $("<ul class=\"ul--flight--time\">");
+					td1Ul.append(`<li>${res[i].strDepartureDate}</li>`);
+					
+					let td1Li2 = $("<li>");
+					let td1Div = $("<div class=\"d-flex flex-column align-item-center\">");
+					let td1DivDiv = $("<div>");
+					let td1DivDivUl = $("<ul>");
+					td1DivDivUl.append(`<li><span class="material-symbols-outlined" style="font-size: 16px; padding-top: 4px;">schedule</span>`);
+					td1DivDivUl.append(`<li>${res[i].flightTime}</li>`);
+					td1DivDiv.append(td1DivDivUl);
+					td1Div.append(td1DivDiv);
+					td1Div.append(`<img src="/images/ticket/arrow.png">`);
+					td1Li2.append(td1Div);
+					td1Ul.append(td1Li2);
+					
+					td1Ul.append(`<li>${res[i].strArrivalDate}</li>`);
+					td1.append(td1Ul);
+					
+					let td2 = $("<td class=\"td--airplane--name\">");
+					td2.text(res[i].airplaneName);
+					
+					let td3 = $("<td class=\"td--economy td--seat\">");
+					// 좌석이 존재하지 않는다면 '미운영'으로 표시
+					if (res[i].ecTotalCount == 0) {
+						td3.text("미운영");
+						td3.addClass("td--none--seat");
+					} else {
+						// 잔여 좌석 수가 없다면 '매진'으로 표시
+						if (res[i].ecCurCount == 0) {
+							td3.text("매진");	
+							td3.addClass("td--none--seat");					
+						} else {
+							td3.append(`<input type="radio" name="selectSeatType" id="scheduleList1Ec${i}" value="1_이코노미_${res[i].id}"><br>`);
+							td3.append(`<label for="scheduleList1Ec${i}" id="scheduleList1EcLabel${i}"><span>KRW </span><span>${res[i].strEcPrice}</span><br><span>잔여 ${res[i].ecCurCount}석</span></label>`);
+						}
+					}
+					let td4 = $("<td class=\"td--business td--seat\">");
+					// 좌석이 존재하지 않는다면 '미운영'으로 표시
+					if (res[i].buTotalCount == 0) {
+						td4.text("미운영");
+						td4.addClass("td--none--seat");
+					} else {
+						// 잔여 좌석 수가 없다면 '매진'으로 표시
+						if (res[i].buCurCount == 0) {
+							td4.text("매진");	
+							td4.addClass("td--none--seat");					
+						} else {
+							td4.append(`<input type="radio" name="selectSeatType" id="scheduleList1Bu${i}" value="1_비즈니스_${res[i].id}"><br>`);
+							td4.append(`<label for="scheduleList1Bu${i}"><span>KRW </span><span>${res[i].strBuPrice}</span><br><span>잔여 ${res[i].buCurCount}석</span></label>`);
+						}
+					}
+					let td5 = $("<td class=\"td--first td--seat\">");
+					// 좌석이 존재하지 않는다면 '미운영'으로 표시
+					if (res[i].fiTotalCount == 0) {
+						td5.text("미운영");
+						td5.addClass("td--none--seat");
+					} else {
+						// 잔여 좌석 수가 없다면 '매진'으로 표시
+						if (res[i].fiCurCount == 0) {
+							td5.text("매진");		
+							td5.addClass("td--none--seat");				
+						} else {
+							td5.append(`<input type="radio" name="selectSeatType" id="scheduleList1Fi${i}" value="1_퍼스트_${res[i].id}"><br>`)
+							td5.append(`<label for="scheduleList1Fi${i}"><span>KRW </span><span>${res[i].strFiPrice}</span><br><span>잔여 ${res[i].fiCurCount}석</span></label>`);
+						}
+					}
+					tr.append(td1).append(td2).append(td3).append(td4).append(td5);
+					$("#scheduleList1 tbody").append(tr);
+					
+					for (let i = 0; i < res.length; i++) {
+						// 좌석 수 확인해서 5석 이하라면 빨간색으로 표시
+						if (res[i].ecCurCount <= 5) {
+							$(`#scheduleList1Ec${i}`).next().next().children().eq(3).css("color", "#ce2424");
+						}
+						if (res[i].buCurCount <= 5) {
+							$(`#scheduleList1Bu${i}`).next().next().children().eq(3).css("color", "#ce2424");
+						}
+						if (res[i].fiCurCount <= 5) {
+							$(`#scheduleList1Fi${i}`).next().next().children().eq(3).css("color", "#ce2424");
+						}
+						// 신청 인원 수보다 좌석 수가 적다면 라디오 버튼을 비활성화함 (유아는 좌석을 차지하지 않음)
+						if (res[i].ecCurCount < passengerCount) {
+							$(`#scheduleList1Ec${i}`).prop("disabled", true);
+							$(`#scheduleList1Ec${i}`).parent().children().addClass("td--disabled--seat");
+						}
+						if (res[i].buCurCount < passengerCount) {
+							$(`#scheduleList1Bu${i}`).prop("disabled", true);
+							$(`#scheduleList1Bu${i}`).parent().children().addClass("td--disabled--seat");
+						}
+						if (res[i].fiCurCount < passengerCount) {
+							$(`#scheduleList1Fi${i}`).prop("disabled", true);
+							$(`#scheduleList1Fi${i}`).parent().children().addClass("td--disabled--seat");
+						}
+					}
+					
+				// 두 번째 여정
+				} else {
+					let tr = $("<tr>");
+					let td1 = $("<td class=\"td--flight--time\">");
+					let td1Ul = $("<ul class=\"ul--flight--time\">");
+					td1Ul.append(`<li>${res[i].strDepartureDate}</li>`);
+					
+					let td1Li2 = $("<li>");
+					let td1Div = $("<div class=\"d-flex flex-column align-item-center\">");
+					let td1DivDiv = $("<div>");
+					let td1DivDivUl = $("<ul>");
+					td1DivDivUl.append(`<li><span class="material-symbols-outlined" style="font-size: 16px; padding-top: 4px;">schedule</span>`);
+					td1DivDivUl.append(`<li>${res[i].flightTime}</li>`);
+					td1DivDiv.append(td1DivDivUl);
+					td1Div.append(td1DivDiv);
+					td1Div.append(`<img src="/images/ticket/arrow.png">`);
+					td1Li2.append(td1Div);
+					td1Ul.append(td1Li2);
+					
+					td1Ul.append(`<li>${res[i].strArrivalDate}</li>`);
+					td1.append(td1Ul);
+					
+					let td2 = $("<td class=\"td--airplane--name\">");
+					td2.text(res[i].airplaneName);
+					
+					let td3 = $("<td class=\"td--economy td--seat\">");
+					// 좌석이 존재하지 않는다면 '미운영'으로 표시
+					if (res[i].ecTotalCount == 0) {
+						td3.text("미운영");
+						td3.addClass("td--none--seat");
+					} else {
+						// 잔여 좌석 수가 없다면 '매진'으로 표시
+						if (res[i].ecCurCount == 0) {
+							td3.text("매진");	
+							td3.addClass("td--none--seat");					
+						} else {
+							td3.append(`<input type="radio" name="selectSeatType2" id="scheduleList2Ec${i}" value="2_이코노미_${res[i].id}"><br>`);
+							td3.append(`<label for="scheduleList2Ec${i}"><span>KRW </span><span>${res[i].strEcPrice}</span><br><span>잔여 ${res[i].ecCurCount}석</label>`);
+						}
+					}
+					let td4 = $("<td class=\"td--business td--seat\">");
+					// 좌석이 존재하지 않는다면 '미운영'으로 표시
+					if (res[i].buTotalCount == 0) {
+						td4.text("미운영");
+						td4.addClass("td--none--seat");
+					} else {
+						// 잔여 좌석 수가 없다면 '매진'으로 표시
+						if (res[i].buCurCount == 0) {
+							td4.text("매진");		
+							td4.addClass("td--none--seat");				
+						} else {
+							td4.append(`<input type="radio" name="selectSeatType2" id="scheduleList2Bu${i}" value="2_비즈니스_${res[i].id}"><br>`);
+							td4.append(`<label for="scheduleList2Bu${i}"><span>KRW </span><span>${res[i].strBuPrice}</span><br><span>잔여 ${res[i].buCurCount}석</label>`);
+						}
+					}
+					let td5 = $("<td class=\"td--first td--seat\">");
+					// 좌석이 존재하지 않는다면 '미운영'으로 표시
+					if (res[i].fiTotalCount == 0) {
+						td5.text("미운영");
+						td5.addClass("td--none--seat");
+					} else {
+						// 잔여 좌석 수가 없다면 '매진'으로 표시
+						if (res[i].fiCurCount == 0) {
+							td5.text("매진");		
+							td5.addClass("td--none--seat");				
+						} else {
+							td5.append(`<input type="radio" name="selectSeatType2" id="scheduleList2Fi${i}" value="2_퍼스트_${res[i].id}"><br>`)
+							td5.append(`<label for="scheduleList2Fi${i}"><span>KRW </span><span>${res[i].strFiPrice}</span><br><span>잔여 ${res[i].fiCurCount}석</label>`);
+						}
+					}
+					tr.append(td1).append(td2).append(td3).append(td4).append(td5);
+					$("#scheduleList2 tbody").append(tr);
+					
+					for (let i = 0; i < res.length; i++) {
+						// 좌석 수 확인해서 5석 이하라면 빨간색으로 표시
+						if (res[i].ecCurCount <= 5) {
+							$(`#scheduleList2Ec${i}`).next().next().children().eq(3).css("color", "#ce2424");
+						}
+						if (res[i].buCurCount <= 5) {
+							$(`#scheduleList2Bu${i}`).next().next().children().eq(3).css("color", "#ce2424");
+						}
+						if (res[i].fiCurCount <= 5) {
+							$(`#scheduleList2Fi${i}`).next().next().children().eq(3).css("color", "#ce2424");
+						}
+						// 신청 인원 수보다 좌석 수가 적다면 라디오 버튼을 비활성화함 (유아는 좌석을 차지하지 않음)
+						if (res[i].ecCurCount < passengerCount) {
+							$(`#scheduleList2Ec${i}`).prop("disabled", true);
+							$(`#scheduleList2Ec${i}`).parent().children().addClass("td--disabled--seat");
+						}
+						if (res[i].buCurCount < passengerCount) {
+							$(`#scheduleList2Bu${i}`).prop("disabled", true);
+							$(`#scheduleList2Bu${i}`).parent().children().addClass("td--disabled--seat");
+						}
+						if (res[i].fiCurCount < passengerCount) {
+							$(`#scheduleList2Fi${i}`).prop("disabled", true);
+							$(`#scheduleList2Fi${i}`).parent().children().addClass("td--disabled--seat");
+						}
+					}
+				}
+			}
+			
+			// 선택된 셀의 배경 색 변경
+			$(".schedule--list--div input[type='radio']").on("change", function() {
+				let divId = "scheduleList" + $(this).val().charAt(0);
+				$(`#${divId} .td--seat`).css("background-color", "white");
+				let cellNode = $(this).parent();
+				cellNode.css("background-color", "#F8FCFD");
+			});
+			
+		}).fail((error) => {
+			console.log(error);
+		});
+		
+	// 편도
+	} else {
+		// 탑승일
+		let flightDate = $("#flightDate0").val();
+		// 선택하지 않은 날짜가 있다면
+		if (flightDate == "") {
+			alert("선택되지 않은 날짜가 존재합니다.");
+			return;
+		}		
+		
+		let data = {
+			airport1 : airport1,
+			airport2 : airport2,
+			flightDate1 : stringToDate(flightDate)
+		};
+		
+		$.ajax({
+			type: "POST",
+			url: `/ticket/flightSchedule/2`,
+			contentType: "application/json; charset=UTF-8",
+			data: JSON.stringify(data),
+			dataType: 'json'
+
+		}).done((res) => {
+			$("#scheduleList1").css("display", "flex");
+			$("#scheduleList2").css("display", "none");
+			$("#scheduleList1 tbody").empty();
+			$("#scheduleList2 tbody").empty();
+			$("#scheduleList1 h6 span").eq(1).text("편도");
+			$("#scheduleList1 h3 span").eq(0).text(airport1);
+			$("#scheduleList1 h3 span").eq(2).text(airport2);
+			
+			for (let i = 0; i < res.length; i++) {
+				
+				let tr = $("<tr>");
+				let td1 = $("<td class=\"td--flight--time\">");
+				let td1Ul = $("<ul class=\"ul--flight--time\">");
+				td1Ul.append(`<li>${res[i].strDepartureDate}</li>`);
+				
+				let td1Li2 = $("<li>");
+				let td1Div = $("<div class=\"d-flex flex-column align-item-center\">");
+				let td1DivDiv = $("<div>");
+				let td1DivDivUl = $("<ul>");
+				td1DivDivUl.append(`<li><span class="material-symbols-outlined" style="font-size: 16px; padding-top: 4px;">schedule</span>`);
+				td1DivDivUl.append(`<li>${res[i].flightTime}</li>`);
+				td1DivDiv.append(td1DivDivUl);
+				td1Div.append(td1DivDiv);
+				td1Div.append(`<img src="/images/ticket/arrow.png">`);
+				td1Li2.append(td1Div);
+				td1Ul.append(td1Li2);
+				
+				td1Ul.append(`<li>${res[i].strArrivalDate}</li>`);
+				td1.append(td1Ul);
+				
+				let td2 = $("<td class=\"td--airplane--name\">");
+				td2.text(res[i].airplaneName);
+				
+				let td3 = $("<td class=\"td--economy td--seat\">");
+				// 좌석이 존재하지 않는다면 '미운영'으로 표시
+				if (res[i].ecTotalCount == 0) {
+					td3.text("미운영");
+					td3.addClass("td--none--seat");
+				} else {
+					// 잔여 좌석 수가 없다면 '매진'으로 표시
+					if (res[i].ecCurCount == 0) {
+						td3.text("매진");			
+						td3.addClass("td--none--seat");			
+					} else {
+						td3.append(`<input type="radio" name="selectSeatType" id="scheduleList0Ec${i}" value="1_이코노미_${res[i].id}"><br>`);
+						td3.append(`<label for="scheduleList0Ec${i}"><span>KRW </span><span>${res[i].strEcPrice}</span><br><span>잔여 ${res[i].ecCurCount}석</label>`);
+					}
+				}
+				let td4 = $("<td class=\"td--business td--seat\">");
+				// 좌석이 존재하지 않는다면 '미운영'으로 표시
+				if (res[i].buTotalCount == 0) {
+					td4.text("미운영");
+					td4.addClass("td--none--seat");
+				} else {
+					// 잔여 좌석 수가 없다면 '매진'으로 표시
+					if (res[i].buCurCount == 0) {
+						td4.text("매진");		
+						td4.addClass("td--none--seat");				
+					} else {
+						td4.append(`<input type="radio" name="selectSeatType" id="scheduleList0Bu${i}" value="1_비즈니스_${res[i].id}"><br>`);
+						td4.append(`<label for="scheduleList0Bu${i}"><span>KRW </span><span>${res[i].strBuPrice}</span><br><span>잔여 ${res[i].buCurCount}석</label>`);
+					}
+				}
+				let td5 = $("<td class=\"td--first td--seat\">");
+				// 좌석이 존재하지 않는다면 '미운영'으로 표시
+				if (res[i].fiTotalCount == 0) {
+					td5.text("미운영");
+					td5.addClass("td--none--seat");
+				} else {
+					// 잔여 좌석 수가 없다면 '매진'으로 표시
+					if (res[i].fiCurCount == 0) {
+						td5.text("매진");				
+						td5.addClass("td--none--seat");		
+					} else {
+						td5.append(`<input type="radio" name="selectSeatType" id="scheduleList0Fi${i}" value="1_퍼스트_${res[i].id}"><br>`)
+						td5.append(`<label for="scheduleList0Fi${i}"><span>KRW </span><span>${res[i].strFiPrice}</span><br><span>잔여 ${res[i].fiCurCount}석</label>`);
+					}
+				}
+				tr.append(td1).append(td2).append(td3).append(td4).append(td5);
+				$("#scheduleList1 tbody").append(tr);
+				
+				for (let i = 0; i < res.length; i++) {
+					// 좌석 수 확인해서 5석 이하라면 빨간색으로 표시
+					if (res[i].ecCurCount <= 5) {
+						$(`#scheduleList0Ec${i}`).next().next().children().eq(3).css("color", "#ce2424");
+					}
+					if (res[i].buCurCount <= 5) {
+						$(`#scheduleList0Bu${i}`).next().next().children().eq(3).css("color", "#ce2424");
+					}
+					if (res[i].fiCurCount <= 5) {
+						$(`#scheduleList0Fi${i}`).next().next().children().eq(3).css("color", "#ce2424");
+					}
+					// 신청 인원 수보다 좌석 수가 적다면 라디오 버튼을 비활성화함 (유아는 좌석을 차지하지 않음)
+					if (res[i].ecCurCount < passengerCount) {
+						$(`#scheduleList0Ec${i}`).prop("disabled", true);
+						$(`#scheduleList0Ec${i}`).parent().children().addClass("td--disabled--seat");
+					}
+					if (res[i].buCurCount < passengerCount) {
+						$(`#scheduleList0Bu${i}`).prop("disabled", true);
+						$(`#scheduleList0Bu${i}`).parent().children().addClass("td--disabled--seat");
+					}
+					if (res[i].fiCurCount < passengerCount) {
+						$(`#scheduleList0Fi${i}`).prop("disabled", true);
+						$(`#scheduleList0Fi${i}`).parent().children().addClass("td--disabled--seat");
+					}
+				}
+			}
+			// 선택된 셀의 배경 색 변경
+			$(".schedule--list--div input[type='radio']").on("change", function() {
+				let divId = "scheduleList" + $(this).val().charAt(0);
+				$(`#${divId} .td--seat`).css("background-color", "white");
+				let cellNode = $(this).parent();
+				cellNode.css("background-color", "#F8FCFD");
+			});
+			
+		}).fail((error) => {
+			console.log(error);
+		});
+	}
+
+});
+
+
+

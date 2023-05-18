@@ -25,4 +25,13 @@ public class TimestampUtil {
 		return sdf.format(timestamp);
 	}
 	
+	/**
+	 * Timestamp 타입을 시간으로 변경함
+	 */
+	public static String timeToString(Timestamp timestamp) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+		return sdf.format(timestamp);
+	}
+	
 }

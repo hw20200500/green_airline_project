@@ -21,7 +21,7 @@
 		
 		// 이미 메뉴가 내려와있는 상태라면
 		if ($(".nav--bar").css("display") == "block") {
-			if (menuIndex == 3) {
+			if (menuIndex > 0) {
 				$(".nav--bar").animate({left : navBarLeft + 1}, 700);						
 			} else {
 				$(".nav--bar").animate({left : navBarLeft}, 700);
@@ -30,7 +30,7 @@
 			$(this).siblings().children().css("color", "#3e3e3e");
 		} else {
 			$(".nav--bar").css("display", "block");
-			if (menuIndex == 3) {
+			if (menuIndex > 0) {
 				$(".nav--bar").css("left", navBarLeft + 1);
  			} else {
 				$(".nav--bar").css("left", navBarLeft); 				
@@ -85,7 +85,7 @@
 		$(".nav--bar").stop();
 		
 		let navBarLeft = menuIndex * 230;
-		if (menuIndex == 3) {
+		if (menuIndex > 0) {
 			$(".nav--bar").animate({left : navBarLeft + 1}, 700);			
 		} else {
 			$(".nav--bar").animate({left : navBarLeft}, 700);

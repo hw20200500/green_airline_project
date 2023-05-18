@@ -253,3 +253,26 @@ nav {
 	justify-content: center;	
 	margin-bottom: 30px;
 }
+
+/* 데이트피커 셀 바꾸기*/
+.ui-state-highlight {
+	border: 1px solid #c5c5c5 !important;
+	background-color: #a6a6a6 !important;
+	color: white !important;
+}
+.ui-state-active {
+	border: 1px solid #c5c5c5 !important;
+	background-color: #528cba !important;
+	color: white !important;
+}
+.ui-state-default {
+	border-radius: 2px;
+}
+
+.material-symbols-outlined-fill {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48 !important
+}
