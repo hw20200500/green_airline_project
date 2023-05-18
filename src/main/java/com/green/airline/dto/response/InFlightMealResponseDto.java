@@ -10,7 +10,7 @@ import lombok.Data;
 public class InFlightMealResponseDto {
 
 	private Integer id;
-	private Integer ticket_id;
+	private Integer ticketId;
 	private String ifmName;
 	private String ifmdName;
 	private String ifmDescription;
@@ -18,7 +18,6 @@ public class InFlightMealResponseDto {
 	private String image;
 	private Integer mealId;
 	private Integer amount;
-	private Integer ticketId;
 	private String name;
 	private String description;
 	private String memberId;

@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
 	integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
-#departure, #arrival--id {
+#departure, #destination {
 	margin-top: 10px;
 	font-size: 25px;
 	border: none;
@@ -133,10 +133,10 @@
 			<div class="inFlightSvSearch--description--wrap">출/도착지를 입력하여 상세 정보를 확인해 보세요.</div>
 
 			<div class="modal--all--btn--div">
-				<button type="button" id="modal--all--btn--id" class="all--btn--class" data-toggle="modal" data-target="#start">출발지</button>
-				<button type="button" id="modal--all--btn--id" class="all--btn--class" data-toggle="modal" data-target="#arrival">도착지</button>
-				<button type="button" id="modal--all--btn--id" class="all--btn--class" data-toggle="modal" data-target="#calendar">날짜 선택</button>
-				<button type="submit" id="modal--all--btn--id" class="search--btn--class">조회</button>
+				<button type="button" id="modal--departure--btn--id" class="all--btn--class" data-toggle="modal" data-target="#start">출발지</button>
+				<button type="button" id="modal--destination--btn--id" class="all--btn--class" data-toggle="modal" data-target="#arrival">도착지</button>
+				<button type="button" id="modal--datepicker--btn--id" class="all--btn--class" data-toggle="modal" data-target="#calendar">날짜 선택</button>
+				<button type="submit" id="modal--select--btn--id" class="search--btn--class">조회</button>
 			</div>
 			<!-- The Modal -->
 			<div class="modal fade" id="start">
@@ -180,7 +180,7 @@
 						</div>
 
 						<div class="modal-body">
-							<input type="text" autocomplete="off" name="departure" id="arrival--id" placeholder="도시, 공항 검색">
+							<input type="text" autocomplete="off" name="destination" id="destination" placeholder="도시, 공항 검색">
 							<div class="rel--search">
 								<ul class="pop--rel--keyword">
 								</ul>
@@ -192,7 +192,7 @@
 								<button type="button" class="btn btn-primary">모든 지역 보기</button>
 							</div>
 							<div class="modal--cancel--btn">
-								<button type="button" id="start--modal--btn" class="btn btn-primary" data-dismiss="modal">Submit</button>
+								<button type="button" id="arrival--modal--btn" class="btn btn-primary" data-dismiss="modal">Submit</button>
 								<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 							</div>
 						</div>
@@ -212,8 +212,7 @@
 
 						<div class="modal-body">
 							<%-- 여기 --%>
-							<input type="text" id="datepicker">
-							<div id="datepicker2"></div>
+							<div class="datepicker"></div>
 
 						</div>
 

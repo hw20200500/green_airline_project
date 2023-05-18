@@ -30,7 +30,7 @@ public interface InFlightServiceRepository {
 	List<InFlightMeal> selectInFlightMealCategory();
 	
 	// memberId 기반 특별 기내식 신청 조회 기능  
-	InFlightMealResponseDto selectInFlightMealRequestByUserId(@Param("memberId") String memberId, @Param("reservedDate") String reservedDate);
+	InFlightMealResponseDto selectInFlightMealRequestByUserId(@Param("memberId") String memberId, @Param("departureDate") String departureDate);
 	
 	// name 기반 상세 특별 기내식 조회 기능
 	InFlightMealDetail selectInFlightMealDetailByName(String name);
@@ -42,6 +42,9 @@ public interface InFlightServiceRepository {
 	List<InFlightMealResponseDto> selectInFlightMealRequestByMemberId(String memberId);
 	
 	// 특별 기내식을 신청한 사람의 스케줄 조회 기능
-	List<InFlightMealResponseDto> selectInFlightScheduleByMemberId();
+	List<InFlightMealResponseDto> selectInFlightScheduleByMemberId(String memberId);
+	
+	// 특별 기내식 신청할 때 좌석 수를 동적으로 가져가기 위해 사용
+	InFlightMealResponseDto selectInFlightRequestForSeatCount(@Param("memberId") String memberId, @Param("departureDate") String departureDate);
 }
  

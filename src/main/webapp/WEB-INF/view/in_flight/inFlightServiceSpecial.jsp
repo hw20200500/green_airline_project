@@ -34,7 +34,7 @@
 		</div>
 
 		<div>
-			<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#special--meal--req">특별 기내식 신청</button>
+			<button type="button" id="inFlightMeals--request--btn" class="btn btn-primary" data-toggle="modal" data-target="#special--meal--req">특별 기내식 신청</button>
 		</div>
 
 		<!-- The Modal -->
@@ -54,12 +54,13 @@
 						<!-- Modal body -->
 						<div class="modal-body">
 							<div>
-								<div>예약 일정</div>
+								<div>출발 일정</div>
 								<div class="modal--div--arrivaldate">
 									<div id="inFlight--arrival">
+												<!-- db 안에 들어있는 departureDate는 format 전의 값이니까 2023/05/18 -> 2023년05월18일 -->
 										<select name="modal--name--arrivaldate" id="modal--id--arrivaldate">
 											<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}">
-												<option value="${inFlightServiceResponseDtos.reservedDateFormat()}" id="arrival--option">${inFlightServiceResponseDtos.reservedDateFormat()}</option>
+												<option value="${inFlightServiceResponseDtos.departureDateFormat()}" id="arrival--option">${inFlightServiceResponseDtos.departureDateFormat()}</option>
 											</c:forEach>
 										</select> <br>
 									</div>
@@ -81,9 +82,7 @@
 
 							<div>
 								<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
-								<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}" varStatus="status">
-								수량 &nbsp;<input type="number" id="seat--count--input${status.index}" name="amount" min="1" max="${inFlightServiceResponseDtos.seatCount}">
-								</c:forEach>
+								수량 &nbsp;<input type="number" id="seat--count--input" name="amount" min="1" max="${inFlightServiceResponseDtos.get(0).seatCount}">
 							</div>
 						</div>
 

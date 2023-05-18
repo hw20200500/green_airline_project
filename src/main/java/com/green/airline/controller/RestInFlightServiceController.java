@@ -2,6 +2,8 @@ package com.green.airline.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,8 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.green.airline.dto.response.InFlightMealResponseDto;
 import com.green.airline.repository.model.Airport;
 import com.green.airline.repository.model.InFlightMeal;
+import com.green.airline.repository.model.User;
 import com.green.airline.service.AirportService;
 import com.green.airline.service.InFlightSvService;
+import com.green.airline.utils.Define;
 
 @RestController
 public class RestInFlightServiceController {
@@ -22,15 +26,25 @@ public class RestInFlightServiceController {
 	@Autowired
 	private AirportService airportService;
 
+	@Autowired
+	private HttpSession session;
+
 	// 특별 기내식 페이지
 	@GetMapping("/changeCategory")
 	public List<InFlightMealResponseDto> inFlightServiceSpecialPage(
 			@RequestParam(name = "name", defaultValue = "유아식 및 아동식", required = false) String name) {
 		List<InFlightMealResponseDto> inFlightMeals = inFlightSvService.readInFlightMeal(name);
 
-		List<InFlightMeal> flightMeals = inFlightSvService.readInFlightMealCategory();
-
 		return inFlightMeals;
+	}
+
+	@GetMapping("/setMaxCount")
+	public InFlightMealResponseDto setMaxCount(@RequestParam String departureDate) {
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		// 좌석 수를 동적으로 갖고 오려고
+		InFlightMealResponseDto flightMealResponseDto = inFlightSvService.readInFlightRequestForSeatCount(principal.getId(), departureDate);
+
+		return flightMealResponseDto;
 	}
 
 	// 공항 리스트 자동 완성
@@ -39,7 +53,7 @@ public class RestInFlightServiceController {
 		List<Airport> reqList = airportService.readByLikeName(name);
 		return reqList;
 	}
-	
+
 	// 공항 리스트
 	@GetMapping("/list")
 	public List<Airport> airportByRegionData(@RequestParam String region) {

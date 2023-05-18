@@ -223,12 +223,14 @@ VALUES
 
 INSERT INTO schedule_tb 
 VALUES 
-	(1, '2023-06-13 13:00', '2023-06-13 14:05', 1, 1);
+	(1, '2023-06-13 13:00', '2023-06-13 14:05', 1, 1),
+	(2, '2023-06-15 13:00', '2023-06-15 14:05', 1, 1);
 
 INSERT INTO ticket_tb
 VALUES 
-	(1, 4, 'abc', 1, '2023-05-13 12:00'),
-	(2, 4, 'abc', 1, '2023-05-19 13:00');
+	(1, 6, 'abc', 1, '2023-05-13 12:00'),
+	(2, 4, 'abc', 2, '2023-05-19 13:00'),
+	(3, 4, 'a123', 1, '2023-05-20 13:00');
 
 INSERT INTO reserved_seat_tb
 VALUES 
@@ -238,7 +240,7 @@ VALUES
 	(1, 'E013', 1);
 
 INSERT INTO request_meal_tb(amount, meal_id, ticket_id)
-VALUES(1, 1, 1),
+VALUES
 	(1, 1, 2);
 
 

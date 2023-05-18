@@ -73,13 +73,11 @@
 	</select>
 	
 	<select id="selectInFlightMealRequestByUserId" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
-		select *
-		from request_meal_tb as rm
-		inner join in_flight_meal_tb as ifm
-		on rm.meal_id=ifm.id
-		inner join ticket_tb as t
-		on rm.ticket_id=t.id
-		where t.member_id=#{memberId} and t.reserved_date=#{reservedDate}
+		select t.id as ticket_id
+		from ticket_tb as t
+		inner join schedule_tb as s
+		on t.schedule_id=s.id
+		where t.member_id=#{memberId} and s.departure_date=#{departureDate}
 	</select>
 	
 	<select id="selectInFlightMealDetailByName" resultType="com.green.airline.repository.model.InFlightMealDetail">
@@ -105,16 +103,20 @@
 	</select>
 
 	<select id="selectInFlightScheduleByMemberId" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
-		select *, t.id as ticket_id, amount, s.arrival_date
-		from request_meal_tb as rm
-		inner join in_flight_meal_tb as ifm
-		on rm.meal_id=ifm.id
-		inner join ticket_tb as t
-		on rm.ticket_id=t.id
+		select *, s.departure_date
+		from ticket_tb as t
+		inner join schedule_tb as s
+		on t.schedule_id = s.id
+		where t.member_id=#{memberId} and departure_date>now()
+	</select>
+	
+	<!-- 수량 조회를 위한 select 문 js에서 memberId와 departureDate 받아와서 동적으로 바꿔줄 거임 -->
+	<select id="selectInFlightRequestForSeatCount" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
+		select t.seat_count 
+		from ticket_tb as t
 		inner join schedule_tb as s
 		on t.schedule_id=s.id
-		where t.reserved_date>now()
-		order by t.id desc
+		where t.member_id=#{memberId} and s.departure_date=#{departureDate}
 	</select>
 	
 </mapper>

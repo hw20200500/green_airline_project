@@ -88,9 +88,16 @@ public class InFlightServiceController {
 		List<InFlightMeal> flightMeals = inFlightSvService.readInFlightMealCategory();
 		model.addAttribute("flightMeals", flightMeals);
 
-		List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
-				.readInFlightMealSchedule();
-		model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
+		
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		
+		if(principal == null) {
+			model.addAttribute("inFlightServiceResponseDtos", null);
+		} else {
+			List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
+					.readInFlightMealSchedule(principal.getId());
+			model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
+		}
 
 		return "/in_flight/inFlightServiceSpecial";
 	}
@@ -99,12 +106,12 @@ public class InFlightServiceController {
 	// 특별 기내식 신청 페이지
 	@GetMapping("/specialMealReq")
 	public String specialMealReqProc(Model model, @RequestParam String name,
-			@RequestParam Integer amount, @RequestParam String reservedDate) {
+			@RequestParam Integer amount, @RequestParam String departureDate) {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		// todo
 		// 특별 기내식 상세 조회 기능 갖고 와야 함
 		// myInfo에 찍어줘야 함 (특별 기내식 신청 내역 페이지를 하나 만들던가 해야 함.)
-		inFlightSvService.createInFlightMealRequest(principal.getId(), name, amount, reservedDate);
+		inFlightSvService.createInFlightMealRequest(principal.getId(), name, amount, departureDate);
 
 		return "/in_flight/inFlightServiceSpecial";
 	}
