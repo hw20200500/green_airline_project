@@ -83,8 +83,7 @@
 						<div class="nav--split"></div>
 						<ul>
 							<li><a href="/ticket/selectSchedule">항공권 옵션 선택</a>
-							<li><a href="/ticket/selectSeat/1">좌석 선택</a>
-							<li><a href="#">세부메뉴</a>
+							<li><a href="/airplane/1">좌석 배치도</a>
 							<li><a href="#">세부메뉴</a>
 							<li><a href="#">세부메뉴</a>
 							<li><a href="#">세부메뉴</a>

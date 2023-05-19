@@ -276,3 +276,30 @@ nav {
   'GRAD' 0,
   'opsz' 48 !important
 }
+
+footer {
+	width: 100%;
+	text-align: center;
+	margin: 40px 0 20px;
+}
+
+.page--up--button {
+	text-align: center;
+	position: fixed;
+	bottom: 50px;
+	right: 100px;
+	width: 45px;
+	height: 45px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 1px solid #ddd;
+	background-color: #FDFDFD;
+}
+
+.page--up--button span {
+	font-size: 40px;	
+	color: rgba(0, 0, 0, 0.7);
+}
+
