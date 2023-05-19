@@ -2,6 +2,8 @@ package com.green.airline.utils;
 
 import java.util.List;
 
+import com.green.airline.dto.response.ScheduleInfoResponseDto;
+import com.green.airline.dto.response.SeatPriceDto;
 import com.green.airline.dto.response.SeatStatusResponseDto;
 
 /**
@@ -24,5 +26,42 @@ public class TicketUtil {
 		Integer curCount = totalCount - reservedCount;
 		return curCount;
 	}
+	
+	// 좌석 가격/개수 세팅 메서드
+	public static ScheduleInfoResponseDto setSeatPriceAndCount(ScheduleInfoResponseDto schedule, SeatPriceDto seatPriceDto, 
+											List<SeatStatusResponseDto> eSeatList, List<SeatStatusResponseDto> bSeatList, List<SeatStatusResponseDto> fSeatList) {
+		schedule.setEcPrice(seatPriceDto.getEconomyPrice());
+		schedule.setBuPrice(seatPriceDto.getBusinessPrice());
+		schedule.setFiPrice(seatPriceDto.getFirstPrice());
+		schedule.formatMoney();
+		
+		// 해당 스케줄에 운항하는 비행기의 전체 이코노미 좌석 수
+		Integer eTotalCount = eSeatList.size();
+		schedule.setEcTotalCount(eTotalCount);
+		
+		// 현재 예약 가능한 이코노미 좌석 수
+		Integer eCurCount = TicketUtil.currentSeatCount(eTotalCount, eSeatList);
+		schedule.setEcCurCount(eCurCount);
+		
+		// 해당 스케줄에 운항하는 비행기의 전체 비즈니스 좌석 수
+		Integer bTotalCount = bSeatList.size();
+		schedule.setBuTotalCount(bTotalCount);
+		
+		// 현재 예약 가능한 비즈니스 좌석 수
+		Integer bCurCount = TicketUtil.currentSeatCount(bTotalCount, bSeatList);
+		schedule.setBuCurCount(bCurCount);
+		
+		// 해당 스케줄에 운항하는 비행기의 전체 퍼스트 좌석 수
+		Integer fTotalCount = fSeatList.size();
+		schedule.setFiTotalCount(fTotalCount);
+		
+		// 현재 예약 가능한 퍼스트 좌석 수
+		Integer fCurCount = TicketUtil.currentSeatCount(fTotalCount, fSeatList);
+		schedule.setFiCurCount(fCurCount);
+		
+		return schedule;
+	}
+	
+	
 	
 }

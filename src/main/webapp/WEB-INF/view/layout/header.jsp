@@ -83,8 +83,7 @@
 						<div class="nav--split"></div>
 						<ul>
 							<li><a href="/ticket/selectSchedule">항공권 옵션 선택</a>
-							<li><a href="/ticket/selectSeat/1">좌석 선택</a>
-							<li><a href="#">세부메뉴</a>
+							<li><a href="/airplane/1">좌석 배치도</a>
 							<li><a href="#">세부메뉴</a>
 							<li><a href="#">세부메뉴</a>
 							<li><a href="#">세부메뉴</a>
@@ -93,7 +92,7 @@
 						<div class="nav--split"></div>
 						<ul>
 							<li><a href="/inFlightService/inFlightServiceSearch">기내 서비스</a>
-							<li><a href="/inFlightService/inFlightServiceList">기내 서비스 순서</a>
+							<li><a href="/inFlightService/list">기내 서비스 순서</a>
 							<li><a href="/inFlightService/inFlightServiceSpecial">특별 기내식</a>
 							<li><a href="#">세부메뉴</a>
 							<li><a href="#">세부메뉴</a>

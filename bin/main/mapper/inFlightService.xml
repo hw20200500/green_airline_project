@@ -16,35 +16,83 @@
 	</select>
 
 	<select id="selectInFlightMeal"
-		resultType="com.green.airline.repository.model.InFlightMeal">
-		<if test="type=='유아식'">
-			select *
-			from in_flight_meal_tb
+		resultType="com.green.airline.dto.response.InFlightMealResponseDto">
+		<if test="name=='유아식 및 아동식'">
+		select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
+		from in_flight_meal_tb as ifm
+		inner join in_flight_meal_detail_tb as ifmd
+		on ifm.id = ifmd.meal_id
+		where ifm.name=#{name}
+		group by ifmd.name
 		</if>
-		<if test="type=='야채식'">
-			select *
-			from in_flight_meal_tb
+		<if test="name=='야채식'">
+		select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
+		from in_flight_meal_tb as ifm
+		inner join in_flight_meal_detail_tb as ifmd
+		on ifm.id = ifmd.meal_id
+		where ifm.name=#{name}
+		group by ifmd.name
 		</if>
-		<if test="type=='식사조절식'">
-			select *
-			from in_flight_meal_tb
+		<if test="name=='식사 조절식'">
+		select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
+		from in_flight_meal_tb as ifm
+		inner join in_flight_meal_detail_tb as ifmd
+		on ifm.id = ifmd.meal_id
+		where ifm.name=#{name}
+		group by ifmd.name
 		</if>
-		<if test="type=='종교식'">
-			select *
-			from in_flight_meal_tb
+		<if test="name=='종교식'">
+		select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
+		from in_flight_meal_tb as ifm
+		inner join in_flight_meal_detail_tb as ifmd
+		on ifm.id = ifmd.meal_id
+		where ifm.name=#{name}
+		group by ifmd.name
 		</if>
-		<if test="type=='기타특별식'">
-			select *
-			from in_flight_meal_tb
+		<if test="name=='기타 특별식'">
+		select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
+		from in_flight_meal_tb as ifm
+		inner join in_flight_meal_detail_tb as ifmd
+		on ifm.id = ifmd.meal_id
+		where ifm.name=#{name}
+		group by ifmd.name
 		</if>
 	</select>
 
-	<select id="selectInFlightAllMeal" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
-		select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description
+	<select id="selectInFlightDetailMeal" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
+		select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
 		from in_flight_meal_tb as ifm
 		inner join in_flight_meal_detail_tb as ifmd
 		on ifm.id = ifmd.meal_id
 		group by ifmd.name
 	</select>
+	
+	<select id="selectInFlightMealCategory" resultType="com.green.airline.repository.model.InFlightMeal">
+		select *
+		from in_flight_meal_tb
+	</select>
+	
+	<select id="selectInFlightMealRequestByUserId" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
+		select *
+		from request_meal_tb as rm
+		inner join in_flight_meal_tb as ifm
+		on rm.meal_id=ifm.id
+		inner join ticket_tb as t
+		on rm.ticket_id=t.id
+		where t.member_id=#{memberId}
+		order by t.id desc
+		limit 1
+	</select>
+	
+	<select id="selectInFlightMealDetailByName" resultType="com.green.airline.repository.model.InFlightMealDetail">
+		select *
+		from in_flight_meal_detail_tb
+		where name=#{name}
+	</select>
+	
+	<insert id="insertInFlightMealRequest">
+		insert into request_meal_tb(amount, meal_id, ticket_id)
+		values(#{amount}, #{mealId}, #{ticketId})
+	</insert>
 
 </mapper>

@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.green.airline.dto.request.ScheduleSelectDto;
+import com.green.airline.dto.request.TicketOptionDto;
 import com.green.airline.dto.response.ScheduleInfoResponseDto;
 import com.green.airline.dto.response.SeatInfoResponseDto;
 import com.green.airline.dto.response.SeatPriceDto;
 import com.green.airline.dto.response.SeatStatusResponseDto;
 import com.green.airline.repository.model.Airport;
+import com.green.airline.repository.model.Ticket;
 import com.green.airline.service.AirportService;
 import com.green.airline.service.ScheduleService;
 import com.green.airline.service.SeatService;
@@ -75,40 +77,12 @@ public class TicketController {
 				
 				// 좌석 등급별 티켓 가격 가져오기
 				SeatPriceDto seatPriceDto = seatService.readSeatPriceByScheduleId(s.getId());
-				s.setEcPrice(seatPriceDto.getEconomyPrice());
-				s.setBuPrice(seatPriceDto.getBusinessPrice());
-				s.setFiPrice(seatPriceDto.getFirstPrice());
-				s.formatMoney();
-				
 				List<SeatStatusResponseDto> eSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "이코노미");				
-				// 해당 스케줄에 운항하는 비행기의 전체 이코노미 좌석 수
-				Integer eTotalCount = eSeatList.size();
-				s.setEcTotalCount(eTotalCount);
-				
-				// 현재 예약 가능한 이코노미 좌석 수
-				Integer eCurCount = TicketUtil.currentSeatCount(eTotalCount, eSeatList);
-				s.setEcCurCount(eCurCount);
-				
-				
 				List<SeatStatusResponseDto> bSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "비즈니스");				
-				// 해당 스케줄에 운항하는 비행기의 전체 비즈니스 좌석 수
-				Integer bTotalCount = bSeatList.size();
-				s.setBuTotalCount(bTotalCount);
-				
-				// 현재 예약 가능한 비즈니스 좌석 수
-				Integer bCurCount = TicketUtil.currentSeatCount(bTotalCount, bSeatList);
-				s.setBuCurCount(bCurCount);
-				
-				
 				List<SeatStatusResponseDto> fSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "퍼스트");				
-				// 해당 스케줄에 운항하는 비행기의 전체 퍼스트 좌석 수
-				Integer fTotalCount = fSeatList.size();
-				s.setFiTotalCount(fTotalCount);
 				
-				// 현재 예약 가능한 퍼스트 좌석 수
-				Integer fCurCount = TicketUtil.currentSeatCount(fTotalCount, fSeatList);
-				s.setFiCurCount(fCurCount);
-				
+				// 좌석 등급별 가격, 전체 좌석 수, 잔여 좌석 수 세팅
+				s = TicketUtil.setSeatPriceAndCount(s, seatPriceDto, eSeatList, bSeatList, fSeatList);
 			});
 			
 			// 두 번째 여정에 해당하는 스케줄 리스트
@@ -121,39 +95,12 @@ public class TicketController {
 				
 				// 좌석 등급별 티켓 가격 가져오기
 				SeatPriceDto seatPriceDto = seatService.readSeatPriceByScheduleId(s.getId());
-				s.setEcPrice(seatPriceDto.getEconomyPrice());
-				s.setBuPrice(seatPriceDto.getBusinessPrice());
-				s.setFiPrice(seatPriceDto.getFirstPrice());
-				s.formatMoney();
-				
 				List<SeatStatusResponseDto> eSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "이코노미");				
-				// 해당 스케줄에 운항하는 비행기의 전체 이코노미 좌석 수
-				Integer eTotalCount = eSeatList.size();
-				s.setEcTotalCount(eTotalCount);
-				
-				// 현재 예약 가능한 이코노미 좌석 수
-				Integer eCurCount = TicketUtil.currentSeatCount(eTotalCount, eSeatList);
-				s.setEcCurCount(eCurCount);
-				
-				
 				List<SeatStatusResponseDto> bSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "비즈니스");				
-				// 해당 스케줄에 운항하는 비행기의 전체 비즈니스 좌석 수
-				Integer bTotalCount = bSeatList.size();
-				s.setBuTotalCount(bTotalCount);
-				
-				// 현재 예약 가능한 비즈니스 좌석 수
-				Integer bCurCount = TicketUtil.currentSeatCount(bTotalCount, bSeatList);
-				s.setBuCurCount(bCurCount);
-				
-				
 				List<SeatStatusResponseDto> fSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "퍼스트");				
-				// 해당 스케줄에 운항하는 비행기의 전체 퍼스트 좌석 수
-				Integer fTotalCount = fSeatList.size();
-				s.setFiTotalCount(fTotalCount);
 				
-				// 현재 예약 가능한 퍼스트 좌석 수
-				Integer fCurCount = TicketUtil.currentSeatCount(fTotalCount, fSeatList);
-				s.setFiCurCount(fCurCount);
+				// 좌석 등급별 가격, 전체 좌석 수, 잔여 좌석 수 세팅
+				s = TicketUtil.setSeatPriceAndCount(s, seatPriceDto, eSeatList, bSeatList, fSeatList);
 			});
 				
 			// 리스트 병합
@@ -171,64 +118,70 @@ public class TicketController {
 				
 				// 좌석 등급별 티켓 가격 가져오기
 				SeatPriceDto seatPriceDto = seatService.readSeatPriceByScheduleId(s.getId());
-				s.setEcPrice(seatPriceDto.getEconomyPrice());
-				s.setBuPrice(seatPriceDto.getBusinessPrice());
-				s.setFiPrice(seatPriceDto.getFirstPrice());
-				s.formatMoney();
-				
 				List<SeatStatusResponseDto> eSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "이코노미");				
-				// 해당 스케줄에 운항하는 비행기의 전체 이코노미 좌석 수
-				Integer eTotalCount = eSeatList.size();
-				s.setEcTotalCount(eTotalCount);
-				
-				// 현재 예약 가능한 이코노미 좌석 수
-				Integer eCurCount = TicketUtil.currentSeatCount(eTotalCount, eSeatList);
-				s.setEcCurCount(eCurCount);
-				
-				
 				List<SeatStatusResponseDto> bSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "비즈니스");				
-				// 해당 스케줄에 운항하는 비행기의 전체 비즈니스 좌석 수
-				Integer bTotalCount = bSeatList.size();
-				s.setBuTotalCount(bTotalCount);
-				
-				// 현재 예약 가능한 비즈니스 좌석 수
-				Integer bCurCount = TicketUtil.currentSeatCount(bTotalCount, bSeatList);
-				s.setBuCurCount(bCurCount);
-				
-				
 				List<SeatStatusResponseDto> fSeatList = seatService.readSeatListByScheduleIdAndGrade(s.getId(), "퍼스트");				
-				// 해당 스케줄에 운항하는 비행기의 전체 퍼스트 좌석 수
-				Integer fTotalCount = fSeatList.size();
-				s.setFiTotalCount(fTotalCount);
 				
-				// 현재 예약 가능한 퍼스트 좌석 수
-				Integer fCurCount = TicketUtil.currentSeatCount(fTotalCount, fSeatList);
-				s.setFiCurCount(fCurCount);
+				// 좌석 등급별 가격, 전체 좌석 수, 잔여 좌석 수 세팅
+				s = TicketUtil.setSeatPriceAndCount(s, seatPriceDto, eSeatList, bSeatList, fSeatList);
 			});
-			
 		}
-		
 		return responseList;
 	}
 	
 	/**
 	 * @return 좌석 선택 페이지
 	 */
-	@GetMapping("/selectSeat/{scheduleId}")
-	public String selectSeatPage(Model model, @PathVariable Integer scheduleId) {
-		// 선택할 좌석 수
-		model.addAttribute("seatCount", 3);
+	@GetMapping("/selectSeat")
+	public String selectSeatPage(Model model, TicketOptionDto ticketOptionDto) {
 		
-		// 현재 항공 일정 id
-		model.addAttribute("scheduleId", scheduleId);
+		// 객체 세팅
+		List<Ticket> ticketList = ticketOptionDto.setVariables();
+		System.out.println(ticketList);
 		
-		// 해당 스케줄에 운항하는 비행기의 이코노미 좌석 리스트 (예약 여부 포함)
-		List<SeatStatusResponseDto> eSeatList = seatService.readSeatListByScheduleIdAndGrade(scheduleId, "이코노미");
-		model.addAttribute("economyList", eSeatList);
+		model.addAttribute("ticketList", ticketList);
+		model.addAttribute("seatCount", ticketList.get(0).getAdultCount() + ticketList.get(0).getChildCount());
+		model.addAttribute("scheduleId", ticketList.get(0).getScheduleId());
 		
-		// 해당 스케줄에 운항하는 비행기의 비즈니스 좌석 리스트 (예약 여부 포함)
-		List<SeatStatusResponseDto> bSeatList = seatService.readSeatListByScheduleIdAndGrade(scheduleId, "비즈니스");
-		model.addAttribute("businessList", bSeatList);
+		// ageType1, ageType2, ageType3, scheduleId, seatGrade 고정
+		// 해당 순서의 seatGrade에 따라 좌석을 선택할 수 있어야 함 (이코노미 선택 -> 비즈니스 선택 불가능)
+		// 왕복이라면 ticketList.get(0) 기준으로 선택 후 ticketList.get(1) 기준으로 불러와야 함
+		// 좌석을 모두 선택하고 나면 데이터들을 가지고 다음 jsp로 넘어가서 탑승객 정보 입력 + 아래에 결제 버튼 -> 결제 api
+		
+		
+		
+		// 좌석 리스트는 controller에서 불러와서 보내두기
+		
+		// 스케줄1에 운항하는 비행기의 이코노미 좌석 리스트 (예약 여부 포함)
+		List<SeatStatusResponseDto> eSeatList1 = seatService.readSeatListByScheduleIdAndGrade(ticketList.get(0).getScheduleId(), "이코노미");
+		model.addAttribute("sch1EcList", eSeatList1);
+		// 스케줄1에 운항하는 비행기의 비즈니스 좌석 리스트 (예약 여부 포함)
+		List<SeatStatusResponseDto> bSeatList1 = seatService.readSeatListByScheduleIdAndGrade(ticketList.get(0).getScheduleId(), "비즈니스");
+		model.addAttribute("sch1BuList", eSeatList1);
+		// 스케줄1에 운항하는 비행기의 퍼스트 좌석 리스트 (예약 여부 포함)
+		List<SeatStatusResponseDto> fSeatList1 = seatService.readSeatListByScheduleIdAndGrade(ticketList.get(0).getScheduleId(), "퍼스트");
+		model.addAttribute("sch1FiList", fSeatList1);
+		
+		// 왕복이라면
+		if (ticketList.size() == 2) {
+			// 스케줄2에 운항하는 비행기의 이코노미 좌석 리스트 (예약 여부 포함)
+			List<SeatStatusResponseDto> eSeatList2 = seatService.readSeatListByScheduleIdAndGrade(ticketList.get(1).getScheduleId(), "이코노미");
+			model.addAttribute("sch1EcList", eSeatList2);
+			// 스케줄2에 운항하는 비행기의 비즈니스 좌석 리스트 (예약 여부 포함)
+			List<SeatStatusResponseDto> bSeatList2 = seatService.readSeatListByScheduleIdAndGrade(ticketList.get(1).getScheduleId(), "비즈니스");
+			model.addAttribute("sch2BuList", bSeatList2);
+			// 스케줄1에 운항하는 비행기의 퍼스트 좌석 리스트 (예약 여부 포함)
+			List<SeatStatusResponseDto> fSeatList2 = seatService.readSeatListByScheduleIdAndGrade(ticketList.get(1).getScheduleId(), "퍼스트");
+			model.addAttribute("sch2FiList", fSeatList2);
+			
+		}
+		
+		
+		
+		
+		
+		
+		
 		
 		return "/ticket/selectSeat";
 	}
