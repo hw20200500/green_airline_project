@@ -65,8 +65,7 @@
 				<div class="board--content"></div>
 				<div class="board--userId"></div>
 				<div class="board--viewCount"></div>
-				<div class="board--heart" id="boardDetail${board.heart}"
-					style="cursor: pointer;"></div>
+				<button type="submit" class="board--heartCount"></button>
 				<div class="board--date"></div>
 			</div>
 		</div>

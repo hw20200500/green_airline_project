@@ -4,11 +4,13 @@
 <mapper
 	namespace="com.green.airline.repository.interfaces.BoardRepository">
 
-	<select id="findByBoardList"
+	<!-- 게시물 목록보기 -->
+	<select id="selectByBoardList"
 		resultType="com.green.airline.repository.model.Board">
 		select * from recommend_board_tb;
 	</select>
 
+	<!-- 게시물 작성 -->
 	<insert id="insertByBoard">
 		insert into recommend_board_tb
 		(title, content,
@@ -18,31 +20,44 @@
 		#{viewCount});
 	</insert>
 
-	<select id="findByBoardDetail"
-		resultType="com.green.airline.repository.model.Board">
+	<!-- 게시물 상세보기 -->
+	<select id="selectByBoardDetail"
+		resultType="com.green.airline.dto.BoardDto">
 		select *
 		from recommend_board_tb
 		where id = #{id};
 	</select>
 
+	<!-- 게시물 조회수 증가 -->
 	<update id="updateByViewCount">
 		update recommend_board_tb
-		set view_count = view_count + 1
+		set view_count = view_count
+		+ 1
 		where id = #{id};
 	</update>
 
+	<!-- 좋아요 증가 -->
 	<insert id="insertByHeart">
 		insert into like_heart_tb (board_id, user_id)
 		values
-		(#{boardId}, #{userId});
+		(#{id}, #{userId});
 	</insert>
 
+	<!-- 좋아요 취소 -->
 	<delete id="deleteByHeart">
 		delete from like_heart_tb
-		where board_id = #{boardId}
+		where board_id = #{id}
 		and
 		user_id = #{userId}
 	</delete>
 
-
+	<!-- 좋아요한 유저찾기 -->
+	<select id="selectByLikeUser"
+		resultType="com.green.airline.repository.model.LikeHeart">
+		select * from like_heart_tb 
+		where 
+		board_id = #{id}
+		
+	</select>
+	
 </mapper>

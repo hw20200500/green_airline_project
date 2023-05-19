@@ -105,14 +105,22 @@ VALUES
 ('과일식 (Fruit Platter Meal)', '정규 기내식 대신 신선한 과일로만 구성된 식사를 제공합니다.', 5),
 ('알레르기 제한식 (Allergen-Free Meal)', '특정 식재료에 대한 알레르기 반응이 있는 고객에게 해당 식재료를 제외한 식사를 제공합니다.', 5);
 
-
-
-
 -- 추천여행지 샘플 데이터
-insert into recommend_board_tb
+INSERT INTO recommend_board_tb
 (title, user_id, content, view_count)
-values
-('제목', 'abc', '게시글내용', 0); 
+VALUES
+('제목', 'abc', '게시글내용', 0),
+('제목2', 'a123', '게시글내용2', 0),
+('제목3', 'a123', '게시글내용3', 0),
+('제목4', 'abc', '게시글내용4', 0);
+
+-- 좋아요 샘플 데이터
+INSERT INTO like_heart_tb (board_id, user_id)
+VALUES 
+(1, 'abc'),
+(1, 'a123'), 
+(3, 'abc'),
+(4, 'abc');
 
 INSERT INTO member_tb
 VALUES 

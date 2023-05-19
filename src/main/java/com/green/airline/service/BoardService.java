@@ -9,15 +9,18 @@ import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 
-import com.green.airline.dto.BoardHeartDto;
+import com.green.airline.dto.BoardDto;
 import com.green.airline.repository.interfaces.BoardRepository;
 import com.green.airline.repository.model.Board;
+import com.green.airline.repository.model.LikeHeart;
+import com.green.airline.repository.model.User;
+import com.green.airline.utils.Define;
 
 /**
  * @author 치승 추천 여행지 게시글
@@ -28,11 +31,14 @@ public class BoardService {
 	@Autowired
 	private BoardRepository boardRepository;
 
+	@Autowired
+	private HttpSession session;
+
 	// 추천 여행지 게시글 전체 보기
 	@Transactional
 	public List<Board> boardList() {
 
-		List<Board> list = boardRepository.findByBoardList();
+		List<Board> list = boardRepository.selectByBoardList();
 
 		return list;
 	}
@@ -53,9 +59,9 @@ public class BoardService {
 	}
 
 	// 추천 여행지 게시글 상세보기
-	public BoardHeartDto boardListDetail(Integer id) {
+	public BoardDto boardListDetail(Integer id) {
 
-		BoardHeartDto board = boardRepository.findByBoardDetail(id);
+		BoardDto board = boardRepository.selectByBoardDetail(id);
 
 		return board;
 	}
@@ -84,7 +90,7 @@ public class BoardService {
 				}
 			}
 		}
-		
+
 		if (oldCookie != null) {
 			// 쿠키 값에 게시글 번호 없으면 조회수 증가
 			if (!oldCookie.getValue().contains("[" + id + "]")) {
@@ -109,22 +115,55 @@ public class BoardService {
 
 		return false;
 	}
-	
-	// 좋아요 추가, 취소
-	public BoardHeartDto giveLikeHeart(Model model, Integer id) {
-		
-		BoardHeartDto boardHeartDto;
-		
-		
-		return null;
+
+	// 좋아요 조회
+	public BoardDto selectLikeHeart(Integer id) {
+
+		BoardDto board = boardRepository.selectByBoardDetail(id);
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+
+		// 1. userId, boardId 값 들고오기
+		List<LikeHeart> likeUser = boardRepository.selectByLikeUser(id);
+
+		// 2. userId가 boardId로 사이즈 구하기
+		Integer heartCount = likeUser.size();
+
+//		for (int i = 0; i < heartCount; i++) {
+//			Integer boardId = likeUser.get(i).getId();
+//			String userId = likeUser.get(i).getUserId();
+//			
+//			if (user.getId().equals(userId)) {
+//				boardRepository.deleteByHeart(boardId, userId);
+//			} else {
+//				boardRepository.insertByHeart(boardId, userId);
+//			}
+//		}
+
+		board.setHeartCount(heartCount);
+
+		return board;
+	}
+
+	// 좋아요 추가, 삭제
+	public void heartInDecrease(Integer id) {
+
+		List<LikeHeart> likeUser = boardRepository.selectByLikeUser(id);
+
+//		where 절에 보드id userid 둘다 넣어서 객체가 null이면 좋아요 x
+//		그게 아니면 좋아요++  userid는 세션값
+
+		// TODO 좋아요 insert, delete하기
+		// id, userId 값 구하기
+
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+
+		for (int i = 0; i < likeUser.size(); i++) {
+			Integer boardId = likeUser.get(i).getId();
+			String userId = likeUser.get(i).getUserId();
+			if (user.getId().equals(userId)) {
+
+			}
+		}
 	}
 
 }
-
-
-
-
-
-
-
-

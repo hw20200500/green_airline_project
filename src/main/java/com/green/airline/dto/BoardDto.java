@@ -7,7 +7,7 @@ import com.green.airline.utils.TimestampUtil;
 import lombok.Data;
 
 @Data
-public class BoardHeartDto {
+public class BoardDto {
 	
 	private Integer id;
 	private String title;
