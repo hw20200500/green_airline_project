@@ -7,8 +7,34 @@ VALUES ('abc', '1234', '회원');
 
 
 INSERT INTO shop_product_tb(brand,name,price,count,product_image,gifticon_image)
-		VALUES('brand','name',1234,3,'image.png','image2.png'),
-				('스타벅스','아이스 아메리카노',10000,4,'image.png','image2.png');
+		VALUES('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('스타벅스','아이스 아메리카노',10000,4,'image2.png','image.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
+				('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png')
+				;
 
 INSERT INTO member_tb
 VALUES 

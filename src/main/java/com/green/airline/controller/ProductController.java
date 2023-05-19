@@ -11,15 +11,19 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.green.airline.dto.EmailDto;
 import com.green.airline.dto.GifticonDto;
 import com.green.airline.dto.MileageDto;
+import com.green.airline.dto.ProductCountDto;
+import com.green.airline.dto.ProductPaging;
 import com.green.airline.dto.ShopOrderDto;
 import com.green.airline.dto.ShopProductDto;
 import com.green.airline.repository.model.Mileage;
@@ -50,16 +54,26 @@ public class ProductController {
 	 * @param model
 	 * @return 메인페이지
 	 */
+	
 	@GetMapping("/productMain")
-	public String productMainPage(@RequestParam(name = "searchOrder", defaultValue = "clasic", required = false) String searchOrder,Model model) {
-		System.out.println(searchOrder);
-		
-		List<ShopProduct> productList = productService.productList(searchOrder);
+	public String productMainPage(Model model, @ModelAttribute("productList") ProductCountDto productCountDto) {
+		ProductPaging<ShopProduct> productList = productService.listtest(productCountDto);
+		//List<ShopProduct> productList = productService.productList();
 		model.addAttribute("productList", productList);
 		return "/mileage/productMainPage";
 
 	}
-
+	
+	  // 데이터 받을꺼
+	  @ResponseBody
+	  @GetMapping("/list/{searchOrder}") public List<ShopProduct> productList(@PathVariable(value = "searchOrder")String searchOrder, Model model) {
+		  
+	  List<ShopProduct> productList = productService.productList(searchOrder);
+	  model.addAttribute("productList", productList);
+	  return productList; 
+	  }
+	 
+	
 	/**
 	 * 정다운
 	 * 

@@ -107,7 +107,7 @@
 				<!--// 상품 정보영역 -->
 				<!-- Button to Open the Modal -->
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">수정</button>
-
+				<a href="/product/productMain">목록 페이지 이동</a>
 				<!-- The Modal -->
 				<div class="modal" id="myModal">
 					<div class="modal-dialog">

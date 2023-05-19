@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.green.airline.dto.GifticonDto;
 import com.green.airline.dto.MileageDto;
+import com.green.airline.dto.ProductCountDto;
 import com.green.airline.dto.ShopOrderDto;
 import com.green.airline.dto.ShopProductDto;
 import com.green.airline.repository.model.Mileage;
@@ -16,7 +17,12 @@ import com.green.airline.repository.model.ShopProduct;
 public interface ProductRepository {
 
 	public int insert(ShopProduct shopProduct);
+	public List<ShopProduct> selectProductList();
 	public List<ShopProduct> selectProductList(String searchOrder);
+	
+	public List<ShopProduct> ProductListTest(ProductCountDto productCountDto);
+	public int countListTest(ProductCountDto productCountDto);
+	
 	public ShopProduct selectById(int id);
 	public int updateProduct(ShopProduct shopProduct);
 	public int deleteProduct(int id);
