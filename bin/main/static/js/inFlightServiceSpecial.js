@@ -79,9 +79,7 @@ $(document).ready(function() {
 	});
 
 
-
-	/// 
-
+	
 	$("#inFlightMeals--request--btn").on("click", function() {
 		let isLoginCheck = $("#isLogin--check").val();
 		if (isLoginCheck == "false") {
