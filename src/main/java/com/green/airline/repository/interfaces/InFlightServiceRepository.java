@@ -1,12 +1,12 @@
 package com.green.airline.repository.interfaces;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.green.airline.dto.response.InFlightMealResponseDto;
+import com.green.airline.dto.response.InFlightServiceResponseDto;
 import com.green.airline.repository.model.InFlightMeal;
 import com.green.airline.repository.model.InFlightMealDetail;
 import com.green.airline.repository.model.InFlightService;
@@ -46,5 +46,9 @@ public interface InFlightServiceRepository {
 	
 	// 특별 기내식 신청할 때 좌석 수를 동적으로 가져가기 위해 사용
 	InFlightMealResponseDto selectInFlightRequestForSeatCount(@Param("memberId") String memberId, @Param("departureDate") String departureDate);
+	
+	// 기내 서비스 조회시 운항 시간별 서비스 조회를 하기 위해 사용
+	List<InFlightServiceResponseDto> selectAvailableServiceByFlightHours(String flightHours);
+	
 }
  

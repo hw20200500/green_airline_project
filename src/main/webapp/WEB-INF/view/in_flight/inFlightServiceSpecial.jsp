@@ -6,7 +6,7 @@
 	<main>
 		<h2>특별 기내식</h2>
 		<input type="hidden" name="memberId" value="memberId">
-
+	
 		<div>
 			<div>항목 선택</div>
 			<select id="inFlightMeals--option">
@@ -39,6 +39,7 @@
 
 		<!-- The Modal -->
 		<div class="modal" id="special--meal--req">
+			<input type="hidden" id="isLogin--check" value="${isLogin}">		
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<form action="/inFlightService/specialMealReq" method="post">

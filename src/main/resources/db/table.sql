@@ -140,7 +140,8 @@ CREATE TABLE in_flight_service_tb(
    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
     description TEXT NOT NULL,
-    image VARCHAR(50) NOT NULL
+    icon_image VARCHAR(50) NOT NULL,
+    detail_image VARCHAR(50) NOT NULL
 );
 
 

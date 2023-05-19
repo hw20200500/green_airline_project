@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.green.airline.dto.response.InFlightMealResponseDto;
+import com.green.airline.dto.response.InFlightServiceResponseDto;
+import com.green.airline.dto.response.RouteResponseDto;
 import com.green.airline.repository.model.Airport;
-import com.green.airline.repository.model.InFlightMeal;
+import com.green.airline.repository.model.Route;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.AirportService;
 import com.green.airline.service.InFlightSvService;
+import com.green.airline.service.RouteService;
 import com.green.airline.utils.Define;
 
 @RestController
@@ -25,6 +28,9 @@ public class RestInFlightServiceController {
 
 	@Autowired
 	private AirportService airportService;
+
+	@Autowired
+	private RouteService routeService;
 
 	@Autowired
 	private HttpSession session;
@@ -42,7 +48,8 @@ public class RestInFlightServiceController {
 	public InFlightMealResponseDto setMaxCount(@RequestParam String departureDate) {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		// 좌석 수를 동적으로 갖고 오려고
-		InFlightMealResponseDto flightMealResponseDto = inFlightSvService.readInFlightRequestForSeatCount(principal.getId(), departureDate);
+		InFlightMealResponseDto flightMealResponseDto = inFlightSvService
+				.readInFlightRequestForSeatCount(principal.getId(), departureDate);
 
 		return flightMealResponseDto;
 	}
@@ -60,4 +67,13 @@ public class RestInFlightServiceController {
 		List<Airport> reqList = airportService.readByRegion(region);
 		return reqList;
 	}
+
+	// 노선 정보 갖고 오기
+	@GetMapping("/searchRoute")
+	public List<InFlightServiceResponseDto> searchRoute(@RequestParam String destination, @RequestParam String departure) {
+		List<InFlightServiceResponseDto> reqRouteList = routeService.readByDestAndDepa(destination, departure);
+		
+		return reqRouteList;
+	}
+
 }

@@ -1,30 +1,3 @@
-$(function() {
-	//input을 datepicker로 선언
-	$(".datepicker").datepicker({
-		dateFormat: 'yy-mm-dd' //달력 날짜 형태
-		, showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-		, showMonthAfterYear: true // 월- 년 순서가아닌 년도 - 월 순서
-		, changeYear: true //option값 년 선택 가능
-		, changeMonth: true //option값  월 선택 가능                
-		, buttonText: "선택" //버튼 호버 텍스트              
-		, yearSuffix: "년" //달력의 년도 부분 뒤 텍스트
-		, monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] //달력의 월 부분 텍스트
-		, monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'] //달력의 월 부분 Tooltip
-		, dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'] //달력의 요일 텍스트
-		, dayNames: ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'] //달력의 요일 Tooltip
-	});
-
-	$('#datepicker, #datepicker2').css('z-index', 99999999999999);
-
-	//초기값을 오늘 날짜로 설정해줘야 합니다.
-
-	$(".datepicker").datepicker();
-	$('.datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)            
-});
-
-/*	$(function() {
-		$("#datepicker--form, #datepicker--to").datepicker();
-	});*/
 
 $("#start").on("click", function() {
 	$("#departure")
@@ -33,8 +6,6 @@ $("#start").on("click", function() {
 			function() {
 				let searchName = $("#departure").val().replaceAll(" ", "");
 				$("#departure").val(searchName);
-
-				console.log(searchName);
 
 				if (searchName == "") {
 					$(".pop--rel--keyword").empty();
@@ -81,8 +52,6 @@ $("#destination").on("click", function() {
 				let searchName = $("#destination").val().replaceAll(" ", "");
 				$("#destination").val(searchName);
 
-				console.log(searchName);
-
 				if (searchName == "") {
 					$(".pop--rel--keyword").empty();
 					return;
@@ -128,13 +97,57 @@ function insertAutoComplete(i, target) {
 $("#start--modal--btn").on("click", function() {
 	let departureVal = $("#departure").val();
 	$("#modal--departure--btn--id").text(departureVal);
+
+	/* .departure--airport--li를 클릭했을 때 상태 값을 주고
+	input에 글자가 없으면 경고창 띄우기 */
+
+	/*if($(".departure--airport--li").text() == null && $("#departure").text() == null){
+		alert("ㅁㄴㅇㄹ");
+	}*/
 });
+
 
 $("#arrival--modal--btn").on("click", function() {
 	let destinationVal = $("#destination").val();
 	$("#modal--destination--btn--id").text(destinationVal);
 });
 
-/*$(".ui-state-default").on("click", function() {
-	console.log($(".ui-state-default").val());
-});*/
+$('.modal').on('hidden.bs.modal', function(e) {
+	console.log('modal close');
+	$(this).find('form')[0].reset();
+});
+
+
+/* 기내 서비스 조회 버튼 클릭 시 ajax */
+/* 노선 정보를 갖고 와서 해야 함. */
+$("#modal--select--btn--id").on("click", function() {
+	let destination = $("input[name=destination]").val();
+	let departure = $("input[name=departure]").val();
+	$("#destination--res--id").empty();
+
+	$.ajax({
+		type: "GET",
+		url: `/searchRoute?destination=${destination}&departure=${departure}`,
+		contentType: 'application/json; charset=utf-8'
+	}).done(function(data) {
+		/* 노선 테이블에 입력한대로 조회하면 잘 나옴 */
+		let departureResId = $("#departure--res--id");
+		let destinationResId= $("#destination--res--id");
+
+		for (let i = 0; i < data.length; i++) {
+			let imgNode = $("<img>");
+			imgNode.attr("src", "/images/in_flight/"+data[i].detailImage);
+			destinationResId.append(data[i].name);
+			destinationResId.append(imgNode);
+			destinationResId.append(data[i].description);
+			
+			/*console.log(data[i]);
+			destinationResId.append(data[i].name);
+			destinationResId.append(data[i].detailImage);
+			destinationResId.append(data[i].description);*/
+		}
+		
+	}).fail(function(error) {
+		console.log(error);
+	});
+})

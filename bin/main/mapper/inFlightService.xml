@@ -119,4 +119,12 @@
 		where t.member_id=#{memberId} and s.departure_date=#{departureDate}
 	</select>
 	
+	<select id="selectAvailableServiceByFlightHours" resultType="com.green.airline.dto.response.InFlightServiceResponseDto">
+		select ast.flight_hours, ifs.name, ifs.description, ifs.icon_image, ifs.detail_image
+		from available_service_tb as ast
+		join in_flight_service_tb as ifs
+		on ast.service_id=ifs.id
+		where flight_hours=#{flightHours};
+	</select>
+	
 </mapper>

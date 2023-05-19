@@ -15,7 +15,8 @@ public class InFlightMealResponseDto {
 	private String ifmdName;
 	private String ifmDescription;
 	private String ifmdDescription;
-	private String image;
+	private String iconImage;
+	private String detailImage;
 	private Integer mealId;
 	private Integer amount;
 	private String name;
@@ -28,6 +29,7 @@ public class InFlightMealResponseDto {
 	private Integer routeId;
 	private Timestamp reservedDate;
 	private Integer seatCount;
+	private String image;
 	
 	public String arrivalDateFormat() {
 		return TimestampUtil.dateTimeToString(arrivalDate);

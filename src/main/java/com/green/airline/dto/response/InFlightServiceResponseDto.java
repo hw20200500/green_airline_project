@@ -9,5 +9,9 @@ public class InFlightServiceResponseDto {
 	private String name;
 	private String description;
 	private String keyword;
+	private Integer flightHours;
+	private String iconImage;
+	private String detailImage;
+	private String image;
 	
 }

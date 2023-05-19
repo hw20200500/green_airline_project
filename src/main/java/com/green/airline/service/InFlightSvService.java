@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.green.airline.dto.response.InFlightMealResponseDto;
+import com.green.airline.dto.response.InFlightServiceResponseDto;
 import com.green.airline.repository.interfaces.InFlightServiceRepository;
 import com.green.airline.repository.model.InFlightMeal;
 import com.green.airline.repository.model.InFlightMealDetail;
@@ -86,4 +87,19 @@ public class InFlightSvService {
 
 		return inFlightMealResponseDto;
 	}
+	
+	// selectAvailableServiceByFlightHours
+	public List<InFlightServiceResponseDto> readAvailableServiceByFlightHours(String flightHours) {
+		List<InFlightServiceResponseDto> inFlightServiceResponseDto = inFlightServiceRepository.selectAvailableServiceByFlightHours(flightHours);
+		for(int i=0; i<inFlightServiceResponseDto.size(); i++) {
+			Integer flightHour = inFlightServiceResponseDto.get(i).getFlightHours();
+			System.out.println(flightHour);
+			System.out.println(inFlightServiceResponseDto.get(i).getFlightHours());
+			
+		}
+		
+		return inFlightServiceResponseDto;
+	}
+	
+	
 }

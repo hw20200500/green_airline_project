@@ -18,6 +18,19 @@
 	padding-bottom: 5px;
 }
 
+.inFlightSvSearch--img--wrap img {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: auto;
+}
+
+.inFlightService--name--div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 /* input::placeholder{
 	text-align: center;
 } */
@@ -42,7 +55,7 @@
 	justify-content: space-between;
 }
 
-.search--airport--li:hover {
+.search--airport--li:hover, .destination--airport--li:hover {
 	cursor: pointer;
 }
 
@@ -77,7 +90,7 @@
 
 .inFlightSvSearch--img--wrap {
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 	margin-top: 30px;
 }
@@ -119,6 +132,27 @@
 .ui-datepicker {
 	z-index: 9999 !important;
 }
+
+.departure--airport--li:hover {
+	cursor: pointer;
+}
+
+/* #modal--select--btn--id{
+	width:200px;
+	border:none;
+	height:80px;
+	background-color: #174481;
+	border-radius: 15px;
+} */
+#destination--res--id {
+	display: flex;
+	flex-direction: column;
+}
+
+#destination--res--id img{
+	width:300px;
+	height:200px;
+}
 </style>
 <div>
 	<main>
@@ -126,110 +160,90 @@
 			<h2>기내 서비스 조회</h2>
 		</div>
 		<div class="inFlightSvSearch--img--wrap">
-			<img alt="" src="/images/in_flight/inFlightServiceImage1.jpg" width="1000" height="500">
+			<c:forEach var="inFlightServices" items="${inFlightServices}">
+				<div class="inFlightService--image--name--wrap">
+					<div class="inFlightService--wrap">
+						<img alt="" src="/images/in_flight/${inFlightServices.iconImage}" width="50" height="50">
+					</div>
+					<div class="inFlightService--name--div">${inFlightServices.name}</div>
+				</div>
+			</c:forEach>
 		</div>
 
-		<form action="#" method="post">
-			<div class="inFlightSvSearch--description--wrap">출/도착지를 입력하여 상세 정보를 확인해 보세요.</div>
+		<div class="inFlightSvSearch--description--wrap">출/도착지를 입력하여 상세 정보를 확인해 보세요.</div>
 
-			<div class="modal--all--btn--div">
-				<button type="button" id="modal--departure--btn--id" class="all--btn--class" data-toggle="modal" data-target="#start">출발지</button>
-				<button type="button" id="modal--destination--btn--id" class="all--btn--class" data-toggle="modal" data-target="#arrival">도착지</button>
-				<button type="button" id="modal--datepicker--btn--id" class="all--btn--class" data-toggle="modal" data-target="#calendar">날짜 선택</button>
-				<button type="submit" id="modal--select--btn--id" class="search--btn--class">조회</button>
-			</div>
-			<!-- The Modal -->
-			<div class="modal fade" id="start">
-				<div class="modal-dialog">
-					<div class="modal-content">
+		<div class="modal--all--btn--div">
+			<button type="button" id="modal--departure--btn--id" class="all--btn--class" data-toggle="modal" data-target="#start">출발지</button>
+			<button type="button" id="modal--destination--btn--id" class="all--btn--class" data-toggle="modal" data-target="#arrival">도착지</button>
+			<button type="button" id="modal--select--btn--id" class="search--btn--class">조회</button>
+		</div>
+		<!-- The Modal -->
+		<div class="modal fade" id="start">
+			<div class="modal-dialog">
+				<div class="modal-content">
 
-						<div class="modal-header">
-							<h4 class="modal-title">출발지 검색</h4>
-							<button type="button" class="close" data-dismiss="modal">×</button>
+					<div class="modal-header">
+						<h4 class="modal-title">출발지 검색</h4>
+						<button type="button" class="close" data-dismiss="modal">×</button>
+					</div>
+
+					<div class="modal-body">
+						<input type="text" autocomplete="off" id="departure" name="departure" placeholder="도시, 공항 검색">
+						<div class="rel--search">
+							<ul class="pop--rel--keyword">
+							</ul>
 						</div>
+					</div>
 
-						<div class="modal-body">
-							<input type="text" autocomplete="off" id="departure" name="departure" placeholder="도시, 공항 검색">
-							<div class="rel--search">
-								<ul class="pop--rel--keyword">
-								</ul>
-							</div>
+					<!-- Modal footer -->
+					<div class="modal-footer">
+						<div class="modal--all--region">
+							<button type="button" class="btn btn-primary">모든 지역 보기</button>
 						</div>
-
-						<!-- Modal footer -->
-						<div class="modal-footer">
-							<div class="modal--all--region">
-								<button type="button" class="btn btn-primary">모든 지역 보기</button>
-							</div>
-							<div class="modal--cancel--btn">
-								<button type="button" id="start--modal--btn" class="btn btn-primary" data-dismiss="modal">Submit</button>
-								<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-							</div>
+						<div class="modal--cancel--btn">
+							<button type="button" id="start--modal--btn" class="btn btn-primary" data-dismiss="modal">Submit</button>
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 
-			<div class="modal fade" id="arrival">
-				<div class="modal-dialog">
-					<div class="modal-content">
+		<div class="modal fade" id="arrival">
+			<div class="modal-dialog">
+				<div class="modal-content">
 
-						<div class="modal-header">
-							<h4 class="modal-title">도착지 검색</h4>
-							<button type="button" class="close" data-dismiss="modal">×</button>
+					<div class="modal-header">
+						<h4 class="modal-title">도착지 검색</h4>
+						<button type="button" class="close" data-dismiss="modal">×</button>
+					</div>
+
+					<div class="modal-body">
+						<input type="text" autocomplete="off" name="destination" id="destination" placeholder="도시, 공항 검색">
+						<div class="rel--search">
+							<ul class="pop--rel--keyword">
+							</ul>
 						</div>
+					</div>
 
-						<div class="modal-body">
-							<input type="text" autocomplete="off" name="destination" id="destination" placeholder="도시, 공항 검색">
-							<div class="rel--search">
-								<ul class="pop--rel--keyword">
-								</ul>
-							</div>
+					<div class="modal-footer">
+						<div class="modal--all--region">
+							<button type="button" class="btn btn-primary">모든 지역 보기</button>
 						</div>
-
-						<div class="modal-footer">
-							<div class="modal--all--region">
-								<button type="button" class="btn btn-primary">모든 지역 보기</button>
-							</div>
-							<div class="modal--cancel--btn">
-								<button type="button" id="arrival--modal--btn" class="btn btn-primary" data-dismiss="modal">Submit</button>
-								<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-							</div>
+						<div class="modal--cancel--btn">
+							<button type="button" id="arrival--modal--btn" class="btn btn-primary" data-dismiss="modal">Submit</button>
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
+
+		<div id="departure--res--id"></div>
+
+		<div id="destination--res--id"></div>
 
 
-			<div class="modal fade" id="calendar">
-				<div class="modal-dialog">
-					<div class="modal-content">
-
-						<div class="modal-header">
-							<h4 class="modal-title">날짜 선택</h4>
-							<button type="button" class="close" data-dismiss="modal">×</button>
-						</div>
-
-						<div class="modal-body">
-							<%-- 여기 --%>
-							<div class="datepicker"></div>
-
-						</div>
-
-						<!-- Modal footer -->
-						<div class="modal-footer">
-							<div class="modal--all--region">
-								<button type="button" class="btn btn-primary">모든 지역 보기</button>
-							</div>
-							<div class="modal--cancel--btn">
-								<button type="button" id="start--modal--btn" class="btn btn-primary" data-dismiss="modal">Submit</button>
-								<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</form>
 
 
 		<script src="/js/inFlightSvSearch.js"></script>
