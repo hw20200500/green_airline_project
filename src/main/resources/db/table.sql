@@ -198,6 +198,14 @@ CREATE TABLE notice_tb(
     FOREIGN KEY(category_id) REFERENCES notice_category_tb(id)
 );
 
+-- 휴대 반입 액체류 
+CREATE TABLE carry_on_liquids_tb(
+	name VARCHAR(50) PRIMARY KEY,
+	target VARCHAR(100) NOT NULL,
+	limit_guide TEXT NOT NULL,
+	tax_free_guide TEXT NOT NULL
+);
+
 
 -- 추천여행지 게시글
 create table recommend_board_tb(

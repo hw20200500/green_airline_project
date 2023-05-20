@@ -3,12 +3,10 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
-	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
-	integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- 지우면 안됨 !! -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
 #departure, #destination {
 	margin-top: 10px;
@@ -149,9 +147,9 @@
 	flex-direction: column;
 }
 
-#destination--res--id img{
-	width:300px;
-	height:200px;
+#destination--res--id img {
+	width: 300px;
+	height: 200px;
 }
 </style>
 <div>
@@ -198,7 +196,7 @@
 					<!-- Modal footer -->
 					<div class="modal-footer">
 						<div class="modal--all--region">
-							<button type="button" class="btn btn-primary">모든 지역 보기</button>
+							<a data-toggle="modal" href="#all--airport--search" class="departure--button all--airport btn btn-primary">모든 지역 보기</a>
 						</div>
 						<div class="modal--cancel--btn">
 							<button type="button" id="start--modal--btn" class="btn btn-primary" data-dismiss="modal">Submit</button>
@@ -228,7 +226,7 @@
 
 					<div class="modal-footer">
 						<div class="modal--all--region">
-							<button type="button" class="btn btn-primary">모든 지역 보기</button>
+							<a data-toggle="modal" href="#all--airport--search" class="destination--button all--airport btn btn-primary">모든 지역 보기</a>
 						</div>
 						<div class="modal--cancel--btn">
 							<button type="button" id="arrival--modal--btn" class="btn btn-primary" data-dismiss="modal">Submit</button>
@@ -238,6 +236,39 @@
 				</div>
 			</div>
 		</div>
+
+		<!-- 전체 공항 조회 모달 -->
+		<div class="modal fade header--modal all--airport--modal" id="all--airport--search">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal--title--div">
+						<h4 class="modal--title"></h4>
+						<button class="close--button" onclick="$('.all--airport--modal').modal('hide');">
+							<span class="material-symbols-outlined">close</span>
+						</button>
+					</div>
+					<div class="modal-body d-flex">
+
+						<!-- 지역 목록 -->
+						<ul style="min-width: 210px; margin: 0 20px 0 0">
+							<c:forEach var="r" items="${regionList}">
+								<li class="region--li">${r.region}</li>
+							</c:forEach>
+						</ul>
+
+						<!-- 지역을 선택하면 취항지 불러오기 -->
+						<div style="width: 100%;">
+							<h5 style="margin: 0">취항지</h5>
+							<hr style="margin: 10px 0 20px;">
+							<ul class="airport--ul">
+							</ul>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
 
 		<div id="departure--res--id"></div>
 

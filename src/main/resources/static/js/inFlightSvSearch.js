@@ -112,11 +112,11 @@ $("#arrival--modal--btn").on("click", function() {
 	$("#modal--destination--btn--id").text(destinationVal);
 });
 
-$('.modal').on('hidden.bs.modal', function(e) {
+/*$('.modal').on('hidden.bs.modal', function(e) {
 	console.log('modal close');
 	$(this).find('form')[0].reset();
 });
-
+*/
 
 /* 기내 서비스 조회 버튼 클릭 시 ajax */
 /* 노선 정보를 갖고 와서 해야 함. */
@@ -151,3 +151,54 @@ $("#modal--select--btn--id").on("click", function() {
 		console.log(error);
 	});
 })
+
+// 전체 공항 조회 버튼
+$(".all--airport").on("click", function() {
+	/*$(".all--airport--modal").modal();*/
+	if ($(this).is(".destination--button")) {
+		$(".all--airport--modal").addClass("dest");
+		$(".all--airport--modal").removeClass("depa");
+		$(".modal--title").text("도착지 선택");
+	} else if ($(this).is(".departure--button")) {
+		$(".all--airport--modal").addClass("depa");
+		$(".all--airport--modal").removeClass("dest");
+		$(".modal--title").text("출발지 선택");
+	}
+});
+
+// 지역 선택하면 해당하는 취항지 출력
+$(".region--li").on("click", function() {
+	$(this).addClass("region--li--selected");
+	$(this).siblings().removeClass("region--li--selected");
+
+	let region = $(this).text();
+	$.ajax({
+		type: "GET",
+		url: `/airport/list?region=${region}`,
+		contentType: "application/json; charset=UTF-8"
+
+	}).done((res) => {
+		$(".airport--ul").empty();
+
+		if ($(".all--airport--modal").is(".depa")) {
+			for (var i = 0; i < res.length; i++) {
+				var el = $("<li onclick=\"insertAirport(" + i + ", 'departure');\">");
+				el.addClass("departure--airport--li");
+				el.append(res[i].name);
+				$(".airport--ul").append(el);
+			}
+		} else if ($(".all--airport--modal").is(".dest")) {
+			for (var i = 0; i < res.length; i++) {
+				var el = $("<li onclick=\"insertAirport(" + i + ", 'destination');\">");
+				el.addClass("destination--airport--li");
+				el.append(res[i].name);
+				$(".airport--ul").append(el);
+			}
+		}
+
+	}).fail((error) => {
+		console.log(error);
+	});
+
+
+});

@@ -21,7 +21,7 @@ import com.green.airline.service.RouteService;
 import com.green.airline.utils.Define;
 
 @RestController
-public class RestInFlightServiceController {
+public class InFlightServiceApiController {
 
 	@Autowired
 	private InFlightSvService inFlightSvService;

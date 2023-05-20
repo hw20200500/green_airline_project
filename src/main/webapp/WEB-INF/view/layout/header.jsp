@@ -101,7 +101,7 @@
 							<ul>
 								<li><a href="/inFlightService/inFlightServiceSearch">기내 서비스</a>
 								<li><a href="/inFlightService/inFlightServiceSpecial">특별 기내식</a>
-								<li><a href="#">세부메뉴</a>
+								<li><a href="/baggage/guide">수하물 안내</a>
 								<li><a href="#">세부메뉴</a>
 								<li><a href="#">세부메뉴</a>
 							</ul>
