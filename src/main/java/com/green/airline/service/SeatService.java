@@ -50,7 +50,7 @@ public class SeatService {
 	 */
 	public SeatPriceDto readSeatPriceByScheduleId(Integer scheduleId) {
 		// 스케줄 정보
-		ScheduleInfoResponseDto scheduleDto = scheduleRepository.selectByScheduleId(scheduleId);
+		ScheduleInfoResponseDto scheduleDto = scheduleRepository.selectDtoByScheduleId(scheduleId);
 		
 		// 운항시간 중 시간만 가져오기
 		Integer hours = Integer.parseInt(scheduleDto.getFlightTime().split("시간")[0]);

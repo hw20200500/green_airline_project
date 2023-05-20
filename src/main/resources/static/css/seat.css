@@ -1,0 +1,219 @@
+@charset "UTF-8";
+
+.airplane--div {
+	overflow: auto;
+	max-height: 880px;
+	min-width: 710px;
+}
+
+/* 백그라운드 처리 */
+.airplane--background {
+	width: 685px;
+	height: 2549px;
+}
+.airplane--1 {
+	background-image: url('/images/airplane/airplane_empty1.png');
+}
+.airplane--2 {
+	background-image: url('/images/airplane/airplane_empty2.png');
+}
+.airplane--3 {
+	background-image: url('/images/airplane/airplane_empty3.png');
+}
+.airplane--4 {
+	background-image: url('/images/airplane/airplane_empty4.png');
+	height: 2122px !important;
+}
+
+.seat--list img {
+	cursor: pointer;
+}
+
+.seat--list img[src="/images/ticket/first_r_pre.png"],
+.seat--list img[src="/images/ticket/first_l_pre.png"],
+.seat--list img[src="/images/ticket/business_pre.png"],
+.seat--list img[src="/images/ticket/economy_pre.png"],
+.seat--list img[src="/images/ticket/first_r_false.png"],
+.seat--list img[src="/images/ticket/first_l_false.png"],
+.seat--list img[src="/images/ticket/business_false.png"],
+.seat--list img[src="/images/ticket/economy_false.png"] {
+	cursor: default !important;
+}
+
+.f--seat {
+	margin-left: 106px;	
+}
+
+.b--seat {
+	margin-left: 92px;	
+}
+
+.e--seat {
+	margin-left: 85px;	
+}
+
+.e--seat img {
+	width: 50px;
+	height: 50px;
+}
+
+.b--seat img {
+	width: 65px;
+	height: 108px;
+}
+
+.f--seat img {
+	width: 78px;
+	height: 120px;
+}
+
+#sch2Airplane {
+	display: none;
+}
+
+.search--btn--middle {
+	background-color: #7CB2D5;
+	padding: 10px 12px 4px 15px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	font-size: 19px;
+}
+
+.search--btn--big {
+	background-color: #7CB2D5;
+	padding: 13px 18px 7px 21px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	font-size: 20px;
+}
+
+#nextSeatBtn, #prevSeatBtn {
+	display: none;
+	margin: 20px;
+}
+
+#prevSeatBtn {
+	padding: 10px 18px 4px 12px !important;
+}
+
+#choiceCompleteBtn {
+	margin: 20px;
+}
+
+.schedule--info {
+	margin-top: 20px;
+}
+
+.info--title {
+	display: flex;
+	justify-content: center;
+	margin: 0;
+	color: #314f79;
+}
+
+.info--title li span {
+	font-size: 25px;
+	margin-top: 3px;
+}
+
+.info--title li span:hover {
+	color: #314f79;
+}
+
+.info--title li:last-of-type {
+	font-size: 20px;
+	margin-left: 6px;
+	font-weight: 500;
+}
+	
+#scheduleInfo2, #seatInfo2 {
+	display: none;
+}
+
+.seat--info {
+	margin: 20px 0 10px;
+	height: 100%;
+}
+
+.departure--destination--airport {
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	margin-bottom: 25px;
+}
+
+.departure--destination--airport ul {
+	text-align: center;
+}
+
+.departure--destination--airport li:first-of-type {
+	font-size: 18px;
+	color: rgba(0, 0, 0, 0.8);
+	font-weight: 500;
+}
+
+.departure--destination--airport li:last-of-type {
+	font-size: 30px;
+	font-weight: 600;	
+}
+
+.departure--destination--airport span {
+	font-size: 30px;
+	margin: 0 25px;
+}
+
+ul {
+	margin: 0;
+}
+
+.departure--destination--date {
+	text-align: center;
+	font-size: 19px;
+	margin-bottom: 40px;
+}
+
+.btn--div {
+	width: 100%; 
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	margin-bottom: 20px;
+}
+
+.seat--grade--count {
+	font-size: 20px;
+	text-align: center;
+	font-weight: 500;
+	margin-bottom: 20px;
+}
+
+.seat--name--list {
+	height: 345px;
+	overflow: auto;
+}
+
+.seat--ul {
+	border: 1px solid #ccc;
+	padding: 10px;
+	border-radius: 5px;
+	margin: 10px 50px;
+}
+
+.seat--ul li:first-of-type {
+	display: flex;
+	justify-content: space-between;
+}
+
+.seat--count--span {
+	font-size: 18px !important;
+	color: gray;
+}
+
+.seat--count--span:hover {
+	color: gray !important;
+}
+
+
+

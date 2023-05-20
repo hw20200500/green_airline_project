@@ -33,7 +33,6 @@ public class TicketUtil {
 		schedule.setEcPrice(seatPriceDto.getEconomyPrice());
 		schedule.setBuPrice(seatPriceDto.getBusinessPrice());
 		schedule.setFiPrice(seatPriceDto.getFirstPrice());
-		schedule.formatMoney();
 		
 		// 해당 스케줄에 운항하는 비행기의 전체 이코노미 좌석 수
 		Integer eTotalCount = eSeatList.size();

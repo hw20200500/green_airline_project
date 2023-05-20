@@ -12,7 +12,7 @@
 	<h2>좌석 배치도</h2>
 	<hr>
 	<br>
-	<img alt="" src="/images/ticket/airplane_seat${id}.png">
+	<img alt="" src="/images/airplane/airplane${id}.png">
 
 </main>
 

@@ -43,7 +43,7 @@ CREATE TABLE manager_tb(
 CREATE TABLE airport_tb(
    id INT PRIMARY KEY AUTO_INCREMENT,
     region VARCHAR(50) NOT NULL,
-    name VARCHAR(50) NOT NULL
+    name VARCHAR(50) NOT NULL UNIQUE
 );
 
 
@@ -105,7 +105,11 @@ CREATE TABLE schedule_tb(
 -- 예약 티켓
 CREATE TABLE ticket_tb(
    id INT PRIMARY KEY AUTO_INCREMENT,
-    seat_count INT DEFAULT 1 NOT NULL,
+    adult_count INT DEFAULT 1 NOT NULL,
+    child_count INT DEFAULT 0 NOT NULL,
+    infant_count INT DEFAULT 0 NOT NULL,
+    seat_grade VARCHAR(10) NOT NULL,
+    FOREIGN KEY(seat_grade) REFERENCES seat_grade_tb (name),
     member_id VARCHAR(50) NOT NULL, 
     FOREIGN KEY(member_id) REFERENCES member_tb(id),
     schedule_id INT NOT NULL, 
@@ -120,7 +124,6 @@ CREATE TABLE reserved_seat_tb(
    schedule_id INT NOT NULL, 
    FOREIGN KEY(schedule_id) REFERENCES schedule_tb(id),
    seat_name VARCHAR(10) NOT NULL, 
-   FOREIGN KEY(seat_name) REFERENCES seat_tb(name),
    ticket_id INT NOT NULL, 
    FOREIGN KEY(ticket_id) REFERENCES ticket_tb(id)
 );

@@ -2,107 +2,428 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<link rel="stylesheet" href="/css/seat.css">
 
 <!-- 좌석 선택 페이지 -->
-<style>
-	.seat--list {
-		min-width: 600px;
-	}
-	
-	.e--seat img {
-		width: 70px;
-		height: 70px;
-	}
-	
-	.b--seat img {
-		width: 89px;
-		height: 135px;
-	}
-</style>
-
-<div>
-	
-	<!-- 여기 안에 쓰기 -->
-	<main class="d-flex flex-column">
-		<h2>좌석 선택</h2>
-		<hr>
-		<div class="d-flex">
-			<div class="seat--list">
-				<p> 좌석 ${seatCount}개 선택 가능 </p>
-				<div class="b--seat">
-					<c:set var="b" value="1"/>
-					<c:forEach var="business" items="${businessList}">
-						<c:choose>
-							<%-- 홀수 번째라면 왼쪽 문 --%>
-							<c:when test="${b%2 == 1}">
-								<c:choose>
-									<c:when test="${business.status == true}">
-										<img alt="" src="/images/ticket/business_l_pre.png" class="business--seat--${business.name}" onclick="selectSeat('b', '${business.name}');">
-									</c:when>
-									<c:otherwise>
-										<img alt="" src="/images/ticket/business_l_not.png" class="business--seat--${business.name}" onclick="selectSeat('b', '${business.name}');">
-									</c:otherwise>
-								</c:choose>
-							</c:when>
-							<%-- 짝수 번째라면 오른쪽 문 --%>
-							<c:otherwise>
-								<c:choose>
-									<c:when test="${business.status == true}">
-										<img alt="" src="/images/ticket/business_r_pre.png" class="business--seat--${business.name}" onclick="selectSeat('b', '${business.name}');">
-									</c:when>
-									<c:otherwise>
-										<img alt="" src="/images/ticket/business_r_not.png" class="business--seat--${business.name}" onclick="selectSeat('b', '${business.name}');">
-									</c:otherwise>
-								</c:choose>
-								<span style="margin: 30px;"> </span>
-							</c:otherwise>
-						</c:choose>
-						<c:set var="b" value="${b + 1}"/>
-					</c:forEach>
-				</div>
-				
-				<br>
-				
-				<div class="e--seat">
-					<c:set var="e" value="1"/>
-					<c:forEach var="economy" items="${economyList}">
-						<c:choose>
-							<c:when test="${economy.status == true}">
-								<img alt="" src="/images/ticket/economy_pre.png" class="economy--seat--${economy.name}" onclick="selectSeat('e', '${economy.name}');">
-							</c:when>
-							<c:otherwise>
-								<img alt="" src="/images/ticket/economy_not.png" class="economy--seat--${economy.name}" onclick="selectSeat('e', '${economy.name}');">
-							</c:otherwise>
-						</c:choose>
-						
-						<c:choose>
-							<c:when test="${e % 6 == 0}">
-								<div style="margin: 20px;"></div>
-							</c:when>
-							<c:when test="${e % 3 == 0}">
-								<span style="margin: 50px;"> </span>
-							</c:when>
-						</c:choose>
-						<c:set var="e" value="${e + 1}"/>
-					</c:forEach>
-					</div>
-			</div>
-			
-			<div class="seat--info">
-				<br>
-				<br>
-				
-			</div>
-		</div>
-		
-	</main>
-
-</div>
 
 <script>
-	let seatCount = ${seatCount};
-	let scheduleId = ${scheduleId};
+	// 좌석 선택 완료 버튼 누르면 같이 보낼 데이터들
+	let adultCount = ${ticketList.get(0).adultCount};
+	let childCount = ${ticketList.get(0).childCount};
+	let infantCount = ${ticketList.get(0).infantCount};
+	let scheduleId1 = ${ticketList.get(0).scheduleId};
+	let seatNames1 = new Array();
+	let seatGrade1 = `${ticketList.get(0).seatGrade}`;
+
+	// 1번 스케줄에 운항하는 비행기
+	let airplaneId1 = ${ticketList.get(0).airplaneId};
+	// 스케줄별로 선택할 좌석 수
+	let totalSeatCount = ${totalSeatCount};
+	// 1번 스케줄에 현재 선택한 좌석 개수
+	let seatCount1 = 0;
+	// 여정 개수 (1 == 편도, 2 == 왕복)
+	let scheduleCount = ${ticketList.size()};
+	// 현재 여정 순서
+	let scheduleNumber = 1;
+	
+	// 예외 방지
+	let airplaneId2;
+	let scheduleId2;
+	let seatNames2;
+	let seatGrade2;
+	let seatCount2 = 0;
 </script>
+
+<!-- 여기 안에 쓰기 -->
+<main class="d-flex flex-column">
+	<h2>항공권 예약</h2>
+	<hr>
+	<div class="d-flex" style="width: 100%;">
+		<div class="airplane--div" id="sch1Airplane">
+			<div class="airplane--background airplane--${ticketList.get(0).airplaneId}">
+				<div class="seat--list">
+					<div class="top--blank--div"></div>
+					<!-- 퍼스트 좌석 -->
+					<c:if test="${sch1FiList.isEmpty() == false}">
+						<div class="f--seat">
+							<c:set var="f" value="1" />
+							<c:forEach var="first" items="${sch1FiList}">
+								<c:choose>
+									<%-- 홀수 번째라면 --%>
+									<c:when test="${f % 2 == 1}">
+										<c:if test="${f == 1}">
+											<span style="margin: 13px;"> </span>
+										</c:if>
+										<c:choose>
+											<c:when test="${ticketList.get(0).seatGrade.equals(\"퍼스트\") == false}">
+												<img alt="" src="/images/ticket/first_r_false.png" class="seat--1--${first.name}" onclick="selectSeat(1, 'f', '${first.name}');">
+											</c:when>
+											<c:when test="${first.status == true}">
+												<img alt="" src="/images/ticket/first_r_pre.png" class="seat--1--${first.name}" onclick="selectSeat(1, 'f', '${first.name}');">
+											</c:when>
+											<c:otherwise>
+												<img alt="" src="/images/ticket/first_r_not.png" class="seat--1--${first.name}" onclick="selectSeat(1, 'f', '${first.name}');">
+											</c:otherwise>
+										</c:choose>
+									</c:when>
+									<%-- 짝수 번째라면 --%>
+									<c:otherwise>
+										<c:choose>
+											<c:when test="${ticketList.get(0).seatGrade.equals(\"퍼스트\") == false}">
+												<img alt="" src="/images/ticket/first_l_false.png" class="seat--1--${first.name}" onclick="selectSeat(1, 'f', '${first.name}');">
+											</c:when>
+											<c:when test="${first.status == true}">
+												<img alt="" src="/images/ticket/first_l_pre.png" class="seat--1--${first.name}" onclick="selectSeat(1, 'f', '${first.name}');">
+											</c:when>
+											<c:otherwise>
+												<img alt="" src="/images/ticket/first_l_not.png" class="seat--1--${first.name}" onclick="selectSeat(1, 'f', '${first.name}');">
+											</c:otherwise>
+										</c:choose>
+									</c:otherwise>
+								</c:choose>
+								<%-- 좌석별 여백 --%>
+								<c:choose>
+									<c:when test="${f == 1}">
+										<span style="margin: 160px;"> </span>
+									</c:when>
+									<c:when test="${f % 2 == 1}">
+										<span style="margin: 184px;"> </span>
+									</c:when>
+									<c:otherwise>
+										<div style="height: 25px;"></div>
+									</c:otherwise>
+								</c:choose>
+								<c:set var="f" value="${f + 1}" />
+							</c:forEach>
+						</div>
+						<div class="f--blank--div"></div>
+					</c:if>
+
+					<!-- 비즈니스 좌석 -->
+					<c:if test="${sch1BuList.isEmpty() == false}">
+						<div class="b--seat">
+							<c:set var="b" value="1" />
+							<c:forEach var="business" items="${sch1BuList}">
+								<c:choose>
+									<c:when test="${ticketList.get(0).seatGrade.equals(\"비즈니스\") == false}">
+										<img alt="" src="/images/ticket/business_false.png" class="seat--1--${business.name}" onclick="selectSeat(1, 'b', '${business.name}');">
+									</c:when>
+									<c:when test="${business.status == true}">
+										<img alt="" src="/images/ticket/business_pre.png" class="seat--1--${business.name}" onclick="selectSeat(1, 'b', '${business.name}');">
+									</c:when>
+									<c:otherwise>
+										<img alt="" src="/images/ticket/business_not.png" class="seat--1--${business.name}" onclick="selectSeat(1, 'b', '${business.name}');">
+									</c:otherwise>
+								</c:choose>
+								<%-- 좌석별 여백 --%>
+								<c:choose>
+									<c:when test="${b % 6 == 0}">
+										<div style="height: 55px;"></div>
+									</c:when>
+									<c:when test="${b % 2 == 0}">
+										<span style="margin: 37px;"> </span>
+									</c:when>
+									<c:when test="${b % 2 == 1}">
+										<span style="margin: 1px;"> </span>
+									</c:when>
+								</c:choose>
+								<c:set var="b" value="${b + 1}" />
+							</c:forEach>
+						</div>
+						<div class="b--blank--div"></div>
+					</c:if>
+
+					<!-- 이코노미 좌석 -->
+					<div class="e--seat">
+						<c:set var="e" value="1" />
+						<c:forEach var="economy" items="${sch1EcList}">
+							<c:choose>
+								<c:when test="${ticketList.get(0).seatGrade.equals(\"이코노미\") == false}">
+									<img alt="" src="/images/ticket/economy_false.png" class="seat--1--${economy.name}" onclick="selectSeat(1, 'e', '${economy.name}');">
+								</c:when>
+								<c:when test="${economy.status == true}">
+									<img alt="" src="/images/ticket/economy_pre.png" class="seat--1--${economy.name}" onclick="selectSeat(1, 'e', '${economy.name}');">
+								</c:when>
+								<c:otherwise>
+									<img alt="" src="/images/ticket/economy_not.png" class="seat--1--${economy.name}" onclick="selectSeat(1, 'e', '${economy.name}');">
+								</c:otherwise>
+							</c:choose>
+
+							<c:choose>
+								<c:when test="${e % 9 == 0}">
+									<div style="height: 27px;"></div>
+								</c:when>
+								<c:when test="${e % 3 == 0}">
+									<span style="margin: 25px;"> </span>
+								</c:when>
+							</c:choose>
+							<c:set var="e" value="${e + 1}" />
+						</c:forEach>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		<c:if test="${ticketList.size() == 2}">
+		<!-- 왕복 시 2번째 여정 좌석 선택 -->
+			<div class="airplane--div" id="sch2Airplane">
+				<div class="airplane--background airplane--${ticketList.get(1).airplaneId}">
+	
+					<div class="seat--list">
+						<div class="top--blank--div"></div>
+						<!-- 퍼스트 좌석 -->
+						<c:if test="${sch2FiList.isEmpty() == false}">
+							<div class="f--seat">
+								<c:set var="f" value="1" />
+								<c:forEach var="first" items="${sch2FiList}">
+									<c:choose>
+										<%-- 홀수 번째라면 --%>
+										<c:when test="${f % 2 == 1}">
+											<c:if test="${f == 1}">
+												<span style="margin: 13px;"> </span>
+											</c:if>
+											<c:choose>
+												<c:when test="${ticketList.get(1).seatGrade.equals(\"퍼스트\") == false}">
+													<img alt="" src="/images/ticket/first_r_false.png" class="seat--2--${first.name}" onclick="selectSeat(2, 'f', '${first.name}');">
+												</c:when>
+												<c:when test="${first.status == true}">
+													<img alt="" src="/images/ticket/first_r_pre.png" class="seat--2--${first.name}" onclick="selectSeat(2, 'f', '${first.name}');">
+												</c:when>
+												<c:otherwise>
+													<img alt="" src="/images/ticket/first_r_not.png" class="seat--2--${first.name}" onclick="selectSeat(2, 'f', '${first.name}');">
+												</c:otherwise>
+											</c:choose>
+										</c:when>
+										<%-- 짝수 번째라면 --%>
+										<c:otherwise>
+											<c:choose>
+												<c:when test="${ticketList.get(1).seatGrade.equals(\"퍼스트\") == false}">
+													<img alt="" src="/images/ticket/first_l_false.png" class="seat--2--${first.name}" onclick="selectSeat(2, 'f', '${first.name}');">
+												</c:when>
+												<c:when test="${first.status == true}">
+													<img alt="" src="/images/ticket/first_l_pre.png" class="seat--2--${first.name}" onclick="selectSeat(2, 'f', '${first.name}');">
+												</c:when>
+												<c:otherwise>
+													<img alt="" src="/images/ticket/first_l_not.png" class="seat--2--${first.name}" onclick="selectSeat(2, 'f', '${first.name}');">
+												</c:otherwise>
+											</c:choose>
+										</c:otherwise>
+									</c:choose>
+									<%-- 좌석별 여백 --%>
+									<c:choose>
+										<c:when test="${f == 1}">
+											<span style="margin: 160px;"> </span>
+										</c:when>
+										<c:when test="${f % 2 == 1}">
+											<span style="margin: 184px;"> </span>
+										</c:when>
+										<c:otherwise>
+											<div style="height: 25px;"></div>
+										</c:otherwise>
+									</c:choose>
+									<c:set var="f" value="${f + 1}" />
+								</c:forEach>
+							</div>
+							<div class="f--blank--div"></div>
+						</c:if>
+	
+						<!-- 비즈니스 좌석 -->
+						<c:if test="${sch2BuList.isEmpty() == false}">
+							<div class="b--seat">
+								<c:set var="b" value="1" />
+								<c:forEach var="business" items="${sch2BuList}">
+									<c:choose>
+										<c:when test="${ticketList.get(1).seatGrade.equals(\"비즈니스\") == false}">
+											<img alt="" src="/images/ticket/business_false.png" class="seat--2--${business.name}" onclick="selectSeat(2, 'b', '${business.name}');">
+										</c:when>
+										<c:when test="${business.status == true}">
+											<img alt="" src="/images/ticket/business_pre.png" class="seat--2--${business.name}" onclick="selectSeat(2, 'b', '${business.name}');">
+										</c:when>
+										<c:otherwise>
+											<img alt="" src="/images/ticket/business_not.png" class="seat--2--${business.name}" onclick="selectSeat(2, 'b', '${business.name}');">
+										</c:otherwise>
+									</c:choose>
+									<%-- 좌석별 여백 --%>
+									<c:choose>
+										<c:when test="${b % 6 == 0}">
+											<div style="height: 55px;"></div>
+										</c:when>
+										<c:when test="${b % 2 == 0}">
+											<span style="margin: 37px;"> </span>
+										</c:when>
+										<c:when test="${b % 2 == 1}">
+											<span style="margin: 1px;"> </span>
+										</c:when>
+									</c:choose>
+									<c:set var="b" value="${b + 1}" />
+								</c:forEach>
+							</div>
+							<div class="b--blank--div"></div>
+						</c:if>
+	
+						<!-- 이코노미 좌석 -->
+						<div class="e--seat">
+							<c:set var="e" value="1" />
+							<c:forEach var="economy" items="${sch2EcList}">
+								<c:choose>
+									<c:when test="${ticketList.get(1).seatGrade.equals(\"이코노미\") == false}">
+										<img alt="" src="/images/ticket/economy_false.png" class="seat--2--${economy.name}" onclick="selectSeat(2, 'e', '${economy.name}');">
+									</c:when>
+									<c:when test="${economy.status == true}">
+										<img alt="" src="/images/ticket/economy_pre.png" class="seat--2--${economy.name}" onclick="selectSeat(2, 'e', '${economy.name}');">
+									</c:when>
+									<c:otherwise>
+										<img alt="" src="/images/ticket/economy_not.png" class="seat--2--${economy.name}" onclick="selectSeat(2, 'e', '${economy.name}');">
+									</c:otherwise>
+								</c:choose>
+	
+								<c:choose>
+									<c:when test="${e % 9 == 0}">
+										<div style="height: 27px;"></div>
+									</c:when>
+									<c:when test="${e % 3 == 0}">
+										<span style="margin: 25px;"> </span>
+									</c:when>
+								</c:choose>
+								<c:set var="e" value="${e + 1}" />
+							</c:forEach>
+						</div>
+					</div>
+				</div>
+			</div>
+		</c:if>
+		<!-- 오른쪽 -->
+		<div style="width: 100%; margin-left: 20px" class="d-flex flex-column">
+			<!-- 스케줄 정보 -->
+			<!-- 첫 번째 스케줄 -->
+			<div class="schedule--info" id="scheduleInfo1">
+				<div>
+					<ul class="info--title">
+						<li><span class="material-symbols-outlined">flight</span>
+						<li id="firstScheduleTitle">편도
+					</ul>
+					<br>
+					<div class="departure--destination--airport">
+						<ul>
+							<li>출발지
+							<li>${sch1Info.departureAirport}
+						</ul>
+						<span>▶</span>
+						<ul>
+							<li>도착지
+							<li>${sch1Info.destinationAirport}
+						</ul>
+					</div>
+					<p class="departure--destination--date">
+						${sch1Info.strDepartureDate} ~ ${sch1Info.strArrivalDate}
+					</p>
+					<p class="seat--grade--count">
+						${ticketList.get(0).seatGrade}&nbsp;
+						<span style="color:#585858">ㅣ</span>&nbsp;
+						성인 ${ticketList.get(0).adultCount}&nbsp;
+						소아 ${ticketList.get(0).childCount}&nbsp;
+						유아 ${ticketList.get(0).infantCount}
+					</p>
+				</div>
+			</div>
+			<!-- 두 번째 스케줄 -->
+			<c:if test="${ticketList.size() == 2}">
+				<div class="schedule--info" id="scheduleInfo2">
+					<div>
+						<ul class="info--title">
+							<li><span class="material-symbols-outlined">flight</span>
+							<li>두 번째 여정
+						</ul>
+						<br>
+						<div class="departure--destination--airport">
+							<ul>
+								<li>출발지
+								<li>${sch2Info.departureAirport}
+							</ul>
+							<span>▶</span>
+							<ul>
+								<li>도착지
+								<li>${sch2Info.destinationAirport}
+							</ul>
+						</div>
+						<p class="departure--destination--date">
+							${sch2Info.strDepartureDate} ~ ${sch2Info.strArrivalDate}
+						</p>
+						<p class="seat--grade--count">
+							${ticketList.get(1).seatGrade}&nbsp;
+							<span style="color:#585858">ㅣ</span>&nbsp;
+							성인 ${ticketList.get(0).adultCount}&nbsp;
+							소아 ${ticketList.get(0).childCount}&nbsp;
+							유아 ${ticketList.get(0).infantCount}
+						</p>
+					</div>
+				</div>
+			</c:if>
+				
+			<hr>
+			<!-- 선택된 좌석 정보 -->
+			<!-- 첫 번째 스케줄 -->
+			<div class="seat--info" id="seatInfo1">
+				<ul class="info--title">
+					<li><span class="material-symbols-outlined">airline_seat_recline_extra</span>
+					<li>선택된 좌석 정보 <span class="seat--count--span">(현재 <span id="seatCount1" class="seat--count--span">0</span>석)</span>
+				</ul>
+				<br>
+				<div class="seat--name--list"></div>
+			</div>
+			<div class="seat--info" id="seatInfo2">
+				<ul class="info--title">
+					<li><span class="material-symbols-outlined">airline_seat_recline_extra</span>
+					<li>선택된 좌석 정보 <span class="seat--count--span">(현재 <span id="seatCount2" class="seat--count--span">0</span>석)</span>
+				</ul>
+				<br>
+				<div class="seat--name--list"></div>
+			</div>
+			
+			<!-- 다음 페이지 or 선택 완료 버튼 -->
+			<div class="btn--div">
+				<button type="button" class="search--btn--middle" id="nextSeatBtn">
+					<ul class="d-flex justify-content-center" style="margin: 0;">
+						<li style="margin-right: 4px;">다음
+						<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">arrow_forward</span>
+					</ul>
+				</button>
+				<button type="button" class="search--btn--middle" id="prevSeatBtn">
+					<ul class="d-flex justify-content-center" style="margin: 0;">
+						<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">arrow_back</span>
+						<li style="margin-left: 4px;">이전
+					</ul>
+				</button>
+				<button type="button" class="search--btn--middle" id="choiceCompleteBtn">
+					<ul class="d-flex justify-content-center" style="margin: 0;">
+						<li style="margin-right: 4px;">선택 완료
+						<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">done</span>
+					</ul>
+				</button>
+			</div>		
+		</div>
+	</div>
+
+</main>
+
+<!-- 왕복인 경우 -->	
+<c:if test="${ticketList.size() == 2}">
+	<script>
+		$("#nextSeatBtn").show();
+		$("#choiceCompleteBtn").hide();
+		$("#firstScheduleTitle").text("첫 번째 여정");
+	
+		// 좌석 선택 완료 버튼 누르면 같이 보낼 데이터들
+		scheduleId2 = ${ticketList.get(1).scheduleId};
+		seatNames2 = new Array();
+		seatGrade2 = `${ticketList.get(1).seatGrade}`;
+		// 2번 스케줄에 운항하는 비행기
+		airplaneId2 = ${ticketList.get(1).airplaneId};
+		
+		// 2번 스케줄에 현재 선택한 좌석 개수
+		seatCount2 = 0;
+	</script>
+</c:if>
 
 <script src="/js/ticket.js"></script>
 <script src="/js/seat.js"></script>

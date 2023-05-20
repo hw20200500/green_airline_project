@@ -448,8 +448,12 @@ $(".plus--button").on("click", function() {
 	$(this).prev().val(parseInt(currentNumber) + 1);
 });
 
+let noneResultP = $(`<p class="none--result">해당하는 운항 스케줄이 존재하지 않습니다.</p>`);
+
 // 스케줄 조회
 $("#selectScheduleBtn").on("click", function() {
+	$(".error--prevent").remove();
+	$(".none--result").remove();
 	// 1 : 왕복, 2 : 편도
 	let ticketType = $(".selected--type").index() + 1;
 	// 취항지 1
@@ -511,14 +515,24 @@ $("#selectScheduleBtn").on("click", function() {
 			dataType: 'json'
 
 		}).done((res) => {
-			$("#scheduleList1, #scheduleList2").css("display", "flex");
-			$("#scheduleList1 tbody, #scheduleList2 tbody").empty();
+			
 			$("#scheduleList1 h6 span").eq(1).text("첫 번째 여정");
 			$("#scheduleList2 h6 span").eq(1).text("두 번째 여정");
 			$("#scheduleList1 h3 span").eq(0).text(airport1);
 			$("#scheduleList1 h3 span").eq(2).text(airport2);
 			$("#scheduleList2 h3 span").eq(0).text(airport2);
 			$("#scheduleList2 h3 span").eq(2).text(airport1);
+			
+			if (res.length == 0) {
+				$("main .size--limit--div").append(noneResultP);
+				$("#scheduleList1, #scheduleList2").hide();
+				$("#selectSeatBtnDiv").hide();
+				return;
+			}
+			
+			$("#scheduleList1, #scheduleList2").css("display", "flex");
+			$("#selectSeatBtnDiv").show();
+			$("#scheduleList1 tbody, #scheduleList2 tbody").empty();
 
 			for (let i = 0; i < res.length; i++) {
 				let tr = $("<tr>");
@@ -558,7 +572,7 @@ $("#selectScheduleBtn").on("click", function() {
 							td3.addClass("td--none--seat");
 						} else {
 							td3.append(seatNode1(1, "이코노미", i, res, ageType1, ageType2, ageType3));
-							td3.append(seatNode2(1, "이코노미", i, res[i].strEcPrice, res[i].ecCurCount));
+							td3.append(seatNode2(1, "이코노미", i, new Intl.NumberFormat('en-US').format(res[i].ecPrice), res[i].ecCurCount));
 						}
 					}
 					
@@ -574,7 +588,7 @@ $("#selectScheduleBtn").on("click", function() {
 							td4.addClass("td--none--seat");
 						} else {
 							td4.append(seatNode1(1, "비즈니스", i, res, ageType1, ageType2, ageType3));
-							td4.append(seatNode2(1, "비즈니스", i, res[i].strBuPrice, res[i].buCurCount));
+							td4.append(seatNode2(1, "비즈니스", i, new Intl.NumberFormat('en-US').format(res[i].buPrice), res[i].buCurCount));
 						}
 					}
 					
@@ -589,7 +603,7 @@ $("#selectScheduleBtn").on("click", function() {
 							td5.addClass("td--none--seat");
 						} else {
 							td5.append(seatNode1(1, "퍼스트", i, res, ageType1, ageType2, ageType3));
-							td5.append(seatNode2(1, "퍼스트", i, res[i].strFiPrice, res[i].fiCurCount));
+							td5.append(seatNode2(1, "퍼스트", i, new Intl.NumberFormat('en-US').format(res[i].fiPrice), res[i].fiCurCount));
 						}
 					}
 					tr.append(td1).append(td2).append(td3).append(td4).append(td5);
@@ -645,7 +659,7 @@ $("#selectScheduleBtn").on("click", function() {
 							td3.addClass("td--none--seat");
 						} else {
 							td3.append(seatNode1(2, "이코노미", i, res, ageType1, ageType2, ageType3));
-							td3.append(seatNode2(2, "이코노미", i, res[i].strEcPrice, res[i].ecCurCount));
+							td3.append(seatNode2(2, "이코노미", i, new Intl.NumberFormat('en-US').format(res[i].ecPrice), res[i].ecCurCount));
 						}
 					}
 					// 좌석이 존재하지 않는다면 '미운영'으로 표시
@@ -659,7 +673,7 @@ $("#selectScheduleBtn").on("click", function() {
 							td4.addClass("td--none--seat");
 						} else {
 							td4.append(seatNode1(2, "비즈니스", i, res, ageType1, ageType2, ageType3));
-							td4.append(seatNode2(2, "비즈니스", i, res[i].strBuPrice, res[i].buCurCount));
+							td4.append(seatNode2(2, "비즈니스", i, new Intl.NumberFormat('en-US').format(res[i].buPrice), res[i].buCurCount));
 						}
 					}
 					// 좌석이 존재하지 않는다면 '미운영'으로 표시
@@ -673,7 +687,7 @@ $("#selectScheduleBtn").on("click", function() {
 							td5.addClass("td--none--seat");
 						} else {
 							td5.append(seatNode1(2, "퍼스트", i, res, ageType1, ageType2, ageType3));
-							td5.append(seatNode2(2, "퍼스트", i, res[i].strFiPrice, res[i].fiCurCount));
+							td5.append(seatNode2(2, "퍼스트", i, new Intl.NumberFormat('en-US').format(res[i].fiPrice), res[i].fiCurCount));
 						}
 					}
 					tr.append(td1).append(td2).append(td3).append(td4).append(td5);
@@ -741,13 +755,23 @@ $("#selectScheduleBtn").on("click", function() {
 			dataType: 'json'
 
 		}).done((res) => {
-			$("#scheduleList1").css("display", "flex");
-			$("#scheduleList2").css("display", "none");
-			$("#scheduleList1 tbody").empty();
-			$("#scheduleList2 tbody").empty();
+			
 			$("#scheduleList1 h6 span").eq(1).text("편도");
 			$("#scheduleList1 h3 span").eq(0).text(airport1);
 			$("#scheduleList1 h3 span").eq(2).text(airport2);
+			
+			if (res.length == 0) {
+				$("main .size--limit--div").append(noneResultP);
+				$("#scheduleList1").hide();
+				$("#selectSeatBtnDiv").hide();
+				return;
+			}
+			
+			$("#scheduleList1").css("display", "flex");
+			$("#scheduleList2").hide();
+			$("#selectSeatBtnDiv").show();
+			$("#scheduleList1 tbody").empty();
+			$("#scheduleList2 tbody").empty();
 
 			for (let i = 0; i < res.length; i++) {
 				let tr = $("<tr>");
@@ -785,7 +809,7 @@ $("#selectScheduleBtn").on("click", function() {
 						td3.addClass("td--none--seat");
 					} else {
 						td3.append(seatNode1(1, "이코노미", i, res, ageType1, ageType2, ageType3));
-						td3.append(seatNode2(1, "이코노미", i, res[i].strEcPrice, res[i].ecCurCount));
+						td3.append(seatNode2(1, "이코노미", i, new Intl.NumberFormat('en-US').format(res[i].ecPrice), res[i].ecCurCount));
 					}
 				}
 				// 좌석이 존재하지 않는다면 '미운영'으로 표시
@@ -799,7 +823,7 @@ $("#selectScheduleBtn").on("click", function() {
 						td4.addClass("td--none--seat");
 					} else {
 						td4.append(seatNode1(1, "비즈니스", i, res, ageType1, ageType2, ageType3));
-						td4.append(seatNode2(1, "비즈니스", i, res[i].strBuPrice, res[i].buCurCount));
+						td4.append(seatNode2(1, "비즈니스", i, new Intl.NumberFormat('en-US').format(res[i].buPrice), res[i].buCurCount));
 					}
 				}
 				// 좌석이 존재하지 않는다면 '미운영'으로 표시
@@ -813,7 +837,7 @@ $("#selectScheduleBtn").on("click", function() {
 						td5.addClass("td--none--seat");
 					} else {
 						td5.append(seatNode1(1, "퍼스트", i, res, ageType1, ageType2, ageType3));
-						td5.append(seatNode2(1, "퍼스트", i, res[i].strFiPrice, res[i].fiCurCount));
+						td5.append(seatNode2(1, "퍼스트", i, new Intl.NumberFormat('en-US').format(res[i].fiPrice), res[i].fiCurCount));
 					}
 				}
 				tr.append(td1).append(td2).append(td3).append(td4).append(td5);
@@ -851,7 +875,8 @@ $("#selectScheduleBtn").on("click", function() {
 				$(`#${divId} .td--seat`).css("background-color", "white");
 				$(this).parent().css("background-color", "#F8FCFD");
 			});
-			$("#scheduleList1").append(`<input type="hidden" name="schedule2" value="0">`);
+			// 에러 방지용
+			$("#scheduleList1").append(`<input type="hidden" name="schedule2" value="0" class="error--prevent">`);
 
 		}).fail((error) => {
 			console.log(error);
@@ -859,7 +884,7 @@ $("#selectScheduleBtn").on("click", function() {
 	}
 });
 
-// 반복되는 부분을 줄이기 위한 코드
+// 하드코딩을 줄이기 위한 코드
 function seatNode1(number, grade, i, res, ageType1, ageType2, ageType3) {
 	let node;
 	if (grade == "이코노미") {
@@ -872,7 +897,7 @@ function seatNode1(number, grade, i, res, ageType1, ageType2, ageType3) {
 	return node;
 }
 
-// 반복되는 부분을 줄이기 위한 코드
+// 하드코딩을 줄이기 위한 코드
 function seatNode2(number, grade, i, strPrice, curCount) {
 	let node;
 	if (grade == "이코노미") {
@@ -884,3 +909,29 @@ function seatNode2(number, grade, i, strPrice, curCount) {
 	}
 	return node;
 }
+
+// 선택되지 않은 일정이 있다면 submit하지 않음
+$("#selectSeatBtn").on("click", function() {
+	
+	let list = $(`.schedule--list--div input[type="radio"]`);
+	// 왕복 편도 여부 확인
+	let type = 0;
+	for (let j = 0; j < 2; j++) {
+		if ($(".schedule--list--div").eq(j).is(":visible")) {
+			type++;
+		}
+	}
+	
+	// 라디오버튼 체크 개수 확인
+	let checkCount = 0;
+	for (let i = 0; i < list.length; i++) {
+		if (list.eq(i).is(":checked")) {
+			checkCount++;
+		}	
+	}		
+
+	if (type != checkCount) {
+		alert("선택되지 않은 일정이 존재합니다.");
+		return false;
+	}	
+});

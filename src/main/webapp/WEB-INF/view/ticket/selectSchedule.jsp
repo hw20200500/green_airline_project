@@ -9,17 +9,17 @@
 
 <main>
 
-	<h2>항공권 옵션 선택</h2>
+	<h2>항공권 예약</h2>
 	<hr>
 	<br>
 	<!-- 왕복/편도, 출발지/도착지, 탑승일, 탑승객 수/연령 -->
 	<div class="d-flex align-items-center flex-column" style="width: 100%;">
-		<div style="width: 1016px">
+		<div style="width: 1016px" class="size--limit--div">
 			<div>
 				<h5>여정/날짜 선택</h5>
 				<ul class="ticket--type">
-					<li id="ticketType1" onclick="selectedType(1);" class="selected--type">왕복
-					<li id="ticketType2" onclick="selectedType(2);">편도
+					<li id="ticketType1" onclick="selectedType(1);">왕복
+					<li id="ticketType2" onclick="selectedType(2);" class="selected--type">편도
 				</ul>
 			</div>
 
@@ -226,8 +226,14 @@
 					</tbody>
 				</table>
 			</div>
-	
-			<button type="submit">좌석 선택</button>
+			<div id="selectSeatBtnDiv">
+				<button type="submit" class="search--btn--middle" id="selectSeatBtn">
+					<ul class="d-flex justify-content-center" style="margin: 0;">
+						<li style="margin-right: 4px;">좌석 선택
+						<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">airline_seat_recline_extra</span>
+					</ul>
+				</button>
+			</div>
 		</form>
 	</div>
 
