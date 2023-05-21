@@ -38,6 +38,7 @@
 <main class="d-flex flex-column">
 	<h2>항공권 예약</h2>
 	<hr>
+	<br>
 	<div class="d-flex" style="width: 100%;">
 		<div class="airplane--div" id="sch1Airplane">
 			<div class="airplane--background airplane--${ticketList.get(0).airplaneId}">
@@ -118,7 +119,7 @@
 								<%-- 좌석별 여백 --%>
 								<c:choose>
 									<c:when test="${b % 6 == 0}">
-										<div style="height: 55px;"></div>
+										<div style="height: 53px;"></div>
 									</c:when>
 									<c:when test="${b % 2 == 0}">
 										<span style="margin: 37px;"> </span>
@@ -151,7 +152,7 @@
 
 							<c:choose>
 								<c:when test="${e % 9 == 0}">
-									<div style="height: 27px;"></div>
+									<div style="height: 26px;"></div>
 								</c:when>
 								<c:when test="${e % 3 == 0}">
 									<span style="margin: 25px;"> </span>
@@ -246,7 +247,7 @@
 									<%-- 좌석별 여백 --%>
 									<c:choose>
 										<c:when test="${b % 6 == 0}">
-											<div style="height: 55px;"></div>
+											<div style="height: 53px;"></div>
 										</c:when>
 										<c:when test="${b % 2 == 0}">
 											<span style="margin: 37px;"> </span>
@@ -279,7 +280,7 @@
 	
 								<c:choose>
 									<c:when test="${e % 9 == 0}">
-										<div style="height: 27px;"></div>
+										<div style="height: 25.5px;"></div>
 									</c:when>
 									<c:when test="${e % 3 == 0}">
 										<span style="margin: 25px;"> </span>
@@ -300,9 +301,17 @@
 				<div>
 					<ul class="info--title">
 						<li><span class="material-symbols-outlined">flight</span>
-						<li id="firstScheduleTitle">편도
+						<li id="firstScheduleTitle">
+							<c:choose>
+								<c:when test="${ticketList.size() == 2}">
+									첫 번째 여정
+								</c:when>
+								<c:otherwise>
+									편도
+								</c:otherwise>
+							</c:choose>
+						</li>
 					</ul>
-					<br>
 					<div class="departure--destination--airport">
 						<ul>
 							<li>출발지
@@ -317,11 +326,12 @@
 					<p class="departure--destination--date">
 						${sch1Info.strDepartureDate} ~ ${sch1Info.strArrivalDate}
 					</p>
-					<p class="seat--grade--count">
-						${ticketList.get(0).seatGrade}&nbsp;
-						<span style="color:#585858">ㅣ</span>&nbsp;
-						성인 ${ticketList.get(0).adultCount}&nbsp;
-						소아 ${ticketList.get(0).childCount}&nbsp;
+					<p class="seat--grade">
+						${ticketList.get(0).seatGrade}					
+					</p>
+					<p class="seat--count">
+						성인 ${ticketList.get(0).adultCount}&nbsp;<span style="color:#585858">ㅣ</span>&nbsp;
+						소아 ${ticketList.get(0).childCount}&nbsp;<span style="color:#585858">ㅣ</span>&nbsp;
 						유아 ${ticketList.get(0).infantCount}
 					</p>
 				</div>
@@ -334,7 +344,6 @@
 							<li><span class="material-symbols-outlined">flight</span>
 							<li>두 번째 여정
 						</ul>
-						<br>
 						<div class="departure--destination--airport">
 							<ul>
 								<li>출발지
@@ -349,12 +358,13 @@
 						<p class="departure--destination--date">
 							${sch2Info.strDepartureDate} ~ ${sch2Info.strArrivalDate}
 						</p>
-						<p class="seat--grade--count">
-							${ticketList.get(1).seatGrade}&nbsp;
-							<span style="color:#585858">ㅣ</span>&nbsp;
-							성인 ${ticketList.get(0).adultCount}&nbsp;
-							소아 ${ticketList.get(0).childCount}&nbsp;
-							유아 ${ticketList.get(0).infantCount}
+						<p class="seat--grade">
+							${ticketList.get(1).seatGrade}					
+						</p>
+						<p class="seat--count">
+							성인 ${ticketList.get(1).adultCount}&nbsp;<span style="color:#585858">ㅣ</span>&nbsp;
+							소아 ${ticketList.get(1).childCount}&nbsp;<span style="color:#585858">ㅣ</span>&nbsp;
+							유아 ${ticketList.get(1).infantCount}
 						</p>
 					</div>
 				</div>
@@ -368,7 +378,6 @@
 					<li><span class="material-symbols-outlined">airline_seat_recline_extra</span>
 					<li>선택된 좌석 정보 <span class="seat--count--span">(현재 <span id="seatCount1" class="seat--count--span">0</span>석)</span>
 				</ul>
-				<br>
 				<div class="seat--name--list"></div>
 			</div>
 			<div class="seat--info" id="seatInfo2">
@@ -394,12 +403,27 @@
 						<li style="margin-left: 4px;">이전
 					</ul>
 				</button>
-				<button type="button" class="search--btn--middle" id="choiceCompleteBtn">
-					<ul class="d-flex justify-content-center" style="margin: 0;">
-						<li style="margin-right: 4px;">선택 완료
-						<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">done</span>
-					</ul>
-				</button>
+				<form action="/ticket/payment" method="get">
+					<input type="hidden" name="adultCount">
+					<input type="hidden" name="childCount">
+					<input type="hidden" name="infantCount">
+					<input type="hidden" name="scheduleId">
+					<input type="hidden" name="seatNames">
+					<input type="hidden" name="seatGrade">
+					<!-- 왕복일 때에만 -->
+					<c:if test="${ticketList.size() == 2}">
+						<input type="hidden" name="scheduleId2">
+						<input type="hidden" name="seatNames2">
+						<input type="hidden" name="seatGrade2">
+					</c:if>
+					
+					<button type="submit" class="search--btn--middle" id="choiceCompleteBtn">
+						<ul class="d-flex justify-content-center" style="margin: 0;">
+							<li style="margin-right: 4px;">선택 완료
+							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">done</span>
+						</ul>
+					</button>
+				</form>
 			</div>		
 		</div>
 	</div>
@@ -411,7 +435,6 @@
 	<script>
 		$("#nextSeatBtn").show();
 		$("#choiceCompleteBtn").hide();
-		$("#firstScheduleTitle").text("첫 번째 여정");
 	
 		// 좌석 선택 완료 버튼 누르면 같이 보낼 데이터들
 		scheduleId2 = ${ticketList.get(1).scheduleId};

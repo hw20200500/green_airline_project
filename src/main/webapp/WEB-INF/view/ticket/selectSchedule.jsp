@@ -18,8 +18,8 @@
 			<div>
 				<h5>여정/날짜 선택</h5>
 				<ul class="ticket--type">
-					<li id="ticketType1" onclick="selectedType(1);">왕복
-					<li id="ticketType2" onclick="selectedType(2);" class="selected--type">편도
+					<li id="ticketType1" onclick="selectedType(1);" class="selected--type">왕복
+					<li id="ticketType2" onclick="selectedType(2);">편도
 				</ul>
 			</div>
 

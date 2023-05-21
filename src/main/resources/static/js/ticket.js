@@ -163,7 +163,6 @@ $(document).on("click", function(e) {
 
 	if ($(".age--calculater--modal").has(e.target).length === 0) {
 		$(".age--calculater--modal input").val("");
-		$("#calculaterResult").text("");
 	}
 
 });
@@ -333,6 +332,7 @@ function insertDatepicker(type) {
 
 // 나이 계산기 버튼
 $(".age--calculater").on("click", function() {
+	$("#calculaterResult").text("생년월일과 탑승일을 입력해주세요.");
 	$('.age--calculater--modal').modal();
 	$(".datepicker--div--type1, .datepicker--div--type2").hide();
 })
@@ -762,7 +762,7 @@ $("#selectScheduleBtn").on("click", function() {
 			
 			if (res.length == 0) {
 				$("main .size--limit--div").append(noneResultP);
-				$("#scheduleList1").hide();
+				$("#scheduleList1, #scheduleList2").hide();
 				$("#selectSeatBtnDiv").hide();
 				return;
 			}

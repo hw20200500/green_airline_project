@@ -68,4 +68,10 @@ public class ScheduleInfoResponseDto {
 		strArrivalDate = TimestampUtil.dateTimeToString(arrivalDate);
 	}
 	
+	// 날짜(yyyy년 mm월 dd일) + 시간 형식으로 세팅
+	public void formatDateTimeType2() {
+		strDepartureDate = TimestampUtil.dateTimeToStringType2(departureDate);
+		strArrivalDate = TimestampUtil.dateTimeToStringType2(arrivalDate);
+	}
+	
 }

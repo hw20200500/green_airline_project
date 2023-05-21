@@ -199,5 +199,27 @@ public class TicketController {
 		return responseDto;
 	}
 	
+	/**
+	 * @return 탑승객 정보 입력 + 결제 페이지
+	 */
+	@GetMapping("/payment")
+	public String paymentPage(Model model, TicketDto ticketDto) {
+		
+		model.addAttribute("ticket", ticketDto);
+		
+		// 운항 스케줄 정보
+		ScheduleInfoResponseDto scheduleInfo1 = scheduleService.readInfoDtoByScheduleId(ticketDto.getScheduleId());
+		scheduleInfo1.formatDateTimeType2();
+		model.addAttribute("sch1Info", scheduleInfo1);
+		
+		if (ticketDto.getScheduleId2() != null) {
+			ScheduleInfoResponseDto scheduleInfo2 = scheduleService.readInfoDtoByScheduleId(ticketDto.getScheduleId2());
+			scheduleInfo2.formatDateTimeType2();
+			model.addAttribute("sch2Info", scheduleInfo2);
+		}
+		
+		return "/ticket/payment";
+	}
+	
 	
 }

@@ -27,4 +27,13 @@
 	WHERE sc.id = #{scheduleId} AND s.grade = #{grade}
 </select>
 
+<select id="selectByAirplaneId" resultType="com.green.airline.dto.response.AirplaneInfoDto">
+	SELECT a.id, a.name, s.grade, count(*) AS seat_count
+	FROM airplane_tb AS a
+	JOIN seat_tb AS s
+	ON a.id = s.airplane_id
+	WHERE a.id = #{airplaneId}
+	GROUP BY s.grade
+</select>
+
 </mapper>

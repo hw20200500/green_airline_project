@@ -2,14 +2,14 @@
 
 .airplane--div {
 	overflow: auto;
-	max-height: 880px;
-	min-width: 710px;
+	max-height: 800px;
+	min-width: 670px;
 }
 
 /* 백그라운드 처리 */
 .airplane--background {
-	width: 685px;
-	height: 2549px;
+	width: 645px;
+	height: 2414px;
 }
 .airplane--1 {
 	background-image: url('/images/airplane/airplane_empty1.png');
@@ -41,30 +41,30 @@
 }
 
 .f--seat {
-	margin-left: 106px;	
+	margin-left: 98px;	
 }
 
 .b--seat {
-	margin-left: 92px;	
+	margin-left: 87px;	
 }
 
 .e--seat {
-	margin-left: 85px;	
+	margin-left: 79px;	
 }
 
 .e--seat img {
-	width: 50px;
-	height: 50px;
+	width: 47px;
+	height: 47px;
 }
 
 .b--seat img {
-	width: 65px;
-	height: 108px;
+	width: 60px;
+	height: 98px;
 }
 
 .f--seat img {
-	width: 78px;
-	height: 120px;
+	width: 68px;
+	height: 107px;
 }
 
 #sch2Airplane {
@@ -91,25 +91,25 @@
 
 #nextSeatBtn, #prevSeatBtn {
 	display: none;
-	margin: 20px;
+	margin: 0 20px;
+}
+
+#choiceCompleteBtn {
+	margin: 0 20px;
 }
 
 #prevSeatBtn {
 	padding: 10px 18px 4px 12px !important;
 }
 
-#choiceCompleteBtn {
-	margin: 20px;
-}
-
 .schedule--info {
-	margin-top: 20px;
+	margin-top: 17px;
 }
 
 .info--title {
 	display: flex;
 	justify-content: center;
-	margin: 0;
+	margin: 0 0 15px;
 	color: #314f79;
 }
 
@@ -133,7 +133,7 @@
 }
 
 .seat--info {
-	margin: 20px 0 10px;
+	margin: 17px 0 10px;
 	height: 100%;
 }
 
@@ -141,7 +141,7 @@
 	display: flex;
 	align-items: flex-end;
 	justify-content: center;
-	margin-bottom: 25px;
+	margin-bottom: 20px;
 }
 
 .departure--destination--airport ul {
@@ -171,7 +171,7 @@ ul {
 .departure--destination--date {
 	text-align: center;
 	font-size: 19px;
-	margin-bottom: 40px;
+	margin-bottom: 28px;
 }
 
 .btn--div {
@@ -179,18 +179,24 @@ ul {
 	display: flex;
 	justify-content: center;
 	align-items: flex-end;
-	margin-bottom: 20px;
 }
 
-.seat--grade--count {
-	font-size: 20px;
+.seat--grade {
+	font-size: 22px;
+	text-align: center;
+	font-weight: 600;
+	margin-bottom: 5px;
+}
+
+.seat--count {
+	font-size: 16px;
 	text-align: center;
 	font-weight: 500;
 	margin-bottom: 20px;
 }
 
 .seat--name--list {
-	height: 345px;
+	height: 330px;
 	overflow: auto;
 }
 

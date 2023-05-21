@@ -18,7 +18,7 @@ CREATE TABLE member_tb(
    kor_name VARCHAR(20) NOT NULL,
    eng_name VARCHAR(50) NOT NULL,
    birth_date DATE NOT NULL,
-   gender VARCHAR(2) NOT NULL,
+   gender VARCHAR(1) NOT NULL,
    phone_number VARCHAR(13) NOT NULL,
    email VARCHAR(40) NOT NULL,
    address VARCHAR(200) NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE manager_tb(
    id VARCHAR(50) PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     birth_date DATE NOT NULL,
-    gender VARCHAR(2) NOT NULL,
+    gender VARCHAR(1) NOT NULL,
     phone_number VARCHAR(13) NOT NULL,
     email VARCHAR(40) NOT NULL,
     address VARCHAR(200) NOT NULL
@@ -126,6 +126,16 @@ CREATE TABLE reserved_seat_tb(
    seat_name VARCHAR(10) NOT NULL, 
    ticket_id INT NOT NULL, 
    FOREIGN KEY(ticket_id) REFERENCES ticket_tb(id)
+);
+
+
+-- 탑승객
+CREATE TABLE passenger_tb (
+	name VARCHAR(50) NOT NULL,
+	gender VARCHAR(1) NOT NULL, 
+	birth_date DATE NOT NULL,
+	ticket_id INT NOT NULL,
+	FOREIGN KEY (ticket_id) REFERENCES ticket_tb(id)
 );
 
 
