@@ -61,6 +61,17 @@ public class TicketUtil {
 		return schedule;
 	}
 	
+	// 티켓 가격 Dto에 좌석 등급 넣으면 그에 해당하는 가격 반환
+	public static Long seatPriceByGrade(SeatPriceDto seatPriceDto, String grade) {
+		if (grade.equals("이코노미")) {
+			return seatPriceDto.getEconomyPrice();
+		} else if (grade.equals("비즈니스")) {
+			return seatPriceDto.getBusinessPrice();
+		} else {
+			return seatPriceDto.getFirstPrice();
+		}
+	}
+	
 	
 	
 }

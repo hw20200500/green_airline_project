@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 
@@ -44,11 +45,22 @@
 		color: gray;
 	}
 	
+	.seat--list {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		width: 810px;
+	}
+	
+	.seat--list:hover {
+		overflow: visible;
+	}
+	
 	.small--title {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin-bottom: 30px; 
+		margin-bottom: 40px; 
 		color: #314f79;
 	}
 	
@@ -87,32 +99,28 @@
 		color: #404040;
 	}
 	
-	.passenger--info--list table th:first-child, .passenger--info--list table td:first-child {
+	.passenger--info--list table th:first-child, .passenger--info--list table td:first-child, 
+	.payment--table th, .payment--table td, .payment--table tr {
 		border-left: hidden;
 	}
 	
-	.passenger--info--list table th:last-child, .passenger--info--list table td:last-child {
+	.passenger--info--list table th:last-child, .passenger--info--list table td:last-child,
+	.payment--table th, .payment--table td, .payment--table tr {
 		border-right: hidden;
 	}
 	
-	.passenger--info--list table tr:first-of-type th {
+	.passenger--info--list table tr:first-of-type th, .payment--table th {
 		border-top: 2px solid #ccc;
 	}
 	
-	.passenger--info--list table tr:last-of-type td {
+	.passenger--info--list table tr:last-of-type td, .payment--table tr:last-of-type td {
 		border-bottom: 2px solid #ccc;
 	}
 	
-	.passenger--info--list table th {
+	.passenger--info--list table th, .passenger--info--list table td {
 		font-size: 17px;
 		text-align: center;
 		padding: 5px;
-	}
-	
-	.passenger--info--list table td {
-		padding: 5px;
-		font-size: 17px;
-		text-align: center;		
 	}
 	
 	.passenger--info--list label {
@@ -123,6 +131,42 @@
 		outline: none;
 		border: none;
 		text-align: center;
+	}
+	
+	.payment--table {
+		width: 350px;
+		border-color: #ddd;
+		margin: 0 auto;
+		font-size: 17px;
+	}
+	
+	.payment--table tr:nth-of-type(2) td:first-of-type, .payment--table tr:nth-of-type(7) td:first-of-type {
+		padding: 3px 0 3px 30px !important;
+	}
+	
+	.payment--table td:first-of-type {
+		padding: 3px 0 3px 60px;
+	}
+	
+	.payment--table tr:nth-of-type(3) td:last-of-type, .payment--table tr:nth-of-type(4) td:last-of-type, 
+	.payment--table tr:nth-of-type(5) td:last-of-type, .payment--table tr:nth-of-type(8) td:last-of-type,
+	.payment--table tr:nth-of-type(9) td:last-of-type, .payment--table tr:nth-of-type(10) td:last-of-type {
+		text-align: right;
+		padding: 3px;
+	}
+	
+	.payment--table th {
+		padding: 5px;
+		background-color: #F5F5F6;
+		color: #404040;
+	}
+	
+	.payment--table tr:last-of-type th {
+		background-color: #c6dde5;
+	}
+	
+	.payment--table tr:last-of-type th:last-of-type {
+		text-align: right;
 	}
 
 </style>
@@ -193,7 +237,7 @@
 				</c:if>
 			</div>
 			<br>
-			<hr>
+			<hr style="width: 1000px; margin-left: -50px;">
 			<br>
 			<!-- 여기서부터 탑승객 정보 입력 -->
 			<h5 class="small--title">
@@ -296,13 +340,83 @@
 				</c:if>
 			</div>
 			<br>
-			<hr>
-			<br>
+			<div class="d-flex justify-content-center" style="width: 100%; margin: 30px 0 40px;">
+				<button class="search--btn--middle" id="passengerInfoBtn">
+					<ul class="d-flex justify-content-center">
+						<li style="margin-right: 4px;">입력 완료
+						<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">done</span>
+					</ul>
+				</button>
+			</div>
 			<!-- 여기서부터 결제 정보 -->
-			<h5 class="small--title">
-				<span class="material-symbols-outlined">credit_card</span>
-				<span>결제 정보</span>
-			</h5>
+			<div id="paymentDiv">
+			<hr style="width: 1000px; margin-left: -50px;">
+			<br>
+				<h5 class="small--title">
+					<span class="material-symbols-outlined">credit_card</span>
+					<span>결제 정보</span>
+				</h5>
+				<div>
+					<table border="1" class="payment--table">
+						<tr>
+							<th colspan="2">
+								<c:choose>
+									<c:when test="${ticket.scheduleId2 != null}">
+										여정 1 요금	
+									</c:when>
+									<c:otherwise>
+										편도 요금
+									</c:otherwise>
+								</c:choose>
+							</th>
+						</tr>
+						<tr>
+							<td>${ticket.seatGrade}</td>
+							<td><td>
+						<tr>
+							<td>성인 ${ticket.adultCount}인</td>
+							<!-- 콤마 찍어서 나타내기 -->
+							<td><fmt:formatNumber value="${sch1AdultPrice}" pattern="#,###"/>&nbsp;원</td>
+						</tr>
+						<tr>
+							<td>소아 ${ticket.childCount}인</td>
+							<td><fmt:formatNumber value="${sch1ChildPrice}" pattern="#,###"/>&nbsp;원</td>
+						</tr>
+						<tr>
+							<td>유아 ${ticket.infantCount}인</td>
+							<td><fmt:formatNumber value="${sch1InfantPrice}" pattern="#,###"/>&nbsp;원</td>
+						</tr>
+						<!-- 왕복이라면 -->
+						<c:if test="${ticket.scheduleId2 != null}">
+							<tr>
+								<th colspan="2">여정 2 요금</th>
+							</tr>
+							<tr>
+								<td>${ticket.seatGrade2}</td>
+								<td><td>
+							</tr>
+							<tr>
+								<td>성인 ${ticket.adultCount}인</td>
+								<!-- 콤마 찍어서 나타내기 -->
+								<td><fmt:formatNumber value="${sch2AdultPrice}" pattern="#,###"/>&nbsp;원</td>
+							</tr>
+							<tr>
+								<td>소아 ${ticket.childCount}인</td>
+								<td><fmt:formatNumber value="${sch2ChildPrice}" pattern="#,###"/>&nbsp;원</td>
+							</tr>
+							<tr>
+								<td>유아 ${ticket.infantCount}인</td>
+								<td><fmt:formatNumber value="${sch2InfantPrice}" pattern="#,###"/>&nbsp;원</td>
+							</tr>
+						</c:if>
+						<tr>
+							<th>총액</th>
+							<th><fmt:formatNumber value="${totalPrice}" pattern="#,###"/>&nbsp;원</th>
+						</tr>
+					</table>
+					
+				</div>
+			</div>
 			
 		</div>
 	</div>

@@ -104,7 +104,7 @@ CREATE TABLE schedule_tb(
 
 -- 예약 티켓
 CREATE TABLE ticket_tb(
-   id INT PRIMARY KEY AUTO_INCREMENT,
+   id INT PRIMARY KEY,
     adult_count INT DEFAULT 1 NOT NULL,
     child_count INT DEFAULT 0 NOT NULL,
     infant_count INT DEFAULT 0 NOT NULL,

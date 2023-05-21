@@ -28,6 +28,7 @@ import com.green.airline.repository.model.Ticket;
 import com.green.airline.service.AirportService;
 import com.green.airline.service.ScheduleService;
 import com.green.airline.service.SeatService;
+import com.green.airline.utils.Define;
 import com.green.airline.utils.TicketUtil;
 
 /**
@@ -212,11 +213,44 @@ public class TicketController {
 		scheduleInfo1.formatDateTimeType2();
 		model.addAttribute("sch1Info", scheduleInfo1);
 		
+		// 티켓 가격
+		SeatPriceDto seatPriceDto1 = seatService.readSeatPriceByScheduleId(ticketDto.getScheduleId());
+		
+		// 성인 1인 기준 가격
+		Long sch1Price = TicketUtil.seatPriceByGrade(seatPriceDto1, ticketDto.getSeatGrade());
+		
+		Long sch1AdultPrice = sch1Price * ticketDto.getAdultCount();	
+		Long sch1ChildPrice = (long) (sch1Price * Define.CHILD_PRICE_RATE * ticketDto.getChildCount());	
+		Long sch1InfantPrice = (long) (sch1Price * Define.INFANT_PRICE_RATE * ticketDto.getInfantCount());	
+		
+		model.addAttribute("sch1AdultPrice", sch1AdultPrice);
+		model.addAttribute("sch1ChildPrice", sch1ChildPrice);
+		model.addAttribute("sch1InfantPrice", sch1InfantPrice);
+		
+		Long totalPrice = sch1AdultPrice + sch1ChildPrice + sch1InfantPrice;
+				
+		// 왕복이라면
 		if (ticketDto.getScheduleId2() != null) {
 			ScheduleInfoResponseDto scheduleInfo2 = scheduleService.readInfoDtoByScheduleId(ticketDto.getScheduleId2());
 			scheduleInfo2.formatDateTimeType2();
 			model.addAttribute("sch2Info", scheduleInfo2);
+			// 티켓 가격
+			SeatPriceDto seatPriceDto2 = seatService.readSeatPriceByScheduleId(ticketDto.getScheduleId2());
+			// 성인 1인 기준 가격
+			Long sch2Price = TicketUtil.seatPriceByGrade(seatPriceDto2, ticketDto.getSeatGrade2());
+			
+			Long sch2AdultPrice = sch2Price * ticketDto.getAdultCount();	
+			Long sch2ChildPrice = (long) (sch2Price * Define.CHILD_PRICE_RATE * ticketDto.getChildCount());	
+			Long sch2InfantPrice = (long) (sch2Price * Define.INFANT_PRICE_RATE * ticketDto.getInfantCount());	
+			
+			model.addAttribute("sch2AdultPrice", sch2AdultPrice);
+			model.addAttribute("sch2ChildPrice", sch2ChildPrice);
+			model.addAttribute("sch2InfantPrice", sch2InfantPrice);
+			
+			totalPrice += sch2AdultPrice + sch2ChildPrice + sch2InfantPrice;
 		}
+		
+		model.addAttribute("totalPrice", totalPrice);
 		
 		return "/ticket/payment";
 	}
