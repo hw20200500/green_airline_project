@@ -1,27 +1,22 @@
 package com.green.airline.service;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.green.airline.dto.EmailDto;
 import com.green.airline.dto.GifticonDto;
 import com.green.airline.dto.MileageDto;
-import com.green.airline.dto.ProductCountDto;
-import com.green.airline.dto.ProductPagination;
-import com.green.airline.dto.ProductPaging;
+import com.green.airline.dto.PagingVO;
 import com.green.airline.dto.ShopOrderDto;
 import com.green.airline.dto.ShopProductDto;
 import com.green.airline.repository.interfaces.ProductRepository;
 import com.green.airline.repository.model.Mileage;
 import com.green.airline.repository.model.ShopOrder;
 import com.green.airline.repository.model.ShopProduct;
-import com.green.airline.repository.model.User;
 
 @Service
 @Component
@@ -29,9 +24,8 @@ public class ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
+	
 
-	@Autowired
-	private JavaMailSender MailSender;
 
 	// 상품 등록
 	public void productRegistration(ShopProduct shopProduct) {
@@ -123,24 +117,21 @@ public class ProductService {
 	
 	
 	
-	// 상품 페이징 처리 테스트
-	public ProductPaging<ShopProduct>listtest(ProductCountDto productCountDto) {
-		// 조건에 해당하는 데이터가 없는 경우, 응답 데이터에 비어있는 리스트와 null을 담아 반환
-        int count = productRepository.countListTest(productCountDto);
-        if (count < 1) {
-            return new ProductPaging<>(Collections.emptyList(), null);
-        }
-
-        // Pagination 객체를 생성해서 페이지 정보 계산 후 SearchDto 타입의 객체인 params에 계산된 페이지 정보 저장
-        ProductPagination pagination = new ProductPagination(count, productCountDto);
-        productCountDto.setProductPagination(pagination);
-
-        // 계산된 페이지 정보의 일부(limitStart, recordSize)를 기준으로 리스트 데이터 조회 후 응답 데이터 반환
-		List<ShopProduct> list = productRepository.ProductListTest(productCountDto);
-		return new ProductPaging<>(list, pagination);
+	
+	
+	
+	
+	public int getTotalRowCount(PagingVO paging) {
+		int result = productRepository.getTotalRowCount(paging);
+		return result;
 	}
 	
+		public List<ShopProduct> ProductListTest(PagingVO paging) {
+			List<ShopProduct> list = productRepository.ProductListTest(paging);
+			return list;
+		}
 	
+
 	
 	
 	

@@ -7,7 +7,6 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,16 +21,16 @@ import org.springframework.web.multipart.MultipartFile;
 import com.green.airline.dto.EmailDto;
 import com.green.airline.dto.GifticonDto;
 import com.green.airline.dto.MileageDto;
+import com.green.airline.dto.PagingVO;
 import com.green.airline.dto.ProductCountDto;
-import com.green.airline.dto.ProductPaging;
 import com.green.airline.dto.ShopOrderDto;
 import com.green.airline.dto.ShopProductDto;
 import com.green.airline.repository.model.Mileage;
 import com.green.airline.repository.model.ShopProduct;
 import com.green.airline.repository.model.User;
+import com.green.airline.service.EmailService;
 import com.green.airline.service.ProductService;
 import com.green.airline.utils.Define;
-import com.green.airline.utils.NumberUtil;
 
 @Controller
 @MultipartConfig
@@ -40,40 +39,47 @@ public class ProductController {
 
 	@Autowired
 	private ProductService productService;
-	
-	
-	
-
 
 	@Autowired
 	private HttpSession session;
 
+	@Autowired
+	private EmailService emailService;
 	/**
-	 * 정다운
-	 * 메인 페이지에 상품 리스트 출력
+	 * 정다운 메인 페이지에 상품 리스트 출력
+	 * 
 	 * @param model
 	 * @return 메인페이지
 	 */
-	
+
 	@GetMapping("/productMain")
-	public String productMainPage(Model model, @ModelAttribute("productList") ProductCountDto productCountDto) {
-		ProductPaging<ShopProduct> productList = productService.listtest(productCountDto);
+	public String productMainPage(Model model, @ModelAttribute("paging")PagingVO paging, ProductCountDto productCountDto
+			) {
+		 /*ProductPaging<ShopProduct> productList =
+		 productService.listtest(productCountDto);*/
 		//List<ShopProduct> productList = productService.productList();
+		
+		
+		int totalRowCount = productService.getTotalRowCount(paging);
+		paging.setTotalRowCount(totalRowCount);
+		paging.pageSetting();
+		List<ShopProduct> productList = productService.ProductListTest(paging);
 		model.addAttribute("productList", productList);
+		
 		return "/mileage/productMainPage";
 
 	}
-	
-	  // 데이터 받을꺼
-	  @ResponseBody
-	  @GetMapping("/list/{searchOrder}") public List<ShopProduct> productList(@PathVariable(value = "searchOrder")String searchOrder, Model model) {
-		  
-	  List<ShopProduct> productList = productService.productList(searchOrder);
-	  model.addAttribute("productList", productList);
-	  return productList; 
-	  }
-	 
-	
+
+	// 데이터 받을꺼
+	@ResponseBody
+	@GetMapping("/list/{searchOrder}")
+	public List<ShopProduct> productList(@PathVariable(value = "searchOrder") String searchOrder, Model model) {
+
+		List<ShopProduct> productList = productService.productList(searchOrder);
+		model.addAttribute("productList", productList);
+		return productList;
+	}
+
 	/**
 	 * 정다운
 	 * 
@@ -174,7 +180,7 @@ public class ProductController {
 	 * @return
 	 */
 	@PostMapping("/buyProduct")
-	public String buyProductProc(ShopOrderDto shopProductDto, MileageDto mileageDto, ShopProductDto shopProductDto2, EmailDto email) {
+	public String buyProductProc(ShopOrderDto shopProductDto, MileageDto mileageDto, ShopProductDto shopProductDto2, @RequestParam("email")String email,@RequestParam("gifticonImageName")String gifticonImageName) {
 		GifticonDto gifticonDto = new GifticonDto();
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		shopProductDto.setMemberId(principal.getId());
@@ -185,15 +191,17 @@ public class ProductController {
 		mileageDto.setBalance(productService.readMileage(principal.getId()).getBalance());
 		productService.createUseMileage(mileageDto);
 		productService.updateByProductId(shopProductDto2);
-
-		  EmailDto mailTO = new EmailDto();
-
-	        mailTO.setAddress("ekdns2113@gmail.com");
-	        mailTO.setTitle("밤둘레 님이 발송한 이메일입니다.");
-	        mailTO.setMessage("안녕하세요. 반가워요!");
-
-	        productService.sendMail(mailTO);
-	        
+		String code;
+		
+		
+		try {
+			code = emailService.sendSimpleMessage(email,gifticonImageName);
+			System.out.println("email : " + email);
+			System.out.println("인증코드 : " + code);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "redirect:/product/productMain";
 	}
 }

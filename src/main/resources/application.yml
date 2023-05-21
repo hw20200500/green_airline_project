@@ -17,18 +17,10 @@ spring:
     username: ekdns8276@naver.com
     password: ekqls2113!
     properties:
-       mail:
-        smtp:
-          starttls:
-            enable: true
-#            required: true
-          auth: true
-#          connectiontimeout: 5000
-#          timeout: 5000
-#          writetimeout: 5000
-          ssl:
-            #trust: smtp.naver.com
-            enable: true
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+      mail.smtp.ssl.trust: smtp.naver.com
+      mail.smtp.starttls.enable: true
   mvc:
     throw-exception-if-no-handler-found: true
     dispatch-options-request: false
