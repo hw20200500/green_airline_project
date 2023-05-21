@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.green.airline.repository.model.CarryOnLiquids;
+import com.green.airline.repository.model.CheckedBaggage;
 import com.green.airline.service.BaggageService;
 
 @Controller
@@ -37,6 +38,19 @@ public class BaggageController {
 	public String carryBaggagePage() {
 		
 		return "/baggage/carryBaggage";
+	}
+	
+	@GetMapping("/checkedBaggage")
+	public String checkedBaggagePage(Model model) {
+		List<CheckedBaggage> baggage = baggageService.readCheckedBaggage();
+		model.addAttribute("baggage", baggage);
+		
+		List<CheckedBaggage> checkedBaggages= baggageService.readCheckedBaggageBySection(baggage.get(0).getSection());
+		model.addAttribute("checkedBaggages", checkedBaggages);
+		
+		System.out.println(checkedBaggages);
+		
+		return "/baggage/checkedBaggage";
 	}
 	
 }

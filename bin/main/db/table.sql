@@ -206,6 +206,14 @@ CREATE TABLE carry_on_liquids_tb(
 	tax_free_guide TEXT NOT NULL
 );
 
+-- 위탁 수하물
+CREATE TABLE checked_baggage_tb(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	section VARCHAR(50) NOT NULL,
+	grade_id VARCHAR(10), FOREIGN KEY(grade_id) REFERENCES seat_grade_tb(name),
+	free_allowance VARCHAR(100) NOT NULL
+);
+
 
 -- 추천여행지 게시글
 create table recommend_board_tb(

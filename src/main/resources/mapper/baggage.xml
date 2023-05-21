@@ -14,5 +14,17 @@
 		from carry_on_liquids_tb
 		where name=#{name}
 	</select>
+	
+	<select id="selectCheckedBaggageBySection" resultType="com.green.airline.repository.model.CheckedBaggage">
+		select *
+		from checked_baggage_tb
+		where section=#{section}
+	</select>
+	
+	<select id="selectCheckedBaggage" resultType="com.green.airline.repository.model.CheckedBaggage">
+		select section
+		from checked_baggage_tb
+		group by section 
+	</select>
 
 </mapper>

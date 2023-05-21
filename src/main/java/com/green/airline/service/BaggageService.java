@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.green.airline.repository.interfaces.BaggageRepository;
 import com.green.airline.repository.model.CarryOnLiquids;
+import com.green.airline.repository.model.CheckedBaggage;
 
 @Service
 public class BaggageService {
@@ -25,5 +26,17 @@ public class BaggageService {
 
 		return carryOnLiquidsEntity;
 	}
+	
+	public List<CheckedBaggage> readCheckedBaggageBySection(String section){
+		List<CheckedBaggage> baggages = baggageRepository.selectCheckedBaggageBySection(section);
+		
+		return baggages;
+	}
 
+	public List<CheckedBaggage> readCheckedBaggage() {
+		List<CheckedBaggage> checkedBaggageEntity = baggageRepository.selectCheckedBaggage();
+		
+		return checkedBaggageEntity;
+	}
+	
 }
