@@ -18,7 +18,7 @@ public class TimestampUtil {
 	
 	/**
 	 * @author 서영
-	 * Timestamp 타입을 날짜 + 시간으로 변환함
+	 * Timestamp 타입을 날짜 + 시간으로 변환함 (type2)
 	 */
 	public static String dateTimeToStringType2(Timestamp timestamp) {
 		
