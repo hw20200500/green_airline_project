@@ -152,7 +152,9 @@ CREATE TABLE ticket_payment_tb(
 CREATE TABLE in_flight_service_tb(
    id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(50) NOT NULL,
-    description TEXT NOT NULL
+    description TEXT NOT NULL,
+    icon_image VARCHAR(50) NOT NULL,
+    detail_image VARCHAR(50) NOT NULL
 );
 
 
@@ -207,6 +209,14 @@ CREATE TABLE notice_tb(
     created_at TIMESTAMP NOT NULL DEFAULT now(),
     category_id INT NOT NULL, 
     FOREIGN KEY(category_id) REFERENCES notice_category_tb(id)
+);
+
+-- 휴대 반입 액체류 
+CREATE TABLE carry_on_liquids_tb(
+	name VARCHAR(50) PRIMARY KEY,
+	target VARCHAR(100) NOT NULL,
+	limit_guide TEXT NOT NULL,
+	tax_free_guide TEXT NOT NULL
 );
 
 

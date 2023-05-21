@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.green.airline.dto.response.InFlightMealResponseDto;
+import com.green.airline.dto.response.InFlightServiceResponseDto;
 import com.green.airline.repository.interfaces.InFlightServiceRepository;
 import com.green.airline.repository.model.InFlightMeal;
 import com.green.airline.repository.model.InFlightMealDetail;
@@ -47,18 +48,58 @@ public class InFlightSvService {
 
 	// 기내식 신청 테이블 조회하고 값 userId 넣기
 	@Transactional
-	public void createInFlightMealRequest(String memberId, String name, Integer amount) {
+	public void createInFlightMealRequest(String memberId, String name, Integer amount, String departureDate) {
 		// memberId로 가장 최근에 구매한 ticketId 가져오기
 		InFlightMealResponseDto inFlightMealRequestDto = inFlightServiceRepository
-				.selectInFlightMealRequestByUserId(memberId);
-		
+				.selectInFlightMealRequestByUserId(memberId, departureDate);
+		System.out.println(inFlightMealRequestDto);
 		// name을 검색해서 mealId 가져오기
 		InFlightMealDetail inFlightMealDetailEntity = inFlightServiceRepository.selectInFlightMealDetailByName(name);
-		// if문 사용해서 먼저 in flight meal request tb에서 특별식 신청 수량 조회 해서 티켓에 있는 인원수랑 비교해서 그거보다 많으면 insert 처리 막기
-		// if(ticketEntity.seatCount < request meal tb에서 나온 특별식 신청 수량(좀 어려울지도?)) {// 오류 발생 + 예외처리} else {밑에 로직 처리}
-		int result = inFlightServiceRepository.insertInFlightMealRequest(amount, inFlightMealDetailEntity.getMealId(), inFlightMealRequestDto.getTicketId()); 
-		if(result != 1) {
+		// if문 사용해서 먼저 in flight meal request tb에서 특별식 신청 수량 조회 해서 티켓에 있는 인원수랑 비교해서 그거보다
+		// 많으면 insert 처리 막기
+		// if(ticketEntity.seatCount < request meal tb에서 나온 특별식 신청 수량(좀 어려울지도?)) {// 오류
+		// 발생 + 예외처리} else {밑에 로직 처리}
+		int result = inFlightServiceRepository.insertInFlightMealRequest(amount, inFlightMealDetailEntity.getMealId(),
+				inFlightMealRequestDto.getTicketId());
+		if (result != 1) {
 			System.out.println("실패");
 		}
 	}
+
+	// 특별 기내식 신청 전체 조회 기능
+	// memberId 기반 운항 예약 번호를 가져와
+//	public List<InFlightMealResponseDto> readInFlightMealRequest(String memberId) {
+//		List<InFlightMealResponseDto> inFlightMealResponseDtos = inFlightServiceRepository.selectInFlightMealRequestByMemberId(memberId);
+//		
+//		return inFlightMealResponseDtos;
+//	}
+
+	public List<InFlightMealResponseDto> readInFlightMealSchedule(String memberId) {
+		List<InFlightMealResponseDto> inFlightMealResponseDtos = inFlightServiceRepository
+				.selectInFlightScheduleByMemberId(memberId);
+
+		return inFlightMealResponseDtos;
+	}
+
+	public InFlightMealResponseDto readInFlightRequestForSeatCount(String memberId, String departureDate) {
+		InFlightMealResponseDto inFlightMealResponseDto = inFlightServiceRepository
+				.selectInFlightRequestForSeatCount(memberId, departureDate);
+
+		return inFlightMealResponseDto;
+	}
+	
+	// selectAvailableServiceByFlightHours
+	public List<InFlightServiceResponseDto> readAvailableServiceByFlightHours(String flightHours) {
+		List<InFlightServiceResponseDto> inFlightServiceResponseDto = inFlightServiceRepository.selectAvailableServiceByFlightHours(flightHours);
+		for(int i=0; i<inFlightServiceResponseDto.size(); i++) {
+			Integer flightHour = inFlightServiceResponseDto.get(i).getFlightHours();
+			System.out.println(flightHour);
+			System.out.println(inFlightServiceResponseDto.get(i).getFlightHours());
+			
+		}
+		
+		return inFlightServiceResponseDto;
+	}
+	
+	
 }
