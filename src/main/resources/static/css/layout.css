@@ -301,3 +301,35 @@ footer {
 	color: rgba(0, 0, 0, 0.7);
 }
 
+.search--btn--middle {
+	background-color: #7CB2D5;
+	padding: 10px 12px 4px 15px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	font-size: 19px;
+}
+
+.search--btn--big {
+	background-color: #7CB2D5;
+	padding: 13px 18px 7px 21px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	font-size: 20px;
+}
+
+.search--btn--big span {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 500,
+  'GRAD' 0,
+  'opsz' 48 !important;
+}
+
+.close--button {
+	height: 24px;
+	border: none;
+	background: none;
+	color: rgba(0, 0, 0, 0.7)
+}

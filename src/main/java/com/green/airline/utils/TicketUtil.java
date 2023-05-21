@@ -33,7 +33,6 @@ public class TicketUtil {
 		schedule.setEcPrice(seatPriceDto.getEconomyPrice());
 		schedule.setBuPrice(seatPriceDto.getBusinessPrice());
 		schedule.setFiPrice(seatPriceDto.getFirstPrice());
-		schedule.formatMoney();
 		
 		// 해당 스케줄에 운항하는 비행기의 전체 이코노미 좌석 수
 		Integer eTotalCount = eSeatList.size();
@@ -60,6 +59,17 @@ public class TicketUtil {
 		schedule.setFiCurCount(fCurCount);
 		
 		return schedule;
+	}
+	
+	// 티켓 가격 Dto에 좌석 등급 넣으면 그에 해당하는 가격 반환
+	public static Long seatPriceByGrade(SeatPriceDto seatPriceDto, String grade) {
+		if (grade.equals("이코노미")) {
+			return seatPriceDto.getEconomyPrice();
+		} else if (grade.equals("비즈니스")) {
+			return seatPriceDto.getBusinessPrice();
+		} else {
+			return seatPriceDto.getFirstPrice();
+		}
 	}
 	
 	

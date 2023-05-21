@@ -3,6 +3,7 @@ package com.green.airline.dto.request;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.green.airline.dto.response.TicketDto;
 import com.green.airline.repository.model.Ticket;
 
 import lombok.Data;
@@ -21,8 +22,8 @@ public class TicketOptionDto {
 	private String schedule2;
 	
 	// 값 세팅
-	public List<Ticket> setVariables() {
-		List<Ticket> resultList = new ArrayList<>();
+	public List<TicketDto> setVariables() {
+		List<TicketDto> resultList = new ArrayList<>();
 		
 		String[] arr = schedule1.split("_");
 		Integer ageType1 = Integer.parseInt(arr[3]);
@@ -30,7 +31,7 @@ public class TicketOptionDto {
 		Integer ageType3 = Integer.parseInt(arr[5]);
 		Integer scheduleId1 = Integer.parseInt(arr[1]);
 		String seatGrade1 = arr[2];
-		Ticket ticket1 = new Ticket(ageType1, ageType2, ageType3, seatGrade1, scheduleId1);
+		TicketDto ticket1 = new TicketDto(ageType1, ageType2, ageType3, seatGrade1, scheduleId1);
 		resultList.add(ticket1);
 		
 		// 왕복이라면
@@ -38,7 +39,7 @@ public class TicketOptionDto {
 			String[] arr2 = schedule2.split("_");
 			Integer scheduleId2 = Integer.parseInt(arr2[1]);
 			String seatGrade2 = arr2[2];
-			Ticket ticket2 = new Ticket(ageType1, ageType2, ageType3, seatGrade2, scheduleId2);
+			TicketDto ticket2 = new TicketDto(ageType1, ageType2, ageType3, seatGrade2, scheduleId2);
 			resultList.add(ticket2);
 		}
 		return resultList;

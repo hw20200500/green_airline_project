@@ -3,6 +3,8 @@ package com.green.airline.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,11 +22,13 @@ import com.green.airline.dto.response.ScheduleInfoResponseDto;
 import com.green.airline.dto.response.SeatInfoResponseDto;
 import com.green.airline.dto.response.SeatPriceDto;
 import com.green.airline.dto.response.SeatStatusResponseDto;
+import com.green.airline.dto.response.TicketDto;
 import com.green.airline.repository.model.Airport;
 import com.green.airline.repository.model.Ticket;
 import com.green.airline.service.AirportService;
 import com.green.airline.service.ScheduleService;
 import com.green.airline.service.SeatService;
+import com.green.airline.utils.Define;
 import com.green.airline.utils.TicketUtil;
 
 /**
@@ -43,6 +47,9 @@ public class TicketController {
 	
 	@Autowired
 	private ScheduleService scheduleService;
+	
+	@Autowired
+	private HttpSession session;
 	
 	
 	/**
@@ -73,7 +80,7 @@ public class TicketController {
 			
 			firstScheduleList.forEach(s -> {
 				// 형식 변환
-				s.formatDate();
+				s.formatTime();
 				
 				// 좌석 등급별 티켓 가격 가져오기
 				SeatPriceDto seatPriceDto = seatService.readSeatPriceByScheduleId(s.getId());
@@ -91,7 +98,7 @@ public class TicketController {
 			// 좌석 정보
 			secondScheduleList.forEach(s -> {
 				// 형식 변환
-				s.formatDate();
+				s.formatTime();
 				
 				// 좌석 등급별 티켓 가격 가져오기
 				SeatPriceDto seatPriceDto = seatService.readSeatPriceByScheduleId(s.getId());
@@ -114,7 +121,7 @@ public class TicketController {
 			// 좌석 정보
 			responseList.forEach(s -> {
 				// 형식 변환
-				s.formatDate();
+				s.formatTime();
 				
 				// 좌석 등급별 티켓 가격 가져오기
 				SeatPriceDto seatPriceDto = seatService.readSeatPriceByScheduleId(s.getId());
@@ -136,53 +143,47 @@ public class TicketController {
 	public String selectSeatPage(Model model, TicketOptionDto ticketOptionDto) {
 		
 		// 객체 세팅
-		List<Ticket> ticketList = ticketOptionDto.setVariables();
-		System.out.println(ticketList);
-		
+		List<TicketDto> ticketList = ticketOptionDto.setVariables();
+		ticketList.forEach(t -> {
+			t.setAirplaneId(scheduleService.readByScheduleId(t.getScheduleId()).getAirplaneId());
+		});
+
+		// 티켓 옵션 정보
 		model.addAttribute("ticketList", ticketList);
-		model.addAttribute("seatCount", ticketList.get(0).getAdultCount() + ticketList.get(0).getChildCount());
-		model.addAttribute("scheduleId", ticketList.get(0).getScheduleId());
+		// 선택할 좌석 수 (성인 + 소아)
+		model.addAttribute("totalSeatCount", ticketList.get(0).getAdultCount() + ticketList.get(0).getChildCount());
 		
-		// ageType1, ageType2, ageType3, scheduleId, seatGrade 고정
-		// 해당 순서의 seatGrade에 따라 좌석을 선택할 수 있어야 함 (이코노미 선택 -> 비즈니스 선택 불가능)
-		// 왕복이라면 ticketList.get(0) 기준으로 선택 후 ticketList.get(1) 기준으로 불러와야 함
-		// 좌석을 모두 선택하고 나면 데이터들을 가지고 다음 jsp로 넘어가서 탑승객 정보 입력 + 아래에 결제 버튼 -> 결제 api
-		
-		
-		
-		// 좌석 리스트는 controller에서 불러와서 보내두기
+		// 운항 스케줄 정보
+		ScheduleInfoResponseDto scheduleInfo1 = scheduleService.readInfoDtoByScheduleId(ticketList.get(0).getScheduleId());
+		scheduleInfo1.formatDateTime();
+		model.addAttribute("sch1Info", scheduleInfo1);
 		
 		// 스케줄1에 운항하는 비행기의 이코노미 좌석 리스트 (예약 여부 포함)
 		List<SeatStatusResponseDto> eSeatList1 = seatService.readSeatListByScheduleIdAndGrade(ticketList.get(0).getScheduleId(), "이코노미");
 		model.addAttribute("sch1EcList", eSeatList1);
 		// 스케줄1에 운항하는 비행기의 비즈니스 좌석 리스트 (예약 여부 포함)
 		List<SeatStatusResponseDto> bSeatList1 = seatService.readSeatListByScheduleIdAndGrade(ticketList.get(0).getScheduleId(), "비즈니스");
-		model.addAttribute("sch1BuList", eSeatList1);
+		model.addAttribute("sch1BuList", bSeatList1);
 		// 스케줄1에 운항하는 비행기의 퍼스트 좌석 리스트 (예약 여부 포함)
 		List<SeatStatusResponseDto> fSeatList1 = seatService.readSeatListByScheduleIdAndGrade(ticketList.get(0).getScheduleId(), "퍼스트");
 		model.addAttribute("sch1FiList", fSeatList1);
 		
 		// 왕복이라면
 		if (ticketList.size() == 2) {
+			ScheduleInfoResponseDto scheduleInfo2 = scheduleService.readInfoDtoByScheduleId(ticketList.get(1).getScheduleId());
+			scheduleInfo2.formatDateTime();
+			model.addAttribute("sch2Info", scheduleInfo2);
+			
 			// 스케줄2에 운항하는 비행기의 이코노미 좌석 리스트 (예약 여부 포함)
 			List<SeatStatusResponseDto> eSeatList2 = seatService.readSeatListByScheduleIdAndGrade(ticketList.get(1).getScheduleId(), "이코노미");
-			model.addAttribute("sch1EcList", eSeatList2);
+			model.addAttribute("sch2EcList", eSeatList2);
 			// 스케줄2에 운항하는 비행기의 비즈니스 좌석 리스트 (예약 여부 포함)
 			List<SeatStatusResponseDto> bSeatList2 = seatService.readSeatListByScheduleIdAndGrade(ticketList.get(1).getScheduleId(), "비즈니스");
 			model.addAttribute("sch2BuList", bSeatList2);
 			// 스케줄1에 운항하는 비행기의 퍼스트 좌석 리스트 (예약 여부 포함)
 			List<SeatStatusResponseDto> fSeatList2 = seatService.readSeatListByScheduleIdAndGrade(ticketList.get(1).getScheduleId(), "퍼스트");
 			model.addAttribute("sch2FiList", fSeatList2);
-			
 		}
-		
-		
-		
-		
-		
-		
-		
-		
 		return "/ticket/selectSeat";
 	}
 	
@@ -197,6 +198,61 @@ public class TicketController {
 		SeatInfoResponseDto responseDto = seatService.readSeatInfoByNameAndScheduleId(seatName, scheduleId);
 		
 		return responseDto;
+	}
+	
+	/**
+	 * @return 탑승객 정보 입력 + 결제 페이지
+	 */
+	@GetMapping("/payment")
+	public String paymentPage(Model model, TicketDto ticketDto) {
+		
+		model.addAttribute("ticket", ticketDto);
+		
+		// 운항 스케줄 정보
+		ScheduleInfoResponseDto scheduleInfo1 = scheduleService.readInfoDtoByScheduleId(ticketDto.getScheduleId());
+		scheduleInfo1.formatDateTimeType2();
+		model.addAttribute("sch1Info", scheduleInfo1);
+		
+		// 티켓 가격
+		SeatPriceDto seatPriceDto1 = seatService.readSeatPriceByScheduleId(ticketDto.getScheduleId());
+		
+		// 성인 1인 기준 가격
+		Long sch1Price = TicketUtil.seatPriceByGrade(seatPriceDto1, ticketDto.getSeatGrade());
+		
+		Long sch1AdultPrice = sch1Price * ticketDto.getAdultCount();	
+		Long sch1ChildPrice = (long) (sch1Price * Define.CHILD_PRICE_RATE * ticketDto.getChildCount());	
+		Long sch1InfantPrice = (long) (sch1Price * Define.INFANT_PRICE_RATE * ticketDto.getInfantCount());	
+		
+		model.addAttribute("sch1AdultPrice", sch1AdultPrice);
+		model.addAttribute("sch1ChildPrice", sch1ChildPrice);
+		model.addAttribute("sch1InfantPrice", sch1InfantPrice);
+		
+		Long totalPrice = sch1AdultPrice + sch1ChildPrice + sch1InfantPrice;
+				
+		// 왕복이라면
+		if (ticketDto.getScheduleId2() != null) {
+			ScheduleInfoResponseDto scheduleInfo2 = scheduleService.readInfoDtoByScheduleId(ticketDto.getScheduleId2());
+			scheduleInfo2.formatDateTimeType2();
+			model.addAttribute("sch2Info", scheduleInfo2);
+			// 티켓 가격
+			SeatPriceDto seatPriceDto2 = seatService.readSeatPriceByScheduleId(ticketDto.getScheduleId2());
+			// 성인 1인 기준 가격
+			Long sch2Price = TicketUtil.seatPriceByGrade(seatPriceDto2, ticketDto.getSeatGrade2());
+			
+			Long sch2AdultPrice = sch2Price * ticketDto.getAdultCount();	
+			Long sch2ChildPrice = (long) (sch2Price * Define.CHILD_PRICE_RATE * ticketDto.getChildCount());	
+			Long sch2InfantPrice = (long) (sch2Price * Define.INFANT_PRICE_RATE * ticketDto.getInfantCount());	
+			
+			model.addAttribute("sch2AdultPrice", sch2AdultPrice);
+			model.addAttribute("sch2ChildPrice", sch2ChildPrice);
+			model.addAttribute("sch2InfantPrice", sch2InfantPrice);
+			
+			totalPrice += sch2AdultPrice + sch2ChildPrice + sch2InfantPrice;
+		}
+		
+		model.addAttribute("totalPrice", totalPrice);
+		
+		return "/ticket/payment";
 	}
 	
 	

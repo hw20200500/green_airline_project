@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.green.airline.dto.response.AirplaneInfoDto;
 import com.green.airline.dto.response.ScheduleInfoResponseDto;
 import com.green.airline.dto.response.SeatInfoResponseDto;
 import com.green.airline.dto.response.SeatPriceDto;
@@ -50,7 +51,7 @@ public class SeatService {
 	 */
 	public SeatPriceDto readSeatPriceByScheduleId(Integer scheduleId) {
 		// 스케줄 정보
-		ScheduleInfoResponseDto scheduleDto = scheduleRepository.selectByScheduleId(scheduleId);
+		ScheduleInfoResponseDto scheduleDto = scheduleRepository.selectDtoByScheduleId(scheduleId);
 		
 		// 운항시간 중 시간만 가져오기
 		Integer hours = Integer.parseInt(scheduleDto.getFlightTime().split("시간")[0]);
@@ -95,7 +96,7 @@ public class SeatService {
 	}
 	
 	/**
-	 * @return 해당 스케줄에 운항하는 비행기의 좌석 리스트 (등급에 따라
+	 * @return 해당 스케줄에 운항하는 비행기의 좌석 리스트 (등급에 따라)
 	 */
 	public List<SeatStatusResponseDto> readSeatListByScheduleIdAndGrade(Integer scheduleId, String grade) {
 		
@@ -116,8 +117,15 @@ public class SeatService {
 				s.setStatus(false);
 			}
 		}
-		
 		return seatEntityList;
+	}
+	
+	/**
+	 * @return 해당 비행기의 좌석 등급별 좌석 개수 + 비행기 이름
+	 */
+	public List<AirplaneInfoDto> readSeatCountByAirplaneId(Integer airplaneId) {
+		List<AirplaneInfoDto> dtoList = seatRepository.selectByAirplaneId(airplaneId);
+		return dtoList;
 	}
 	
 }

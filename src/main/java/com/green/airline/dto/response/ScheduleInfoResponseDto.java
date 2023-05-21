@@ -30,6 +30,8 @@ public class ScheduleInfoResponseDto {
 	private String destinationAirport;
 	// 운항시간
 	private String flightTime;
+	
+	private Integer airplaneId;
 	// 비행기 이름
 	private String airplaneName;
 	
@@ -39,7 +41,6 @@ public class ScheduleInfoResponseDto {
 	private Integer ecCurCount;
 	// 이코노미 좌석 가격
 	private Long ecPrice;
-	private String strEcPrice;
 	
 	// 비즈니스 총 좌석 수
 	private Integer buTotalCount;
@@ -47,7 +48,6 @@ public class ScheduleInfoResponseDto {
 	private Integer buCurCount;
 	// 비즈니스 좌석 가격
 	private Long buPrice;
-	private String strBuPrice;
 	
 	// 퍼스트 총 좌석 수
 	private Integer fiTotalCount;
@@ -55,18 +55,23 @@ public class ScheduleInfoResponseDto {
 	private Integer fiCurCount;
 	// 퍼스트 좌석 가격
 	private Long fiPrice;
-	private String strFiPrice;
 	
-	// 날짜 세팅
-	public void formatDate() {
+	// 시간 형식으로 세팅
+	public void formatTime() {
 		strDepartureDate = TimestampUtil.timeToString(departureDate);
 		strArrivalDate = TimestampUtil.timeToString(arrivalDate);
 	}
 	
-	public void formatMoney() {
-		strEcPrice = NumberUtil.numberFormat(ecPrice);
-		strBuPrice = NumberUtil.numberFormat(buPrice);
-		strFiPrice = NumberUtil.numberFormat(fiPrice);
+	// 날짜 + 시간 형식으로 세팅
+	public void formatDateTime() {
+		strDepartureDate = TimestampUtil.dateTimeToString(departureDate);
+		strArrivalDate = TimestampUtil.dateTimeToString(arrivalDate);
+	}
+	
+	// 날짜(yyyy년 mm월 dd일) + 시간 형식으로 세팅
+	public void formatDateTimeType2() {
+		strDepartureDate = TimestampUtil.dateTimeToStringType2(departureDate);
+		strArrivalDate = TimestampUtil.dateTimeToStringType2(arrivalDate);
 	}
 	
 }

@@ -40,7 +40,7 @@
 			//$(".header--menu--split").css("width", $(".page--container").width());
 			// 세부 메뉴 밑으로는 어둡게 처리
 			let headerHeight = 569;
-			let footerBottom = $("footer").position().top + $("footer").height();
+			let footerBottom = $("footer").position().top + $("footer").height() + 60;
 			let backgroundHeight;
 			if (footerBottom < window.innerHeight) {
 				backgroundHeight = window.innerHeight - headerHeight;	

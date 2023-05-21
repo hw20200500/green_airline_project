@@ -17,6 +17,17 @@ public class TimestampUtil {
 	}
 	
 	/**
+	 * @author 서영
+	 * Timestamp 타입을 날짜 + 시간으로 변환함 (type2)
+	 */
+	public static String dateTimeToStringType2(Timestamp timestamp) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분");
+		return sdf.format(timestamp);
+	}
+	
+	/**
+	 * @author 서영
 	 * Timestamp 타입을 날짜로 변경함
 	 */
 	public static String dateToString(Timestamp timestamp) {
@@ -26,6 +37,7 @@ public class TimestampUtil {
 	}
 	
 	/**
+	 * @author 서영
 	 * Timestamp 타입을 시간으로 변경함
 	 */
 	public static String timeToString(Timestamp timestamp) {

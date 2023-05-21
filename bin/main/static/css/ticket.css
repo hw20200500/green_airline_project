@@ -112,13 +112,6 @@
 	padding: 5px 7px 1px 3px;
 }
 
-.close--button {
-	height: 24px;
-	border: none;
-	background: none;
-	color: rgba(0, 0, 0, 0.7)
-}
-
 .all--airport--modal, .age--calculater--modal {
 	margin-top: 200px;
 }
@@ -241,23 +234,6 @@ input[type=number] {
 	font-weight: 600;
 }
 
-.search--btn--big {
-	background-color: #7CB2D5;
-	padding: 13px 18px 7px 21px;
-	border: none;
-	border-radius: 5px;
-	color: white;
-	font-size: 20px;
-}
-
-.search--btn--big span {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 500,
-  'GRAD' 0,
-  'opsz' 48 !important;
-}
-	
 .schedule--list--div {
 	width: 100%;
 	display: none;
@@ -270,7 +246,6 @@ input[type=number] {
 	width: 1016px;
 	text-align: center;
 }
-
 
 .schedule--list--div thead th {
 	color: white;
@@ -319,7 +294,7 @@ input[type=number] {
 }
 
 .td--seat input:disabled, .td--disabled--seat {
-  cursor: text !important;
+  cursor: default !important;
 }
 
 .td--seat label {
@@ -388,4 +363,17 @@ input[type=number] {
 	color: gray !important;
 }
 
+#selectSeatBtnDiv {
+	width: 100%;
+	display: none;
+	margin: 50px auto 20px;
+	text-align: center;
+}
 
+.none--result {
+	text-align: center;
+	margin: 30px;
+	color: gray;
+	font-size: 20px;
+	font-weight: 500;
+}

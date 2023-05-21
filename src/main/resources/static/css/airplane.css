@@ -1,0 +1,109 @@
+@charset "UTF-8";
+
+.airplane--name {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 15px; 
+}
+
+.airplane--name span:first-of-type {
+	font-size: 40px;
+	margin-top: 4px;
+}
+
+.total--seat--count {
+	text-align: center;
+	margin-left: 47px;
+}
+
+.select--div {
+	position: absolute;
+	right: 0;
+	top: 7px;
+}
+
+.select--airplane--name {
+	outline: none;
+	padding: 5px 8px;
+	font-size: 17px;
+	border: 1px solid #ccc;
+	width: 200px;
+	color: rgba(0, 0, 0, 0.8);
+}
+
+.select--airplane--name option {
+	font-size: 16px;
+}
+
+.airplane--img--div {
+	width: 750px;
+}
+
+.airplane--description {
+	margin-top: 30px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	padding: 20px;
+	width: 260px;
+}
+
+.airplane--description h6 {
+	color: #314f79;
+	font-weight: 600;
+	font-size: 18px;
+	margin-bottom: 20px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.airplane--description h6 span:hover {
+	color: #314f79;
+}
+
+.airplane--description ul:first-of-type img {
+	height: 25px;
+}
+
+.airplane--description ul:first-of-type li:nth-of-type(2) img {
+	margin-left: 1px;
+} 
+
+.airplane--description ul:first-of-type li:nth-of-type(3) img {
+	margin-left: 3px;
+} 
+
+.airplane--description ul:last-of-type img {
+	width: 25px;
+	margin-left: 3px;
+}
+
+.airplane--description ul li {
+	position: relative;
+	margin: 10px 0;
+}
+
+.airplane--description ul:last-of-type li:last-of-type {
+	margin-bottom: 0 !important;
+}
+
+.airplane--description ul li span {
+	position: absolute;
+	left: 45px;
+	top: 3px;
+	color: rgba(0, 0, 0, 0.8);
+	font-size: 15px;
+}
+
+.bu--li span {
+	top: 11px !important;
+}
+
+.fi--li span {
+	top: 7px !important;
+}
+
+ul {
+	margin: 0;
+}
