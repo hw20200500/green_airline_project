@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class NoticeCategory {
 
-	private int id;
+	private Integer id;
 	private String name;
 	
 }

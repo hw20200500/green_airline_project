@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.green.airline.repository.interfaces.RouteRepository">
+	
+	<!-- 기내 서비스 조회를 위한 출발지 도착지 조회 -->
+	<select id="selectByDestAndDepa" resultType="com.green.airline.repository.model.Route">
+		select r.destination, r.departure, r.flight_time  
+		from route_tb as r
+		where r.destination=#{destination} and r.departure=#{departure}
+	</select>
+	
+</mapper>

@@ -5,10 +5,10 @@ import lombok.Data;
 @Data
 public class InFlightMealDetail {
 
-	private int id;
+	private Integer id;
 	private String name;
 	private String description;
 	private String image;
-	private int mealId;
+	private Integer mealId;
 	
 }

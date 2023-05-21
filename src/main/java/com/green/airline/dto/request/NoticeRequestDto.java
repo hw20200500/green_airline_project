@@ -7,10 +7,10 @@ import lombok.Data;
 @Data
 public class NoticeRequestDto {
 
-	private int id;
+	private Integer id;
 	private String title;
 	private String content;
 	private Timestamp createdAt;
-	private int categoryId;
+	private Integer categoryId;
 	
 }

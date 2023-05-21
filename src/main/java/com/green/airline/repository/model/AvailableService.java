@@ -5,8 +5,8 @@ import lombok.Data;
 @Data
 public class AvailableService {
 
-	private int id;
-	private int flightHours;
-	private int serviceId;
+	private Integer id;
+	private Integer flightHours;
+	private Integer serviceId;
 	
 }

@@ -9,11 +9,12 @@ import lombok.Data;
 @Data
 public class Notice {
 
-	private int id;
+	private Integer id;
 	private String title;
 	private String content;
 	private Timestamp createdAt;
-	private int categoryId;
+	private Integer viewCount;
+	private Integer categoryId;
 	
 	public String dateFormat() {
 		return TimestampUtil.dateTimeToString(createdAt);
