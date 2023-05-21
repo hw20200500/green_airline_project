@@ -17,8 +17,8 @@
 	<div>
 		<h3>수하물 종류</h3>
 		<ul>
-			<li>위탁 수하물(Checked Baggage) : 고객이 항공사에 탁송 의뢰하여 수하물표를 발행한 수하물</li>
-			<li>휴대 수하물(Carry on Baagage) : 위탁수하물이 아닌, 기내에 휴대하여 운송하는 수하물</li>
+			<li><a href="/baggage/carryBaggage">위탁 수하물(Checked Baggage)</a> : 고객이 항공사에 탁송 의뢰하여 수하물표를 발행한 수하물</li>
+			<li><a href="#">휴대 수하물(Carry on Baagage)</a> : 위탁수하물이 아닌, 기내에 휴대하여 운송하는 수하물</li>
 		</ul>
 	</div>
 	

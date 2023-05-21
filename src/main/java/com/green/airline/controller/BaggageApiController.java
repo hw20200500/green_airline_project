@@ -18,7 +18,6 @@ public class BaggageApiController {
 	@GetMapping("/limitLiquids")
 	public CarryOnLiquids limitLiquids(@RequestParam String name) {
 		CarryOnLiquids carryOnLiquids = baggageService.readLiquidsByName(name);
-		System.out.println(name);
 		return carryOnLiquids;
 	}
 

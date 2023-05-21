@@ -151,6 +151,80 @@
 	width: 300px;
 	height: 200px;
 }
+
+.autocomplete--list {
+	width: 100%;
+	background-color: #f3f3f3;
+	min-height: 44px;
+	max-height: 210px;
+	margin: 0 0 15px;
+	padding: 0px 10px;
+	overflow: auto; /* max-height 넘으면 스크롤 생김 */
+}
+
+.autocomplete--list li {
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+}
+
+.departure--airport--li, .destination--airport--li {
+	padding: 8px;
+	border-bottom: 1px solid buttonhighlight;
+}
+
+.autocomplete--list li:last-of-type, .departure--airport--li:last-of-type,
+	.destination--airport--li:last-of-type {
+	border-bottom: hidden;
+}
+
+.departure--li:hover, .destination--li:hover, .departure--airport--li:hover,
+	.destination--airport--li:hover {
+	cursor: pointer;
+	font-weight: 600;
+	color: #3163aa;
+}
+
+.close--button {
+	height: 24px;
+	border: none;
+	background: none;
+	color: rgba(0, 0, 0, 0.7)
+}
+
+.modal--title {
+	margin: 0;
+}
+
+.departure--region--li, .destination--region--li {
+	padding: 10px;
+	border-right: 1px solid white;
+	border-bottom: 1px solid white;
+	background-color: #f3f3f3;
+	cursor: pointer;
+}
+
+.region--li--selected {
+	background-color: #BCE3F6;
+}
+
+.departure--region--li--selected {
+	background-color: #BCE3F6;
+}
+
+.destination--region--li--selected {
+	background-color: #BCE3F6;
+}
+
+.airport--ul {
+	margin: 0;
+	max-height: 300px;
+	overflow: auto;
+}
+
+.modal-body d-flex {
+	display: flex;
+	flex-direction: row;
+}
 </style>
 <div>
 	<main>
@@ -176,7 +250,7 @@
 			<button type="button" id="modal--select--btn--id" class="search--btn--class">조회</button>
 		</div>
 		<!-- The Modal -->
-		<div class="modal fade" id="start">
+		<div class="modal fade" id="start" style="z-index: 1050;" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 
@@ -196,7 +270,7 @@
 					<!-- Modal footer -->
 					<div class="modal-footer">
 						<div class="modal--all--region">
-							<a data-toggle="modal" href="#all--airport--search" class="departure--button all--airport btn btn-primary">모든 지역 보기</a>
+							<a data-toggle="modal" href="#all--departure--airport--search" class="departure--button all--airport btn btn-primary">모든 지역 보기</a>
 						</div>
 						<div class="modal--cancel--btn">
 							<button type="button" id="start--modal--btn" class="btn btn-primary" data-dismiss="modal">Submit</button>
@@ -207,7 +281,44 @@
 			</div>
 		</div>
 
-		<div class="modal fade" id="arrival">
+		<!-- 출발지 전체 공항 조회 모달 -->
+		<div class="modal fade header--modal all--departure--airport--modal" id="all--departure--airport--search" style="z-index: 1060;">
+			<div class="modal-dialog">
+				<div class="modal-content" style="width: 498.4px; height: 640px;">
+					<div class="modal--title--div" style="display: flex; justify-content: space-between; padding: 25px; border-bottom: 1px solid #ebebeb">
+						<h4 class="modal--title">출발지 선택</h4>
+						<button class="close--button close" data-dismiss="modal" aria-hidden="true">
+							<span class="material-symbols-outlined">close</span>
+						</button>
+					</div>
+					<div class="modal-body d-flex" style="flex-direction: row;">
+
+						<!-- 지역 목록 -->
+						<ul style="min-width: 210px; margin: 0 20px 0 0">
+							<c:forEach var="r" items="${regionList}">
+								<li class="departure--region--li">${r.region}</li>
+							</c:forEach>
+						</ul>
+
+						<!-- 지역을 선택하면 취항지 불러오기 -->
+						<div style="width: 100%;">
+							<h5 style="margin: 0">취항지</h5>
+							<hr style="margin: 10px 0 20px;">
+							<ul class="departure--airport--ul">
+							</ul>
+						</div>
+
+					</div>
+					<div class="modal-footer">
+						<div class="modal--cancel--btn">
+							<button type="button" id="start--modal--btn" class="btn btn-primary" data-dismiss="modal">Submit</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal fade" id="arrival" style="z-index: 1050;" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 
@@ -226,7 +337,7 @@
 
 					<div class="modal-footer">
 						<div class="modal--all--region">
-							<a data-toggle="modal" href="#all--airport--search" class="destination--button all--airport btn btn-primary">모든 지역 보기</a>
+							<a data-toggle="modal" href="#all--destination--airport--search" class="destination--button all--airport btn btn-primary">모든 지역 보기</a>
 						</div>
 						<div class="modal--cancel--btn">
 							<button type="button" id="arrival--modal--btn" class="btn btn-primary" data-dismiss="modal">Submit</button>
@@ -237,22 +348,22 @@
 			</div>
 		</div>
 
-		<!-- 전체 공항 조회 모달 -->
-		<div class="modal fade header--modal all--airport--modal" id="all--airport--search">
+		<!-- 도착지 전체 공항 조회 모달 -->
+		<div class="modal fade header--modal all--destination--airport--modal" id="all--destination--airport--search" style="z-index: 1060;">
 			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal--title--div">
-						<h4 class="modal--title"></h4>
-						<button class="close--button" onclick="$('.all--airport--modal').modal('hide');">
+				<div class="modal-content" style="width: 498.4px; height: 640px;">
+					<div class="modal--title--div" style="display: flex; justify-content: space-between; padding: 25px; border-bottom: 1px solid #ebebeb">
+						<h4 class="modal--title">도착지 선택</h4>
+						<button class="close--button close" data-dismiss="modal" aria-hidden="true">
 							<span class="material-symbols-outlined">close</span>
 						</button>
 					</div>
-					<div class="modal-body d-flex">
+					<div class="modal-body d-flex" style="flex-direction: row;">
 
 						<!-- 지역 목록 -->
 						<ul style="min-width: 210px; margin: 0 20px 0 0">
 							<c:forEach var="r" items="${regionList}">
-								<li class="region--li">${r.region}</li>
+								<li class="destination--region--li">${r.region}</li>
 							</c:forEach>
 						</ul>
 
@@ -260,17 +371,19 @@
 						<div style="width: 100%;">
 							<h5 style="margin: 0">취항지</h5>
 							<hr style="margin: 10px 0 20px;">
-							<ul class="airport--ul">
+							<ul class="destination--airport--ul">
 							</ul>
 						</div>
 
 					</div>
+					<div class="modal-footer">
+						<div class="modal--cancel--btn">
+							<button type="button" id="arrival--modal--btn" class="btn btn-primary" data-dismiss="modal">Submit</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
-
-
-		<div id="departure--res--id"></div>
 
 		<div id="destination--res--id"></div>
 

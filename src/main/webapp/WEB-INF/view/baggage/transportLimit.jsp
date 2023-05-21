@@ -10,12 +10,14 @@ table td {
 	padding: 30px;
 }
 
-.transportLimit--ul > li {
+.transportLimit--ul>li {
 	list-style: disc;
 }
-.transportLimit--ul--li > li {
+
+.transportLimit--ul--li>li {
 	margin-left: 20px;
 }
+
 main {
 	width: 1200px;
 }
@@ -184,9 +186,9 @@ main {
 		</div>
 		<div>
 			<div>
-				<h2 id="carryOnLiquids--name--id">${carryOnLiquids.get(0).name}의 조회 결과입니다.</h2>
+				<h2 id="carryOnLiquids--name--id">${carryOnLiquids.get(0).name}의조회 결과입니다.</h2>
 			</div>
-			
+
 			<div>
 				<table border="1">
 					<tr>
@@ -201,9 +203,22 @@ main {
 						<td>면세품 지침</td>
 						<td id="carryOnLiquids--taxFreeGuide--id">${carryOnLiquids.get(0).taxFreeGuide}</td>
 					</tr>
-					
+
 				</table>
 			</div>
+		</div>
+
+		<div>
+			<h3>유의사항</h3>
+			<ul class="transportLimit--ul transportLimit--ul--li">
+				<li>의사가 처방한 의약품에 대하여는 의약 상품명 또는 의사소견서를 소지하고 물품의 출처를 증명하는 서류 (처방전, 약 봉투, 진단서 등)를 제시하여야 합니다.</li>
+				<li>보안 검색요원에 의해 물품 샘플 채취 또는 진위 여부를 확인 받을 수 있습니다.</li>
+				<li>의심의 여지가 있는 경우 물품 포기 또는 압수될 수 있습니다.</li>
+				<li>각 국가/지역 사정에 따라 해외 도착지 또는 환승 검색 시 압수될 수도 있습니다.</li>
+				<li>비행 여정은 출발 공항부터 최종 목적지 공항 도착까지의 총 비행시간 및 지연운항, 회항, 공항 터미널 대기 시간 등을&nbsp;고려하여 합한 총 시간을 의미합니다.</li>
+				<li>예외 대상품목은 1리터 투명개폐가능봉투에 담겨져 있지 않아도 허용됩니다.</li>
+				<li>액체류 면세품을 구매한 승객이 환승 검색대를 통과할 때 STEB에 물품과 영수증이 들어있지 않으면 물품이 폐기 또는 압류 처분 됩니다. (인천-부산 내항기 환승시에도 해당)</li>
+			</ul>
 		</div>
 
 		<script src="/js/baggage.js"></script>

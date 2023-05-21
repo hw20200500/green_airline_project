@@ -33,4 +33,10 @@ public class BaggageController {
 		return "/baggage/transportLimit";
 	}
 	
+	@GetMapping("/carryBaggage")
+	public String carryBaggagePage() {
+		
+		return "/baggage/carryBaggage";
+	}
+	
 }
