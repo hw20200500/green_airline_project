@@ -20,7 +20,7 @@ public interface InFlightServiceRepository {
 	// 기내 서비스 검색 기능
 	List<InFlightService> selectInFlightServiceByName(String keyword);
 	
-	// 특별 기내식 조회 기능
+	// 특별 기내식 조회 기능 
 	List<InFlightMealResponseDto> selectInFlightMeal(String name);
 	
 	// 특별 기내식 조회 기능

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.green.airline.dto.response.InFlightMealResponseDto;
 import com.green.airline.dto.response.InFlightServiceResponseDto;
 import com.green.airline.dto.response.RouteResponseDto;
+import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.model.Airport;
 import com.green.airline.repository.model.Route;
 import com.green.airline.repository.model.User;
@@ -72,7 +74,6 @@ public class InFlightServiceApiController {
 	@GetMapping("/searchRoute")
 	public List<InFlightServiceResponseDto> searchRoute(@RequestParam String destination, @RequestParam String departure) {
 		List<InFlightServiceResponseDto> reqRouteList = routeService.readByDestAndDepa(destination, departure);
-		
 		return reqRouteList;
 	}
 

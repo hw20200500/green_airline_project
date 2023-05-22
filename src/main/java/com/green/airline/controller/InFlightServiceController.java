@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,6 +22,7 @@ import com.green.airline.repository.model.InFlightService;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.AirportService;
 import com.green.airline.service.InFlightSvService;
+import com.green.airline.service.RouteService;
 import com.green.airline.utils.Define;
 
 @Controller
@@ -31,14 +33,16 @@ public class InFlightServiceController {
 	private InFlightSvService inFlightSvService;
 	@Autowired
 	private AirportService airportService;
+	@Autowired
+	private RouteService routeService;
 
 	@Autowired
 	private HttpSession session;
 
 	// 기내 서비스 조회 페이지
 	@GetMapping("/inFlightServiceSearch")
-	public String inFlightServiceSearchPage(Model model, Integer flightHours) {
-		
+	public String inFlightServiceSearchPage(Model model) {
+
 		List<InFlightService> inFlightServices = inFlightSvService.readInFlightService();
 		model.addAttribute("inFlightServices", inFlightServices);
 
@@ -48,13 +52,13 @@ public class InFlightServiceController {
 		return "/in_flight/inFlightSvSearch";
 	}
 
-	@PostMapping("/inFlightServiceSearch")
-	public String inFlightServiceSearch(Model model, String keyword) {
-		List<InFlightService> inFlightServices = inFlightSvService.readInFlightServiceByName(keyword);
-		model.addAttribute("inFlightServices", inFlightServices);
-
-		return "/in_flight/inFlightSearch";
-	}
+//	@PostMapping("/inFlightServiceSearch")
+//	public String inFlightServiceSearch(Model model, @RequestBody String keyword) {
+//		List<InFlightService> inFlightServices = inFlightSvService.readInFlightServiceByName(keyword);
+//		model.addAttribute("inFlightServices", inFlightServices);
+//
+//		return "/in_flight/inFlightSearch";
+//	}
 
 	// inFlightServiceSpecialSearch?name=값
 	@GetMapping("/inFlightServiceSpecialSearch")
@@ -72,6 +76,10 @@ public class InFlightServiceController {
 
 		List<InFlightMeal> flightMeals = inFlightSvService.readInFlightMealCategory();
 		model.addAttribute("flightMeals", flightMeals);
+
+		// todo 지울 수도 있음.
+//		List<InFlightServiceResponseDto> reqRouteList = routeService.readByDestAndDepa(destination, departure);
+//		model.addAttribute("reqRouteList", reqRouteList);
 
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 
