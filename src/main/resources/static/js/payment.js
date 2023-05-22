@@ -2,6 +2,8 @@
 // 탑승객 입력 완료 버튼
 $("#passengerInfoBtn").on("click", function() {
 	
+	passengerInfos = [];
+	
 	// 탑승객 수	
 	let passengerCount = $(".passenger--tr").length;
 	
@@ -88,8 +90,7 @@ $("#passengerInfoBtn").on("click", function() {
 		}
 		
 		// 해당 탑승객 정보		
-		let info = [ageType, gender, name, birth];
-		passengerInfoArray.push(info);
+		passengerInfos.push(`${ageType}_${gender}_${name}_${birth}`);
 	}
 	
 	$("#paymentDiv").show();
@@ -134,3 +135,53 @@ $("#checkCurrentUser").on("change", function() {
 	}
 	
 });
+
+$("#kakaoPayImg").on("click", function() {
+	let ticket;
+	// 편도면
+	if (scheduleCount == 1) {
+		ticket = {
+			adultCount: adultCount,
+			childCount: childCount,
+			infantCount: infantCount,
+			scheduleId: scheduleId1,
+			seatGrade: seatGrade1,
+			seatNames: seatNames1,
+			passengerInfos: passengerInfos,
+			totalAmount: totalPrice,
+			quantity: scheduleCount
+		}
+	// 왕복이면
+	} else {
+		ticket = {
+			adultCount: adultCount,
+			childCount: childCount,
+			infantCount: infantCount,
+			scheduleId: scheduleId1,
+			seatGrade: seatGrade1,
+			seatNames: seatNames1,
+			scheduleId2: scheduleId2,
+			seatGrade2: seatGrade2,
+			seatNames2: seatNames2,
+			passengerInfos: passengerInfos,
+			totalAmount: totalPrice,
+			quantity: scheduleCount
+		}
+	}
+	
+	$.ajax({
+		type: "POST",
+		url: "/payment/request",
+		contentType: "application/json; charset=UTF-8",
+		data: JSON.stringify(ticket),
+		dataType: "text" // 이거 하니까 "parsererror" 해결
+	})
+	.done((res) => {
+		location.href=`${res}`;
+	})
+	.fail((error) => {
+		console.log(error);
+	});
+});
+
+

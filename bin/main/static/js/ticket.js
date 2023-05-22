@@ -290,9 +290,7 @@ $(".flight--date1").on("change", function() {
 
 		// 오는 날 이후 날짜를 선택했다면
 	} else if ($(".flight--date2").val() != "" && $(".flight--date1").val() > $(".flight--date2").val()) {
-		alert("오는 날 이전 날짜를 선택해주세요.");
-		$(".flight--date1").focus();
-		$(".flight--date1").val("");
+		$(".flight--date2").val("");
 		return;
 	}
 	insertDatepicker(1);
