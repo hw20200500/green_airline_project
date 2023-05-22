@@ -107,6 +107,8 @@
 		from ticket_tb as t
 		inner join schedule_tb as s
 		on t.schedule_id = s.id
+		inner join route_tb as r
+		on r.id = route_id
 		where t.member_id=#{memberId} and departure_date>now()
 	</select>
 	

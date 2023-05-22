@@ -21,6 +21,7 @@ import com.green.airline.repository.model.InFlightService;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.AirportService;
 import com.green.airline.service.InFlightSvService;
+import com.green.airline.service.RouteService;
 import com.green.airline.utils.Define;
 
 @Controller
@@ -31,6 +32,8 @@ public class InFlightServiceController {
 	private InFlightSvService inFlightSvService;
 	@Autowired
 	private AirportService airportService;
+	@Autowired
+	private RouteService routeService;
 
 	@Autowired
 	private HttpSession session;
@@ -38,7 +41,7 @@ public class InFlightServiceController {
 	// 기내 서비스 조회 페이지
 	@GetMapping("/inFlightServiceSearch")
 	public String inFlightServiceSearchPage(Model model, Integer flightHours) {
-		
+
 		List<InFlightService> inFlightServices = inFlightSvService.readInFlightService();
 		model.addAttribute("inFlightServices", inFlightServices);
 
@@ -72,6 +75,10 @@ public class InFlightServiceController {
 
 		List<InFlightMeal> flightMeals = inFlightSvService.readInFlightMealCategory();
 		model.addAttribute("flightMeals", flightMeals);
+
+		// todo 지울 수도 있음.
+//		List<InFlightServiceResponseDto> reqRouteList = routeService.readByDestAndDepa(destination, departure);
+//		model.addAttribute("reqRouteList", reqRouteList);
 
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 

@@ -1,20 +1,5 @@
 
-// 특별식 신청 --> 페이지 이동 
-
-// 사용하지 말기 
-/*$("#inFlightMeals--request--btn").on("click", function() {
-	let session = window.sessionStorage;
-	let principal = session.getItem("principal");
-	console.log(principal);
-	
-	if (principal == null) {
-		alert("로그인 후 이용 가능합니다.");
-		window.location.href='/login';
-	} 
-});*/
-
 $(document).ready(function() {
-
 
 	$("#inFlightMeals--option").on("change", function() {
 		
@@ -31,10 +16,7 @@ $(document).ready(function() {
 		}).done(function(data) {
 			let description = $("#inFlightMeals--description");
 			let detail = $("#inFlightMeals--detail");
-			let arrival = $("#inFlight--arrival");
-			let image = $("#inFlightMeals--image");
 			let modalIfmdName = $(".modal--ifmdName");
-
 			for (let i = 0; i < data.length; i++) {
 				// div태그 만들기
 				let divNode = $("<div>");
@@ -45,8 +27,6 @@ $(document).ready(function() {
 				let divNode2 = $("<span>");
 				divNode.append(divNode2);
 				divNode2.append(data[i].ifmdName);
-				console.log(data[i]);
-
 
 				let radioNode = $("<input>");
 				radioNode.attr("type", "radio");
@@ -85,8 +65,7 @@ $(document).ready(function() {
 		if (isLoginCheck == "false") {
 			alert("로그인 후 이용 가능합니다.");
 			window.location.href = '/login';
-		}else{
-			
+			return false;
 		}
 	});
 });
@@ -104,16 +83,13 @@ $(document).ready(function() {
 		let radioVal = $('input[name="ifmdName"]:checked').val();
 		let amountVal = $('input[name="amount"]').val();
 		let selectVal = $('select[name="modal--name--arrivaldate"').val();
-		console.log(radioVal);
-		console.log(amountVal);
-		console.log(selectVal);
 
 		$.ajax({
 			type: "get",
 			url: "/inFlightService/specialMealReq?name=" + radioVal + "&amount=" + amountVal + "&departureDate=" + selectVal,
 			contentType: "application/json; charset=utf-8",
 		}).done(function(data) {
-
+																					
 		}).fail(function(error) {
 			console.log(error);
 		})
@@ -128,7 +104,6 @@ $('.modal').on('hidden.bs.modal', function(e) {
 $(document).ready(function() {
 	$("#modal--id--arrivaldate").on("change", function() {
 		let arrivalDateVal = $("#modal--id--arrivaldate").val();
-		console.log(arrivalDateVal);
 
 		$.ajax({
 			type: "get",

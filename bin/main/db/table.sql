@@ -214,6 +214,14 @@ CREATE TABLE checked_baggage_tb(
 	free_allowance VARCHAR(100) NOT NULL
 );
 
+-- 수하물 유실
+CREATE TABLE baggage_miss_tb(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(10) NOT NULL,
+	guide VARCHAR(255),
+	note VARCHAR(255)
+);
+
 
 -- 추천여행지 게시글
 create table recommend_board_tb(

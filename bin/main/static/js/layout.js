@@ -140,5 +140,5 @@ $.datepicker.setDefaults({
 
 $(function() {
 	$('.datepicker').datepicker();
-})
+});
 	

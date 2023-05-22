@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.green.airline.repository.model.BaggageMiss;
 import com.green.airline.repository.model.CarryOnLiquids;
 import com.green.airline.repository.model.CheckedBaggage;
 
@@ -21,5 +22,11 @@ public interface BaggageRepository {
 
 	// 위탁 수하물 카테고리 
 	List<CheckedBaggage> selectCheckedBaggage();
+	
+	// 수하물 유실 name에 따른 안내와 유의사항
+	List<BaggageMiss> selectBaggageMissByName(String name);
+	
+	// 수하물 유실 카테고리 
+	List<BaggageMiss> selectBaggageMiss();
 	
 }

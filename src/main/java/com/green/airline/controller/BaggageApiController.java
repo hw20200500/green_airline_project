@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.green.airline.repository.model.BaggageMiss;
 import com.green.airline.repository.model.CarryOnLiquids;
 import com.green.airline.repository.model.CheckedBaggage;
 import com.green.airline.service.BaggageService;
@@ -29,6 +30,13 @@ public class BaggageApiController {
 	public List<CheckedBaggage> freeBaggage(@RequestParam String section) {
 		List<CheckedBaggage> baggages = baggageService.readCheckedBaggageBySection(section);
 		return baggages;
+	}
+
+	@GetMapping("/baggageMiss")
+	public List<BaggageMiss> baggageMiss(@RequestParam String name) {
+		List<BaggageMiss> baggageMisses = baggageService.readBaggageMissByName(name);
+//		System.out.println(baggageMisses);
+		return baggageMisses;
 	}
 
 }
