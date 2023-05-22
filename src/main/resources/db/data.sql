@@ -75,8 +75,7 @@ VALUES
 
 INSERT INTO member_tb
 VALUES 
-	('abc', '김홍아', 'LEE SEOYOUNG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', '골드'),
-	('a123', '홍길이', 'LEE SEOYOUNG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', '골드');
+	('abc', '김홍아', 'KIM HOMGAH', '1997-08-05', 'F', '010-1111-2222', 'abc@naver.com', '부산광역시 수영구', '대한민국', '골드');
 
 INSERT INTO airport_tb (region, name)
 VALUES 

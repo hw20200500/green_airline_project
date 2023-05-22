@@ -355,30 +355,39 @@ $("#calculateBtn").on("click", function() {
 
 		// 유효한 날짜 형식이라면 나이 계산
 	} else {
-		let bTime = birthDate.getTime();
-		let tTime = thisDate.getTime();
-		let timeDiff = tTime - bTime;
+		let result = calculateAgeType(birthDate, thisDate);
 
-		if (timeDiff < 0) {
-			$("#calculaterResult").text("입력된 생년월일이 탑승일 이후입니다.");
-			return;
-		}
-
-		let age = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365));
-		let result;
-
-		if (age < 2) {
-			result = "유아";
-		} else if (age < 12) {
-			result = "소아";
-		} else {
-			result = "성인";
-		}
 		let thisDateStr = $("#thisDate").val();
 		$("#calculaterResult").html(`탑승일 <span>(${thisDateStr})</span> 기준으로 <span>${result}</span>입니다.`);
 
 	}
 });
+
+
+// 날짜 차이 계산해서 연 단위로 환산해서 성인/소아/유아 구분
+function calculateAgeType (date1, date2) {
+	let bTime = date1.getTime();
+	let tTime = date2.getTime();
+	let timeDiff = tTime - bTime;
+
+	if (timeDiff < 0) {
+		$("#calculaterResult").text("입력된 생년월일이 탑승일 이후입니다.");
+		return;
+	}
+
+	let age = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365));
+	let result;
+
+	if (age < 2) {
+		result = "유아";
+	} else if (age < 12) {
+		result = "소아";
+	} else {
+		result = "성인";
+	}
+	return result;
+}
+
 
 // 날짜로 변환
 function stringToDate(str) {
