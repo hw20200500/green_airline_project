@@ -13,13 +13,14 @@ public class Board {
 	private String title;
 	private String content;
 	private String userId;
-	private Integer viewCount;
+	private Integer viewCount = 0;
 	private Timestamp createdAt;
-	private Integer heartCount;
+	private Integer heartCount = 0;
 
 	public String formatDate() {
 		return TimestampUtil.dateToString(createdAt);
 	}
+
 
 
 }

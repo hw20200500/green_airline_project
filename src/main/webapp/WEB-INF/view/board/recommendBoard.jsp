@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
+
 <style>
 .tr--boardList, tr--boardList--title {
 	text-align: center;
@@ -67,11 +68,12 @@
 				<div class="board--viewCount"></div>
 				<!-- 게시물id 가져와서 경로에 넣어주기 -->
 				<%
-					String boardId = request.getParameter("boardId");
+				String boardId = request.getParameter("boardId");
 				%>
-				<button type="button" class="board--heartCount"
-					id="boardDetail<%=boardId%>"></button>
-				<div class="board--date"></div>
+				<img src="/images/like/like.png" class="board--heartCount"
+					id="boardDetail<%=boardId%>"
+					style="cursor: pointer; width: 30px; height: 30px;"></img>
+				<div class="board--heartCount" id="boardDetail<%=boardId%>"></div>
 			</div>
 		</div>
 	</div>
@@ -81,11 +83,16 @@
 <!-- 
 === TODO ===
 1. 페이징처리
-2. 찜 - 게시물 삭제, 사용자 삭제되면 하트 사라짐,
-사용자 닉네임 수정시 userId 수정
+
 2-1. 찜 + 조회수 / 게시물 = 높은 숫자 게시물 5개만
 상위에 보여주기
-3. 파일 업로드 (드래그앤드롭)
+
+2-2 회원만 찜 누를 수 있게하기
+// principal이 null이 아닐때만 img태그가 보이게하기
+// 비회원은 찜 누르면 로그인창으로
+
+3. 파일 업로드 (드래그앤드롭),(썸머노트)
+
 4. 추천순, 조회수 많은순 필터링 기능
 -->
 

@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<script src="/js/summernote/summernote-lite.js"></script>
+<script src="/js/summernote/lang/summernote-ko-KR.js"></script>
+
+<link rel="stylesheet" href="/css/summernote/summernote-lite.css">
 <!DOCTYPE html>
 <main>
 	<form action="/board/insert" method="post">
@@ -20,23 +24,7 @@
 			</tr>
 			<tr>
 				<td>사진 업로드</td>
-				<td>
-					<div class="custom-file">
-						<input type="file" class="custom-file-input" id="customFile">
-						<label class="custom-file-label" for="customFile">Choose
-							file</label>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>작성자 id</td>
-				<td><input class="form-control" id="userId" type="text"
-					name="userId"></td>
-			</tr>
-			<tr>
-				<td>조회수</td>
-				<td><input class="form-control" id="viewCount" type="text"
-					name="viewCount"></td>
+				
 			</tr>
 		</table>
 		<div class="modal-footer">
@@ -44,5 +32,6 @@
 		</div>
 	</form>
 </main>
+<script src="/js/test.js"></script>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

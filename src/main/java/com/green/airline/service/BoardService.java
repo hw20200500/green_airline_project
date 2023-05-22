@@ -47,11 +47,12 @@ public class BoardService {
 	public void insertBoard(Board board) {
 
 		board.setTitle(board.getTitle());
-		board.setUserId(board.getUserId());
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		board.setUserId(user.getId());
 		board.setContent(board.getContent());
-		board.setViewCount(board.getViewCount());
 
 		int result = boardRepository.insertByBoard(board);
+		
 		if (result != 1) {
 			// todo 예외처리
 		}
@@ -135,50 +136,26 @@ public class BoardService {
 	// 좋아요 추가, 삭제
 	public boolean heartInDecrease(Integer id) {
 
-		// 좋아요 누른 유저 아이디
-		List<LikeHeart> likeUser = boardRepository.selectByLikeUser(id);
-		System.out.println(likeUser);
-
 		boolean registration = false;
-		int result;
-		
-		// 좋아요 누른 유저아이디가 없는 경우
-		if (!likeUser.isEmpty()) {
-			// 현재 로그인 되어있는 유저 아이디
-			User user = (User) session.getAttribute(Define.PRINCIPAL);
-			System.out.println(user);
 
-			// 게시물 id
-			Integer boardId = likeUser.get(0).getBoardId();
-			System.out.println("1111" + boardId);
+		// 현재 로그인 되어있는 유저 아이디 정보
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
 
-			// 현재 로그인 되어있는 유저 id
-			String userId = user.getId();
-			System.out.println("2222" + userId);
+		// 현재 로그인 되어있는 유저 id
+		String userId = user.getId();
 
-			// 찜을 누른 모든 유저 정보
-			List<LikeHeart> list = boardRepository.selectByBoardIdAndLikeUser(boardId, userId);
-			System.out.println("3333" + list);
+		// 게시물 찜 목록에 현재 로그인 되어있는 id가 있는지 확인
+		List<LikeHeart> list = boardRepository.selectByBoardIdAndLikeUser(id, userId);
 
-			// 찜 누른 유저정보에서 id값만 가져오기
-			String selectLikeUserId = list.get(0).getUserId().toString();
-			System.out.println("4444" + selectLikeUserId);
-
-			System.out.println(list); // 쿼리에 현재 로그인 되어있는 id가 있는지 확인
-
-			System.out.println(selectLikeUserId);
-			System.out.println(userId);
-
-			if (userId != selectLikeUserId) {
-				result = boardRepository.insertByHeart(boardId, userId);
-				System.out.println("////insert" + result);
-				registration = true;
-			} else {
-				result = boardRepository.deleteByHeart(boardId, userId);
-				System.out.println("////delete" + result);
-				registration = false;
-			}
+		// 게시물에 찜을 누른 유저가 현재 로그인 되어있는 유저가 null인지 확인
+		if (list.isEmpty() || list == null) {
+			boardRepository.insertByHeart(id, userId);
+			registration = true;
+		} else {
+			boardRepository.deleteByHeart(id, userId);
+			registration = false;
 		}
+
 		return registration;
 	}
 

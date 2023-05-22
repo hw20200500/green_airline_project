@@ -13,4 +13,9 @@ public class TestController {
 		return "/layout/main";
 	}
 	
+	@GetMapping("/drag")
+	public String drag() {
+		return "/board/testApi";
+	}
+	
 }
