@@ -65,7 +65,7 @@
 							<li class="material--li"><a href="#"><span class="material-symbols-outlined" style="font-size: 22px;">support_agent</span></a></li>
 							<li class="customer--service--li"><a href="#">고객센터</a>
 								<ul class="ul--dropdown--menu">
-									<li class="li--dropdown--menu"><a href="#">공지사항</a></li>
+									<li class="li--dropdown--menu"><a href="/notice/noticeList">공지사항</a></li>
 									<li class="li--dropdown--menu"><a href="#">자주묻는질문</a></li>
 									<li class="li--dropdown--menu">&nbsp;</li>
 									<li class="li--dropdown--menu">&nbsp;</li>
@@ -107,7 +107,7 @@
 								<li><a href="/inFlightService/inFlightServiceSpecial">특별 기내식</a>
 								<li><a href="/baggage/guide">수하물 안내</a>
 								<li><a href="/baggage/baggageMiss">수하물 유실 임시</a>
-								<li><a href="#">세부메뉴</a>
+								<li><a href="/baggageReq/baggageRequest">수하물 신청</a>
 							</ul>
 							<div class="nav--split"></div>
 							<ul>

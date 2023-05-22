@@ -2,7 +2,7 @@
 $(document).ready(function() {
 
 	$("#inFlightMeals--option").on("change", function() {
-		
+
 		let nameVal = $("#inFlightMeals--option").val();
 		$("#inFlightMeals--description").empty();
 		$("#inFlightMeals--detail").empty();
@@ -59,7 +59,7 @@ $(document).ready(function() {
 	});
 
 
-	
+
 	$("#inFlightMeals--request--btn").on("click", function() {
 		let isLoginCheck = $("#isLogin--check").val();
 		if (isLoginCheck == "false") {
@@ -89,7 +89,7 @@ $(document).ready(function() {
 			url: "/inFlightService/specialMealReq?name=" + radioVal + "&amount=" + amountVal + "&departureDate=" + selectVal,
 			contentType: "application/json; charset=utf-8",
 		}).done(function(data) {
-																					
+
 		}).fail(function(error) {
 			console.log(error);
 		})

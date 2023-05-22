@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -40,7 +41,7 @@ public class InFlightServiceController {
 
 	// 기내 서비스 조회 페이지
 	@GetMapping("/inFlightServiceSearch")
-	public String inFlightServiceSearchPage(Model model, Integer flightHours) {
+	public String inFlightServiceSearchPage(Model model) {
 
 		List<InFlightService> inFlightServices = inFlightSvService.readInFlightService();
 		model.addAttribute("inFlightServices", inFlightServices);
@@ -51,13 +52,13 @@ public class InFlightServiceController {
 		return "/in_flight/inFlightSvSearch";
 	}
 
-	@PostMapping("/inFlightServiceSearch")
-	public String inFlightServiceSearch(Model model, String keyword) {
-		List<InFlightService> inFlightServices = inFlightSvService.readInFlightServiceByName(keyword);
-		model.addAttribute("inFlightServices", inFlightServices);
-
-		return "/in_flight/inFlightSearch";
-	}
+//	@PostMapping("/inFlightServiceSearch")
+//	public String inFlightServiceSearch(Model model, @RequestBody String keyword) {
+//		List<InFlightService> inFlightServices = inFlightSvService.readInFlightServiceByName(keyword);
+//		model.addAttribute("inFlightServices", inFlightServices);
+//
+//		return "/in_flight/inFlightSearch";
+//	}
 
 	// inFlightServiceSpecialSearch?name=값
 	@GetMapping("/inFlightServiceSpecialSearch")

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.green.airline.repository.model.BaggageMiss;
 import com.green.airline.repository.model.CarryOnLiquids;
@@ -61,12 +62,9 @@ public class BaggageController {
 
 	// 수하물 유실 페이지
 	@GetMapping("/baggageMiss")
-	public String baggageMissPage(Model model, String name) {
+	public String baggageMissPage(Model model) {
 		List<BaggageMiss> baggageMisses = baggageService.readBaggageMiss();
 		model.addAttribute("baggageMisses", baggageMisses);
-
-		List<BaggageMiss> baggageList = baggageService.readBaggageMissByName(name);
-		model.addAttribute("baggageList", baggageList);
 
 		return "/baggage/baggageMiss";
 	}

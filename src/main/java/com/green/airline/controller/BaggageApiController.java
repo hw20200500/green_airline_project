@@ -35,7 +35,6 @@ public class BaggageApiController {
 	@GetMapping("/baggageMiss")
 	public List<BaggageMiss> baggageMiss(@RequestParam String name) {
 		List<BaggageMiss> baggageMisses = baggageService.readBaggageMissByName(name);
-//		System.out.println(baggageMisses);
 		return baggageMisses;
 	}
 

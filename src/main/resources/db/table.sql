@@ -222,6 +222,22 @@ CREATE TABLE baggage_miss_tb(
 	note VARCHAR(255)
 );
 
+-- 수하물, 노선 중간 테이블
+CREATE TABLE baggage_route_tb(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	route_id INT NOT NULL, FOREIGN KEY(route_id) REFERENCES route_tb(id),
+	baggage_id INT NOT NULL, FOREIGN KEY(baggage_id) REFERENCES checked_baggage_tb(id)
+);
+
+-- 수하물 신청
+CREATE TABLE baggage_request_tb(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	amount INT NOT NULL,
+	weight INT NOT NULL,
+	price INT NOT NULL,
+	br_id INT, FOREIGN KEY(br_id) REFERENCES baggage_route_tb(id),
+	member_id VARCHAR(50), FOREIGN KEY(member_id) REFERENCES member_tb(id)
+);
 
 -- 추천여행지 게시글
 create table recommend_board_tb(

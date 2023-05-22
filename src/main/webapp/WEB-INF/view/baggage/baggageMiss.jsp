@@ -9,19 +9,10 @@
 <main>
 	<div>
 		<h1>지연, 파손 및 유실물</h1>
-		<%-- 
-		<select>
-			<c:forEach var="baggageMisses" items="${baggageMisses}">
-				<option value="${baggageMisses.name}">${baggageMisses.name}</option>
-			</c:forEach>
-		</select>
-		--%>
-
 		<c:forEach var="baggageMisses" items="${baggageMisses}" varStatus="status">
 			<button type="button" value="${baggageMisses.name}" id="baggageMiss--name" name="name" class="btn btn-primary buttonArray">${baggageMisses.name}</button>
 		</c:forEach>
 
-		<%--${baggageMisses.get(0).guide} ${baggageList.get(0).note} --%>
 		<div class="baggageMiss--guide--class"></div>
 		<div class="baggageMiss--note--class"></div>
 
