@@ -259,6 +259,12 @@
 					</table>
 					
 				</div>
+				
+				<form action="/">
+					<button id="kakaoPayBtn">
+						<img src="/images/kakao_pay.png">
+					</button>
+				</form>
 			</div>
 			
 		</div>
@@ -267,6 +273,7 @@
 </main>
 
 <script>
+
 	let adultCount = ${ticket.adultCount};
 	let childCount = ${ticket.childCount};
 	let infantCount = ${ticket.infantCount};
@@ -285,6 +292,7 @@
 	
 	// 모든 탑승객 정보 (티켓 정보와 함께 보낼 것)
 	let passengerInfoArray = new Array();
+	
 </script>
 	
 <!-- 왕복이라면 -->

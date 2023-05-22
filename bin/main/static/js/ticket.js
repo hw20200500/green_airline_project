@@ -391,13 +391,32 @@ function calculateAgeType (date1, date2) {
 
 // 날짜로 변환
 function stringToDate(str) {
-	let arr = str.split("-");
-	if (arr.length != 3) {
-		return "error";
+	let year;
+	let month;
+	let day;
+	if (str.length > 8) {
+		let arr = str.split("-");
+		if (arr.length != 3) {
+			return "error";
+		}
+		year = arr[0];
+		month = arr[1];
+		day = arr[2];
+	} else if (str.length == 8) {
+		
+		try {
+			let test = parseInt(str);
+		} catch (e) {
+			// 숫자가 아니면
+			return "error";
+		}
+		
+		year = str.substr(0, 4);
+		month = str.substr(4, 2);
+		day = str.substr(6, 2);		
+	} else {
+		return "error";	
 	}
-	let year = arr[0];
-	let month = arr[1];
-	let day = arr[2];
 
 	if (month == 2) {
 		if (day == 29) {
