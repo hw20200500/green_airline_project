@@ -1,6 +1,5 @@
 package com.green.airline.controller;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.green.airline.dto.response.AirplaneInfoDto;
-import com.green.airline.repository.interfaces.SeatRepository;
 import com.green.airline.repository.model.Airplane;
 import com.green.airline.service.AirplaneService;
 import com.green.airline.service.SeatService;

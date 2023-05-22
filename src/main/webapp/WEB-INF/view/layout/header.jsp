@@ -7,6 +7,7 @@
 <title>그린항공ㅣGREEN AIRLINES</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/css/layout.css">
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -73,6 +74,7 @@
 						</c:otherwise>
 					</c:choose>
 				</ul>
+			
 			</div>
 			<nav>
 				<img alt="" src="/images/logo.jpg" class="logo" onclick="location.href='/';">
@@ -121,9 +123,9 @@
 							</ul>
 							<div class="nav--split"></div>
 							<ul>
-								<li><a href="#">세부메뉴</a>
-								<li><a href="#">세부메뉴</a>
-								<li><a href="#">세부메뉴</a>
+								<li><a href="/product/productMain">마일리지 사용몰</a>
+								<li><a href="/product/registration">상품 등록</a>
+								<li><a href="#">상품 수정</a>
 								<li><a href="#">세부메뉴</a>
 								<li><a href="#">세부메뉴</a>
 								<li><a href="#">세부메뉴</a>
@@ -165,9 +167,9 @@
 								<li class="material--li"><span class="material-symbols-outlined material-symbols-outlined-white">expand_more</span></li>
 							</ul>
 						</button>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
 		</c:if>
 
 		<script type="text/javascript">

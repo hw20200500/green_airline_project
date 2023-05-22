@@ -11,12 +11,25 @@ server:
       enabled: false
       
 spring: 
+  mail:
+    host: smtp.naver.com
+    port: 465
+    username: ekdns8276@naver.com
+    password: ekqls2113!
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+      mail.smtp.ssl.trust: smtp.naver.com
+      mail.smtp.starttls.enable: true
   mvc:
     throw-exception-if-no-handler-found: true
     dispatch-options-request: false
     view: # JSP 사용 설정
       prefix: /WEB-INF/view/ # jsp 파일 경로
       suffix: .jsp # 확장자
+  servlet:
+    multipart:
+      max-file-size: 20MB #최대 20MB()
   datasource: # DB 설정
     url: jdbc:h2:mem:testdb;MODE=MySQL
     driver-class-name: org.h2.Driver
