@@ -200,6 +200,9 @@ $("#choiceCompleteBtn").on("click", function() {
 		}
 	}
 	
+	// 좌석 정보 정렬
+	seatNames1.sort();
+	
 	// 데이터 넘기기
 	$(`input[name="adultCount"]`).val(adultCount);
 	$(`input[name="childCount"]`).val(childCount);
@@ -211,6 +214,8 @@ $("#choiceCompleteBtn").on("click", function() {
 	
 	// 왕복일 때에만
 	if (scheduleCount == 2) {
+		// 좌석 정보 정렬
+		seatNames2.sort();
 		$(`input[name="scheduleId2"]`).val(scheduleId2);
 		$(`input[name="seatNames2"]`).val(seatNames2);
 		$(`input[name="seatGrade2"]`).val(seatGrade2);

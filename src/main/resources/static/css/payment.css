@@ -1,0 +1,178 @@
+@charset "UTF-8";
+
+.ticket--div {
+	background-image: url("/images/ticket/ticket.png");
+	width: 900px;
+	height: 180px;
+	padding-left: 70px;
+}
+
+.ticket--div h6 {
+	padding-top: 14px;
+	margin-bottom: 15px;
+}
+
+ul, label {
+	margin: 0;
+}
+
+.destination--departure {
+	display: flex;
+	align-items: flex-end;
+}
+
+.destination--departure span:nth-of-type(1), .destination--departure span:nth-of-type(3) {
+	font-size: 24px;
+	font-weight: 600;
+}
+
+.destination--departure span:nth-of-type(2) {
+	margin: 0 13px 2px;
+	font-size: 22px;
+}
+
+.destination--departure span:nth-of-type(4) {
+	margin: 0 13px 2px;
+	font-size: 22px;
+}
+
+.flight--date {
+	color: gray;
+}
+
+.seat--list {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 810px;
+}
+
+.seat--list:hover {
+	overflow: visible;
+}
+
+.seat--list span {
+	font-weight: 600;
+	color: #3f5f8d;
+}
+
+.small--title {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 40px; 
+	color: #314f79;
+}
+
+.small--title span:first-of-type {
+	margin-right: 5px;
+}
+
+.small--title span:hover {
+	color: #314f79;
+}
+
+/* 탑승객 정보 테이블 */
+.passenger--info--list table {
+	width: 100%;
+	border-color: #ddd;
+}
+
+.passenger--info--list th:nth-of-type(1) {
+	width: 15%;
+}
+
+.passenger--info--list th:nth-of-type(2) {
+	width: 25%;
+}
+
+.passenger--info--list th:nth-of-type(3) {
+	width: 30%;
+}
+
+.passenger--info--list th:nth-of-type(4) {
+	width: 30%;
+}
+
+.passenger--info--list th {
+	background-color: #E5EFF3;
+	color: #404040;
+}
+
+.passenger--info--list table th:first-child, .passenger--info--list table td:first-child, 
+.payment--table th, .payment--table td, .payment--table tr {
+	border-left: hidden;
+}
+
+.passenger--info--list table th:last-child, .passenger--info--list table td:last-child,
+.payment--table th, .payment--table td, .payment--table tr {
+	border-right: hidden;
+}
+
+.passenger--info--list table tr:first-of-type th, .payment--table th {
+	border-top: 2px solid #ccc;
+}
+
+.passenger--info--list table tr:last-of-type td, .payment--table tr:last-of-type td {
+	border-bottom: 2px solid #ccc;
+}
+
+.passenger--info--list table th, .passenger--info--list table td {
+	font-size: 17px;
+	text-align: center;
+	padding: 5px;
+}
+
+.passenger--info--list label {
+	cursor: pointer;
+}
+
+.name--td input, .birth--td input {
+	outline: none;
+	border: none;
+	text-align: center;
+}
+
+.payment--table {
+	width: 350px;
+	border-color: #ddd;
+	margin: 0 auto;
+	font-size: 17px;
+}
+
+.payment--tb--depth--2 td:first-of-type, .payment--tb--depth--2 td:first-of-type {
+	padding: 3px 0 3px 30px !important;
+}
+
+.payment--table td:first-of-type {
+	padding: 3px 0 3px 60px;
+}
+
+.payment--tb--depth--3 td:last-of-type, .payment--tb--depth--3 td:last-of-type, 
+.payment--tb--depth--3 td:last-of-type, .payment--tb--depth--3 td:last-of-type,
+.payment--tb--depth--3 td:last-of-type, .payment--tb--depth--3 td:last-of-type {
+	text-align: right;
+	padding: 3px;
+}
+
+.payment--table th {
+	padding: 5px;
+	background-color: #F5F5F6;
+	color: #404040;
+}
+
+.payment--table tr:last-of-type th {
+	background-color: #c6dde5;
+}
+
+.payment--table tr:last-of-type th:last-of-type {
+	text-align: right;
+}
+
+#paymentDiv {
+	display: none;
+}
+
+#checkCurrentUserLabel {
+	font-size: 15px;
+}

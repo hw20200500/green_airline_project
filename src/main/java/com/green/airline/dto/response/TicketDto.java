@@ -1,10 +1,12 @@
 package com.green.airline.dto.response;
 
+import com.green.airline.dto.request.PassengerInfoDto;
+
 import lombok.Data;
 
 /**
  * @author 서영
- *
+ * request용으로도 사용됨
  */
 @Data
 public class TicketDto {
@@ -24,6 +26,9 @@ public class TicketDto {
 	private String seatGrade2;
 	private Integer scheduleId2;
 	private String[] seatNames2;
+	
+	// 탑승객 정보
+	private PassengerInfoDto[] passengerInfoArray;
 	
 	public TicketDto(Integer adultCount, Integer childCount, Integer infantCount, String seatGrade,
 			Integer scheduleId) {

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.airline.repository.interfaces.MemberRepository">
+
+<select id="selectById" resultType="com.green.airline.repository.model.Member">
+	SELECT * FROM member_tb WHERE id = #{id}
+</select>
+
+</mapper>

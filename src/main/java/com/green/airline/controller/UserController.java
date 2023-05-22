@@ -8,9 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.green.airline.dto.request.LoginFormDto;
 import com.green.airline.handler.exception.CustomRestfullException;
+import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.UserService;
 import com.green.airline.utils.Define;
@@ -63,6 +65,19 @@ public class UserController {
 	public String logoutProc() {
 		session.invalidate();
 		return "redirect:/";
+	}
+	
+	/**
+	 * 
+	 * @return 로그인되어 있는 멤버의 회원 정보
+	 */
+	@ResponseBody
+	@GetMapping("/loginMemberInfo")
+	public Member loginMemberInfoData() {
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		String id = user.getId();
+		Member response = userService.readMemberById(id);
+		return response;
 	}
 	
 	

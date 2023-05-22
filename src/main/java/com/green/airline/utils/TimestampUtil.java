@@ -12,7 +12,7 @@ public class TimestampUtil {
 	 * Timestamp 타입을 날짜 + 시간으로 변환함
 	 */
 	public static String dateTimeToString(Timestamp timestamp) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		return sdf.format(timestamp);
 	}
 	
