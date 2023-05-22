@@ -8,18 +8,18 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfig implements WebMvcConfigurer{
 
 	
-	/* 학원 이미지 경로
-	 * @Override public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	 * registry.addResourceHandler("/product/**")
-	 * .addResourceLocations("file:///C:\\Users\\GGG\\Desktop\\image/"); }
-	 */
+	 // 학원 이미지 경로
+	  @Override public void addResourceHandlers(ResourceHandlerRegistry registry) {
+	  registry.addResourceHandler("/product/**")
+	  .addResourceLocations("file:///C:\\Users\\GGG\\Desktop\\image/"); }
+	 
 	
 	// 집 이미지 경로 
-	 @Override
-	    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	        registry.addResourceHandler("/product/**")
-	                .addResourceLocations("file:///C:\\Users\\a\\Desktop\\image/");
-	    }
+	/*
+	 * @Override public void addResourceHandlers(ResourceHandlerRegistry registry) {
+	 * registry.addResourceHandler("/product/**")
+	 * .addResourceLocations("file:///C:\\Users\\a\\Desktop\\image/"); }
+	 */
 	 
 	
 }

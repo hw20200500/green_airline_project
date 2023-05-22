@@ -45,13 +45,9 @@
 				<div class="prd_info">
 
 					<p class="title">[${shopProduct.brand}] ${shopProduct.name}</p>
-					<img alt="" src="/product/${shopProduct.productImage}"> <img
-						alt="" src="/product/${shopProduct.gifticonImage}">
+					<img alt="" src="/product/${shopProduct.productImage}"> 
 
 					<div class="mileage">
-						<%--<div class="mile">
-							<span class="">${shopProduct.price}</span>마일
-						</div> --%>
 
 						<c:choose>
 							<c:when test="${principal == null}">
@@ -70,9 +66,6 @@
 
 
 					</div>
-					<!-- <div class="dateinfo">
-						<span class="date">2023-05-15 09:00 ~ 2023-05-22 08:59</span> <span class="deadline"><span class="num">7</span>일 남음</span>
-					</div> -->
 
 					<!-- 상품 선택영역 -->
 					<form name="frmDefault" id="frmDefault" method="post"

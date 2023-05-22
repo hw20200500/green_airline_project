@@ -44,7 +44,9 @@ public class EmailService {
         MimeMessage message = emailsender.createMimeMessage();
         to = "ekdns8276@naver.com";
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
-        String imagePath = "C:\\Users\\a\\Desktop\\image/"+gifticonImageName;
+        // 집에서 사용
+        // String imagePath = "C:\\Users\\a\\Desktop\\image/"+gifticonImageName;
+        String imagePath = "C:\\Users\\GGG\\Desktop\\image/"+gifticonImageName;
         File imageFile = new File(imagePath);
         helper.setTo(to);
         helper.setSubject("GREEN AIR 항공 마일리지몰");
@@ -65,7 +67,6 @@ public class EmailService {
                 htmlContent += "<div align='center' style='border:1px solid black; font-family:verdana;'>";
                 htmlContent += "<h3 style='color:blue;'>회원가입 인증 코드입니다.</h3>";
                 htmlContent += "<div style='font-size:130%'>";
-				/* htmlContent += "CODE: <strong>" + ePw + "</strong></div><br/>"; */
                 htmlContent += imageTag;
                 htmlContent += "</div>";
                 message.setContent(htmlContent, "text/html; charset=UTF-8");
