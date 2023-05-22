@@ -65,13 +65,19 @@
 				<div class="board--content"></div>
 				<div class="board--userId"></div>
 				<div class="board--viewCount"></div>
-				<button type="submit" class="board--heartCount"></button>
+				<!-- 게시물id 가져와서 경로에 넣어주기 -->
+				<%
+					String boardId = request.getParameter("boardId");
+				%>
+				<button type="button" class="board--heartCount"
+					id="boardDetail<%=boardId%>"></button>
 				<div class="board--date"></div>
 			</div>
 		</div>
 	</div>
 </div>
 <script src="/js/board.js"></script>
+
 <!-- 
 === TODO ===
 1. 페이징처리

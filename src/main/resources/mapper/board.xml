@@ -46,7 +46,8 @@
 	<!-- 좋아요 취소 -->
 	<delete id="deleteByHeart">
 		delete from like_heart_tb
-		where board_id = #{id}
+		where 
+		board_id = #{id}
 		and
 		user_id = #{userId}
 	</delete>
@@ -54,10 +55,19 @@
 	<!-- 좋아요한 유저찾기 -->
 	<select id="selectByLikeUser"
 		resultType="com.green.airline.repository.model.LikeHeart">
-		select * from like_heart_tb 
-		where 
+		select * from like_heart_tb
+		where
 		board_id = #{id}
-		
 	</select>
 	
+	<!-- 게시물에 좋아요를 누른 유저인지 찾기 -->
+	<select id="selectByBoardIdAndLikeUser"
+		resultType="com.green.airline.repository.model.LikeHeart">
+		select * from like_heart_tb
+		where
+		board_id = #{id}
+		and
+		user_id = #{userId}
+	</select>
+
 </mapper>

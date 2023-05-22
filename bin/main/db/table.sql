@@ -221,7 +221,7 @@ create table like_heart_tb(
    id int PRIMARY KEY AUTO_INCREMENT,
    board_id int NOT NULL,
    user_id varchar(50) NOT NULL,
-   FOREIGN KEY (id) REFERENCES recommend_board_tb (id),
+   FOREIGN KEY (board_id) REFERENCES recommend_board_tb (id),
    FOREIGN KEY (user_id) REFERENCES user_tb (id)
 );
 

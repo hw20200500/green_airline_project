@@ -70,17 +70,9 @@ public class BoardController {
 
 		BoardDto boardDto = boardService.boardListDetail(id);
 
-//		boardDto.setHeartCount(0);
-
 		// 좋아요 수 조회
 		boardDto = boardService.selectLikeHeart(id);
 
-		// 좋아요 버튼 클릭
-		// 내가 heartCount 올려주는게 아님
-		// TODO
-		// 버튼 눌렸을때 ajax 안통하고 여기 컨트롤러 타기
-		// 서비스에서 insert, delete하면 자동으로 ajax타서 count 됨
-		
 		// 쿠키 추가, 조회수 증가
 		boolean viewUp = boardService.viewCountCookie(id, request, response);
 
@@ -90,6 +82,28 @@ public class BoardController {
 		}
 
 		return boardDto;
+	}
+
+	// 좋아요 버튼 클릭
+	@ResponseBody
+	@PostMapping("/detail/{id}")
+	public boolean likeHeartButton(@PathVariable Integer id) {
+		// 좋아요 버튼 클릭
+		// 내가 heartCount 올려주는게 아님
+		// TODO
+		// 버튼 눌렸을때 ajax 안통하고 여기 컨트롤러 타기
+		// 서비스에서 insert, delete하면 자동으로 ajax타서 count 됨
+		// 좋아요 수 증감
+
+		// 1. 컨트롤러로 받고 서비스 호출
+		// -> 서비스에서 if문
+		// 2. 컨트롤러에서 if문으로 들어오는 값 조회
+		// 버튼 눌렀는지 안눌렀는지
+		boolean registration = false;
+		
+		registration = boardService.heartInDecrease(id);
+		
+		return registration;
 	}
 
 }

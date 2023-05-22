@@ -2,11 +2,8 @@ package com.green.airline.repository.interfaces;
 
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.ui.Model;
 
 import com.green.airline.dto.BoardDto;
 import com.green.airline.repository.model.Board;
@@ -24,9 +21,11 @@ public interface BoardRepository {
 	// 게시물 조회 수 증가
 	public void updateByViewCount(Integer id);
 	// 좋아요 
-	public void insertByHeart(@Param("id") Integer id, @Param("userId") String userId);
+	public int insertByHeart(@Param("id") Integer id, @Param("userId") String userId);
 	// 좋아요 취소
-	public void deleteByHeart(@Param("id") Integer id, @Param("userId") String userId);
+	public int deleteByHeart(@Param("id") Integer id, @Param("userId") String userId);
 	// 좋아요 수 조회
 	public List<LikeHeart> selectByLikeUser(Integer id);
+	// 게시물에 좋아요를 누른 유저 조회
+	public List<LikeHeart> selectByBoardIdAndLikeUser(@Param("id") Integer id, @Param("userId") String userId);
 }

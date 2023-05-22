@@ -120,7 +120,6 @@ public class BoardService {
 	public BoardDto selectLikeHeart(Integer id) {
 
 		BoardDto board = boardRepository.selectByBoardDetail(id);
-		User user = (User) session.getAttribute(Define.PRINCIPAL);
 
 		// 1. userId, boardId 값 들고오기
 		List<LikeHeart> likeUser = boardRepository.selectByLikeUser(id);
@@ -128,42 +127,59 @@ public class BoardService {
 		// 2. userId가 boardId로 사이즈 구하기
 		Integer heartCount = likeUser.size();
 
-//		for (int i = 0; i < heartCount; i++) {
-//			Integer boardId = likeUser.get(i).getId();
-//			String userId = likeUser.get(i).getUserId();
-//			
-//			if (user.getId().equals(userId)) {
-//				boardRepository.deleteByHeart(boardId, userId);
-//			} else {
-//				boardRepository.insertByHeart(boardId, userId);
-//			}
-//		}
-
 		board.setHeartCount(heartCount);
 
 		return board;
 	}
 
 	// 좋아요 추가, 삭제
-	public void heartInDecrease(Integer id) {
+	public boolean heartInDecrease(Integer id) {
 
+		// 좋아요 누른 유저 아이디
 		List<LikeHeart> likeUser = boardRepository.selectByLikeUser(id);
+		System.out.println(likeUser);
 
-//		where 절에 보드id userid 둘다 넣어서 객체가 null이면 좋아요 x
-//		그게 아니면 좋아요++  userid는 세션값
+		boolean registration = false;
+		int result;
+		
+		// 좋아요 누른 유저아이디가 없는 경우
+		if (!likeUser.isEmpty()) {
+			// 현재 로그인 되어있는 유저 아이디
+			User user = (User) session.getAttribute(Define.PRINCIPAL);
+			System.out.println(user);
 
-		// TODO 좋아요 insert, delete하기
-		// id, userId 값 구하기
+			// 게시물 id
+			Integer boardId = likeUser.get(0).getBoardId();
+			System.out.println("1111" + boardId);
 
-		User user = (User) session.getAttribute(Define.PRINCIPAL);
+			// 현재 로그인 되어있는 유저 id
+			String userId = user.getId();
+			System.out.println("2222" + userId);
 
-		for (int i = 0; i < likeUser.size(); i++) {
-			Integer boardId = likeUser.get(i).getId();
-			String userId = likeUser.get(i).getUserId();
-			if (user.getId().equals(userId)) {
+			// 찜을 누른 모든 유저 정보
+			List<LikeHeart> list = boardRepository.selectByBoardIdAndLikeUser(boardId, userId);
+			System.out.println("3333" + list);
 
+			// 찜 누른 유저정보에서 id값만 가져오기
+			String selectLikeUserId = list.get(0).getUserId().toString();
+			System.out.println("4444" + selectLikeUserId);
+
+			System.out.println(list); // 쿼리에 현재 로그인 되어있는 id가 있는지 확인
+
+			System.out.println(selectLikeUserId);
+			System.out.println(userId);
+
+			if (userId != selectLikeUserId) {
+				result = boardRepository.insertByHeart(boardId, userId);
+				System.out.println("////insert" + result);
+				registration = true;
+			} else {
+				result = boardRepository.deleteByHeart(boardId, userId);
+				System.out.println("////delete" + result);
+				registration = false;
 			}
 		}
+		return registration;
 	}
 
 }
