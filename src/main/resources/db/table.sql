@@ -282,16 +282,24 @@ create table gifticon_tb(
     foreign key (order_id) references shop_order_tb (id)
 );
 
--- 마일리지
-
-CREATE TABLE mileage_tb(
-	id INT PRIMARY KEY AUTO_INCREMENT,
-    balance INT NOT NULL,
-	use_mileage INT,
-	save_mileage INT,
-	mileage_date DATE DEFAULT (CURRENT_DATE),
-	description INT,
-	member_id VARCHAR(50),
-    FOREIGN KEY (member_id) REFERENCES member_tb(id)
+-- 적립 마일리지
+CREATE TABLE save_mileage_tb(
+id INT PRIMARY KEY AUTO_INCREMENT,
+save_date DATE DEFAULT (CURRENT_DATE),
+save_mileage BIGINT NOT NULL,
+balance BIGINT NOT NULL,
+member_id VARCHAR(50) NOT NULL,
+FOREIGN KEY (member_id) REFERENCES member_tb(id)
 );
+
+-- 사용 마일리지
+CREATE TABLE use_mileage_tb(
+id INT PRIMARY KEY AUTO_INCREMENT,
+use_date DATE DEFAULT (CURRENT_DATE),
+use_mileage INT NOT NULL,
+description TEXT NOT NULL,
+member_id VARCHAR(50) NOT NULL,
+FOREIGN KEY (member_id) REFERENCES member_tb(id)
+);
+
 

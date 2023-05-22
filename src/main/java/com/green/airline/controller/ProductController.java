@@ -7,6 +7,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.green.airline.dto.EmailDto;
 import com.green.airline.dto.GifticonDto;
-import com.green.airline.dto.MileageDto;
+import com.green.airline.dto.SaveMileageDto;
 import com.green.airline.dto.PagingVO;
 import com.green.airline.dto.ProductCountDto;
 import com.green.airline.dto.ShopOrderDto;
 import com.green.airline.dto.ShopProductDto;
+import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.model.Mileage;
 import com.green.airline.repository.model.ShopProduct;
 import com.green.airline.repository.model.User;
@@ -45,6 +46,7 @@ public class ProductController {
 
 	@Autowired
 	private EmailService emailService;
+
 	/**
 	 * 정다운 메인 페이지에 상품 리스트 출력
 	 * 
@@ -53,19 +55,15 @@ public class ProductController {
 	 */
 
 	@GetMapping("/productMain")
-	public String productMainPage(Model model, @ModelAttribute("paging")PagingVO paging, ProductCountDto productCountDto
-			) {
-		 /*ProductPaging<ShopProduct> productList =
-		 productService.listtest(productCountDto);*/
-		//List<ShopProduct> productList = productService.productList();
-		
-		
+	public String productMainPage(Model model, @ModelAttribute("paging") PagingVO paging,
+			ProductCountDto productCountDto) {
 		int totalRowCount = productService.getTotalRowCount(paging);
 		paging.setTotalRowCount(totalRowCount);
 		paging.pageSetting();
 		List<ShopProduct> productList = productService.ProductListTest(paging);
+		System.out.println(paging);
 		model.addAttribute("productList", productList);
-		
+
 		return "/mileage/productMainPage";
 
 	}
@@ -130,6 +128,26 @@ public class ProductController {
 				e.printStackTrace();
 			}
 		}
+		if (shopProduct.getBrand() == null || shopProduct.getBrand().isEmpty()) {
+			throw new CustomRestfullException("브랜드 입력하세요", HttpStatus.BAD_REQUEST);
+		}
+		if (shopProduct.getName() == null || shopProduct.getName().isEmpty()) {
+			throw new CustomRestfullException("제품명을 입력하세요", HttpStatus.BAD_REQUEST);
+		}
+		if (shopProduct.getPrice() == 0) {
+			throw new CustomRestfullException("가격이 0원이 될 수는 없습니다", HttpStatus.BAD_REQUEST);
+		}
+		if (shopProduct.getCount() == 0) {
+			throw new CustomRestfullException("수량이 0원이 될 수는 없습니다", HttpStatus.BAD_REQUEST);
+		}
+		if (shopProduct.getOriginFileName() == null || shopProduct.getOriginFileName().isEmpty()) {
+			throw new CustomRestfullException("제품 이미지를 선택하세요", HttpStatus.BAD_REQUEST);
+		}
+		if (shopProduct.getOriginFileName2() == null || shopProduct.getOriginFileName2().isEmpty()) {
+			throw new CustomRestfullException("기프티콘 이미지를 선택하세요", HttpStatus.BAD_REQUEST);
+		}
+
+		System.out.println(shopProduct);
 		productService.productRegistration(shopProduct);
 		return "redirect:/product/productMain";
 	}
@@ -142,6 +160,24 @@ public class ProductController {
 	 */
 	@PostMapping("/update")
 	public String productUpdate(ShopProduct shopProduct) {
+		if (shopProduct.getBrand() == null || shopProduct.getBrand().isEmpty()) {
+			throw new CustomRestfullException("브랜드 입력하세요", HttpStatus.BAD_REQUEST);
+		}
+		if (shopProduct.getName() == null || shopProduct.getName().isEmpty()) {
+			throw new CustomRestfullException("제품명을 입력하세요", HttpStatus.BAD_REQUEST);
+		}
+		if (shopProduct.getPrice() == 0) {
+			throw new CustomRestfullException("가격이 0원이 될 수는 없습니다", HttpStatus.BAD_REQUEST);
+		}
+		if (shopProduct.getCount() == 0) {
+			throw new CustomRestfullException("수량이 0원이 될 수는 없습니다", HttpStatus.BAD_REQUEST);
+		}
+		if (shopProduct.getProductImage() == null || shopProduct.getProductImage().isEmpty()) {
+			throw new CustomRestfullException("제품 이미지를 선택하세요", HttpStatus.BAD_REQUEST);
+		}
+		if (shopProduct.getGifticonImage() == null || shopProduct.getGifticonImage().isEmpty()) {
+			throw new CustomRestfullException("기프티콘 이미지를 선택하세요", HttpStatus.BAD_REQUEST);
+		}
 		productService.productUpdate(shopProduct);
 
 		return "redirect:/product/productMain";
@@ -180,7 +216,8 @@ public class ProductController {
 	 * @return
 	 */
 	@PostMapping("/buyProduct")
-	public String buyProductProc(ShopOrderDto shopProductDto, MileageDto mileageDto, ShopProductDto shopProductDto2, @RequestParam("email")String email,@RequestParam("gifticonImageName")String gifticonImageName) {
+	public String buyProductProc(ShopOrderDto shopProductDto, SaveMileageDto mileageDto, ShopProductDto shopProductDto2,
+			@RequestParam("email") String email, @RequestParam("gifticonImageName") String gifticonImageName) {
 		GifticonDto gifticonDto = new GifticonDto();
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		shopProductDto.setMemberId(principal.getId());
@@ -192,10 +229,9 @@ public class ProductController {
 		productService.createUseMileage(mileageDto);
 		productService.updateByProductId(shopProductDto2);
 		String code;
-		
-		
+
 		try {
-			code = emailService.sendSimpleMessage(email,gifticonImageName);
+			code = emailService.sendSimpleMessage(email, gifticonImageName);
 			System.out.println("email : " + email);
 			System.out.println("인증코드 : " + code);
 		} catch (Exception e) {

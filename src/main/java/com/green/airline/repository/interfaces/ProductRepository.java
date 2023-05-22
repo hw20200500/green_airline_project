@@ -5,7 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.green.airline.dto.GifticonDto;
-import com.green.airline.dto.MileageDto;
+import com.green.airline.dto.SaveMileageDto;
 import com.green.airline.dto.PagingVO;
 import com.green.airline.dto.ProductCountDto;
 import com.green.airline.dto.ShopOrderDto;
@@ -33,6 +33,6 @@ public interface ProductRepository {
 	public int insertGifticonDto(GifticonDto gifticonDto);
 	public ShopOrder selectShopOrder(String memberId);
 	public Mileage selectMileage(String memberId);
-	public int insertMileage(MileageDto mileageDto);
+	public int insertMileage(SaveMileageDto mileageDto);
 	public int updateShopProductDto(ShopProductDto  shopProductDto);
 }

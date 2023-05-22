@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.green.airline.dto.EmailDto;
 import com.green.airline.dto.GifticonDto;
-import com.green.airline.dto.MileageDto;
+import com.green.airline.dto.SaveMileageDto;
 import com.green.airline.dto.PagingVO;
 import com.green.airline.dto.ShopOrderDto;
 import com.green.airline.dto.ShopProductDto;
@@ -94,7 +94,7 @@ public class ProductService {
 	}
 
 	// 마일리지 사용 insert
-	public int createUseMileage(MileageDto mileageDto) {
+	public int createUseMileage(SaveMileageDto mileageDto) {
 		int result = productRepository.insertMileage(mileageDto);
 		return result;
 	}
