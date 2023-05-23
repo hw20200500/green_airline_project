@@ -2,12 +2,16 @@ package com.green.airline.repository.model;
 
 import java.sql.Timestamp;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 // 예약된 티켓
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Ticket {
 
 	private Integer id;

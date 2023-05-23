@@ -26,13 +26,17 @@ public class TicketDto {
 	private String seatGrade;
 	private Integer scheduleId;
 	private String[] seatNames;
+	private Long price;
 	
 	private String seatGrade2;
 	private Integer scheduleId2;
 	private String[] seatNames2;
+	private Long price2;
 	
-	private String totalAmount;
+	// 결제 시
+	private Integer totalAmount;
 	private Integer quantity;
+	private String tid; // 결제고유번호
 	
 	// 탑승객 정보 (연령타입_성별_이름_생년월일)
 	private String[] passengerInfos;

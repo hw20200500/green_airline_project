@@ -20,6 +20,9 @@ import org.springframework.web.client.RestTemplate;
 
 import com.green.airline.dto.response.PaymentResponseDto;
 import com.green.airline.dto.response.TicketDto;
+import com.green.airline.repository.model.User;
+import com.green.airline.service.TicketService;
+import com.green.airline.utils.Define;
 
 @Controller
 @RequestMapping("/payment")
@@ -27,6 +30,10 @@ public class PaymentController {
 	
 	@Autowired
 	private HttpSession session;
+	
+	@Autowired
+	private TicketService ticketService;
+	
 
 	/**
 	 * @author 서영
@@ -35,10 +42,6 @@ public class PaymentController {
 	@PostMapping("/request")
 	@ResponseBody
 	public String kakaoPayPage(@RequestBody TicketDto ticketDto) {
-		
-		// 세션에 티켓 정보 저장
-		// 더 좋은 방법 고민해보기..
-		session.setAttribute("ticket", ticketDto);
 		
 		RestTemplate restTemplate = new RestTemplate();
 		
@@ -58,7 +61,7 @@ public class PaymentController {
 		// 수량
 		params.add("quantity", ticketDto.getQuantity() + "");
 		// 총액
-		params.add("total_amount", ticketDto.getTotalAmount());
+		params.add("total_amount", ticketDto.getTotalAmount() + "");
 		// 비과세 금액
 		params.add("tax_free_amount", "0");
 		// 성공 시 url
@@ -74,18 +77,30 @@ public class PaymentController {
 			= restTemplate.exchange("https://kapi.kakao.com/v1/payment/ready", HttpMethod.POST,
 									reqEntity, PaymentResponseDto.class);
 		
+		ticketDto.setTid(responseDto.getBody().getTid());
+		// 세션에 티켓 정보 저장
+		// 더 좋은 방법 고민해보기..
+		session.setAttribute("ticket", ticketDto);
+		System.out.println(ticketDto);
+		
 		return responseDto.getBody().getNextRedirectPcUrl().toString();
 	}
 
 	/**
-	 * 결제 완료 시 티켓 예매 처리
+	 * 결제 완료 시 티켓 예약 처리
 	 * @return 일단 메인페이지로
 	 */
 	@GetMapping("/success")
 	public String reserveTicketProc(@RequestParam String pg_token) {
 		TicketDto ticketDto = (TicketDto) session.getAttribute("ticket");
 		System.out.println(ticketDto);
-		System.out.println("ㅎㅇ");
+		String userId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
+		
+		// 예약 처리
+		ticketService.createTicket(ticketDto, userId);
+		
+		
+		
 		
 		return "redirect:/";
 	}

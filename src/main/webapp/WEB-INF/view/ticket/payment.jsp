@@ -39,7 +39,7 @@
 						<span>${sch1Info.airplaneName}</span>
 						&nbsp;<span style="color: rgba(0, 0, 0, 0.6)">ㅣ</span>&nbsp;
 						<span>${ticket.seatGrade}석</span>
-						&nbsp;<span style="color: rgba(0, 0, 0, 0.6)">ㅣ</span>&nbsp;
+						&nbsp;<span style="color: rgba(0, 0, 0, 0.6)">ㅣ</span>&nbsp;&nbsp;
 						<span>좌석번호</span>&nbsp;
 						<c:forEach var="seat" items="${ticket.seatNames}">
 							<span style="color: #505050; font-weight: 400">${seat}</span>&nbsp;
@@ -60,7 +60,7 @@
 						<span>${sch2Info.airplaneName}</span>
 						&nbsp;<span style="color: rgba(0, 0, 0, 0.6)">ㅣ</span>&nbsp;
 						<span>${ticket.seatGrade2}석</span>
-						&nbsp;<span style="color: rgba(0, 0, 0, 0.6)">ㅣ</span>&nbsp;
+						&nbsp;<span style="color: rgba(0, 0, 0, 0.6)">ㅣ</span>&nbsp;&nbsp;
 						<span>좌석번호</span>&nbsp;
 						<c:forEach var="seat" items="${ticket.seatNames2}">
 							<span style="color: #505050; font-weight: 400">${seat}</span>&nbsp;
@@ -134,7 +134,7 @@
 									<input type="text" name="name${ticket.adultCount + i + 1}" value="d">
 								</td>
 								<td class="birth--td">
-									<input type="text" name="birth${ticket.adultCount + i + 1}" placeholder="yyyy-mm-dd">
+									<input type="text" name="birth${ticket.adultCount + i + 1}" placeholder="yyyy-mm-dd" value="2020-01-05">
 								</td>
 							</tr>
 						</c:forEach>
@@ -254,7 +254,16 @@
 						</c:if>
 						<tr>
 							<th>총액</th>
-							<th><fmt:formatNumber value="${totalPrice}" pattern="#,###"/>&nbsp;원</th>
+							<th>
+								<c:choose>
+									<c:when test="${ticket.scheduleId2 != null}">
+										<fmt:formatNumber value="${ticket.price + ticket.price2}" pattern="#,###"/>&nbsp;원
+									</c:when>
+									<c:otherwise>
+										<fmt:formatNumber value="${ticket.price}" pattern="#,###"/>&nbsp;원
+									</c:otherwise>
+								</c:choose>
+							</th>
 						</tr>
 					</table>
 					
@@ -295,7 +304,7 @@
 	let scheduleId1 = ${ticket.scheduleId};
 	let seatGrade1 = `${ticket.seatGrade}`;
 	let seatNames1 = new Array();
-	let totalPrice = ${totalPrice};
+	let price = ${ticket.price};
 	
 	// 여정 개수 (1 == 편도, 2 == 왕복)
 	let scheduleCount = 1;
@@ -323,12 +332,12 @@
 <c:if test="${ticket.scheduleId2 != null}">
 	<script>
 		scheduleCount = 2;
+		let price2 = ${ticket.price2};
 		scheduleId2 = ${ticket.scheduleId2};
 		seatGrade2 = `${ticket.seatGrade2}`;
 		seatNames2 = new Array();
 		// 탑승객 타입을 확인하기 위해 스케줄 2의 출발 날짜/시간에서 날짜만
 		let testSch2DepartureDate = `${sch2Info.departureDate}`.substr(0, 10);
-		console.log(testSch2DepartureDate);
 	</script>
 	<c:forEach var="seat" items="${ticket.seatNames2}">
 		<script>

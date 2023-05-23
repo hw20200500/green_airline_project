@@ -275,6 +275,7 @@ $(".flight--date2").on("change", function() {
 		}
 		insertDatepicker(1);
 		$(".datepicker--div--type1").hide();
+		$("#flightDate").addClass("flight--date--inserted");
 	}
 });
 

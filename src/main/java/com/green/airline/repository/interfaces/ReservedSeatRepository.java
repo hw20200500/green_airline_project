@@ -9,6 +9,16 @@ import com.green.airline.repository.model.ReservedSeat;
 @Mapper
 public interface ReservedSeatRepository {
 
+	/**
+	 * @author 서영
+	 * 해당 스케줄에 예약되어 있는 좌석들 가져오기
+	 */
 	public List<ReservedSeat> selectByScheduleId(Integer scheduleId);
+	
+	/**
+	 * @author 서영
+	 * 예약 좌석 등록
+	 */
+	public Integer insert(ReservedSeat reservedSeat);
 	
 }
