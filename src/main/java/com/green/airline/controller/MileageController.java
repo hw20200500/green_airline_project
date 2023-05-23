@@ -30,12 +30,11 @@ public class MileageController {
 		memberId = principal.getId();
 		SaveMileageDto saveMileage = mileageService.readSaveMileage(memberId);
 		UseMileageDto useMileage = mileageService.readUseMileage(memberId);
+		SaveMileageDto extinctionMileage = mileageService.readExtinctionMileage(memberId);
 		
-		System.out.println("memberId : " + memberId);
 		 model.addAttribute("saveMileage",saveMileage);
 		 model.addAttribute("useMileage",useMileage);
-		 System.out.println("saveMileage : " + saveMileage);
-			System.out.println("useMileage : " + useMileage);
+		 model.addAttribute("extinctionMileage",extinctionMileage);
 		return "/myPage/mileage";
 	}
 }

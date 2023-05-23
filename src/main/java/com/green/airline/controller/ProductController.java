@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.green.airline.dto.GifticonDto;
-import com.green.airline.dto.SaveMileageDto;
 import com.green.airline.dto.PagingVO;
 import com.green.airline.dto.ProductCountDto;
+import com.green.airline.dto.SaveMileageDto;
 import com.green.airline.dto.ShopOrderDto;
 import com.green.airline.dto.ShopProductDto;
 import com.green.airline.handler.exception.CustomRestfullException;
@@ -63,16 +63,13 @@ public class ProductController {
 		List<ShopProduct> productList = productService.ProductListTest(paging);
 		System.out.println(paging);
 		model.addAttribute("productList", productList);
-
 		return "/mileage/productMainPage";
-
 	}
 
 	// 데이터 받을꺼
 	@ResponseBody
 	@GetMapping("/list/{searchOrder}")
 	public List<ShopProduct> productList(@PathVariable(value = "searchOrder") String searchOrder, Model model) {
-
 		List<ShopProduct> productList = productService.productList(searchOrder);
 		model.addAttribute("productList", productList);
 		return productList;

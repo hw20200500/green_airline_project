@@ -11,6 +11,7 @@ public class SaveMileageDto {
 
 	private Date saveDate;
 	private Long saveMileage;
-	private Long balance;
+	private int balance;
 	private String memberId;
+	private int extinctionMileage;
 }

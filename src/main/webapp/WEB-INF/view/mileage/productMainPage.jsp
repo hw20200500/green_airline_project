@@ -216,7 +216,6 @@ height: 200px
 	let count = document.getElementsByClassName('count');
 	for (i = 0; i < count.length; i++) {
 		if (count[i].value == 0) {
-			/* document.getElementsByClassName('product_card')[i].className = 'product_card soldout'; */
 			 document.getElementsByClassName('product_card')[i].className += ' soldout';
 		}
 	}

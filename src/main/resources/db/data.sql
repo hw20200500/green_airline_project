@@ -44,15 +44,16 @@ INSERT INTO shop_product_tb(brand,name,price,count,product_image,gifticon_image)
 				;
 
 
-insert into save_mileage_tb(save_date,save_mileage,balance,member_id)
-VALUES('2023-01-22',500,500,'abc'),
-	  ('2023-02-22',1000,1000,'abc'),
-	  ('2023-03-22',2000,2000,'abc'),
-	  ('2023-04-22',4000,4000,'abc'),
-	  ('2023-05-22',5000,5000,'abc');
+insert into mileage_tb(save_date,save_mileage,expiration_date,balance,member_id)
+VALUES('2023-05-01',500,'2023-07-29',500,'abc'),
+('2023-04-01',500,'2023-6-29',500,'abc'),
+('2023-03-01',1500,'2023-5-29',1500,'abc'),
+('2023-02-01',1000,'2023-5-1',1000,'abc'),
+('2023-01-01',500,'2023-3-31',500,'abc');
 
 
-	insert into use_mileage_tb(use_date,use_mileage,description,member_id)
+
+	insert into mileage_tb(use_date,use_mileage,description,member_id)
 values('2022-03-05',100,'기프티콘','abc'),
 ('2022-04-05',300,'기프티콘','abc'),
 ('2022-05-10',500,'기프티콘','abc'),

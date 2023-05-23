@@ -2,17 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.green.airline.repository.interfaces.MileageRepository">
-	
-	<!-- 적립한 마일리지 총 합 현재 날짜로 90일 이전에 입력된 마일리지만 -->
-	 <select id="selectSaveMileage" resultType="com.green.airline.dto.SaveMileageDto">
-		SELECT SUM(save_mileage) AS save_mileage FROM save_mileage_tb   
-		WHERE  DATE(save_date) >= DATE(SUBDATE(NOW(), INTERVAL 90 DAY)) AND DATE(save_date) &lt;= DATE(now()) AND member_id = #{memberId};
+
+
+	<select id="selectSaveMileage" resultType="com.green.airline.dto.SaveMileageDto">
+		select sum(balance)as balance from mileage_tb where member_id = #{memberId} and now() &lt; expiration_date;
 	</select>
-	
-	
+	<select id="selectExtinctionMileage" resultType="com.green.airline.dto.SaveMileageDto">
+		select sum(balance)as extinctionMileage from mileage_tb where member_id = #{memberId} and<![CDATA[  now() > expiration_date ]]>;
+	</select>
+
+
 	<!-- 사용한 마일리지 총 합 -->
 	<select id="selectUseMileage" resultType="com.green.airline.dto.UseMileageDto">
-		select sum(use_mileage) as use_mileage from use_mileage_tb where member_id = #{memberId};
+		select sum(use_mileage) as use_mileage from mileage_tb where member_id = #{memberId};
 	</select>
 	
+	<!-- 적립/사용 마일리지 리스트 조회 -->
+	<select id="selectMileageList" resultType="com.green.airline.repository.model.SaveMileage">
+		select * from mileage_tb where member_id = #{memberId} and save_date between #{startTime} and #{endTime};
+	</select>
+	
+<!-- 사용 마일리지 리스트 조회 -->
+	<select id="selectUseMileageList" resultType="com.green.airline.repository.model.UseMileage">
+		select * from mileage_tb where member_id = #{memberId} and use_date between #{startTime} and #{endTime};
+	</select>
 </mapper>
+
