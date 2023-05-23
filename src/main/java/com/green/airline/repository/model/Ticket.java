@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Ticket {
 
-	private Integer id;
+	private String id;
 	private Integer adultCount;
 	private Integer childCount;
 	private Integer infantCount;

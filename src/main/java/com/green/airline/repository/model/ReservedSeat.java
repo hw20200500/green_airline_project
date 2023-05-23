@@ -12,6 +12,6 @@ public class ReservedSeat {
 
 	private Integer scheduleId;
 	private String seatName;
-	private Integer ticketId;
+	private String ticketId;
 	
 }

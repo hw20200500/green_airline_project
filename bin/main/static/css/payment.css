@@ -176,3 +176,12 @@ ul, label {
 #checkCurrentUserLabel {
 	font-size: 15px;
 }
+
+#kakaoPayImgDiv {
+	width: 100%;
+	text-align: center;
+}
+
+#kakaoPayImg:hover {
+	cursor: pointer;
+}

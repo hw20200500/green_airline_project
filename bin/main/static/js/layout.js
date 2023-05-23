@@ -21,8 +21,10 @@
 		
 		// 이미 메뉴가 내려와있는 상태라면
 		if ($(".nav--bar").css("display") == "block") {
-			if (menuIndex > 0) {
-				$(".nav--bar").animate({left : navBarLeft + 1}, 700);						
+			if (menuIndex == 1) {
+				$(".nav--bar").animate({left : navBarLeft + 1}, 700);	
+			} else if (menuIndex > 2) {
+				$(".nav--bar").animate({left : navBarLeft + 2}, 700);			
 			} else {
 				$(".nav--bar").animate({left : navBarLeft}, 700);
 			}
@@ -85,8 +87,12 @@
 		$(".nav--bar").stop();
 		
 		let navBarLeft = menuIndex * 230;
-		if (menuIndex > 0) {
-			$(".nav--bar").animate({left : navBarLeft + 1}, 700);			
+		if (menuIndex == 1) {
+			$(".nav--bar").animate({left : navBarLeft + 1}, 700);	
+		} else if (menuIndex == 2) {
+			$(".nav--bar").animate({left : navBarLeft + 2}, 700);			
+		} else if (menuIndex == 3) {
+			$(".nav--bar").animate({left : navBarLeft + 3}, 700);			
 		} else {
 			$(".nav--bar").animate({left : navBarLeft}, 700);
 		}

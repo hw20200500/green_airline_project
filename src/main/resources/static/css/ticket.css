@@ -6,7 +6,8 @@
 	align-items: center;
 	width: 250px;
 	font-size: 17px;
-	color: rgba(0, 0, 0, 0.8)
+	color: rgba(0, 0, 0, 0.8);
+	border-radius: 3px;
 }
 
 .ticket--type li {
@@ -29,6 +30,7 @@
 	width: 300px;
 	font-weight: 600;
 	border: 1px solid #ccc;
+	border-radius: 3px;
 }
 
 #flightDate {
@@ -196,6 +198,7 @@ input[type=number] {
 	background-color: buttonshadow;
 	padding: 10px;
 	border: 1px solid #ccc;
+	border-radius: 3px;
 }
 
 .age--type--div input {

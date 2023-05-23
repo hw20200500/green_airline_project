@@ -1,7 +1,5 @@
 package com.green.airline.repository.model;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +11,7 @@ public class Passenger {
 
 	private String name;
 	private String gender;
-	private Date birthDate;
-	private Integer ticketId;
+	private String birthDate;
+	private String ticketId;
 	
 }

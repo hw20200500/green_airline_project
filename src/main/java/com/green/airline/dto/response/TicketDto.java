@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class TicketDto {
 
-	private Integer id;
+	private String id;
 	private Integer airplaneId;
 	private Integer airplaneId2;
 	

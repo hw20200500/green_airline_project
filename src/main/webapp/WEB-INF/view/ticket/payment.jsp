@@ -282,18 +282,6 @@
 		</div>
 	</div>
 	
-	<style>
-		#kakaoPayImgDiv {
-			width: 100%;
-			text-align: center;
-		}
-		
-		#kakaoPayImg:hover {
-			cursor: pointer;
-		}
-		
-	</style>
-
 </main>
 
 <script>
