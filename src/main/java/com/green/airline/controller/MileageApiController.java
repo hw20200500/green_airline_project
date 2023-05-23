@@ -31,9 +31,6 @@ public class MileageApiController {
 	@GetMapping("/selectMileageListProc")
 	@ResponseBody
 	public List<Mileage> MileageList(@RequestParam String searchType, Date startTime, Date endTime ,Model model) {
-		System.out.println(searchType);
-		System.out.println(startTime);
-		System.out.println(endTime);
 		
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		String memberId = principal.getId();

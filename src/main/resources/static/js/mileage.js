@@ -86,6 +86,7 @@ $(document).ready(function() {
 		$("#sCalendar01").val(dateString2);
 	});
 	$("#liPeriods").on("click", function() {
+	
 		$("#sCalendar01").val("");
 		$("#sCalendar02").val("");
 	});
@@ -98,11 +99,15 @@ $(document).ready(function() {
 			type: "get",
 			
 		}).done(function(response) {
-			alert("성공")
 			console.log(response);
+			console.log(response[0].saveDate)
+		    
+			for(i = 0; i < response.length; i++){
+			let a = response[i].saveMileage;
+			let b =+ a;
+			console.log(b)	
+			}
 		}).fail(function(error) {
-			console.log($("#sCalendar01").val());
-			console.log($("#sCalendar02").val());
 			alert("서버오류");
 		});
 	});

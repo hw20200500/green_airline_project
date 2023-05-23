@@ -292,6 +292,7 @@ save_date DATE,
 expiration_date timestamp,
 save_mileage BIGINT,
 balance BIGINT,
+inserttime DATE default (CURRENT_DATE),
 member_id varchar(50)
 );
 
