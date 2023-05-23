@@ -12,4 +12,12 @@
 	VALUES (#{id}, #{adultCount}, #{childCount}, #{infantCount}, #{seatGrade}, #{memberId}, #{scheduleId}, now()) 
 </insert>
  
+ <delete id="deleteById">
+ 	DELETE FROM ticket_tb WHERE id = #{id}
+ </delete>
+ 
+ <select id="selectByUserIdOrderByDate" resultType="com.green.airline.repository.model.Ticket">
+ 	SELECT * FROM ticket_tb WHERE member_id = #{memberId} ORDER BY reserved_date DESC
+ </select>
+ 
 </mapper>

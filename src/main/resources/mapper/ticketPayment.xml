@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.airline.repository.interfaces.TicketPaymentRepository">
+
+<insert id="insert">
+	INSERT INTO ticket_payment_tb
+	VALUES (#{tid}, #{ticketId1}, #{ticketId2}, #{amount1}, #{amount2}, 0);
+</insert>
+
+<update id="updateStatus">
+	UPDATE ticket_payment_tb SET status = #{status}
+	WHERE ticket_id1 = #{ticketId} OR ticket_id2 = #{ticketId}
+</update>
+
+</mapper>

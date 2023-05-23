@@ -69,60 +69,67 @@ public class PaymentController {
 		// 취소 시 url
 		params.add("cancel_url", "http://localhost/payment/cancel");
 		// 실패 시 url
-		params.add("fail_url", "http://localhost/fail");
+		params.add("fail_url", "http://localhost/payment/fail");
 		
 		HttpEntity<MultiValueMap<String, String>> reqEntity = new HttpEntity<>(params, headers);
 		
 		ResponseEntity<PaymentResponseDto> responseDto 
 			= restTemplate.exchange("https://kapi.kakao.com/v1/payment/ready", HttpMethod.POST,
 									reqEntity, PaymentResponseDto.class);
+		System.out.println(responseDto);
 		
 		ticketDto.setTid(responseDto.getBody().getTid());
-		// 세션에 티켓 정보 저장
-		// 더 좋은 방법 고민해보기..
-		session.setAttribute("ticket", ticketDto);
-		System.out.println(ticketDto);
+		
+		String userId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
+		
+		// 예약 처리 (결제 성공 시 그대로 남고, 결제 실패/취소 시 삭제)
+		// 해당 유저의 가장 최근 예약 내역을 가져오면 예약 ID를 가져올 수 있음
+		// 예약 ID를 가져와서 결제 내역도 삭제
+		ticketService.createTicketAndPayment(ticketDto, userId);
 		
 		return responseDto.getBody().getNextRedirectPcUrl().toString();
 	}
 
 	/**
 	 * 결제 완료 시 티켓 예약 처리
-	 * @return 일단 메인페이지로
+	 * @return 결제 완료 페이지
 	 */
 	@GetMapping("/success")
-	public String reserveTicketProc(@RequestParam String pg_token) {
-		TicketDto ticketDto = (TicketDto) session.getAttribute("ticket");
-		System.out.println(ticketDto);
+	public String reserveTicketPage(@RequestParam String pg_token) {
+
 		String userId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
-		
-		// 예약 처리
-		ticketService.createTicket(ticketDto, userId);
-		
-		
-		
+		// 결제 완료 처리
+		ticketService.updatePaymentStatusIsSuccess(userId);
 		
 		return "redirect:/";
 	}
 	
 	/**
 	 * 결제 취소 시
-	 * @return
+	 * @return 항공스케줄 선택 페이지
 	 */
 	@GetMapping("/cancel")
 	public String cancelPage() {
 		
-		return "redirect:/";
+		String userId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
+		// 예약 내역 삭제
+		ticketService.deleteTicketByPaymentCancel(userId);
+		
+		return "redirect:/ticket/selectSchedule";
 	}
 	
 	/**
 	 * 결제 실패 시
-	 * @return
+	 * @return 항공스케줄 선택 페이지
 	 */
 	@GetMapping("/fail")
 	public String failPage() {
 		
-		return "redirect:/";
+		String userId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
+		// 예약 내역 삭제
+		ticketService.deleteTicketByPaymentCancel(userId);
+		
+		return "redirect:/ticket/selectSchedule";
 	}
 	
 }

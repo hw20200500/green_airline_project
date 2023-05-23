@@ -104,7 +104,7 @@ CREATE TABLE schedule_tb(
 
 -- 예약 티켓
 CREATE TABLE ticket_tb(
-   id INT PRIMARY KEY,
+   id VARCHAR(15) PRIMARY KEY,
     adult_count INT DEFAULT 1 NOT NULL,
     child_count INT DEFAULT 0 NOT NULL,
     infant_count INT DEFAULT 0 NOT NULL,
@@ -124,8 +124,8 @@ CREATE TABLE reserved_seat_tb(
    schedule_id INT NOT NULL, 
    FOREIGN KEY(schedule_id) REFERENCES schedule_tb(id),
    seat_name VARCHAR(10) NOT NULL, 
-   ticket_id INT NOT NULL, 
-   FOREIGN KEY(ticket_id) REFERENCES ticket_tb(id)
+   ticket_id VARCHAR(15) NOT NULL, 
+   FOREIGN KEY(ticket_id) REFERENCES ticket_tb(id) ON DELETE CASCADE
 );
 
 
@@ -134,17 +134,21 @@ CREATE TABLE passenger_tb (
 	name VARCHAR(50) NOT NULL,
 	gender VARCHAR(1) NOT NULL, 
 	birth_date DATE NOT NULL,
-	ticket_id INT NOT NULL,
-	FOREIGN KEY (ticket_id) REFERENCES ticket_tb(id)
+	ticket_id VARCHAR(15) NOT NULL,
+	FOREIGN KEY (ticket_id) REFERENCES ticket_tb(id) ON DELETE CASCADE
 );
 
 
 -- 티켓 결제 내역
 CREATE TABLE ticket_payment_tb(
-   ticket_id INT PRIMARY KEY,
-    FOREIGN KEY (ticket_id) REFERENCES ticket_tb(id),
-    amount INT NOT NULL,
-    use_miles INT NOT NULL DEFAULT 0
+	tid VARCHAR(40) PRIMARY KEY, -- 결제고유번호
+    ticket_id1 VARCHAR(15) NOT NULL,
+    FOREIGN KEY (ticket_id1) REFERENCES ticket_tb(id) ON DELETE CASCADE,
+    ticket_id2 VARCHAR(15),
+    FOREIGN KEY (ticket_id2) REFERENCES ticket_tb(id) ON DELETE CASCADE,
+    amount1 BIGINT NOT NULL,
+    amount2 BIGINT,
+   	status TINYINT DEFAULT false NOT NULL
 );
 
 
@@ -180,7 +184,7 @@ CREATE TABLE request_meal_tb(
    id INT PRIMARY KEY AUTO_INCREMENT,
     amount INT NOT NULL,
     meal_id INT NOT NULL DEFAULT 1, 
-    ticket_id INT NOT NULL,
+    ticket_id VARCHAR(15) NOT NULL,
     FOREIGN KEY(ticket_id) REFERENCES ticket_tb(id),
     FOREIGN KEY(meal_id) REFERENCES in_flight_meal_tb(id)
 );

@@ -9,7 +9,7 @@
 
 <insert id="insert">
 	INSERT INTO reserved_seat_tb
-	VALUES (#{scheduleId}, #{d})
+	VALUES (#{scheduleId}, #{seatName}, #{ticketId});
 </insert>
 
 </mapper>
