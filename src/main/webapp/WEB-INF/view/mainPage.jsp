@@ -3,10 +3,26 @@
 
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 
+<style>
+	.main--img--div {
+		min-width: 100%;
+		height: 480px;
+		border-top: 1px solid #ccc;
+		background-image: url("/images/main1.jpg");
+		background-size:100%;
+		background-position: center;
+	}
+</style>
+
+<div class="main--img--div">
+	<div class="">
+		
+	</div>
+</div>
 	
 	<!-- 여기 안에 쓰기 -->
 	<main>
-		메인페이지
+		
 	</main>
 
 
