@@ -50,13 +50,12 @@ public class BaggageRequestService {
 		if (result == 1) {
 			System.out.println("성공");
 		} else {
-			System.out.println("ㅗ");
+			System.out.println("ㅗㅋㅋㅗ");
 		}
 	}
 
-	public List<BaggageReqResponse> readBaggageReqGroupBySection(String memberId) {
-		List<BaggageReqResponse> baggageReqResponses = baggageRequestRepository
-				.selectBaggageReqGroupBySection(memberId);
+	public List<BaggageReqResponse> readBaggageReqGroupBySection() {
+		List<BaggageReqResponse> baggageReqResponses = baggageRequestRepository.selectBaggageReqGroupBySection();
 		return baggageReqResponses;
 	}
 

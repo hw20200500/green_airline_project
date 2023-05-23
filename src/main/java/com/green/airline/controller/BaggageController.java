@@ -70,28 +70,28 @@ public class BaggageController {
 		List<CheckedBaggage> checkedBaggages = baggageService.readCheckedBaggageBySection(baggage.get(0).getSection());
 		model.addAttribute("checkedBaggages", checkedBaggages);
 
+		List<BaggageReqResponse> baggageGroupBySection = baggageRequestService.readBaggageReqGroupBySection();
+		model.addAttribute("baggageGroupBySection", baggageGroupBySection);
+		
+		
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		
 		if (principal == null) {
-			model.addAttribute("baggageReqResponses", null); // 로그인이 안되어 있을 시 데이터 출력이 안되도록 하기 위해 
+			model.addAttribute("baggageReqResponses", null); // 로그인이 안되어 있을 시 데이터 출력이 안되도록 하기 위해 --> 인증처리(인터셉터)
 			model.addAttribute("isLogin", false); // 로그인이 안되어 있을 시 얼럿창을 띄워주기 위해
-			model.addAttribute("inFlightServiceResponseDtos", null); // 좌석 수에 따라 수량을 가져오기 위해 
-			model.addAttribute("baggageGroupBySection", null);
-			
+			model.addAttribute("inFlightServiceResponseDtos", null); // 좌석 수에 따라 수량을 가져오기 위해
+
 		} else {
 			List<BaggageReqResponse> baggageReqResponses = baggageRequestService
 					.readBaggageReqByMemberId(principal.getId());
 			model.addAttribute("baggageReqResponses", baggageReqResponses);
 			model.addAttribute("isLogin", true);
-			
+
 			List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
 					.readInFlightMealSchedule(principal.getId());
 			model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
-			
-			List<BaggageReqResponse> baggageGroupBySection = baggageRequestService.readBaggageReqGroupBySection(principal.getId());
-			model.addAttribute("baggageGroupBySection", baggageGroupBySection);
+
 		}
-		
-		
 
 		return "/baggage/checkedBaggage";
 	}
@@ -110,14 +110,15 @@ public class BaggageController {
 
 		return "/baggage/baggageMiss";
 	}
-     // MIME / application/json 	
+
+	// MIME / application/json
 	@PostMapping("/checkedBaggageProc")
-	// @RequestBody 민정아 이거는 json 형식에 바디 값을 받는 파싱전략이야 
+	// @RequestBody 민정아 이거는 json 형식에 바디 값을 받는 파싱전략이야
 	public String checkedBaggageProc(BaggageReqRequest baggageReqRequest) {
-		User user = (User)session.getAttribute(Define.PRINCIPAL);
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
 		baggageReqRequest.setMemberId(user.getId());
 		baggageRequestService.createBaggageReq(baggageReqRequest);
-		return "/baggage/checkedBaggage";
+		return "redirect:/baggage/checkedBaggage";
 	}
 
 }

@@ -25,6 +25,7 @@ public class BaggageReqResponse {
 	private String departure;
 	private String destination;
 	private Integer seatCount;
+	private String seatGradeName;
 
 	public String departureDateFormat() {
 		return TimestampUtil.dateTimeToString(departureDate);

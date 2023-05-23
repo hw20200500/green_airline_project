@@ -9,8 +9,9 @@
 		values(#{amount}, #{brId}, #{memberId})
 	</insert>
 	
+	<!--  -->
 	<select id="selectBaggageReqByMemberId" resultType="com.green.airline.dto.response.BaggageReqResponse">
-		select cb.section, cb.grade_id, bre.amount, r.departure, r.destination, sg.name
+		select cb.section, cb.grade_id, bre.amount, r.departure, r.destination, sg.name as seat_grade_name
 		from baggage_request_tb as bre
 		join baggage_route_tb as bro
 		on bre.br_id = bro.id
@@ -23,16 +24,6 @@
 		join member_tb as m
 		on bre.member_id = m.id
 		where bre.member_id=#{memberId}
-	</select>
-	
-	<select id="selectBaggageReqBySeatCount" resultType="com.green.airline.dto.response.BaggageReqResponse">
-		select *, s.departure_date, (t.adult_count + t.child_count) as seat_count
-		from ticket_tb as t
-		inner join schedule_tb as s
-		on t.schedule_id = s.id
-		inner join route_tb as r
-		on r.id = route_id
-		where t.member_id=#{memberId} and departure_date>now()
 	</select>
 	
 	<select id="selectBaggageReqGroupBySection" resultType="com.green.airline.dto.response.BaggageReqResponse">
@@ -48,7 +39,6 @@
 		on sg.name = cb.grade_id
 		join member_tb as m
 		on bre.member_id = m.id
-		where bre.member_id=#{memberId}
 		group by cb.section
 	</select>
 	

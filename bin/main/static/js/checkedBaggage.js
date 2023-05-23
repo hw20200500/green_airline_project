@@ -27,7 +27,7 @@ $(document).ready(function() {
 	});
 
 	$("#checkedBaggage--request--btn").on("click", function() {
-		
+
 		$.ajax({
 			type: "get",
 			url: `/baggageReq`,
@@ -38,7 +38,7 @@ $(document).ready(function() {
 			console.log(error)
 		});
 	});
-	
+
 	$("#modal--id--departuredate").on("change", function() {
 		let departureDateVal = $("#modal--id--departuredate").val();
 
@@ -48,12 +48,12 @@ $(document).ready(function() {
 			contentType: "application/json; charset=utf-8"
 		}).done(function(data) {
 			console.log(data);
-			$("#seat--count--input").attr("max", data.seatCount);
+			$("#seat--count--input").attr("max", data.seatCount * 4);
 		}).fail(function(error) {
 			console.log(error);
 		});
 	});
-	
+
 	$("#checkedBaggage--request--btn").on("click", function() {
 		let isLoginCheck = $("#isLogin--check").val();
 		if (isLoginCheck == "false") {

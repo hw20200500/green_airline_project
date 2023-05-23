@@ -22,6 +22,6 @@ public interface BaggageRequestRepository {
 	// 근데 이거 sql문이 여러 개 나
 //	BaggageReqResponse selectBaggageReqBySeatCount(String memberId, String departureDate);
 	
-	List<BaggageReqResponse> selectBaggageReqGroupBySection(String memberId);
+	List<BaggageReqResponse> selectBaggageReqGroupBySection();
 	
 }

@@ -49,8 +49,7 @@
 			<ul>
 				<li>조회 결과는 조회 구간에 대한 일반 규정으로, 경유지가 포함되어 있을 수 있으며 실제 운항 여부는 확인이 필요합니다.</li>
 				<li>이 정보는 참고용으로 공항에서 지불시 제시되는 금액입니다.</li>
-				<li>스카이패스 회원 등급은 탑승일에도 자격이 유효한 경우에만 적용됩니다.</li>
-				<li>위탁수하물 개수가 4개를 초과할 경우 또는 다구간 여정일 경우 대한항공 서비스센터로 문의하여 주시기 바랍니다.<br> (추가 위탁 가능한 수하물 개수는 항공기의 운항 상황에 따라 제한될 수 있습니다.)
+				<li>위탁수하물 개수가 <b>1인당 4개</b>를 초과할 경우 또는 다구간 여정일 경우 그린항공 서비스센터로 문의하여 주시기 바랍니다.<br> (추가 위탁 가능한 수하물 개수는 항공기의 운항 상황에 따라 제한될 수 있습니다.)
 				</li>
 				<li>개수/무게/사이즈 초과에 부과되는 요금은 수하물 각각에 부과됩니다.</li>
 				<li>사이즈 초과를 지정하지 않은 경우, 158cm 이내(가로+세로+높이) 사이즈 기준으로 요금이 제공됩니다.</li>
@@ -77,9 +76,6 @@
 
 						<!-- Modal body -->
 						<div class="modal-body">
-							<div>
-								<div>본인 좌석 section과 등급에 따른 무료 수하물 (좌석 등급)</div>
-							</div>
 
 							<div>
 								<div>예약 노선 보여주기</div>
@@ -89,8 +85,8 @@
 											<option value="${baggageGroupBySection.section}">${baggageGroupBySection.section}
 										</c:forEach>
 									</select> <br> <select name="modal--name--arrivaldate" id="modal--id--departuredate">
-										<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}">
-											<option value="${inFlightServiceResponseDtos.departureDateFormat()}" id="arrival--option">${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination}
+										<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}" varStatus="status">
+											<option value="${inFlightServiceResponseDtos.departureDateFormat()}" id="arrival--option">${baggageReqResponses.get(status.index).seatGradeName} | ${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination}
 												${inFlightServiceResponseDtos.departureDateFormat()}</option>
 										</c:forEach>
 									</select>
@@ -101,12 +97,12 @@
 								<div>
 									<div>개수</div>
 									<div class="">
-										<input type="number" name="amount" min="1" id="seat--count--input" max="${inFlightServiceResponseDtos.get(0).seatCount}">
+										<input type="number" name="amount" min="1" id="seat--count--input" max="${inFlightServiceResponseDtos.get(0).seatCount * 4}">
 									</div>
 								</div>
+								<div>*현장에서 추가 무게 발생시 추가 요금 발생합니다.</div>
 
 								<div>
-									<div>*현장에서 추가 무게 발생시 추가 요금 발생합니다.</div>
 								</div>
 								<input type="hidden" name="brId"> <input type="hidden" name="memberId">
 								<!-- Modal footer -->
