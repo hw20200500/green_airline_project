@@ -200,7 +200,7 @@ CREATE TABLE notice_tb(
 create table recommend_board_tb(
    id int PRIMARY KEY AUTO_INCREMENT,
    title varchar(50) not null,
-   content text not null,
+   content blob not null,
    user_id varchar(50) not null,
    view_count INT not null,
    created_at TIMESTAMP default now() NOT NULL,

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.green.airline.dto.BoardDto;
+import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.interfaces.BoardRepository;
 import com.green.airline.repository.model.Board;
 import com.green.airline.repository.model.LikeHeart;
@@ -64,12 +66,20 @@ public class BoardController {
 	@PostMapping("/insert")
 	public String boardWirteProc(Board board) {
 		
-		boardService.insertBoard(board);
+		if (board.getTitle() == null || board.getTitle().isEmpty()) {
+			throw new CustomRestfullException("제목을 입력해주세요", HttpStatus.BAD_REQUEST);
+		}
+		if (board.getContent() == null || board.getContent().isEmpty()) {
+			throw new CustomRestfullException("내용을 입력해주세요", HttpStatus.BAD_REQUEST);
+		}
 
+		boardService.insertBoard(board);
+		
 		return "redirect:/board/list";
+
 	}
 
-	// 추천여행지 상세 보기
+	// 추천여행지 상세 보기 - 모달창 말고 페이로 변경하기 
 	@ResponseBody
 	@GetMapping("/detail/{id}")
 	public BoardDto boardDetail(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response) {
@@ -96,12 +106,12 @@ public class BoardController {
 		if (list.isEmpty() || list == null) {
 			boardDto.setStatement(false);
 		} else {
-			boardDto.setStatement(true); 
+			boardDto.setStatement(true);
 		}
 
 		return boardDto;
 	}
-
+	
 	// 좋아요 버튼 클릭
 	@ResponseBody
 	@PostMapping("/detail/{id}")
@@ -114,5 +124,7 @@ public class BoardController {
 
 		return heartCount;
 	}
+	
+	
 
 }

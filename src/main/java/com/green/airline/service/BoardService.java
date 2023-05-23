@@ -44,13 +44,14 @@ public class BoardService {
 	}
 
 	// 추천 여행지 게시글 작성
+	@Transactional
 	public void insertBoard(Board board) {
 
 		board.setTitle(board.getTitle());
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
 		board.setUserId(user.getId());
 		board.setContent(board.getContent());
-
+		
 		int result = boardRepository.insertByBoard(board);
 		
 		if (result != 1) {
@@ -60,6 +61,7 @@ public class BoardService {
 	}
 
 	// 추천 여행지 게시글 상세보기
+	@Transactional
 	public BoardDto boardListDetail(Integer id) {
 
 		BoardDto board = boardRepository.selectByBoardDetail(id);
@@ -68,6 +70,7 @@ public class BoardService {
 	}
 
 	// 게시글 상세보기 시 조회수 증가
+	@Transactional
 	public boolean viewCountCookie(Integer id, HttpServletRequest request, HttpServletResponse response) {
 
 		Cookie oldCookie = null;
@@ -118,6 +121,7 @@ public class BoardService {
 	}
 
 	// 좋아요 조회
+	@Transactional
 	public BoardDto selectLikeHeart(Integer id) {
 
 		BoardDto board = boardRepository.selectByBoardDetail(id);
@@ -134,6 +138,7 @@ public class BoardService {
 	}
 
 	// 좋아요 추가, 삭제
+	@Transactional
 	public boolean heartInDecrease(Integer id) {
 
 		boolean registration = false;

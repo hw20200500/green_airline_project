@@ -46,7 +46,7 @@
 	<!-- 좋아요 취소 -->
 	<delete id="deleteByHeart">
 		delete from like_heart_tb
-		where 
+		where
 		board_id = #{id}
 		and
 		user_id = #{userId}
@@ -59,7 +59,7 @@
 		where
 		board_id = #{id}
 	</select>
-	
+
 	<!-- 게시물에 좋아요를 누른 유저인지 찾기 -->
 	<select id="selectByBoardIdAndLikeUser"
 		resultType="com.green.airline.repository.model.LikeHeart">
@@ -67,7 +67,15 @@
 		where
 		board_id = #{id}
 		and
-		user_id = #{userId}
+		user_id
+		= #{userId}
 	</select>
+
+	<insert id="insertByImages">
+		insert into board_image_tb
+		(origin_name, file_name, board_id)
+		values
+		(#{originalName}, #{hashName}, #{id});
+	</insert>
 
 </mapper>

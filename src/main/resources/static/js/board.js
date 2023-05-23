@@ -10,8 +10,9 @@ $(document).ready(function() {
 			url: `/board/detail/${boardId}`,
 			contentType: 'application/json; charset=utf-8'
 		}).done((board) => {
-			$(".board--title").text(board.title);
-			$(".board--content").text(board.content);
+			// 모달창
+			$(".board--title").text(board.title); // 문자열로 값 렌더링 처리 
+			$(".board--content").html(board.content); // 태그들 태그로 인식 처리
 			$(".board--userId").text(board.userId);
 			$(".board--viewCount").text(board.viewCount);
 			if (board.statement) {
@@ -45,11 +46,6 @@ $(document).on("click", ".board--heartCount", function() {
 		} else {
 			$(".board--heartCount").attr("src", '/images/like/unLike.png');
 		}
-
-		// 하트, 빈하트
-		// src 이름 꽉찬하트 -> 빈하트
-		// 빈하트 -> 꽉찬하트
-
 
 	}).fail((error) => {
 		console.log(error);
