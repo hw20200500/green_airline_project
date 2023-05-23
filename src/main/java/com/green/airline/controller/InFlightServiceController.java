@@ -98,7 +98,7 @@ public class InFlightServiceController {
 
 	// 특별 기내식 신청 페이지
 	@GetMapping("/specialMealReq")
-	public String specialMealReqProc(Model model, @RequestParam String name, @RequestParam Integer amount,
+	public String specialMealReqPage(Model model, @RequestParam String name, @RequestParam Integer amount,
 			@RequestParam String departureDate) {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		// todo
