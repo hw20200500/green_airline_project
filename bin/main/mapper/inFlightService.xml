@@ -103,16 +103,18 @@
 	</select>
 
 	<select id="selectInFlightScheduleByMemberId" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
-		select *, s.departure_date
+		select *, s.departure_date, (t.adult_count + t.child_count) as seat_count
 		from ticket_tb as t
 		inner join schedule_tb as s
 		on t.schedule_id = s.id
+		inner join route_tb as r
+		on r.id = route_id
 		where t.member_id=#{memberId} and departure_date>now()
 	</select>
 	
 	<!-- 수량 조회를 위한 select 문 js에서 memberId와 departureDate 받아와서 동적으로 바꿔줄 거임 -->
 	<select id="selectInFlightRequestForSeatCount" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
-		select t.seat_count 
+		select (t.adult_count + t.child_count) as seat_count 
 		from ticket_tb as t
 		inner join schedule_tb as s
 		on t.schedule_id=s.id

@@ -111,24 +111,35 @@ $("#modal--select--btn--id").on("click", function() {
 	let destination = $("input[name=destination]").val();
 	let departure = $("input[name=departure]").val();
 	$("#destination--res--id").empty();
-	console.log(destination);
-	console.log(departure);
+
 	$.ajax({
 		type: "GET",
 		url: `/searchRoute?destination=${destination}&departure=${departure}`,
 		contentType: 'application/json; charset=utf-8'
 	}).done(function(data) {
-		/* 노선 테이블에 입력한대로 조회하면 잘 나옴 */
-		let destinationResId = $("#destination--res--id");
+		// json 형식 받고 --> js object 
+		console.log(data);
 
-		for (let i = 0; i < data.length; i++) {
-			let imgNode = $("<img>");
-			imgNode.attr("src", "/images/in_flight/" + data[i].detailImage);
-			destinationResId.append(data[i].name);
-			destinationResId.append(imgNode);
-			destinationResId.append(data[i].description);
+		if (data.statusCode == 400) {
+			alert("노선 정보가 없습니다.");
+			window.location.reload();
+		} else {
+			let destinationResId = $("#destination--res--id");
 
+			for (let i = 0; i < data.length; i++) {
+				let imgNode = $("<img>");
+				imgNode.attr("src", "/images/in_flight/" + data[i].detailImage);
+				destinationResId.append(data[i].name);
+				destinationResId.append(imgNode);
+				destinationResId.append(data[i].description);
+			}
+			/* 노선 테이블에 입력한대로 조회하면 잘 나옴 */
+
+			/*if (destination == null && departure == null) {
+				alert("ㅁㄴㅇㄹ");
+			}*/
 		}
+
 
 	}).fail(function(error) {
 		console.log(error);

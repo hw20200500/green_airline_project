@@ -6,7 +6,7 @@
 	<main>
 		<h2>특별 기내식</h2>
 		<input type="hidden" name="memberId" value="memberId">
-	
+
 		<div>
 			<div>항목 선택</div>
 			<select id="inFlightMeals--option">
@@ -39,7 +39,7 @@
 
 		<!-- The Modal -->
 		<div class="modal" id="special--meal--req">
-			<input type="hidden" id="isLogin--check" value="${isLogin}">		
+			<input type="hidden" id="isLogin--check" value="${isLogin}">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<form action="/inFlightService/specialMealReq" method="post">
@@ -58,10 +58,10 @@
 								<div>출발 일정</div>
 								<div class="modal--div--arrivaldate">
 									<div id="inFlight--arrival">
-												<!-- db 안에 들어있는 departureDate는 format 전의 값이니까 2023/05/18 -> 2023년05월18일 -->
+										<!-- db 안에 들어있는 departureDate는 format 전의 값이니까 2023/05/18 -> 2023년05월18일 -->
 										<select name="modal--name--arrivaldate" id="modal--id--arrivaldate">
 											<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}">
-												<option value="${inFlightServiceResponseDtos.departureDateFormat()}" id="arrival--option">${inFlightServiceResponseDtos.departureDateFormat()}</option>
+												<option value="${inFlightServiceResponseDtos.departureDateFormat()}" id="arrival--option">${inFlightServiceResponseDtos.departure} → ${inFlightServiceResponseDtos.destination} ${inFlightServiceResponseDtos.departureDateFormat()}</option>
 											</c:forEach>
 										</select> <br>
 									</div>

@@ -6,15 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.green.airline.repository.interfaces.BaggageRepository;
+import com.green.airline.repository.model.BaggageMiss;
 import com.green.airline.repository.model.CarryOnLiquids;
+import com.green.airline.repository.model.CheckedBaggage;
 
 @Service
 public class BaggageService {
 
 	@Autowired
 	private BaggageRepository baggageRepository;
-	
-	public List<CarryOnLiquids> readLiquids(){
+
+	// 운송 제한 품목의 휴대 반입 액체류 안내 나라 이름 갖고 오기
+	public List<CarryOnLiquids> readLiquids() {
 		List<CarryOnLiquids> carryOnLiquids = baggageRepository.selectLiquids();
 		return carryOnLiquids;
 	}
@@ -24,6 +27,33 @@ public class BaggageService {
 		CarryOnLiquids carryOnLiquidsEntity = baggageRepository.selectLiquidsByName(name);
 
 		return carryOnLiquidsEntity;
+	}
+
+	// 위탁 수하물 중 구간 선택에 따른 무료 수하물 허용량 -> BaggageApiController
+	public List<CheckedBaggage> readCheckedBaggageBySection(String section) {
+		List<CheckedBaggage> baggages = baggageRepository.selectCheckedBaggageBySection(section);
+
+		return baggages;
+	}
+
+	// 위탁 수하물 카테고리
+	public List<CheckedBaggage> readCheckedBaggage() {
+		List<CheckedBaggage> checkedBaggageEntity = baggageRepository.selectCheckedBaggage();
+
+		return checkedBaggageEntity;
+	}
+
+	// 수하물 유실 name에 따른 안내와 유의사항 -> BaggageApiController
+	public List<BaggageMiss> readBaggageMissByName(String name) {
+		List<BaggageMiss> baggageMisses = baggageRepository.selectBaggageMissByName(name);
+		return baggageMisses;
+	}
+
+	// 수하물 유실 카테고리 -> BaggageController
+	public List<BaggageMiss> readBaggageMiss() {
+		List<BaggageMiss> baggageMisses = baggageRepository.selectBaggageMiss();
+		
+		return baggageMisses;
 	}
 
 }

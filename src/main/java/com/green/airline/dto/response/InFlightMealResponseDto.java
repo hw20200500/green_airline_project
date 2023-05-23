@@ -30,6 +30,8 @@ public class InFlightMealResponseDto {
 	private Timestamp reservedDate;
 	private Integer seatCount;
 	private String image;
+	private String departure;
+	private String destination;
 	
 	public String arrivalDateFormat() {
 		return TimestampUtil.dateTimeToString(arrivalDate);

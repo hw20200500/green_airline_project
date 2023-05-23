@@ -52,7 +52,7 @@ public class InFlightSvService {
 		// memberId로 가장 최근에 구매한 ticketId 가져오기
 		InFlightMealResponseDto inFlightMealRequestDto = inFlightServiceRepository
 				.selectInFlightMealRequestByUserId(memberId, departureDate);
-		System.out.println(inFlightMealRequestDto);
+
 		// name을 검색해서 mealId 가져오기
 		InFlightMealDetail inFlightMealDetailEntity = inFlightServiceRepository.selectInFlightMealDetailByName(name);
 		// if문 사용해서 먼저 in flight meal request tb에서 특별식 신청 수량 조회 해서 티켓에 있는 인원수랑 비교해서 그거보다
@@ -87,19 +87,13 @@ public class InFlightSvService {
 
 		return inFlightMealResponseDto;
 	}
-	
+
 	// selectAvailableServiceByFlightHours
 	public List<InFlightServiceResponseDto> readAvailableServiceByFlightHours(String flightHours) {
-		List<InFlightServiceResponseDto> inFlightServiceResponseDto = inFlightServiceRepository.selectAvailableServiceByFlightHours(flightHours);
-		for(int i=0; i<inFlightServiceResponseDto.size(); i++) {
-			Integer flightHour = inFlightServiceResponseDto.get(i).getFlightHours();
-			System.out.println(flightHour);
-			System.out.println(inFlightServiceResponseDto.get(i).getFlightHours());
-			
-		}
-		
+		List<InFlightServiceResponseDto> inFlightServiceResponseDto = inFlightServiceRepository
+				.selectAvailableServiceByFlightHours(flightHours);
+
 		return inFlightServiceResponseDto;
 	}
-	
-	
+
 }
