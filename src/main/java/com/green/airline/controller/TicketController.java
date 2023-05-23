@@ -206,8 +206,6 @@ public class TicketController {
 	@GetMapping("/payment")
 	public String paymentPage(Model model, TicketDto ticketDto) {
 		
-		model.addAttribute("ticket", ticketDto);
-		
 		// 운항 스케줄 정보
 		ScheduleInfoResponseDto scheduleInfo1 = scheduleService.readInfoDtoByScheduleId(ticketDto.getScheduleId());
 		scheduleInfo1.formatDateTimeType2();
@@ -227,8 +225,9 @@ public class TicketController {
 		model.addAttribute("sch1ChildPrice", sch1ChildPrice);
 		model.addAttribute("sch1InfantPrice", sch1InfantPrice);
 		
-		Long totalPrice = sch1AdultPrice + sch1ChildPrice + sch1InfantPrice;
-				
+		Long price = sch1AdultPrice + sch1ChildPrice + sch1InfantPrice;
+		ticketDto.setPrice(price);
+		
 		// 왕복이라면
 		if (ticketDto.getScheduleId2() != null) {
 			ScheduleInfoResponseDto scheduleInfo2 = scheduleService.readInfoDtoByScheduleId(ticketDto.getScheduleId2());
@@ -247,10 +246,11 @@ public class TicketController {
 			model.addAttribute("sch2ChildPrice", sch2ChildPrice);
 			model.addAttribute("sch2InfantPrice", sch2InfantPrice);
 			
-			totalPrice += sch2AdultPrice + sch2ChildPrice + sch2InfantPrice;
+			Long price2 = sch2AdultPrice + sch2ChildPrice + sch2InfantPrice;
+			ticketDto.setPrice2(price2);
 		}
 		
-		model.addAttribute("totalPrice", totalPrice);
+		model.addAttribute("ticket", ticketDto);
 		
 		return "/ticket/payment";
 	}

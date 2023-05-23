@@ -99,9 +99,6 @@
 								<li><a href="/airplane/info/1">항공기 정보</a>
 								<li><a href="#">세부메뉴</a>
 								<li><a href="#">세부메뉴</a>
-								<li><a href="#">세부메뉴</a>
-								<li><a href="#">세부메뉴</a>
-								<li><a href="#">세부메뉴</a>
 							</ul>
 							<div class="nav--split"></div>
 							<ul>

@@ -7,5 +7,9 @@
 	SELECT * FROM reserved_seat_tb WHERE schedule_id = #{scheduleId}
 </select>
 
+<insert id="insert">
+	INSERT INTO reserved_seat_tb
+	VALUES (#{scheduleId}, #{d})
+</insert>
 
 </mapper>

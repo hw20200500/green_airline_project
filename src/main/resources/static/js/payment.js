@@ -2,6 +2,8 @@
 // 탑승객 입력 완료 버튼
 $("#passengerInfoBtn").on("click", function() {
 	
+	passengerInfos = [];
+	
 	// 탑승객 수	
 	let passengerCount = $(".passenger--tr").length;
 	
@@ -9,12 +11,13 @@ $("#passengerInfoBtn").on("click", function() {
 		let targetTr = $(`#passenger${i}`);
 		// 성인, 소아, 유아
 		let ageType = targetTr.children().eq(0).text().trim().substr(0, 2);
+		let target = targetTr.children().eq(0).text().trim().substr(0, 4);
 		// M, F
 		let gender = targetTr.children().eq(1).children(`input[name="gender${i}"]:checked`).val();
 		
 		// 성별이 선택되지 않은 경우
 		if (typeof gender == "undefined") {
-			alert(`${ageType} ${i}의 성별이 선택되지 않았습니다.`);
+			alert(`${target}의 성별이 선택되지 않았습니다.`);
 			$("#paymentDiv").hide();
 			return false;
 		}
@@ -25,7 +28,7 @@ $("#passengerInfoBtn").on("click", function() {
 		
 		// 이름이 입력되지 않은 경우
 		if (name == "") {
-			alert(`${ageType} ${i}의 이름이 입력되지 않았습니다.`);
+			alert(`${target}의 이름이 입력되지 않았습니다.`);
 			nameInput.focus();
 			$("#paymentDiv").hide();
 			return false;
@@ -37,7 +40,7 @@ $("#passengerInfoBtn").on("click", function() {
 		
 		// 생년월일이 입력되지 않은 경우
 		if (birth == "") {
-			alert(`${ageType} ${i}의 생년월일이 입력되지 않았습니다.`);
+			alert(`${target}의 생년월일이 입력되지 않았습니다.`);
 			birthInput.focus();
 			$("#paymentDiv").hide();
 			return false;
@@ -46,7 +49,7 @@ $("#passengerInfoBtn").on("click", function() {
 		birthDate = stringToDate(birth);
 		// 날짜 형식이 잘못되었거나(yyyy-mm-dd), 존재하지 않는 날짜인 경우 
 		if (birthDate == "error") {
-			alert(`${ageType} ${i}의 생년월일이 유효하지 않습니다.\n형식을 확인해주시길 바랍니다.`);
+			alert(`${target}의 생년월일이 유효하지 않습니다.\n형식을 확인해주시길 바랍니다.`);
 			birthInput.focus();
 			$("#paymentDiv").hide();
 			return false;
@@ -54,7 +57,7 @@ $("#passengerInfoBtn").on("click", function() {
 		
 		// 생년월일이 현재 날짜 이후인 경우
 		if (birth > getCurrentDate()) {
-			alert(`${ageType} ${i}의 생년월일이 유효하지 않습니다.\n입력된 생년월일이 현재 날짜 이후입니다.`);
+			alert(`${target}의 생년월일이 유효하지 않습니다.\n입력된 생년월일이 현재 날짜 이후입니다.`);
 			birthInput.focus();
 			$("#paymentDiv").hide();
 			return false;
@@ -67,7 +70,7 @@ $("#passengerInfoBtn").on("click", function() {
 		
 		// 입력한 생년월일이 연령 타입에 부합하는지 확인
 		if (ageType != calculatedAgeType1) {
-			alert(`${ageType} ${i}의 생년월일이 유효하지 않습니다.\n입력된 생년월일은 ${calculatedAgeType1}에 해당합니다.`);
+			alert(`${target}의 생년월일이 유효하지 않습니다.\n입력된 생년월일은 ${calculatedAgeType1}에 해당합니다.`);
 			birthInput.focus();
 			$("#paymentDiv").hide();
 			return false;
@@ -80,7 +83,7 @@ $("#passengerInfoBtn").on("click", function() {
 			calculatedAgeType2 = calculateAgeType(birthDate, stringToDate(testSch2DepartureDate));
 			// 스케줄1과 스케줄2의 출발 날짜에 따른 연령 타입이 서로 다른 경우
 			if (calculatedAgeType1 != calculatedAgeType2) {
-				alert(`여정 2의 출발 날짜에는 ${ageType} ${i}의 유형이 ${calculatedAgeType2}(이)가 됩니다.\n항공권을 따로 예매해주시길 바랍니다.`);
+				alert(`여정 2의 출발 날짜에는 ${target}의 유형이 ${calculatedAgeType2}(이)가 됩니다.\n항공권을 따로 예매해주시길 바랍니다.`);
 				birthInput.focus();
 				$("#paymentDiv").hide();
 				return false;
@@ -88,8 +91,7 @@ $("#passengerInfoBtn").on("click", function() {
 		}
 		
 		// 해당 탑승객 정보		
-		let info = [ageType, gender, name, birth];
-		passengerInfoArray.push(info);
+		passengerInfos.push(`${ageType}_${gender}_${name}_${birth}`);
 	}
 	
 	$("#paymentDiv").show();
@@ -134,3 +136,57 @@ $("#checkCurrentUser").on("change", function() {
 	}
 	
 });
+
+$("#kakaoPayImg").on("click", function() {
+	let ticket;
+	// 편도면
+	if (scheduleCount == 1) {
+		ticket = {
+			adultCount: adultCount,
+			childCount: childCount,
+			infantCount: infantCount,
+			scheduleId: scheduleId1,
+			seatGrade: seatGrade1,
+			seatNames: seatNames1,
+			price: price,
+			passengerInfos: passengerInfos,
+			totalAmount: price,
+			quantity: scheduleCount
+		}
+	// 왕복이면
+	} else {
+		ticket = {
+			adultCount: adultCount,
+			childCount: childCount,
+			infantCount: infantCount,
+			scheduleId: scheduleId1,
+			seatGrade: seatGrade1,
+			seatNames: seatNames1,
+			price: price,
+			scheduleId2: scheduleId2,
+			seatGrade2: seatGrade2,
+			seatNames2: seatNames2,
+			passengerInfos: passengerInfos,
+			price2: price2,
+			totalAmount: price + price2,
+			quantity: scheduleCount
+		}
+	}
+	console.log(ticket);
+	
+	$.ajax({
+		type: "POST",
+		url: "/payment/request",
+		contentType: "application/json; charset=UTF-8",
+		data: JSON.stringify(ticket),
+		dataType: "text" // 이거 하니까 "parsererror" 해결
+	})
+	.done((res) => {
+		location.href=`${res}`;
+	})
+	.fail((error) => {
+		console.log(error);
+	});
+});
+
+

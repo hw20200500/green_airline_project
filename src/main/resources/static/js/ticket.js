@@ -275,6 +275,7 @@ $(".flight--date2").on("change", function() {
 		}
 		insertDatepicker(1);
 		$(".datepicker--div--type1").hide();
+		$("#flightDate").addClass("flight--date--inserted");
 	}
 });
 
@@ -290,9 +291,7 @@ $(".flight--date1").on("change", function() {
 
 		// 오는 날 이후 날짜를 선택했다면
 	} else if ($(".flight--date2").val() != "" && $(".flight--date1").val() > $(".flight--date2").val()) {
-		alert("오는 날 이전 날짜를 선택해주세요.");
-		$(".flight--date1").focus();
-		$(".flight--date1").val("");
+		$(".flight--date2").val("");
 		return;
 	}
 	insertDatepicker(1);
@@ -391,13 +390,32 @@ function calculateAgeType (date1, date2) {
 
 // 날짜로 변환
 function stringToDate(str) {
-	let arr = str.split("-");
-	if (arr.length != 3) {
-		return "error";
+	let year;
+	let month;
+	let day;
+	if (str.length > 8) {
+		let arr = str.split("-");
+		if (arr.length != 3) {
+			return "error";
+		}
+		year = arr[0];
+		month = arr[1];
+		day = arr[2];
+	} else if (str.length == 8) {
+		
+		try {
+			let test = parseInt(str);
+		} catch (e) {
+			// 숫자가 아니면
+			return "error";
+		}
+		
+		year = str.substr(0, 4);
+		month = str.substr(4, 2);
+		day = str.substr(6, 2);		
+	} else {
+		return "error";	
 	}
-	let year = arr[0];
-	let month = arr[1];
-	let day = arr[2];
 
 	if (month == 2) {
 		if (day == 29) {
