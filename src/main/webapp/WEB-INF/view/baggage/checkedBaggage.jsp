@@ -5,6 +5,7 @@
 <main>
 	<div>
 		<div>
+
 			<%-- 위탁 수하물 레이아웃 만들기 --%>
 			<h1>위탁 수하물 안내</h1>
 			<p>항공사에 맡기는 각종 수하물의 크기, 요금, 준비 방법 등에 대한 정보를 안내해 드립니다.</p>
@@ -57,7 +58,7 @@
 		</div>
 
 		<div>
-			<button type="button" id="inFlightMeals--request--btn" class="btn btn-primary" data-toggle="modal" data-target="#baggage--req">위탁 수하물 신청</button>
+			<button type="button" id="checkedBaggage--request--btn" class="btn btn-primary" data-toggle="modal" data-target="#baggage--req">위탁 수하물 신청</button>
 		</div>
 
 		<div>
@@ -66,58 +67,62 @@
 				<input type="hidden" id="isLogin--check" value="${isLogin}">
 				<div class="modal-dialog">
 					<div class="modal-content">
-						<form action="/inFlightService/specialMealReq" method="post">
-							<!-- Modal Header -->
-							<div class="modal-header">
-								<div>
-									<h4 class="modal-title">위탁 기내식 신청</h4>
-								</div>
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<div>
+								<h4 class="modal-title">위탁 수하물 신청</h4>
+							</div>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+
+						<!-- Modal body -->
+						<div class="modal-body">
+							<div>
+								<div>본인 좌석 section과 등급에 따른 무료 수하물 (좌석 등급)</div>
 							</div>
 
-							<!-- Modal body -->
-							<div class="modal-body">
-								<div>
-									<div>예약 노선 보여주기</div>
-									<div class="">
-										<div id=""></div>
-									</div>
+							<div>
+								<div>예약 노선 보여주기</div>
+								<div class="">
+									<select>
+										<c:forEach var="baggageGroupBySection" items="${baggageGroupBySection}">
+											<option value="${baggageGroupBySection.section}">${baggageGroupBySection.section}
+										</c:forEach>
+									</select> <br> <select name="modal--name--arrivaldate" id="modal--id--departuredate">
+										<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}">
+											<option value="${inFlightServiceResponseDtos.departureDateFormat()}" id="arrival--option">${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination}
+												${inFlightServiceResponseDtos.departureDateFormat()}</option>
+										</c:forEach>
+									</select>
 								</div>
-
-								<div>
-									<div>갯수</div>
-									<div class="">
-										<div id=""></div>
-									</div>
-								</div>
-
-								<div>
-									<div>무게 (radio button으로 만들기) *현장에서 추가 무게 발생시 추가 요금 발생합니다. (가격 컬럼 뺄 수 있음^^ㅎㅎ)</div>
-									<div class="">
-										<div id=""></div>
-									</div>
-								</div>
-
-								<div>
-									<div>수하물 추가</div>
-									<div class="">
-										<div id=""></div>
-									</div>
-								</div>
-
 							</div>
 
-							<!-- Modal footer -->
-							<div class="modal-footer">
-								<button type="button" id="inflightmeal--request" class="btn btn-primary" data-dismiss="modal">Submit</button>
-								<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-							</div>
-						</form>
+							<form action="/baggage/checkedBaggageProc" method="post">
+								<div>
+									<div>개수</div>
+									<div class="">
+										<input type="number" name="amount" min="1" id="seat--count--input" max="${inFlightServiceResponseDtos.get(0).seatCount}">
+									</div>
+								</div>
+
+								<div>
+									<div>*현장에서 추가 무게 발생시 추가 요금 발생합니다.</div>
+								</div>
+								<input type="hidden" name="brId"> <input type="hidden" name="memberId">
+								<!-- Modal footer -->
+								<div class="modal-footer">
+									<button type="submit" class="btn btn-primary">Submit</button>
+									<button type="button" class="btn btn-danger">Close</button>
+								</div>
+							</form>
+						</div>
+
 					</div>
 				</div>
 			</div>
 		</div>
 		<script src="/js/checkedBaggage.js"></script>
+	</div>
 </main>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.green.airline.repository.interfaces.BaggageRequestRepository">
+	
+	<insert id="insertBaggageReq">
+		insert into baggage_request_tb (amount, br_id, member_id)
+		values(#{amount}, #{brId}, #{memberId})
+	</insert>
+	
+	<select id="selectBaggageReqByMemberId" resultType="com.green.airline.dto.response.BaggageReqResponse">
+		select cb.section, cb.grade_id, bre.amount, r.departure, r.destination, sg.name
+		from baggage_request_tb as bre
+		join baggage_route_tb as bro
+		on bre.br_id = bro.id
+		join route_tb as r 
+		on r.id = bro.route_id
+		join checked_baggage_tb as cb
+		on cb.id = bro.baggage_id
+		join seat_grade_tb as sg
+		on sg.name = cb.grade_id
+		join member_tb as m
+		on bre.member_id = m.id
+		where bre.member_id=#{memberId}
+	</select>
+	
+	<select id="selectBaggageReqBySeatCount" resultType="com.green.airline.dto.response.BaggageReqResponse">
+		select *, s.departure_date, (t.adult_count + t.child_count) as seat_count
+		from ticket_tb as t
+		inner join schedule_tb as s
+		on t.schedule_id = s.id
+		inner join route_tb as r
+		on r.id = route_id
+		where t.member_id=#{memberId} and departure_date>now()
+	</select>
+	
+	<select id="selectBaggageReqGroupBySection" resultType="com.green.airline.dto.response.BaggageReqResponse">
+		select cb.section
+		from baggage_request_tb as bre
+		join baggage_route_tb as bro
+		on bre.br_id = bro.id
+		join route_tb as r 
+		on r.id = bro.route_id
+		join checked_baggage_tb as cb
+		on cb.id = bro.baggage_id
+		join seat_grade_tb as sg
+		on sg.name = cb.grade_id
+		join member_tb as m
+		on bre.member_id = m.id
+		where bre.member_id=#{memberId}
+		group by cb.section
+	</select>
+	
+</mapper>

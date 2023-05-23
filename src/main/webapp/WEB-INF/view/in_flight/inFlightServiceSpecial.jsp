@@ -42,7 +42,7 @@
 			<input type="hidden" id="isLogin--check" value="${isLogin}">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<form action="/inFlightService/specialMealReq" method="post">
+					<form>
 						<!-- Modal Header -->
 						<div class="modal-header">
 							<div>
