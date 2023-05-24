@@ -20,7 +20,7 @@ CREATE TABLE member_tb(
    birth_date DATE,
    gender VARCHAR(1) NOT NULL,
    phone_number VARCHAR(13),
-   email VARCHAR(40) NOT NULL,
+   email VARCHAR(40),
    address VARCHAR(200),
    nationality VARCHAR(50),
    grade VARCHAR(10), FOREIGN KEY (grade) REFERENCES member_grade_tb(name)

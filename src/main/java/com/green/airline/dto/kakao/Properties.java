@@ -1,5 +1,5 @@
 
-package com.green.airline.dto;
+package com.green.airline.dto.kakao;
 
 import javax.annotation.Generated;
 
@@ -17,17 +17,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class KakaoAccount {
+public class Properties {
 
-    public Boolean profileNicknameNeedsAgreement;
-    public Profile profile;
-    public Boolean hasEmail;
-    public Boolean emailNeedsAgreement;
-    public Boolean isEmailValid;
-    public Boolean isEmailVerified;
-    public String email;
-    public Boolean hasGender;
-    public Boolean genderNeedsAgreement;
-    public String gender;
+    public String nickname;
 
 }

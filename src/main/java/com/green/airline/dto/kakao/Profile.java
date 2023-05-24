@@ -1,5 +1,5 @@
 
-package com.green.airline.dto;
+package com.green.airline.dto.kakao;
 
 import javax.annotation.Generated;
 
@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class Properties {
+public class Profile {
 
     public String nickname;
 

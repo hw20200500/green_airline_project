@@ -1,5 +1,5 @@
 
-package com.green.airline.dto;
+package com.green.airline.dto.kakao;
 
 import javax.annotation.Generated;
 
@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class SocialDto {
 
-    public Long id;
+    public String id;
     public String connectedAt;
     public Properties properties;
     public KakaoAccount kakaoAccount;
