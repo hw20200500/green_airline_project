@@ -54,4 +54,7 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
     
+green:
+  key: 1q2w3e4r5t!
+    
     

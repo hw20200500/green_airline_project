@@ -7,4 +7,15 @@
 	SELECT * FROM member_tb WHERE id = #{id}
 </select>
 
+<select id="selectBySocialUserInfo" resultType="com.green.airline.dto.SocialDto">
+	SELECT * 
+	FROM member_tb 
+	WHERE id=#{id}
+</select>
+
+<insert id="insertBySocialDto">
+	INSERT INTO member_tb(id, email, gender)
+	VALUES(#{id}, #{email}, #{gender})
+</insert>
+
 </mapper>
