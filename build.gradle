@@ -32,10 +32,8 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.1'
-	//implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'org.springframework:spring-context-support'
-	
-	
+	implementation 'net.nurigo:sdk:4.2.7'
 }
 
 tasks.named('test') {
