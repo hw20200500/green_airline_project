@@ -1019,15 +1019,8 @@ INSERT INTO baggage_route_tb(route_id, baggage_id)
 VALUES(1, 1),
 	(1, 2),
 	(1, 3),
-	(2, 4),
-	(2, 5),
-	(2, 6);
+	(2, 1);	
 	
-INSERT INTO baggage_request_tb(amount, weight, price, br_id, member_id)
-	VALUES(1, 23, 123456, 1, 'abc'),
-	(1, 23, 123456, 2, 'abc'),
-	(1, 23, 123456, 3, 'abc'),
-	(1, 23, 123456, 4, 'abc'),
-	(1, 23, 123456, 5, 'abc'),
-	(1, 23, 123456, 6, 'a123');
-	
+INSERT INTO baggage_request_tb(amount, br_id, member_id)
+	VALUES(1, 1, 'abc'),
+	(1, 2, 'abc');	

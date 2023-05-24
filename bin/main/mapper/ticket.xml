@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.airline.repository.interfaces.TicketRepository">
+
+<select id="selectById" resultType="com.green.airline.repository.model.Ticket">
+	SELECT * FROM ticket_tb WHERE id = #{id}
+</select>
+
+<insert id="insert">
+	INSERT INTO ticket_tb 
+	VALUES (#{id}, #{adultCount}, #{childCount}, #{infantCount}, #{seatGrade}, #{memberId}, #{scheduleId}, now()) 
+</insert>
+ 
+ <delete id="deleteById">
+ 	DELETE FROM ticket_tb WHERE id = #{id}
+ </delete>
+ 
+ <select id="selectByUserIdOrderByDate" resultType="com.green.airline.repository.model.Ticket">
+ 	SELECT * FROM ticket_tb WHERE member_id = #{memberId} ORDER BY reserved_date DESC
+ </select>
+ 
+</mapper>

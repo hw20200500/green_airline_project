@@ -250,8 +250,6 @@ CREATE TABLE baggage_route_tb(
 CREATE TABLE baggage_request_tb(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	amount INT NOT NULL,
-	weight INT NOT NULL,
-	price INT NOT NULL,
 	br_id INT, FOREIGN KEY(br_id) REFERENCES baggage_route_tb(id),
 	member_id VARCHAR(50), FOREIGN KEY(member_id) REFERENCES member_tb(id)
 );
