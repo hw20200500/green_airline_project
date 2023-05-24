@@ -38,8 +38,8 @@
 	<select id="getTotalRowCount" resultType="int" parameterType="com.green.airline.dto.PagingVO">
 		SELECT count(*) as totalRowCount FROM SHOP_PRODUCT_TB
 	</select>
-	<select id="ProductListTest"  resultType= "com.green.airline.repository.model.ShopProduct" parameterType="com.green.airline.dto.PagingVO">
-		SELECT * FROM SHOP_PRODUCT_TB order by id DESC LIMIT #{firstRow},#{lastRow}
+	<select id="ProductListTest"  resultType= "com.green.airline.repository.model.ShopProduct">
+		SELECT * FROM SHOP_PRODUCT_TB order by id DESC LIMIT #{firstRow},8
 	</select>
 	
 	

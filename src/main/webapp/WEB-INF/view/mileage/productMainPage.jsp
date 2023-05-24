@@ -20,11 +20,12 @@
 .product--empty {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  
 }
 
 .product_card {
-  width: calc(25% - 20px); /* 4개의 상품을 한 줄에 배치하기 위한 너비 조정 */
+  width: 25%;
   margin-bottom: 20px;
 }
 .link-button {
@@ -68,6 +69,10 @@ h2 {
   text-align: center;
   margin-top: 20px;
 }
+.imgClass{
+width: 200px;
+height: 200px
+}
 </style>
 
 	<!-- 여기 안에 쓰기 -->
@@ -88,7 +93,7 @@ h2 {
 			<c:forEach var="productList" items="${productList}">
 				<div class="product_card" id="product">
 					<div class="prd_img">
-						<a href="productdetail/${productList.id}" class="aTagImage"><img
+						<a href="productdetail/${productList.id}"  class="aTagImage"><img
 							class="imgClass" alt="prd_img"
 							src="/product/${productList.productImage}"></a>
 					</div>
@@ -181,24 +186,26 @@ h2 {
 			url: "/product/list/"+value,
 			contentType: "application/json",
 		}).done(function(response){
+			let n1 = 1000
+			let n2 = n1.toString()
+			  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+			console.log(n2);
 			 for(i = 0; i < response.length; i++){
-				/*  var don =parseInt(response[i].price);
-				 var don1 = 'replace(/\B(?=(\d{3})+(?!\d))/g, ",")'
-			        don = don.don1;
-			      console.log(response[i].count)  */
-			     
-			        if (response[i].count != '0') {
-			 document.getElementsByClassName('product_card')[i].className = 'product_card';
-			}else{
-				 document.getElementsByClassName('product_card')[i].className = 'product_card soldout';
-		}
 				
-				 
+			        if (response[i].count != '0') {
+				$(".product_card").eq(i).removeClass("soldout")
+			}else{
+				$(".product_card").eq(i).addClass("soldout")
+		}
+			        let price = response[i].price
+			        let priceReplace = price.toString()
+					  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+			        console.log(n2);
 				 $(".tit").eq(i).text("["+response[i].brand+"]"+response[i].name);
-				 $(".num").eq(i).text(response[i].price);
+				 $(".num").eq(i).text(priceReplace);
 				 $(".count").eq(i).val(response[i].count);
-				 $(".aTagImage").eq(i).prop('href',"productdetail/"+response[i].id)
-				 $(".imgClass").eq(i).prop('src',"/product/"+response[i].productImage)
+				 $(".aTagImage").eq(i).prop('href',"productdetail/"+response[i].id);
+				 $(".imgClass").eq(i).prop('src',"/product/"+response[i].productImage);
 				
 			} 
 		}).fail(function(error){
@@ -207,10 +214,8 @@ h2 {
 	}); 
 	 });
 	let count = document.getElementsByClassName('count');
-	console.log(count)
 	for (i = 0; i < count.length; i++) {
 		if (count[i].value == 0) {
-			/* document.getElementsByClassName('product_card')[i].className = 'product_card soldout'; */
 			 document.getElementsByClassName('product_card')[i].className += ' soldout';
 		}
 	}
