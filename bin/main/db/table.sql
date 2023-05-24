@@ -328,6 +328,16 @@ expiration_date DATE,
 save_mileage BIGINT,
 balance BIGINT,
 inserttime DATE default (CURRENT_DATE),
-member_id varchar(50)
+member_id varchar(50),
+foreign key (member_id) references member_tb (id)
 );
 
+-- 마일리지 신청 내역
+create table mileage_request_tb(
+id int primary key auto_increment,
+request_date DATE default (CURRENT_DATE),
+status int default 0,
+ticket_id VARCHAR(15),
+foreign key (ticket_id) references ticket_tb (id)
+
+);
