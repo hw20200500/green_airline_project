@@ -14,6 +14,8 @@ public interface TicketPaymentRepository {
 
 	public Integer insert(TicketPayment ticketPayment);
 	
-	public Integer updateStatus(@Param("ticketId") String ticketId, @Param("status") Integer status);
+	public Integer updateStatus(@Param("ticketId") String ticketId, @Param("status1") Integer status1, @Param("status2") Integer status2);
+	
+	public TicketPayment selectByTicketId(String ticketId);
 	
 }

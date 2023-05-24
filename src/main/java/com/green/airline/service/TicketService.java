@@ -1,11 +1,13 @@
 package com.green.airline.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.green.airline.dto.response.TicketAllInfoDto;
 import com.green.airline.dto.response.TicketDto;
 import com.green.airline.repository.interfaces.PassengerRepository;
 import com.green.airline.repository.interfaces.ReservedSeatRepository;
@@ -40,8 +42,6 @@ public class TicketService {
 	 */
 	@Transactional
 	public void createTicketAndPayment(TicketDto ticketDto, String memberId) {
-		System.out.println(ticketDto);
-		
 		
 		// 예약 id 난수로 생성
 		String ticketId = (int) Math.floor(Math.random() * 89000000 + 10000000) + "";		
@@ -88,11 +88,13 @@ public class TicketService {
 		}
 		
 		String ticketId2 = null;
+		Integer status2 = null;
 		
 		// 왕복이면
 		if (ticketDto.getScheduleId2() != null) {
 			
 			ticketId2 = ticketId + "B";
+			status2 = 0;
 			
 			// 예약 내역 생성 (2번 스케줄)
 			Ticket ticket2 = Ticket.builder()
@@ -129,6 +131,8 @@ public class TicketService {
 										.ticketId2(ticketId2)
 										.amount1(ticketDto.getPrice())
 										.amount2(ticketDto.getPrice2())
+										.status1(0)
+										.status2(status2)
 										.build();
 		ticketPaymentRepository.insert(ticketPayment);
 		
@@ -159,14 +163,62 @@ public class TicketService {
 	/**
 	 * 결제 완료 처리
 	 */
-	public void updatePaymentStatusIsSuccess(String memberId) {
+	public List<TicketAllInfoDto> updatePaymentStatusIsSuccess(String memberId) {
 		
 		List<Ticket> ticketList = ticketRepository.selectByUserIdOrderByDate(memberId);
 		// 해당 유저가 가장 최근에 예매한 티켓 id 가져오기
 		String ticketId = ticketList.get(0).getId();
 		
-		ticketPaymentRepository.updateStatus(ticketId, 1);
+		List<TicketAllInfoDto> dtoList = new ArrayList<>();
+		TicketAllInfoDto ticket1 = null;
+		TicketAllInfoDto ticket2 = null;
 		
+		// 왕복이라면 ID 길이 9
+		if (ticketId.length() == 9) {
+			ticketPaymentRepository.updateStatus(ticketId, 1, 1);
+			
+			String ticketIdSubStr = ticketId.substring(0, 8);
+			
+			ticketRepository.updateReservedDate(ticketIdSubStr + "A");
+			ticketRepository.updateReservedDate(ticketIdSubStr + "B");
+			
+			ticket1 = ticketRepository.selectAllInfoById(ticketIdSubStr + "A", 1);
+			ticket2 = ticketRepository.selectAllInfoById(ticketIdSubStr + "B", 2);
+			dtoList.add(ticket1);
+			dtoList.add(ticket2);
+			
+		} else {
+			ticketPaymentRepository.updateStatus(ticketId, 1, null);
+			ticketRepository.updateReservedDate(ticketId);
+			
+			ticket1 = ticketRepository.selectAllInfoById(ticketId, 1);
+			dtoList.add(ticket1);
+			
+		}
+		
+		// 티켓/결제 정보를 보여주기 위해 반환
+		return dtoList;
 	}
+	
+	/**
+	 * 티켓 모든 정보 가져오기 (결제 정보 포함)
+	 */
+	public TicketAllInfoDto readTicketAllInfoByTicketId(String ticketId) {
+		
+		TicketAllInfoDto infoDto = null;
+		
+		// 왕복 - 두 번째 일정이라면
+		if (ticketId.length() == 9 && ticketId.substring(8).equals("B")) {
+			infoDto = ticketRepository.selectAllInfoById(ticketId, 2);
+		// 편도 or 왕복 - 첫 번째 일정이라면
+		} else {
+			infoDto = ticketRepository.selectAllInfoById(ticketId, 1);
+		}
+		
+		return infoDto;
+	}
+	
+	
+	
 	
 }
