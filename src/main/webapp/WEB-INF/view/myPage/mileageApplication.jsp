@@ -7,7 +7,8 @@
 	<main>
 		<h1>마일리지 신청 미신청 리스트 조회</h1>
 		<div class="container">
-  <h2>미신청 리스트</h2>
+  <h2><a href="/mileage/application?type=0">미신청 리스트</a></h2>
+  <h2><a href="/mileage/application?type=1">신청 리스트</a></h2>
   <table class="table">
     <thead>
       <tr>
@@ -18,12 +19,14 @@
       </tr>
     </thead>
     <tbody>
+      <c:forEach items="${ticketList}" var="ticketList">
       <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-        <td>john@example.com</td>
+        <td><a href="/mileage/request/${ticketList.id}">${ticketList.airplaneName}</a></td>
+        <td>${ticketList.formatDepartureDate()}</td>
+        <td>${ticketList.departure}</td>
+        <td>${ticketList.id}</td> 
       </tr>
+      </c:forEach>
     </tbody>
   </table>
 </div>

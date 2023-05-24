@@ -970,6 +970,10 @@ VALUES
 	('94635667A', 2, 2, 0, '이코노미', 'abc', 1,'2023-05-24 09:30'),
 	('94635667B', 2, 2, 0, '비즈니스', 'abc', 9,'2023-05-24 09:30');
 
+insert into mileage_request_tb(ticket_id)
+values('1');
+insert into mileage_request_tb(ticket_id)
+values('2');
 INSERT INTO reserved_seat_tb
 VALUES 
 	(1, 'G04', 1),

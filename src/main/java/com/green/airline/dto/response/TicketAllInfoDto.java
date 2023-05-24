@@ -29,6 +29,7 @@ public class TicketAllInfoDto {
 	private String tid;
 	private Integer amount;
 	private Integer status;
+	private Integer reqStatus;
 	
 	public String formatDepartureDate() {
 		return TimestampUtil.dateToString(departureDate).replaceAll("-", ".");

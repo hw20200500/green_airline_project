@@ -1,7 +1,6 @@
 package com.green.airline.repository.model;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
 import com.green.airline.utils.NumberUtil;
 

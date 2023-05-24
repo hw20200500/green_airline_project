@@ -219,6 +219,21 @@ public class TicketService {
 	}
 	
 	
-	
+	/**
+	 * @author 정다운
+	 *  티켓 리스트 출력
+	 * @param memberId
+	 * @return
+	 */
+	public List<TicketAllInfoDto> readTicketListBymemberId(String memberId,String type){
+		List<TicketAllInfoDto> list = ticketRepository.selectTicketList(memberId,type);
+		return list;
+	}
+	public TicketAllInfoDto readByTicketId(String id) {
+		TicketAllInfoDto allInfoDto = ticketRepository.selectByTicketId(id);
+		System.out.println("id : " + id);
+		System.out.println("service : " + allInfoDto);
+		return allInfoDto;
+	}
 	
 }
