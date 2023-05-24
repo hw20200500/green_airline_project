@@ -14,6 +14,11 @@ public interface MemberRepository {
 	public SocialDto selectBySocialUserInfo(String id);
 	
 	// 카카오 로그인 처리
+	// 회원가입 --> kmg1151@naver.com
+	// 카카카오 로그인 --> kmg1151@naver.com
+	// 카카카오 로그인 : 김민정_9912
+	
+	// kmg1151@naver.com
 	public int insertBySocialDto(Long id, String email, String gender);
 	
 }
