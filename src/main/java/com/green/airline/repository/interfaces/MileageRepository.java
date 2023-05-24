@@ -19,7 +19,7 @@ public interface MileageRepository {
 	
     public SaveMileageDto selectExtinctionMileage(String memberId);
 	public UseMileageDto selectUseMileage(String memberId);
-	public List<Mileage> selectMileageList(@Param("memberId")String memberId,@Param("startTime")Date startTime,@Param("endTime")Date endTime);
+	public List<Mileage> selectMileageList(@Param("memberId")String memberId,@Param("startTime")Date insertTime,@Param("endTime")Date endTime);
 	public List<UseMileage> selectUseMileageList(String memberId);
 	
 	

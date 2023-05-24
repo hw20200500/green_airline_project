@@ -35,8 +35,6 @@ public class MileageApiController {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		String memberId = principal.getId();
 		List<Mileage> savemileage = mileageService.readSaveMileageList(memberId,startTime,endTime); 
-		System.out.println("savemileage : " + savemileage);
-		System.out.println("asd");
 		model.addAttribute("savemileage",savemileage);
 		return savemileage;
 	}

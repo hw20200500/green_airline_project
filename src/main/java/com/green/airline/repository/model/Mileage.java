@@ -15,7 +15,7 @@ public class Mileage {
 	private int useMileage;
 	private String description;
 	private Date saveDate;
-	private Timestamp expirationDate;
+	private Date expirationDate;
 	private int saveMileage;
 	private int balance;
 	private String memberId;

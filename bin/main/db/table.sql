@@ -282,14 +282,14 @@ create table gifticon_tb(
     foreign key (order_id) references shop_order_tb (id)
 );
 
--- 마일리지
+-- 마일리지 todo inserttime 중간에 _ 넣기
 create table mileage_tb(
 id int primary key auto_increment,
 use_date DATE,
 use_mileage BIGINT,
 description TEXT,
 save_date DATE,
-expiration_date timestamp,
+expiration_date DATE,
 save_mileage BIGINT,
 balance BIGINT,
 inserttime DATE default (CURRENT_DATE),
