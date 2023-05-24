@@ -7,13 +7,11 @@ import com.green.airline.utils.NumberUtil;
 import lombok.Data;
 
 @Data
-public class MileageDto {
+public class SaveMileageDto {
 
+	private Date saveDate;
+	private Long saveMileage;
 	private int balance;
-	private int useMileage;
-	private int saveMileage;
-	private Date mileageDate;
-	private String description;
 	private String memberId;
-	
+	private int extinctionMileage;
 }

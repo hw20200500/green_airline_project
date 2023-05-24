@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <style>
 .tbl_prdinfo {
@@ -98,8 +98,8 @@
 									</div>
 								</div>
 								<div class="price">
-									<span class="">${shopProduct.priceNumber()}</span>마일 <span
-										class="num each_mile" style="display: none">${shopProduct.price}</span>마일
+									<span class="">${shopProduct.priceNumber()}</span> 마일 <span
+										class="num each_mile" style="display: none">${shopProduct.price}</span>
 
 								</div>
 								<a href="#none" class="btn_delete"><span class="hidden">삭제</span></a>
@@ -109,7 +109,8 @@
 							<dl class="total_mile">
 								<dt>총 필요 마일리지</dt>
 								<dd>
-									<span class="num" id="spanPrice">${shopProduct.price}</span>마일
+								
+									<span class="num" id="spanPrice"><fmt:formatNumber value="${shopProduct.price}" pattern="#,###"/></span> 마일
 									<!-- input hidden 으로 변경된 값 넣어서 xml에 보내기 -->
 									<input type="hidden" value="${shopProduct.price}"
 										name="useMileage">

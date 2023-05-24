@@ -7,12 +7,16 @@ VALUES ('abc', '1234', '회원'),
 
 
 
+INSERT INTO member_tb
+VALUES 
+	('abc', '김홍아', 'LEE SEOYOUNG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', '골드'),
+	('a123', '홍길이', 'LEE SEOYOUNG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', '골드');
 
 
 INSERT INTO shop_product_tb(brand,name,price,count,product_image,gifticon_image)
 		VALUES('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
 				('스타벅스','아이스 아메리카노',10000,4,'image2.png','image.png'),
-				('2번','바닐라 라떼',100,3,'image.png','image2.png'),
+				('2번','바닐라 라떼',100,0,'image.png','image2.png'),
 				('3번','바닐라 라떼',200,3,'image.png','image2.png'),
 				('4번','바닐라 라떼',300,3,'image.png','image2.png'),
 				('5번','바닐라 라떼',400,3,'image.png','image2.png'),
@@ -39,6 +43,22 @@ INSERT INTO shop_product_tb(brand,name,price,count,product_image,gifticon_image)
 				('26번','바닐라 라떼',2500,3,'image.png','image2.png')
 				;
 
+
+insert into mileage_tb(save_date,save_mileage,expiration_date,balance,inserttime,member_id)
+VALUES  ('2023-05-01',500,'2023-07-29',500,'2023-04-01','abc'),
+		('2023-04-01',500,'2023-6-29',500,'2023-04-01','abc'),
+		('2023-03-01',1500,'2023-5-29',1500,'2023-03-01','abc'),
+		('2023-02-01',1000,'2023-5-1',1000,'2023-02-01','abc'),
+		('2023-01-01',500,'2023-3-31',500,'2023-01-01','abc');
+
+
+
+	insert into mileage_tb(use_date,use_mileage,description,inserttime,member_id)
+values('2022-03-05',100,'기프티콘','2023-04-01','abc'),
+('2022-04-05',300,'기프티콘','2023-04-01','abc'),
+('2022-05-10',500,'기프티콘','2023-05-01','abc'),
+('2022-05-15',1000,'기프티콘','2023-05-15','abc');
+	
 
 INSERT INTO notice_category_tb(id, name)
 VALUES(1, '전체'),
@@ -108,13 +128,6 @@ VALUES
 ('알레르기 제한식 (Allergen-Free Meal)', '특정 식재료에 대한 알레르기 반응이 있는 고객에게 해당 식재료를 제외한 식사를 제공합니다.', 'image5.png', 6);
 
 
-INSERT INTO member_tb
-VALUES 
-	('abc', '김홍아', 'KIM HOMGAH', '1997-08-05', 'F', '010-1111-2222', 'abc@naver.com', '부산광역시 수영구', '대한민국', '골드'),
-	('a123', '김항아', 'KIM HANGAH', '1997-08-05', 'F', '010-2222-2222', 'ab1c@naver.com', '부산광역시 수영구', '대한민국', '골드');
-
-INSERT INTO mileage_tb(balance,member_id)
-VALUES(10000,'abc');
 
 INSERT INTO airport_tb (region, name)
 VALUES 
@@ -988,6 +1001,14 @@ VALUES ('대한민국', '국제선 전 노선 출발/ 환승 승객', '<ul class
 	('필리핀', '국제선 전 노선 출발/ 환승 승객', '<ul class="transportLimit--ul"> <li>용기당 100㎖ 이하의 액체가 담겨 있으며, 각 용기들이 1ℓ이하 투명 지퍼락 비닐봉투에 담겨 있어야 합니다.</li> <li>한 명의 승객당 한 개의 지퍼락 비닐봉투만 휴대할 수 있습니다.</li> <li>의약품, 유아동반 여행시 유아식(우유, 이유식) 및 당뇨병 환자용 또는 다른 의학적인 용도의 액체 물품은 항공여행 일정을 고려하여 적정량은 기내에 휴대할 수 있습니다.</li> </ul>', '<ul class="transportLimit--ul"> <li>공항 면세점에서 구매한 술, 향수 등의 액체 면세품의 경우, Security Tamper Evident Bag <br> (개봉할 경우 표시가 남는 비닐 포장지)에 밀봉된 경우에 한하여 기내에 휴대하실 수 있습니다.</li> </ul>'),
 	('호주', '국제선 전 노선 출발/ 환승 승객', '<ul class="transportLimit--ul"> <li>용기당 100㎖ 이하의 액체가 담겨 있으며, 각 용기들이 1ℓ이하 투명 지퍼락 비닐봉투에 담겨 있어야 합니다.</li> <li>한 명의 승객당 한 개의 지퍼락 비닐봉투만 휴대할 수 있습니다.</li> <li>의약품, 유아동반 여행시 유아식(우유, 이유식) 및 당뇨병 환자용 또는 다른 의학적인 용도의 액체 물품은 항공여행 일정을 고려하여 적정량은 기내에 휴대할 수 있습니다.</li> </ul>', '<ul class="transportLimit--ul"> <li>환승 승객에 대해서도 액체류 규정이 동일하게 적용되나, 100ml 이상지라도 면세품일 경우 보안밀봉봉투에 밀봉되어지고 영수증이 첨부되어질 경우 통과 가능합니다. (단, 액체용 X-ray를 통과하여 이상이 없어야 합니다.) </li> </ul>'),
 	('홍콩', '국제선 전 노선 출발/ 환승 승객', '<ul class="transportLimit--ul"> <li>용기당 100㎖ 이하의 액체가 담겨 있으며, 각 용기들이 1ℓ이하 투명 지퍼락 비닐봉투에 담겨 있어야 합니다.</li> <li>한 명의 승객당 한 개의 지퍼락 비닐봉투만 휴대할 수 있습니다.</li> <li>의약품, 유아동반 여행시 유아식(우유, 이유식) 및 당뇨병 환자용 또는 다른 의학적인 용도의 액체 물품은 항공여행 일정을 고려하여 적정량은 기내에 휴대할 수 있습니다.</li> </ul>', '<ul class="transportLimit--ul"> <li>공항 면세점에서 구매한 술, 향수 등의 액체 면세품의 경우, Security Tamper Evident Bag <br> (개봉할 경우 표시가 남는 비닐 포장지)에 밀봉된 경우에 한하여 기내에 휴대하실 수 있습니다.</li> </ul>');
+	
+	
+	
+	
+	
+	
+
+	
 
 
 INSERT INTO checked_baggage_tb(section, grade_id, free_allowance)

@@ -17,7 +17,6 @@ import com.green.airline.repository.interfaces.SeatGradeRepository;
 import com.green.airline.repository.interfaces.SeatRepository;
 import com.green.airline.repository.interfaces.TicketPriceRepository;
 import com.green.airline.repository.model.ReservedSeat;
-import com.green.airline.repository.model.Seat;
 import com.green.airline.repository.model.SeatGrade;
 import com.green.airline.repository.model.TicketPrice;
 import com.green.airline.utils.NumberUtil;
