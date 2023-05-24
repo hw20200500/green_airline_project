@@ -13,4 +13,9 @@
 	WHERE ticket_id1 = #{ticketId} OR ticket_id2 = #{ticketId}
 </update>
 
+<!-- 마이페이지 마일리지 신청을 위한 티켓 정보 조회 -->
+<select id="">
+
+</select>
+
 </mapper>

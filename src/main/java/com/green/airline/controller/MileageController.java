@@ -24,6 +24,7 @@ public class MileageController {
 	@Autowired
 	private HttpSession session;
 	
+	// 매핑 이름 바꿔야함 /list 로 바꿀것
 	@GetMapping("/selectAll")
 	public String mileageAll(String memberId,Model model) {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
@@ -42,5 +43,10 @@ public class MileageController {
 	public String mileageRequestPage() {
 		
 		return "/myPage/mileageRequest";
+	}
+	@GetMapping("/application")
+	public String applicationList() {
+		
+		return "/myPage/mileageApplication";
 	}
 }
