@@ -1,7 +1,6 @@
 package com.green.airline.controller;
 
 import java.io.File;
-import java.io.PrintWriter;
 import java.util.List;
 import java.util.UUID;
 
@@ -63,24 +62,61 @@ public class BoardController {
 	// 게시글 작성하기
 	@GetMapping("/insert")
 	public String boardWrite() {
+		
 		return "/board/boardWrite";
 	}
 
 	// 게시글 작성하기
 	@PostMapping("/insert")
-	public String boardWirteProc(Board board) {
+	public String boardWirteProc(BoardDto boardDto) {
 		
-		if (board.getTitle() == null || board.getTitle().isEmpty()) {
+		if (boardDto.getTitle() == null || boardDto.getTitle().isEmpty()) {
 			throw new CustomRestfullException("제목을 입력해주세요", HttpStatus.BAD_REQUEST);
 		}
-		if (board.getContent() == null || board.getContent().isEmpty()) {
+		if (boardDto.getContent() == null || boardDto.getContent().isEmpty()) {
 			throw new CustomRestfullException("내용을 입력해주세요", HttpStatus.BAD_REQUEST);
 		}
-
-		boardService.insertBoard(board);
 		
-		return "redirect:/board/list";
+		MultipartFile file = boardDto.getFile();
+		
+		if (!file.isEmpty()) {
+			// 파일 사이즈 체크
+			if (file.getSize() > Define.MAX_FILE_SIZE) {
+				throw new CustomRestfullException("파일 크기는 20MB이상 줄 수 없습니다.", HttpStatus.BAD_REQUEST);
+			}
+			// 확장자 검사 가능
+			try {
+				// 파일 저장 기능 구현 - 업로드 파일은 HOST 컴퓨터 다른 폴더로 관리
+				String saveDirectory = Define.UPLOAD_DIRECTORY;
+				
+				// 폴더가 없다면 파일 생성 시 오류 발생
+				File dir = new File(saveDirectory);
 
+				// 파일이 있는지 없는지 확인
+				if (dir.exists() == false) {
+					// 폴더가 없으면 폴더 생성
+					dir.mkdirs(); 
+				}
+				UUID uuid = UUID.randomUUID();
+				String fillname = uuid + "_" + file.getOriginalFilename();
+				// 전체 경로 지정
+				String uploadPath = Define.UPLOAD_DIRECTORY + File.separator + file;
+				File destination = new File(uploadPath);
+				
+				file.transferTo(destination);
+				
+				// 객체 상태 변경
+				boardDto.setOriginalFileName(file.getOriginalFilename());
+				boardDto.setUploadFileName(fillname);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		boardService.insertBoard(boardDto);
+
+		return "redirect:/board/list";
 	}
 
 	// 추천여행지 상세 보기
@@ -115,7 +151,7 @@ public class BoardController {
 
 		return boardDto;
 	}
-	
+
 	// 좋아요 버튼 클릭
 	@ResponseBody
 	@PostMapping("/detail/{id}")
@@ -127,35 +163,6 @@ public class BoardController {
 		Integer heartCount = boardService.selectLikeHeart(id).getHeartCount();
 
 		return heartCount;
-	}
-	
-	// 이미지 이름 변경
-	@ResponseBody
-	@PostMapping("/uploadFileName")
-	public void profileUpload(String email, MultipartFile file, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
-		// 업로드할 폴더 경로
-		String realFolder = request.getSession().getServletContext().getRealPath("profileUpload");
-		UUID uuid = UUID.randomUUID();
-
-		// 업로드할 파일 이름
-		String org_filename = file.getOriginalFilename();
-		String str_filename = uuid.toString() + org_filename;
-
-		System.out.println("원본 파일명 : " + org_filename);
-		System.out.println("저장할 파일명 : " + str_filename);
-
-		String filepath = realFolder + "\\" + email + "\\" + str_filename;
-		System.out.println("파일경로 : " + filepath);
-
-		File f = new File(filepath);
-		if (!f.exists()) {
-			f.mkdirs();
-		}
-		file.transferTo(f);
-		out.println("profileUpload/"+email+"/"+str_filename);
-		out.close();
 	}
 
 }

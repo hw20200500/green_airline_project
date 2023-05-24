@@ -15,7 +15,7 @@ public interface BoardRepository {
 	// 게시물 목록 전체 조회, 좋아요 수 조회
 	public List<Board> selectByBoardList();
 	// 게시물 쓰기
-	public int insertByBoard(Board board);
+	public int insertByBoard(BoardDto boardDto);
 	// 게시물 상세 보기
 	public BoardDto selectByBoardDetail(Integer id);
 	// 게시물 조회 수 증가

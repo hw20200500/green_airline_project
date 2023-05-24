@@ -45,21 +45,23 @@ public class BoardService {
 
 	// 추천 여행지 게시글 작성
 	@Transactional
-	public void insertBoard(Board board) {
+	public void insertBoard(BoardDto boardDto) {
 
-		board.setTitle(board.getTitle());
+		boardDto.setTitle(boardDto.getTitle());
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		board.setUserId(user.getId());
-		board.setContent(board.getContent());
+		boardDto.setUserId(user.getId());
+		boardDto.setContent(boardDto.getContent());
+		boardDto.setId(boardDto.getId());
+		boardDto.setOriginalFileName(boardDto.getOriginalFileName());
+		boardDto.setUploadFileName(boardDto.getUploadFileName());
 		
-		int result = boardRepository.insertByBoard(board);
+		int result = boardRepository.insertByBoard(boardDto);
 		
 		if (result != 1) {
 			// todo 예외처리
 		}
-
 	}
-
+	
 	// 추천 여행지 게시글 상세보기
 	@Transactional
 	public BoardDto boardListDetail(Integer id) {

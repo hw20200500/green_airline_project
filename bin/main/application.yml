@@ -15,8 +15,6 @@ spring:
     multipart:
       max-file-size: 100MB
       max-request-size: 100MB
-#  jpa:
-#    defer-datasource-initialization: true
   mvc:
     throw-exception-if-no-handler-found: true
     dispatch-options-request: false
@@ -46,6 +44,4 @@ mybatis:
   - classpath:mapper/**.xml # classpath는 src/main/resources/ 아래부터 시작
   configuration:
     map-underscore-to-camel-case: true
-    
-    
     

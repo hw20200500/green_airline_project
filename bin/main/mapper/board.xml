@@ -14,12 +14,12 @@
 	<insert id="insertByBoard">
 		insert into recommend_board_tb
 		(title, content,
-		user_id, view_count)
+		user_id, view_count, origin_name, file_name)
 		values
 		(#{title}, #{content}, #{userId},
-		#{viewCount});
+		#{viewCount}, #{originalFileName}, #{uploadFileName});
 	</insert>
-
+	
 	<!-- 게시물 상세보기 -->
 	<select id="selectByBoardDetail"
 		resultType="com.green.airline.dto.BoardDto">
@@ -70,12 +70,5 @@
 		user_id
 		= #{userId}
 	</select>
-
-	<insert id="insertByImages">
-		insert into board_image_tb
-		(origin_name, file_name, board_id)
-		values
-		(#{originalName}, #{hashName}, #{id});
-	</insert>
 
 </mapper>

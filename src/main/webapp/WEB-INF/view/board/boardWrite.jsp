@@ -15,7 +15,7 @@
 <main>
 	<h5>여행일지</h5>
 
-	<form action="/board/insert" method="post">
+	<form action="/board/insert" method="post" enctype="multipart/form-data">
 
 		<table class="table">
 			<tr>
@@ -26,28 +26,17 @@
 		<div class="container">
 			<textarea class="summernote" id="content" rows="10" name="content"></textarea>
 		</div>
+		<div class="custom-file">
+			<input type="file" class="custom-file-input" id="customFile"
+				accept=".jpg, .jpeg, .png" name="file">
+				<label class="custom-file-label" for="customFile">Choose file</label>
+		</div>
 		<div class="modal-footer">
 			<button type="submit" class="btn btn-primary">작성하기</button>
 		</div>
 	</form>
 </main>
 <script>
-/* 	$('.summernote').summernote({
-		placeholder : "내용을 입력 해주세요",
-		tabsize : 2,
-		height : 400,
-		// 에디터 로딩후 포커스를 맞출지 여부
-		focus : true,
-		lang : 'ko-KR',
-		// 크기 조절 기능 삭제
-		disableResizeEditor : true,
-		callbacks : {
-			onInit : function(c) {
-				c.editable.html('');
-			}
-		}
-	}); */
-	
 	$('.summernote').summernote({
 		placeholder : "내용을 입력 해주세요",
 		tabsize : 2,
@@ -58,38 +47,36 @@
 		// 크기 조절 기능 삭제
 		disableResizeEditor : true,
 		callbacks : {
-			onImageUpload: function(files, editor, welEdittable) {
-				// 파일 사이즈 체크
-	            for (var i = files.length - 1; i >= 0; i--) {
-	            	if(files[i].size > 1024*1024*5){
-	            		alert("이미지가 5MB 미만입니다.");
-	            		return;
-	            	}
-	            	for(var i = files.length - 1; i >= 0; i--){
-	            		sendImg(files[i], this,'/board/uploadFileName')
-	            	}
-	            }
+			onInit : function(c) {
+				c.editable.html('');
 			}
 		}
 	});
-	
-	function sendImg(file, el, uploadURL) {
+
+	function sendImg(file, context) {
 		// 폼 데이터 형태로 바꾸기
-		var form_data = new FormData();
-      	form_data.append('file', file);
-      	
-      	$.ajax({
-        	data: form_data,
-        	type: "POST",
-        	url: uploadURL,
-        	cache: false,
-        	contentType: false,
-        	/* enctype: 'multipart/form-data', */
-        	processData: false,
-        	success: function(img_url) {
-          		$(el).summernote('editor.insertImage', img_url);
-        	}
-      	});
-    }
+		var data = new FormData();
+		data.append('file', file);
+
+		$.ajax({
+			data : data,
+			type : "POST",
+			url : "/uploadFileName",
+			cache : false,
+			contentType : false,
+			processData : false,
+			success : function(imgUrl) {
+				$(context).summernote('editor.insertImage', imgUrl);
+			}
+		});
+	}
+
+	$(".custom-file-input").on(
+			"change",
+			function() {
+				var fileName = $(this).val().split("\\").pop();
+				$(this).siblings(".custom-file-label").addClass("selected")
+						.html(fileName);
+			});
 </script>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
