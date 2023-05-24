@@ -21,7 +21,7 @@ public class BaggageReqResponse {
 	private Integer brId;
 	private String memberId;
 	private Timestamp departureDate;
-	private Integer ticketId;
+	private String ticketId;
 	private String departure;
 	private String destination;
 	private Integer seatCount;

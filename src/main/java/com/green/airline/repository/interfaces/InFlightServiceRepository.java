@@ -36,7 +36,7 @@ public interface InFlightServiceRepository {
 	InFlightMealDetail selectInFlightMealDetailByName(String name);
 	
 	// 특별 기내식 신청 기능 (데이터 삽입)
-	int insertInFlightMealRequest(@Param("amount") Integer amount,@Param("mealId") Integer mealId,@Param("ticketId") Integer ticketId);
+	int insertInFlightMealRequest(@Param("amount") Integer amount,@Param("mealId") Integer mealId,@Param("ticketId") String ticketId);
 	
 	// 특별 기내식 신청 전체 조회 기능
 	List<InFlightMealResponseDto> selectInFlightMealRequestByMemberId(String memberId);
