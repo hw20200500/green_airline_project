@@ -13,7 +13,7 @@
 	<div class="container">
 		<h2>신청 가능한 어쩌구</h2>
 		<p>설명 적을거면 적기</p>
-		<form action=""method="post">
+		<form action="/mileage/update"method="post">
 			<table>
 				<thead>
 
@@ -45,10 +45,11 @@
 				
 				</thead>
 			</table>
-			<input type="text" value="${allInfoDto.reqStatus}"name="reqStatus">
-			<input type="text" value="${allInfoDto.id}"name="id">
+			<input type="hidden" value="${allInfoDto.reqStatus}"name="reqStatus">
+			<input type="hidden" value="${allInfoDto.id}"name="id">
 				<button type="submit">신청</button>
 		</form>
+				<button type="submit">신청</button>
 	</div>
 </main>
 

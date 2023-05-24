@@ -27,59 +27,64 @@ public class MileageController {
 
 	@Autowired
 	private MileageService mileageService;
-	
+
 	@Autowired
 	private TicketService ticketService;
 	@Autowired
 	private HttpSession session;
-	
+
 	// 매핑 이름 바꿔야함 /list 로 바꿀것
 	@GetMapping("/selectAll")
-	public String mileageAll(String memberId,Model model) {
+	public String mileageAll(String memberId, Model model) {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		memberId = principal.getId();
 		SaveMileageDto saveMileage = mileageService.readSaveMileage(memberId);
 		UseMileageDto useMileage = mileageService.readUseMileage(memberId);
 		SaveMileageDto extinctionMileage = mileageService.readExtinctionMileage(memberId);
-		
-		 model.addAttribute("saveMileage",saveMileage);
-		 model.addAttribute("useMileage",useMileage);
-		 model.addAttribute("extinctionMileage",extinctionMileage);
+
+		model.addAttribute("saveMileage", saveMileage);
+		model.addAttribute("useMileage", useMileage);
+		model.addAttribute("extinctionMileage", extinctionMileage);
 		return "/myPage/mileage";
 	}
+
 	/**
-	 * 정다운
-	 * 마일리지 신청 페이지
+	 * 정다운 마일리지 신청 페이지
+	 * 
 	 * @param model
 	 * @param id
 	 * @return
 	 */
 	@GetMapping("/request/{id}")
-	public String mileageRequestPage(Model model ,@PathVariable String id) {
+	public String mileageRequestPage(Model model, @PathVariable String id) {
 		TicketAllInfoDto allInfoDto = ticketService.readByTicketId(id);
 		System.out.println("controller : " + allInfoDto);
-		model.addAttribute("allInfoDto",allInfoDto);
+		model.addAttribute("allInfoDto", allInfoDto);
 		return "/myPage/mileageRequest";
 	}
+
 	/**
-	 * 정다운
-	 * 마일리지 신청/미신청 리스트
+	 * 정다운 마일리지 신청/미신청 리스트
+	 * 
 	 * @param memberId
 	 * @param type
 	 * @param model
 	 * @return
 	 */
 	@GetMapping("/application")
-	public String applicationList(String memberId
-			,@RequestParam(name = "type", defaultValue = "0", required = false)String type,Model model) {
+	public String applicationList(String memberId,
+			@RequestParam(name = "type", defaultValue = "0", required = false) String type, Model model) {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		memberId = principal.getId();
-		List<TicketAllInfoDto> ticketList = ticketService.readTicketListBymemberId(memberId,type);
-		model.addAttribute("ticketList",ticketList);
+		List<TicketAllInfoDto> ticketList = ticketService.readTicketListBymemberId(memberId, type);
+		model.addAttribute("ticketList", ticketList);
 		return "/myPage/mileageApplication";
 	}
-	
-	/*
-	 * @PostMapping public String
-	 */
+
+	@PostMapping("/update")
+	public String updateStatus(TicketAllInfoDto ticketAllInfoDto) {
+		ticketService.insertStatus(ticketAllInfoDto);
+		return "redirect:/mileage/application";
+	}
+
 }

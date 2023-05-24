@@ -54,4 +54,6 @@ public interface TicketRepository {
 	 * @return
 	 */
 	public TicketAllInfoDto selectByTicketId(String id);
+	
+	public int inserticketIdById(TicketAllInfoDto ticketAllInfoDto);
 }

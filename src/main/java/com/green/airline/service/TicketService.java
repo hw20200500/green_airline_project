@@ -235,5 +235,10 @@ public class TicketService {
 		System.out.println("service : " + allInfoDto);
 		return allInfoDto;
 	}
+	// 마일리지 신청 유무 변경
+	public int insertStatus(TicketAllInfoDto ticketAllInfoDto) {
+		int result = ticketRepository.inserticketIdById(ticketAllInfoDto);
+		return result;
+	}
 	
 }

@@ -123,7 +123,8 @@
 			mileage_request_tb as m
 			on t.id = m.ticket_id
 			where t.member_id = #{memberId}
-			and m.status = 0;
+			and m.ticket_id is null
+			;
 		</if>
 		<if test="type == 1">
 			select
@@ -141,10 +142,12 @@
 			mileage_request_tb as m
 			on t.id = m.ticket_id
 			where t.member_id = #{memberId}
-			and m.status = 1;
+			and m.status = 0;
 		</if>
 	</select>
-	<!-- <update id="">
-		update mileage_request_tb set status = 1 where id = '1';
-	</update> -->
+	<!-- 신청 입력 --> 
+	<insert id="inserticketIdById">
+		insert into mileage_request_tb(ticket_id)
+		values(#{id});
+	</insert>
 </mapper>
