@@ -33,7 +33,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.1'
 	implementation 'org.springframework:spring-context-support'
-	implementation 'net.nurigo:sdk:4.2.7'
+	implementation group: 'net.nurigo', name: 'javaSDK', version: '2.2'
 }
 
 tasks.named('test') {
