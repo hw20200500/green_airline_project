@@ -273,10 +273,6 @@
 				<div id="kakaoPayImgDiv">
 					<img src="/images/kakao_pay.png" id="kakaoPayImg">
 				</div>
-				
-<%-- 				<a href="/auth/kakao/callback?totalAmount=${totalPrice}">
-					<img src="/images/kakao_pay.png">
-				</a> --%>
 			</div>
 			
 		</div>

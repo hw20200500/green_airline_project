@@ -5,12 +5,20 @@
 
 <insert id="insert">
 	INSERT INTO ticket_payment_tb
-	VALUES (#{tid}, #{ticketId1}, #{ticketId2}, #{amount1}, #{amount2}, 0);
+	VALUES (#{tid}, #{ticketId1}, #{ticketId2}, #{amount1}, #{amount2}, 0, 0);
 </insert>
 
 <update id="updateStatus">
-	UPDATE ticket_payment_tb SET status = #{status}
+	UPDATE ticket_payment_tb SET status1 = #{status1}, status2 = #{status2}
 	WHERE ticket_id1 = #{ticketId} OR ticket_id2 = #{ticketId}
 </update>
+
+<select id="selectByTicketId" resultType="com.green.airline.repository.model.TicketPayment">
+	SELECT * 
+	FROM ticket_tb AS t
+	JOIN ticket_payment_tb AS tp
+	ON t.id IN (tp.ticket_id1, tp.ticket_id2)
+	WHERE t.id = #{id}
+</select>
 
 </mapper>
