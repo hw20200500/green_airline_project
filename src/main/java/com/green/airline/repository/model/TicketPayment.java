@@ -17,6 +17,7 @@ public class TicketPayment {
 	private String ticketId2;
 	private Long amount1;
 	private Long amount2;
-	private Boolean status;
+	private Integer status1;
+	private Integer status2;
 	
 }

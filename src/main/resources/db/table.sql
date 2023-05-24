@@ -148,7 +148,8 @@ CREATE TABLE ticket_payment_tb(
     FOREIGN KEY (ticket_id2) REFERENCES ticket_tb(id) ON DELETE CASCADE,
     amount1 BIGINT NOT NULL,
     amount2 BIGINT,
-   	status TINYINT DEFAULT false NOT NULL
+   	status1 TINYINT DEFAULT 0 NOT NULL,
+   	status2 TINYINT
 );
 
 

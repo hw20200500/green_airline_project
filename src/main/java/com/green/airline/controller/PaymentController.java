@@ -1,5 +1,7 @@
 package com.green.airline.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +22,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import com.green.airline.dto.response.PaymentResponseDto;
+import com.green.airline.dto.response.TicketAllInfoDto;
 import com.green.airline.dto.response.TicketDto;
+import com.green.airline.repository.model.TicketPayment;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.TicketService;
 import com.green.airline.utils.Define;
@@ -76,7 +81,6 @@ public class PaymentController {
 		ResponseEntity<PaymentResponseDto> responseDto 
 			= restTemplate.exchange("https://kapi.kakao.com/v1/payment/ready", HttpMethod.POST,
 									reqEntity, PaymentResponseDto.class);
-		System.out.println(responseDto);
 		
 		ticketDto.setTid(responseDto.getBody().getTid());
 		
@@ -95,13 +99,15 @@ public class PaymentController {
 	 * @return 결제 완료 페이지
 	 */
 	@GetMapping("/success")
-	public String reserveTicketPage(@RequestParam String pg_token) {
+	public String reserveTicketPage(@RequestParam String pg_token, Model model) {
 
 		String userId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
-		// 결제 완료 처리
-		ticketService.updatePaymentStatusIsSuccess(userId);
+		// 결제 완료 처리 후 결제 정보 반환
+		List<TicketAllInfoDto> ticketList = ticketService.updatePaymentStatusIsSuccess(userId);
 		
-		return "redirect:/";
+		model.addAttribute("ticketList", ticketList);
+		
+		return "/ticket/paymentSuccess";
 	}
 	
 	/**
