@@ -45,6 +45,12 @@ public interface TicketRepository {
 	
 	/**
 	 * @author 서영
+	 * 해당 유저의 티켓 구매 내역들을 최근순으로 조회
+	 */
+	public List<TicketAllInfoDto> selectTicketListByMemberId(String memberId);
+	
+	/**
+	 * @author 서영
 	 * 예약날짜를 결제 성공 시점으로 갱신
 	 */
 	public Integer updateReservedDate(String id);

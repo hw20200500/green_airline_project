@@ -56,22 +56,6 @@ ul, label {
 	color: #3f5f8d;
 }
 
-.small--title {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-bottom: 40px; 
-	color: #314f79;
-}
-
-.small--title span:first-of-type {
-	margin-right: 5px;
-}
-
-.small--title span:hover {
-	color: #314f79;
-}
-
 /* 탑승객 정보 테이블 */
 .passenger--info--list table {
 	width: 100%;
@@ -184,4 +168,52 @@ ul, label {
 
 #kakaoPayImg:hover {
 	cursor: pointer;
+}
+
+.split--div {
+	height: 3px;
+	width: 100%;
+	background-color: #ccc;
+}
+
+.info--ul {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.info--ul li {
+	font-size: 17px;
+	margin: 3px;
+}
+
+.info--ul li:first-of-type {
+	color: #3f5f8d;
+}
+
+.info--ul li {
+	font-weight: 500;
+	color: #585858;
+}
+
+.info--div {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	padding: 20px;
+}
+
+.reserve--complete {
+	margin: 60px 0 50px;
+	font-weight: 600;
+	color: #5d5d5d;
+}
+
+.list--btn {
+	color: rgba(0, 0, 0, 0.7);
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: white;
+	padding: 5px 8px 1px 7px;
+	margin-top: 25px;
 }

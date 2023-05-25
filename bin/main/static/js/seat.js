@@ -141,7 +141,6 @@ function showSeatInfo(seatName, seatGrade) {
 
 // 항공기별 좌석 여백 세팅
 if (airplaneId1 == 1) {
-	$("#sch1Airplane .top--blank--div").css("height", "290px");
 	$("#sch1Airplane .f--blank--div").css("height", "258px");
 	$("#sch1Airplane .b--blank--div").css("height", "263px");
 	$("#sch1Airplane .b--seat").css("margin-left", "89px");
@@ -157,7 +156,6 @@ if (airplaneId1 == 1) {
 }
 
 if (airplaneId2 == 1) {
-	$("#sch2Airplane .top--blank--div").css("height", "290px");
 	$("#sch2Airplane .f--blank--div").css("height", "258px");
 	$("#sch2Airplane .b--blank--div").css("height", "263px");
 	$("#sch2Airplane .b--seat").css("margin-left", "89px");

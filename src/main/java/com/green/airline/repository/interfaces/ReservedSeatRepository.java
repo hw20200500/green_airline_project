@@ -21,4 +21,5 @@ public interface ReservedSeatRepository {
 	 */
 	public Integer insert(ReservedSeat reservedSeat);
 	
+	public List<ReservedSeat> selectByTicketId(String ticketId);
 }

@@ -256,6 +256,7 @@ $(".flight--date2").on("change", function() {
 		alert("가는 날을 먼저 선택해주세요.");
 		$(".flight--date1").focus();
 		$(".flight--date2").val("");
+		insertDatepicker(1);
 		return;
 	} else {
 
@@ -264,6 +265,7 @@ $(".flight--date2").on("change", function() {
 			alert("현재 날짜보다 이전 날짜는 선택할 수 없습니다.");
 			$(".flight--date2").focus();
 			$(".flight--date2").val("");
+			insertDatepicker(1);
 			return;
 
 			// 가는 날 이전 날짜를 선택했다면
@@ -271,6 +273,7 @@ $(".flight--date2").on("change", function() {
 			alert("가는 날 이후 날짜를 선택해주세요.");
 			$(".flight--date2").focus();
 			$(".flight--date2").val("");
+			insertDatepicker(1);
 			return;
 		}
 		insertDatepicker(1);
@@ -287,11 +290,13 @@ $(".flight--date1").on("change", function() {
 		alert("현재 날짜보다 이전 날짜는 선택할 수 없습니다.");
 		$(".flight--date1").focus();
 		$(".flight--date1").val("");
+		$("#flightDate").val("");
 		return;
 
 		// 오는 날 이후 날짜를 선택했다면
 	} else if ($(".flight--date2").val() != "" && $(".flight--date1").val() > $(".flight--date2").val()) {
 		$(".flight--date2").val("");
+		insertDatepicker(1);
 		return;
 	}
 	insertDatepicker(1);

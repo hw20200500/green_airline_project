@@ -176,9 +176,10 @@
 				</h6>
 				<h3 class="d-flex align-items-center" style="margin-bottom: 60px;">
 					<!-- 출발지 -->
-					<span></span> <span style="font-size: 23px; margin: 0 13px 0 17px;">▶</span>
+					<span style="width: 300px; text-align: right;"></span>
+					<span style="font-size: 23px; margin: 0 50px;">▶</span>
 					<!-- 도착지 -->
-					<span></span>
+					<span style="width: 300px; text-align: left;"></span>
 				</h3>
 				<table border="1">
 					<thead>
@@ -207,9 +208,10 @@
 				</h6>
 				<h3 class="d-flex align-items-center" style="margin-bottom: 60px;">
 					<!-- 출발지 -->
-					<span></span> <span style="font-size: 23px; margin: 0 13px 0 17px;">▶</span>
+					<span style="width: 300px; text-align: right;"></span>
+					<span style="font-size: 23px; margin: 0 50px;">▶</span>
 					<!-- 도착지 -->
-					<span></span>
+					<span style="width: 300px; text-align: left;"></span>
 				</h3>
 				<table border="1">
 					<thead>

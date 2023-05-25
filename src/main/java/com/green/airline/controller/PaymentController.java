@@ -24,9 +24,12 @@ import org.springframework.web.client.RestTemplate;
 import com.green.airline.dto.response.PaymentResponseDto;
 import com.green.airline.dto.response.TicketAllInfoDto;
 import com.green.airline.dto.response.TicketDto;
+import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.TicketPayment;
 import com.green.airline.repository.model.User;
+import com.green.airline.service.CoolSmsService;
 import com.green.airline.service.TicketService;
+import com.green.airline.service.UserService;
 import com.green.airline.utils.Define;
 
 @Controller
@@ -38,6 +41,12 @@ public class PaymentController {
 	
 	@Autowired
 	private TicketService ticketService;
+	
+	@Autowired
+	private CoolSmsService coolSmsService;
+	
+	@Autowired
+	private UserService userService;
 	
 
 	/**
@@ -104,6 +113,14 @@ public class PaymentController {
 		String userId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
 		// 결제 완료 처리 후 결제 정보 반환
 		List<TicketAllInfoDto> ticketList = ticketService.updatePaymentStatusIsSuccess(userId);
+		
+		Member member = userService.readMemberById(userId);
+		
+		String tel = member.getPhoneNumber();
+		String name = member.getKorName();
+		
+		// 예약 완료 메시지 발송 (문자 건 수 제한 때문에 지금은 주석)
+		// coolSmsService.completeMessage(tel, name, ticketList.get(0).getId());
 		
 		model.addAttribute("ticketList", ticketList);
 		

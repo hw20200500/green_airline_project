@@ -22,12 +22,19 @@ import com.green.airline.dto.response.ScheduleInfoResponseDto;
 import com.green.airline.dto.response.SeatInfoResponseDto;
 import com.green.airline.dto.response.SeatPriceDto;
 import com.green.airline.dto.response.SeatStatusResponseDto;
+import com.green.airline.dto.response.TicketAllInfoDto;
 import com.green.airline.dto.response.TicketDto;
 import com.green.airline.repository.model.Airport;
+import com.green.airline.repository.model.Passenger;
+import com.green.airline.repository.model.ReservedSeat;
 import com.green.airline.repository.model.Ticket;
+import com.green.airline.repository.model.User;
 import com.green.airline.service.AirportService;
+import com.green.airline.service.PassengerService;
+import com.green.airline.service.ReservedSeatService;
 import com.green.airline.service.ScheduleService;
 import com.green.airline.service.SeatService;
+import com.green.airline.service.TicketService;
 import com.green.airline.utils.Define;
 import com.green.airline.utils.TicketUtil;
 
@@ -50,6 +57,15 @@ public class TicketController {
 	
 	@Autowired
 	private HttpSession session;
+	
+	@Autowired
+	private TicketService ticketService;
+	
+	@Autowired
+	private PassengerService passengerService;
+	
+	@Autowired
+	private ReservedSeatService reservedSeatService;
 	
 	
 	/**
@@ -255,5 +271,36 @@ public class TicketController {
 		return "/ticket/payment";
 	}
 	
+	/**
+	 * @return 항공권 구매 내역 페이지
+	 */
+	@GetMapping("/list")
+	public String ticketListPage(Model model) {
+		String memberId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
+		
+		List<TicketAllInfoDto> ticketList = ticketService.readTicketListByMemberId(memberId);
+		
+		model.addAttribute("ticketList", ticketList);
+		
+		return "/ticket/list";
+	}
+	
+	/**
+	 * @return 항공권 상세 페이지 (결제 완료된 것만 열람 가능)
+	 */
+	@GetMapping("/detail/{id}")
+	public String ticketDetailPage(Model model, @PathVariable String id) {
+		
+		TicketAllInfoDto ticket = ticketService.readTicketAllInfoByTicketId(id);
+		model.addAttribute("ticket", ticket);
+		
+		List<Passenger> passengerList = passengerService.readByTicketId(id);
+		model.addAttribute("passengerList", passengerList);
+		
+		List<ReservedSeat> reservedSeatList = reservedSeatService.readByTicketId(id);
+		model.addAttribute("reservedSeatList", reservedSeatList);
+		
+		return "/ticket/detail";
+	}
 	
 }
