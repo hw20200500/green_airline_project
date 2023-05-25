@@ -30,7 +30,7 @@
 
 #inFlightMeals--description>span {
 	width: 1000px;
-	font-size: 17.5px;
+	font-size: 1em;
 	margin-bottom: 20px;
 }
 
