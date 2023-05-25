@@ -7,6 +7,27 @@
 <!-- 구매한 항공권 상세 페이지 -->
 
 <style>
+	#ticketBackground {
+		background-image: url("/images/ticket/ticket2.png");
+		width: 1000px;
+		height: 285px;
+		padding: 80px 0 13px 35px;
+		display: flex;
+	}
+	
+	#ticketBackground div:last-of-type {
+		margin-top: -4px;
+	}
+	
+	#ticketBackground div:last-of-type p {
+		color: #474747;
+		margin-bottom: 5px;
+	}
+	
+	p {
+		margin: 0;
+	}
+	
 	#passengerTable th:nth-of-type(1) {
 		width: 15%;
 	}
@@ -35,25 +56,136 @@
 		width: 30%;
 	}
 	
+	.var--span {
+		font-size: 15px;
+		color: #595959;
+	}
+	
+	.var--span--eng {
+		font-size: 15px;
+		color: #595959;
+		font-style: italic;
+		margin-right: 15px;
+	}
+	
+	.var--span--eng--s {
+		font-size: 14px;
+		color: #595959;
+		font-style: italic;
+		margin-right: 10px;
+	}
+	
+	.value--span {
+		font-weight: 500;
+		font-size: 18px;
+		color: #474747;
+	}
+	
+	.value--span--s {
+		font-weight: 500;
+		font-size: 15px;
+		color: #474747;
+	}
+	
+	.grade--p {
+		text-align: center;
+		font-size: 20px;
+		font-weight: 600;
+		margin-bottom: 12px !important;
+	}
+	
 </style>
 
 <main class="d-flex flex-column">
 	<h2>항공권 상세 페이지</h2>
 	<hr>
 	<br>
-	<div class="d-flex justify-content-center" style="width: 100%;">
+	<div class="d-flex flex-column align-items-center" style="width: 100%;">
+		
+			<h5 class="small--title" style="margin-bottom: 35px;">
+				<span class="material-symbols-outlined">airplane_ticket</span>
+				<span>항공권 정보</span>
+			</h5>
+			<div id="ticketBackground">
+				<div class="d-flex flex-column justify-content-between" style="height: 100%; width: 690px; margin-right: 30px">
+					<p>
+						<span class="var--span">출발지/도착지</span> 
+						<span class="var--span--eng">FROM/TO</span>
+						<span class="value--span" style="font-size: 20px; font-weight: 600">${ticket.departure} → ${ticket.destination}</span>
+					</p>
+					<p>
+						<span class="var--span">항공편명</span>
+						<span class="var--span--eng">FLIGHT</span>
+						<span class="value--span">${ticket.airplaneName}</span>
+					</p>
+					<p>
+						<span class="var--span">출발일/도착일</span> 
+						<span class="var--span--eng">DATE</span>
+						<span class="value--span">${ticket.formatDepartureDate2()} ~ ${ticket.formatArrivalDate()}</span>
+					</p>
+					<p>
+						<span class="var--span">좌석</span>
+						<span class="var--span--eng">SEAT</span>
+						<span class="value--span">
+							<c:forEach var="seat" items="${reservedSeatList}">
+								${seat.seatName}&nbsp;	
+							</c:forEach>
+						</span>
+					</p>
+					<p style="text-align: right; color: #595959">${ticket.id}</p>
+				</div>
+				
+				<div style="width: 228px;">
+					<p class="grade--p">
+						<c:choose>
+							<c:when test="${ticket.seatGrade.equals(\"이코노미\")}">
+								Economy
+							</c:when>
+							<c:when test="${ticket.seatGrade.equals(\"비즈니스\")}">
+								Business
+							</c:when>
+							<c:otherwise>
+								First
+							</c:otherwise>
+						</c:choose>
+					</p>
+					<p>
+						<span class="var--span--eng--s">FROM</span>
+						<span class="value--span--s">${ticket.departure}</span>
+					</p>
+					<p>
+						<span class="var--span--eng--s">TO</span>
+						<span class="value--span--s">${ticket.destination}</span>
+					</p>
+					<p>
+						<span class="var--span--eng--s">FLIGHT</span>
+						<span class="value--span--s">${ticket.airplaneName}</span>
+					</p>
+					<p>
+						<span class="var--span--eng--s">DATE</span>
+						<span class="value--span--s">${ticket.formatDepartureDate2()}</span>
+					</p>
+					<p>
+						<span class="var--span--eng--s">PASSENGER</span>
+						<span class="value--span--s">
+							성인${ticket.adultCount}
+							<c:if test="${ticket.childCount != 0}">
+								&nbsp;소아${ticket.childCount}
+							</c:if>
+							<c:if test="${ticket.infantCount != 0}">
+								&nbsp;유아${ticket.infantCount}
+							</c:if>
+						</span>
+					</p>
+				</div>
+			
+				
+			</div>
+		
 		<div style="width: 900px;" class="d-flex flex-column align-items-center">
-		
-		${ticket.id}
-	
-		
-		<c:forEach var="seat" items="${reservedSeatList}">
-			<br>
-			${seat.seatName}	
-			<br>
-		</c:forEach>
-		
-		
+			<br><br>
+			<hr style="width: 1000px; margin-left: -50px;">
+			<br>	
 
 			<h5 class="small--title">
 				<span class="material-symbols-outlined">group</span>
@@ -97,7 +229,7 @@
 				</tbody>
 			</table>
 			
-			<br>
+			<br><br>
 			<hr style="width: 1000px; margin-left: -50px;">
 			<br>	
 			
@@ -124,7 +256,7 @@
 						<td>
 							<c:choose>
 								<c:when test="${ticket.status == 2}">
-									<span style="font-weight: 500; color: #c6c6c6;">결제취소</span>
+									<span style="font-weight: 500; color: #c6c6c6;">환불</span>
 								</c:when>
 								<c:when test="${ticket.status == 1}">
 									<span style="font-weight: 500; color: #436195;">결제완료</span>

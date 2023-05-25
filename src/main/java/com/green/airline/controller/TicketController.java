@@ -35,6 +35,7 @@ import com.green.airline.service.ReservedSeatService;
 import com.green.airline.service.ScheduleService;
 import com.green.airline.service.SeatService;
 import com.green.airline.service.TicketService;
+import com.green.airline.service.UserService;
 import com.green.airline.utils.Define;
 import com.green.airline.utils.TicketUtil;
 
@@ -66,6 +67,9 @@ public class TicketController {
 	
 	@Autowired
 	private ReservedSeatService reservedSeatService;
+	
+	@Autowired
+	private UserService userService;
 	
 	
 	/**
@@ -291,6 +295,8 @@ public class TicketController {
 	@GetMapping("/detail/{id}")
 	public String ticketDetailPage(Model model, @PathVariable String id) {
 		
+		String memberId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
+		
 		TicketAllInfoDto ticket = ticketService.readTicketAllInfoByTicketId(id);
 		model.addAttribute("ticket", ticket);
 		
@@ -299,6 +305,9 @@ public class TicketController {
 		
 		List<ReservedSeat> reservedSeatList = reservedSeatService.readByTicketId(id);
 		model.addAttribute("reservedSeatList", reservedSeatList);
+		
+		String name = userService.readMemberById(memberId).getKorName();
+		model.addAttribute("name", name);
 		
 		return "/ticket/detail";
 	}
