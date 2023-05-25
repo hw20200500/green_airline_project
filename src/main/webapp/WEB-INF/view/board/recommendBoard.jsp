@@ -2,10 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <style>
-.tr--boardList, tr--boardList--title {
+.container {
 	text-align: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
 }
 
 .modal-dialog.modal-fullsize {
@@ -20,44 +23,55 @@
 	min-height: 100%;
 	border-radius: 0;
 }
+
+.img {
+	width: 150px;
+	height: 150px;
+}
+
+.td--img {
+	padding: 5px 20px;
+}
+
+.td--board {
+	padding: 10px 20px;
+}
+.board--table{
+	flex-wrap: wrap;
+	
+}
 </style>
 <main>
 	<h1>게시판 화면</h1>
 	<div class="container">
-		<table class="table table-bordered">
-			<c:choose>
-				<c:when test="${boardList!=null}">
-					<%-- 게시글이 있는 경우 --%>
-					<table>
-						<tr class="tr--boardList--title">
-							<th>번호</th>
-							<th>제목</th>
-							<th>작성자id</th>
-							<th>조회수</th>
-							<th>작성일</th>
-						</tr>
-						<c:forEach var="board" items="${boardList}">
-							<tr class="tr--boardList" data-toggle="modal"
-								data-target="#modalDetail" id="boardDetail${board.id}"
-								style="cursor: pointer;">
-								<td>${board.id}</td>
-								<td>${board.title}</td>
-								<td>${board.userId}</td>
-								<td>${board.viewCount}</td>
-								<td>${board.formatDate()}</td>
-							</tr>
-						</c:forEach>
-					</table>
-				</c:when>
-				<c:otherwise>
-					<%-- 게시글이 없는 경우 --%>
-					<p>게시물이 없습니다.</p>
-				</c:otherwise>
-			</c:choose>
-		</table>
-		<button type="button" class="btn btn-primary"
-			onclick="location.href='/board/insert'">글 쓰기</button>
+		<c:choose>
+			<c:when test="${boardList!=null}">
+				<%-- 게시글이 있는 경우 --%>
+				<div class="board--table d-flex">
+					<c:forEach var="board" items="${boardList}">
+						<div class="tr--boardList" data-toggle="modal"
+							data-target="#modalDetail" id="boardDetail${board.id}"
+							style="cursor: pointer;">
+							<div class="td--img">
+								<img src="<c:url value="${board.thumbnailImage()}"/>" alt=""
+									class="img">
+							</div>
+							<div class="td--board d-flex justify-content-between">
+								<div>${board.viewCount}</div>
+								<div>${board.title}</div>
+							</div>
+						</div>
+					</c:forEach>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<%-- 게시글이 없는 경우 --%>
+				<p>게시물이 없습니다.</p>
+			</c:otherwise>
+		</c:choose>
 	</div>
+	<button type="button" class="btn btn-primary"
+		onclick="location.href='/board/insert'">글 쓰기</button>
 </main>
 <%-- Modal --%>
 <div class="modal fade" id="modalDetail" data-backdrop="static"

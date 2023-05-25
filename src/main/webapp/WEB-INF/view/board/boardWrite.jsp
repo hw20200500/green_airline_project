@@ -29,7 +29,7 @@
 		<div class="custom-file">
 			<input type="file" class="custom-file-input" id="customFile"
 				accept=".jpg, .jpeg, .png" name="file">
-				<label class="custom-file-label" for="customFile">Choose file</label>
+				<label class="custom-file-label" for="customFile">썸네일용 이미지</label>
 		</div>
 		<div class="modal-footer">
 			<button type="submit" class="btn btn-primary">작성하기</button>

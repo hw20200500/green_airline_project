@@ -23,12 +23,16 @@ public class BoardDto {
 	private MultipartFile file;
 
 	// 원래 이미지 명
-	private String originalFileName;
+	private String originName;
 	// 실제 업로드 된 이미지 명
-	private String uploadFileName;
+	private String fileName;
 
 	public String formatDate() {
 		return TimestampUtil.dateToString(createdAt);
+	}
+	
+	public String thumbnailImage() {
+		return fileName == null ? "/images/uploads/a.png" : "/images/uploads/" + fileName;
 	}
 
 }

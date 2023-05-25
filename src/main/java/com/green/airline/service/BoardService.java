@@ -39,6 +39,11 @@ public class BoardService {
 	public List<Board> boardList() {
 
 		List<Board> list = boardRepository.selectByBoardList();
+		
+		/*
+		 * for(int i = 0; i < list.size(); i++) {
+		 * System.out.println(list.get(i).getFileName()); }
+		 */
 
 		return list;
 	}
@@ -46,14 +51,9 @@ public class BoardService {
 	// 추천 여행지 게시글 작성
 	@Transactional
 	public void insertBoard(BoardDto boardDto) {
-
-		boardDto.setTitle(boardDto.getTitle());
+		
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
 		boardDto.setUserId(user.getId());
-		boardDto.setContent(boardDto.getContent());
-		boardDto.setId(boardDto.getId());
-		boardDto.setOriginalFileName(boardDto.getOriginalFileName());
-		boardDto.setUploadFileName(boardDto.getUploadFileName());
 		
 		int result = boardRepository.insertByBoard(boardDto);
 		

@@ -13,11 +13,10 @@
 	<!-- 게시물 작성 -->
 	<insert id="insertByBoard">
 		insert into recommend_board_tb
-		(title, content,
-		user_id, view_count, origin_name, file_name)
+		(title, content, user_id, view_count, origin_name, file_name)
 		values
 		(#{title}, #{content}, #{userId},
-		#{viewCount}, #{originalFileName}, #{uploadFileName});
+		#{viewCount}, #{originName}, #{fileName});
 	</insert>
 	
 	<!-- 게시물 상세보기 -->
