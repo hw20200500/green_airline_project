@@ -38,6 +38,16 @@ public class TimestampUtil {
 	
 	/**
 	 * @author 서영
+	 * Timestamp 타입을 날짜로 변경함 (type2)
+	 */
+	public static String dateToStringType2(Timestamp timestamp) {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy년 MM월 dd일");
+		return sdf.format(timestamp);
+	}
+	
+	/**
+	 * @author 서영
 	 * Timestamp 타입을 시간으로 변경함
 	 */
 	public static String timeToString(Timestamp timestamp) {

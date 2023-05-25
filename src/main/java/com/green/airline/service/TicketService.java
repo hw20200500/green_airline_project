@@ -38,7 +38,7 @@ public class TicketService {
 	private TicketPaymentRepository ticketPaymentRepository;
 
 	/**
-	 * 결제 성공 시 예약 내역 + 결제 내역을 추가하는 로직
+	 * 결제 요청 시 예약 내역 + 결제 내역을 추가하는 로직
 	 */
 	@Transactional
 	public void createTicketAndPayment(TicketDto ticketDto, String memberId) {
@@ -201,7 +201,7 @@ public class TicketService {
 	}
 	
 	/**
-	 * 티켓 모든 정보 가져오기 (결제 정보 포함)
+	 * 특정 티켓의 모든 정보 가져오기 (결제 정보 포함)
 	 */
 	public TicketAllInfoDto readTicketAllInfoByTicketId(String ticketId) {
 		
@@ -216,6 +216,16 @@ public class TicketService {
 		}
 		
 		return infoDto;
+	}
+	
+	/**
+	 * @author 서영
+	 * 해당 유저가 구매한 모든 티켓 리스트 가져오기
+	 */
+	public List<TicketAllInfoDto> readTicketListByMemberId(String memberId) {
+		List<TicketAllInfoDto> dtoList = ticketRepository.selectTicketListByMemberId(memberId);
+		
+		return dtoList;
 	}
 	
 	

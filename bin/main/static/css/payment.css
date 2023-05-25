@@ -56,22 +56,6 @@ ul, label {
 	color: #3f5f8d;
 }
 
-.small--title {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-bottom: 40px; 
-	color: #314f79;
-}
-
-.small--title span:first-of-type {
-	margin-right: 5px;
-}
-
-.small--title span:hover {
-	color: #314f79;
-}
-
 /* 탑승객 정보 테이블 */
 .passenger--info--list table {
 	width: 100%;

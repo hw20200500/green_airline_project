@@ -12,4 +12,8 @@
 	VALUES (#{scheduleId}, #{seatName}, #{ticketId});
 </insert>
 
+<select id="selectByTicketId" resultType="com.green.airline.repository.model.ReservedSeat">
+	SELECT * FROM reserved_seat_tb WHERE ticket_id = #{ticketId}
+</select>
+
 </mapper>

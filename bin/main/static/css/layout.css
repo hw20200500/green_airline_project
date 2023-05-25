@@ -333,3 +333,59 @@ footer {
 	background: none;
 	color: rgba(0, 0, 0, 0.7)
 }
+
+.list--table {
+	width: 100%;
+	border-color: #ddd;
+}
+
+.list--table th {
+	background-color: #E5EFF3;
+	color: #404040;
+}
+
+.list--table th:first-child, .list--table td:first-child {
+	border-left: hidden;
+}
+
+.list--table th:last-child, .list--table td:last-child {
+	border-right: hidden;
+}
+
+.list--table tr:first-of-type th {
+	border-top: 2px solid #ccc;
+}
+
+.list--table tr:last-of-type td {
+	border-bottom: 2px solid #ccc;
+}
+
+.list--table th, .list--table td {
+	font-size: 17px;
+	text-align: center;
+	padding: 5px;
+}
+
+.list--table label {
+	cursor: pointer;
+}
+
+.small--title {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 40px; 
+	color: #314f79;
+}
+
+.small--title span:first-of-type {
+	margin-right: 5px;
+}
+
+.small--title span:hover {
+	color: #314f79;
+}
+
+ul {
+	margin: 0;
+}

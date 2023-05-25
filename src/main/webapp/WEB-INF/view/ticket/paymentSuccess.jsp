@@ -108,7 +108,7 @@
 			</div>
 		</div>
 		
-		<button class="list--btn">
+		<button class="list--btn" onclick="location.href='/ticket/list';">
 			<ul class="d-flex justify-content-center" style="margin: 0;">
 				<li><span class="material-symbols-outlined" style="font-size: 23px; margin-right: 4px; margin-top: 2px;">inventory</span>
 				<li style="font-size: 16px;">예약 내역 조회
