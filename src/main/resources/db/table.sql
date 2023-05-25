@@ -15,14 +15,14 @@ CREATE TABLE user_tb(
 -- 회원
 CREATE TABLE member_tb(
    id VARCHAR(50) PRIMARY KEY,
-   kor_name VARCHAR(20) NOT NULL,
-   eng_name VARCHAR(50) NOT NULL,
-   birth_date DATE NOT NULL,
+   kor_name VARCHAR(20),
+   eng_name VARCHAR(50),
+   birth_date DATE,
    gender VARCHAR(1) NOT NULL,
-   phone_number VARCHAR(13) NOT NULL,
-   email VARCHAR(40) NOT NULL,
-   address VARCHAR(200) NOT NULL,
-   nationality VARCHAR(50) NOT NULL,
+   phone_number VARCHAR(13),
+   email VARCHAR(40),
+   address VARCHAR(200),
+   nationality VARCHAR(50),
    grade VARCHAR(10), FOREIGN KEY (grade) REFERENCES member_grade_tb(name)
 );
 
@@ -328,6 +328,16 @@ expiration_date DATE,
 save_mileage BIGINT,
 balance BIGINT,
 inserttime DATE default (CURRENT_DATE),
-member_id varchar(50)
+member_id varchar(50),
+foreign key (member_id) references member_tb (id)
 );
 
+-- 마일리지 신청 내역
+create table mileage_request_tb(
+id int primary key auto_increment,
+request_date DATE default (CURRENT_DATE),
+status int default 0,
+ticket_id VARCHAR(15),
+foreign key (ticket_id) references ticket_tb (id)
+
+);

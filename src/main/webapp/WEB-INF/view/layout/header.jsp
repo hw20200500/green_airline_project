@@ -125,7 +125,7 @@
 								<li><a href="/product/registration">상품 등록</a>
 								<li><a href="#">상품 수정</a>
 								<li><a href="/mileage/selectAll">마일리지 조회</a>
-								<li><a href="#">세부메뉴</a>
+								<li><a href="/mileage/request">마일리지 신청</a>
 								<li><a href="#">세부메뉴</a>
 								<li><a href="#">세부메뉴</a>
 							</ul>

@@ -8,6 +8,6 @@ public class RequestMeal {
 	private Integer id;
 	private Integer amount;
 	private Integer mealId;
-	private Integer ticketId;
+	private String ticketId;
 	
 }

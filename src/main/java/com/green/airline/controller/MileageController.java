@@ -37,4 +37,10 @@ public class MileageController {
 		 model.addAttribute("extinctionMileage",extinctionMileage);
 		return "/myPage/mileage";
 	}
+	
+	@GetMapping("/request")
+	public String mileageRequestPage() {
+		
+		return "/myPage/mileageRequest";
+	}
 }

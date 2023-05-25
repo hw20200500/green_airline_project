@@ -103,7 +103,7 @@
 	</select>
 
 	<select id="selectInFlightScheduleByMemberId" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
-		select *, s.departure_date, (t.adult_count + t.child_count) as seat_count
+		select s.departure_date, r.departure, r.destination, (t.adult_count + t.child_count) as seat_count, t.id as ticket_id
 		from ticket_tb as t
 		inner join schedule_tb as s
 		on t.schedule_id = s.id
