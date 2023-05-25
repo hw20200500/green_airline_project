@@ -14,11 +14,14 @@ public interface MemberRepository {
 	// 카카오 로그인 api에 쓸 것
 	public SocialDto selectBySocialUserInfo(String id);
 
+	// 회원가입 처리
+	public int insertMember(Member member);
+	
 	// 카카오 로그인 처리
 	// 회원가입 --> kmg1151@naver.com
 	// 카카카오 로그인 --> kmg1151@naver.com
 	// 카카카오 로그인 : 김민정_9912
-
+	
 	// kmg1151@naver.com
 	public int insertBySocialDto(@Param("id") String id, @Param("nickname") String nickname,
 			@Param("email") String email, @Param("gender") String gender);

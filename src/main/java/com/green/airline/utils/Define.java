@@ -3,6 +3,8 @@ package com.green.airline.utils;
 public class Define {
 
 	public final static String PRINCIPAL = "principal";
+	// 소셜 회원
+	public final static String USERROLE_SOCIAL = "소셜회원";
 
 	
 	// 소아 티켓 가격 비율 (기준 : 성인)

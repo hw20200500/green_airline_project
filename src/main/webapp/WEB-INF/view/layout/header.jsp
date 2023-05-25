@@ -47,7 +47,7 @@
 							<li><a href="/login">로그인</a></li>
 							<li class="li--split">ㅣ</li>
 							<li class="material--li"><a href="#"><span class="material-symbols-outlined" style="font-size: 22px;">person_add</span></a></li>
-							<li><a href="#">회원가입</a></li>
+							<li><a href="/join">회원가입</a></li>
 							<li class="li--split">ㅣ</li>
 							<li class="material--li"><a href="#"><span class="material-symbols-outlined" style="font-size: 22px;">support_agent</span></a></li>
 							<li class="customer--service--li"><a href="#">고객센터</a>
