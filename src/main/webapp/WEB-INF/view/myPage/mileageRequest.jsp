@@ -13,7 +13,7 @@
 	<div class="container">
 		<h2>신청 가능한 어쩌구</h2>
 		<p>설명 적을거면 적기</p>
-		<form action="/mileage/update"method="post">
+		<form action="/mileage/insert"method="post">
 			<table>
 				<thead>
 

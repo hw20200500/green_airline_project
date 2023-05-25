@@ -26,7 +26,7 @@
 					<td>${saveMileage.balance}</td>
 					<td>${useMileage.useMileage}</td>
 					<td>${extinctionMileage.extinctionMileage}</td>
-					<td>${saveMileage.balance-useMileage.useMileage}</td>
+					<td>${saveMileage.balance - useMileage.useMileage}</td>
 				</tr>
 
 			</tbody>

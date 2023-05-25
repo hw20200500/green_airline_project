@@ -1,6 +1,6 @@
 package com.green.airline.repository.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import com.green.airline.utils.NumberUtil;
 
@@ -10,14 +10,15 @@ import lombok.Data;
 public class Mileage {
 
 
-	private Date useDate;
+	private Timestamp useDate;
 	private int useMileage;
 	private String description;
-	private Date saveDate;
-	private Date expirationDate;
+	private Timestamp saveDate;
+	private Timestamp expirationDate;
 	private int saveMileage;
 	private int balance;
 	private String memberId;
+	private String ticketId;
 	public String balanceNumber() {
 		return  NumberUtil.numberFormat(balance);
 		

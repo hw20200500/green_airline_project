@@ -329,6 +329,8 @@ save_mileage BIGINT,
 balance BIGINT,
 inserttime DATE default (CURRENT_DATE),
 member_id varchar(50),
+ticket_id VARCHAR(15),
+foreign key (ticket_id) references ticket_tb (id) on delete cascade,
 foreign key (member_id) references member_tb (id)
 );
 

@@ -104,17 +104,34 @@ $(document).ready(function() {
 		$("#sCalendar02").val("");
 	});
 
+
+
+
+
+
 	/*마일리지 조회 form으로 ajax 보내기*/
 	$('#mileage--search').on("click", function() {
+		let chkArr = [];
+		$("input[type=checkbox]:checked").each(function() {
+			let chk = $(this).val()
+			chkArr.push(chk);
+		});
+
+
 		let form = $("form").serialize();
+		console.log("form : " + form);
+		// ? (@requ Stirn , sTr s, f )
+		// json -- body --> @requestBody
 		$.ajax({
-			url: "/api/selectMileageListProc?" + form,
+			url: "/api/selectMileageList?" + form,
 			type: "get",
+			contentType: "application/json; charset=utf-8",
+			dataType: "json",
+
+			traditional: true,
 
 		}).done(function(response) {
 			console.log(response);
-			var checkbox = $("input[name='mileageType0']:checked");//체크된거 가져오기
-			console.log(checkbox);
 			$("#savemileageList--tr--thead").empty();
 			$("#savemileageList--tr--tbody").empty();
 			$("#usemileageList--tr--thead").empty();
@@ -149,44 +166,57 @@ $(document).ready(function() {
 				let chk = $(this).val()
 				chk_arr.push(chk);
 			});
-			console.log(chk_arr);
-			let nowDate = new Date();
+
+			console.log(response);
 			for (i = 0; i < response.length; i++) {
+				let startDate1 = new Date($("#sCalendar01").val());
+				let endDate1 = new Date($("#sCalendar02").val());
+				let saveDate = new Date(response[i].saveDate);
 				/*적립 마일리지 조회*/
 				if (response[i].saveDate != null) {
 					if (chk_arr[0] == 'isUpSearch' || chk_arr[0] == 'isAllSearch') {
-						let body = '';
-						body += '<tr>';
-						body += '<td>' + response[i].saveDate + '</td>';
-						body += '<td>' + response[i].saveMileage + '</td>';
-						body += '<td>' + response[i].expirationDate + '</td>';
-						body += '</tr>';
-						$("#savemileageList--tr--tbody").append(body);
+						if (startDate1 < saveDate && saveDate < endDate1) {
+							let body = '';
+							body += '<tr>';
+							body += '<td>' + response[i].saveDate + '</td>';
+							body += '<td>' + response[i].saveMileage + '</td>';
+							body += '<td>' + response[i].expirationDate + '</td>';
+							body += '</tr>';
+							$("#savemileageList--tr--tbody").append(body);
+						}
 					}
-
 				}
 				/* 사용 마일리지 조회 */
+
+				let useDate1 = new Date(response[i].useDate);
 				if (response[i].useDate != null) {
 					if (chk_arr[0] == 'isUseSearch' || chk_arr[0] == 'isAllSearch' || chk_arr[1] == 'isUseSearch') {
 						let body = '';
-						body += '<tr>';
-						body += '<td>' + response[i].useDate + '</td>';
-						body += '<td>' + response[i].useMileage + '</td>';
-						body += '<td>' + response[i].description + '</td>';
-						body += '</tr>';
-						$("#usemileageList--tr--tbody").append(body);
+						if (startDate1 < useDate1 && useDate1 < endDate1) {
+							body += '<tr>';
+							body += '<td>' + response[i].useDate + '</td>';
+							body += '<td>' + response[i].useMileage + '</td>';
+							body += '<td>' + response[i].description + '</td>';
+							body += '</tr>';
+							$("#usemileageList--tr--tbody").append(body);
+						}
 					}
-
 				}
 				/* 소멸 마일리지 조회 */
+				let endDate = new Date($("#sCalendar02").val());
+				let expirationDate = new Date(response[i].expirationDate);
 				if (response[i].expirationDate != null) {
-					if (chk_arr[0] == 'isExpireSearch' || chk_arr[0] == 'isAllSearch'||chk_arr[1] == 'isExpireSearch'||chk_arr[2] == 'isExpireSearch') {
-						let body = '';
-						body += '<tr>';
-						body += '<td>' + response[i].saveMileage + '</td>';
-						body += '<td>' + response[i].expirationDate + '</td>';
-						body += '</tr>';
-						$("#expirationDatemileageList--tr--tbody").append(body);
+					if (chk_arr[0] == 'isExpireSearch' || chk_arr[0] == 'isAllSearch' || chk_arr[1] == 'isExpireSearch' || chk_arr[2] == 'isExpireSearch') {
+						if (endDate >= expirationDate) {
+							console.log('asdasdasdasd')
+							let body = '';
+							body += '<tr>';
+							body += '<td>' + response[i].saveMileage + '</td>';
+							body += '<td>' + response[i].expirationDate + '</td>';
+							body += '</tr>';
+							$("#expirationDatemileageList--tr--tbody").append(body);
+						}
+
 					}
 
 				}
@@ -198,6 +228,5 @@ $(document).ready(function() {
 
 
 });
-
 
 

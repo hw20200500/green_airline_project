@@ -22,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.green.airline.dto.GifticonDto;
 import com.green.airline.dto.PagingVO;
 import com.green.airline.dto.ProductCountDto;
-import com.green.airline.dto.SaveMileageDto;
 import com.green.airline.dto.ShopOrderDto;
 import com.green.airline.dto.ShopProductDto;
 import com.green.airline.handler.exception.CustomRestfullException;
@@ -131,10 +130,10 @@ public class ProductController {
 		if (shopProduct.getName() == null || shopProduct.getName().isEmpty()) {
 			throw new CustomRestfullException("제품명을 입력하세요", HttpStatus.BAD_REQUEST);
 		}
-		if (shopProduct.getPrice() == 0) {
+		if (shopProduct.getPrice() <= 0) {
 			throw new CustomRestfullException("가격이 0원이 될 수는 없습니다", HttpStatus.BAD_REQUEST);
 		}
-		if (shopProduct.getCount() == 0) {
+		if (shopProduct.getCount() <= 0) {
 			throw new CustomRestfullException("수량이 0원이 될 수는 없습니다", HttpStatus.BAD_REQUEST);
 		}
 		if (shopProduct.getOriginFileName() == null || shopProduct.getOriginFileName().isEmpty()) {
@@ -144,7 +143,6 @@ public class ProductController {
 			throw new CustomRestfullException("기프티콘 이미지를 선택하세요", HttpStatus.BAD_REQUEST);
 		}
 
-		System.out.println(shopProduct);
 		productService.productRegistration(shopProduct);
 		return "redirect:/product/productMain";
 	}
@@ -169,14 +167,50 @@ public class ProductController {
 		if (shopProduct.getCount() == 0) {
 			throw new CustomRestfullException("수량이 0원이 될 수는 없습니다", HttpStatus.BAD_REQUEST);
 		}
-		if (shopProduct.getProductImage() == null || shopProduct.getProductImage().isEmpty()) {
-			throw new CustomRestfullException("제품 이미지를 선택하세요", HttpStatus.BAD_REQUEST);
-		}
-		if (shopProduct.getGifticonImage() == null || shopProduct.getGifticonImage().isEmpty()) {
-			throw new CustomRestfullException("기프티콘 이미지를 선택하세요", HttpStatus.BAD_REQUEST);
+		
+		/*
+		 * if (shopProduct.getProductImage() == null ||
+		 * shopProduct.getProductImage().isEmpty()) { throw new
+		 * CustomRestfullException("제품 이미지를 선택하세요", HttpStatus.BAD_REQUEST); } if
+		 * (shopProduct.getGifticonImage() == null ||
+		 * shopProduct.getGifticonImage().isEmpty()) { throw new
+		 * CustomRestfullException("기프티콘 이미지를 선택하세요", HttpStatus.BAD_REQUEST); }
+		 */
+		
+		MultipartFile file = shopProduct.getFile();
+		MultipartFile file2 = shopProduct.getFile2();
+		System.out.println(file.getOriginalFilename());
+		if (file.isEmpty() == false) {
+
+			try {
+				// 파일 저장 기능 구현 - 업로드 파일은 HOST 컴퓨터 다른 폴더로 관리
+				String saveDirectory = Define.UPLOAD_DIRECTORY;
+				// 폴더가 없다면 오류 발생 (파일 생성 시)
+				File dir = new File(saveDirectory);
+				if (dir.exists() == false) {
+					dir.mkdirs(); // 폴더가 없으면 폴더 생성
+				}
+				String fileName = file.getOriginalFilename();
+				String fileName2 = file2.getOriginalFilename();
+				// 전체 경로를 지정
+				String uploadPath = Define.UPLOAD_DIRECTORY + File.separator + fileName;
+				String uploadPath2 = Define.UPLOAD_DIRECTORY + File.separator + fileName2;
+				File destination = new File(uploadPath);
+				File destination2 = new File(uploadPath2);
+
+				// 좀 더 간편한 방법 사용해 보기
+				file.transferTo(destination);
+				file2.transferTo(destination2);
+
+				// 객체 상태 변경(dto)
+				shopProduct.setProductImage(file.getOriginalFilename());
+				shopProduct.setGifticonImage(file.getOriginalFilename());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		productService.productUpdate(shopProduct);
-
+		System.out.println(shopProduct);
 		return "redirect:/product/productMain";
 	}
 
@@ -200,6 +234,7 @@ public class ProductController {
 		if (principal != null) {
 			mileage = productService.readMileage(principal.getId());
 		}
+		System.out.println(mileage);
 		ShopProduct shopProduct = productService.productDetail(id);
 		model.addAttribute(shopProduct);
 		model.addAttribute(mileage);
@@ -213,7 +248,7 @@ public class ProductController {
 	 * @return
 	 */
 	@PostMapping("/buyProduct")
-	public String buyProductProc(ShopOrderDto shopProductDto, SaveMileageDto mileageDto, ShopProductDto shopProductDto2,
+	public String buyProductProc(ShopOrderDto shopProductDto, Mileage mileageDto, ShopProductDto shopProductDto2,
 			@RequestParam("email") String email, @RequestParam("gifticonImageName") String gifticonImageName) {
 		GifticonDto gifticonDto = new GifticonDto();
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);

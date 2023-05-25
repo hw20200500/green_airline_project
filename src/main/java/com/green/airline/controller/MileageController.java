@@ -81,7 +81,7 @@ public class MileageController {
 		return "/myPage/mileageApplication";
 	}
 
-	@PostMapping("/update")
+	@PostMapping("/insert")
 	public String updateStatus(TicketAllInfoDto ticketAllInfoDto) {
 		ticketService.insertStatus(ticketAllInfoDto);
 		return "redirect:/mileage/application";

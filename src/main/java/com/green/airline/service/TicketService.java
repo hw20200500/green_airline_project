@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.green.airline.dto.SaveMileageDto;
 import com.green.airline.dto.response.TicketAllInfoDto;
 import com.green.airline.dto.response.TicketDto;
+import com.green.airline.repository.interfaces.MileageRepository;
 import com.green.airline.repository.interfaces.PassengerRepository;
 import com.green.airline.repository.interfaces.ReservedSeatRepository;
 import com.green.airline.repository.interfaces.TicketPaymentRepository;
@@ -37,6 +39,8 @@ public class TicketService {
 	@Autowired
 	private TicketPaymentRepository ticketPaymentRepository;
 
+	@Autowired
+	private MileageRepository mileageRepository;
 	/**
 	 * 결제 성공 시 예약 내역 + 결제 내역을 추가하는 로직
 	 */
@@ -71,6 +75,11 @@ public class TicketService {
 						.scheduleId(ticketDto.getScheduleId())
 						.build();
 		ticketRepository.insert(ticket1);
+		
+		
+		
+		
+		
 		
 		// 예약 좌석 생성
 		for (String seat : ticketDto.getSeatNames()) {
@@ -135,7 +144,14 @@ public class TicketService {
 										.status2(status2)
 										.build();
 		ticketPaymentRepository.insert(ticketPayment);
-		
+		// 여기에 넣기 ticket1 ticket2 사용 TicketAllInfoDto 티켓 readTicketAllInfoByTicketId 불러와서 티켓 정보 사용하기
+				SaveMileageDto saveMileageDto = new SaveMileageDto();
+				TicketAllInfoDto ticketAllInfoDto = readTicketAllInfoByTicketId(ticketId1);
+				saveMileageDto.setDepartureDate(ticketAllInfoDto.getDepartureDate());
+				saveMileageDto.setExpirationDate(ticketAllInfoDto.getDepartureDate());
+				saveMileageDto.setMemberId(memberId);
+				saveMileageDto.setTicketId(ticketId1);
+				mileageRepository.insertMileage(saveMileageDto);
 	}
 	
 	/**

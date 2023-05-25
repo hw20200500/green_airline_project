@@ -95,7 +95,7 @@ public class ProductService {
 	}
 
 	// 마일리지 사용 insert
-	public int createUseMileage(SaveMileageDto mileageDto) {
+	public int createUseMileage(Mileage mileageDto) {
 		int result = productRepository.insertMileage(mileageDto);
 		return result;
 	}

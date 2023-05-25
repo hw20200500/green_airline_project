@@ -33,6 +33,6 @@ public interface ProductRepository {
 	public int insertGifticonDto(GifticonDto gifticonDto);
 	public ShopOrder selectShopOrder(String memberId);
 	public Mileage selectMileage(String memberId);
-	public int insertMileage(SaveMileageDto mileageDto);
+	public int insertMileage(Mileage mileageDto);
 	public int updateShopProductDto(ShopProductDto  shopProductDto);
 }
