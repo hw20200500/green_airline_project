@@ -9,7 +9,7 @@
 	
 	<insert id="insertByUser">
 		INSERT INTO user_tb (id, password, user_role)
-		VALUES(#{id}, #{password}, #{userRole})
+		VALUES(#{id}, #{password}, #{userRole.userRole})
 	</insert>
 	
 	<select id="selectSocialDtoById" resultType="com.green.airline.repository.model.User">

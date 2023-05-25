@@ -21,5 +21,6 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	 * .addResourceLocations("file:///C:\\Users\\a\\Desktop\\image/"); }
 	 */
 	 
+	 
 	
 }

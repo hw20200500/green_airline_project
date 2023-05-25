@@ -13,39 +13,51 @@
 		<h1>회원가입</h1>
 		<form action="/joinProc" method="post">
 			<div class="join--all--wrap">
-				아이디 <input type="text" name="id" value="hihihihi"> 한국 이름 <input type="text" name="korName" value="강ㄱ"> 영어 이름 <input type="text" name="engName" value="KK">
+				<c:choose>
+					<c:when test="${id==null}">
+						아이디 <input type="text" name="id" required="required">
+					</c:when>
+					<c:otherwise>
+						아이디 <input type="text" name="id" value="${id}" readonly="readonly" required="required">
+					</c:otherwise>
+				</c:choose>
+				<c:if test="${id==null}">
+					비밀번호 <input type="password" name="password" required="required">
+					비밀번호 확인 <input type="password" required="required">
+				</c:if>
+				한국 이름 <input type="text" name="korName" required="required"> 영어 이름 <input type="text" name="engName" required="required">
 				<%-- 데이트피커 가져오기 --%>
-				생년월일
+				
 				<p>
-					Date <input type="text" id="datepicker" value="2023-05-09" name="birthDate">
+					생년월일 <input type="text" id="datepicker" name="birthDate" required="required">
 				</p>
 				<div>
 					<c:choose>
-						<c:when test="${gender.equals(\"none\")}">
-								성별 <label> <input type="radio" name="gender" value="${gender}" checked="checked"> 남
+						<c:when test="${gender eq 'none'}">
+								성별 <label> <input type="radio" name="gender" value="${gender}" required="required"> 남
 							</label>
-							<label> <input type="radio" name="gender"> 여
+							<label> <input type="radio" name="gender" required="required"> 여
 							</label>
 						</c:when>
 						<c:otherwise>
-							<input type="hidden" name="gender" value="${gender}">
+							<input type="hidden" name="gender" value="${gender}" required="required">
 						</c:otherwise>
 					</c:choose>
 				</div>
-				휴대전화 <input type="text" name="phoneNumber" value="010-1245-1324" placeholder="예:010-0000-0000">
+				휴대전화 <input type="text" name="phoneNumber" placeholder="예:010-0000-0000" required="required">
 				<c:choose>
 					<c:when test="${email.equals(\"none\")}">
-								이메일 <input type="email" name="email" value="kmg1151@naver.com">
+								이메일 <input type="email" name="email" required="required">
 					</c:when>
 					<c:otherwise>
-								이메일 <input type="hidden" name="email" value="${email}">
+								이메일 <input type="hidden" name="email" value="${email}" required="required">
 					</c:otherwise>
 				</c:choose>
-				주소 <input type="text" name="address" value="부산"> 국적 <select name="nationality" value="대한민국">
-
-					<option>대한민국</option>
-				</select> <input type="hidden" name="grade">
-
+					주소 <input type="text" name="address" required="required"> 
+					국적 <select name="nationality" value="대한민국" required="required">
+							<option>대한민국</option>
+						</select> 
+					<input type="hidden" name="grade">
 				<button type="submit" class="btn btn-primary">회원가입</button>
 			</div>
 		</form>

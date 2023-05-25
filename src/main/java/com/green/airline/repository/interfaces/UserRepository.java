@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.green.airline.dto.kakao.SocialDto;
 import com.green.airline.dto.request.LoginFormDto;
+import com.green.airline.enums.UserRole;
 import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.User;
 
@@ -15,7 +16,7 @@ public interface UserRepository {
 
 	// user_tb에 넣을 값 (kakao login api에 사용)
 	public int insertByUser(@Param("id") String id, @Param("password") String password,
-			@Param("userRole") String userRole);
+			@Param("userRole") UserRole userRole);
 
 	public User selectSocialDtoById(String id);
 

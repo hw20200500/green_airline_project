@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.green.airline.dto.kakao.SocialDto;
+import com.green.airline.dto.request.JoinFormDto;
 import com.green.airline.repository.model.Member;
 
 @Mapper
@@ -15,7 +16,7 @@ public interface MemberRepository {
 	public SocialDto selectBySocialUserInfo(String id);
 
 	// 회원가입 처리
-	public int insertMember(Member member);
+	public int insertMember(JoinFormDto joinFormDto);
 	
 	// 카카오 로그인 처리
 	// 회원가입 --> kmg1151@naver.com
