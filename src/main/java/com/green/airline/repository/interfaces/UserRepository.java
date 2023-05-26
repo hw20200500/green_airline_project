@@ -13,6 +13,8 @@ import com.green.airline.repository.model.User;
 public interface UserRepository {
 
 	public User selectByIdAndPassword(LoginFormDto loginFormDto);
+	
+	public User selectById(LoginFormDto loginFormDto);
 
 	// user_tb에 넣을 값 (kakao login api에 사용)
 	public int insertByUser(@Param("id") String id, @Param("password") String password,

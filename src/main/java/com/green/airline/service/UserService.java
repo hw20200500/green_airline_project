@@ -1,21 +1,25 @@
 package com.green.airline.service;
 
-import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
 
-import com.green.airline.dto.kakao.KakaoAccount;
 import com.green.airline.dto.kakao.SocialDto;
 import com.green.airline.dto.request.JoinFormDto;
 import com.green.airline.dto.request.LoginFormDto;
 import com.green.airline.enums.UserRole;
+import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.interfaces.MemberRepository;
 import com.green.airline.repository.interfaces.UserRepository;
 import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.User;
-import com.green.airline.utils.Define;
 
 @Service
 public class UserService {
@@ -26,6 +30,9 @@ public class UserService {
 	@Autowired
 	private MemberRepository memberRepository;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	@Value("${green.key}")
 	private String greenKey;
 
@@ -33,7 +40,18 @@ public class UserService {
 	 * @author 서영 로그인
 	 */
 	public User readUserByIdAndPassword(LoginFormDto loginFormDto) {
-		User userEntity = userRepository.selectByIdAndPassword(loginFormDto);
+		User userEntity = userRepository.selectById(loginFormDto);
+
+		if (userEntity == null) {
+			throw new CustomRestfullException("아이디가 존재하지 않습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+		boolean isPwdMatched = passwordEncoder.matches(loginFormDto.getPassword(), userEntity.getPassword());
+
+		if (isPwdMatched == false) {
+			throw new CustomRestfullException("비밀번호가 틀렸습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
 		return userEntity;
 	}
 
@@ -48,12 +66,18 @@ public class UserService {
 
 	// 회원가입 (join.jsp에 회원가입 버튼으로 회원가입하는 경우 무조건 여기로 옴)
 	public void createMember(JoinFormDto joinFormDto) {
+
 		int result = memberRepository.insertMember(joinFormDto);
 		int result2 = 0;
-		if(joinFormDto.getPassword() == null) {
+		if (joinFormDto.getPassword() == null) {
 			// 소셜 회원가입 (email, gender, id 중 하나라도 동의하지 않은 경우)
 			result2 = userRepository.insertByUser(joinFormDto.getId(), greenKey, UserRole.SOCIAL);
 		} else {
+			// 일반 회원가입 처리
+			String rawPwd = joinFormDto.getPassword();
+			String hashPwd = passwordEncoder.encode(rawPwd);
+			joinFormDto.setPassword(hashPwd); // 암호화 처리
+
 			result2 = userRepository.insertByUser(joinFormDto.getId(), joinFormDto.getPassword(), UserRole.DEFAULT);
 		}
 		if (result == 1 && result2 == 1) {
@@ -67,7 +91,8 @@ public class UserService {
 		return socialMember;
 	}
 
-	// 소셜회원 회원가입 (email, gender, id 모두 동의한 경우, 회원가입 페이지를 거치지 않고 카카오 로그인 동의하기 누르자마자 회원가입이 된 경우)
+	// 소셜회원 회원가입 (email, gender, id 모두 동의한 경우, 회원가입 페이지를 거치지 않고 카카오 로그인 동의하기 누르자마자
+	// 회원가입이 된 경우)
 	public void createByUser(SocialDto socialDto) {
 
 		if ("male".equals(socialDto.getKakaoAccount().getGender())) {
@@ -87,14 +112,23 @@ public class UserService {
 		}
 
 	}
-	
 
 	public User readSocialDtoById(String id) {
-		// 123123123123 <-- 카카오 던지거
-
 		// 본인 데이터 베이스에 조회
 		User userEntity = userRepository.selectSocialDtoById(id);
 		return userEntity;
+	}
+
+	public Map<String, String> validateHandler(Errors errors) {
+		// 회원가입 실패시 message 값들을 모델에 매핑해서 View로 전달
+		Map<String, String> validateResult  = new HashMap<>();
+
+		for (FieldError error : errors.getFieldErrors()) { // 유효성 검사에 실패한 필드 목록
+			String validKeyName = "valid_" + error.getField(); // 유효성 검사에 실패한 필드명
+			validateResult.put(validKeyName, error.getDefaultMessage()); // 유효성 검사에 실패한 필드에 정의된 메세지
+		}
+		
+		return validateResult;
 	}
 
 }
