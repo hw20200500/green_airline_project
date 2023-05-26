@@ -46,12 +46,7 @@ public class BaggageRequestService {
 	// Todo
 	@Transactional
 	public void createBaggageReq(BaggageReqRequest baggageReqRequest) {
-		int result = baggageRequestRepository.insertBaggageReq(baggageReqRequest);
-		if (result == 1) {
-			System.out.println("성공");
-		} else {
-			System.out.println("ㅗㅋㅋㅗ");
-		}
+		baggageRequestRepository.insertBaggageReq(baggageReqRequest);
 	}
 
 	public List<BaggageReqResponse> readBaggageReqGroupBySection() {

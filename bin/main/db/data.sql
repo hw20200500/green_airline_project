@@ -1,18 +1,20 @@
 INSERT INTO member_grade_tb
-VALUES ('골드');
+VALUES 
+	('Silver'),
+	('Gold'),
+	('Platinum'),
+	('Diamond');
 
 INSERT INTO user_tb 
 VALUES 
 	('abc', '1234', '회원'),
-	('a123', '1234', '회원'),
-	('os01031', '1234', '회원');
+	('a123', '1234', '회원');
 
 
 INSERT INTO member_tb
 VALUES 
-	('abc', '김홍아', 'KIM HONGAH', '1986-12-15', 'F', '010-1111-2222', 'abc@naver.com', '부산광역시 수영구', '대한민국', '골드'),
-	('a123', '홍길동', 'HONG GILDONG', '1996-07-05', 'F', '010-1111-2222', 'a123@naver.com', '부산광역시 수영구', '대한민국', '골드'),
-	('os01031', '이서영', 'LEE SEOYOUNG', '2000-01-05', 'F', '010-3721-0730', 'os010312@naver.com', '부산광역시 수영구', '대한민국', '골드');
+	('abc', '김홍아', 'KIM HONGAH', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', default),
+	('a123', '홍길동', 'HONG GILDONG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', default);
 
 
 INSERT INTO shop_product_tb(brand,name,price,count,product_image,gifticon_image)

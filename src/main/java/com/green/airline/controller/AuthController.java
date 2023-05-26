@@ -5,7 +5,6 @@ import java.net.URI;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -37,9 +36,8 @@ public class AuthController {
 
 	// Redirect URI 주소로 콜백 보냄
 	@GetMapping("/auth/kakao/callback")
-	@ResponseBody
 	@Transactional
-	public SocialDto kakaoCallbackCode(@RequestParam String code) throws JsonProcessingException {
+	public String kakaoCallbackCode(@RequestParam String code) throws JsonProcessingException {
 		// code :
 		// 1CoW7KlQ7rCl4vdQBN6ZqTu6c_0yJwlEyEt2l9ZAhwX5bTAKL2j-sthO9gkvdPZNxTBXcQopyWAAAAGITCXUEQ
 //		System.out.println("code : " + code);
@@ -56,56 +54,93 @@ public class AuthController {
 		params.add("redirect_uri", "http://localhost:80/auth/kakao/callback");
 		params.add("code", code);
 
-		// 카카오 서버로 요청할 URI 만듦 
+		// 카카오 서버로 요청할 URI 만듦
 		URI uri = UriComponentsBuilder.fromUriString("https://kauth.kakao.com").path("/oauth").path("/token").encode()
 				.build().toUri();
 
 		// 만들어둔 헤더와 바디 합쳐서 kakaoReqEntity 담음
 		HttpEntity<MultiValueMap<String, String>> kakaoReqEntity = new HttpEntity<>(params, headers);
 
-		// .exchange로 요청한 값을 responseToken에 담음 / OAuthToken.class -> 응답 해줄 때 이걸로 내려달라고 요청하는 거임
+		// .exchange로 요청한 값을 responseToken에 담음 / OAuthToken.class -> 응답 해줄 때 이걸로 내려달라고
+		// 요청하는 거임
 		ResponseEntity<OAuthToken> responseToken = restTemplate.exchange(uri, HttpMethod.POST, kakaoReqEntity,
 				OAuthToken.class);
 
-		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-
 		SocialDto res = requestKakaoUserInfo(responseToken.getBody().getAccessToken());
-		
+
 		// 회원가입 처리 작동 확인 완료 했으니 if문 사용해서 처음 연동시에만 회원가입 처리하게 바꾸기
 		// 회원가입 처리를 하지 않을 때는 로그인 처리(session에 값 담기)
 		// 로그아웃 처리 해보기
 		// 탈퇴처리 해보기
-		// userService.createBySocialDto(res);
-//		SocialDto selectNickname = userService.readBySocialUserInfo(res.getKakaoAccount().getProfile().getNickname());
 
 		// 서비스에서 회원가입여부 확인 - select -> null -> 회원가입 처리
 		// 로그인 처리 세션 생성
-//		System.out.println("userInfo : " + userInfo);
 //		SocialMemberInfoDto memberInfoDto = userService.readBySocialUserInfo(userInfo.getId());
 
+		// principal에서 id를 가져와 그 아이디를 member_tb의 WHERE 절에
+		// 넣으면 해당 유저의 정보를 가져올 수 있음
+//		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+
+		// todo - del
+		// res.getId() 123123123123
+		User principal = userService.readSocialDtoById(res.getId());
+//		System.out.println(principal);
 		if (principal == null) {
-			// 회원 가입 처리
+			// session에 user_tb ? 에서 조회한 회원 정보가 들어감
+			// 서비스 불러서 조회하기
+			// session에 값 담기
+
+			// return 회원가입 페이지
+			String email = res.getKakaoAccount().getEmail();
+			String gender = res.getKakaoAccount().getGender();
+
+			// email은 없고 
+			if (email == null) {
+				
+				// gender도 없고
+				if (gender == null) {
+					return "redirect:/apiJoin";
+				}
+				
+				// gender는 있고
+				return "redirect:/apiJoin?gender=" + gender;
+				
+				// gender만 없고
+			} else if (gender == null) {
+				return "redirect:/apiJoin?email=" + email;
+			}
+			
+			// email, gender 둘 다 있고
+			userService.createByUser(res);
+			User principal2 = userService.readSocialDtoById(res.getId());
+			session.setAttribute(Define.PRINCIPAL, principal2);
+			
+			return "redirect:/apiJoin?email=" + email + "&gender=" + gender;
+
 		} else {
-			// 로그인 처리
+			session.setAttribute(Define.PRINCIPAL, principal);
 		}
 
-		return res;
+//		System.out.println("principal : " + principal.getId());
+
+		// if (principal == null) {
+//			// 회원 가입 처리
+//
+//		} else {
+//			// 로그인 처리
+//			User user = userService.readSocialDtoById(principal.getId());
+//
+//		}
+
+		// -0000
+		return "redirect:/";
 	}
 
-	// 카카오 자원 서버에서 데이터를 받음
+	@GetMapping("/apiJoin")
+	public String apiJoinPage(@RequestParam(defaultValue = "none") String email, @RequestParam(defaultValue = "none") String gender) {
 
-	// Todo
-	// 우리 서버에 추가해야 할 작업 사항
-
-	// 세션 처리해야 함 - > 회원가입이 되어 있어야 한다.
-	// user_tb -> id / member_tb -> id, password, email, gender
-
-	// select 확인 후
-	// 최초 사용자면 회원가입 처리 (중복된 이름이 생길 수 있음)
-	// 그게 아니라면 로그인 처리
-
-	// 최초 소셜 접근 사용자는 카카오 닉네임으로 username 저장
-	// DB에서는 password (필수) <-- 임의값으로 DB에 저장해야 함.
+		return "redirect:/join";
+	}
 
 	// 사용자 정보 받아오기
 	/**
@@ -122,6 +157,32 @@ public class AuthController {
 		HttpEntity<SocialDto> profileReqEntity = new HttpEntity<>(headers);
 		ResponseEntity<SocialDto> response = restTemplate.exchange("https://kapi.kakao.com/v2/user/me", HttpMethod.GET,
 				profileReqEntity, SocialDto.class);
+
+		return response.getBody();
+	}
+
+	// 로그아웃 처리 세션에서 없애버리는 방법도 있음
+	private SocialDto logoutKakaoUser(String accessToken) {
+
+		// 매개변수 : String accessToken
+		RestTemplate restTemplate = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/x-www-form-urlencoded");
+		headers.add("Authorization", "Bearer " + accessToken);
+
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+		params.add("target_id_type", "user_id");
+		params.add("taget_id", "id"); // 서비스에서 로그아웃시킬 사용자의 회원번호
+
+		URI uri = UriComponentsBuilder.fromUriString("https://kapi.kakao.com").path("/v1").path("/user").path("/logout")
+				.encode().build().toUri();
+
+		HttpEntity<MultiValueMap<String, String>> kakaoReqEntity = new HttpEntity<>(params, headers);
+
+		ResponseEntity<SocialDto> response = restTemplate.exchange(uri, HttpMethod.POST, kakaoReqEntity,
+				SocialDto.class);
+
+//		System.out.println(responseToken);
 
 		return response.getBody();
 	}

@@ -7,9 +7,13 @@
 		SELECT * FROM user_tb WHERE id = #{id} AND password = #{password}
 	</select>
 	
-	<insert id="insertBySocialDto">
-		INSERT INTO user_tb (id, password)
-		VALUES(#{id}, #{password})
+	<insert id="insertByUser">
+		INSERT INTO user_tb (id, password, user_role)
+		VALUES(#{id}, #{password}, #{userRole})
 	</insert>
-
+	
+	<select id="selectSocialDtoById" resultType="com.green.airline.repository.model.User">
+		SELECT * FROM user_tb WHERE id = #{id}
+	</select>
+	
 </mapper>

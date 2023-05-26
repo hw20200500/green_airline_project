@@ -1,14 +1,67 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
-<style></style>
+<style>
+.inFlightMeals--option--wrap {
+	display: flex;
+	justify-content: center;
+}
+
+#inFlightMeals--option {
+	width: 300px;
+	height: 40px;
+	border: none;
+	border-bottom: 1px solid black;
+	font-size: 20px;
+	margin-bottom: 50px;
+	margin-top: 30px;
+	padding-bottom: 5px;
+	text-align: center;
+}
+
+#inFlightMeals--image {
+	display: flex;
+	justify-content: center;
+}
+
+#inFlightMeals--description {
+	display: flex;
+	justify-content: center;
+}
+
+#inFlightMeals--description>span {
+	width: 1000px;
+	font-size: 17.5px;
+	margin-bottom: 20px;
+}
+
+#inFlightMeals--details {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.detail--wrap {
+	width: 1000px;
+}
+
+.inFlightMeals--btn--wrap {
+	display: flex;
+	justify-content: center;	
+}
+
+.inFlightMeals--btn--wrap > div{
+	width: 1000px;
+}
+</style>
 
 <div>
 	<main>
 		<h2>특별 기내식</h2>
+		<hr>
 		<input type="hidden" name="memberId" value="memberId">
 
-		<div>
-			<div>항목 선택</div>
+		<div class="inFlightMeals--option--wrap">
 			<select id="inFlightMeals--option">
 				<c:forEach var="flightMeals" items="${flightMeals}" varStatus="status">
 					<c:if test="${status.index>0}">
@@ -25,16 +78,20 @@
 			<span>${inFlightMeals.get(0).ifmName} : ${inFlightMeals.get(0).ifmDescription}</span>
 		</div>
 
-		<div id="inFlightMeals--detail">
+		<div id="inFlightMeals--details">
 			<c:forEach var="inFlightMeals" items="${inFlightMeals}">
-				<span>${inFlightMeals.ifmdName}</span>
-				<p>${inFlightMeals.ifmdDescription}</p>
+				<div class="detail--wrap">
+					<span>${inFlightMeals.ifmdName}</span>
+					<p>${inFlightMeals.ifmdDescription}</p>
+				</div>
 			</c:forEach>
 
 		</div>
 
-		<div>
-			<button type="button" id="inFlightMeals--request--btn" class="btn btn-primary" data-toggle="modal" data-target="#special--meal--req">특별 기내식 신청</button>
+		<div class="inFlightMeals--btn--wrap">
+			<div>
+				<button type="button" id="inFlightMeals--request--btn" class="btn btn-primary" data-toggle="modal" data-target="#special--meal--req">특별 기내식 신청</button>
+			</div>
 		</div>
 
 		<!-- The Modal -->
@@ -61,7 +118,8 @@
 										<!-- db 안에 들어있는 departureDate는 format 전의 값이니까 2023/05/18 -> 2023년05월18일 -->
 										<select name="modal--name--arrivaldate" id="modal--id--arrivaldate">
 											<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}">
-												<option value="${inFlightServiceResponseDtos.departureDateFormat()}" id="arrival--option">${inFlightServiceResponseDtos.departure} → ${inFlightServiceResponseDtos.destination} ${inFlightServiceResponseDtos.departureDateFormat()}</option>
+												<option value="${inFlightServiceResponseDtos.departureDateFormat()}" id="arrival--option">${inFlightServiceResponseDtos.departure}→ ${inFlightServiceResponseDtos.destination}
+													${inFlightServiceResponseDtos.departureDateFormat()}</option>
 											</c:forEach>
 										</select> <br>
 									</div>

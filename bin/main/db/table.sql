@@ -23,7 +23,7 @@ CREATE TABLE member_tb(
    email VARCHAR(40),
    address VARCHAR(200),
    nationality VARCHAR(50),
-   grade VARCHAR(10), FOREIGN KEY (grade) REFERENCES member_grade_tb(name)
+   grade VARCHAR(10) DEFAULT 'Silver', FOREIGN KEY (grade) REFERENCES member_grade_tb(name)
 );
 
 

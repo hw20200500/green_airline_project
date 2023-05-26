@@ -1,5 +1,6 @@
 package com.green.airline.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,12 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private HttpSession session;
-	
+
 	/**
-	 * @author 서영
-	 * 메인 페이지
+	 * @author 서영 메인 페이지
 	 */
 	@GetMapping("")
 	public String mainPage(Model model) {
@@ -36,18 +36,18 @@ public class UserController {
 		model.addAttribute("isMain", isMain);
 		return "/mainPage";
 	}
-	
+
 	/**
-	 * @author 서영
-	 * 로그인 페이지
+	 * @author 서영 로그인 페이지
 	 */
 	@GetMapping("/login")
 	public String loginPage() {
 		return "/user/login";
 	}
-	
+
 	/**
 	 * todo : 비밀번호인코더 처리
+	 * 
 	 * @return
 	 */
 	@PostMapping("/login")
@@ -60,13 +60,23 @@ public class UserController {
 		}
 		return "redirect:/";
 	}
-	
+
 	@GetMapping("/logout")
-	public String logoutProc() {
+	public String logoutProc(HttpServletRequest request) {
+
+// 		매개변수 : HttpServletRequest request
+//		Cookie[] cookies = request.getCookies();
+//
+//		ArrayList<Cookie> cookiesList = new ArrayList<>(Arrays.asList(cookies));
+//		cookiesList.stream().forEach((cookie) -> {
+//			System.out.println(cookie);
+//			cookie.setMaxAge(0);
+//		});
+
 		session.invalidate();
 		return "redirect:/";
 	}
-	
+
 	/**
 	 * 
 	 * @return 로그인되어 있는 멤버의 회원 정보
@@ -80,7 +90,17 @@ public class UserController {
 		return response;
 	}
 	
+	@GetMapping("/join")
+	public String joinPage() {
+		// Todo
+		// 데이터베이스에서 국적 가져오기
+		return "/user/join";
+	}
 	
-	
-	
+	@PostMapping("/joinProc")
+	public String joinProc(Member member) {
+		userService.createMember(member);
+		return "redirect:/";
+	}
+
 }

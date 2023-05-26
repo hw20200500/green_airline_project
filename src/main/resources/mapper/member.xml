@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.green.airline.repository.interfaces.MemberRepository">
+<mapper
+	namespace="com.green.airline.repository.interfaces.MemberRepository">
 
-<select id="selectById" resultType="com.green.airline.repository.model.Member">
-	SELECT * FROM member_tb WHERE id = #{id}
-</select>
+	<select id="selectById"
+		resultType="com.green.airline.repository.model.Member">
+		SELECT * FROM member_tb WHERE id = #{id}
+	</select>
 
-<select id="selectBySocialUserInfo" resultType="com.green.airline.dto.kakao.SocialDto">
-	SELECT * 
-	FROM member_tb 
-	WHERE id=#{id}
-</select>
+	<select id="selectBySocialUserInfo"
+		resultType="com.green.airline.dto.kakao.SocialDto">
+		SELECT *
+		FROM member_tb
+		WHERE id=#{id}
+	</select>
 
-<insert id="insertBySocialDto">
-	INSERT INTO member_tb(id, kor_name, email, gender)
-	VALUES(#{id}, #{nickname}, #{email}, #{gender})
-</insert>
+	<insert id="insertMember">
+		INSERT INTO member_tb(id, kor_name, eng_name, birth_date, gender,
+		phone_number, email, address, nationality)
+		VALUES(#{id}, #{korName}, #{engName}, #{birthDate}, #{gender}, #{phoneNumber},
+		#{email}, #{address}, #{nationality})
+	</insert>
+
+	<insert id="insertBySocialDto">
+		INSERT INTO member_tb(id, kor_name, email, gender)
+		VALUES(#{id}, #{nickname}, #{email}, #{gender})
+	</insert>
 
 </mapper>
