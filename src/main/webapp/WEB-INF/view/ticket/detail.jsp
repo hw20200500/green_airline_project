@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<link rel="stylesheet" href="/css/ticket.css">
 
 <!-- 구매한 항공권 상세 페이지 -->
 
@@ -256,7 +257,7 @@
 						<td>
 							<c:choose>
 								<c:when test="${ticket.status == 2}">
-									<span style="font-weight: 500; color: #c6c6c6;">환불</span>
+									<span style="font-weight: 500; color: #c6c6c6;">환불처리</span>
 								</c:when>
 								<c:when test="${ticket.status == 1}">
 									<span style="font-weight: 500; color: #436195;">결제완료</span>
@@ -266,9 +267,9 @@
 					</tr>
 				</tbody>
 			</table>
-			<c:if test="${ticket.checkDate()}">
+			<c:if test="${ticket.checkRefundable()}">
 				<div class="d-flex justify-content-center" style="width: 100%; margin: 70px 0 40px;">
-					<button class="search--btn--middle" style="padding: 8px 12px 4px 5px;">
+					<button class="search--btn--middle" style="padding: 8px 12px 4px 5px;" id="refundBtn">
 						<ul class="d-flex justify-content-center">
 							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 26px; margin-top: 1px;">attach_money</span>
 							<li style="margin-left: 4px;">환불 신청
@@ -276,11 +277,59 @@
 					</button>
 				</div>
 			</c:if>
-			
+		</div>
+	</div>
+	
+	<div class="modal fade header--modal refund--modal">
+		<div class="modal-dialog" style="max-width: 400px;">
+			<div class="modal-content">
+				<div class="modal--title--div">
+					<h4 class="modal--title">환불 신청</h4>
+					<button class="close--button" onclick="$('.refund--modal').modal('hide');">
+						<span class="material-symbols-outlined">close</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="d-flex align-items-center justify-content-center" style="margin: 10px;">
+						<form action="/payment/refund" method="post">
+							<input type="hidden" name="tid" value="${ticket.tid}">
+							<input type="hidden" name="paymentAmount" value="${ticket.amount}">
+							<input type="hidden" name="ticketType" value="${type}">
+							<input type="hidden" name="dayCount" value="">
+							<input type="hidden" name="scheduleType" value="${ticket.scheduleType}">
+ 							<input type="hidden" name="adultCount" value="${ticket.adultCount}">
+ 							<input type="hidden" name="childCount" value="${ticket.childCount}">
+							<button class="search--btn" id="refundReqBtn" type="submit">
+								<ul class="d-flex justify-content-center" style="margin: 0;">
+									<li style="height: 24px; margin-right: 2px;">신청
+									<li style="height: 24px;"><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 18px; padding-top: 4px;">touch_app</span>
+								</ul>
+							</button>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
 </main>
 
+<script>
+	$("#refundBtn").on("click", function() {
+		$(".refund--modal").modal();
+	});
+	
+	$("#refundReqBtn").on("click", function() {
+		
+		// 출발날짜 - 현재날짜
+		let curDate = new Date();
+		let depDate = stringToDate(`${ticket.formatDepartureDate()}`);
+		let dayCount = calculateDayDiff(depDate, curDate);
+		$("input[name=\"dayCount\"]").val(dayCount);
+
+	});
+</script>
+
+<script src="/js/ticket.js"></script>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

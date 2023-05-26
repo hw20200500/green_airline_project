@@ -28,6 +28,10 @@ public class ScheduleInfoResponseDto {
 	// 도착 국가/공항
 	private String destinationRegion;
 	private String destinationAirport;
+	
+	// 국내선/국제선 구분
+	private Integer type;
+	
 	// 운항시간
 	private String flightTime;
 	

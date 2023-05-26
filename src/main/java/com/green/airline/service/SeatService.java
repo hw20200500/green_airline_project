@@ -19,6 +19,7 @@ import com.green.airline.repository.interfaces.TicketPriceRepository;
 import com.green.airline.repository.model.ReservedSeat;
 import com.green.airline.repository.model.SeatGrade;
 import com.green.airline.repository.model.TicketPrice;
+import com.green.airline.utils.Define;
 import com.green.airline.utils.NumberUtil;
 
 
@@ -57,6 +58,14 @@ public class SeatService {
 		
 		// 이코노미 기준 좌석 가격
 		Long economyPrice = ticketPriceRepository.selectByHours(hours).getPrice();
+		
+		// 국내선 : 1, 국제선 : 2
+		// 국제선이면 가격 1.5배
+		Integer type = scheduleDto.getType();
+		
+		if (type == 2) {
+			economyPrice = Math.round(economyPrice * Define.INTERNATIONAL_RATE);
+		}
 		
 		// 좌석 등급에 따른 가격 배수
 		Integer businessPriceMultiple = seatGradeRepository.selectByName("비즈니스").getPriceMultiple();

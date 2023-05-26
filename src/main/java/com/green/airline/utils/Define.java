@@ -11,6 +11,9 @@ public class Define {
 	// 유아 티켓 가격 비율 (기준 : 성인)
 	public final static double INFANT_PRICE_RATE = 0.1;
 	
+	// 국제선은 국내선보다 가격 1.5배
+	public final static double INTERNATIONAL_RATE = 1.5;
+	
 
 
 	/**

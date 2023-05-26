@@ -13,6 +13,19 @@
 	WHERE ticket_id1 = #{ticketId} OR ticket_id2 = #{ticketId}
 </update>
 
+<update id="updateStatusByTid">
+	
+	<if test="type == 1">
+		UPDATE ticket_payment_tb SET status1 = #{status}
+		WHERE tid = #{tid}
+	</if>
+	<if test="type == 2">
+		UPDATE ticket_payment_tb SET status2 = #{status}
+		WHERE tid = #{tid}
+	</if>
+
+</update>
+
 <select id="selectByTicketId" resultType="com.green.airline.repository.model.TicketPayment">
 	SELECT * 
 	FROM ticket_tb AS t

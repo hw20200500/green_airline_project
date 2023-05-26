@@ -228,6 +228,13 @@ public class TicketService {
 		return dtoList;
 	}
 	
+	/**
+	 * @author 서영
+	 * 환불 처리됨을 표시하기 위해 Status 처리
+	 */
+	public void updateStatusRefund(String tid, Integer type) {
+		ticketPaymentRepository.updateStatusByTid(tid, type, 2);
+	}
 	
 	
 	

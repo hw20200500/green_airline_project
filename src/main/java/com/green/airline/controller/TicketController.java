@@ -299,6 +299,15 @@ public class TicketController {
 		
 		TicketAllInfoDto ticket = ticketService.readTicketAllInfoByTicketId(id);
 		model.addAttribute("ticket", ticket);
+		System.out.println(ticket);
+		
+		Integer type = null;
+		if (ticket.getId().length() == 9 && ticket.getId().substring(0, 8).equals("B")) {
+			type = 2;
+		} else {
+			type = 1;
+		}
+		model.addAttribute("type", type);
 		
 		List<Passenger> passengerList = passengerService.readByTicketId(id);
 		model.addAttribute("passengerList", passengerList);
@@ -310,6 +319,15 @@ public class TicketController {
 		model.addAttribute("name", name);
 		
 		return "/ticket/detail";
+	}
+
+	/**
+	 * 환불 안내 페이지
+	 */
+	@GetMapping("/refundInfo")
+	public String refundInfoPage(Model model) {
+		
+		return "/ticket/refundInformation";
 	}
 	
 }

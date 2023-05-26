@@ -78,6 +78,7 @@ create table route_tb(
    departure varchar(50) not null,
    destination varchar(50) not null,
    flight_time varchar(50) not null,
+   type TINYINT NOT NULL,
    foreign key (departure) references airport_tb (name),
    foreign key (destination) references airport_tb (name)
 );
@@ -339,5 +340,11 @@ request_date DATE default (CURRENT_DATE),
 status int default 0,
 ticket_id VARCHAR(15),
 foreign key (ticket_id) references ticket_tb (id)
+);
 
+-- 환불 수수료
+CREATE TABLE refund_fee_tb (
+	criterion INT NOT NULL,
+	type TINYINT NOT NULL,
+	fee BIGINT NOT NULL
 );

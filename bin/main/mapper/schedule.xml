@@ -22,7 +22,7 @@
 </select>
 
 <select id="selectDtoByScheduleId" resultType="com.green.airline.dto.response.ScheduleInfoResponseDto">
-	SELECT s.id, departure_date, arrival_date, flight_time, airplane_id, a.name AS airplane_name, ap1.region AS departure_region, ap1.name AS departure_airport, ap2.region AS destination_region, ap2.name AS destination_airport
+	SELECT s.id, departure_date, arrival_date, flight_time, airplane_id, a.name AS airplane_name, ap1.region AS departure_region, ap1.name AS departure_airport, ap2.region AS destination_region, ap2.name AS destination_airport, type
 	FROM schedule_tb AS s
 	JOIN route_tb AS r
 	ON s.route_id = r.id

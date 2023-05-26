@@ -148,3 +148,12 @@ $(function() {
 	$('.datepicker').datepicker();
 });
 	
+// 날짜 차이를 '일'로 계산
+function calculateDayDiff (date1, date2) {
+	let time1 = date1.getTime();
+	let time2 = date2.getTime();
+	let timeDiff = time1 - time2;
+
+	let dayCount = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+	return dayCount;
+}

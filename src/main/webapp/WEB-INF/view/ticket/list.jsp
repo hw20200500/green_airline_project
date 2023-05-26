@@ -28,7 +28,7 @@
 	width: 11%;
 }
 
-.complete--payment:hover {
+.list--table tbody tr:hover {
 	font-weight: 500;
 	cursor: pointer;
 }
@@ -36,7 +36,7 @@
 
 <script>
 	$(document).ready(function() {
-		$(".complete--payment").on("click", function() {
+		$(".list--table tbody tr").on("click", function() {
 			let id = $(this).attr("id").split("tr")[1];
 			
 			location.href="/ticket/detail/" + id;
@@ -73,7 +73,7 @@
 					<td>
 						<c:choose>
 							<c:when test="${ticket.status == 2}">
-								<span style="font-weight: 500; color: #c6c6c6;">환불</span>
+								<span style="font-weight: 500; color: #c6c6c6;">환불처리</span>
 							</c:when>
 							<c:when test="${ticket.status == 1}">
 								<span style="font-weight: 500; color: #436195;">결제완료</span>
@@ -81,12 +81,6 @@
 						</c:choose>
 					</td>
 				</tr>
-				<script>
-					var target = "#tr" + `${ticket.id}`;
-					if ($(target).children().eq(5).text().trim() == '결제완료') {
-						$(target).addClass("complete--payment");
-					}
-				</script>
 			</c:forEach>
 		</tbody>
 	</table>

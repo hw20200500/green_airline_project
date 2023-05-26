@@ -98,6 +98,8 @@
 								<li><a href="/ticket/selectSchedule">항공권 예약</a>
 								<li><a href="/airplane/info/1">항공기 정보</a>
 								<li><a href="/ticket/list">항공권 구매 내역</a>
+								<li><a href="/ticket/refundInfo">환불 안내</a>
+								<li><a href="#">세부메뉴</a>
 								<li><a href="#">세부메뉴</a>
 							</ul>
 							<div class="nav--split"></div>

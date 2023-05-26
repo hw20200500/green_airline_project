@@ -11,5 +11,6 @@ public class Route {
 	private String destination;
 	private String flightTime;
 	private Integer flightDistance;
+	private Integer type;
 	
 }

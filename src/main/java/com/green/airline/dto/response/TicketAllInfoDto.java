@@ -31,14 +31,15 @@ public class TicketAllInfoDto {
 	private String tid;
 	private Long amount;
 	private Integer status;
+	private Integer scheduleType;
 	
 	
-	// 출발일이 현재보다 이전이라면 false -> 환불 신청 불가능
+	// 출발일이 현재보다 이전이라면 || 이미 환불되었다면 false -> 환불 신청 불가능
 	// 출발일이 현재보다 이후라면 true -> 환불 신청 가능
-	public boolean checkDate() {
+	public boolean checkRefundable() {
 		Timestamp now = new Timestamp(System.currentTimeMillis());
 		
-		if (departureDate.before(now)) {
+		if (departureDate.before(now) || status == 2) {
 			return false;
 		} else {
 			return true;
@@ -51,19 +52,19 @@ public class TicketAllInfoDto {
 	}
 	
 	public String formatDepartureDate() {
-		return TimestampUtil.dateToString(departureDate).replaceAll("-", ".");
+		return TimestampUtil.dateToString(departureDate);
 	}
 	
 	public String formatDepartureDate2() {
-		return TimestampUtil.dateTimeToString(departureDate).replaceAll("-", ".");
+		return TimestampUtil.dateTimeToString(departureDate);
 	}
 	
 	public String formatArrivalDate() {
-		return TimestampUtil.dateTimeToString(arrivalDate).replaceAll("-", ".");
+		return TimestampUtil.dateTimeToString(arrivalDate);
 	}
 	
 	public String formatReservedDate() {
-		return TimestampUtil.dateTimeToString(reservedDate).replaceAll("-", ".");		
+		return TimestampUtil.dateTimeToString(reservedDate);		
 	}
 	
 }
