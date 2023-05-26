@@ -9,8 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.green.airline.dto.request.JoinFormDto;
 import com.green.airline.dto.request.LoginFormDto;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.model.Member;
@@ -97,9 +100,19 @@ public class UserController {
 		return "/user/join";
 	}
 	
+	@GetMapping("/socialJoin")
+	public String apiJoinPage(@RequestParam(name = "id") String id, @RequestParam(defaultValue = "none") String email,
+			@RequestParam(defaultValue = "none") String gender, Model model) {
+		model.addAttribute("id", id);
+		model.addAttribute("email", email);
+		model.addAttribute("gender", gender);
+		return "/user/join";
+	}
+	
 	@PostMapping("/joinProc")
-	public String joinProc(Member member) {
-		userService.createMember(member);
+	public String joinProc(JoinFormDto joinFormDto) {
+		// 회원가입 (join.jsp에 회원가입 버튼으로 회원가입하는 경우 무조건 여기로 옴)
+		userService.createMember(joinFormDto);
 		return "redirect:/";
 	}
 
