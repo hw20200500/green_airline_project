@@ -2,6 +2,7 @@ function selectedType(i) {
 	// 이미 선택되어 있다면
 	if ($(`#ticketType${i}`).hasClass("selected--type")) {
 		return;
+<<<<<<< HEAD
 		// 선택되어 있지 않다면
 	} else if ($(`#ticket--type${i}`).hasClass("selected--type") == false) {
 		$(`#ticketType${i}`).addClass("selected--type");
@@ -23,6 +24,12 @@ function selectedType(i) {
 		}
 		$(".flight--date2").val("");
 		$(".datepicker--div--type1, .datepicker--div--type2").hide();
+=======
+	// 선택되어 있지 않다면
+	} else if ($(`#ticket--type${i}`).hasClass("selected--type") == false) {
+		$(`#ticketType${i}`).addClass("selected--type");
+		$(`#ticketType${i}`).siblings().removeClass("selected--type");
+>>>>>>> feature/board
 	}
 }
 
@@ -34,6 +41,7 @@ function airportSwap() {
 	$("#departure").val(destinationName);
 }
 
+<<<<<<< HEAD
 let noneResult = $("<li>검색 결과가 존재하지 않습니다.</li>");
 
 // 키가 입력될 때마다 자동완성 불러오기
@@ -48,10 +56,19 @@ $("#departure").on("keyup focus change", function() {
 	let searchName = $("#departure").val().replaceAll(" ", "");
 	$("#departure").val(searchName);
 
+=======
+// 키가 입력될 때마다 자동완성 불러오기
+$("#departure").on("keyup focus change", function() {
+	// 공백 입력 금지	
+	let searchName = $("#departure").val().replaceAll(" ", "");
+	$("#departure").val(searchName);
+	
+>>>>>>> feature/board
 	// 공백일 때는 자동 완성 미작동
 	if (searchName == "") {
 		$("#departureList").empty();
 		return;
+<<<<<<< HEAD
 		// 주소에 \가 들어가면 오류나서 막음
 	} else if (searchName.indexOf("\\") != -1) {
 		$("#departureList").html(noneResult);
@@ -73,6 +90,35 @@ $("#departure").on("keyup focus change", function() {
 				$("#departureList").append(el);
 			}
 		}
+=======
+	// 주소에 \가 들어가면 오류나서 막음
+	} else if (searchName.indexOf("\\") != -1) {
+		$("#departureList").empty();
+		var el = $("<li>검색 결과가 존재하지 않습니다.</li>");
+		$("#departureList").append(el);
+		return;
+	}
+	
+	$.ajax({
+		type: "GET",
+		url: `/airport/search?name=${searchName}`,
+		contentType: 'application/json; charset=utf-8'
+	}).done((res) => {
+		$("#departureList").empty();
+		
+		if (res.length == 0) {
+			var el = $("<li>검색 결과가 존재하지 않습니다.</li>");
+			$("#departureList").append(el);
+		} else {
+			for (let i = 0; i < res.length; i++){
+				var el = $("<li onclick=\"insertAutoComplete(" + i + ", 'departure');\">");
+				el.addClass("departure--li");
+				el.append(res[i].name);
+				$("#departureList").append(el);
+			}
+		}
+		
+>>>>>>> feature/board
 	}).fail((error) => {
 		console.log(error);
 	});
@@ -80,6 +126,7 @@ $("#departure").on("keyup focus change", function() {
 
 // 키가 입력될 때마다 자동완성 불러오기
 $("#destination").on("keyup focus", function() {
+<<<<<<< HEAD
 	// 만약 창이 숨겨진 상태라면
 	if ($("#destinationAirport").is(":hidden")) {
 		$("#destinationAirport").show();
@@ -90,10 +137,17 @@ $("#destination").on("keyup focus", function() {
 	let searchName = $("#destination").val().replaceAll(" ", "");
 	$("#destination").val(searchName);
 
+=======
+	// 공백 입력 금지	
+	let searchName = $("#destination").val().replaceAll(" ", "");
+	$("#destination").val(searchName);
+	
+>>>>>>> feature/board
 	// 공백일 때는 자동 완성 미작동
 	if (searchName == "") {
 		$("#destinationList").empty();
 		return;
+<<<<<<< HEAD
 		// 주소에 \가 들어가면 오류나서 막음
 	} else if (searchName.indexOf("\\") != -1) {
 		$("#destinationList").html(noneResult);
@@ -115,6 +169,35 @@ $("#destination").on("keyup focus", function() {
 				$("#destinationList").append(el);
 			}
 		}
+=======
+	// 주소에 \가 들어가면 오류나서 막음
+	} else if (searchName.indexOf("\\") != -1) {
+		$("#destinationList").empty();
+		var el = $("<li>검색 결과가 존재하지 않습니다.</li>");
+		$("#destinationList").append(el);
+		return;
+	}
+	
+	$.ajax({
+		type: "GET",
+		url: `/airport/search?name=${searchName}`,
+		contentType: 'application/json; charset=utf-8'
+	}).done((res) => {
+		$("#destinationList").empty();
+		
+		if (res.length == 0) {
+			var el = $("<li>검색 결과가 존재하지 않습니다.</li>");
+			$("#destinationList").append(el);
+		} else {
+			for (var i = 0; i < res.length; i++){
+				var el = $("<li onclick=\"insertAutoComplete(" + i + ", 'destination');\">");
+				el.addClass("destination--li");
+				el.append(res[i].name);
+				$("#destinationList").append(el);
+			}
+		}
+		
+>>>>>>> feature/board
 	}).fail((error) => {
 		console.log(error);
 	});
@@ -124,11 +207,16 @@ $("#destination").on("keyup focus", function() {
 $(".region--li").on("click", function() {
 	$(this).addClass("region--li--selected");
 	$(this).siblings().removeClass("region--li--selected");
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> feature/board
 	let region = $(this).text();
 	$.ajax({
 		type: "GET",
 		url: `/airport/list?region=${region}`,
+<<<<<<< HEAD
 
 	}).done((res) => {
 		$(".airport--ul").empty();
@@ -148,10 +236,39 @@ $(".region--li").on("click", function() {
 	}).fail((error) => {
 		console.log(error);
 	});
+=======
+		contentType: "application/json; charset=UTF-8"
+		
+	}).done((res) => {
+		$(".airport--ul").empty();
+		
+		if ($(".all--airport--modal").is(".depa")) {
+			for (var i = 0; i < res.length; i++) {
+				var el = $("<li onclick=\"insertAirport(" + i + ", 'departure');\">");
+				el.addClass("departure--airport--li");
+				el.append(res[i].name);
+				$(".airport--ul").append(el);
+			}			
+		} else if ($(".all--airport--modal").is(".dest")) {
+			for (var i = 0; i < res.length; i++) {
+				var el = $("<li onclick=\"insertAirport(" + i + ", 'destination');\">");
+				el.addClass("destination--airport--li");
+				el.append(res[i].name);
+				$(".airport--ul").append(el);
+			}
+		}
+		
+	}).fail((error) => {
+		console.log(error);
+	});
+	
+	
+>>>>>>> feature/board
 });
 
 // 다른 곳을 클릭하면 팝업 닫기
 $(document).on("click", function(e) {
+<<<<<<< HEAD
 
 	if ($("#departureDiv").has(e.target).length === 0) {
 		$("#departureAirport").hide();
@@ -165,11 +282,22 @@ $(document).on("click", function(e) {
 		$(".age--calculater--modal input").val("");
 	}
 
+=======
+	
+	if ($("#departureDiv").has(e.target).length === 0) {
+		$("#departureAirport").hide();
+	}
+	
+	if ($("#destinationDiv").has(e.target).length === 0) {
+		$("#destinationAirport").hide();
+	}
+>>>>>>> feature/board
 });
 
 // input에 포커스를 두면 해당하는 팝업 보이게
 $("#departure").on("focus", function() {
 	$("#departureAirport").show();
+<<<<<<< HEAD
 	$(".datepicker--div--type1, .datepicker--div--type2").hide();
 });
 $("#destination").on("focus", function() {
@@ -186,11 +314,17 @@ $("#flightDate").on("focus", function() {
 	} else if (ticketType.match('편도')) {
 		$(".datepicker--div--type2").show();
 	}
+=======
+});
+$("#destination").on("focus", function() {
+	$("#destinationAirport").show();
+>>>>>>> feature/board
 });
 
 // 자동 완성 항목 클릭하면 input에 value 들어감
 function insertAutoComplete(i, target) {
 	let liValue = $(`.${target}--li`).eq(i).text();
+<<<<<<< HEAD
 
 	// 반대 취항지에 존재하는 값이면 들어가지 못하게 함
 	if (target == "departure") {
@@ -205,10 +339,13 @@ function insertAutoComplete(i, target) {
 		}
 	}
 
+=======
+>>>>>>> feature/board
 	$(`#${target}`).val(liValue);
 	$(`#${target}Airport`).hide();
 }
 
+<<<<<<< HEAD
 // 전체 공항 조회 버튼
 $(".all--airport").on("click", function() {
 	$(".airport--ul").empty();
@@ -245,10 +382,16 @@ function insertAirport(i, target) {
 		}
 	}
 
+=======
+// 취항지 클릭하면 input에 value 들어감
+function insertAirport(i, target) {
+	let liValue = $(`.${target}--airport--li`).eq(i).text();
+>>>>>>> feature/board
 	$(`#${target}`).val(liValue);
 	$('.all--airport--modal').modal('hide');
 }
 
+<<<<<<< HEAD
 $(".flight--date2").on("change", function() {
 
 	// 가는 날을 선택하지 않았다면 오는 날 선택 불가능
@@ -967,3 +1110,104 @@ $("#selectSeatBtn").on("click", function() {
 		return false;
 	}	
 });
+=======
+// 좌석 선택
+function selectSeat(type, seatName) {
+	
+	if (type == 'e') {
+		// 선택
+		if ($(`.economy--seat--${seatName}`).attr("src") == "/images/ticket/economy_not.png" && seatCount > 0) {
+			$(`.economy--seat--${seatName}`).attr("src", "/images/ticket/economy_sel.png");
+			seatCount --;
+			console.log("df");
+			$.ajax({
+				type: 'GET',
+				url: `/ticket/selectedSeatData?seatName=${seatName}&scheduleId=${scheduleId}`,
+				contentType: 'application/json; charset=utf-8'
+				
+			}).done((res) => {
+				console.log(res);
+				showSeatInfo(seatName, res.seatGrade, res.seatPrice);
+			}).fail((error) => {
+				console.log(error);
+			});
+		
+		// 선택 취소
+		} else if ($(`.economy--seat--${seatName}`).attr("src") == "/images/ticket/economy_sel.png" && seatCount >= 0) {
+			$(`.economy--seat--${seatName}`).attr("src", "/images/ticket/economy_not.png");
+			seatCount ++;
+			
+			$(`#div${seatName}`).remove();
+			
+		}
+		
+	// 비즈니스 좌석이라면
+	} else if (type == 'b') {
+		
+		// 선택 (r)
+		if ($(`.business--seat--${seatName}`).attr("src") == "/images/ticket/business_r_not.png" && seatCount > 0) {
+			$(`.business--seat--${seatName}`).attr("src", "/images/ticket/business_r_sel.png");
+			seatCount --;
+			
+			$.ajax({
+				type: 'GET',
+				url: `/ticket/selectedSeatData?seatName=${seatName}&scheduleId=${scheduleId}`,
+				contentType: 'application/json; charset=utf-8'
+				
+			}).done((res) => {
+				console.log(res);
+				showSeatInfo(seatName, res.seatGrade, res.seatPrice);
+			}).fail((error) => {
+				console.log(error);
+			});
+			
+		// 선택 취소 (r)
+		} else if ($(`.business--seat--${seatName}`).attr("src") == "/images/ticket/business_r_sel.png" && seatCount >= 0) {
+			$(`.business--seat--${seatName}`).attr("src", "/images/ticket/business_r_not.png");
+			seatCount ++;
+			
+			$(`#div${seatName}`).remove();
+			
+		// 선택 (l)
+		} else if ($(`.business--seat--${seatName}`).attr("src") == "/images/ticket/business_l_not.png" && seatCount > 0) {
+			$(`.business--seat--${seatName}`).attr("src", "/images/ticket/business_l_sel.png");
+			seatCount --;
+			
+			$.ajax({
+				type: 'GET',
+				url: `/ticket/selectedSeatData?seatName=${seatName}&scheduleId=${scheduleId}`,
+				contentType: 'application/json; charset=utf-8'
+				
+			}).done((res) => {
+				console.log(res);
+				showSeatInfo(seatName, res.seatGrade, res.seatPrice);
+			}).fail((error) => {
+				console.log(error);
+			});
+			
+		// 선택 취소 (l)
+		} else if ($(`.business--seat--${seatName}`).attr("src") == "/images/ticket/business_l_sel.png" && seatCount >= 0) {
+			$(`.business--seat--${seatName}`).attr("src", "/images/ticket/business_l_not.png");
+			seatCount ++;
+			
+			$(`#div${seatName}`).remove();
+			
+		}
+	}
+	
+}
+
+// 선택된 좌석 정보 보이게
+function showSeatInfo(seatName, seatGrade, seatPrice) {
+	let newDiv = $("<ul>");
+	newDiv.attr("id", `div${seatName}`);
+	newDiv.append(`<li>좌석번호 : ${seatName}</li>`);
+	newDiv.append(`<li>좌석등급 : ${seatGrade}</li>`);
+	newDiv.append(`<li>가격 : ${seatPrice}</li>`);
+	newDiv.css("border", "1px solid #ccc");
+	newDiv.css("padding", "10px");
+	newDiv.css("border-radius", "5px");
+	$(".seat--info").append(newDiv);
+}
+
+>>>>>>> feature/board

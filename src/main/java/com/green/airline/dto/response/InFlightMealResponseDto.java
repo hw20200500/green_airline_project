@@ -1,20 +1,28 @@
 package com.green.airline.dto.response;
 
+<<<<<<< HEAD
 import java.sql.Timestamp;
 
 import com.green.airline.utils.TimestampUtil;
 
+=======
+>>>>>>> feature/board
 import lombok.Data;
 
 @Data
 public class InFlightMealResponseDto {
 
+<<<<<<< HEAD
 	private Integer id;
 	private String ticketId;
+=======
+	private int id;
+>>>>>>> feature/board
 	private String ifmName;
 	private String ifmdName;
 	private String ifmDescription;
 	private String ifmdDescription;
+<<<<<<< HEAD
 	private String iconImage;
 	private String detailImage;
 	private Integer mealId;
@@ -44,5 +52,8 @@ public class InFlightMealResponseDto {
 	public String reservedDateFormat() {
 		return TimestampUtil.dateTimeToString(reservedDate);
 	}
+=======
+	private int mealId;
+>>>>>>> feature/board
 	
 }

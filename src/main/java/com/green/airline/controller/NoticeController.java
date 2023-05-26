@@ -26,7 +26,11 @@ public class NoticeController {
 
 	// 관리자 측 공지사항 작성 페이지
 	@GetMapping("/noticeInsert")
+<<<<<<< HEAD
 	public String noticeInsertPage(Model model) {
+=======
+	public String noticeInsertPage(NoticeCategory noticeCategory, Model model) {
+>>>>>>> feature/board
 		List<NoticeCategory> categoryList = noticeService.readNoticeCategory();
 		model.addAttribute("categoryList", categoryList);
 

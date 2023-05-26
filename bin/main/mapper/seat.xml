@@ -27,6 +27,7 @@
 	WHERE sc.id = #{scheduleId} AND s.grade = #{grade}
 </select>
 
+<<<<<<< HEAD
 <select id="selectByAirplaneId" resultType="com.green.airline.dto.response.AirplaneInfoDto">
 	SELECT a.id, a.name, s.grade, count(*) AS seat_count
 	FROM airplane_tb AS a
@@ -36,4 +37,6 @@
 	GROUP BY s.grade
 </select>
 
+=======
+>>>>>>> feature/board
 </mapper>

@@ -9,7 +9,10 @@
 		
 	</main>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> feature/board
 
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

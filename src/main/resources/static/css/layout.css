@@ -36,13 +36,21 @@ header {
 }
 
 .header--top, nav {
+<<<<<<< HEAD
 	width: 1200px;
+=======
+	width: 1300px;
+>>>>>>> feature/board
 	min-width: 1000px;
 }
 
 main {
 	/* border: 1px solid #ccc; */
+<<<<<<< HEAD
 	min-width: 1200px;
+=======
+	min-width: 1300px;
+>>>>>>> feature/board
 	padding-left: 22px;
 	margin-bottom: 100px;
 }
@@ -54,11 +62,15 @@ main {
 
 .header--top li {
 	font-size: 14px;
+<<<<<<< HEAD
 	line-height: 1.6;
 }
 
 .header--top li a {
 	color: #3e3e3e;
+=======
+	line-height: 1.6
+>>>>>>> feature/board
 }
 
 .li--split {
@@ -68,9 +80,18 @@ main {
 
 .material--li {
 	display: flex; 
+<<<<<<< HEAD
 	margin-right: 3px;
 }
 
+=======
+	align-items: center;
+	margin-right: 3px;
+	margin-right: 5px;
+}
+
+
+>>>>>>> feature/board
 .material-symbols-outlined:hover {
 	color: black;
 }
@@ -82,7 +103,11 @@ main {
 .logo {
 	min-width: 250px;
 	height: 64px;
+<<<<<<< HEAD
 	margin: 0px 10px 17px 17px;
+=======
+	margin: 0px 10px 17px 20px;
+>>>>>>> feature/board
 	color: white;
 	cursor: pointer;
 }
@@ -112,8 +137,12 @@ nav {
 	font-weight: 600;
 	min-width: 100%;
 	text-align: center;
+<<<<<<< HEAD
 	/*color: #314f79;*/
 	color: #373737; 
+=======
+	color: #314f79; 
+>>>>>>> feature/board
 }
 
 .nav--depth1 li a:hover {
@@ -123,7 +152,11 @@ nav {
 .nav--bar {
 	background-color: #174481;
 	height: 7px;
+<<<<<<< HEAD
 	width: 232px;
+=======
+	width: 257px;
+>>>>>>> feature/board
 	display: none;
 	position: relative;
 }
@@ -150,12 +183,20 @@ nav {
 }
 
 .nav--div1 {
+<<<<<<< HEAD
 	min-width: 23px;
+=======
+	min-width: 25px;
+>>>>>>> feature/board
 	height: 100%;
 }
 
 .nav--div2 {
+<<<<<<< HEAD
 	min-width: 255px; 
+=======
+	min-width: 257px; 
+>>>>>>> feature/board
 	height: 100%;
 	background-color: #F3FCFE;
 }
@@ -163,7 +204,11 @@ nav {
 .nav--depth2 ul {
 	text-align: center;
 	padding: 10px;
+<<<<<<< HEAD
 	min-width: 230px;
+=======
+	min-width: 255px;
+>>>>>>> feature/board
 }
 
 .nav--split {
@@ -179,12 +224,17 @@ nav {
 
 .nav--depth2--div li {
 	font-size: 17px;
+<<<<<<< HEAD
 	padding: 15px 0;
 	border-bottom: 1px solid buttonshadow;
 }
 
 .nav--depth2--div li:last-of-type {
 	border-bottom: hidden;
+=======
+	margin: 5px 0;
+	padding: 10px 0;
+>>>>>>> feature/board
 }
 
 .nav--depth2--div li a {
@@ -201,7 +251,11 @@ nav {
 	background-color: #9b9b9e;
 	display: flex;
 	justify-content: flex-start;
+<<<<<<< HEAD
 	min-width: 1200px;
+=======
+	min-width: 1300px;
+>>>>>>> feature/board
 	z-index: 1;
 }
 
@@ -250,6 +304,7 @@ nav {
 	display: flex;
 	justify-content: center;	
 	margin-bottom: 30px;
+<<<<<<< HEAD
 }
 
 /* 데이트피커 셀 바꾸기*/
@@ -388,4 +443,6 @@ footer {
 
 ul {
 	margin: 0;
+=======
+>>>>>>> feature/board
 }

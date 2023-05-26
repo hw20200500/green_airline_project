@@ -5,6 +5,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
+<<<<<<< HEAD
 public class WebMvcConfig implements WebMvcConfigurer{
 
 	
@@ -23,4 +24,14 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	 
 	 
 	
+=======
+public class WebMvcConfig implements WebMvcConfigurer {
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/board/**")
+				.addResourceLocations("file:///C:\\upload/");
+	}
+
+>>>>>>> feature/board
 }

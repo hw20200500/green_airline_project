@@ -6,9 +6,13 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.green.airline.dto.response.InFlightMealResponseDto;
+<<<<<<< HEAD
 import com.green.airline.dto.response.InFlightServiceResponseDto;
 import com.green.airline.repository.model.InFlightMeal;
 import com.green.airline.repository.model.InFlightMealDetail;
+=======
+import com.green.airline.repository.model.InFlightMeal;
+>>>>>>> feature/board
 import com.green.airline.repository.model.InFlightService;
 
 @Mapper
@@ -20,6 +24,7 @@ public interface InFlightServiceRepository {
 	// 기내 서비스 검색 기능
 	List<InFlightService> selectInFlightServiceByName(String keyword);
 	
+<<<<<<< HEAD
 	// 특별 기내식 조회 기능 
 	List<InFlightMealResponseDto> selectInFlightMeal(String name);
 	
@@ -52,3 +57,11 @@ public interface InFlightServiceRepository {
 	
 }
  
+=======
+	// 특별 기내식 조회 기능
+	List<InFlightMeal> selectInFlightMeal(@Param("type") String type);
+	
+	// 특별 기내식 상세 조회 기능
+	List<InFlightMealResponseDto> selectInFlightAllMeal();
+}
+>>>>>>> feature/board

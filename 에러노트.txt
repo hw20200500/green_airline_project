@@ -1,0 +1,83 @@
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+[2m2023-05-12 11:42:12.026[0;39m [31mERROR[0;39m [35m10504[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.b.d.LoggingFailureAnalysisReporter  [0;39m [2m:[0;39m 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Field boardService in com.green.airline.controller.BoardController required a bean of type 'com.green.airline.service.BoardService' that could not be found.
+
+- service 파일에 @service 붙여서 해결
+- @autowired가 서비스를 바라보지 못함
+
+==================================================
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+[2m2023-05-12 11:43:14.547[0;39m [31mERROR[0;39m [35m9560[0;39m [2m---[0;39m [2m[  restartedMain][0;39m [36mo.s.boot.SpringApplication              [0;39m [2m:[0;39m Application run failed
+
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'boardController': Unsatisfied dependency expressed through field 'boardService'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'boardService': Unsatisfied dependency expressed through field 'boardInterface'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'boardInterface' defined in file [C:\Users\GGG\Desktop\green-airline\green-airline\bin\main\com\green\airline\repository\interfaces\boardInterface.class]: Cannot resolve reference to bean 'sqlSessionTemplate' while setting bean property 'sqlSessionTemplate'; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'dataSourceScriptDatabaseInitializer' defined in class path resource [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Invocation of init method failed; nested exception is org.springframework.jdbc.datasource.init.ScriptStatementFailedException: Failed to execute SQL script statement #22 of class path resource [db/table.sql]: insert into recommend_board_tb (title, content, user_id, view_count) values ('제목', '내용', '작성자id', 1); nested exception is org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException: Referential integrity constraint violation: "CONSTRAINT_DA4: PUBLIC.RECOMMEND_BOARD_TB FOREIGN KEY(USER_ID) REFERENCES PUBLIC.USER_TB(ID) (U&'\\c791\\c131\\c790id')"; SQL statement:
+insert into recommend_board_tb (title, content, user_id, view_count) values ('제목', '내용', '작성자id', 1) [23506-214]
+
+- 빈 생성시에 필요한게 빠졌거나 잘못되었다.
+- board.xml 파일에 <mapper namespace="com.green.airline.interfaces.BoardInterface"> - com.example.demo.-- 수정
+-> 똑같은에러 남
+- xml 파일에 <?xml version="1.0" encoding="UTF-8"?> 없어서 추가
+-> 같은에러
+- xml 파일에 <mapper namespace="com.green.airline.repository.interfaces.BoardInterface"> -repository 추가
+-> 같은에러
+- xml 파일 경로 복붙 다시 해줌
+-> 같은에러
+- table.sql에 recommand_board_tb - recommend_board_tb수정
+-> 같은에러
+- table.sql에 샘플 insert 쿼리문 지우니까 에러안남
+
+- 테이블에 foreignkey 가 user_tb에 id랑 걸려있는데 이미 id 값이 들어가있는
+  상태여서 내가 임의로 넣은 값과 매칭이 안되서 에러가 났던거
+  
+INSERT INTO user_tb 
+VALUES ('abc', '1234', '회원');
+
+-- 추천여행지 샘플 데이터
+insert into recommend_board_tb
+(title, user_id, content, view_count)
+values
+('제목', '작성자id', '게시글내용', 1);   ->'작성자id'를 'abc'로 수정
+
+==================================================
+
+모달창에서 글 쓰기 작성 후 redirect로 게시글 목록 파일로 보냈는데
+글쓰기 한 데이터값이 안들어감
+주석 문제인거같음
+<!-- 게시글이 있는 경우 -->  -->  <%-- 게시글이 있는 경우 --%> 수정
+
+==================================================
+
+### Error updating database.  Cause: org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException: Unique index or primary key violation: "PUBLIC.CONSTRAINT_INDEX_DA ON PUBLIC.RECOMMEND_BOARD_TB(USER_ID NULLS FIRST) VALUES ( /* 1 */ 'abc' )"; SQL statement:
+insert into recommend_board_tb
+		(title, content,
+		user_id, view_count)
+		values
+		(?, ?, ?,
+		?) [23505-214]
+### The error may exist in file [C:\Users\GGG\Desktop\green-airline\green_airline_project\bin\main\mapper\board.xml]
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: insert into recommend_board_tb   (title, content,   user_id, view_count)   values   (?, ?, ?,   ?);
+
+-- 조회수 증가 + 쿠키값으로 중복방지 기능 도중 에러 발생
+-- user_id 테이블에 UNIQUE 값 삭제
+
+=================================================
+
+org.apache.ibatis.binding.BindingException: Parameter 'id' not found. Available parameters are [arg1, arg0, param1, param2]
+
+-- public void deleteByHeart(@Param("id") Integer id, @Param("userId") String userId);
+-- repository에서 매개변수가 2개 이상이면 @Param 붙여줘야함
+
+=================================================
+
+
+
+
+
