@@ -23,11 +23,9 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	 * registry.addResourceHandler("/product/**")
 	 * .addResourceLocations("file:///C:\\Users\\a\\Desktop\\image/"); }
 	 */
-	 
 	  @Bean
 	  public PasswordEncoder passwordEncoder() {
 		  return new BCryptPasswordEncoder();
 	  }
-	 
 	
 }

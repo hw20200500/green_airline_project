@@ -27,6 +27,7 @@ import org.springframework.web.client.RestTemplate;
 import com.green.airline.dto.nation.NationDto;
 import com.green.airline.dto.request.JoinFormDto;
 import com.green.airline.dto.request.LoginFormDto;
+import com.green.airline.dto.request.SocialJoinFormDto;
 import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.UserService;
@@ -94,6 +95,7 @@ public class UserController {
 		return response;
 	}
 
+	// 일반 회원 로그인
 	@GetMapping("/join")
 	public String joinPage(Model model) {
 		RestTemplate restTemplate = new RestTemplate();
@@ -119,13 +121,34 @@ public class UserController {
 		return "/user/join";
 	}
 
+	// 카카오 로그인
 	@GetMapping("/socialJoin")
 	public String apiJoinPage(@RequestParam(name = "id") String id, @RequestParam(defaultValue = "none") String email,
 			@RequestParam(defaultValue = "none") String gender, Model model) {
+
+		RestTemplate restTemplate = new RestTemplate();
+		URI uri = null;
+
+		try {
+			uri = new URI(
+					"http://apis.data.go.kr/1262000/CountryCodeService2/getCountryCodeList2?serviceKey=Cuo5MmMb2QEiC58RNfbyKZ3q7MF%2F5mvNSC%2FXcSI%2F9mkEK8Blx2zD5dULoP9UK0MaSi049JL%2BUmo7K%2FHXgEH9dQ%3D%3D&numOfRows=300&pageNo=1");
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+
+		ResponseEntity<NationDto> response = restTemplate.getForEntity(uri, NationDto.class);
+
+		ArrayList<String> countryNm = new ArrayList<>();
+
+		for (int i = 0; i < response.getBody().getData().size(); i++) {
+			countryNm.add(response.getBody().getData().get(i).getCountryNm());
+		}
+
+		model.addAttribute("countryNm", countryNm);
 		model.addAttribute("id", id);
 		model.addAttribute("email", email);
 		model.addAttribute("gender", gender);
-		return "/user/join";
+		return "/user/socialJoin";
 	}
 
 	// 회원가입 (join.jsp에 회원가입 버튼으로 회원가입하는 경우 무조건 여기로 옴)
@@ -133,10 +156,6 @@ public class UserController {
 	public String joinProc(@Validated JoinFormDto joinFormDto, Errors errors, Model model) {
 		// 인증검사
 
-//		if() {
-//			
-//		}
-		
 		// post 요청시 넘어온 user 입력값에서 Validation에 걸리는 경우
 		if (errors.hasErrors()) {
 			// 회원가입 실패시 입력 데이터 유지
@@ -146,19 +165,50 @@ public class UserController {
 			Map<String, String> validateResult = userService.validateHandler(errors);
 
 			// map.keySet() 모든 key값을 갖고 온다.
-			// 그 갖고 온 키로 반복문을 통해 키와 에러 메세지로 매핑 
+			// 그 갖고 온 키로 반복문을 통해 키와 에러 메세지로 매핑
 			for (String key : validateResult.keySet()) {
-				
+
 				// ex) model.addAttribute("valid_id", "아이디는 필수 입력사항입니다.")
 				model.addAttribute(key, validateResult.get(key));
 			}
-
-			return "/join";
+			// 에러가 발생했을 경우
+			return "/user/join";
 		}
 
 		userService.createMember(joinFormDto);
 
-		return "/login";
+		return "redirect:/login";
+	}
+
+	@GetMapping("/apiSocialJoin")
+	public String apiSocialJoinPage(Model model) {
+
+		RestTemplate restTemplate = new RestTemplate();
+		URI uri = null;
+
+		try {
+			uri = new URI(
+					"http://apis.data.go.kr/1262000/CountryCodeService2/getCountryCodeList2?serviceKey=Cuo5MmMb2QEiC58RNfbyKZ3q7MF%2F5mvNSC%2FXcSI%2F9mkEK8Blx2zD5dULoP9UK0MaSi049JL%2BUmo7K%2FHXgEH9dQ%3D%3D&numOfRows=300&pageNo=1");
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+
+		ResponseEntity<NationDto> response = restTemplate.getForEntity(uri, NationDto.class);
+
+		ArrayList<String> countryNm = new ArrayList<>();
+
+		for (int i = 0; i < response.getBody().getData().size(); i++) {
+			countryNm.add(response.getBody().getData().get(i).getCountryNm());
+		}
+
+		model.addAttribute("countryNm", countryNm);
+		return "/user/socialJoin";
+	}
+	
+	@PostMapping("/apiSocialJoinProc")
+	public String apiSocialJoinProc(SocialJoinFormDto socialJoinFormDto) {
+		userService.createSocialMemberByRequired(socialJoinFormDto);
+		return "redirect:/login";
 	}
 
 }
