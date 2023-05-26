@@ -49,4 +49,26 @@ public class MileageService {
 		 * public SaveMileageDto insertMileage( ) { SaveMileageDto saveMileageDto =
 		 * mileageRepository.insertMileage(); return saveMileageDto; }
 		 */
+	
+	public void readNowMileage(String memberId, int price){
+		int usemileage = price;// 결제 할 마일리지
+		System.out.println();
+		List<Mileage> mileageList = mileageRepository.selectNowMileage(memberId);
+		for (Mileage mileage : mileageList) {
+			System.out.println(mileage);
+			if(mileage.getBalance() >= usemileage) {
+			int updatemileage = mileage.getBalance() - usemileage;
+			
+			// update 해줘야함
+			mileage.setBalance(updatemileage);
+			mileageRepository.updateBalance(mileage);
+			usemileage = 0;
+			break;
+			}else {
+				usemileage = usemileage - mileage.getBalance();
+				mileage.setBalance(0);
+				mileageRepository.updateBalance(mileage);
+			}
+		}
+	}
 }

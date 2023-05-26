@@ -38,8 +38,9 @@
 				<div class="d-flex justify-content-center">
 					<button type="submit" class="btn btn-primary">로그인</button>
 				</div>
-				
+				<p><a href="/userIdSearch">아이디/비밀번호 찾기</a></p>
 			</form>
+			
 		</div>
 	</main>
 

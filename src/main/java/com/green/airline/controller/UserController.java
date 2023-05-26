@@ -23,6 +23,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	
 	@Autowired
 	private HttpSession session;
 	
@@ -80,7 +81,21 @@ public class UserController {
 		return response;
 	}
 	
-	
-	
-	
+	@GetMapping("/userIdSearch")
+	public String userIdSearchPage() {
+		
+		return "/user/userIdSearch";
+	}
+	@GetMapping("/userPwSearch")
+	public String userPwSearchPage() {
+		
+		return "/user/userPwSearch";
+	}
+	@PostMapping("/findByUserId")
+	public String findByUserId(Model model, Member member) {
+		Member response = userService.readByKorNameandEmailAndBirthDate(member);
+		System.out.println(response);
+		model.addAttribute("response",response);
+		return "/user/userIdSearch";
+	}
 }

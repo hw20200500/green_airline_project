@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class Mileage {
 
-
+	private int id;
 	private Timestamp useDate;
 	private int useMileage;
 	private String description;

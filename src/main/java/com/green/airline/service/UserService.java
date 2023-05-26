@@ -36,5 +36,9 @@ public class UserService {
 		return memberEntity;
 	}
 	
-	
+	public Member readByKorNameandEmailAndBirthDate(Member member) {
+		Member memberEntity = memberRepository.selectByKorNameandEmailAndBirthDate(member);
+		System.out.println("memberEntity : " + memberEntity);
+		return memberEntity;
+	}
 }

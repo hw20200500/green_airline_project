@@ -14,6 +14,7 @@ import com.green.airline.dto.SaveMileageDto;
 import com.green.airline.dto.PagingVO;
 import com.green.airline.dto.ShopOrderDto;
 import com.green.airline.dto.ShopProductDto;
+import com.green.airline.dto.UseMileageDto;
 import com.green.airline.repository.interfaces.ProductRepository;
 import com.green.airline.repository.model.Mileage;
 import com.green.airline.repository.model.ShopOrder;
@@ -45,8 +46,11 @@ public class ProductService {
 		List<ShopProduct> list = productRepository.selectProductList();
 		return list;
 	}
-
 	
+	public List<ShopProduct> readProductByName(String searchProduct, String searchOption){
+		List<ShopProduct> list = productRepository.selectProductByName(searchProduct,searchOption);
+		return list;
+	}
 	
 	// 상품 상세 조회
 	public ShopProduct productDetail(int id) {
@@ -95,8 +99,8 @@ public class ProductService {
 	}
 
 	// 마일리지 사용 insert
-	public int createUseMileage(Mileage mileageDto) {
-		int result = productRepository.insertMileage(mileageDto);
+	public int createUseMileage( UseMileageDto useMileageDto) {
+		int result = productRepository.insertMileage(useMileageDto);
 		return result;
 	}
 

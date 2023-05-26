@@ -9,4 +9,5 @@ public interface MemberRepository {
 
 	public Member selectById(String id);
 	
+	public Member selectByKorNameandEmailAndBirthDate(Member member);
 }

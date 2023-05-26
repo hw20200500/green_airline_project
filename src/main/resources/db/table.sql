@@ -320,7 +320,7 @@ create table gifticon_tb(
 -- 마일리지 todo inserttime 중간에 _ 넣기
 create table mileage_tb(
 id int primary key auto_increment,
-use_date DATE,
+use_date DATE default (CURRENT_DATE),
 use_mileage BIGINT,
 description TEXT,
 save_date DATE,

@@ -29,7 +29,7 @@
 		</if>
 	</select>
 
-
+	
 
 
 
@@ -82,14 +82,14 @@
 		where member_id =#{memberId} order by id desc limit 1;
 	</select>
 	<!-- 마일리지 사용할때 insert -->
-	<insert id="insertMileage"> insert into mileage_tb(balance,use_mileage,member_id)
-		values(#{balance}-#{useMileage},#{useMileage},#{memberId})
+	<insert id="insertMileage"> insert into mileage_tb(use_mileage,member_id, description)
+		values(#{productPrice} * #{hiddenCount},#{memberId},#{description})
 	</insert>
 
 	<!-- 마일리지 조회 -->
 	<select id="selectMileage" resultType="com.green.airline.repository.model.Mileage">
 
-		select sum(balance) as balance from mileage_tb where member_id = #{member_id};
+		select sum(balance) as balance from mileage_tb where member_id = #{member_id} and expiration_date > now();
 
 
 	</select>
@@ -97,9 +97,16 @@
 	<update id="updateShopProductDto">
 		update shop_product_tb set count = #{hiddenCount} where id = #{productId};
 	</update>
-
+	<!-- 상품 검색 -->
+	 <select id="selectProductByName" resultType="com.green.airline.repository.model.ShopProduct">
+	 <!-- h2에서 mysql로 변경할 때 바꿔야함 -> '%#{searchProduct}%' -->
+	 <if test="searchOption == 'brand'">
+	select * from shop_product_tb where brand like '%'||#{searchProduct}||'%';
+	 </if>
+	 <if test="searchOption == 'name'">
+	select * from shop_product_tb where name like '%'||#{searchProduct}||'%';
+	 </if>
+	</select>
 	
-	<!-- 마일리지 적립할때 insert -->
-	<!-- <insert id=""> insert into mileage_tb(balance,save_mileage,description,member_id) valuse() </insert> -->
 
 </mapper>

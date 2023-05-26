@@ -78,7 +78,7 @@
 									${shopProduct.name} | ${shopProduct.count}개 남음</option>
 
 							</select>
-
+							
 
 							<div class="selected_prd 001" style="display: none;">
 								<div class="tit">
@@ -111,9 +111,10 @@
 								<dd>
 								
 									<span class="num" id="spanPrice"><fmt:formatNumber value="${shopProduct.price}" pattern="#,###"/></span> 마일
-									<!-- input hidden 으로 변경된 값 넣어서 xml에 보내기 -->
+									<!-- input hidden 으로 변경된 값 넣어서 xml에 보내기  useMileage -> productPrice로 변경-->
 									<input type="hidden" value="${shopProduct.price}"
-										name="useMileage">
+										name="productPrice"> 
+										
 								</dd>
 							</dl>
 
@@ -137,6 +138,7 @@
 							</div>
 						</div>
 						<input type="hidden" name="productId" value="${shopProduct.id}">
+						<input type="hidden" name="description" value="[${shopProduct.brand}] ${shopProduct.name}">
 						<input type="hidden" name="hiddenCount"
 							value="${shopProduct.count}">
 					</form>
@@ -169,7 +171,7 @@
 									<input type="text" value="${shopProduct.price}" name="price">
 									<input type="file" class="form-control-file border" name="file">
 									<input type="file" class="form-control-file border"
-										name="file2"> <input type="text"
+										name="file2"> <input type="hidden"
 										value="${shopProduct.id}" name="id">
 							</div>
 

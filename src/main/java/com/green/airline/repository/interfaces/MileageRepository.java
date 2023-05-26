@@ -27,5 +27,7 @@ public interface MileageRepository {
 			@Param("isUseSearch")String isUseSearch,@Param("isExpireSearch")String isExpireSearch);
 	public List<UseMileage> selectUseMileageList(String memberId);
 	public int insertMileage(SaveMileageDto saveMileageDto);
+	public List<Mileage> selectNowMileage(String memberId);
+	public int updateBalance(Mileage mileage);
 	// Repository에서 파라미터 여러 개 쓸 때는 @Param 꼭 써야 되는 거 기억
 }
