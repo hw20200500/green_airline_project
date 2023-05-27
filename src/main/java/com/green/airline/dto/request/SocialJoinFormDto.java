@@ -12,10 +12,10 @@ public class SocialJoinFormDto {
 
 		@NotBlank(message = "아이디를 입력해주세요.")
 		@NotNull
-		@Size(min = 1, max = 20)
+		@Size(min = 8, max = 20, message = "아이디는 8~20자 사이여야 합니다.")
 		private String id;
 		private String password;
-		@Pattern(regexp = "^[가-힣]{2,5}$")
+		@Pattern(regexp = "^[가-힣]{2,5}$", message = "한글 이름을 입력해주세요.")
 		@NotBlank(message = "한글 이름을 입력해주세요.")
 		@NotNull
 		private String korName;
@@ -26,7 +26,7 @@ public class SocialJoinFormDto {
 		@NotBlank(message = "생년월일을 입력해주세요.")
 		private String birthDate;
 		@NotNull
-		@NotBlank(message = "성별을 입력해주세요.")
+		@NotBlank(message = "성별을 선택해주세요.")
 		private String gender;
 		@NotNull
 		@NotBlank(message = "이메일을 입력해주세요.")
@@ -36,13 +36,13 @@ public class SocialJoinFormDto {
 		@NotBlank(message = "휴대전화를 입력해주세요.")
 		private String phoneNumber;
 		@NotNull
+		private String postcode;
+		private String detailAddress;
 		@NotBlank(message = "주소를 입력해주세요.")
 		private String address;
 		@NotNull
 		@NotBlank(message = "국적을 입력해주세요.")
 		private String nationality;
-//		@NotNull
-//		@NotBlank(message = "등급을 입력해주세요.")
 		private String grade;
 
 

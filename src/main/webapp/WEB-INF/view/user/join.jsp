@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
 .join--all--wrap {
 	display: flex;
@@ -14,18 +15,29 @@
 		<form action="/joinProc" method="post">
 			<div class="join--all--wrap">
 				<c:choose>
-					<%-- 일반 회원가입 --%>
-					<c:when test="${id==null}">
-						아이디 <input type="text" name="id">
-						<c:if test="${key != null}">
-							${key}
-						</c:if>
+					<%-- validation에 걸려서 돌아왔을 때 --%>
+					<c:when test="${joinFormDto != null}">
+						아이디 <input type="text" name="id" value="${joinFormDto.id}"> 
+						<div style="color: red;">
+							<c:if test="${valid_id != null}">
+							${valid_id}
+							</c:if>
+						</div>
 					</c:when>
+					<%-- 일반 회원가입 처리 --%>
+					<c:otherwise>
+						아이디 <input type="text" name="id" id="member--id"> <button type="button" id="exists--id">아이디 중복확인</button>
+					</c:otherwise>
 				</c:choose>
 
 				<c:choose>
 					<c:when test="${joinFormDto != null}">
 						비밀번호 <input type="password" name="password" required="required">
+						<div style="color: red;">
+							<c:if test="${valid_password != null}">
+							${valid_password}
+							</c:if>
+						</div>
 						비밀번호 확인 <input type="password" required="required">
 					</c:when>
 					<c:otherwise>
@@ -35,16 +47,26 @@
 				</c:choose>
 				<c:choose>
 					<c:when test="${joinFormDto != null}">
-				한국 이름 <input type="text" name="korName" required="required">
+				한글 이름 <input type="text" name="korName" required="required" value="${joinFormDto.korName}">
+						<div style="color: red;">
+							<c:if test="${valid_korName != null}">
+							${valid_korName}
+							</c:if>
+						</div>
 					</c:when>
 					<c:otherwise>
-				한국 이름 <input type="text" name="korName" required="required">
+				한글 이름 <input type="text" name="korName" required="required">
 					</c:otherwise>
 				</c:choose>
 
 				<c:choose>
 					<c:when test="${joinFormDto != null}">
-				영어 이름 <input type="text" name="engName" required="required">
+				영어 이름 <input type="text" name="engName" required="required" value="${joinFormDto.engName}">
+						<div style="color: red;">
+							<c:if test="${valid_engName != null}">
+							${valid_engName}
+							</c:if>
+						</div>
 					</c:when>
 					<c:otherwise>
 				영어 이름 <input type="text" name="engName" required="required">
@@ -53,7 +75,12 @@
 
 				<c:choose>
 					<c:when test="${joinFormDto != null}">
-				생년월일 <input type="text" id="datepicker" name="birthDate" required="required">
+				생년월일 <input type="text" id="datepicker" name="birthDate" required="required" value="${joinFormDto.birthDate}">
+						<div style="color: red;">
+							<c:if test="${valid_birthDate != null}">
+							${valid_birthDate}
+							</c:if>
+						</div>
 					</c:when>
 					<c:otherwise>
 				생년월일 <input type="text" id="datepicker" name="birthDate" required="required">
@@ -63,15 +90,20 @@
 				<div>
 					<c:choose>
 						<c:when test="${joinFormDto != null}">
-								성별 <label> <input type="hidden" name="gender" value="${gender}" required="required"> 남
+								성별 <label> <input type="radio" name="gender" value="M" required="required" value="${joinFormDto.gender}"> 남
 							</label>
-							<label> <input type="hidden" name="gender" value="${gender}" required="required"> 여
+							<label> <input type="radio" name="gender" value="F" required="required" value="${joinFormDto.gender}"> 여
 							</label>
+							<div style="color: red;">
+								<c:if test="${valid_gender != null}">
+							${valid_gender}
+							</c:if>
+							</div>
 						</c:when>
 						<c:otherwise>
-								성별 <label> <input type="hidden" name="gender" value="${gender}" required="required"> 남
+								성별 <label> <input type="radio" name="gender" value="M" required="required"> 남
 							</label>
-							<label> <input type="hidden" name="gender" value="${gender}" required="required"> 여
+							<label> <input type="radio" name="gender" value="F" required="required"> 여
 							</label>
 						</c:otherwise>
 					</c:choose>
@@ -79,7 +111,12 @@
 				</div>
 				<c:choose>
 					<c:when test="${joinFormDto != null}">
-				휴대전화 <input type="text" name="phoneNumber" placeholder="예:010-0000-0000" required="required">
+				휴대전화 <input type="text" name="phoneNumber" placeholder="예:010-0000-0000" required="required" value="${joinFormDto.phoneNumber}">
+						<div style="color: red;">
+							<c:if test="${valid_phoneNumber != null}">
+							${valid_phoneNumber}
+							</c:if>
+						</div>
 					</c:when>
 					<c:otherwise>
 				휴대전화 <input type="text" name="phoneNumber" placeholder="예:010-0000-0000" required="required">
@@ -88,7 +125,12 @@
 
 				<c:choose>
 					<c:when test="${joinFormDto != null}">
-						이메일 <input type="text" name="email" value="${email}" required="required">
+						이메일 <input type="text" name="email" required="required" value="${joinFormDto.email}">
+						<div style="color: red;">
+							<c:if test="${valid_email != null}">
+							${valid_email}
+							</c:if>
+						</div>
 					</c:when>
 					<c:otherwise>
 						이메일 <input type="text" name="email" value="${email}" required="required">
@@ -97,10 +139,25 @@
 
 				<c:choose>
 					<c:when test="${joinFormDto != null}">
-				주소 <input type="text" name="address" required="required" value="부산시">
+						<input type="text" id="postcode" name="postcode" value="${joinFormDto.postcode}" placeholder="우편번호" required="required">
+						<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
+						<br>
+						<input type="text" id="address" name="address" placeholder="주소" value="${joinFormDto.address}">
+						<br>
+						<input type="text" id="detailAddress" name="detailAddress" value="${joinFormDto.detailAddress}" placeholder="상세주소">
+						<div style="color: red;">
+							<c:if test="${valid_address != null}">
+							${valid_address}
+							</c:if>
+						</div>
 					</c:when>
 					<c:otherwise>
-				주소 <input type="text" name="address" required="required" value="부산시">
+						<input type="text" id="postcode" name="postcode" placeholder="우편번호" required="required">
+						<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
+						<br>
+						<input type="text" id="address" name="address" placeholder="주소">
+						<br>
+						<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">
 					</c:otherwise>
 				</c:choose>
 
@@ -111,6 +168,11 @@
 								<option value="${countryNm}" <c:if test="${countryNm.equals(\'대한민국\')}"> selected </c:if>>${countryNm}</option>
 							</c:forEach>
 						</select>
+						<div style="color: red;">
+							<c:if test="${valid_nationality != null}">
+							${valid_nationality}
+							</c:if>
+						</div>
 					</c:when>
 					<c:otherwise>
 						국적 <select name="nationality" required="required">
@@ -129,24 +191,7 @@
 		</form>
 	</div>
 
-	<script>
-		$(function() {
-			/* console.log(dateString2); */
-
-			$("#datepicker").datepicker(
-					{
-						dateFormat : "yy-mm-dd",
-						changeMonth : true,
-						changeYear : true,
-						yearRange : '1900:2023',
-						onSelect : function() {
-							let date = $.datepicker.formatDate("yy-mm-dd", $(
-									"#datepicker").datepicker("getDate"));
-						}
-					});
-
-		});
-	</script>
+	<script src="/js/join.js"></script>
 </main>
 
 

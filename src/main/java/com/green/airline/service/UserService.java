@@ -139,7 +139,14 @@ public class UserService {
 
 	// 소셜 회원가입 필수값 처리
 	public void createSocialMemberByRequired(SocialJoinFormDto socialJoinFormDto) {
+
 		memberRepository.insertSocialMemberByRequired(socialJoinFormDto);
+	}
+
+	// 아이디 중복 확인
+	public Member readById(String id) {
+		Member memberEntity = memberRepository.existsById(id);
+		return memberEntity;
 	}
 
 }

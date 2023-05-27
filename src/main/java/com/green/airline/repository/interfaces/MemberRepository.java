@@ -21,16 +21,15 @@ public interface MemberRepository {
 	// 소셜 회원가입 처리
 	public int insertSocialMember(SocialJoinFormDto socialJoinFormDto);
 	
+	// ??
 	// 소셜 회원가입 필수값 처리
 	public int insertSocialMemberByRequired(SocialJoinFormDto socialJoinFormDto);
 	
-	// 카카오 로그인 처리
-	// 회원가입 --> kmg1151@naver.com
-	// 카카카오 로그인 --> kmg1151@naver.com
-	// 카카카오 로그인 : 김민정_9912
-	
-	// kmg1151@naver.com
+	// 소셜 회원가입 필수값 처리
 	public int insertBySocialDto(@Param("id") String id, @Param("nickname") String nickname,
 			@Param("email") String email, @Param("gender") String gender);
 
+	// 아이디 중복 확인
+	public Member existsById(String id);
+	
 }
