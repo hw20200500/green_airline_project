@@ -17,10 +17,10 @@ public class Define {
 	/**
 	 * 상품 이미지 입력시 사용 
 	 */
-	public static final String UPLOAD_DIRECTORY = "C:\\Users\\GGG\\Desktop\\image";
+	//public static final String UPLOAD_DIRECTORY = "C:\\Users\\GGG\\Desktop\\image";
 	public static final int MAX_FILE_SIZE = 1024 * 1024 * 20; // 최대 20MB
 
 
-	// 이미지 처리 관련 (치승님거)
-	//public final static String UPLOAD_DIRECTORY = "C:\\upload";
+	// 이미지 처리 관련
+	public final static String UPLOAD_DIRECTORY = "C:\\upload";
 }
