@@ -231,7 +231,16 @@
 							<tbody>
 								<c:forEach var="refundFee" items="${refundFeeList}">
 									<tr>
-										<td>${refundFee.criterion}일 이전</td>
+										<td>
+											<c:choose>
+												<c:when test="${refundFeeList.size() == 1}">
+													전체
+												</c:when>
+												<c:otherwise>
+													${refundFee.criterion}일 이전
+												</c:otherwise>
+											</c:choose>
+										</td>
 										<td>${refundFee.formatFee()}원</td>
 									</tr>
 								</c:forEach>

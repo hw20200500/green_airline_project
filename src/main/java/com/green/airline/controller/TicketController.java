@@ -334,7 +334,13 @@ public class TicketController {
 	@GetMapping("/refundInfo")
 	public String refundInfoPage(Model model) {
 		
-		return "/ticket/refundInformation";
+		List<RefundFee> refundFeeList1 = refundService.readByType(1);
+		model.addAttribute("refundFeeList1", refundFeeList1);
+		
+		List<RefundFee> refundFeeList2 = refundService.readByType(2);
+		model.addAttribute("refundFeeList2", refundFeeList2);
+		
+		return "/ticket/refundInfo";
 	}
 	
 }

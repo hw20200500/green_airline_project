@@ -13,13 +13,18 @@ function selectedType(i) {
 			let dateVal = $(".flight--date").val();
 			$(".flight--date1").val(dateVal);
 			$(".flight--date").val("");
-			$("#flightDate").val(dateVal + " ~ ");
+			$("#flightDate").attr("placeholder", "가는 날 ~ 오는 날");
+			if (dateVal == "") {
+				$("#flightDate").val("");			
+			} else {
+				$("#flightDate").val(dateVal.substring(2) + " ~ ");			
+			}
 		} else {
 			let dateVal = $(".flight--date1").val();
 			$(".flight--date").val(dateVal);
 			$(".flight--date1").val("");
-			$("#flightDate").val(dateVal);
-
+			$("#flightDate").val(dateVal.substring(2));
+			$("#flightDate").attr("placeholder", "가는 날");
 		}
 		$(".flight--date2").val("");
 		$(".datepicker--div--type1, .datepicker--div--type2").hide();
@@ -164,6 +169,10 @@ $(document).on("click", function(e) {
 	if ($(".age--calculater--modal").has(e.target).length === 0) {
 		$(".age--calculater--modal input").val("");
 	}
+	
+	if ($("#passengerDiv").has(e.target).length === 0) {
+		$("#ageTypeDiv").hide();
+	}
 
 });
 
@@ -174,6 +183,10 @@ $("#departure").on("focus", function() {
 });
 $("#destination").on("focus", function() {
 	$("#destinationAirport").show();
+	$(".datepicker--div--type1, .datepicker--div--type2").hide();
+});
+$("#passenger").on("click", function() {
+	$("#ageTypeDiv").css("display", "flex");
 	$(".datepicker--div--type1, .datepicker--div--type2").hide();
 });
 
@@ -322,16 +335,32 @@ $(".flight--date").on("change", function() {
 function insertDatepicker(type) {
 	// 왕복
 	if (type == 1) {
-		var dateValue1 = $(".flight--date1").val();
-		var dateValue2 = $(".flight--date2").val();
+		var dateValue1 = $(".flight--date1").val().substring(2);
+		var dateValue2 = $(".flight--date2").val().substring(2);
 		$("#flightDate").val(dateValue1 + " ~ " + dateValue2);
 
 		// 편도
 	} else if (type == 2) {
-		var dateValue = $(".flight--date").val();
+		var dateValue = $(".flight--date").val().substring(2);
 		$("#flightDate").val(dateValue);
 
 	}
+}
+
+function insertPassenger() {
+	let passenger = "성인" + $("input[id=\"ageType1\"]").val();
+	
+	let type2 = $("input[id=\"ageType2\"]").val();
+	let type3 = $("input[id=\"ageType3\"]").val();
+	
+	if (type2 != 0) {
+		passenger = passenger + "  소아" + type2;
+	}
+	
+	if (type3 != 0) {
+		passenger = passenger + "  유아" + type3;
+	} 
+	$("input[id=\"passenger\"]").val(passenger);
 }
 
 // 나이 계산기 버튼

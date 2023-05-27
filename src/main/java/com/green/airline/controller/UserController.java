@@ -1,5 +1,7 @@
 package com.green.airline.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -15,8 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.green.airline.dto.request.JoinFormDto;
 import com.green.airline.dto.request.LoginFormDto;
 import com.green.airline.handler.exception.CustomRestfullException;
+import com.green.airline.repository.model.Airport;
 import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.User;
+import com.green.airline.service.AirportService;
 import com.green.airline.service.UserService;
 import com.green.airline.utils.Define;
 
@@ -28,6 +32,9 @@ public class UserController {
 
 	@Autowired
 	private HttpSession session;
+	
+	@Autowired
+	private AirportService airportService;
 
 	/**
 	 * @author 서영 메인 페이지
@@ -36,6 +43,10 @@ public class UserController {
 	public String mainPage(Model model) {
 		int isMain = 1;
 		model.addAttribute("isMain", isMain);
+		
+		List<Airport> regionList = airportService.readRegion();
+		model.addAttribute("regionList", regionList);
+		
 		return "/mainPage";
 	}
 
