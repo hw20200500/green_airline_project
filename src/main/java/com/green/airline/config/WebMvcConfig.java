@@ -9,10 +9,13 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	
 	 // 학원 이미지 경로
 	  @Override public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	  registry.addResourceHandler("/product/**")
-	  .addResourceLocations("file:///C:\\Users\\GGG\\Desktop\\image/"); 
+//	  registry.addResourceHandler("/product/**")
+//	  .addResourceLocations("file:///C:\\Users\\GGG\\Desktop\\image/"); 
+//	  
+//	  registry.addResourceHandler("/board/**")
+//	  .addResourceLocations("file:///C:\\upload/");
 	  
-	  registry.addResourceHandler("/board/**")
+	  registry.addResourceHandler("/image/**")
 	  .addResourceLocations("file:///C:\\upload/");
 	  
 	  }
