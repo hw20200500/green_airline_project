@@ -26,11 +26,13 @@ import com.green.airline.dto.response.TicketAllInfoDto;
 import com.green.airline.dto.response.TicketDto;
 import com.green.airline.repository.model.Airport;
 import com.green.airline.repository.model.Passenger;
+import com.green.airline.repository.model.RefundFee;
 import com.green.airline.repository.model.ReservedSeat;
 import com.green.airline.repository.model.Ticket;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.AirportService;
 import com.green.airline.service.PassengerService;
+import com.green.airline.service.RefundService;
 import com.green.airline.service.ReservedSeatService;
 import com.green.airline.service.ScheduleService;
 import com.green.airline.service.SeatService;
@@ -70,6 +72,9 @@ public class TicketController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RefundService refundService;
 	
 	
 	/**
@@ -299,7 +304,6 @@ public class TicketController {
 		
 		TicketAllInfoDto ticket = ticketService.readTicketAllInfoByTicketId(id);
 		model.addAttribute("ticket", ticket);
-		System.out.println(ticket);
 		
 		Integer type = null;
 		if (ticket.getId().length() == 9 && ticket.getId().substring(0, 8).equals("B")) {
@@ -317,6 +321,9 @@ public class TicketController {
 		
 		String name = userService.readMemberById(memberId).getKorName();
 		model.addAttribute("name", name);
+		
+		List<RefundFee> refundFeeList = refundService.readByType(ticket.getScheduleType());
+		model.addAttribute("refundFeeList", refundFeeList);
 		
 		return "/ticket/detail";
 	}

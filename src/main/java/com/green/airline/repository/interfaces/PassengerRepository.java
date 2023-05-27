@@ -16,4 +16,6 @@ public interface PassengerRepository {
 	public Integer insert(Passenger passenger);
 	
 	public List<Passenger> selectByTicketId(String ticketId);
+	
+	public Integer deleteByTicketId(String ticketId);
 }

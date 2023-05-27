@@ -10,6 +10,7 @@ import lombok.Data;
 public class RefundDto {
 
 	private String tid;
+	private String ticketId;
 	private Long paymentAmount;
 	private Integer ticketType;
 	private Integer scheduleType;

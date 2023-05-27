@@ -230,10 +230,19 @@ public class TicketService {
 	
 	/**
 	 * @author 서영
-	 * 환불 처리됨을 표시하기 위해 Status 처리
+	 * 환불 처리
+	 * 결제 내역의 status 변경
+	 * 예약 좌석, 탑승객 정보 삭제
 	 */
-	public void updateStatusRefund(String tid, Integer type) {
+	public void updateStatusRefund(String tid, String ticketId,Integer type) {
+		// status 변경
 		ticketPaymentRepository.updateStatusByTid(tid, type, 2);
+		
+		// 예약 좌석 삭제
+		reservedSeatRepository.deleteByTicketId(ticketId);
+		
+		// 탑승객 정보 삭제
+		passengerRepository.deleteByTicketId(ticketId);	
 	}
 	
 	

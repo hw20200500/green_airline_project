@@ -22,4 +22,10 @@ public interface ReservedSeatRepository {
 	public Integer insert(ReservedSeat reservedSeat);
 	
 	public List<ReservedSeat> selectByTicketId(String ticketId);
+	
+	/**
+	 * @author 서영
+	 * 티켓 환불 시 예약 좌석 삭제
+	 */
+	public Integer deleteByTicketId(String ticketId);
 }

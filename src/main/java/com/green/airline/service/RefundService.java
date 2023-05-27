@@ -1,9 +1,12 @@
 package com.green.airline.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.green.airline.repository.interfaces.RefundFeeRepository;
+import com.green.airline.repository.model.RefundFee;
 
 @Service
 public class RefundService {
@@ -39,6 +42,11 @@ public class RefundService {
 		Long fee = refundFeeRepository.selectByCriterionAndType(criterion, scheduleType);
 		
 		return fee;
+	}
+	
+	public List<RefundFee> readByType(Integer type) {
+		List<RefundFee> entityList = refundFeeRepository.selectByType(type);
+		return entityList;
 	}
 	
 }

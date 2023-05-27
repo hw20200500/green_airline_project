@@ -237,8 +237,8 @@ public class PaymentController {
 			= restTemplate.exchange("https://kapi.kakao.com/v1/payment/cancel", HttpMethod.POST,
 									reqEntity, RefundResponseDto.class);
 		
-		// DB 결제 내역에 status 처리
-		ticketService.updateStatusRefund(refundDto.getTid(), refundDto.getTicketType());
+		// 환불 관련 DB 처리
+		ticketService.updateStatusRefund(refundDto.getTid(), refundDto.getTicketId(), refundDto.getTicketType());
 		
 		return "redirect:/ticket/list";
 	}

@@ -16,4 +16,8 @@
 	SELECT * FROM reserved_seat_tb WHERE ticket_id = #{ticketId}
 </select>
 
+<delete id="deleteByTicketId">
+	DELETE FROM reserved_seat_tb WHERE ticket_id = #{ticketId}
+</delete>
+
 </mapper>

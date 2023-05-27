@@ -8,5 +8,8 @@
 	WHERE criterion = #{criterion} AND type = #{type}
 </select>
 
+<select id="selectByType" resultType="com.green.airline.repository.model.RefundFee">
+	SELECT * FROM refund_fee_tb WHERE type = #{type}
+</select>
 
 </mapper>
