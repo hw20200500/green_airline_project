@@ -3,7 +3,6 @@
 
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 
-<<<<<<< HEAD
 <style>
 	.main--img--div {
 		min-width: 100%;
@@ -23,13 +22,6 @@
 	
 	<!-- 여기 안에 쓰기 -->
 	<main>
-		
-=======
-	
-	<!-- 여기 안에 쓰기 -->
-	<main>
-		메인페이지
->>>>>>> feature/board
 	</main>
 
 

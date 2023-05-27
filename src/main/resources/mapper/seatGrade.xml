@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<<<<<<< HEAD
 <mapper namespace="com.green.airline.repository.interfaces.SeatGradeRepository">
 
 	<select id="selectByName" resultType="com.green.airline.repository.model.SeatGrade">
@@ -10,12 +9,3 @@
 
 
 </mapper>
-=======
-<mapper namespace="com.green.airline.repository.interfaces.UserRepository">
-
-<select id="selectByIdAndPassword" resultType="com.green.airline.repository.model.User">
-	SELECT * FROM user_tb WHERE id = #{id} AND password = #{password}
-</select>
-
-</mapper>
->>>>>>> feature/board

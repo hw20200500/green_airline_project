@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.green.airline.repository.model;
 
 import lombok.Data;
@@ -12,18 +11,3 @@ public class Seat {
 	private String grade;
 	
 }
-=======
-package com.green.airline.repository.model;
-
-import lombok.Data;
-
-// 좌석
-@Data
-public class Seat {
-
-	private Integer airplaneId;
-	private String name;
-	private String grade;
-	
-}
->>>>>>> feature/board

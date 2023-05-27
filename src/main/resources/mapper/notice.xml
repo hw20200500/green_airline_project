@@ -22,12 +22,7 @@
 		resultType="com.green.airline.dto.response.NoticeResponseDto">
 		select *
 		from notice_tb as n
-<<<<<<< HEAD
-		inner join notice_category_tb as
-		nc
-=======
 		inner join notice_category_tb as nc
->>>>>>> feature/board
 		on nc.id = n.category_id
 		where title like #{keyword}
 	</select>
@@ -37,12 +32,7 @@
 		resultType="com.green.airline.dto.response.NoticeResponseDto">
 		select *
 		from notice_tb as n
-<<<<<<< HEAD
-		inner join notice_category_tb as
-		nc
-=======
 		inner join notice_category_tb as nc
->>>>>>> feature/board
 		on nc.id =
 		n.category_id
 		where n.id=#{id}
@@ -50,7 +40,6 @@
 
 	<select id="selectNoticeByCategoryId"
 		resultType="com.green.airline.dto.response.NoticeResponseDto">
-<<<<<<< HEAD
 		<if test="categoryId==1">
 			select *
 			from notice_tb as n
@@ -67,13 +56,6 @@
 			on nc.id = n.category_id
 			where nc.id=#{categoryId}
 		</if>
-=======
-		select *
-		from notice_tb as n
-		inner join notice_category_tb as nc
-		on nc.id = n.category_id
-		where nc.id=#{id}
->>>>>>> feature/board
 	</select>
 
 </mapper>

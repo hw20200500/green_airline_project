@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class InFlightServiceResponseDto {
 
-<<<<<<< HEAD
 	private Integer id;
 	private String name;
 	private String description;
@@ -14,11 +13,5 @@ public class InFlightServiceResponseDto {
 	private String iconImage;
 	private String detailImage;
 	private String image;
-=======
-	private int id;
-	private String name;
-	private String description;
-	private String keyword;
->>>>>>> feature/board
 	
 }

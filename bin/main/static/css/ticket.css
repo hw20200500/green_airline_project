@@ -114,7 +114,7 @@
 	padding: 5px 7px 1px 3px;
 }
 
-.all--airport--modal, .age--calculater--modal {
+.all--airport--modal, .age--calculater--modal, .refund--modal {
 	margin-top: 200px;
 }
 
@@ -379,4 +379,111 @@ input[type=number] {
 	color: gray;
 	font-size: 20px;
 	font-weight: 500;
+}
+
+#ticketBackground {
+	background-image: url("/images/ticket/ticket2.png");
+	width: 1000px;
+	height: 285px;
+	padding: 80px 0 13px 35px;
+	display: flex;
+}
+
+#ticketBackground div:last-of-type {
+	margin-top: -4px;
+}
+
+#ticketBackground div:last-of-type p {
+	color: #474747;
+	margin-bottom: 5px;
+}
+
+p {
+	margin: 0;
+}
+
+#passengerTable th:nth-of-type(1) {
+	width: 15%;
+}
+
+#passengerTable th:nth-of-type(2) {
+	width: 21%;
+}
+
+#passengerTable th:nth-of-type(3) {
+	width: 32%;
+}
+
+#passengerTable th:nth-of-type(4) {
+	width: 32%;
+}
+
+#paymentTable th:nth-of-type(1) {
+	width: 40%;
+}
+
+#paymentTable th:nth-of-type(2) {
+	width: 30%;
+}
+
+#paymentTable th:nth-of-type(3) {
+	width: 30%;
+}
+
+.var--span {
+	font-size: 15px;
+	color: #595959;
+}
+
+.var--span--eng {
+	font-size: 15px;
+	color: #595959;
+	font-style: italic;
+	margin-right: 15px;
+}
+
+.var--span--eng--s {
+	font-size: 14px;
+	color: #595959;
+	font-style: italic;
+	margin-right: 10px;
+}
+
+.value--span {
+	font-weight: 500;
+	font-size: 18px;
+	color: #474747;
+}
+
+.value--span--s {
+	font-weight: 500;
+	font-size: 15px;
+	color: #474747;
+}
+
+.grade--p {
+	text-align: center;
+	font-size: 20px;
+	font-weight: 600;
+	margin-bottom: 12px !important;
+}
+
+#feeTable {
+	width: 302px;
+}
+
+#feeTable th, #feeTable td:first-of-type {
+	text-align: center;
+}
+
+#feeTable td:last-of-type {
+	text-align: right;
+}
+
+#feeTable td {
+	font-size: 16px;
+}
+
+.target--fee {
+	background-color: #CDEDF9;
 }

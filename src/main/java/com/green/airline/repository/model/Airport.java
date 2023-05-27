@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.green.airline.repository.model;
 
 import lombok.Data;
@@ -12,18 +11,3 @@ public class Airport {
 	private String name;
 	
 }
-=======
-package com.green.airline.repository.model;
-
-import lombok.Data;
-
-// 공항
-@Data
-public class Airport {
-
-	private Integer id;
-	private String region;
-	private String name;
-	
-}
->>>>>>> feature/board

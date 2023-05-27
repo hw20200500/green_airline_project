@@ -22,6 +22,8 @@
 					<li id="ticketType2" onclick="selectedType(2);">편도
 				</ul>
 			</div>
+			
+			<br>
 
 			<div class="d-flex">
 				<!-- 출발지 -->
