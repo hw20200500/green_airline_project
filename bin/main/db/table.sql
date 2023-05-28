@@ -255,7 +255,7 @@ create table recommend_board_tb
 (
    id int PRIMARY KEY AUTO_INCREMENT,
    title varchar (50) not null,
-   content blob not null,
+   content TEXT not null,
    user_id varchar (50) not null,
    view_count INT not null,
    origin_name VARCHAR (100) not null,

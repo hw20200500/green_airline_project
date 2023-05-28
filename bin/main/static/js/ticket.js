@@ -13,13 +13,18 @@ function selectedType(i) {
 			let dateVal = $(".flight--date").val();
 			$(".flight--date1").val(dateVal);
 			$(".flight--date").val("");
-			$("#flightDate").val(dateVal + " ~ ");
+			$("#flightDate").attr("placeholder", "가는 날 ~ 오는 날");
+			if (dateVal == "") {
+				$("#flightDate").val("");			
+			} else {
+				$("#flightDate").val(dateVal + " ~ ");			
+			}
 		} else {
 			let dateVal = $(".flight--date1").val();
 			$(".flight--date").val(dateVal);
 			$(".flight--date1").val("");
 			$("#flightDate").val(dateVal);
-
+			$("#flightDate").attr("placeholder", "가는 날");
 		}
 		$(".flight--date2").val("");
 		$(".datepicker--div--type1, .datepicker--div--type2").hide();
@@ -176,6 +181,10 @@ $("#destination").on("focus", function() {
 	$("#destinationAirport").show();
 	$(".datepicker--div--type1, .datepicker--div--type2").hide();
 });
+$("#passenger").on("click", function() {
+	$("#ageTypeDiv").css("display", "flex");
+	$(".datepicker--div--type1, .datepicker--div--type2").hide();
+});
 
 // 탑승일 선택 -> 왕복/편도에 따라
 $("#flightDate").on("focus", function() {
@@ -218,12 +227,12 @@ $(".all--airport").on("click", function() {
 	if ($(this).is(".destination--button")) {
 		$(".all--airport--modal").addClass("dest");
 		$(".all--airport--modal").removeClass("depa");
-		$(".modal--title").text("도착지 선택");
+		$(".all--airport--modal .modal--title").text("도착지 선택");
 		$("#destinationAirport").hide();
 	} else if ($(this).is(".departure--button")) {
 		$(".all--airport--modal").addClass("depa");
 		$(".all--airport--modal").removeClass("dest");
-		$(".modal--title").text("출발지 선택");
+		$(".all--airport--modal .modal--title").text("출발지 선택");
 		$("#departureAirport").hide();
 	}
 });
@@ -332,6 +341,22 @@ function insertDatepicker(type) {
 		$("#flightDate").val(dateValue);
 
 	}
+}
+
+function insertPassenger() {
+	let passenger = "성인" + $("input[id=\"ageType1\"]").val();
+	
+	let type2 = $("input[id=\"ageType2\"]").val();
+	let type3 = $("input[id=\"ageType3\"]").val();
+	
+	if (type2 != 0) {
+		passenger = passenger + "  소아" + type2;
+	}
+	
+	if (type3 != 0) {
+		passenger = passenger + "  유아" + type3;
+	} 
+	$("input[id=\"passenger\"]").val(passenger);
 }
 
 // 나이 계산기 버튼
@@ -758,6 +783,8 @@ $("#selectScheduleBtn").on("click", function() {
 				$(`#${divId} .td--seat`).css("background-color", "white");
 				$(this).parent().css("background-color", "#F8FCFD");
 			});
+			
+			window.scrollTo(0, 880);
 
 		}).fail((error) => {
 			console.log(error);
@@ -909,7 +936,9 @@ $("#selectScheduleBtn").on("click", function() {
 			});
 			// 에러 방지용
 			$("#scheduleList1").append(`<input type="hidden" name="schedule2" value="0" class="error--prevent">`);
-
+			
+			window.scrollTo(0, 880);
+	
 		}).fail((error) => {
 			console.log(error);
 		});
@@ -942,11 +971,17 @@ function seatNode2(number, grade, i, strPrice, curCount) {
 	return node;
 }
 
-// 선택되지 않은 일정이 있다면 submit하지 않음
 $("#selectSeatBtn").on("click", function() {
 	
+	// 성인이 아니면 예매 불가능
+	if (memberAgeType != '성인') {
+		alert("만 12세 이상의 성인만 항공권 예매가 가능합니다.");
+		location.href="/";
+		return false;
+	}
+	
 	let list = $(`.schedule--list--div input[type="radio"]`);
-	// 왕복 편도 여부 확인
+	// 왕복 편도 여부 확인 (2 : 왕복, 1 : 편도)
 	let type = 0;
 	for (let j = 0; j < 2; j++) {
 		if ($(".schedule--list--div").eq(j).is(":visible")) {
@@ -962,8 +997,45 @@ $("#selectSeatBtn").on("click", function() {
 		}	
 	}		
 
+	// 선택되지 않은 일정이 있다면 submit하지 않음
 	if (type != checkCount) {
 		alert("선택되지 않은 일정이 존재합니다.");
 		return false;
-	}	
+	}
+	
+	// 왕복일 때, 첫 번째 여정과 두 번째 여정의 운항시간이 겹치지 않는지 확인
+	if (type == 2) {
+		
+		let sch1Id = $("input[name=\"schedule1\"]:checked").val().split("_")[1];
+		let sch2Id = $("input[name=\"schedule2\"]:checked").val().split("_")[1];
+		
+		let data = {
+			scheduleId1: sch1Id,
+			scheduleId2: sch2Id
+		};
+		
+		let result = true;
+		
+		$.ajax({
+			type: 'POST',
+			url: '/ticket/checkDate',
+			contentType: "application/json; charset=UTF-8",
+			data: JSON.stringify(data),
+			dataType: 'json',
+			async: false   // 이거 해주니까 ajax 기다렸다가 아래에 return result 실행
+		})
+		.done(async (res) => {
+			// 일정 선택에 문제가 있다면
+			if (res.data) {
+				alert(res.message);
+				result = false;
+			}
+		})
+		.fail((error) => {
+			console.log(error);
+		});
+		
+		return result;			
+	}
+	
 });

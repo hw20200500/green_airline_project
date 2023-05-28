@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.green.airline.dto.request.ScheduleDateCheckDto;
+import com.green.airline.dto.request.ScheduleOptionForMainPageDto;
 import com.green.airline.dto.request.ScheduleSelectDto;
 import com.green.airline.dto.request.TicketOptionDto;
+import com.green.airline.dto.response.ResponseDto;
 import com.green.airline.dto.response.ScheduleInfoResponseDto;
 import com.green.airline.dto.response.SeatInfoResponseDto;
 import com.green.airline.dto.response.SeatPriceDto;
@@ -25,6 +29,7 @@ import com.green.airline.dto.response.SeatStatusResponseDto;
 import com.green.airline.dto.response.TicketAllInfoDto;
 import com.green.airline.dto.response.TicketDto;
 import com.green.airline.repository.model.Airport;
+import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.Passenger;
 import com.green.airline.repository.model.RefundFee;
 import com.green.airline.repository.model.ReservedSeat;
@@ -86,6 +91,30 @@ public class TicketController {
 		List<Airport> regionList = airportService.readRegion();
 		model.addAttribute("regionList", regionList);
 		
+		if (session.getAttribute(Define.PRINCIPAL) != null) {
+			String memberId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
+			Member member = userService.readMemberById(memberId);
+			model.addAttribute("memberBirthDate", member.getBirthDate());		
+		}
+		
+		return "/ticket/selectSchedule";
+	}
+	
+	/**
+	 * @return 항공권 옵션 선택 페이지
+	 */
+	@GetMapping("/selectSchedule/search")
+	public String selectTicketOptionPageFromMain(Model model, ScheduleOptionForMainPageDto optionDto) {
+		
+		model.addAttribute("option", optionDto);
+		
+		List<Airport> regionList = airportService.readRegion();
+		model.addAttribute("regionList", regionList);
+		if (session.getAttribute(Define.PRINCIPAL) != null) {
+			String memberId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
+			Member member = userService.readMemberById(memberId);
+			model.addAttribute("memberBirthDate", member.getBirthDate());		
+		}
 		return "/ticket/selectSchedule";
 	}
 
@@ -334,7 +363,54 @@ public class TicketController {
 	@GetMapping("/refundInfo")
 	public String refundInfoPage(Model model) {
 		
-		return "/ticket/refundInformation";
+		List<RefundFee> refundFeeList1 = refundService.readByType(1);
+		model.addAttribute("refundFeeList1", refundFeeList1);
+		
+		List<RefundFee> refundFeeList2 = refundService.readByType(2);
+		model.addAttribute("refundFeeList2", refundFeeList2);
+		
+		return "/ticket/refundInfo";
+	}
+	
+	/**
+	 * 첫 번째 여정과 두 번째 여정의 일정이 정상적으로 선택됐는지 확인
+	 */
+	@PostMapping("/checkDate")
+	@ResponseBody
+	public ResponseDto<Boolean> checkDateProc(@RequestBody ScheduleDateCheckDto scheduleDto) {
+		
+		Boolean result = false;
+		String message = "정상적인 선택입니다.";
+		String code = "1";
+		String resultCode = "success";
+		
+		ScheduleInfoResponseDto sch1 = scheduleService.readInfoDtoByScheduleId(scheduleDto.getScheduleId1());
+		ScheduleInfoResponseDto sch2 = scheduleService.readInfoDtoByScheduleId(scheduleDto.getScheduleId2());
+		
+		// 스케줄1의 출발시간이 스케줄2의 출발시간보다 늦다면
+		// 즉, 스케줄2가 스케줄1보다 먼저라면
+		if (sch1.getDepartureDate().after(sch2.getDepartureDate())) {
+			result = true;
+			message = "첫 번째 여정과 두 번째 여정의 순서가 잘못되었습니다.\n다시 선택해주시길 바랍니다.";
+			code = "-1";
+			resultCode = "fail";
+			
+		// 스케줄1의 도착시간이 스케줄2의 출발시간보다 늦다면
+		// 즉, 스케줄1과 스케줄2의 운항시간이 겹친다면
+		} else if (sch1.getArrivalDate().after(sch2.getDepartureDate())) {
+			result = true;
+			message = "첫 번째 여정과 두 번째 여정의 일정이 겹칩니다.\n다시 선택해주시길 바랍니다.";
+			code = "-1";
+			resultCode = "fail";
+		}
+		
+		ResponseDto<Boolean> responseDto = new ResponseDto<>();
+		responseDto.setStatusCode(HttpStatus.OK.value());
+		responseDto.setCode(code);
+		responseDto.setMessage(message);
+		responseDto.setResultCode(resultCode);
+		responseDto.setData(result);
+		return responseDto;	
 	}
 	
 }

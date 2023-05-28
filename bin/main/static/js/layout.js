@@ -1,7 +1,13 @@
 	//$(".header--menu--split").css("width", $(".page--container").width());
+	let footerBottom;
+	
+	$(document).ready(function() {
+		footerBottom = $("footer").position().top + $("footer").height() + 60;
+	});
 	
 	$(window).resize(function() {
 		$(".nav--depth2--background").css("width", $(".nav--depth2--div").width());	
+		footerBottom = $("footer").position().top + $("footer").height() + 60;
 	});
 
 	let menuIndex;
@@ -43,7 +49,6 @@
 			
 			// 세부 메뉴 밑으로는 어둡게 처리
 			let headerHeight = 569;
-			let footerBottom = $("footer").position().top + $("footer").height() + 60;
 			let backgroundHeight;
 			if (footerBottom < window.innerHeight) {
 				backgroundHeight = window.innerHeight - headerHeight;	

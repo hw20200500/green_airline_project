@@ -3,20 +3,17 @@ package com.green.airline.controller;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,8 +25,10 @@ import com.green.airline.dto.nation.NationDto;
 import com.green.airline.dto.request.JoinFormDto;
 import com.green.airline.dto.request.LoginFormDto;
 import com.green.airline.dto.request.SocialJoinFormDto;
+import com.green.airline.repository.model.Airport;
 import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.User;
+import com.green.airline.service.AirportService;
 import com.green.airline.service.UserService;
 import com.green.airline.utils.Define;
 
@@ -42,6 +41,9 @@ public class UserController {
 
 	@Autowired
 	private HttpSession session;
+	
+	@Autowired
+	private AirportService airportService;
 
 	/**
 	 * @author 서영 메인 페이지
@@ -50,6 +52,10 @@ public class UserController {
 	public String mainPage(Model model) {
 		int isMain = 1;
 		model.addAttribute("isMain", isMain);
+		
+		List<Airport> regionList = airportService.readRegion();
+		model.addAttribute("regionList", regionList);
+		
 		return "/mainPage";
 	}
 
