@@ -7,6 +7,10 @@
 		SELECT * FROM user_tb WHERE id = #{id} AND password = #{password}
 	</select>
 	
+	<select id="selectById" resultType="com.green.airline.repository.model.User">
+		SELECT * FROM user_tb WHERE id = #{id}
+	</select>
+	
 	<insert id="insertByUser">
 		INSERT INTO user_tb (id, password, user_role)
 		VALUES(#{id}, #{password}, #{userRole.userRole})

@@ -17,9 +17,25 @@
 	</select>
 
 	<insert id="insertMember">
-		INSERT INTO member_tb(id, kor_name, eng_name, birth_date, gender,
+		INSERT INTO member_tb(id, kor_name, eng_name,
+		birth_date, gender,
 		phone_number, email, address, nationality)
-		VALUES(#{id}, #{korName}, #{engName}, #{birthDate}, #{gender}, #{phoneNumber},
+		VALUES(#{id}, #{korName}, #{engName}, #{birthDate}, #{gender},
+		#{phoneNumber},
+		#{email}, #{address}, #{nationality})
+	</insert>
+
+	<insert id="insertSocialMemberByRequired">
+		INSERT INTO member_tb(id, kor_name, gender, email)
+		VALUES(#{id}, #{korName}, #{gender}, #{email})
+	</insert>
+
+	<insert id="insertSocialMember">
+		INSERT INTO member_tb(id, kor_name, eng_name,
+		birth_date, gender,
+		phone_number, email, address, nationality)
+		VALUES(#{id}, #{korName}, #{engName}, #{birthDate}, #{gender},
+		#{phoneNumber},
 		#{email}, #{address}, #{nationality})
 	</insert>
 
@@ -27,5 +43,9 @@
 		INSERT INTO member_tb(id, kor_name, email, gender)
 		VALUES(#{id}, #{nickname}, #{email}, #{gender})
 	</insert>
-
+	
+	<select id="existsById" resultType="com.green.airline.repository.model.Member">
+		SELECT * FROM member_tb WHERE id = #{id}
+	</select>
+	
 </mapper>

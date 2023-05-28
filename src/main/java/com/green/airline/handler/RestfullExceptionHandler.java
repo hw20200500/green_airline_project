@@ -1,11 +1,14 @@
 package com.green.airline.handler;
 
+import java.net.BindException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.security.auth.login.LoginException;
+import javax.validation.ConstraintViolationException;
+
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -40,6 +43,7 @@ public class RestfullExceptionHandler {
 	 */
 	@ExceptionHandler(CustomPathException.class)
 	public String customPathException(CustomPathException e) {
+		
 		StringBuffer sb = new StringBuffer();
 		sb.append("<script>");
 		sb.append("alert('" + e.getMessage() + "');");
@@ -56,5 +60,12 @@ public class RestfullExceptionHandler {
 		return ApiErrorResponse.builder().statusCode(HttpStatus.BAD_REQUEST.value()).code("-1").resultCode("fail")
 				.message("잘못된 요청입니다.").exceptionFieldMessages(errorList).build();
 	}
-
+	
+	// BindException
+	@ExceptionHandler(BindException.class)
+	public String bindException(BindException e) {
+		System.out.println("11111");
+		
+		return "test";
+	}
 }

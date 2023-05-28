@@ -33,10 +33,10 @@
 			<br>
 			<div class="d-flex justify-content-center">
 				<button type="submit" class="btn btn-primary">로그인</button>
+				<a href="https://kauth.kakao.com/oauth/authorize?client_id=ce88cf20b78f9552fe8f49e224822cf8&redirect_uri=http://localhost:80/auth/kakao/callback&response_type=code"><img alt=""
+					src="/images/kakao_login_medium.png" style="margin-left: 10px;"> </a>
 			</div>
 		</form>
-		<a href="https://kauth.kakao.com/oauth/authorize?client_id=ce88cf20b78f9552fe8f49e224822cf8&redirect_uri=http://localhost:80/auth/kakao/callback&response_type=code"><img alt=""
-			src="/images/kakao_login_medium.png" style="margin-top: 10px;"> </a>
 	</div>
 </main>
 

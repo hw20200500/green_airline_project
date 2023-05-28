@@ -23,6 +23,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.green.airline.dto.OAuthToken;
 import com.green.airline.dto.kakao.SocialDto;
+import com.green.airline.dto.request.SocialJoinFormDto;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.UserService;
 import com.green.airline.utils.Define;
@@ -92,15 +93,26 @@ public class AuthController {
 			}
 
 			// email, gender, id 셋 다 있는 경우 여기까지 내려옴
+			// 유저 조회해서 db에 값 없으면 회원가입 처리 후 로그인 처리 있으면
+			// 그냥 로그인처리
 			// 회원가입 처리
 			userService.createByUser(res);
-			// 로그인 처리(session에 값 담기) -> 위 principal에서는 null이 나왔기 때문에 
-			// session에 값을 담아주려면 다시 서비스를 불러서 조회해야함
+			SocialJoinFormDto joinFormDto = new SocialJoinFormDto();
+			joinFormDto.setId(id);
+			joinFormDto.setKorName(res.getProperties().getNickname());
+			joinFormDto.setGender(gender);
+			joinFormDto.setEmail(email);
+			userService.createSocialMemberByRequired(joinFormDto);
+			// 멤버 회원가입 처리도 해주기
+
+			// 로그인 처리
 			User principal2 = userService.readSocialDtoById(res.getId());
 			session.setAttribute(Define.PRINCIPAL, principal2);
-			
+			// 로그인 처리(session에 값 담기) -> 위 principal에서는 null이 나왔기 때문에
+			// session에 값을 담아주려면 다시 서비스를 불러서 조회해야함
+
 			// 메인으로
-			return "redirect:/";
+			return "redirect:/login";
 
 		} else {
 			// 위 principal이 null이 아닐 경우 로그인 처리를 위한 session에 값 담기
@@ -117,7 +129,7 @@ public class AuthController {
 		if (gender.equals("male")) {
 			gender = "M";
 		} else if (gender.equals("female")) {
-			gender = "F"; 
+			gender = "F";
 		}
 
 		// redirect => 새로운 request response 객체를 생성해서 요청을 던지는 녀석
