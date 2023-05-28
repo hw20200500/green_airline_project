@@ -50,7 +50,7 @@
 				</div>
 
 				<!-- 출발지 도착지 서로 바꾸는 버튼 -->
-				<button id="airportSwap" onclick="airportSwap();" type="button">
+				<button id="airportSwapBtn" onclick="airportSwap();" type="button">
 					<span class="material-symbols-outlined" style="color: #4c4c4c; font-size: 28px;">swap_horiz</span>
 				</button>
 
@@ -94,7 +94,7 @@
 								<label for="flightDate1">가는 날</label> <input type="text" class="datepicker flight--date1" id="flightDate1" value="2023-06-13">
 							</div>
 							<div class="datepicker--div">
-								<label for="flightDate2">오는 날</label> <input type="text" class="datepicker flight--date2" id="flightDate2" value="2023-06-14">
+								<label for="flightDate2">오는 날</label> <input type="text" class="datepicker flight--date2" id="flightDate2" value="2023-06-13">
 							</div>
 						</div>
 					</div>
@@ -308,8 +308,49 @@
 
 </main>
 
-
-
 <script src="/js/ticket.js"></script>
+<script>
+	// 출발날짜 - 현재날짜
+	let curDate = new Date();
+	let birthDate = stringToDate(`${memberBirthDate}`);
+	let memberAgeType = calculateAgeType(birthDate, curDate);
+</script>
+
+<!-- 메인 페이지에서 넘어온 경우 -->
+<c:if test="${option != null}">
+	<script>
+		let ticketType = ${option.ticketType};
+	
+		// 왕복, 편도 선택
+		selectedType(ticketType);
+		$("#departure").val(`${option.departure}`);
+		$("#destination").val(`${option.destination}`);
+		$("#ageType1").val(${option.adultCount});
+		$("#ageType2").val(${option.childCount});
+		$("#ageType3").val(${option.infantCount});
+		$("#flightDate").addClass("flight--date--inserted");
+		
+		var date1 = `${option.flightDate1}`;
+		var date2 = `${option.flightDate2}`;
+		var date0 = `${option.flightDate0}`;
+		
+		// 왕복이면
+		if (ticketType == 1) {
+			
+			$("#flightDate1").val(date1);
+			$("#flightDate2").val(date2);
+			$("#flightDate").val(date1 + " ~ " + date2);
+			
+		// 편도면
+		} else {
+			
+			$("#flightDate0").val(date0);
+			$("#flightDate").val(date0);
+			
+		}
+		$("#selectScheduleBtn").click();
+		
+	</script>
+</c:if>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

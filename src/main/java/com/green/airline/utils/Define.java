@@ -23,4 +23,8 @@ public class Define {
 
 	// 이미지 처리 관련
 	public final static String UPLOAD_DIRECTORY = "C:\\upload";
+	
+	// 성인 나이 기준
+	public final static int MIN_ADULT_AGE = 12;
+	
 }

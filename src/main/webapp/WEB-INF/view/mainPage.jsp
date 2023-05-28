@@ -5,13 +5,15 @@
 <link rel="stylesheet" href="/css/mainPage.css">
 
 <div class="main--img--div">
-	<div style="width: 1178px; margin-left: 25px;">
+	<div style="width: 1178px; margin-left: 24px;">
 		<div class="menu--name--div">
-			<span class="material-symbols-outlined" style="margin: 1px 6px 0 0">airplane_ticket</span> <span>항공권 예약</span>
+			<span class="material-symbols-outlined" style="margin: 1px 6px 0 0">airplane_ticket</span> 
+			<span>항공권 예약</span>
 		</div>
 	</div>
 	<div class="ticket--option--div">
-		<form>
+		<form action="/ticket/selectSchedule/search" method="get">
+			<input type="hidden" name="ticketType" value="1" id="ticketTypeInput">
 			<ul class="ticket--type">
 				<li id="ticketType1" onclick="selectedType(1);" class="selected--type">왕복
 				<li id="ticketType2" onclick="selectedType(2);">편도
@@ -45,7 +47,7 @@
 				</div>
 
 				<!-- 출발지 도착지 서로 바꾸는 버튼 -->
-				<button id="airportSwap" onclick="airportSwap();" type="button">
+				<button id="airportSwapBtn" onclick="airportSwap();" type="button">
 					<span class="material-symbols-outlined" style="color: #4c4c4c; font-size: 28px;">swap_horiz</span>
 				</button>
 
@@ -56,7 +58,7 @@
 						<span>도착지</span>
 					</p>
 					<input type="text" name="destination" placeholder="TO" id="destination" autocomplete="off">
-					<!-- 자동완성 및 공항 선택 -->
+					<!-- 자동완성 및 공항 선택 --> 
 					<div class="airport--div" id="destinationAirport">
 						<div class="d-flex justify-content-between" style="margin-bottom: 15px;">
 							<h5>자동 완성</h5>
@@ -82,7 +84,7 @@
 						<span class="material-symbols-outlined">calendar_month</span>
 						<span>탑승일</span>
 					</p>
-					<input type="text" name="flightDate" id="flightDate" placeholder="가는 날 ~ 오는 날" readonly>
+					<input type="text" id="flightDate" placeholder="가는 날 ~ 오는 날" readonly>
 					<!-- 날짜 선택 -->
 					<!-- 왕복 -->
 					<div class="datepicker--div--type1">
@@ -94,10 +96,12 @@
 						</div>
 						<div style="background-color: #f3f3f3; padding: 10px; margin-bottom: 10px;">
 							<div class="datepicker--div">
-								<label for="flightDate1">가는 날</label> <input type="text" class="datepicker flight--date1" id="flightDate1">
+								<label for="flightDate1">가는 날</label> 
+								<input type="text" class="datepicker flight--date1" id="flightDate1" name="flightDate1" autocomplete="off">
 							</div>
 							<div class="datepicker--div">
-								<label for="flightDate2">오는 날</label> <input type="text" class="datepicker flight--date2" id="flightDate2">
+								<label for="flightDate2">오는 날</label> 
+								<input type="text" class="datepicker flight--date2" id="flightDate2" name="flightDate2" autocomplete="off">
 							</div>
 						</div>
 					</div>
@@ -110,7 +114,8 @@
 							</button>
 						</div>
 						<div class="datepicker--div" style="background-color: #f3f3f3; padding: 10px; margin-bottom: 10px;">
-							<label for="flightDate0">가는 날</label> <input type="text" class="datepicker flight--date" id="flightDate0" value="2023-06-13">
+							<label for="flightDate0">가는 날</label> 
+							<input type="text" class="datepicker flight--date" id="flightDate0" name="flightDate0" autocomplete="off">
 						</div>
 					</div>
 				</div>
@@ -120,7 +125,7 @@
 						<span class="material-symbols-outlined">group</span>
 						<span>탑승인원</span>
 					</p>
-					<input type="text" name="passenger" id="passenger" placeholder="탑승인원" value="성인1" readonly>
+					<input type="text" id="passenger" placeholder="탑승인원" value="성인1" readonly>
 					<div id="ageTypeDiv">
 						<div class="d-flex justify-content-between" style="margin-bottom: 15px;">
 							<h5 style="margin-bottom: 10px;">탑승인원 선택</h5>
@@ -135,7 +140,7 @@
 								<label>성인</label>
 								<div class="age--type--div">
 									<button class="minus--button" type="button">-</button>
-									<input type="number" min="0" max="99" value="1" id="ageType1" readonly>
+									<input type="number" min="0" max="99" value="1" id="ageType1" readonly name="adultCount">
 									<button class="plus--button" type="button">+</button>
 								</div>
 							</div>
@@ -144,7 +149,7 @@
 								<label>소아</label>
 								<div class="age--type--div">
 									<button class="minus--button" type="button">-</button>
-									<input type="number" min="0" max="99" value="0" id="ageType2" readonly>
+									<input type="number" min="0" max="99" value="0" id="ageType2" readonly name="childCount">
 									<button class="plus--button" type="button">+</button>
 								</div>
 							</div>
@@ -153,7 +158,7 @@
 								<label>유아</label>
 								<div class="age--type--div">
 									<button class="minus--button" type="button">-</button>
-									<input type="number" min="0" max="99" value="0" id="ageType3" readonly>
+									<input type="number" min="0" max="99" value="0" id="ageType3" readonly name="infantCount">
 									<button class="plus--button" type="button">+</button>
 								</div>
 							</div>
@@ -167,7 +172,7 @@
 					</div>
 				</div>
 				<div class="d-flex justify-content-end" style="width: 100%">
-					<button class="search--btn--big" id="selectScheduleBtn" type="button">
+					<button class="search--btn--middle" id="schedulePageBtn" type="submit">
 						<ul class="d-flex justify-content-center" style="margin: 0;">
 							<li style="margin-right: 3px;">항공권 조회
 							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">search</span>
@@ -250,8 +255,73 @@
 
 <script src="/js/ticket.js"></script>
 <script>
+
 	$(".minus--button, .plus--button").on("click", function() {
 		insertPassenger();
 	});
+	
+	$(document).on("click", function(e) {
+		if ($("#passengerDiv").has(e.target).length === 0) {
+			$("#ageTypeDiv").hide();
+		}
+	});
+	
+	$("#schedulePageBtn").on("click", function() {
+		// 1 : 왕복, 2 : 편도
+		let ticketType = $(".selected--type").index() + 1;
+		$("#ticketTypeInput").val(ticketType);
+		// 취항지 1
+		let airport1 = $("#departure").val();
+		if (airport1 == "") {
+			alert("출발지가 선택되지 않았습니다.");
+			return false;
+		}
+
+		// 취항지 2
+		let airport2 = $("#destination").val();
+		if (airport2 == "") {
+			alert("도착지가 선택되지 않았습니다.");
+			return false;
+		}
+
+		// 성인
+		let ageType1 = parseInt($("#ageType1").val());
+		if (ageType1 == 0) {
+			alert("최소 1명의 성인이 필요합니다.");
+			return false;
+		}
+
+		// 유아
+		let ageType3 = parseInt($("#ageType3").val());
+		if (ageType3 > ageType1) {
+			alert('유아의 수는 동반 성인의 수보다 많을 수 없습니다.');
+			return false;
+		}
+
+		// 왕복
+		if (ticketType == 1) {
+			// 왕복 - 탑승일 1 (가는 날)
+			let flightDate1 = $("#flightDate1").val();
+			// 왕복 - 탑승일 2 (오는 날)
+			let flightDate2 = $("#flightDate2").val();
+
+			// 선택하지 않은 날짜가 있다면
+			if (flightDate1 == "" || flightDate2 == "") {
+				alert("선택되지 않은 날짜가 존재합니다.");
+				return false;
+			}
+			// 편도
+		} else {
+			// 탑승일
+			let flightDate = $("#flightDate0").val();
+			// 선택하지 않은 날짜가 있다면
+			if (flightDate == "") {
+				alert("선택되지 않은 날짜가 존재합니다.");
+				return false;
+			}
+		}
+	});
+	
 </script>
+
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

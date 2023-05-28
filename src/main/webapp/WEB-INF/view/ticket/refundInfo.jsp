@@ -84,9 +84,9 @@
 			<ul class="no--fee--ul">
 				<li>고객 사정에 의한 환불이 아닌 경우
 			</ul>
-			<br>
-			<hr style="width: 1000px; ">
-			<br>
+			<br><br>
+			<hr style="width: 1000px; margin-left: -50px;">
+			<br><br>
 			<h4 class="middle--title">
 				<span class="material-symbols-outlined" style="font-size: 32px;">attach_money</span>
 				<span>국제선 환불 수수료</span>
