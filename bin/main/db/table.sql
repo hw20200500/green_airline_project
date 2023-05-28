@@ -336,3 +336,25 @@ CREATE TABLE refund_fee_tb (
 	type TINYINT NOT NULL,
 	fee BIGINT NOT NULL
 );
+
+-- 고객의 말씀 카테고리
+CREATE TABLE voc_category_tb (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(20) NOT NULL
+);
+
+-- 고객의 말씀 게시글
+CREATE TABLE voc_tb (
+	id INT PRIMARY  KEY AUTO_INCREMENT,
+	phone_number VARCHAR(13) NOT NULL,
+	email VARCHAR(40) NOT NULL,
+	type VARCHAR(2) NOT NULL COMMENT '문의, 칭찬, 불만, 건의',
+	title VARCHAR(50) NOT NULL,
+	content TEXT NOT NULL,
+	category_id INT NOT NULL,
+	FOREIGN KEY (category_id) REFERENCES voc_category_tb (id),
+	member_id VARCHAR(50) NOT NULL,
+	FOREIGN KEY (member_id) REFERENCES member_tb (id),
+	ticket_id VARCHAR(15),
+	FOREIGN KEY (ticket_id) REFERENCES ticket_tb (id)
+);

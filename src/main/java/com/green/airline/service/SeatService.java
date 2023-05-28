@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.green.airline.dto.response.AirplaneInfoDto;
 import com.green.airline.dto.response.ScheduleInfoResponseDto;
@@ -49,6 +50,7 @@ public class SeatService {
 	/**
 	 * @return 해당 스케줄에서 좌석 등급별 기본 가격 정보
 	 */
+	@Transactional
 	public SeatPriceDto readSeatPriceByScheduleId(Integer scheduleId) {
 		// 스케줄 정보
 		ScheduleInfoResponseDto scheduleDto = scheduleRepository.selectDtoByScheduleId(scheduleId);
@@ -81,6 +83,7 @@ public class SeatService {
 	/**
 	 * @return 특정 좌석 정보 (가격 포함)
 	 */
+	@Transactional
 	public SeatInfoResponseDto readSeatInfoByNameAndScheduleId(String seatName, Integer scheduleId) {
 		// 좌석 가격을 제외한 좌석 정보가 담김
 		SeatInfoResponseDto seatInfoDto = seatRepository.selectSeatInfoByNameAndScheduleId(seatName, scheduleId);
@@ -106,6 +109,7 @@ public class SeatService {
 	/**
 	 * @return 해당 스케줄에 운항하는 비행기의 좌석 리스트 (등급에 따라)
 	 */
+	@Transactional
 	public List<SeatStatusResponseDto> readSeatListByScheduleIdAndGrade(Integer scheduleId, String grade) {
 		
 		List<SeatStatusResponseDto> seatEntityList = seatRepository.selectSeatListByScheduleIdAndGrade(scheduleId, grade);
@@ -131,6 +135,7 @@ public class SeatService {
 	/**
 	 * @return 해당 비행기의 좌석 등급별 좌석 개수 + 비행기 이름
 	 */
+	@Transactional
 	public List<AirplaneInfoDto> readSeatCountByAirplaneId(Integer airplaneId) {
 		List<AirplaneInfoDto> dtoList = seatRepository.selectByAirplaneId(airplaneId);
 		return dtoList;

@@ -62,6 +62,9 @@ public class TicketAllInfoDto {
 	public String formatArrivalDate() {
 		return TimestampUtil.dateTimeToString(arrivalDate);
 	}
+	public String formatArrivalDate2() {
+		return TimestampUtil.dateToString(arrivalDate);
+	}
 	
 	public String formatReservedDate() {
 		return TimestampUtil.dateTimeToString(reservedDate);		

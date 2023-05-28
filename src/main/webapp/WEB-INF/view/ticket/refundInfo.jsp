@@ -11,21 +11,6 @@
 	.list--table td:first-of-type {
 		width: 65%;
 	}
-
-	.middle--title {
-		width: 100%;
-		text-align: left;
-		font-weight: 600;
-		margin-bottom: 20px;
-		color: #314f79;
-		display: flex;
-		align-items: center;
-		margin-left: -10px;
-	}
-	
-	.middle--title span:hover {
-		color: #314f79;
-	}
 	
 	.no--fee {
 		font-weight: 600; 

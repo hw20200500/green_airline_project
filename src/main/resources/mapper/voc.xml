@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.airline.repository.interfaces.VocRepository">
+
+<select id="selectCategoryList" resultType="com.green.airline.repository.model.VocCategory">
+	SELECT * FROM voc_category_tb
+</select>
+
+<insert id="insert">
+	INSERT INTO voc_tb (phone_number, email, type, title, content, category_id, member_id, ticket_id)
+	VALUES (#{phoneNumber}, #{email}, #{type}, #{title}, #{content}, #{categoryId}, #{memberId}, #{ticketId})
+</insert>
+
+</mapper>

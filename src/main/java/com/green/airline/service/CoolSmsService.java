@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
@@ -16,6 +17,7 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 public class CoolSmsService {
 
 	// 예약 성공 시 문자 발송
+	@Transactional
 	public void completeMessage(String tel, String name, String ticketId) {
 		// 수신 전화번호, 이름 - member에서
 		// 예약번호

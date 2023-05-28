@@ -335,33 +335,35 @@ footer {
 	color: rgba(0, 0, 0, 0.7)
 }
 
-.list--table {
+.list--table, .list--table--reverse {
 	width: 100%;
 	border-color: #ddd;
 }
 
-.list--table th {
+.list--table th, .list--table--reverse th {
 	background-color: #E5EFF3;
 	color: #404040;
 }
 
-.list--table th:first-child, .list--table td:first-child {
+.list--table th:first-child, .list--table td:first-child, .list--table--reverse th {
 	border-left: hidden;
 }
 
-.list--table th:last-child, .list--table td:last-child {
+.list--table th:last-child, .list--table td:last-child, .list--table--reverse td {
 	border-right: hidden;
 }
 
-.list--table tr:first-of-type th {
+.list--table tr:first-of-type th, .list--table--reverse tr:first-of-type th, 
+.list--table--reverse tr:first-of-type td {
 	border-top: 2px solid #ccc;
 }
 
-.list--table tr:last-of-type td {
+.list--table tr:last-of-type td, .list--table--reverse tr:last-of-type th,
+.list--table--reverse tr:last-of-type td {
 	border-bottom: 2px solid #ccc;
 }
 
-.list--table th, .list--table td {
+.list--table th, .list--table td, .list--table--reverse th {
 	font-size: 17px;
 	text-align: center;
 	padding: 5px;
@@ -389,4 +391,19 @@ footer {
 
 ul {
 	margin: 0;
+}
+
+.middle--title {
+	width: 100%;
+	text-align: left;
+	font-weight: 600;
+	margin-bottom: 20px;
+	color: #314f79;
+	display: flex;
+	align-items: center;
+	margin-left: -10px;
+}
+
+.middle--title span:hover {
+	color: #314f79;
 }

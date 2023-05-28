@@ -36,6 +36,7 @@ public class ScheduleService {
 	/**
 	 * @return id에 따른 스케줄 조회
 	 */
+	@Transactional
 	public Schedule readByScheduleId(Integer scheduleId) {
 		Schedule schEntity = scheduleRepository.selectByScheduleId(scheduleId);
 		return schEntity;
@@ -44,6 +45,7 @@ public class ScheduleService {
 	/**
 	 * @return id에 따른 스케줄+노선+비행기 정보 조회
 	 */
+	@Transactional
 	public ScheduleInfoResponseDto readInfoDtoByScheduleId(Integer scheduleId) {
 		ScheduleInfoResponseDto dto = scheduleRepository.selectDtoByScheduleId(scheduleId);
 		return dto;
