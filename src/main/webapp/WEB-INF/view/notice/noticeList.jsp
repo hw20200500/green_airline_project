@@ -55,7 +55,7 @@
 
 			<div class="keyword--search--wrap">
 				<form action="/notice/noticeSearch" method="get" class="keyword--search--form">
-					<input type="text" id="keyword" name="keyword" placeholder="키워드 검색">
+					<input type="text" id="keyword" name="keyword" placeholder="키워드 검색" onkeypress="if(event.keyCode=='13'){event.preventDefault();}">
 					<button class="search--btn btn btn-primary" type="submit">검색</button>
 				</form>
 			</div>
@@ -77,6 +77,12 @@
 				</div>
 			</c:forEach>
 		</div>
+
+		<c:if test="${principal.userRole.equals(\"관리자\")}">
+			<div>
+				<button class="btn btn-primary" onclick="location.href='/notice/noticeInsert'">글 작성</button>
+			</div>
+		</c:if>
 	</main>
 
 	<script src="/js/notice.js"></script>

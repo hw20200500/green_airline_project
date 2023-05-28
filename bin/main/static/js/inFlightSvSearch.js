@@ -12,7 +12,8 @@ $("#start").on("click", function() {
 					return;
 				} else if (searchName.indexOf("\\") != -1) {
 					$(".pop--rel--keyword").empty();
-					var el = $("<li>검색 결과가 존재하지 않습니다.</li>");
+					let el = $("<li>검색 결과가 존재하지 않습니다.</li>");
+					
 					$(".pop--rel--keyword").append(el);
 					return;
 				}
@@ -25,11 +26,11 @@ $("#start").on("click", function() {
 					$(".pop--rel--keyword").empty();
 
 					if (res.length == 0) {
-						var el = $("<li class='search--airport--li'>검색 결과가 존재하지 않습니다.</li>");
+						let el = $("<li class='search--airport--li'>검색 결과가 존재하지 않습니다.</li>");
 						$(".pop--rel--keyword").append(el);
 					} else {
-						for (var i = 0; i < res.length; i++) {
-							var el = $("<li onclick=\"insertAutoComplete(" + i + ", 'departure');\">");
+						for (let i = 0; i < res.length; i++) {
+							let el = $("<li onclick=\"insertAutoComplete(" + i + ", 'departure');\">");
 							el.addClass("departure--airport--li");
 							el.append(res[i].name);
 							$(".pop--rel--keyword").append(el);
@@ -57,7 +58,7 @@ $("#destination").on("click", function() {
 					return;
 				} else if (searchName.indexOf("\\") != -1) {
 					$(".pop--rel--keyword").empty();
-					var el = $("<li>검색 결과가 존재하지 않습니다.</li>");
+					let el = $("<li>검색 결과가 존재하지 않습니다.</li>");
 					$(".pop--rel--keyword").append(el);
 					return;
 				}
@@ -70,11 +71,11 @@ $("#destination").on("click", function() {
 					$(".pop--rel--keyword").empty();
 
 					if (res.length == 0) {
-						var el = $("<li>검색 결과가 존재하지 않습니다.</li>");
+						let el = $("<li>검색 결과가 존재하지 않습니다.</li>");
 						$(".pop--rel--keyword").append(el);
 					} else {
-						for (var i = 0; i < res.length; i++) {
-							var el = $("<li onclick=\"insertAutoComplete(" + i + ", 'destination');\">");
+						for (let i = 0; i < res.length; i++) {
+							let el = $("<li onclick=\"insertAutoComplete(" + i + ", 'destination');\">");
 							el.addClass("destination--airport--li");
 							el.append(res[i].name);
 							$(".pop--rel--keyword").append(el);
@@ -133,13 +134,7 @@ $("#modal--select--btn--id").on("click", function() {
 				destinationResId.append(imgNode);
 				destinationResId.append(data[i].description);
 			}
-			/* 노선 테이블에 입력한대로 조회하면 잘 나옴 */
-
-			/*if (destination == null && departure == null) {
-				alert("ㅁㄴㅇㄹ");
-			}*/
 		}
-
 
 	}).fail(function(error) {
 		console.log(error);
@@ -172,11 +167,12 @@ $(".departure--region--li").on("click", function() {
 		$(".departure--airport--ul").empty();
 
 		if ($(".all--departure--airport--modal").is(".depa")) {
-			for (var i = 0; i < res.length; i++) {
-				var el = $("<li onclick=\"insertDepartureAirport(" + i + ");\">");
-				el.addClass("departure--airport--li");
+			for (let i = 0; i < res.length; i++) {
+				let el = $("<li onclick=\"insertDepartureAirportClass(" + i + ");\">");
+				el.addClass("departure--airport--li--class");
 				el.append(res[i].name);
 				$(".departure--airport--ul").append(el);
+				console.log(res[i].name);
 			}
 		}
 	}).fail((error) => {
@@ -200,9 +196,9 @@ $(".destination--region--li").on("click", function() {
 		$(".destination--airport--ul").empty();
 
 		if ($(".all--destination--airport--modal").is(".dest")) {
-			for (var i = 0; i < res.length; i++) {
-				var el = $("<li onclick=\"insertDestinationAirport(" + i + ");\">");
-				el.addClass("destination--airport--li");
+			for (let i = 0; i < res.length; i++) {
+				let el = $("<li onclick=\"insertDestinationAirportClass(" + i + ");\">");
+				el.addClass("destination--airport--li--class");
 				el.append(res[i].name);
 				$(".destination--airport--ul").append(el);
 			}
@@ -215,6 +211,13 @@ $(".destination--region--li").on("click", function() {
 });
 
 
+function insertDepartureAirportClass(i) {
+	let liValue = $(`.departure--airport--li--class`).eq(i).text();
+	$(`.departure--airport--li--class`).eq(i).addClass("departure--region--li--selected");
+	$(`.departure--airport--li--class`).eq(i).siblings().removeClass("departure--region--li--selected");
+	$(`#departure`).val(liValue);
+}
+
 function insertDepartureAirport(i) {
 	let liValue = $(`.departure--airport--li`).eq(i).text();
 	$(`.departure--airport--li`).eq(i).addClass("departure--region--li--selected");
@@ -224,9 +227,14 @@ function insertDepartureAirport(i) {
 
 function insertDestinationAirport(i) {
 	let liValue = $(`.destination--airport--li`).eq(i).text();
-	console.log($(`.destination--airport--li`).eq(i));
 	$(`.destination--airport--li`).eq(i).addClass("destination--region--li--selected");
 	$(`.destination--airport--li`).eq(i).siblings().removeClass("destination--region--li--selected");
+	$(`#destination`).val(liValue);
+}
+function insertDestinationAirportClass(i) {
+	let liValue = $(`.destination--airport--li--class`).eq(i).text();
+	$(`.destination--airport--li--class`).eq(i).addClass("destination--region--li--selected");
+	$(`.destination--airport--li--class`).eq(i).siblings().removeClass("destination--region--li--selected");
 	$(`#destination`).val(liValue);
 }
 

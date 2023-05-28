@@ -57,5 +57,16 @@
 			where nc.id=#{categoryId}
 		</if>
 	</select>
+	
+	<delete id="deleteNoticeById">
+		delete from notice_tb
+		where id = #{id}
+	</delete>
+
+	<update id="updateNoticeById">
+		update notice_tb
+		set title = #{title}, content = #{content}, category_id = #{categoryId}
+		where id = #{id}
+	</update>
 
 </mapper>

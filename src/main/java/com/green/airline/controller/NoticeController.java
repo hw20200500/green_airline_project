@@ -77,12 +77,33 @@ public class NoticeController {
 		return "/notice/noticeList";
 	}
 
+	// id기반 공지사항 상세글 조회
 	@GetMapping("/noticeDetail/{id}")
 	public String noticeDetailPage(@PathVariable Integer id, Model model) {
 		NoticeResponseDto noticeResponseDto = noticeService.readNoticeById(id);
 		model.addAttribute("noticeResponseDto", noticeResponseDto);
 
 		return "/notice/noticeDetail";
+	}
+
+	@GetMapping("/noticeDelete")
+	public String noticeDelete(@RequestParam Integer id) {
+		noticeService.deleteNoticeById(id);
+		return "redirect:/notice/noticeList";
+	}
+
+	@GetMapping("/noticeUpdate")
+	public String noticeUpdate(@RequestParam Integer id, Model model) {
+		List<NoticeCategory> categoryList = noticeService.readNoticeCategory();
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("id", id);
+		return "/notice/noticeUpdate";
+	}
+
+	@PostMapping("/noticeUpdate")
+	public String noticeUpdateProc(Notice notice, Model model) {
+		noticeService.updateNoticeById(notice);
+		return "redirect:/notice/noticeList";
 	}
 
 }

@@ -57,4 +57,20 @@ public class NoticeService {
 		return noticeResponseDtos;
 	}
 
+	// 관리자 측 게시글 삭제
+	public void deleteNoticeById(Integer id) {
+		int result = noticeRepository.deleteNoticeById(id);
+		if (result == 1) {
+			System.out.println("삭제 성공");
+		}
+	}
+
+	// 관리자 측 게시글 수정
+	public void updateNoticeById(Notice notice) {
+		int result = noticeRepository.updateNoticeById(notice);
+		if (result == 1) {
+			System.out.println("수정 성공");
+		}
+	}
+
 }
