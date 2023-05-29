@@ -11,7 +11,7 @@
 <!-- 관리자가 확인하는 글 목록 -->
 
 <main class="d-flex flex-column">
-	<h2>고객의 말씀 내역</h2>
+	<h2>고객의 말씀</h2>
 	<hr>
 	<br>
 	<div class="d-flex justify-content-center" style="width: 100%;">

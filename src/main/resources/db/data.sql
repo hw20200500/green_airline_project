@@ -8,7 +8,8 @@ VALUES
 INSERT INTO user_tb 
 VALUES 
 	('abc', '$2a$10$nxanAcpAnZv3qVxuRq0rBuVz.cRLE.1mDgcGhI.SAwf0a54fmCp1e', '회원'),
-	('a123', '$2a$10$nxanAcpAnZv3qVxuRq0rBuVz.cRLE.1mDgcGhI.SAwf0a54fmCp1e', '회원');
+	('a123', '$2a$10$nxanAcpAnZv3qVxuRq0rBuVz.cRLE.1mDgcGhI.SAwf0a54fmCp1e', '회원'),
+	('asdf', '$2a$10$nxanAcpAnZv3qVxuRq0rBuVz.cRLE.1mDgcGhI.SAwf0a54fmCp1e', '관리자');
 
 
 INSERT INTO member_tb
@@ -971,8 +972,7 @@ VALUES
 	('32423423', 1, 0, 0, '이코노미', 'abc', 1, '2023-05-01 12:00'),
 	('94635667A', 2, 2, 0, '이코노미', 'abc', 2,'2023-05-24 09:30'),
 	('94635667B', 2, 2, 0, '비즈니스', 'abc', 10,'2023-05-24 09:30'),
-	('42369451', 1, 0, 0, '퍼스트', 'abc', 2, '2023-05-26 14:08'),
-	('72250738', 1, 0, 0, '이코노미', 'abc', 14, '2023-05-27 16:14');
+	('42369451', 1, 0, 0, '퍼스트', 'abc', 2, '2023-05-26 14:08');
 
 INSERT INTO reserved_seat_tb
 VALUES 
@@ -984,8 +984,7 @@ VALUES
 	(10, 'E03', '94635667B'),
 	(10, 'E04', '94635667B'),
 	(10, 'E05', '94635667B'),
-	(10, 'E06', '94635667B'),
-	(14, 'L09', '72250738');
+	(10, 'E06', '94635667B');
 	
 	
 INSERT INTO passenger_tb
@@ -998,15 +997,13 @@ VALUES
 	('김홍아', 'F', '1997-08-05', '94635667B'),
 	('김현아', 'F', '1996-01-05', '94635667B'),
 	('김동준', 'M', '2018-04-26', '94635667B'),
-	('김희아', 'F', '2020-09-05', '94635667B'),
-	('김홍아', 'F', '1997-08-05', '72250738');
+	('김희아', 'F', '2020-09-05', '94635667B');
 	
 INSERT INTO ticket_payment_tb
 VALUES
 	('T4546464546456666654', '32423423', null, 301000, null, 1, null),
 	('T46d5a8d72620615e44d', '94635667A', '94635667B', 301000, 903000, 1, 1),
-	('T4703e9e0dc40ec9cb6f', '42369451', null, 516000, null, 2, null),
-	('T471adf162ea0bae808d', '72250738', null, 1161000, null, 1, null);
+	('T4703e9e0dc40ec9cb6f', '42369451', null, 516000, null, 2, null);
 
 INSERT INTO request_meal_tb(amount, meal_id, ticket_id)
 VALUES
@@ -1111,4 +1108,7 @@ VALUES
 	('항공기 지연/결항/회항'),
 	('기타');
 	
+INSERT INTO voc_tb
+VALUES
+	(1, '010-1111-2222', 'os010312@naver.com', '문의', '서울/김포행 항공권 관련 문의' ,'테스트용', '2023-05-29 17:05:40', 9, 'abc', '94635667A');
 	

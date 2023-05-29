@@ -345,16 +345,26 @@ CREATE TABLE voc_category_tb (
 
 -- 고객의 말씀 게시글
 CREATE TABLE voc_tb (
-	id INT PRIMARY  KEY AUTO_INCREMENT,
+	id INT PRIMARY KEY AUTO_INCREMENT,
 	phone_number VARCHAR(13) NOT NULL,
 	email VARCHAR(40) NOT NULL,
 	type VARCHAR(2) NOT NULL COMMENT '문의, 칭찬, 불만, 건의',
 	title VARCHAR(50) NOT NULL,
 	content TEXT NOT NULL,
+	created_at TIMESTAMP NOT NULL DEFAULT now(),
 	category_id INT NOT NULL,
 	FOREIGN KEY (category_id) REFERENCES voc_category_tb (id),
 	member_id VARCHAR(50) NOT NULL,
 	FOREIGN KEY (member_id) REFERENCES member_tb (id),
 	ticket_id VARCHAR(15),
-	FOREIGN KEY (ticket_id) REFERENCES ticket_tb (id)
+	FOREIGN KEY (ticket_id) REFERENCES ticket_tb (id) ON DELETE SET NULL
+);
+
+-- 고객의 말씀 답변
+CREATE TABLE voc_answer_tb (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	content TEXT NOT NULL,
+	created_at TIMESTAMP NOT NULL DEFAULT now(),
+	voc_id INT NOT NULL,
+	FOREIGN KEY (voc_id) REFERENCES voc_tb (id) ON DELETE CASCADE 
 );

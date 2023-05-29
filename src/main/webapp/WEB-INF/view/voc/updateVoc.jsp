@@ -136,11 +136,11 @@ $(document).ready(function() {
 					</tr>
 					<tr>
 						<th>전화번호&nbsp;<span style="color: #d91818">*</span></th>
-						<td><input type="tel" name="phoneNumber" value="${member.phoneNumber}" class="info--input" required></td>
+						<td><input type="tel" name="phoneNumber" value="${member.phoneNumber}" class="info--input"></td>
 					</tr>
 					<tr>
 						<th>이메일&nbsp;<span style="color: #d91818">*</span></th>
-						<td><input type="email" name="email" value="${member.email}" class="info--input" required></td>
+						<td><input type="email" name="email" value="${member.email}" class="info--input"></td>
 					</tr>
 				</table>
 	
@@ -158,7 +158,7 @@ $(document).ready(function() {
 					<tr>
 						<th>분야&nbsp;<span style="color: #d91818">*</span></th>
 						<td><select name="categoryId">
-								<option value="-1" style="color: gray">분야 선택</option>
+								<option value="" style="color: gray">분야 선택</option>
 								<c:forEach var="category" items="${categoryList}">
 									<option value="${category.id}">${category.name}</option>
 								</c:forEach>
@@ -166,31 +166,29 @@ $(document).ready(function() {
 					</tr>
 					<tr>
 						<th>제목&nbsp;<span style="color: #d91818">*</span></th>
-						<td><input type="text" name="title" autocomplete="false" maxlength="50" required></td>
+						<td><input type="text" name="title" autocomplete="false" maxlength="50"></td>
 					</tr>
 					<tr>
 						<th>내용&nbsp;<span style="color: #d91818">*</span></th>
-						<td><textarea name="content" id="contentArea" required></textarea>
+						<td><textarea name="content" id="contentArea"></textarea>
 							<p class="textarea--p">
 								<span id="currentLen">0</span>/${Define.MAX_TEXTAREA_LENGTH}자
 							</p></td>
 					</tr>
 					<tr>
 						<th>예약번호</th>
-						<td>
-							<select name="ticketId">
+						<td><select name="ticketId">
 								<option value="" style="color: gray">예약 관련 상담 시 선택 바랍니다.</option>
 								<c:forEach var="ticket" items="${ticketList}">
 									<option value="${ticket.id}">
 										${ticket.id}&nbsp;&nbsp;ㅣ&nbsp;&nbsp;${ticket.departure} → ${ticket.destination}&nbsp;&nbsp;ㅣ&nbsp;&nbsp;${ticket.formatDepartureDate()}
 									</option>
 								</c:forEach>
-							</select>
-						</td>
+						</select></td>
 					</tr>
 				</table>
 				<div style="text-align: center; margin-top: 40px;">
-					<button type="submit" class="search--btn--middle" id="writeBtn">
+					<button type="submit" class="search--btn--middle">
 						<ul class="d-flex justify-content-center" style="margin: 0;">
 							<li style="margin-right: 4px;">입력 완료
 							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">done</span>
