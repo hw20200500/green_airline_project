@@ -32,7 +32,7 @@ header {
 }
 
 .header--top {
-	margin-bottom: 20px;
+	margin-bottom: 25px;
 	display: flex;
 	justify-content: space-between;
 }

@@ -65,7 +65,7 @@ label {
 	border: 2px solid #ccc !important;
 }
 
-#answerContentFixed {
+#answerContentFixed, #contentArea {
 	height: 350px;
 }
 
