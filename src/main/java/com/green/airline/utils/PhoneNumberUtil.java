@@ -19,7 +19,6 @@ public class PhoneNumberUtil {
 			String num2 = phoneNumber.substring(3, 7);
 			String num3 = phoneNumber.substring(7, 11);
 			result = num1 + "-" + num2 + "-" + num3;
-			System.out.println(result);
 		}
 		
 		// 전화번호 형식에 맞지 않다면 실행 X (result == 3)
