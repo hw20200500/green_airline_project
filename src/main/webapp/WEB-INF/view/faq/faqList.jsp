@@ -74,19 +74,22 @@ main {
 
 .faq--toggle {
 	display: block;
+	background: #eee;
+	font-size: 18px;
+	margin-bottom: 10px;
+	margin-top: 10px;
 }
 
 .faq--name--cursor--wrap {
 	cursor: pointer;
+	font-size: 20px;
+	margin-bottom: 10px;
 }
 
 .faq--faqList--wrap{
 	margin-right: 20px;
 }
 
-.faq--toggle{
-	background: #eee;
-}
 </style>
 
 <div>
