@@ -53,7 +53,7 @@
 							<li class="customer--service--li"><a href="#">고객센터</a>
 								<ul class="ul--dropdown--menu">
 									<li class="li--dropdown--menu"><a href="/notice/noticeList">공지사항</a></li>
-									<li class="li--dropdown--menu"><a href="#">자주묻는질문</a></li>
+									<li class="li--dropdown--menu"><a href="/faq/faqList">자주묻는질문</a></li>
 								</ul></li>
 						</c:when>
 						<c:otherwise>
@@ -67,7 +67,7 @@
 							<li class="customer--service--li"><a href="#">고객센터</a>
 								<ul class="ul--dropdown--menu">
 									<li class="li--dropdown--menu"><a href="/notice/noticeList">공지사항</a></li>
-									<li class="li--dropdown--menu"><a href="#">자주묻는질문</a></li>
+									<li class="li--dropdown--menu"><a href="/faq/faqList">자주묻는질문</a></li>
 									<li class="li--dropdown--menu">&nbsp;</li>
 									<li class="li--dropdown--menu">&nbsp;</li>
 								</ul></li>

@@ -250,6 +250,23 @@ CREATE TABLE baggage_request_tb(
 	member_id VARCHAR(50), FOREIGN KEY(member_id) REFERENCES member_tb(id)
 );
 
+-- 자주묻는질문 카테고리
+CREATE TABLE faq_category_tb(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(50) NOT NULL
+);
+
+-- 자주묻는질문
+CREATE TABLE faq_tb(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	title VARCHAR(100) NOT NULL,
+	content TEXT NOT NULL,
+	view_count INT DEFAULT 0,
+	created_at TIMESTAMP default now(),
+	category_id INT NOT NULL, FOREIGN KEY(category_id) REFERENCES faq_category_tb(id)
+);
+
+
 -- 추천여행지 게시글
 create table recommend_board_tb
 (

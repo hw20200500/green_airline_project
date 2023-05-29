@@ -163,5 +163,10 @@
 		set title = #{title}, content = #{content}, category_id = #{categoryId}
 		where id = #{id}
 	</update>
+	
+	<select id="selectNoticeCategory" resultType="com.green.airline.repository.model.NoticeCategory">
+		select *
+		from notice_category_tb
+	</select>
 
 </mapper>
