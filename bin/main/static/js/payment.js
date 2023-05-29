@@ -95,6 +95,7 @@ $("#passengerInfoBtn").on("click", function() {
 	}
 	
 	$("#paymentDiv").show();
+	window.scrollTo(0, document.body.scrollHeight);
 });
 
 // 현재 예약자를 탑승객에 포함할 건지 선택하는 체크박스

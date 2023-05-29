@@ -27,4 +27,6 @@ public class Define {
 	// 성인 나이 기준
 	public final static int MIN_ADULT_AGE = 12;
 	
+	// 고객의 말씀 최대 작성 가능 byte 수
+	public final static int MAX_TEXTAREA_LENGTH = 2000;
 }

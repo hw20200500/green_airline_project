@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
@@ -40,6 +41,7 @@ public class UserService {
 	/**
 	 * @author 서영 로그인
 	 */
+	@Transactional
 	public User readUserByIdAndPassword(LoginFormDto loginFormDto) {
 		User userEntity = userRepository.selectById(loginFormDto);
 
@@ -61,12 +63,14 @@ public class UserService {
 	 * @author 서영
 	 * @return 회원 정보
 	 */
+	@Transactional
 	public Member readMemberById(String id) {
 		Member memberEntity = memberRepository.selectById(id);
 		return memberEntity;
 	}
 
 	// 일반 회원가입 처리
+	@Transactional
 	public void createMember(JoinFormDto joinFormDto) {
 
 		int result = memberRepository.insertMember(joinFormDto);
@@ -81,6 +85,7 @@ public class UserService {
 	}
 
 	// 소셜 회원가입 처리
+	@Transactional
 	public void createSocialMember(SocialJoinFormDto socialJoinFormDto) {
 
 		int result = memberRepository.insertSocialMember(socialJoinFormDto);
@@ -91,6 +96,7 @@ public class UserService {
 		}
 	}
 
+	@Transactional
 	public SocialDto readBySocialUserInfo(String id) {
 		SocialDto socialMember = memberRepository.selectBySocialUserInfo(id);
 
@@ -99,6 +105,7 @@ public class UserService {
 
 	// 소셜회원 회원가입 (email, gender, id 모두 동의한 경우, 회원가입 페이지를 거치지 않고 카카오 로그인 동의하기 누르자마자
 	// 회원가입이 된 경우)
+	@Transactional
 	public void createByUser(SocialDto socialDto) {
 
 		if ("male".equals(socialDto.getKakaoAccount().getGender())) {
@@ -119,6 +126,7 @@ public class UserService {
 
 	}
 
+	@Transactional
 	public User readSocialDtoById(String id) {
 		// 본인 데이터 베이스에 조회
 		User userEntity = userRepository.selectSocialDtoById(id);
@@ -126,6 +134,7 @@ public class UserService {
 	}
 
 	// 회원가입 시 에러메세지 내려주기
+	@Transactional
 	public Map<String, String> validateHandler(Errors errors) {
 		// 회원가입 실패시 message 값들을 모델에 매핑해서 View로 전달
 		Map<String, String> validateResult = new HashMap<>();
@@ -139,12 +148,14 @@ public class UserService {
 	}
 
 	// 소셜 회원가입 필수값 처리
+	@Transactional
 	public void createSocialMemberByRequired(SocialJoinFormDto socialJoinFormDto) {
 
 		memberRepository.insertSocialMemberByRequired(socialJoinFormDto);
 	}
 
 	// 아이디 중복 확인
+	@Transactional
 	public Member readById(String id) {
 		Member memberEntity = memberRepository.existsById(id);
 		return memberEntity;

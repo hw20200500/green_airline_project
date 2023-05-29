@@ -487,3 +487,7 @@ p {
 .target--fee {
 	background-color: #CDEDF9;
 }
+
+label {
+	margin: 0;
+}

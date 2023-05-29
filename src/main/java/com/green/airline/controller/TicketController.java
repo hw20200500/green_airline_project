@@ -312,11 +312,18 @@ public class TicketController {
 	/**
 	 * @return 항공권 구매 내역 페이지
 	 */
-	@GetMapping("/list")
-	public String ticketListPage(Model model) {
+	@GetMapping("/list/{page}")
+	public String ticketListPage(Model model, @PathVariable Integer page) {
 		String memberId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
+		// 전체 구매 내역
+		List<TicketAllInfoDto> allTicketList = ticketService.readTicketListByMemberId(memberId);
+		// 총 페이지 수
+		int pageCount = (int) Math.ceil(allTicketList.size() / 10.0);
+		model.addAttribute("pageCount", pageCount);
 		
-		List<TicketAllInfoDto> ticketList = ticketService.readTicketListByMemberId(memberId);
+		// 표시할 글 목록
+		Integer index = (page - 1) * 10;
+		List<TicketAllInfoDto> ticketList = ticketService.readTicketListByMemberIdLimit(memberId, index);
 		
 		model.addAttribute("ticketList", ticketList);
 		

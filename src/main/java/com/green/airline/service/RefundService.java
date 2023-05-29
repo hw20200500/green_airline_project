@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.green.airline.repository.interfaces.RefundFeeRepository;
 import com.green.airline.repository.model.RefundFee;
@@ -19,6 +20,7 @@ public class RefundService {
 	 * 필요한 것 : 국내선/국제선 여부, 출발일
 	 * @return 환불 수수료 구하기
 	 */
+	@Transactional
 	public Long readRefundFee(Integer scheduleType, Integer dayCount) {
 		
 		Integer criterion = 0;

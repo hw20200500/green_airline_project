@@ -141,6 +141,7 @@ public class TicketService {
 	/**
 	 * 결제 취소 시 결제내역, 티켓 삭제
 	 */
+	@Transactional
 	public void deleteTicketByPaymentCancel(String memberId) {
 		
 		List<Ticket> ticketList = ticketRepository.selectByUserIdOrderByDate(memberId);
@@ -163,6 +164,7 @@ public class TicketService {
 	/**
 	 * 결제 완료 처리
 	 */
+	@Transactional
 	public List<TicketAllInfoDto> updatePaymentStatusIsSuccess(String memberId) {
 		
 		List<Ticket> ticketList = ticketRepository.selectByUserIdOrderByDate(memberId);
@@ -203,6 +205,7 @@ public class TicketService {
 	/**
 	 * 특정 티켓의 모든 정보 가져오기 (결제 정보 포함)
 	 */
+	@Transactional
 	public TicketAllInfoDto readTicketAllInfoByTicketId(String ticketId) {
 		
 		TicketAllInfoDto infoDto = null;
@@ -222,8 +225,20 @@ public class TicketService {
 	 * @author 서영
 	 * 해당 유저가 구매한 모든 티켓 리스트 가져오기
 	 */
+	@Transactional
 	public List<TicketAllInfoDto> readTicketListByMemberId(String memberId) {
 		List<TicketAllInfoDto> dtoList = ticketRepository.selectTicketListByMemberId(memberId);
+		
+		return dtoList;
+	}
+	
+	/**
+	 * @author 서영
+	 * 해당 유저가 구매한 티켓 리스트 가져오기 (페이징 처리)
+	 */
+	@Transactional
+	public List<TicketAllInfoDto> readTicketListByMemberIdLimit(String memberId, Integer index) {
+		List<TicketAllInfoDto> dtoList = ticketRepository.selectTicketListByMemberIdLimit(memberId, index);
 		
 		return dtoList;
 	}
@@ -234,6 +249,7 @@ public class TicketService {
 	 * 결제 내역의 status 변경
 	 * 예약 좌석, 탑승객 정보 삭제
 	 */
+	@Transactional
 	public void updateStatusRefund(String tid, String ticketId,Integer type) {
 		// status 변경
 		ticketPaymentRepository.updateStatusByTid(tid, type, 2);

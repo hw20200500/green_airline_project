@@ -24,7 +24,7 @@
 	<div class="d-flex justify-content-center">
 		<form id="login--form" action="/login" method="post">
 			<div class="d-flex">
-				<label for="id">아이디</label> <input type="text" id="id" name="id" value="abc">
+				<label for="id">아이디</label> <input type="text" id="id" name="id" value="asdf">
 			</div>
 			<br>
 			<div class="d-flex">
