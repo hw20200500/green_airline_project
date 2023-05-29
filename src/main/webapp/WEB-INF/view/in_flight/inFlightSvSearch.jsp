@@ -57,6 +57,10 @@
 	cursor: pointer;
 }
 
+.destination--airport--li--class:hover {
+	cursor: pointer;
+}
+
 .datepicker {
 	border: none;
 }
@@ -135,6 +139,10 @@
 	cursor: pointer;
 }
 
+.departure--airport--li--class:hover {
+	cursor: pointer;
+}
+
 /* #modal--select--btn--id{
 	width:200px;
 	border:none;
@@ -172,6 +180,11 @@
 	border-bottom: 1px solid buttonhighlight;
 }
 
+.departure--airport--li--class, .destination--airport--li--class {
+	padding: 8px;
+	border-bottom: 1px solid buttonhighlight;
+}
+
 .autocomplete--list li:last-of-type, .departure--airport--li:last-of-type,
 	.destination--airport--li:last-of-type {
 	border-bottom: hidden;
@@ -179,6 +192,13 @@
 
 .departure--li:hover, .destination--li:hover, .departure--airport--li:hover,
 	.destination--airport--li:hover {
+	cursor: pointer;
+	font-weight: 600;
+	color: #3163aa;
+}
+
+.departure--airport--li--class:hover,
+	.destination--airport--li--class:hover {
 	cursor: pointer;
 	font-weight: 600;
 	color: #3163aa;

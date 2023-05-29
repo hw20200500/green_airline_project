@@ -55,7 +55,7 @@
 
 			<div class="keyword--search--wrap">
 				<form action="/notice/noticeSearch" method="get" class="keyword--search--form">
-					<input type="text" id="keyword" name="keyword" placeholder="키워드 검색">
+					<input type="text" id="keyword" name="keyword" placeholder="키워드 검색" onkeypress="if(event.keyCode=='13'){event.preventDefault();}">
 					<button class="search--btn btn btn-primary" type="submit">검색</button>
 				</form>
 			</div>
@@ -77,6 +77,31 @@
 				</div>
 			</c:forEach>
 		</div>
+		
+		<div style="display: block; text-align: center;">		
+			<c:if test="${paging.startPage != 1}">
+				<a href="/notice/noticeList?nowPage=${paging.startPage - 1}&cntPerPage=${paging.cntPerPage}">&lt;</a>
+			</c:if>
+			<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
+				<c:choose>
+					<c:when test="${p == paging.nowPage}">
+						<b>${p}</b>
+					</c:when>
+					<c:when test="${p != paging.nowPage}">
+						<a href="/notice/noticeList?nowPage=${p}&cntPerPage=${paging.cntPerPage}">${p}</a>
+					</c:when>
+				</c:choose>
+			</c:forEach>
+			<c:if test="${paging.endPage != paging.lastPage}">
+				<a href="/notice/noticeList?nowPage=${paging.endPage+1}&cntPerPage=${paging.cntPerPage}">&gt;</a>
+			</c:if>
+		</div>
+
+		<c:if test="${principal.userRole.equals(\"관리자\")}">
+			<div>
+				<button class="btn btn-primary" onclick="location.href='/notice/noticeInsert'">글 작성</button>
+			</div>
+		</c:if>
 	</main>
 
 	<script src="/js/notice.js"></script>

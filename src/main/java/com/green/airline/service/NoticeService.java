@@ -10,6 +10,7 @@ import com.green.airline.dto.response.NoticeResponseDto;
 import com.green.airline.repository.interfaces.NoticeRepository;
 import com.green.airline.repository.model.Notice;
 import com.green.airline.repository.model.NoticeCategory;
+import com.green.airline.utils.PagingObj;
 
 @Service
 public class NoticeService {
@@ -32,9 +33,19 @@ public class NoticeService {
 
 		return noticeCategoryList;
 	}
+	
+	public int readNoticeCount() {
+		int resultCount = noticeRepository.selectNoticeCount();
+		return resultCount;
+	}
+	
+	public int readNoticeByCategoryIdCount(Integer categoryId) {
+		int resultCount = noticeRepository.selectNoticeByCategoryIdCount(categoryId);
+		return resultCount;
+	}
 
-	public List<NoticeResponseDto> readNotice() {
-		List<NoticeResponseDto> noticeList = noticeRepository.selectNotice();
+	public List<NoticeResponseDto> readNotice(PagingObj obj) {
+		List<NoticeResponseDto> noticeList = noticeRepository.selectNotice(obj);
 		return noticeList;
 	}
 
@@ -51,10 +62,26 @@ public class NoticeService {
 		return noticeResponseDto;
 	}
 
-	public List<NoticeResponseDto> readNoticeByCategoryId(int categoryId) {
-		List<NoticeResponseDto> noticeResponseDtos = noticeRepository.selectNoticeByCategoryId(categoryId);
+	public List<NoticeResponseDto> readNoticeByCategoryId(PagingObj obj, int categoryId) {
+		List<NoticeResponseDto> noticeResponseDtos = noticeRepository.selectNoticeByCategoryId(obj, categoryId);
 
 		return noticeResponseDtos;
+	}
+
+	// 관리자 측 게시글 삭제
+	public void deleteNoticeById(Integer id) {
+		int result = noticeRepository.deleteNoticeById(id);
+		if (result == 1) {
+			System.out.println("삭제 성공");
+		}
+	}
+
+	// 관리자 측 게시글 수정
+	public void updateNoticeById(Notice notice) {
+		int result = noticeRepository.updateNoticeById(notice);
+		if (result == 1) {
+			System.out.println("수정 성공");
+		}
 	}
 
 }

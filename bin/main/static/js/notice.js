@@ -1,5 +1,4 @@
-/*
-$(document).ready(function() {
+/*$(document).ready(function() {
 
 	$(".search--btn").on("click", function() {
 		let keyword = $("#keyword").val();
@@ -25,4 +24,16 @@ $(document).ready(function() {
 
 	});
 });*/
+
+$(document).ready(function() {
+	
+	$(".search--btn").on("click", function() {
+		let noticeList = $(".notice--noticeList--wrap").val();
+		if(noticeList == ' ' || noticeList == ''){
+			$(".search--btn").attr("type", "button");
+		} else {
+			$(".search--btn").attr("type", "submit");
+		}
+	});
+});
 

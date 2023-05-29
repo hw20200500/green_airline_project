@@ -16,6 +16,7 @@ import com.green.airline.dto.response.NoticeResponseDto;
 import com.green.airline.repository.model.Notice;
 import com.green.airline.repository.model.NoticeCategory;
 import com.green.airline.service.NoticeService;
+import com.green.airline.utils.PagingObj;
 
 @Controller
 @RequestMapping("/notice")
@@ -43,10 +44,15 @@ public class NoticeController {
 
 	// 공지사항 페이지
 	@GetMapping("/noticeList")
-	public String noticePage(Model model) {
+	public String noticePage(Model model, @RequestParam(name = "nowPage", defaultValue = "1", required = false) String nowPage, @RequestParam(name = "cntPerPage", defaultValue = "5", required = false) String cntPerPage) {
 		// Todo
 		// 공지사항 select
-		List<NoticeResponseDto> noticeList = noticeService.readNotice();
+		// 총 게시글 개수 가져오기
+		int total = noticeService.readNoticeCount();
+		
+		PagingObj obj = new PagingObj(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging", obj);
+		List<NoticeResponseDto> noticeList = noticeService.readNotice(obj);
 		model.addAttribute("noticeList", noticeList);
 		List<NoticeCategory> categoryList = noticeService.readNoticeCategory();
 		model.addAttribute("categoryList", categoryList);
@@ -66,10 +72,18 @@ public class NoticeController {
 
 	// 공지사항 카테고리별 출력
 	@GetMapping("/noticeCategory/{categoryId}")
-	public String noticeCategory(@PathVariable int categoryId, Model model) {
-		// todo
-		// categoryId 받아오기
-		List<NoticeResponseDto> noticeList = noticeService.readNoticeByCategoryId(categoryId);
+	public String noticeCategory(@PathVariable int categoryId, Model model, @RequestParam(name = "nowPage", defaultValue = "1", required = false) String nowPage, @RequestParam(name = "cntPerPage", defaultValue = "5", required = false) String cntPerPage) {
+
+		int total = 0;
+		if(categoryId == 1) {
+			total = noticeService.readNoticeCount();
+		} else {
+			total = noticeService.readNoticeByCategoryIdCount(categoryId);
+		}
+		
+		PagingObj obj = new PagingObj(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		model.addAttribute("paging", obj);
+		List<NoticeResponseDto> noticeList = noticeService.readNoticeByCategoryId(obj, categoryId);
 		model.addAttribute("noticeList", noticeList);
 		List<NoticeCategory> categoryList = noticeService.readNoticeCategory();
 		model.addAttribute("categoryList", categoryList);
@@ -77,12 +91,33 @@ public class NoticeController {
 		return "/notice/noticeList";
 	}
 
+	// id기반 공지사항 상세글 조회
 	@GetMapping("/noticeDetail/{id}")
 	public String noticeDetailPage(@PathVariable Integer id, Model model) {
 		NoticeResponseDto noticeResponseDto = noticeService.readNoticeById(id);
 		model.addAttribute("noticeResponseDto", noticeResponseDto);
 
 		return "/notice/noticeDetail";
+	}
+
+	@GetMapping("/noticeDelete")
+	public String noticeDelete(@RequestParam Integer id) {
+		noticeService.deleteNoticeById(id);
+		return "redirect:/notice/noticeList";
+	}
+
+	@GetMapping("/noticeUpdate")
+	public String noticeUpdate(@RequestParam Integer id, Model model) {
+		List<NoticeCategory> categoryList = noticeService.readNoticeCategory();
+		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("id", id);
+		return "/notice/noticeUpdate";
+	}
+
+	@PostMapping("/noticeUpdate")
+	public String noticeUpdateProc(Notice notice, Model model) {
+		noticeService.updateNoticeById(notice);
+		return "redirect:/notice/noticeList";
 	}
 
 }

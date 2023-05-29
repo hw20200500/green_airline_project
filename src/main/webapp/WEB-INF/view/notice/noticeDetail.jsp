@@ -11,6 +11,12 @@
 			<div>${noticeResponseDto.name}|${noticeResponseDto.dateFormat()}</div>
 			<div>${noticeResponseDto.content}</div>
 		</div>
+		<c:if test="${principal.userRole.equals(\"관리자\")}">
+			<div>
+				<button class="btn btn-primary" onclick="location.href='/notice/noticeUpdate?id=${id}'">수정</button>
+				<button class="btn btn-danger" onclick="location.href='/notice/noticeDelete?id=${id}'">삭제</button>
+			</div>
+		</c:if>
 	</main>
 </div>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

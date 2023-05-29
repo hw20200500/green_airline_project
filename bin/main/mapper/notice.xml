@@ -7,14 +7,67 @@
 		insert into notice_tb (title, content, category_id)
 		values(#{title}, #{content}, #{categoryId})
 	</insert>
+	
+	<!-- 총 공지글 개수 세는 기능 -->
+	<select id="selectNoticeCount" resultType="int">
+		select count(*) from notice_tb
+	</select>
+	
+	<select id="selectNoticeByCategoryIdCount" resultType="int">
+		select count(*)
+		from notice_tb as n
+		inner join notice_category_tb
+		as nc
+		on nc.id = n.category_id
+		where nc.id=#{categoryId}
+	</select>
 
 	<select id="selectNotice"
 		resultType="com.green.airline.dto.response.NoticeResponseDto">
-		select *, nc.name as name
+		<!-- 페이징 처리 안된 쿼리문 -->
+		<!-- select *, nc.name as name
 		from notice_tb as n
 		inner join
 		notice_category_tb as nc
-		on nc.id = n.category_id
+		on nc.id = n.category_id -->
+		
+		<!-- 페이징 처리 MySql용 -->
+		<!-- SELECT * 
+		from (
+ 			SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM, A.* 
+        	FROM (
+				select *, nc.name as name
+				from notice_tb as n
+				inner join
+				notice_category_tb as nc
+				on nc.id = n.category_id
+        	    ORDER BY id DESC
+     	       ) A, 
+        		(SELECT @ROWNUM := 0 ) B
+        	) as C
+		WHERE C.ROWNUM BETWEEN #{obj.start} AND #{obj.end} -->
+		
+		<!-- 페이징처리 h2용 -->
+		SELECT * 
+		FROM (
+			SELECT ROWNUM RN, A.* 
+				FROM (
+						select 
+							nc.name as name, 
+	                        nc.id as category_id,
+	                        n.id as id,
+	                        n.title,
+	                        n.content,
+	                        n.created_at,
+						from 
+						notice_tb as n
+						inner join
+						notice_category_tb as nc
+		  				on nc.id = n.category_id
+        	    		order by n.id desc
+					) A
+				)
+		WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 
 	<!-- 공지사항 검색 기능 -->
@@ -41,21 +94,74 @@
 	<select id="selectNoticeByCategoryId"
 		resultType="com.green.airline.dto.response.NoticeResponseDto">
 		<if test="categoryId==1">
-			select *
+			<!-- select *
 			from notice_tb as n
 			inner join notice_category_tb
 			as nc
-			on nc.id = n.category_id
+			on nc.id = n.category_id -->
+			
+			SELECT * 
+		FROM (
+			SELECT ROWNUM RN, A.* 
+				FROM (
+						select 
+							nc.name as name, 
+	                        nc.id as category_id,
+	                        n.id as id,
+	                        n.title,
+	                        n.content,
+	                        n.created_at,
+						from 
+						notice_tb as n
+						inner join
+						notice_category_tb as nc
+		  				on nc.id = n.category_id
+        	    		order by n.id desc
+					) A
+				)
+		WHERE RN BETWEEN #{obj.start} AND #{obj.end}
 		</if>
 
 		<if test="categoryId!=1">
-			select *
+			<!-- select *
 			from notice_tb as n
 			inner join notice_category_tb
 			as nc
 			on nc.id = n.category_id
-			where nc.id=#{categoryId}
+			where nc.id=#{categoryId} -->
+			
+			SELECT * 
+		FROM (
+			SELECT ROWNUM RN, A.* 
+				FROM (
+						select 
+							nc.name as name, 
+	                        nc.id as category_id,
+	                        n.id as id,
+	                        n.title,
+	                        n.content,
+	                        n.created_at,
+						from notice_tb as n
+						inner join notice_category_tb
+						as nc
+						on nc.id = n.category_id
+						where nc.id=#{categoryId}
+        	    		order by n.id desc
+					) A
+				)
+		WHERE RN BETWEEN #{obj.start} AND #{obj.end}
 		</if>
 	</select>
+	
+	<delete id="deleteNoticeById">
+		delete from notice_tb
+		where id = #{id}
+	</delete>
+
+	<update id="updateNoticeById">
+		update notice_tb
+		set title = #{title}, content = #{content}, category_id = #{categoryId}
+		where id = #{id}
+	</update>
 
 </mapper>

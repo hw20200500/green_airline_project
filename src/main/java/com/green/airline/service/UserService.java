@@ -47,6 +47,7 @@ public class UserService {
 			throw new CustomRestfullException("아이디가 존재하지 않습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
+		// 암호화 처리
 		boolean isPwdMatched = passwordEncoder.matches(loginFormDto.getPassword(), userEntity.getPassword());
 
 		if (isPwdMatched == false) {
