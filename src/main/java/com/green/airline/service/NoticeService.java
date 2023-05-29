@@ -49,11 +49,18 @@ public class NoticeService {
 		return noticeList;
 	}
 
-	public List<NoticeResponseDto> readNoticeByTitle(String keyword) {
+	public List<NoticeResponseDto> readNoticeByTitle(PagingObj obj, String keyword) {
 		keyword = "%" + keyword + "%";
-		List<NoticeResponseDto> noticeResponseDtoList = noticeRepository.selectNoticeByTitle(keyword);
+		List<NoticeResponseDto> noticeResponseDtoList = noticeRepository.selectNoticeByTitle(obj, keyword);
 
 		return noticeResponseDtoList;
+	}
+	
+	// 페이징 처리에 사용 ) 공지사항 검색 글 총 개수 가져오기
+	public int readNoticeByKeywordCount(String keyword) {
+		keyword = "%" + keyword + "%";
+		int resultCnt = noticeRepository.selectNoticeByKeywordCount(keyword);
+		return resultCnt;
 	}
 
 	public NoticeResponseDto readNoticeById(int id) {

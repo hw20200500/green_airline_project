@@ -45,13 +45,13 @@ public class NoticeController {
 
 	// 공지사항 페이지
 	@GetMapping("/noticeList")
-	public String noticePage(Model model, @RequestParam(name = "nowPage", defaultValue = "1", required = false) String nowPage, @RequestParam(name = "cntPerPage", defaultValue = "5", required = false) String cntPerPage) {
-		// Todo
-		// 공지사항 select
+	public String noticePage(Model model,
+			@RequestParam(name = "nowPage", defaultValue = "1", required = false) String nowPage,
+			@RequestParam(name = "cntPerPage", defaultValue = "5", required = false) String cntPerPage) {
 		// 총 게시글 개수 가져오기
 		int total = noticeService.readNoticeCount();
-		
 		PagingObj obj = new PagingObj(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+
 		model.addAttribute("paging", obj);
 		List<NoticeResponseDto> noticeList = noticeService.readNotice(obj);
 		model.addAttribute("noticeList", noticeList);
@@ -62,8 +62,19 @@ public class NoticeController {
 	}
 
 	@GetMapping("/noticeSearch")
-	public String noticeSearch(@RequestParam String keyword, Model model) {
-		List<NoticeResponseDto> noticeList = noticeService.readNoticeByTitle(keyword);
+	public String noticeSearch(@RequestParam String keyword,
+			@RequestParam(name = "nowPage", defaultValue = "1", required = false) String nowPage,
+			@RequestParam(name = "cntPerPage", defaultValue = "5", required = false) String cntPerPage, Model model) {
+		int total = 0;
+		if (keyword.equals("")) {
+			total = noticeService.readNoticeCount();
+		} else {
+			total = noticeService.readNoticeByKeywordCount(keyword);
+		}
+		PagingObj obj = new PagingObj(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		List<NoticeResponseDto> noticeList = noticeService.readNoticeByTitle(obj, keyword);
+
+		model.addAttribute("paging", obj);
 		model.addAttribute("noticeList", noticeList);
 		List<NoticeCategory> categoryList = noticeService.readNoticeCategory();
 		model.addAttribute("categoryList", categoryList);
@@ -73,15 +84,17 @@ public class NoticeController {
 
 	// 공지사항 카테고리별 출력
 	@GetMapping("/noticeCategory/{categoryId}")
-	public String noticeCategory(@PathVariable int categoryId, Model model, @RequestParam(name = "nowPage", defaultValue = "1", required = false) String nowPage, @RequestParam(name = "cntPerPage", defaultValue = "5", required = false) String cntPerPage) {
+	public String noticeCategory(@PathVariable int categoryId, Model model,
+			@RequestParam(name = "nowPage", defaultValue = "1", required = false) String nowPage,
+			@RequestParam(name = "cntPerPage", defaultValue = "5", required = false) String cntPerPage) {
 
 		int total = 0;
-		if(categoryId == 1) {
+		if (categoryId == 1) {
 			total = noticeService.readNoticeCount();
 		} else {
 			total = noticeService.readNoticeByCategoryIdCount(categoryId);
 		}
-		
+
 		PagingObj obj = new PagingObj(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", obj);
 		List<NoticeResponseDto> noticeList = noticeService.readNoticeByCategoryId(obj, categoryId);
