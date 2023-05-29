@@ -73,8 +73,7 @@ public class NoticeController {
 	// 공지사항 카테고리별 출력
 	@GetMapping("/noticeCategory/{categoryId}")
 	public String noticeCategory(@PathVariable int categoryId, Model model, @RequestParam(name = "nowPage", defaultValue = "1", required = false) String nowPage, @RequestParam(name = "cntPerPage", defaultValue = "5", required = false) String cntPerPage) {
-		// todo
-		// categoryId 받아오기
+
 		int total = 0;
 		if(categoryId == 1) {
 			total = noticeService.readNoticeCount();
