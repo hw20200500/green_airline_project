@@ -51,39 +51,60 @@
 	<h2>항공권 구매 내역</h2>
 	<hr>
 	<br>
-	<table class="list--table" border="1">
-		<thead>
-			<tr>
-				<th>티켓번호</th>
-				<th>항공편</th>
-				<th>좌석등급</th>
-				<th>출발</th>
-				<th>도착</th>
-				<th>상태</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${ticketList}" var="ticket">
-				<tr id="tr${ticket.id}">
-					<td>${ticket.id}</td>
-					<td>${ticket.airplaneName}</td>
-					<td>${ticket.seatGrade}석</td>
-					<td>${ticket.departure} <span style="color: #575757">ㅣ</span> ${ticket.formatDepartureDate2()}</td>
-					<td>${ticket.destination} <span style="color: #575757">ㅣ</span> ${ticket.formatArrivalDate()}</td>
-					<td>
+	<c:choose>
+		<c:when test="${vocList.isEmpty()}">
+			<p class="no--list--p">작성 내역이 존재하지 않습니다.</p>
+		</c:when>
+		<c:otherwise>
+			<table class="list--table" border="1">
+				<thead>
+					<tr>
+						<th>티켓번호</th>
+						<th>항공편</th>
+						<th>좌석등급</th>
+						<th>출발</th>
+						<th>도착</th>
+						<th>상태</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${ticketList}" var="ticket">
+						<tr id="tr${ticket.id}">
+							<td>${ticket.id}</td>
+							<td>${ticket.airplaneName}</td>
+							<td>${ticket.seatGrade}석</td>
+							<td>${ticket.departure} <span style="color: #575757">ㅣ</span> ${ticket.formatDepartureDate2()}</td>
+							<td>${ticket.destination} <span style="color: #575757">ㅣ</span> ${ticket.formatArrivalDate()}</td>
+							<td>
+								<c:choose>
+									<c:when test="${ticket.status == 2}">
+										<span style="font-weight: 500; color: #c6c6c6;">환불처리</span>
+									</c:when>
+									<c:when test="${ticket.status == 1}">
+										<span style="font-weight: 500; color: #436195;">결제완료</span>
+									</c:when>
+								</c:choose>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+			<c:if test="${pageCount != null}">
+				<ul class="page--list">
+					<c:forEach var="i" begin="1" end="${pageCount}" step="1">
 						<c:choose>
-							<c:when test="${ticket.status == 2}">
-								<span style="font-weight: 500; color: #c6c6c6;">환불처리</span>
+							<c:when test="${i == page}">
+								<li><a href="/ticket/list/${i}" style="font-weight: 700; color: #007bff">${i}</a>									
 							</c:when>
-							<c:when test="${ticket.status == 1}">
-								<span style="font-weight: 500; color: #436195;">결제완료</span>
-							</c:when>
+							<c:otherwise>
+								<li><a href="/ticket/list/${i}">${i}</a>									
+							</c:otherwise>
 						</c:choose>
-					</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+					</c:forEach>
+				</ul>
+			</c:if>
+		</c:otherwise>
+	</c:choose>
 
 </main>
 

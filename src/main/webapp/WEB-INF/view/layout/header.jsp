@@ -70,7 +70,7 @@
 								<ul class="ul--dropdown--menu">
 									<li class="li--dropdown--menu"><a href="/notice/noticeList">공지사항</a></li>
 									<li class="li--dropdown--menu"><a href="#">자주묻는질문</a></li>
-									<li class="li--dropdown--menu"><a href="/voc/list/member">고객의 말씀</a></li>										
+									<li class="li--dropdown--menu"><a href="/voc/list/1">고객의 말씀</a></li>										
 								</ul>
 							</li>
 						</c:when>
@@ -88,10 +88,10 @@
 									<li class="li--dropdown--menu"><a href="#">자주묻는질문</a></li>
 									<c:choose>
 										<c:when test="${principal.userRole.equals(\"관리자\")}">
-											<li class="li--dropdown--menu"><a href="/voc/list/manager">고객의 말씀</a></li>										
+											<li class="li--dropdown--menu"><a href="/voc/list/not/1">고객의 말씀</a></li>										
 										</c:when>
 										<c:otherwise>
-											<li class="li--dropdown--menu"><a href="/voc/list/member">고객의 말씀</a></li>										
+											<li class="li--dropdown--menu"><a href="/voc/list/1">고객의 말씀</a></li>										
 										</c:otherwise>
 									</c:choose>
 								</ul>
@@ -122,7 +122,7 @@
 							<ul>
 								<li><a href="/ticket/selectSchedule">항공권 예약</a>
 								<li><a href="/airplane/info/1">항공기 정보</a>
-								<li><a href="/ticket/list">항공권 구매 내역</a>
+								<li><a href="/ticket/list/1">항공권 구매 내역</a>
 								<li><a href="/ticket/refundInfo">환불 안내</a>
 								<li><a href="#">세부메뉴</a>
 							</ul>

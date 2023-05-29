@@ -45,37 +45,39 @@ header {
 main {
 	min-width: 1200px;
 	padding-left: 22px;
-	margin-bottom: 100px;
+	min-height: 650px;
+	padding-bottom: 100px;
 }
 
-.header--top ul:first-of-type {
+.header--top > ul:first-of-type {
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
 	margin-left: 23px;
 }
 
-.header--top ul:first-of-type li:last-of-type {
+.header--top > ul:first-of-type li:last-of-type {
 	font-size: 15px;
 	margin: 0 0 4px 1px
 }
 
-.header--top ul:first-of-type li span:hover {
-	color: gray;
+.header--top > ul:first-of-type li span:hover {
+	color: #314f79;
 }
 
-.header--top ul:first-of-type li {
-	color: gray;
+.header--top > ul:first-of-type li {
+	color: #314f79;
+	font-weight: 500;
 }
 
-.header--top ul:last-of-type {
+.header--top > ul:last-of-type {
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
 }
 
 .top--text--li {
-	margin-bottom: 5px;
+	margin-bottom: 4px;
 }
 
 .header--top li {
@@ -243,7 +245,7 @@ nav {
 .sub--menu--button.home--button {
 	justify-content: center;
 	width: 150px;
-	padding: 0;
+	padding: 5px 0 0 0;
 }
 
 .sub--menu--button {
@@ -252,7 +254,7 @@ nav {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 0 15px 0 30px;
+	padding: 5px 15px 0 30px;
 	height: 100%;
 	font-size: 16px;
 	color: white;
@@ -301,7 +303,7 @@ nav {
 footer {
 	width: 100%;
 	text-align: center;
-	margin: 40px 0 20px;
+	margin: 30px 0 20px;
 }
 
 .page--up--button {
@@ -437,4 +439,24 @@ ul {
 
 .middle--title span:hover {
 	color: #314f79;
+}
+
+.no--list--p {
+	font-size: 20px;
+	color: #6c6a6a;
+	font-weight: 600;
+}
+
+.page--list {
+	display: flex;
+	justify-content: center;
+}
+
+.page--list li {
+	margin: 30px 20px 0;
+}
+
+.selected--page {
+	font-weight: 700; 
+	color: #007bff;
 }

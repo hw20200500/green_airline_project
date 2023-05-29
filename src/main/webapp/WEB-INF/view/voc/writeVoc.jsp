@@ -68,49 +68,6 @@ label:hover {
 
 // 최대 글자 수 2000자
 let maxByte = ${Define.MAX_TEXTAREA_LENGTH};
-$(document).ready(function() {
-	
-	$("#contentArea").on("keyup change keydown", function() {
-		checkMaxByte($(this));
-		let text = $(this).val();
-		let totalByte = 0;
-		
-		if (text.length != 0) {
-			for (let i = 0; i < text.length; i++) {
-				// 한글은 1글자당 2byte
-				totalByte += (text.charCodeAt(i) > 128) ? 2 : 1;
-			}
-		}
-		$("#currentLen").text(totalByte);
-	});
-	
-	function checkMaxByte(obj) {
-		let text = obj.val();
-		
-		let rbyte = 0;
-		let rlen = 0;
-		let char1 = "";
-		let resultStr = "";
-		
-		for (let i = 0; i < text.length; i++) {
-			char1 = text.charAt(i);
-			if (escape(char1).length > 4) {
-				rbyte += 2;
-			} else {
-				rbyte ++;
-			}
-			
-			if (rbyte <= maxByte) {
-				rlen = i + 1;
-			}
-		}
-		if (rbyte > maxByte) {
-			resultStr = text.substr(0, rlen);
-			obj.val(resultStr);
-			checkMaxByte(obj);
-		}
-	}
-});
 </script>
 
 <!-- 구매한 항공권 상세 페이지 -->
@@ -122,7 +79,7 @@ $(document).ready(function() {
 	<div class="d-flex justify-content-center" style="width: 100%;">
 		<form action="/voc/write" method="post">
 			<div class="d-flex flex-column" style="width: 1000px">
-				<h5 class="middle--title" style="margin-left: -4px; font-size: 21px;">
+				<h5 class="middle--title" style="margin-left: -4px;">
 					<span style="font-size: 28px; margin-right: 3px;" class="material-symbols-outlined">person</span> <span>고객 정보</span>
 				</h5>
 				<table border="1" class="list--table--reverse">
@@ -146,8 +103,9 @@ $(document).ready(function() {
 	
 				<br> <br>
 	
-				<h5 class="middle--title" style="margin-left: -4px; font-size: 21px;">
-					<span style="font-size: 28px; margin-right: 5px;" class="material-symbols-outlined">edit_document</span> <span>내용 작성</span>
+				<h5 class="middle--title" style="margin-left: -4px;">
+					<span style="font-size: 28px; margin-right: 5px;" class="material-symbols-outlined">edit_document</span> 
+					<span>내용 작성</span>
 				</h5>
 				<table border="1" class="list--table--reverse">
 					<tr>
@@ -157,12 +115,14 @@ $(document).ready(function() {
 					</tr>
 					<tr>
 						<th>분야&nbsp;<span style="color: #d91818">*</span></th>
-						<td><select name="categoryId">
+						<td>
+							<select name="categoryId">
 								<option value="-1" style="color: gray">분야 선택</option>
 								<c:forEach var="category" items="${categoryList}">
 									<option value="${category.id}">${category.name}</option>
 								</c:forEach>
-						</select></td>
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<th>제목&nbsp;<span style="color: #d91818">*</span></th>
@@ -189,11 +149,17 @@ $(document).ready(function() {
 						</td>
 					</tr>
 				</table>
-				<div style="text-align: center; margin-top: 40px;">
-					<button type="submit" class="search--btn--middle" id="writeBtn">
+				<div style="margin-top: 40px;" class="d-flex justify-content-center">
+					<button type="button" class="search--btn--small" style="margin-right: 60px; padding-left: 9px; background-color: gray" onclick="location.href='/voc/list/1'">
+						<ul class="d-flex justify-content-center" style="margin: 0;">
+							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px; margin-right: 5px;">keyboard_backspace</span>
+							<li>취소
+						</ul>
+					</button>
+					<button type="submit" class="search--btn--small" id="writeBtn">
 						<ul class="d-flex justify-content-center" style="margin: 0;">
 							<li style="margin-right: 4px;">입력 완료
-							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">done</span>
+							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">done</span>
 						</ul>
 					</button>
 				</div>
@@ -203,5 +169,6 @@ $(document).ready(function() {
 
 </main>
 
+<script src="/js/voc.js"></script>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

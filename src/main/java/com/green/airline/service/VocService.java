@@ -3,6 +3,7 @@ package com.green.airline.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +11,8 @@ import com.green.airline.dto.response.VocInfoDto;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.interfaces.VocRepository;
 import com.green.airline.repository.model.Voc;
+import com.green.airline.repository.model.VocAnswer;
+import com.green.airline.repository.model.VocAnswerForm;
 import com.green.airline.repository.model.VocCategory;
 
 /**
@@ -47,6 +50,32 @@ public class VocService {
 	}
 	
 	/**
+	 * 해당 유저가 작성한 게시글 목록 페이징용
+	 */
+	@Transactional
+	public List<VocInfoDto> readVocListByMemberIdLimit(String memberId, Integer index) {
+		return vocRepository.selectByMemberIdLimit(memberId, index);
+	}
+	
+	/**
+	 * 전체 게시글 목록
+	 * type : 0 > 처리되지 않은, 1 > 처리된
+	 */
+	@Transactional
+	public List<VocInfoDto> readVocList(Integer type) {
+		return vocRepository.selectAll(type);
+	}
+	
+	/**
+	 * 전체 게시글 목록 페이징용
+	 * type : 0 > 처리되지 않은, 1 > 처리된
+	 */
+	@Transactional
+	public List<VocInfoDto> readVocListLimit(Integer index, Integer type) {
+		return vocRepository.selectAllLimit(index, type);
+	}
+	
+	/**
 	 * 특정 게시글 정보
 	 */
 	@Transactional
@@ -58,7 +87,7 @@ public class VocService {
 	 * 게시글 삭제 
 	 */
 	@Transactional
-	public Integer deleteById(Integer id) {
+	public Integer deleteById(Integer id, String memberId) {
 		
 		Integer resultRowCount = 0;
 		
@@ -66,10 +95,53 @@ public class VocService {
 		VocInfoDto vocEntity = vocRepository.selectById(id);
 		
 		if (vocEntity != null) {
-			resultRowCount = vocRepository.deleteById(id);
+
+			// 작성자와 현재 로그인된 사용자의 아이디가 일치한다면
+			if (memberId.equals(vocEntity.getMemberId())) {
+				resultRowCount = vocRepository.deleteById(id);
+			} else {
+				throw new CustomRestfullException("삭제 권한이 없습니다.", HttpStatus.FORBIDDEN);
+			}
+			
 		}
-		
 		return resultRowCount;
+	}
+	
+	/**
+	 * 게시글 수정
+	 */
+	@Transactional
+	public void updateById(Voc voc, String memberId) {
+		
+		// 해당 게시글이 존재하는지 확인
+		VocInfoDto vocEntity = vocRepository.selectById(voc.getId());
+		
+		if (vocEntity != null) {
+
+			// 작성자와 현재 로그인된 사용자의 아이디가 일치한다면
+			if (memberId.equals(vocEntity.getMemberId())) {
+				vocRepository.updateById(voc);
+			} else {
+				throw new CustomRestfullException("수정 권한이 없습니다.", HttpStatus.FORBIDDEN);
+			}
+			
+		}
+	}
+	
+	/**
+	 * @return 답변 양식 리스트
+	 */
+	@Transactional
+	public List<VocAnswerForm> readFormList() {
+		return vocRepository.selectFormList();
+	}
+	
+	/**
+	 * 답변
+	 */
+	@Transactional
+	public void createAnswer(VocAnswer vocAnswer) {
+		vocRepository.insertAnswer(vocAnswer);
 	}
 	
 }

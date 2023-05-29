@@ -13,7 +13,7 @@
 </insert>
 
 <select id="selectByMemberId" resultType="com.green.airline.dto.response.VocInfoDto">
-	SELECT v.*, c.name AS category_name
+	SELECT v.*, c.name AS category_name, c.id AS category_id, a.id AS answer_id, a.content AS answer_content, a.created_at AS answer_created_at
 	FROM voc_tb AS v
 	JOIN voc_category_tb AS c
 	ON v.category_id = c.id
@@ -23,8 +23,74 @@
 	ORDER BY v.id DESC	
 </select>
 
+<select id="selectByMemberIdLimit" resultType="com.green.airline.dto.response.VocInfoDto">
+	SELECT v.*, c.name AS category_name, c.id AS category_id, a.id AS answer_id, a.content AS answer_content, a.created_at AS answer_created_at
+	FROM voc_tb AS v
+	JOIN voc_category_tb AS c
+	ON v.category_id = c.id
+	LEFT JOIN voc_answer_tb AS a
+	ON v.id = a.voc_id
+	WHERE member_id = #{memberId}
+	ORDER BY v.id DESC	
+	LIMIT #{index}, 10
+</select>
+
+<select id="selectAll" resultType="com.green.airline.dto.response.VocInfoDto">
+	<!-- 처리되지 않은 -->
+	<if test="type == 0">
+		SELECT v.*, c.name AS category_name, c.id AS category_id, a.id AS answer_id, a.content AS answer_content, a.created_at AS answer_created_at
+		FROM voc_tb AS v
+		JOIN voc_category_tb AS c
+		ON v.category_id = c.id
+		LEFT JOIN voc_answer_tb AS a
+		ON v.id = a.voc_id
+		WHERE a.id IS NULL
+		ORDER BY v.id DESC	
+	</if>
+	
+	<!-- 처리된 -->
+	<if test="type == 1">
+		SELECT v.*, c.name AS category_name, c.id AS category_id, a.id AS answer_id, a.content AS answer_content, a.created_at AS answer_created_at
+		FROM voc_tb AS v
+		JOIN voc_category_tb AS c
+		ON v.category_id = c.id
+		LEFT JOIN voc_answer_tb AS a
+		ON v.id = a.voc_id
+		WHERE a.id IS NOT NULL
+		ORDER BY v.id DESC	
+	</if>
+</select>
+
+<select id="selectAllLimit" resultType="com.green.airline.dto.response.VocInfoDto">
+	<!-- 처리되지 않은 -->
+	<if test="type == 0">
+		SELECT v.*, c.name AS category_name, c.id AS category_id, a.id AS answer_id, a.content AS answer_content, a.created_at AS answer_created_at
+		FROM voc_tb AS v
+		JOIN voc_category_tb AS c
+		ON v.category_id = c.id
+		LEFT JOIN voc_answer_tb AS a
+		ON v.id = a.voc_id
+		WHERE a.id IS NULL
+		ORDER BY v.id DESC	
+		LIMIT #{index}, 10
+	</if>
+	
+	<!-- 처리된 -->
+	<if test="type == 1">
+		SELECT v.*, c.name AS category_name, c.id AS category_id, a.id AS answer_id, a.content AS answer_content, a.created_at AS answer_created_at
+		FROM voc_tb AS v
+		JOIN voc_category_tb AS c
+		ON v.category_id = c.id
+		LEFT JOIN voc_answer_tb AS a
+		ON v.id = a.voc_id
+		WHERE a.id IS NOT NULL
+		ORDER BY v.id DESC	
+		LIMIT #{index}, 10
+	</if>
+</select>
+
 <select id="selectById" resultType="com.green.airline.dto.response.VocInfoDto">
-	SELECT v.*, c.name AS category_name
+	SELECT v.*, c.name AS category_name, c.id AS category_id, a.id AS answer_id, a.content AS answer_content, a.created_at AS answer_created_at
 	FROM voc_tb AS v
 	JOIN voc_category_tb AS c
 	ON v.category_id = c.id
@@ -37,5 +103,22 @@
 <delete id="deleteById">
 	DELETE FROM voc_tb WHERE id = #{id}
 </delete>
+
+<update id="updateById">
+	UPDATE voc_tb 
+	SET phone_number = #{phoneNumber}, email = #{email}, type = #{type},
+		title = #{title}, content = #{content}, category_id = #{categoryId},
+		ticket_id = #{ticketId}
+	WHERE id = #{id}
+</update>
+
+<select id="selectFormList" resultType="com.green.airline.repository.model.VocAnswerForm">
+	SELECT * FROM voc_answer_form_tb
+</select>
+
+<insert id="insertAnswer">
+	INSERT INTO voc_answer_tb (content, voc_id)
+	VALUES (#{content}, #{vocId})
+</insert>
 
 </mapper>

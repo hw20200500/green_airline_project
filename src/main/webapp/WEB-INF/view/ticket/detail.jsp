@@ -281,16 +281,16 @@
 	
 	$(document).ready(function() {
 		
-		// 출발날짜 - 현재날짜
 		let curDate = new Date();
 		let depDate = stringToDate(`${ticket.formatDepartureDate()}`);
+		// 출발날짜 - 현재날짜
 		let dayCount = calculateDayDiff(depDate, curDate);
 		$("input[name=\"dayCount\"]").val(dayCount);
 		
 		let schType = ${ticket.scheduleType};
 		
 		$("#refundBtn").on("click", function() {
-			console.log("현재 탑승일까지 " + dayCount + "일 남았습니다.")
+			
 			if (schType == 2) {
 				if (dayCount >= 90) {
 					$("#feeTable tbody tr").eq(0).addClass("target--fee");
@@ -305,6 +305,13 @@
 				}
 			}
 			$(".refund--modal").modal();
+		});
+		
+		$("#refundReqBtn").on("click", function() {
+			
+			let isRefund = confirm("환불 수수료가 부과됩니다.\n환불을 진행하시겠습니까?");
+			return isRefund;
+			
 		});
 		
 	});

@@ -17,6 +17,7 @@ public class VocInfoDto {
 	private String phoneNumber;
 	private String email;
 	private String type;
+	private Integer categoryId;
 	private String categoryName;
 	private String title;
 	private String content;
@@ -30,7 +31,7 @@ public class VocInfoDto {
 	private Timestamp answerCreatedAt;
 	
 	public String formatCreatedAt() {
-		return TimestampUtil.dateTimeToStringType3(createdAt);
+		return TimestampUtil.dateTimeToString(createdAt);
 	}
 	
 }

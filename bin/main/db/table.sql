@@ -368,3 +368,9 @@ CREATE TABLE voc_answer_tb (
 	voc_id INT NOT NULL,
 	FOREIGN KEY (voc_id) REFERENCES voc_tb (id) ON DELETE CASCADE 
 );
+
+-- 고객의 말씀 답변 양식
+CREATE TABLE voc_answer_form_tb (
+	type VARCHAR(2) NOT NULL,
+	content TEXT NOT NULL
+);

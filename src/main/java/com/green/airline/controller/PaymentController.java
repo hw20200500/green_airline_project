@@ -79,7 +79,7 @@ public class PaymentController {
 		params.add("partner_user_id", "partner_user_id");
 		// 상품명
 		// 배열로 보내서 toString하면 여러 종류 상품 가능
-		params.add("item_name", "항공권 결제");
+		params.add("item_name", "항공권 예매");
 		// 수량
 		params.add("quantity", ticketDto.getQuantity() + "");
 		// 총액
@@ -110,7 +110,9 @@ public class PaymentController {
 			ticketService.createTicketAndPayment(ticketDto, userId);
 			
 		} catch (Exception e) {
-			System.out.println("이미 같은 결제 요청을 한 번 해서 데이터를 추가하지 않음");
+			// 뒤로가기 했다가 다시 결제 요청을 할 경우를 대비해서 삭제했다가 다시 추가
+			ticketService.deleteTicketByPaymentCancel(userId);
+			ticketService.createTicketAndPayment(ticketDto, userId);
 		}
 		
 		return responseDto.getBody().getNextRedirectPcUrl().toString();

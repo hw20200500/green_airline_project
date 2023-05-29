@@ -8,11 +8,11 @@
 
 <style>
 .list--table th:nth-of-type(1) {
-	width: 15%;
+	width: 14%;
 }
 
 .list--table th:nth-of-type(2) {
-	width: 5%;
+	width: 6%;
 }
 
 .list--table th:nth-of-type(3) {
@@ -56,44 +56,66 @@
 	<h2>고객의 말씀</h2>
 	<hr>
 	<br>
-	<table class="list--table" border="1">
-		<thead>
-			<tr>
-				<th>작성일자</th>
-				<th>유형</th>
-				<th>분야</th>
-				<th>제목</th>
-				<th>상태</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:choose>
-				<c:when test="${vocList.isEmpty()}">
-					<p>작성 내역이 존재하지 않습니다.</p>
-				</c:when>
-			</c:choose>
-			<c:forEach items="${vocList}" var="voc">
-				<tr id="tr${voc.id}">
-					<td>${voc.formatCreatedAt()}</td>
-					<td>${voc.type}</td>
-					<td>${voc.categoryName}</td>
-					<td>${voc.title}</td>
-					<td>
+	<h5 class="middle--title" style="margin-left: -3px;">
+		<span class="material-symbols-outlined" style="font-size: 27px; margin-right: 4px;">description</span>
+		<span>작성한 글 목록</span>
+	</h5>
+	<c:choose>
+		<c:when test="${vocList.isEmpty()}">
+			<br>
+			<p class="no--list--p">작성 내역이 존재하지 않습니다.</p>
+		</c:when>
+		<c:otherwise>
+			<table class="list--table" border="1">
+				<thead>
+					<tr>
+						<th>작성일자</th>
+						<th>유형</th>
+						<th>분야</th>
+						<th>제목</th>
+						<th>상태</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${vocList}" var="voc">
+						<tr id="tr${voc.id}">
+							<td>${voc.formatCreatedAt()}</td>
+							<td>${voc.type}</td>
+							<td>${voc.categoryName}</td>
+							<td>${voc.title}</td>
+							<td>
+								<c:choose>
+									<c:when test="${voc.answerId == null}">
+										<span style="font-weight: 500; color: #c6c6c6;">처리중</span>
+									</c:when>
+									<c:otherwise>
+										<span style="font-weight: 500; color: #436195;">답변완료</span>
+									</c:otherwise>
+								</c:choose>
+							</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+			<c:if test="${pageCount != null}">
+				<ul class="page--list">
+					<c:forEach var="i" begin="1" end="${pageCount}" step="1">
 						<c:choose>
-							<c:when test="${voc.answerId == null}">
-								<span style="font-weight: 500; color: #c6c6c6;">처리중</span>
+							<c:when test="${i == page}">
+								<li><a href="/voc/list/${i}" style="font-weight: 700; color: #007bff">${i}</a>									
 							</c:when>
 							<c:otherwise>
-								<span style="font-weight: 500; color: #436195;">답변완료</span>
+								<li><a href="/voc/list/${i}">${i}</a>									
 							</c:otherwise>
 						</c:choose>
-					</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-	<div style="margin-top: 40px;" class="d-flex justify-content-end">
-		<button type="button" class="search--btn--small" onclick="location.href='/voc/write'">
+					</c:forEach>
+				</ul>
+			</c:if>
+		</c:otherwise>
+	</c:choose>
+	
+	<div class="d-flex justify-content-end">
+		<button type="button" class="search--btn--small" onclick="location.href='/voc/write'" style="margin-top: -30px;">
 			<ul class="d-flex justify-content-center" style="margin: 0;">
 				<li style="margin-right: 4px;">게시글 작성
 				<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">edit</span>
