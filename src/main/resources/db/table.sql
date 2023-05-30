@@ -316,6 +316,14 @@ create table gifticon_tb(
     order_id int not null,
     foreign key (order_id) references shop_order_tb (id)
 );
+-- 기프티콘 환불
+CREATE TABLE gifticon_revoke_tb(
+	id int PRIMARY KEY auto_increment,
+	revoke_date DATE DEFAULT (CURRENT_DATE),
+	amount Bigint not null,
+	brand VARCHAR(20) not null,
+	name VARCHAR(50) not null
+	);
 
 -- 마일리지 todo inserttime 중간에 _ 넣기
 create table mileage_tb(
@@ -343,3 +351,5 @@ ticket_id VARCHAR(15),
 foreign key (ticket_id) references ticket_tb (id)
 
 );
+
+

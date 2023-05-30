@@ -112,7 +112,7 @@
 								
 									<span class="num" id="spanPrice"><fmt:formatNumber value="${shopProduct.price}" pattern="#,###"/></span> 마일
 									<!-- input hidden 으로 변경된 값 넣어서 xml에 보내기  useMileage -> productPrice로 변경-->
-									<input type="hidden" value="${shopProduct.price}"
+									<input type="text" value="${shopProduct.price}"
 										name="productPrice"> 
 										
 								</dd>

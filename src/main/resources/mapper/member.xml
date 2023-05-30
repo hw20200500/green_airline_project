@@ -10,4 +10,5 @@
 <select id="selectByKorNameandEmailAndBirthDate" resultType="com.green.airline.repository.model.Member">
 	SELECT * FROM MEMBER_TB where kor_name = #{korName} and email = #{email} and birth_date = #{birthDate}
 </select>
+
 </mapper>

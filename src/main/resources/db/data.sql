@@ -3,14 +3,16 @@ VALUES ('골드');
 
 INSERT INTO user_tb 
 VALUES ('abc', '1234', '회원'),
-	('a123', '1234', '회원');
+	('a123', '1234', '회원'),
+	('wjdekdns', '1234', '회원');
 
 
 
 INSERT INTO member_tb
 VALUES 
 	('abc', '김홍아', 'LEE SEOYOUNG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', '골드'),
-	('a123', '홍길이', 'LEE SEOYOUNG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', '골드');
+	('a123', '홍길이', 'LEE SEOYOUNG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', '골드'),
+	('wjdekdns', '정다운', 'JUNG DAUN', '1998-002-02', 'M', '010-1111-2222', 'ekdns8276@naver.com', '부산광역시 해운대구', '대한민국', '골드');
 
 
 INSERT INTO shop_product_tb(brand,name,price,count,product_image,gifticon_image)
@@ -58,7 +60,24 @@ values('2023-03-05',100,'기프티콘','2023-04-01','abc'),
 ('2023-04-05',300,'기프티콘','2023-04-01','abc'),
 ('2023-05-10',500,'기프티콘','2023-05-01','abc'),
 ('2023-05-15',1000,'기프티콘','2023-05-15','abc');
-	
+
+
+insert into shop_order_tb(amount,product_id,member_id)
+VALUES(1000,1,'abc'),
+(1000,2,'abc'),
+(1000,3,'abc'),
+(1000,4,'abc'),
+(1000,5,'abc');
+
+
+	insert into gifticon_tb(end_date,order_id)
+VALUES('2024-05-28',1),
+('2024-05-28',2),
+('2024-05-28',3),
+('2024-05-28',4),
+('2024-05-28',5);
+INSERT into gifticon_revoke_tb(brand,name,amount)
+VALUES('asd','asd',1000);
 
 INSERT INTO notice_category_tb(id, name)
 VALUES(1, '전체'),

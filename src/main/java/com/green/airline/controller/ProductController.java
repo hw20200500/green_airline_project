@@ -2,6 +2,7 @@ package com.green.airline.controller;
 
 import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
@@ -58,37 +59,44 @@ public class ProductController {
 	 * @return 메인페이지
 	 */
 
-	@GetMapping("/productMain")
+	@GetMapping("/productMain/{searchOrder}")
 	public String productMainPage(Model model, @ModelAttribute("paging") PagingVO paging,
-			ProductCountDto productCountDto) {
+			ProductCountDto productCountDto,@PathVariable(value = "searchOrder") String searchOrder) {
 		int totalRowCount = productService.getTotalRowCount(paging);
 		paging.setTotalRowCount(totalRowCount);
 		paging.pageSetting();
-		List<ShopProduct> productList = productService.ProductListTest(paging);
+	
+		//List<ShopProduct> productList = productService.ProductListTest(paging);
+		List<ShopProduct> productList = productService.productList(searchOrder,paging);
 		model.addAttribute("productList", productList);
+		model.addAttribute("searchOrder", searchOrder);
 		return "/mileage/productMainPage";
 	}
+	// 데이터 받을꺼
+		@ResponseBody
+		@GetMapping("/list/{searchOrder}")
+		public List<ShopProduct> productList(@PathVariable(value = "searchOrder") String searchOrder, 
+				@ModelAttribute("paging") PagingVO paging,Model model) {
+			int totalRowCount = productService.getTotalRowCount(paging);
+			paging.setTotalRowCount(totalRowCount);
+			paging.pageSetting();
+			List<ShopProduct> productList = productService.productList(searchOrder,paging);
+			model.addAttribute("productList", productList);
+			return productList;
+		}
 	@GetMapping("/productSearch")
 	public String producSearch(Model model,
-			@RequestParam String searchOption,@RequestParam String searchProduct) {
-		System.out.println(searchOption);
-		System.out.println(searchProduct);
-		
-		
-			List<ShopProduct> productList = productService.readProductByName(searchProduct,searchOption);
+			@RequestParam String searchOption,@RequestParam String searchProduct,@ModelAttribute("paging") PagingVO paging) {
+			List<ShopProduct> productList = productService.readProductByName(searchProduct,searchOption,paging);
+			int totalRowCount = productService.getSearchTotalRowCount(paging, searchProduct, searchOption);
+			paging.setTotalRowCount(totalRowCount);
+			paging.pageSetting();
 			model.addAttribute("productList",productList);
-		
+		System.out.println(paging);
 		return "/mileage/productMainPage";
 	}
 
-	// 데이터 받을꺼
-	@ResponseBody
-	@GetMapping("/list/{searchOrder}")
-	public List<ShopProduct> productList(@PathVariable(value = "searchOrder") String searchOrder, Model model) {
-		List<ShopProduct> productList = productService.productList(searchOrder);
-		model.addAttribute("productList", productList);
-		return productList;
-	}
+	
 
 	/**
 	 * 정다운
@@ -121,8 +129,9 @@ public class ProductController {
 				if (dir.exists() == false) {
 					dir.mkdirs(); // 폴더가 없으면 폴더 생성
 				}
-				String fileName = file.getOriginalFilename();
-				String fileName2 = file2.getOriginalFilename();
+				UUID uuid = UUID.randomUUID();
+				String fileName = uuid + "_" + file.getOriginalFilename();
+				String fileName2 = uuid + "_" + file2.getOriginalFilename();
 				// 전체 경로를 지정
 				String uploadPath = Define.UPLOAD_DIRECTORY + File.separator + fileName;
 				String uploadPath2 = Define.UPLOAD_DIRECTORY + File.separator + fileName2;
@@ -279,8 +288,9 @@ public class ProductController {
 		System.out.println(totalPrice);
 		
 		// balance 추가 되는거 수정 쿼리문 수정 해야함
+		useMileageDto.setUseMileage(totalPrice);
 		productService.createUseMileage(useMileageDto);
-
+		System.out.println(useMileageDto.toString());
 
 		gifticonDto.setOrderId(productService.readShopOrder(principal.getId()).getId());
 		productService.updateByProductId(shopProductDto);
@@ -296,6 +306,6 @@ public class ProductController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "redirect:/product/productMain";
+		return "redirect:/product/productMain/clasic";
 	}
 }

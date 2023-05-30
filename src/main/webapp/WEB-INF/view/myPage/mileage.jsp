@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
-
+<style>
+<!--
+.tab_wrap6 li {
+    float: left;
+}
+-->
+</style>
 
 <!-- 마일리지 조회 페이지 -->
 <main>
@@ -61,7 +67,7 @@
 							<li id="liPeriod3" class="li--period"><a>3개월</a></li>
 							<li id="liPeriod6" class="li--period"><a>6개월</a></li>
 							<li id="liPeriod12" class="li--period"><a>1년</a></li>
-							<li id="liPeriods" class="li--period--s"><a>직접 선택</a></li>
+							<li id="liPeriods" class="li--period--s"><a>직접 선택</a></li><br>
 						</ul>
 					</div>
 				</dd>
@@ -137,6 +143,6 @@
 
 
 <script src="/js/mileage.js">
-	
+		
 </script>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

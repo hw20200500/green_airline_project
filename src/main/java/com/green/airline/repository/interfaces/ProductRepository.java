@@ -21,10 +21,11 @@ public interface ProductRepository {
 
 	public int insert(ShopProduct shopProduct);
 	public List<ShopProduct> selectProductList();
-	public List<ShopProduct> selectProductList(String searchOrder);
+	public List<ShopProduct> selectProductList(@Param("searchOrder")String searchOrder,@Param("paging")PagingVO paging);
 	
 	public List<ShopProduct> ProductListTest(PagingVO paging);
 	public int getTotalRowCount(PagingVO paging);
+	public int getSerchTotalRowCount(@Param("searchProduct") String searchProduct, @Param("searchOption")String searchOption,@Param("paging")PagingVO paging);
 
 	
 	public ShopProduct selectById(int id);
@@ -37,5 +38,5 @@ public interface ProductRepository {
 	public Mileage selectMileage(String memberId);
 	public int insertMileage(UseMileageDto useMileageDto);
 	public int updateShopProductDto(ShopProductDto  shopProductDto);
-	public List<ShopProduct> selectProductByName(@Param("searchProduct") String searchProduct, @Param("searchOption")String searchOption);
+	public List<ShopProduct> selectProductByName(@Param("searchProduct") String searchProduct, @Param("searchOption")String searchOption,@Param("paging")PagingVO paging);
 }

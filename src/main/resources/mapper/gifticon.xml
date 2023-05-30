@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.green.airline.repository.interfaces.GifticonRepository">
+
+	<select id="selectGifticonList"
+		resultType="com.green.airline.dto.GifticonDto">
+		<if test="radio == 'revoke'">
+			select * FROM gifticon_revoke_tb
+			where
+			 revoke_date >= #{startTime} and #{endTime} >= revoke_date
+			
+		</if>
+		<if test="radio == 'buy'">
+			select * FROM gifticon_tb as g join shop_order_tb as s
+			on g.order_id = s.id
+			join shop_product_tb as sp
+			on s.product_id = sp.id
+			where s.member_id = #{id} and g.start_date >= #{startTime} and #{endTime}
+			>= g.start_date
+		</if>
+	</select>
+
+<!--기프티콘 구 -->
+	<delete id="deleteGifticonBygifticonId">
+  DELETE FROM gifticon_tb
+  WHERE id IN
+  <foreach collection="gifticonId" item="id" open="(" close=")" separator=",">
+    #{id}
+  </foreach>
+</delete>
+
+<insert id="insertRevokeGifticon">
+  INSERT INTO gifticon_revoke_tb(amount, brand, name)
+  VALUES
+  <foreach collection="amount" item="amountItem" index="index" separator=",">
+    (#{amountItem}, #{brand[${index}]}, #{name[${index}]})
+  </foreach>
+</insert>
+	
+</mapper>

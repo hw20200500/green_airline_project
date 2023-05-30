@@ -110,7 +110,7 @@ h2 {
 			<c:forEach var="productList" items="${productList}">
 				<div class="product_card" id="product">
 					<div class="prd_img">
-						<a href="productdetail/${productList.id}" class="aTagImage"><img class="imgClass" alt="prd_img" src="/product/${productList.productImage}"></a>
+						<a href="/product/productdetail/${productList.id}" class="aTagImage"><img class="imgClass" alt="prd_img" src="/product/${productList.productImage}"></a>
 					</div>
 					<dl class="prd_info">
 						<dt>
@@ -132,7 +132,7 @@ h2 {
 			<a href="/product/registration">등록 페이지</a>
 		</h2>
 		<!--/* 페이지네이션 렌더링 영역 */-->
-		<div class="paging">
+		<%-- <div class="paging">
 			<a href="/product/productMain?curPage=1">&laquo;</a> <a href="/product/productMain?curPage=${paging.curPage-1 }">&lt;</a>
 			<c:forEach begin="${paging.firstPage }" end="${paging.lastPage }" var="i">
 				<a href="/product/productMain?curPage=${i }"> <c:if test="${i eq paging.curPage }">
@@ -142,7 +142,32 @@ h2 {
 			</c:forEach>
 			<a href="/product/productMain?curPage=${paging.curPage+1 }">&gt;</a> <a href="/product/productMain?curPage=${paging.totalPageCount }">&raquo;</a>
 
-		</div>
+		</div> --%>
+<div class="paging">
+    <c:set var="prevPage" value="${paging.curPage - 1}" />
+    <c:set var="nextPage" value="${paging.curPage + 1}" />
+    <c:choose>
+        <c:when test="${prevPage < 1}">
+            <c:set var="prevPage" value="1" />
+        </c:when>
+        <c:when test="${nextPage > paging.totalPageCount}">
+            <c:set var="nextPage" value="${paging.totalPageCount}" />
+        </c:when>
+    </c:choose>
+    <a href="/product/productMain/${searchOrder}?curPage=1">&laquo;</a>
+    <a href="/product/productMain/${searchOrder}?curPage=${prevPage}">&lt;</a>
+    <c:forEach begin="${paging.firstPage}" end="${paging.lastPage}" var="i">
+        <a href="/product/productMain/${searchOrder}?curPage=${i}">
+            <c:if test="${i eq paging.curPage}">
+                <span style="color: red">${i}</span>
+            </c:if>
+            <c:if test="${i ne paging.curPage}">${i}</c:if>
+        </a>
+    </c:forEach>
+    <a href="/product/productSearch?curPage=${nextPage}&">&gt;</a>
+    <a href="/product/productSearch?curPage=${paging.totalPageCount}">&raquo;</a>
+</div>
+ 
 
 		<div class="announcement">
 			<h3>이용안내</h3>
@@ -186,7 +211,6 @@ h2 {
 $(document).ready(function(){
 		$("#searchButton").on("click",()=>{
 	let searchProduct = $("#searchProduct").val();
-		console.log(searchProduct);
 	if(searchProduct == ' '||searchProduct == ''){
 		$('#searchButton').attr("type","button");
 	}else{
@@ -195,51 +219,86 @@ $(document).ready(function(){
 		});
 });
      
-	 $(document).ready(function(){
-		$(".gifticon-order").on("change",()=>{
-			let selectBox  = document.getElementById("selectBoxId");
-			let value = (selectBox.options[selectBox.selectedIndex].value);
-	
-		$.ajax({
-			type: "get",
-			url: "/product/list/"+value,
-			contentType: "application/json",
-		}).done(function(response){
-			let n1 = 1000
-			let n2 = n1.toString()
-			  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-			console.log(n2);
-			 for(i = 0; i < response.length; i++){
-				
-			        if (response[i].count != '0') {
-				$(".product_card").eq(i).removeClass("soldout")
-			}else{
-				$(".product_card").eq(i).addClass("soldout")
-		}
-			        let price = response[i].price
-			        let priceReplace = price.toString()
-					  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-			        console.log(n2);
-				 $(".tit").eq(i).text("["+response[i].brand+"]"+response[i].name);
-				 $(".num").eq(i).text(priceReplace);
-				 $(".count").eq(i).val(response[i].count);
-				 $(".aTagImage").eq(i).prop('href',"productdetail/"+response[i].id);
-				 $(".imgClass").eq(i).prop('src',"/product/"+response[i].productImage);
-				
-			} 
-		}).fail(function(error){
-			alert("서버오류");
-		});
-	}); 
-	 });
-	let count = document.getElementsByClassName('count');
-	for (i = 0; i < count.length; i++) {
-		if (count[i].value == 0) {
-			 document.getElementsByClassName('product_card')[i].className += ' soldout';
-		}
-	}
+$(document).ready(function(){
+    $(".gifticon-order").on("change", () => {
+        let selectBox = document.getElementById("selectBoxId");
+        let value = selectBox.options[selectBox.selectedIndex].value;
+         if (value === "ASC" || value === "DESC") {
+            window.location.href = "/product/productMain/"+value;
+        } 
+        // Ajax 요청 처리
+       /*  $.ajax({
+            type: "get",
+            url: "/product/list/"+value,
+            contentType: "application/json",
+        }).done(function(response){
+            
+            for(i = 0; i < response.length; i++){
+                if (response[i].count != '0') {
+                    $(".product_card").eq(i).removeClass("soldout");
+                } else {
+                    $(".product_card").eq(i).addClass("soldout");
+                }
+                let price = response[i].price;
+                let priceReplace = price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+                $(".tit").eq(i).text("["+response[i].brand+"]"+response[i].name);
+                $(".num").eq(i).text(priceReplace);
+                $(".count").eq(i).val(response[i].count);
+                $(".aTagImage").eq(i).prop('href',"productdetail/"+response[i].id);
+                $(".imgClass").eq(i).prop('src',"/product/"+response[i].productImage);
+            } 
+            var pagingDiv = $(".paging");
+            var curPage = ${paging.curPage};
+            var firstPage = ${paging.firstPage};
+            var lastPage = ${paging.lastPage};
+            var totalPageCount = ${paging.totalPageCount};
 
-		
+            // 이전 페이지 링크
+            var prevPageLink = $("<a></a>")
+              .attr("href", "/product/productMain?curPage=" + (curPage - 1))
+              .html("&lt;");
+            pagingDiv.append(prevPageLink);
+
+            // 페이지 번호 링크
+            for (var i = firstPage; i <= lastPage; i++) {
+              var pageLink;
+              if (i === curPage) {
+                pageLink = $("<span></span>")
+                  .text(i)
+                  .css("color", "red");
+              } else {
+                pageLink = $("<a></a>")
+                  .attr("href", "/product/list?curPage=" + i)
+                  .text(i);
+              }
+              pagingDiv.append(pageLink);
+            }
+
+            // 다음 페이지 링크
+            var nextPageLink = $("<a></a>")
+              .attr("href", "/product/productMain?curPage=" + (curPage + 1))
+              .html("&gt;ㅁㅁㅁ");
+            pagingDiv.append(nextPageLink);
+
+            // 마지막 페이지 링크
+            var lastPageLink = $("<a></a>")
+              .attr("href", "/product/productMain?curPage=" + totalPageCount)
+              .html("&raquo;");
+            pagingDiv.append(lastPageLink);
+        }).fail(function(error){
+            alert("서버오류");
+        }); */
+    });
+    
+    let count = document.getElementsByClassName('count');
+    for (i = 0; i < count.length; i++) {
+        if (count[i].value == 0) {
+            document.getElementsByClassName('product_card')[i].className += ' soldout';
+        }
+    }
+});
+
+	
 	
 		 
 </script>

@@ -122,8 +122,10 @@ $(document).ready(function() {
 		console.log("form : " + form);
 		// ? (@requ Stirn , sTr s, f )
 		// json -- body --> @requestBody
+		let startTime = $("#sCalendar01").val()
+		let endTime = $("#sCalendar02").val()
 		$.ajax({
-			url: "/api/selectMileageList?" + form,
+			url: "/api/selectMileageList",
 			type: "get",
 			contentType: "application/json; charset=utf-8",
 			dataType: "json",

@@ -35,9 +35,9 @@ public class ProductService {
 	}
 
 	// 상품 리스트 조회
-	public List<ShopProduct> productList(String searchOrder) {
+	public List<ShopProduct> productList(String searchOrder,PagingVO paging) {
 
-		List<ShopProduct> list = productRepository.selectProductList(searchOrder);
+		List<ShopProduct> list = productRepository.selectProductList(searchOrder,paging);
 		return list;
 	}
 
@@ -47,8 +47,8 @@ public class ProductService {
 		return list;
 	}
 	
-	public List<ShopProduct> readProductByName(String searchProduct, String searchOption){
-		List<ShopProduct> list = productRepository.selectProductByName(searchProduct,searchOption);
+	public List<ShopProduct> readProductByName(String searchProduct, String searchOption,PagingVO paging){
+		List<ShopProduct> list = productRepository.selectProductByName(searchProduct,searchOption,paging);
 		return list;
 	}
 	
@@ -99,7 +99,7 @@ public class ProductService {
 	}
 
 	// 마일리지 사용 insert
-	public int createUseMileage( UseMileageDto useMileageDto) {
+	public int createUseMileage( UseMileageDto useMileageDto ) {
 		int result = productRepository.insertMileage(useMileageDto);
 		return result;
 	}
@@ -128,6 +128,10 @@ public class ProductService {
 	
 	public int getTotalRowCount(PagingVO paging) {
 		int result = productRepository.getTotalRowCount(paging);
+		return result;
+	}
+	public int getSearchTotalRowCount(PagingVO paging,String searchProduct,String searchOption) {
+		int result = productRepository.getSerchTotalRowCount(searchProduct, searchOption, paging);
 		return result;
 	}
 	

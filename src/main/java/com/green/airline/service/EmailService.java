@@ -67,7 +67,7 @@ public class EmailService {
                 htmlContent += "<div align='center' style='border:1px solid black; font-family:verdana;'>";
                 htmlContent += "<h3 style='color:blue;'>회원가입 인증 코드입니다.</h3>";
                 htmlContent += "<div style='font-size:130%'>";
-                htmlContent += imageTag;
+                htmlContent += ePw + "</strong><div><br/> ";
                 htmlContent += "</div>";
                 message.setContent(htmlContent, "text/html; charset=UTF-8");
                 helper.setFrom(new InternetAddress("ekdns8276@naver.com", "GREEN AIR"));
@@ -80,7 +80,39 @@ public class EmailService {
         }
         return message;
     }
-
+    public MimeMessage createPwCode(String to) throws MessagingException, UnsupportedEncodingException, IOException {
+        MimeMessage message = emailsender.createMimeMessage();
+        to = "ekdns8276@naver.com";
+        MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        // 집에서 사용
+        // String imagePath = "C:\\Users\\a\\Desktop\\image/"+gifticonImageName;
+        helper.setTo(to);
+        helper.setSubject("GREEN AIR 항공 마일리지몰");
+            try {
+                String imageCid = "image_cid";
+                // 이미지를 인라인으로 첨부 (Content-ID 설정)
+                // HTML 내용 작성
+                String htmlContent = "<div style='margin:100px;'>";
+                htmlContent += "<h1>안녕하세요</h1>";
+                htmlContent += "<h1>GREEN AIR 항공입니다</h1>";
+                htmlContent += "<br>";
+                htmlContent += "<p>구입하신 상품의 기프티콘입니다.</p>";
+                htmlContent += "<br>";
+                htmlContent += "<div align='center' style='border:1px solid black; font-family:verdana;'>";
+                htmlContent += "<h3 style='color:blue;'>회원가입 인증 코드입니다.</h3>";
+                htmlContent += "<p>" + ePw + "</P>";
+                htmlContent += "<div style='font-size:130%'>";
+                htmlContent += "</div>";
+                message.setContent(htmlContent, "text/html; charset=UTF-8");
+                helper.setFrom(new InternetAddress("ekdns8276@naver.com", "GREEN AIR"));
+                helper.setText(htmlContent, true);
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+			return message;
+    }
     // 랜덤 인증 코드 전송
     public String createKey() {
         StringBuffer key = new StringBuffer();
@@ -117,7 +149,7 @@ public class EmailService {
     	
         ePw = createKey(); // 랜덤 인증번호 생성
 
-        MimeMessage message = createMessage(to,gifticonImageName); // 메일 발송
+        MimeMessage message = createPwCode(to); // 메일 발송
         try {// 예외처리
             emailsender.send(message);
         } catch (MailException es) {
@@ -127,4 +159,20 @@ public class EmailService {
 
         return ePw; // 메일로 보냈던 인증 코드를 서버로 반환
     }
+    // 비번 찾기 할 때 이메일로 코드 전
+public String sendPwCodeMessage(String to ) throws Exception {
+    	
+        ePw = createKey(); // 랜덤 인증번호 생성
+
+        MimeMessage message = createPwCode(to); // 메일 발송
+        try {// 예외처리
+            emailsender.send(message);
+        } catch (MailException es) {
+            es.printStackTrace();
+            throw new IllegalArgumentException();
+        }
+
+        return ePw; // 메일로 보냈던 인증 코드를 서버로 반환
+    }
+    
 }

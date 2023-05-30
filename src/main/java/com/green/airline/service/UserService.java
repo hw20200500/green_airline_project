@@ -36,9 +36,23 @@ public class UserService {
 		return memberEntity;
 	}
 	
+	/**
+	 * 정다운
+	 * 아이디 찾
+	 * @return
+	 */
 	public Member readByKorNameandEmailAndBirthDate(Member member) {
 		Member memberEntity = memberRepository.selectByKorNameandEmailAndBirthDate(member);
-		System.out.println("memberEntity : " + memberEntity);
 		return memberEntity;
+	}
+	
+	
+	public User readByid(String id) {
+		User user = userRepository.selectById(id);
+		return user;
+	}
+public int updateyPassword(String password,String userId) {
+		int result = userRepository.updateUserPwById(password,userId);
+		return result;
 	}
 }

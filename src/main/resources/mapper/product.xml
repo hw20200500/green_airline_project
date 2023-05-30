@@ -12,16 +12,16 @@
 	<!-- 상품 리스트 조회 -->
 	<select id="selectProductList" resultType="com.green.airline.repository.model.ShopProduct">
 		<if test="searchOrder == 'clasic'">
-			SELECT * FROM SHOP_PRODUCT_TB
+			SELECT * FROM SHOP_PRODUCT_TB LIMIT #{paging.firstRow},8
 		</if>
 		<if test="searchOrder == 'DESC'">
 			<!-- 높은순 -->
-			SELECT * FROM SHOP_PRODUCT_TB order by price DESC
+			SELECT * FROM SHOP_PRODUCT_TB order by price DESC LIMIT #{paging.firstRow},8
 
 		</if>
 		<if test="searchOrder == 'ASC'">
 			<!-- 낮은순 -->
-			SELECT * FROM SHOP_PRODUCT_TB order by price ASC
+			SELECT * FROM SHOP_PRODUCT_TB order by price ASC LIMIT #{paging.firstRow},8
 		</if>
 		<if test="searchOrder == null">
 		 SELECT * FROM SHOP_PRODUCT_TB
@@ -40,6 +40,7 @@
 	</select>
 	<select id="ProductListTest"  resultType= "com.green.airline.repository.model.ShopProduct">
 		SELECT * FROM SHOP_PRODUCT_TB order by id DESC LIMIT #{firstRow},8
+		
 	</select>
 	
 	
@@ -83,7 +84,7 @@
 	</select>
 	<!-- 마일리지 사용할때 insert -->
 	<insert id="insertMileage"> insert into mileage_tb(use_mileage,member_id, description)
-		values(#{productPrice} * #{hiddenCount},#{memberId},#{description})
+		values(#{useMileage},#{memberId},#{description})
 	</insert>
 
 	<!-- 마일리지 조회 -->
@@ -101,12 +102,22 @@
 	 <select id="selectProductByName" resultType="com.green.airline.repository.model.ShopProduct">
 	 <!-- h2에서 mysql로 변경할 때 바꿔야함 -> '%#{searchProduct}%' -->
 	 <if test="searchOption == 'brand'">
-	select * from shop_product_tb where brand like '%'||#{searchProduct}||'%';
+	select * from shop_product_tb where brand like '%'||#{searchProduct}||'%' LIMIT #{paging.firstRow},8;
 	 </if>
 	 <if test="searchOption == 'name'">
-	select * from shop_product_tb where name like '%'||#{searchProduct}||'%';
+	select * from shop_product_tb where name like '%'||#{searchProduct}||'%' LIMIT #{paging.firstRow},8;
 	 </if>
 	</select>
 	
-
+	
+	
+	 <select id="getSerchTotalRowCount" resultType="int" parameterType="com.green.airline.dto.PagingVO">
+	 <!-- h2에서 mysql로 변경할 때 바꿔야함 -> '%#{searchProduct}%' -->
+	 <if test="searchOption == 'brand'">
+	select count(*) as totalRowCount from shop_product_tb where brand like '%'||#{searchProduct}||'%';
+	 </if>
+	 <if test="searchOption == 'name'">
+	select count(*) as totalRowCount from shop_product_tb where name like '%'||#{searchProduct}||'%';
+	 </if>
+	</select>
 </mapper>
