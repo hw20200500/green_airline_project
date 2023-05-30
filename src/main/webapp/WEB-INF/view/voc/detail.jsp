@@ -276,8 +276,10 @@ label {
 	// 게시글 삭제 버튼
 	$("#vocDeleteBtn").on("click", function() {
 		
+		// 질문 -> 예 : true, 아니오 : false 저장
 		let isDelete = confirm("해당 내역을 삭제하시겠습니까?");
 		
+		// 예 (true)를 선택했다면 삭제 진행
 		if (isDelete) {		
 			$.ajax({
 				type: 'DELETE',
