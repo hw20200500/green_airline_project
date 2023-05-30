@@ -68,15 +68,16 @@ public class UserController {
 	}
 
 	/**
-	 * todo : 비밀번호인코더 처리
-	 * 
-	 * @return
+	 * 로그인 처리
 	 */
 	@PostMapping("/login")
 	public String loginProc(LoginFormDto loginFormDto) {
 		User principal = userService.readUserByIdAndPassword(loginFormDto);
 		if (principal != null) {
 			session.setAttribute(Define.PRINCIPAL, principal);
+			if (principal.getUserRole().equals("관리자")) {
+				return "redirect:/manager/dashboard";
+			}
 		}
 		return "redirect:/";
 	}
@@ -101,7 +102,7 @@ public class UserController {
 		return response;
 	}
 
-	// 일반 회원 로그인
+	// 일반 회원 로그인 페이지
 	@GetMapping("/join")
 	public String joinPage(Model model) {
 		ArrayList<String> countryNm = nationalityApi();
@@ -111,7 +112,7 @@ public class UserController {
 		return "/user/join";
 	}
 
-	// 카카오 로그인
+	// 카카오 로그인 페이지
 	@GetMapping("/socialJoin")
 	public String apiJoinPage(@RequestParam(name = "id") String id, @RequestParam(defaultValue = "none") String email,
 			@RequestParam(defaultValue = "none") String gender, Model model) {
@@ -212,5 +213,5 @@ public class UserController {
 		}
 		return countryNm;
 	}
-
+	
 }

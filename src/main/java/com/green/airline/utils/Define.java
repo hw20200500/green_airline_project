@@ -29,4 +29,8 @@ public class Define {
 	
 	// 고객의 말씀 최대 작성 가능 byte 수
 	public final static int MAX_TEXTAREA_LENGTH = 2000;
+	
+	public static int childPriceRate() {
+		return (int) (CHILD_PRICE_RATE * 100);
+	}
 }

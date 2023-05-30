@@ -386,10 +386,11 @@ public class TicketController {
 	@ResponseBody
 	public ResponseDto<Boolean> checkDateProc(@RequestBody ScheduleDateCheckDto scheduleDto) {
 		
-		Boolean result = false;
+		Integer statusCode = HttpStatus.OK.value();
 		String message = "정상적인 선택입니다.";
 		String code = "1";
 		String resultCode = "success";
+		Boolean data = false;
 		
 		ScheduleInfoResponseDto sch1 = scheduleService.readInfoDtoByScheduleId(scheduleDto.getScheduleId1());
 		ScheduleInfoResponseDto sch2 = scheduleService.readInfoDtoByScheduleId(scheduleDto.getScheduleId2());
@@ -397,26 +398,23 @@ public class TicketController {
 		// 스케줄1의 출발시간이 스케줄2의 출발시간보다 늦다면
 		// 즉, 스케줄2가 스케줄1보다 먼저라면
 		if (sch1.getDepartureDate().after(sch2.getDepartureDate())) {
-			result = true;
+			statusCode = HttpStatus.BAD_REQUEST.value();
 			message = "첫 번째 여정과 두 번째 여정의 순서가 잘못되었습니다.\n다시 선택해주시길 바랍니다.";
 			code = "-1";
 			resultCode = "fail";
+			data = true;
 			
 		// 스케줄1의 도착시간이 스케줄2의 출발시간보다 늦다면
 		// 즉, 스케줄1과 스케줄2의 운항시간이 겹친다면
 		} else if (sch1.getArrivalDate().after(sch2.getDepartureDate())) {
-			result = true;
+			statusCode = HttpStatus.BAD_REQUEST.value();
 			message = "첫 번째 여정과 두 번째 여정의 일정이 겹칩니다.\n다시 선택해주시길 바랍니다.";
 			code = "-1";
 			resultCode = "fail";
+			data = true;
 		}
 		
-		ResponseDto<Boolean> responseDto = new ResponseDto<>();
-		responseDto.setStatusCode(HttpStatus.OK.value());
-		responseDto.setCode(code);
-		responseDto.setMessage(message);
-		responseDto.setResultCode(resultCode);
-		responseDto.setData(result);
+		ResponseDto<Boolean> responseDto = new ResponseDto<Boolean>(statusCode, code, message, resultCode, data);
 		return responseDto;	
 	}
 	
