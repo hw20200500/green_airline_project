@@ -28,7 +28,7 @@ public class FaqController {
 			@RequestParam(name = "categoryId", defaultValue = "1", required = false) Integer categoryId) {
 		List<FaqResponseDto> faqResponseDtos = faqService.readFaqByCategoryId(categoryId);
 		List<FaqCategory> categories = faqService.readFaqCategory();
-		
+
 		model.addAttribute("faqResponseDtos", faqResponseDtos);
 		model.addAttribute("categories", categories);
 		return "/faq/faqList";
@@ -38,7 +38,6 @@ public class FaqController {
 	@GetMapping("/faqSearch")
 	public String faqSearch(@RequestParam String keyword, Model model) {
 		List<FaqResponseDto> faqResponseDtos = faqService.readFaqByKeyword(keyword);
-
 		List<FaqCategory> categories = faqService.readFaqCategory();
 
 		model.addAttribute("faqResponseDtos", faqResponseDtos);
@@ -46,11 +45,14 @@ public class FaqController {
 
 		return "/faq/faqList";
 	}
-	
-	@GetMapping("/faqDelete")
-	public String faqDelete(@RequestParam Integer id) {
-		faqService.deleteFaqById(id);
-		return "redirect:/faq/faqList";
-	}
+
+//	@GetMapping("/faqDelete")
+//	public String faqDelete(@RequestParam Integer id, Model model) {
+//		FaqResponseDto faqResponseDto = faqService.readFaqById(id);
+//		faqService.deleteFaqById(id);
+//
+//		model.addAttribute("faqResponseDto", faqResponseDto);
+//		return "redirect:/faq/faqList";
+//	}
 
 }

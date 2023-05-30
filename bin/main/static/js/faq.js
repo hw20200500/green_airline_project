@@ -32,61 +32,60 @@ $(document).ready(function() {
 		}
 	});
 
-	/*$("#faq--update--btn").on("click", function() {
-		let id = $("#id").val();
-		let titleNode = $(".faq--title--content--wrap");
-		let toggleNode = $(".faq--toggle");
-
-		let divNode = $("<div>");
-		let inputNode = $("<input>");
-		inputNode.remove();
-
-		titleNode.append(divNode);
-		divNode.append(inputNode);
-
-		inputNode.attr("type", "text");
-		inputNode.attr("name", "title");
-
-		let inputNode2 = $("<input>");
-		inputNode2.attr("type", "text");
-		inputNode2.attr("name", "content");
-
-		toggleNode.append(divNode);
-		$.ajax({
-			type: "get",
-			url: "/faqUpdate?id=" + id,
-			contentType: "application/json; charset=utf-8"
-		}).done(function(data) {
-
-
-			console.log(data);
-		}).fail(function(error) {
-			console.log(error);
+	$("#remove--check--btn").on("click", function() {
+		let idArr = [];
+		$("input:checkbox[name='id']:checked").each(function() {
+			idArr.push($(this).val()); // 체크된 것만 값을 뽑아서 배열에 push
+			console.log(idArr);
 		});
 
-	});*/
-
-
-
-	/*$("#remove--check--btn").on("click", function() {
-		$("")
-				
 		$.ajax({
 			type: "GET",
-			url: `/faqDelete?id=${id}`,
+			url: `/faqDelete?id=${idArr}`,
 			contentType: 'application/json; charset=utf-8'
 		}).done(function(data) {
 			console.log(data);
+			for (let i = 0; i < data.length; i++) {
+				let faqNode = $("#faq--title--content--wrap" + data[i].id);
+				faqNode.remove(faqNode);
+			}
 		}).fail(function(error) {
 			console.log(error);
 		});
+		location.reload();
 
-		if (!confirm("정말로 삭제하시겠습니까?")) {
-			return false;
-		} else {
+	});
 
-		}
-	});*/
 
 });
+
+function updateFaq(id) {
+	let faqId = id;
+	// 클릭했을 때 titile value, selectbox value, textarea value 갖고오기
+	/*let title = $("#faq--modal--title").val();
+	let category = $("#faq--modal--category").val();
+	let content = $("#faq--modal--content").val();*/
+
+	let data = {
+		id: faqId,
+		title: $("#faq--modal--title" + faqId).val(),
+		categoryId: $("#faq--modal--category" + faqId).val(),
+		content: $("#faq--modal--content" + faqId).val()
+	};
+
+	$.ajax({
+		type: "POST",
+		url: `/faqUpdate`,
+		contentType: 'application/json; charset=utf-8',
+		data: JSON.stringify(data),
+		dataType: "json"
+	}).done(function(data) {
+		console.log("수정 성공")
+	}).fail(function(error) {
+		console.log(error);
+	});
+	location.reload();
+};
+
+
 

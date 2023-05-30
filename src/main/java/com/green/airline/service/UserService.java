@@ -140,24 +140,6 @@ public class UserService {
 		return validateResult;
 	}
 
-	// 소셜 회원가입 필수값 처리
-	public void createSocialMemberByRequired(SocialJoinFormDto socialJoinFormDto) {
-		
-		System.out.println("socialJoinFormDto : " + socialJoinFormDto);
-		
-		/*
-		 * SocialJoinFormDto(id=2803634206, password=null, korName=강민정, engName=null,
-		 * birthDate=null, gender=F, email=kmg1151@kakao.com, phoneNumber=null,
-		 * postcode=null, detailAddress=null, address=null, nationality=null,
-		 * grade=null);
-		 * 
-		 * INSERT INTO member_tb(id, kor_name, gender, email) VALUES(#{id}, #{korName},
-		 * #{gender}, #{email});
-		 */
-			
-		memberRepository.insertSocialMemberByRequired(socialJoinFormDto);
-	}
-
 	// 아이디 중복 확인
 	public Member readById(String id) {
 		Member memberEntity = memberRepository.existsById(id);

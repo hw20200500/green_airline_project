@@ -25,11 +25,6 @@
 		#{email}, #{address}, #{nationality})
 	</insert>
 
-	<insert id="insertSocialMemberByRequired">
-		INSERT INTO member_tb(id, kor_name, gender, email)
-		VALUES(#{id}, #{korName}, #{gender}, #{email})
-	</insert>
-
 	<insert id="insertSocialMember">
 		INSERT INTO member_tb(id, kor_name, eng_name,
 		birth_date, gender,

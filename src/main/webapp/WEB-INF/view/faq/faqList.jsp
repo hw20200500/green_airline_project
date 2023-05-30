@@ -61,10 +61,27 @@ p {
 	cursor: pointer;
 	font-size: 20px;
 	margin-bottom: 10px;
+	display: flex;
+	flex-direction: row;
 }
 
 .faq--faqList--wrap {
 	margin-right: 20px;
+}
+
+.faq--name--wrap {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.modal-content {
+	width: 550px;
+	height: 350px;
+}
+
+.faq--category--modal--wrap {
+	margin-bottom: 15px;
 }
 </style>
 
@@ -93,16 +110,48 @@ p {
 
 				<div class="faq--faqList--wrap">
 					<c:forEach var="faqResponseDtos" items="${faqResponseDtos}">
-						<input type="hidden" name="id" value="${faqResponseDtos.id}" id="id">
+						<input type="hidden" name="id" value="${faqResponseDtos.id}" id="id" class="${faqResponseDtos.id}">
 						<input type="hidden" name="title" value="${faqResponseDtos.title}" id="title">
 						<input type="hidden" name="content" value="${faqResponseDtos.content}" id="content">
 						<input type="hidden" name="categoryId" value="${faqResponseDtos.categoryId}" id="categoryId">
-						<div class="faq--title--content--wrap">
+						<div class="faq--title--content--wrap" id="faq--title--content--wrap${faqResponseDtos.id}">
 							<div class="faq--name--wrap">
-								<p class="faq--name--cursor--wrap"> [ ${faqResponseDtos.name} ] ${faqResponseDtos.title}</p>
+								<p class="faq--name--cursor--wrap">
+									<input type="checkbox" name="id" id="delete--checkbox--id" value="${faqResponseDtos.id}"> [ ${faqResponseDtos.name} ] ${faqResponseDtos.title}
+								</p>
 								<c:if test="${principal.userRole.equals(\"관리자\")}">
-									<button class="btn btn-primary" id="faq--update--btn" type="button">수정</button>
-									<button class="btn btn-danger" id="remove--check--btn" onclick="location.href='/faq/faqDelete?id=${faqResponseDtos.id}'" type="button">삭제</button>
+									<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#myModal${faqResponseDtos.id}">수정</button>
+
+									<div class="modal fade" id="myModal${faqResponseDtos.id}">
+										<div class="modal-dialog">
+											<div class="modal-content">
+
+												<div class="modal-header">
+													<input type="text" id="faq--modal--title${faqResponseDtos.id}" value="${faqResponseDtos.title}" style="width: 520px;">
+													<button type="button" class="close" data-dismiss="modal">×</button>
+												</div>
+
+												<div class="modal-body">
+													<div class="faq--category--modal--wrap">
+														<select id="faq--modal--category${faqResponseDtos.id}">
+															<c:forEach var="categories" items="${categories}">
+																<option value="${categories.id}">${categories.name}</option>
+															</c:forEach>
+														</select>
+													</div>
+													<div>
+														<textarea rows="6" cols="57" style="resize: none;" id="faq--modal--content${faqResponseDtos.id}">${faqResponseDtos.content}</textarea>
+													</div>
+												</div>
+
+												<div class="modal-footer">
+													<button type="button" class="btn btn-primary faq--update--btn" data-dismiss="modal" onclick="updateFaq(${faqResponseDtos.id})">Submit</button>
+													<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+												</div>
+
+											</div>
+										</div>
+									</div>
 								</c:if>
 							</div>
 							<div class="faq--content--wrap">${faqResponseDtos.content}</div>
@@ -111,9 +160,9 @@ p {
 				</div>
 			</div>
 			<div>
-
 				<c:if test="${principal.userRole.equals(\"관리자\")}">
 					<div>
+						<button class="btn btn-danger" id="remove--check--btn" name="id" type="button">삭제</button>
 						<button class="btn btn-primary" onclick="location.href='/notice/noticeInsert'">글 작성</button>
 					</div>
 				</c:if>

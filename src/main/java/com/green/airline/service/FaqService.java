@@ -52,6 +52,12 @@ public class FaqService {
 		}
 	}
 	
+	// 아이디 기반 faq 리스트 출력 기능
+	public List<FaqResponseDto> readFaqByIdList(Integer id) {
+		List<FaqResponseDto> faqResponseDto = faqRepository.selectFaqByIdList(id);
+		return faqResponseDto;
+	}
+	
 	// 아이디 기반 faq 출력 기능
 	public FaqResponseDto readFaqById(Integer id) {
 		FaqResponseDto faqResponseDto = faqRepository.selectFaqById(id);

@@ -108,9 +108,6 @@ public class AuthController {
 			// joinFormDto.setGender(gender);
 			joinFormDto.setEmail(email);
 			
-			// !!!!!!!!!!!!!!!!!!!!!!!! 이걸 왜 해줌? 
-			// userService.createSocialMemberByRequired(joinFormDto);
-			
 			// 멤버 회원가입 처리도 해주기
 			// 로그인 처리
 			User principal2 = userService.readSocialDtoById(res.getId());

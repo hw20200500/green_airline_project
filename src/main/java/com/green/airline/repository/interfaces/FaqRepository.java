@@ -28,6 +28,9 @@ public interface FaqRepository {
 	// 관리자 측 faq 수정 기능
 	int updateFaqById(@Param("id") Integer id, @Param("faq") FaqResponseDto faq);
 	
+	// id기반 List faq 출력 기능 
+	List<FaqResponseDto> selectFaqByIdList(Integer id);
+	
 	// id기반 faq 출력 기능
 	FaqResponseDto selectFaqById(Integer id);
 	
