@@ -109,7 +109,7 @@
 								<li><a href="/baggage/guide">수하물 안내</a>
 								<li><a href="/baggage/baggageMiss">수하물 유실 (임시)</a>
 								<li><a href="#">기내 서비스 신청 내역</a>
-								<li><a href="#">내 정보 수정</a>
+								<li><a href="/userUpdate">회원 정보 수정</a>
 								<li><a href="#">탈퇴</a>
 							</ul>
 							<div class="nav--split"></div>

@@ -213,4 +213,13 @@ public class UserController {
 		return countryNm;
 	}
 	
+	// 회원 정보 수정 페이지
+	@GetMapping("/userUpdate")
+	public String userUpdatePage() {
+		// Todo
+		// !!!!!! 회원 탈퇴 여부 상태값 컬럼 수정하기 !!!!!!!
+		// principal을 잘 활용하자 ~ 
+		return "/user/userUpdate";
+	}
+	
 }
