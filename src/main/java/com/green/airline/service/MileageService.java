@@ -48,29 +48,30 @@ public class MileageService {
 		 * mileageRepository.insertMileage(); return saveMileageDto; }
 		 */
 	
-	public void readNowMileage(String memberId, int price ){
+	public void readNowMileage(String memberId, int price ,int productId){
 		int usemileage = price;// 결제 할 마일리지
 		List<Mileage> mileageList = mileageRepository.selectNowMileage(memberId);
 		Mileage mileageId = mileageRepository.selectMileageByMemberId(memberId);
-		System.out.println("==========================");
-		System.out.println(mileageId);
-		System.out.println(memberId);
-		System.out.println("==========================");
 		for (Mileage mileage : mileageList) {
 			if(mileage.getBalance() >= usemileage) {
 			int updatemileage = mileage.getBalance() - usemileage;
 			// update 해줘야함
 			mileage.setBalance(updatemileage);
 			mileage.setMileageFromBalance(usemileage);
-			mileage.setBuyMileageId(usemileage);
-			mileage.setBuyMileageId(mileageId.getId());
+			mileage.setDateFormExpiration(mileage.getExpirationDate());
+			mileage.setMemberId(memberId);
+			mileage.setProductId(productId);
 			mileageRepository.insertUseDataList(mileage);
 			mileageRepository.updateBalance(mileage);
+			
 			usemileage = 0;
 			break;
 			}else {
 				usemileage = usemileage - mileage.getBalance();
 				mileage.setMileageFromBalance(mileage.getBalance());
+				mileage.setDateFormExpiration(mileage.getExpirationDate());
+				mileage.setMemberId(memberId);
+				mileage.setProductId(productId);
 				mileage.setBalance(0);
 				mileageRepository.insertUseDataList(mileage);
 				mileageRepository.updateBalance(mileage);

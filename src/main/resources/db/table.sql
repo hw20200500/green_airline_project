@@ -347,10 +347,9 @@ CREATE TABLE use_data_list_tb(
 save_date DATE,
 date_form_expiration DATE,
 mileage_from_balance BIGINT,
-maileage_id int,
+product_id int,
 member_id VARCHAR (50),
 buy_mileage_id int,
-FOREIGN KEY (maileage_id) REFERENCES mileage_tb(id),
 FOREIGN KEY (buy_mileage_id) REFERENCES mileage_tb(id)
 );
 

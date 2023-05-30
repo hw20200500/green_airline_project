@@ -16,4 +16,5 @@ public class GifticonDto {
 	private String gifticonImage;
 	private int id;
 	private Date revokeDate;
+	private int productId;
 }

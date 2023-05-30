@@ -179,10 +179,12 @@ function refundGifticon() {
     var gifticonAmountArray = [];
     var gifticonNameArray = [];
     var gifticonBrandArray = [];
+    var productIdArray = [];
     
     // 체크된 체크박스의 값들을 배열에 저장
     checkedBoxes.each(function () {
         gifticonIdArray.push($(this).val());
+        productIdArray.push($(this).val());
         gifticonAmountArray.push($(this).closest('tr').find('td:eq(5)').text());
         gifticonNameArray.push($(this).closest('tr').find('td:eq(1)').text());
         gifticonBrandArray.push($(this).closest('tr').find('td:eq(2)').text());
@@ -190,6 +192,7 @@ function refundGifticon() {
 
     // 배열을 콤마로 구분된 문자열로 변환하여 hidden input 요소에 할당
     $("#gifticonId").val(gifticonIdArray.join(","));
+    $("#productId").val(productIdArray.join(","));
     $("#gifticonAmount").val(gifticonAmountArray.join(","));
     $("#gifticonName").val(gifticonNameArray.join(","));
     $("#gifticonBrand").val(gifticonBrandArray.join(","));

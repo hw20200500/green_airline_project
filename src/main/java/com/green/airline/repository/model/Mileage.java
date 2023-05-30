@@ -20,7 +20,8 @@ public class Mileage {
 	private String memberId;
 	private String ticketId;
 	private int mileageFromBalance;
-	private int buyMileageId;
+	private Timestamp dateFormExpiration;
+	private int productId;
 	 
 	public String balanceNumber() {
 		return  NumberUtil.numberFormat(balance);

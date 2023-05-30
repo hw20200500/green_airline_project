@@ -294,8 +294,8 @@ public class ProductController {
 
 		gifticonDto.setOrderId(productService.readShopOrder(principal.getId()).getId());
 		productService.updateByProductId(shopProductDto);
-		
-		mileageService.readNowMileage(memberId, totalPrice);
+		int productId = shopOrderDto.getProductId();
+		mileageService.readNowMileage(memberId, totalPrice,productId);
 		
 		// 기프티콘 이메일 전송
 		String code;

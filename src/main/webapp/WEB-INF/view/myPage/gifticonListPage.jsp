@@ -98,6 +98,7 @@
 		</table>
 		<button onclick="refundGifticon()">환불</button>
 		<input type="hidden" name="gifticonId" value="" id="gifticonId">
+		<input type="text" name="productId" value="" id="productId">
     <input type="hidden" name="amount" value="" id="gifticonAmount">
     <input type="hidden" name="name" value="" id="gifticonName">
     <input type="hidden" name="brand" value="" id="gifticonBrand">

@@ -27,12 +27,8 @@ public class GifticonCtroller {
 	}
 	
 	@PostMapping("/deleteGifticonById")
-	public String deleteGifticon(@RequestParam("gifticonId") String[] gifticonId,@RequestParam("amount") String[] amount,
+	public String deleteGifticon(@RequestParam("gifticonId") String[] gifticonId,@RequestParam("productId") String[] productId,@RequestParam("amount") String[] amount,
 			@RequestParam("name") String[] name,@RequestParam("brand") String[] brand) {
-		System.out.println(gifticonId[0]);
-		System.out.println(amount[0]);
-		System.out.println(name[0]);
-		System.out.println(brand[0]);
 		gifticonService.deleteGifticonBygifticonId(gifticonId);
 		gifticonService.createRevokeGifticon(amount, brand, name);
 		return "redirect:/gifticon/list";

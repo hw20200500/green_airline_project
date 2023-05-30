@@ -66,13 +66,16 @@
 		and expiration_date is not null and expiration_date > now() order by
 		expiration_date asc;
 	</select>
+	<!-- 상품 구매시 balance 변 -->
 	<update id="updateBalance">
 		update mileage_tb set balance = #{balance} where id = #{id};
 	</update>
-	
+	<update id="update">
+		
+	</update>
 	<insert id="insertUseDataList">
-		insert into use_data_list_tb(use_date,mileage_from_balance,maileage_id,buy_mileage_id)
-		values(#{mileageFromBalance},#{id},#{buyMileageId}); 
+		insert into use_data_list_tb(save_date,date_form_expiration,mileage_from_balance,member_id,buy_mileage_id,product_id)
+		values(#{saveDate},#{dateFormExpiration},#{mileageFromBalance},#{memberId},#{id},#{productId}); 
  
 	</insert>
 	
