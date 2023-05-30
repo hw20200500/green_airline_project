@@ -12,8 +12,11 @@ public class SaveMileageDto {
 	
 	private int extinctionMileage;
 	private Long saveMileage;
+	private Long saveMileage2;
 	private int balance;
 	private Timestamp insertTime;
 	private String memberId;
 	private String ticketId;
+	private Long amount1;
+	private Long amount2;
 }

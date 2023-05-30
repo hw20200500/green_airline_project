@@ -19,6 +19,9 @@ public class Mileage {
 	private int balance;
 	private String memberId;
 	private String ticketId;
+	private int mileageFromBalance;
+	private int buyMileageId;
+	 
 	public String balanceNumber() {
 		return  NumberUtil.numberFormat(balance);
 		

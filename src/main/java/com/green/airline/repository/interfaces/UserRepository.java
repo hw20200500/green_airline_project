@@ -14,4 +14,5 @@ public interface UserRepository {
 	
 	public int updateUserPwById(@Param("password")String password, @Param("userId")String userId);
 	public User selectById(String id);
+	public int updateGradeByMemberId(@Param("memberId")String memberId,@Param("grade")String grade);
 }

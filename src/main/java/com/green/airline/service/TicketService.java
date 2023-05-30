@@ -1,6 +1,8 @@
 package com.green.airline.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import com.green.airline.repository.interfaces.PassengerRepository;
 import com.green.airline.repository.interfaces.ReservedSeatRepository;
 import com.green.airline.repository.interfaces.TicketPaymentRepository;
 import com.green.airline.repository.interfaces.TicketRepository;
+import com.green.airline.repository.interfaces.UserRepository;
+import com.green.airline.repository.model.MemberGrade;
 import com.green.airline.repository.model.Passenger;
 import com.green.airline.repository.model.ReservedSeat;
 import com.green.airline.repository.model.Ticket;
@@ -41,6 +45,9 @@ public class TicketService {
 
 	@Autowired
 	private MileageRepository mileageRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 	/**
 	 * 결제 성공 시 예약 내역 + 결제 내역을 추가하는 로직
 	 */
@@ -146,12 +153,29 @@ public class TicketService {
 		ticketPaymentRepository.insert(ticketPayment);
 		// 여기에 넣기 ticket1 ticket2 사용 TicketAllInfoDto 티켓 readTicketAllInfoByTicketId 불러와서 티켓 정보 사용하기
 				SaveMileageDto saveMileageDto = new SaveMileageDto();
+				// 티켓 정보
 				TicketAllInfoDto ticketAllInfoDto = readTicketAllInfoByTicketId(ticketId1);
+				
 				saveMileageDto.setDepartureDate(ticketAllInfoDto.getDepartureDate());
 				saveMileageDto.setExpirationDate(ticketAllInfoDto.getDepartureDate());
 				saveMileageDto.setMemberId(memberId);
 				saveMileageDto.setTicketId(ticketId1);
-				mileageRepository.insertMileage(saveMileageDto);
+				// 회원 등급
+				MemberGrade memberGrade = mileageRepository.selectUserGradeByMemberId(memberId);
+				saveMileageDto.setSaveMileage((long) (ticketPayment.getAmount1()*memberGrade.getMileageRate()));
+				
+				 
+				Calendar cal = Calendar.getInstance();
+				cal.add(Calendar.DATE, +365);
+				Timestamp date = new Timestamp(cal.getTimeInMillis());
+				saveMileageDto.setExpirationDate(date);
+				if(ticketPayment.getAmount2() != null) {
+					saveMileageDto.setSaveMileage2((long) (ticketPayment.getAmount2()*memberGrade.getMileageRate()));
+				}
+				
+				// 로그인 할 때 업데이트 하는걸로 바꿔야함
+				mileageRepository.insertMileage(saveMileageDto,memberGrade);
+				
 	}
 	
 	/**
@@ -245,6 +269,7 @@ public class TicketService {
 		List<TicketAllInfoDto> list = ticketRepository.selectTicketList(memberId,type);
 		return list;
 	}
+	
 	public TicketAllInfoDto readByTicketId(String id) {
 		TicketAllInfoDto allInfoDto = ticketRepository.selectByTicketId(id);
 		System.out.println("id : " + id);

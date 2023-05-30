@@ -115,9 +115,7 @@ $("#gifticon--search")
 									})
 							.done(
 									function(response) {
-										console.log(response)
-										console.log(radio)
-
+									
 										for (i = 0; i < response.length; i++) {
 
 											if (radio == 'buy') {

@@ -10,4 +10,7 @@
 <select id="selectById" resultType="com.green.airline.repository.model.User">
 	SELECT id FROM user_tb WHERE id = #{id}
 </select>
+<update id="updateGradeByMemberId">
+		update member_tb set grade = #{grade} where id = #{memberId}
+</update>
 </mapper>

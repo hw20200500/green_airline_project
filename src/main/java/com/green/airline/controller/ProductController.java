@@ -285,17 +285,19 @@ public class ProductController {
 		
 		int totalPrice = shopProductDto.getProductPrice() * shopOrderDto.getAmount();
 		
-		System.out.println(totalPrice);
 		
 		// balance 추가 되는거 수정 쿼리문 수정 해야함
 		useMileageDto.setUseMileage(totalPrice);
+		useMileageDto.setMemberId(memberId);
 		productService.createUseMileage(useMileageDto);
-		System.out.println(useMileageDto.toString());
+		System.out.println(useMileageDto);
 
 		gifticonDto.setOrderId(productService.readShopOrder(principal.getId()).getId());
 		productService.updateByProductId(shopProductDto);
 		
 		mileageService.readNowMileage(memberId, totalPrice);
+		
+		// 기프티콘 이메일 전송
 		String code;
 
 		productService.createGifticon(gifticonDto);

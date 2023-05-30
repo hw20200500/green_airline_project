@@ -83,8 +83,8 @@
 		where member_id =#{memberId} order by id desc limit 1;
 	</select>
 	<!-- 마일리지 사용할때 insert -->
-	<insert id="insertMileage"> insert into mileage_tb(use_mileage,member_id, description)
-		values(#{useMileage},#{memberId},#{description})
+	<insert id="insertMileage"> insert into mileage_tb(use_date,use_mileage,member_id, description)
+		values(now(),#{useMileage},#{memberId},#{description})
 	</insert>
 
 	<!-- 마일리지 조회 -->
