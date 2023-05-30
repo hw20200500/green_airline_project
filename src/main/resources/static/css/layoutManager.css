@@ -37,10 +37,6 @@ header {
 	margin-top: 20px;
 }
 
-.header--top {
-	margin-bottom: 25px;
-}
-
 .header--top, nav {
 	width: 1200px;
 	min-width: 1000px;
@@ -48,7 +44,6 @@ header {
 
 main {
 	min-width: 1200px;
-	padding-left: 22px;
 	min-height: 650px;
 	padding-bottom: 100px;
 }
@@ -95,7 +90,7 @@ main {
 .logo {
 	min-width: 250px;
 	height: 64px;
-	margin: 0px 6px 17px 20px;
+	margin: 0px 40px 17px 0;
 	color: white;
 	cursor: pointer;
 }
@@ -115,13 +110,13 @@ nav {
 }
 
 .nav--depth1 li {
-	flex:1;
+	flex: 1;
 }
 
 .nav--depth1 li a {
 	display: inline-block;
-	padding: 15px 0;
-	font-size: 23px;
+	padding: 15px 0 11px;
+	font-size: 21px;
 	font-weight: 600;
 	min-width: 100%;
 	text-align: center;
@@ -130,6 +125,7 @@ nav {
 
 .nav--depth1 li a:hover {
 	cursor: pointer;
+	color: #a9cee5;
 }
 
 .nav--bar {
@@ -210,10 +206,6 @@ nav {
 	justify-content: flex-start;
 	min-width: 1200px;
 	z-index: 1;
-}
-
-.sub--menu div:first-of-type {
-	width: 22px;
 }
 
 .material-symbols-outlined-white {
@@ -317,7 +309,7 @@ nav {
 footer {
 	width: 100%;
 	text-align: center;
-	margin: 30px 0 20px;
+	padding: 30px 0 20px;
 }
 
 .page--up--button {

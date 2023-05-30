@@ -15,8 +15,11 @@ VALUES
 INSERT INTO member_tb
 VALUES 
 	('abc', '김홍아', 'KIM HONGAH', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', default),
-	('a123', '홍길동', 'HONG GILDONG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', default),
-	('asdf', '홍서영', 'HONG SEOY', '2000-01-05', 'M', '010-1234-1234', 'kmg1151@naver.com', '부산광역시', '대한민국', default);
+	('a123', '홍길동', 'HONG GILDONG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', default);
+
+INSERT INTO manager_tb
+VALUES
+	('asdf', '홍서영', '2000-01-05', 'F', '010-1234-1234', 'kmg1151@naver.com', '부산광역시 수영구');
 
 
 INSERT INTO shop_product_tb(brand,name,price,count,product_image,gifticon_image)
@@ -1032,28 +1035,28 @@ VALUES
 	
 INSERT INTO ticket_payment_tb
 VALUES	
-	('T456546457asd2355664', '54645657', null, 435000, null, 1, null),
-	('T34534654sd435664366', '34246475', null, 754000, null, 1, null),
-	('T79767685664tgtted53', '78674463', null, 656000, null, 1, null),
-	('T436456f43534sd35645', '45645826', null, 678000, null, 1, null),
-	('T8565gdfgfw5345wrfs6', '87564674', null, 345000, null, 1, null),
-	('Tdfdst3463453465efsd', '56457568', null, 754000, null, 1, null),
-	('Tfdg43634534rsa24235', '89788567', null, 567000, null, 1, null),
-	('Tfddfg356354635234se', '43543666', null, 744000, null, 1, null),
-	('T65856sf2435376sdf24', '57456437', null, 654000, null, 1, null),
-	('T67df6323f24ff234234', '65765856', null, 584000, null, 1, null),
-	('T7856dff23r2r3f23r34', '75645567', null, 437000, null, 1, null),
+	('T456546457asd2355664', '54645657', null, 5435000, null, 1, null),
+	('T34534654sd435664366', '34246475', null, 3754000, null, 1, null),
+	('T79767685664tgtted53', '78674463', null, 2656000, null, 1, null),
+	('T436456f43534sd35645', '45645826', null, 6678000, null, 1, null),
+	('T8565gdfgfw5345wrfs6', '87564674', null, 6345000, null, 1, null),
+	('Tdfdst3463453465efsd', '56457568', null, 5754000, null, 1, null),
+	('Tfdg43634534rsa24235', '89788567', null, 7567000, null, 1, null),
+	('Tfddfg356354635234se', '43543666', null, 5744000, null, 1, null),
+	('T65856sf2435376sdf24', '57456437', null, 4654000, null, 1, null),
+	('T67df6323f24ff234234', '65765856', null, 5584000, null, 1, null),
+	('T7856dff23r2r3f23r34', '75645567', null, 1437000, null, 1, null),
 	
-	('T65756ff575634423464', '34534534', null, 301000, null, 1, null),
-	('T5434sd45346sas53463', '76834246', null, 301000, null, 1, null),
-	('Tads453453465432432d', '95464626', null, 301000, null, 1, null),
-	('Tsa345da434534534534', '56575677', null, 301000, null, 1, null),
-	('T4ds654654d534f66654', '87676945', null, 301000, null, 1, null),
-	('Tfdgdfg34534534ff254', '65465483', null, 301000, null, 1, null),
-	('T45cdr34435345432354', '56735478', null, 301000, null, 1, null),
+	('T65756ff575634423464', '34534534', null, 1301000, null, 1, null),
+	('T5434sd45346sas53463', '76834246', null, 1301000, null, 1, null),
+	('Tads453453465432432d', '95464626', null, 3301000, null, 1, null),
+	('Tsa345da434534534534', '56575677', null, 2301000, null, 1, null),
+	('T4ds654654d534f66654', '87676945', null, 3301000, null, 1, null),
+	('Tfdgdfg34534534ff254', '65465483', null, 4301000, null, 1, null),
+	('T45cdr34435345432354', '56735478', null, 1301000, null, 1, null),
 	
-	('T4546464546456666654', '32423423', null, 301000, null, 1, null),
-	('T46d5a8d72620615e44d', '94635667A', '94635667B', 301000, 903000, 1, 1),
+	('T4546464546456666654', '32423423', null, 4301000, null, 1, null),
+	('T46d5a8d72620615e44d', '94635667A', '94635667B', 7301000, 903000, 1, 1),
 	('T4703e9e0dc40ec9cb6f', '42369451', null, 516000, null, 2, null);
 
 INSERT INTO request_meal_tb(amount, meal_id, ticket_id)
