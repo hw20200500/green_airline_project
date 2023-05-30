@@ -43,6 +43,9 @@ public class ManagerController {
 		String salesData = gson.toJson(jsonArray);
 		model.addAttribute("salesData", salesData);
 		
+		int isMain = 1;
+		model.addAttribute("isMain", isMain);
+		
 		return "/manager/dashboard";
 	}
 	

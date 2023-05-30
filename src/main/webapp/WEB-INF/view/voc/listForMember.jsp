@@ -14,6 +14,8 @@
 
 <link rel="stylesheet" href="/css/ticket.css">
 
+<input type="hidden" name="menuName" id="menuName" value="고객의 말씀">
+
 <style>
 .list--table th:nth-of-type(1) {
 	width: 14%;

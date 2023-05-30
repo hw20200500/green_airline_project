@@ -15,6 +15,8 @@
 	</c:otherwise>
 </c:choose>
 
+<input type="hidden" name="menuName" id="menuName" value="공지사항">
+
 <div>
 	<main>
 		<h1>관리자 쪽 공지사항 수정</h1>

@@ -22,17 +22,6 @@
 </head>
 
 <style>
-.ul--dropdown--menu>li {
-	display: none;
-	width: 85px;
-}
-
-.ul--dropdown--menu {
-	position: absolute;
-	padding: 5px;
-	margin-left: -20px;
-}
-
 </style>
 
 <body>
@@ -42,23 +31,11 @@
 			<header>
 				<div class="header--top">
 					<ul>
-						<c:choose>
-							<%-- 로그인되지 않은 경우 --%>
-							<c:when test="${principal == null}">
-								<li class="material--li"><a href="/login"><span class="material-symbols-outlined material-symbols-outlined-white-not" style="font-size: 22px;">login</span></a></li>
-								<li class="top--text--li"><a href="/login">로그인</a></li>
-								<li class="li--split">ㅣ</li>
-								<li class="material--li"><a href="#"><span class="material-symbols-outlined material-symbols-outlined-white-not" style="font-size: 22px;">person_add</span></a></li>
-								<li class="top--text--li"><a href="/join">회원가입</a></li>
-							</c:when>
-							<c:otherwise>
-								<li class="material--li"><a href="/logout"><span class="material-symbols-outlined material-symbols-outlined-white-not" style="font-size: 22px;">logout</span></a></li>
-								<li class="top--text--li"><a href="/logout">로그아웃</a></li>
-								<li class="li--split">ㅣ</li>
-								<li class="material--li"><a href="#"><span class="material-symbols-outlined material-symbols-outlined-white-not" style="font-size: 22px;">badge</span></a></li>
-								<li class="top--text--li"><a href="#">마이페이지</a></li>
-							</c:otherwise>
-						</c:choose>
+						<li class="material--li"><a href="/logout"><span class="material-symbols-outlined material-symbols-outlined-white-not" style="font-size: 22px;">logout</span></a></li>
+						<li class="top--text--li"><a href="/logout">로그아웃</a></li>
+						<li class="li--split">ㅣ</li>
+						<li class="material--li"><a href="#"><span class="material-symbols-outlined material-symbols-outlined-white-not" style="font-size: 22px;">badge</span></a></li>
+						<li class="top--text--li"><a href="#">마이페이지</a></li>
 					</ul>
 				
 				</div>
@@ -67,58 +44,51 @@
 					<div class="main--menu" style="width: 100%;">
 						<ul class="nav--depth1">
 							<li><a href="#">회원관리</a></li>
-							<li><a href="#">기내서비스</a></li>
-							<li><a href="#">마일리지샵</a></li>
-							<li><a href="#">고객센터</a></li>
+							<li><a href="/inFlightService/inFlightServiceSearch">기내서비스</a></li>
+							<li><a href="/product/productMain">마일리지</a></li>
+							<li><a href="/notice/noticeList">고객센터</a></li>
 						</ul>
 					</div>
 				</nav>
 			</header>
 		</div>
 
-		<!-- 메인페이지가 아닐 때만 세부 메뉴 표시 -->
-		<c:if test="${isMain == null}">
-			<div class="header--menu--split">
-				<div class="sub--menu">
-					<div></div>
+		<div class="header--menu--split">
+			<div class="sub--menu">
+				<div></div>
+				<div>
+					<button class="sub--menu--button home--button" onclick="location.href='/manager/dashboard';">
+						<ul class="d-flex">
+							<li class="material--li"><span class="material-symbols-outlined material-symbols-outlined-white">house</span></li>
+							<li>HOME</li>
+						</ul>
+					</button>
+				</div>
+				<c:if test="${isMain == null}">
 					<div>
-						<button class="sub--menu--button home--button" onclick="location.href='/manager/dashboard';">
-							<ul class="d-flex">
-								<li class="material--li"><span class="material-symbols-outlined material-symbols-outlined-white">house</span></li>
-								<li>HOME</li>
-							</ul>
-						</button>
-					</div>
-					<div>
-						<button class="sub--menu--button" style="border-left: hidden;">
+						<button id="subMenu1" class="sub--menu--button" style="border-left: hidden;">
 							<ul class="d-flex justify-content-between" style="width: 100%">
-								<li>대메뉴</li>
+								<li id="currentMainMenu"></li>
 								<li class="material--li"><span class="material-symbols-outlined material-symbols-outlined-white">expand_more</span></li>
 							</ul>
 						</button>
+						<ul id="dropMenu1" class="drop--menu">
+							<!-- AJAX로 추가 -->
+						</ul>
 					</div>
 					<div>
-						<button class="sub--menu--button" style="border-left: hidden;">
+						<button id="subMenu2" class="sub--menu--button" style="border-left: hidden;">
 							<ul class="d-flex justify-content-between" style="width: 100%">
-								<li>소메뉴</li>
+								<li id="currentSubMenu"></li>
 								<li class="material--li"><span class="material-symbols-outlined material-symbols-outlined-white">expand_more</span></li>
 							</ul>
 						</button>
-							</div>
-						</div>
+						<ul id="dropMenu2" class="drop--menu">
+							
+						</ul>
 					</div>
-		</c:if>
+				</c:if>
+			</div>
+		</div>
 
-		<script type="text/javascript">
-			$(".customer--service--li").on("mouseover", function() {
-				$(".ul--dropdown--menu").css("display", "block");
-				$(".li--dropdown--menu").css("display", "block");
-				$(".ul--dropdown--menu").css("border", "1px solid black");
-			});
-
-			$(".customer--service--li").on("mouseleave", function() {
-				$(".ul--dropdown--menu").css("display", "none");
-				$(".li--dropdown--menu").css("display", "none");
-			});
-		</script>
 		<script src="/js/layoutManager.js"></script>

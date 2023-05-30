@@ -10,6 +10,8 @@
 	</c:otherwise>
 </c:choose>
 
+<input type="hidden" name="menuName" id="menuName" value="공지사항">
+
 <style>
 .btn-primary {
 	background-color: #174481;

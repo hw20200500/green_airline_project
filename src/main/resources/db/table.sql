@@ -374,3 +374,18 @@ CREATE TABLE voc_answer_form_tb (
 	type VARCHAR(2) NOT NULL,
 	content TEXT NOT NULL
 );
+
+-- 사이트 메인 메뉴
+CREATE TABLE main_menu_tb (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	menu VARCHAR(10) NOT NULL,
+	type VARCHAR(10) NOT NULL
+);
+
+-- 사이트 서브 메뉴
+CREATE TABLE sub_menu_tb (
+	main_id INT NOT NULL,
+	FOREIGN KEY (main_id) REFERENCES main_menu_tb (id),
+	menu VARCHAR(20) NOT NULL,
+	mapping VARCHAR(50)
+);
