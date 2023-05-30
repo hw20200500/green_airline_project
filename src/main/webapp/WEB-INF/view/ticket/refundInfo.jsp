@@ -1,9 +1,16 @@
+<%@page import="com.green.airline.utils.Define"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<%@ include file="/WEB-INF/view/layout/header.jsp"%>
-
+<c:choose>
+	<c:when test="${\"관리자\".equals(principal.userRole)}">
+		<%@ include file="/WEB-INF/view/layout/headerManager.jsp"%>
+	</c:when>
+	<c:otherwise>
+		<%@ include file="/WEB-INF/view/layout/header.jsp"%>
+	</c:otherwise>
+</c:choose>
 
 <!-- 항공권 환불 안내 페이지 -->
 
@@ -61,7 +68,7 @@
 				</tbody>
 			</table>
 			<p class="age--type--p">
-				소아는 성인 수수료의 75% 만큼 책정됩니다.
+				소아는 성인 수수료의 ${Define.childPriceRate()}% 만큼 책정됩니다.
 				<br>
 				유아는 수수료를 지불하지 않습니다.
 			</p>
@@ -93,7 +100,7 @@
 				</tbody>
 			</table>
 			<p class="age--type--p">
-				소아는 성인 수수료의 75% 만큼 책정됩니다.
+				소아는 성인 수수료의 ${Define.childPriceRate()}% 만큼 책정됩니다.
 				<br>
 				유아는 수수료를 지불하지 않습니다.
 			</p>

@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<c:choose>
+	<c:when test="${\"관리자\".equals(principal.userRole)}">
+		<%@ include file="/WEB-INF/view/layout/headerManager.jsp"%>
+	</c:when>
+	<c:otherwise>
+		<%@ include file="/WEB-INF/view/layout/header.jsp"%>
+	</c:otherwise>
+</c:choose>
+
 <link
 	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
 	rel="stylesheet">

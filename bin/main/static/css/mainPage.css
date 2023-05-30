@@ -10,6 +10,7 @@
 	flex-direction: column;
 	align-items: center;
 	padding-top: 140px;
+	border-top: 1px solid #bbb;
 }
 
 .ticket--option--div {

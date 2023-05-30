@@ -2,7 +2,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<c:choose>
+	<c:when test="${\"관리자\".equals(principal.userRole)}">
+		<%@ include file="/WEB-INF/view/layout/headerManager.jsp"%>
+	</c:when>
+	<c:otherwise>
+		<%@ include file="/WEB-INF/view/layout/header.jsp"%>
+	</c:otherwise>
+</c:choose>
+
 <link rel="stylesheet" href="/css/payment.css">
 
 <!-- 탑승객 정보 입력 및 결제 페이지 -->

@@ -2,7 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<c:choose>
+	<c:when test="${\"관리자\".equals(principal.userRole)}">
+		<%@ include file="/WEB-INF/view/layout/headerManager.jsp"%>
+	</c:when>
+	<c:otherwise>
+		<%@ include file="/WEB-INF/view/layout/header.jsp"%>
+	</c:otherwise>
+</c:choose>
+
 <style>
 /* .product_card.soldout::before{content: '';display: block;position: absolute;width: 210px;height: 210px;border: 6px solid #a9a9a9;background-repeat: no-repeat;background-color: rgba(255,255,255,.7);z-index: 10;box-sizing: border-box;} */
 .product_card.soldout::before {

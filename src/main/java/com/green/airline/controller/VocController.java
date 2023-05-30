@@ -203,8 +203,10 @@ public class VocController {
 		// 해당 게시글이 존재하는지 확인 + 작성자가 일치하는지 확인 + 삭제
 		Integer data = vocService.deleteById(id, userId);
 		
+		// 삭제가 성공했다면
 		if (data == 1) {
 			response = new ResponseDto<Integer>(HttpStatus.OK.value(), "1", "삭제 성공", "success", data);
+		// 삭제가 실패했다면
 		} else {
 			response = new ResponseDto<Integer>(HttpStatus.OK.value(), "0", "삭제 실패", "fail", data);
 		}
