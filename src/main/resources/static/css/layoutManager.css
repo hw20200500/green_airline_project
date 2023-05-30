@@ -230,7 +230,15 @@ nav {
 	padding: 5px 0 0 0;
 }
 
-.sub--menu--button {
+.sub--menu--button:hover {
+	background-color: #76767b !important;
+}
+
+.selected--sub--menu {
+	background-color: #76767b !important;
+}
+
+.sub--menu--button, .menu--button {
 	background: none;
 	width: 220px;
 	display: flex;
@@ -239,8 +247,11 @@ nav {
 	padding: 5px 15px 0 30px;
 	height: 100%;
 	font-size: 16px;
-	color: white;
 	font-weight: 500;
+}
+
+.sub--menu--button {
+	color: white;
 	border: 1px solid #ccc;
 	border-top: hidden;
 	border-bottom: hidden;
@@ -248,6 +259,27 @@ nav {
 
 .sub--menu--button > ul {
 	margin: 0;
+}
+
+.drop--menu {
+	background-color: white;
+	border: 1px solid #ccc;
+	border-top: none;
+	padding: 10px 0;
+	margin-left: -1px;
+	position: absolute;
+	display: none;
+}
+
+.menu--button {
+	padding: 0 15px 0 30px;
+	color: #434343;
+	height: 30px;
+	border: none;
+}
+
+.menu--button:hover {
+	background-color: buttonhighlight;
 }
 
 .header--menu--split {

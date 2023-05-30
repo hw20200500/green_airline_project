@@ -1213,3 +1213,19 @@ VALUES
 감사합니다.'
 	);
 	
+-- 사이트 메뉴
+INSERT INTO main_menu_tb
+VALUES 
+	(1, '고객센터', '관리자'),	
+	(2, '고객센터', '회원');	
+	
+INSERT INTO sub_menu_tb (main_id, menu, mapping)
+VALUES 
+	(1, '공지사항', '/notice/noticeList'),
+	(1, '자주 묻는 질문', ''),
+	(1, '고객의 말씀', '/voc/list/not/1'),
+	(2, '공지사항', '/notice/noticeList'),
+	(2, '자주 묻는 질문', ''),
+	(2, '고객의 말씀', '/voc/list/1');
+	
+	

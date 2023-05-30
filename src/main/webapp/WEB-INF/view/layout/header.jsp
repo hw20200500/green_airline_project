@@ -124,7 +124,6 @@
 								<li><a href="/airplane/info/1">항공기 정보</a>
 								<li><a href="/ticket/list/1">항공권 구매 내역</a>
 								<li><a href="/ticket/refundInfo">환불 안내</a>
-								<li><a href="/chart">통계</a>
 							</ul>
 							<div class="nav--split"></div>
 							<ul>
@@ -149,7 +148,6 @@
 							<ul>
 								<li><a href="/product/productMain">마일리지 사용몰</a>
 								<li><a href="/product/registration">상품 등록</a>
-								<li><a href="#">상품 수정</a>
 								<li><a href="/mileage/selectAll">마일리지 조회</a>
 								<li><a href="/mileage/request">마일리지 신청</a>
 								<li><a href="#">세부메뉴</a>
@@ -177,23 +175,29 @@
 						</button>
 					</div>
 					<div>
-						<button class="sub--menu--button" style="border-left: hidden;">
+						<button id="subMenu1" class="sub--menu--button" style="border-left: hidden;">
 							<ul class="d-flex justify-content-between" style="width: 100%">
-								<li>대메뉴</li>
+								<li id="currentMainMenu"></li>
 								<li class="material--li"><span class="material-symbols-outlined material-symbols-outlined-white">expand_more</span></li>
 							</ul>
 						</button>
+						<ul id="dropMenu1" class="drop--menu">
+							<!-- AJAX로 추가 -->
+						</ul>
 					</div>
 					<div>
-						<button class="sub--menu--button" style="border-left: hidden;">
+						<button id="subMenu2" class="sub--menu--button" style="border-left: hidden;">
 							<ul class="d-flex justify-content-between" style="width: 100%">
-								<li>소메뉴</li>
+								<li id="currentSubMenu"></li>
 								<li class="material--li"><span class="material-symbols-outlined material-symbols-outlined-white">expand_more</span></li>
 							</ul>
 						</button>
-							</div>
-						</div>
+						<ul id="dropMenu2" class="drop--menu">
+							<!-- AJAX로 추가 -->
+						</ul>
 					</div>
+				</div>
+			</div>
 		</c:if>
 
 		<script type="text/javascript">
