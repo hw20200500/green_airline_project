@@ -406,3 +406,9 @@ CREATE TABLE sub_menu_tb (
 	menu VARCHAR(20) NOT NULL,
 	mapping VARCHAR(50)
 );
+
+CREATE TABLE memo_tb (
+	manager_id VARCHAR(50) PRIMARY KEY,
+	FOREIGN KEY (manager_id) REFERENCES manager_tb (id),
+	content TEXT
+);

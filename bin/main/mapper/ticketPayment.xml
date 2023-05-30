@@ -46,7 +46,7 @@
 			WHERE status1 = 1
 			GROUP BY `year`, `month`
 			ORDER BY `year` DESC, `month` DESC
-			LIMIT 10)
+			LIMIT 1, 11)
 			
 			UNION
 			
@@ -59,7 +59,7 @@
 			WHERE status2 = 1
 			GROUP BY `year`, `month`
 			ORDER BY `year` DESC, `month` DESC
-			LIMIT 10) 
+			LIMIT 1, 11) 
 	) AS s
 	GROUP BY `year`, `month`;
 </select>

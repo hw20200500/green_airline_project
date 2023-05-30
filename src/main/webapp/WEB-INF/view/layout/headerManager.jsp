@@ -33,9 +33,6 @@
 					<ul>
 						<li class="material--li"><a href="/logout"><span class="material-symbols-outlined material-symbols-outlined-white-not" style="font-size: 22px;">logout</span></a></li>
 						<li class="top--text--li"><a href="/logout">로그아웃</a></li>
-						<li class="li--split">ㅣ</li>
-						<li class="material--li"><a href="#"><span class="material-symbols-outlined material-symbols-outlined-white-not" style="font-size: 22px;">badge</span></a></li>
-						<li class="top--text--li"><a href="#">마이페이지</a></li>
 					</ul>
 				
 				</div>
@@ -53,18 +50,17 @@
 			</header>
 		</div>
 
-		<div class="header--menu--split">
-			<div class="sub--menu">
-				<div></div>
-				<div>
-					<button class="sub--menu--button home--button" onclick="location.href='/manager/dashboard';">
-						<ul class="d-flex">
-							<li class="material--li"><span class="material-symbols-outlined material-symbols-outlined-white">house</span></li>
-							<li>HOME</li>
-						</ul>
-					</button>
-				</div>
-				<c:if test="${isMain == null}">
+		<c:if test="${isMain == null}">
+			<div class="header--menu--split">
+				<div class="sub--menu">
+					<div>
+						<button class="sub--menu--button home--button" onclick="location.href='/manager/dashboard';">
+							<ul class="d-flex">
+								<li class="material--li"><span class="material-symbols-outlined material-symbols-outlined-white">house</span></li>
+								<li>HOME</li>
+							</ul>
+						</button>
+					</div>
 					<div>
 						<button id="subMenu1" class="sub--menu--button" style="border-left: hidden;">
 							<ul class="d-flex justify-content-between" style="width: 100%">
@@ -87,8 +83,8 @@
 							
 						</ul>
 					</div>
-				</c:if>
+				</div>
 			</div>
-		</div>
+		</c:if>
 
 		<script src="/js/layoutManager.js"></script>
