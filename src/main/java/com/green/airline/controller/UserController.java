@@ -190,7 +190,7 @@ public class UserController {
 
 
 		userService.createSocialMember(socialJoinFormDto);
-		return "redirect:/login";
+		return "redirect:/";
 	}
 
 	// 국적 api
@@ -212,6 +212,15 @@ public class UserController {
 			countryNm.add(response.getBody().getData().get(i).getCountryNm());
 		}
 		return countryNm;
+	}
+	
+	// 회원 정보 수정 페이지
+	@GetMapping("/userUpdate")
+	public String userUpdatePage() {
+		// Todo
+		// !!!!!! 회원 탈퇴 여부 상태값 컬럼 수정하기 !!!!!!!
+		// principal을 잘 활용하자 ~ 
+		return "/user/userUpdate";
 	}
 	
 }

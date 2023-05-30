@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <c:choose>
 	<c:when test="${\"관리자\".equals(principal.userRole)}">
 		<%@ include file="/WEB-INF/view/layout/headerManager.jsp"%>
@@ -9,6 +8,7 @@
 		<%@ include file="/WEB-INF/view/layout/header.jsp"%>
 	</c:otherwise>
 </c:choose>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <style>
 .join--all--wrap {

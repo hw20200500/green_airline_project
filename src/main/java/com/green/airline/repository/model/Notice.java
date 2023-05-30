@@ -13,7 +13,6 @@ public class Notice {
 	private String title;
 	private String content;
 	private Timestamp createdAt;
-	private Integer viewCount;
 	private Integer categoryId;
 	
 	public String dateFormat() {

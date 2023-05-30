@@ -147,13 +147,6 @@ public class UserService {
 		return validateResult;
 	}
 
-	// 소셜 회원가입 필수값 처리
-	@Transactional
-	public void createSocialMemberByRequired(SocialJoinFormDto socialJoinFormDto) {
-
-		memberRepository.insertSocialMemberByRequired(socialJoinFormDto);
-	}
-
 	// 아이디 중복 확인
 	@Transactional
 	public Member readById(String id) {

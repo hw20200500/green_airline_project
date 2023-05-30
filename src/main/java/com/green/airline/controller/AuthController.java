@@ -11,12 +11,10 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -40,6 +38,7 @@ public class AuthController {
 	@GetMapping("/auth/kakao/callback")
 	@Transactional
 	public String kakaoCallbackCode(@RequestParam String code) throws JsonProcessingException {
+		
 		RestTemplate restTemplate = new RestTemplate();
 
 		// 헤더 만듦
@@ -49,7 +48,7 @@ public class AuthController {
 		// 바디 만듦
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("grant_type", "authorization_code");
-		params.add("client_id", "ce88cf20b78f9552fe8f49e224822cf8");
+		params.add("client_id", "91cf28839247e9924114aeb1a23b8852");
 		params.add("redirect_uri", "http://localhost:80/auth/kakao/callback");
 		params.add("code", code);
 
@@ -73,6 +72,7 @@ public class AuthController {
 		// 서비스에서 회원가입여부 확인 - select -> null -> 회원가입 처리
 		User principal = userService.readSocialDtoById(res.getId()); // <-- 서비스에서 회원가입여부 확인
 		// principal이 null이 나올 경우 회원가입이 안된 상태
+		
 		if (principal == null) {
 			// return 회원가입 페이지
 			String id = res.getId();
@@ -100,11 +100,15 @@ public class AuthController {
 			SocialJoinFormDto joinFormDto = new SocialJoinFormDto();
 			joinFormDto.setId(id);
 			joinFormDto.setKorName(res.getProperties().getNickname());
-			joinFormDto.setGender(gender);
+			if (gender.equals("male")) {
+				joinFormDto.setGender("M");
+			} else if (gender.equals("female")) {
+				joinFormDto.setGender("F");
+			}
+			// joinFormDto.setGender(gender);
 			joinFormDto.setEmail(email);
-			userService.createSocialMemberByRequired(joinFormDto);
+			
 			// 멤버 회원가입 처리도 해주기
-
 			// 로그인 처리
 			User principal2 = userService.readSocialDtoById(res.getId());
 			session.setAttribute(Define.PRINCIPAL, principal2);
@@ -112,7 +116,7 @@ public class AuthController {
 			// session에 값을 담아주려면 다시 서비스를 불러서 조회해야함
 
 			// 메인으로
-			return "redirect:/login";
+			return "redirect:/";
 
 		} else {
 			// 위 principal이 null이 아닐 경우 로그인 처리를 위한 session에 값 담기

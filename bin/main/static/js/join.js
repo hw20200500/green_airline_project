@@ -15,6 +15,7 @@ $(function() {
 
 });
 
+// 다음 우편주소 api
 function execDaumPostcode() {
 	new daum.Postcode({
 		oncomplete: function(data) {
@@ -65,7 +66,7 @@ $(document).ready(function() {
 	$("#password--check").on("keyup focus change", function(){
 		let password = $("#password").val();
 		let passwordCheck = $("#password--check").val();
-		let passwordWrap = $(".password--wrap")				
+		let passwordWrap = $(".password--wrap");		
 		let divNode = $("<div>");
 		let divNode2 = $("<div>");
 		divNode.attr("class", "validation--check");

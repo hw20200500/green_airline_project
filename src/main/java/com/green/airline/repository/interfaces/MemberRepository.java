@@ -21,10 +21,6 @@ public interface MemberRepository {
 	// 소셜 회원가입 처리
 	public int insertSocialMember(SocialJoinFormDto socialJoinFormDto);
 	
-	// ??
-	// 소셜 회원가입 필수값 처리
-	public int insertSocialMemberByRequired(SocialJoinFormDto socialJoinFormDto);
-	
 	// 소셜 회원가입 필수값 처리
 	public int insertBySocialDto(@Param("id") String id, @Param("nickname") String nickname,
 			@Param("email") String email, @Param("gender") String gender);

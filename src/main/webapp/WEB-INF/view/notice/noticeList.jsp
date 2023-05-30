@@ -65,7 +65,7 @@
 
 			<div class="keyword--search--wrap">
 				<form action="/notice/noticeSearch" method="get" class="keyword--search--form">
-					<input type="text" id="keyword" name="keyword" placeholder="키워드 검색" onkeypress="if(event.keyCode=='13'){event.preventDefault();}">
+					<input type="text" id="keyword" name="keyword" placeholder="키워드 검색">
 					<button class="search--btn btn btn-primary" type="submit">검색</button>
 				</form>
 			</div>
@@ -88,6 +88,7 @@
 			</c:forEach>
 		</div>
 		
+		<!-- 페이지 숫자(< 3 4 5 >) -->
 		<div style="display: block; text-align: center;">		
 			<c:if test="${paging.startPage != 1}">
 				<a href="/notice/noticeList?nowPage=${paging.startPage - 1}&cntPerPage=${paging.cntPerPage}">&lt;</a>

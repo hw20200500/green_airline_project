@@ -69,7 +69,7 @@
 							<li class="customer--service--li top--text--li"><a href="#">고객센터</a>
 								<ul class="ul--dropdown--menu">
 									<li class="li--dropdown--menu"><a href="/notice/noticeList">공지사항</a></li>
-									<li class="li--dropdown--menu"><a href="#">자주묻는질문</a></li>
+									<li class="li--dropdown--menu"><a href="/faq/faqList">자주묻는질문</a></li>
 									<li class="li--dropdown--menu"><a href="/voc/list/1">고객의 말씀</a></li>										
 								</ul>
 							</li>
@@ -85,7 +85,7 @@
 							<li class="customer--service--li top--text--li"><a href="#">고객센터</a>
 								<ul class="ul--dropdown--menu">
 									<li class="li--dropdown--menu"><a href="/notice/noticeList">공지사항</a></li>
-									<li class="li--dropdown--menu"><a href="#">자주묻는질문</a></li>
+									<li class="li--dropdown--menu"><a href="/faq/faqList">자주묻는질문</a></li>
 									<c:choose>
 										<c:when test="${principal.userRole.equals(\"관리자\")}">
 											<li class="li--dropdown--menu"><a href="/voc/list/not/1">고객의 말씀</a></li>										
@@ -96,6 +96,9 @@
 									</c:choose>
 								</ul>
 							</li>
+									<!-- <li class="li--dropdown--menu"><a href="/faq/faqList">자주묻는질문</a></li>
+									<li class="li--dropdown--menu">&nbsp;</li>
+									<li class="li--dropdown--menu">&nbsp;</li> -->
 						</c:otherwise>
 					</c:choose>
 				</ul>
@@ -131,8 +134,9 @@
 								<li><a href="/inFlightService/inFlightServiceSpecial">특별 기내식</a>
 								<li><a href="/baggage/guide">수하물 안내</a>
 								<li><a href="/baggage/baggageMiss">수하물 유실 (임시)</a>
-								<li><a href="#">세부메뉴</a>
-								<li><a href="#">세부메뉴</a>
+								<li><a href="#">기내 서비스 신청 내역</a>
+								<li><a href="/userUpdate">회원 정보 수정</a>
+								<li><a href="#">탈퇴</a>
 							</ul>
 							<div class="nav--split"></div>
 							<ul>

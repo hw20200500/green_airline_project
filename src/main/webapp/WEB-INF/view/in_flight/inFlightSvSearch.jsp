@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <c:choose>
 	<c:when test="${\"관리자\".equals(principal.userRole)}">
 		<%@ include file="/WEB-INF/view/layout/headerManager.jsp"%>
@@ -11,6 +8,9 @@
 		<%@ include file="/WEB-INF/view/layout/header.jsp"%>
 	</c:otherwise>
 </c:choose>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 <style>
 #departure, #destination {

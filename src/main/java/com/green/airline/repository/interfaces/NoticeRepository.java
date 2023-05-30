@@ -30,7 +30,10 @@ public interface NoticeRepository {
 	List<NoticeResponseDto> selectNotice(PagingObj obj);
 
 	// 공지사항 검색 기능
-	List<NoticeResponseDto> selectNoticeByTitle(String keyword);
+	List<NoticeResponseDto> selectNoticeByTitle(@Param("obj") PagingObj obj, @Param("keyword") String keyword);
+	
+	// 공지사항 검색 글 개수 
+	int selectNoticeByKeywordCount(String keyword);
 
 	// 공지사항 상세 페이지 이동
 	NoticeResponseDto selectNoticeById(int id);
