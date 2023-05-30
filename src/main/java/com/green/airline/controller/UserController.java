@@ -189,7 +189,7 @@ public class UserController {
 
 
 		userService.createSocialMember(socialJoinFormDto);
-		return "redirect:/login";
+		return "redirect:/";
 	}
 
 	// 국적 api
@@ -211,6 +211,13 @@ public class UserController {
 			countryNm.add(response.getBody().getData().get(i).getCountryNm());
 		}
 		return countryNm;
+	}
+	
+	// 마이 페이지로 이동 
+	@GetMapping("/myInfo")
+	public String myInfoPage() {
+		
+		return "/user/myInfo";
 	}
 
 }

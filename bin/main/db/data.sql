@@ -5,18 +5,18 @@ VALUES
 	('Platinum'),
 	('Diamond');
 
-INSERT INTO user_tb 
-VALUES 
-	('abc', '$2a$10$nxanAcpAnZv3qVxuRq0rBuVz.cRLE.1mDgcGhI.SAwf0a54fmCp1e', '회원'),
-	('a123', '$2a$10$nxanAcpAnZv3qVxuRq0rBuVz.cRLE.1mDgcGhI.SAwf0a54fmCp1e', '회원'),
-	('asdf', '$2a$10$nxanAcpAnZv3qVxuRq0rBuVz.cRLE.1mDgcGhI.SAwf0a54fmCp1e', '관리자');
+ INSERT INTO user_tb 
+ VALUES 
+	 ('abc', '$2a$10$nxanAcpAnZv3qVxuRq0rBuVz.cRLE.1mDgcGhI.SAwf0a54fmCp1e', '회원'),
+	 ('a123', '$2a$10$nxanAcpAnZv3qVxuRq0rBuVz.cRLE.1mDgcGhI.SAwf0a54fmCp1e', '회원'),
+	 ('asdf', '$2a$10$nxanAcpAnZv3qVxuRq0rBuVz.cRLE.1mDgcGhI.SAwf0a54fmCp1e', '관리자');
 
 
 INSERT INTO member_tb
 VALUES 
-	('abc', '김홍아', 'KIM HONGAH', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', default),
-	('a123', '홍길동', 'HONG GILDONG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', default),
-	('asdf', '홍서영', 'HONG SEOY', '2000-01-05', 'M', '010-1234-1234', 'kmg1151@naver.com', '부산광역시', '대한민국', default);
+	 ('abc', '김홍아', 'KIM HONGAH', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', default),
+	 ('a123', '홍길동', 'HONG GILDONG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', default),
+	 ('asdf', '홍홍', 'HONG HONG', '2000-05-05', 'F', '010-1234-1234', 'hong@naver.com', '부산광역시', '대한민국', default);
 
 
 INSERT INTO shop_product_tb(brand,name,price,count,product_image,gifticon_image)

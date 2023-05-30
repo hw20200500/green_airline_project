@@ -3,7 +3,7 @@
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <style>
 .faqHeader--keyword--wrap {
-	width: 800px;
+	width: 1200px;
 }
 
 .faq--header {
@@ -38,29 +38,6 @@ p {
 	margin: 0;
 }
 
-.faq--nav--title--wrap {
-	background: #eee;
-	width: 300px;
-	height: 330px;
-	position: sticky;
-	top: 20px;
-}
-
-.faq--nav--wrap {
-	margin-top: 20px;
-	margin-bottom: 100px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 300px;
-}
-
-main {
-	display: flex;
-	width: 1200px;
-	position: relative;
-}
-
 .faq--category--wrap {
 	display: flex;
 	justify-content: space-between;
@@ -86,10 +63,9 @@ main {
 	margin-bottom: 10px;
 }
 
-.faq--faqList--wrap{
+.faq--faqList--wrap {
 	margin-right: 20px;
 }
-
 </style>
 
 <div>
@@ -108,40 +84,39 @@ main {
 
 			<div class="faq--category--content--wrap">
 				<div class="faq--category--wrap">
-					<input type="hidden" name="categoryId" value="${categoryId}">
 					<c:forEach var="categories" items="${categories}">
 						<h4>
-							<a href="#">${categories.name}</a>
+							<a href="/faq/faqList?categoryId=${categories.id}">${categories.name}</a>
 						</h4>
 					</c:forEach>
 				</div>
 
 				<div class="faq--faqList--wrap">
 					<c:forEach var="faqResponseDtos" items="${faqResponseDtos}">
-						<div>
+						<input type="hidden" name="id" value="${faqResponseDtos.id}" id="id">
+						<input type="hidden" name="title" value="${faqResponseDtos.title}" id="title">
+						<input type="hidden" name="content" value="${faqResponseDtos.content}" id="content">
+						<input type="hidden" name="categoryId" value="${faqResponseDtos.categoryId}" id="categoryId">
+						<div class="faq--title--content--wrap">
 							<div class="faq--name--wrap">
-								<p class="faq--name--cursor--wrap">[ ${faqResponseDtos.name} ] ${faqResponseDtos.title}</p>
+								<p class="faq--name--cursor--wrap"> [ ${faqResponseDtos.name} ] ${faqResponseDtos.title}</p>
+								<c:if test="${principal.userRole.equals(\"관리자\")}">
+									<button class="btn btn-primary" id="faq--update--btn" type="button">수정</button>
+									<button class="btn btn-danger" id="remove--check--btn" onclick="location.href='/faq/faqDelete?id=${faqResponseDtos.id}'" type="button">삭제</button>
+								</c:if>
 							</div>
 							<div class="faq--content--wrap">${faqResponseDtos.content}</div>
 						</div>
 					</c:forEach>
 				</div>
 			</div>
-		</div>
-		<div class="faq--nav--title--wrap">
-			<div class="faq--nav--wrap">
-				<h3>BEST 질문</h3>
-				<ul>
-					<li>This is the main area.</li>
-					<li>This is the main area.</li>
-					<li>This is the main area.</li>
-					<li>This is the main area.</li>
-					<li>This is the main area.</li>
-					<li>This is the main area.</li>
-					<li>This is the main area.</li>
-					<li>This is the main area.</li>
-					<li>This is the main area.</li>
-				</ul>
+			<div>
+
+				<c:if test="${principal.userRole.equals(\"관리자\")}">
+					<div>
+						<button class="btn btn-primary" onclick="location.href='/notice/noticeInsert'">글 작성</button>
+					</div>
+				</c:if>
 			</div>
 		</div>
 	</main>

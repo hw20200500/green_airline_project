@@ -23,7 +23,7 @@
 	</select>
 	
 	<select id="selectNoticeByKeywordCount" resultType="int">
-		select count(*) from notice_tb where title like #{keyword}		
+		select count(*) from notice_tb where title like #{keyword}
 	</select>
 
 	<select id="selectNotice"

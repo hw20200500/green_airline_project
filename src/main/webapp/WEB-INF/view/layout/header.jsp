@@ -61,7 +61,7 @@
 							<li><a href="/logout">로그아웃</a></li>
 							<li class="li--split">ㅣ</li>
 							<li class="material--li"><a href="#"><span class="material-symbols-outlined" style="font-size: 22px;">badge</span></a></li>
-							<li><a href="#">마이페이지</a></li>
+							<li><a href="/myInfo">마이페이지</a></li>
 							<li class="li--split">ㅣ</li>
 							<li class="material--li"><a href="#"><span class="material-symbols-outlined" style="font-size: 22px;">support_agent</span></a></li>
 							<li class="customer--service--li"><a href="#">고객센터</a>

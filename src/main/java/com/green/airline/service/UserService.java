@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
@@ -99,6 +100,7 @@ public class UserService {
 
 	// 소셜회원 회원가입 (email, gender, id 모두 동의한 경우, 회원가입 페이지를 거치지 않고 카카오 로그인 동의하기 누르자마자
 	// 회원가입이 된 경우)
+	@Transactional
 	public void createByUser(SocialDto socialDto) {
 
 		if ("male".equals(socialDto.getKakaoAccount().getGender())) {
@@ -140,7 +142,19 @@ public class UserService {
 
 	// 소셜 회원가입 필수값 처리
 	public void createSocialMemberByRequired(SocialJoinFormDto socialJoinFormDto) {
-
+		
+		System.out.println("socialJoinFormDto : " + socialJoinFormDto);
+		
+		/*
+		 * SocialJoinFormDto(id=2803634206, password=null, korName=강민정, engName=null,
+		 * birthDate=null, gender=F, email=kmg1151@kakao.com, phoneNumber=null,
+		 * postcode=null, detailAddress=null, address=null, nationality=null,
+		 * grade=null);
+		 * 
+		 * INSERT INTO member_tb(id, kor_name, gender, email) VALUES(#{id}, #{korName},
+		 * #{gender}, #{email});
+		 */
+			
 		memberRepository.insertSocialMemberByRequired(socialJoinFormDto);
 	}
 

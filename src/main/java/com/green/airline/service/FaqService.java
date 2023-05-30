@@ -9,6 +9,7 @@ import com.green.airline.dto.response.FaqResponseDto;
 import com.green.airline.repository.interfaces.FaqRepository;
 import com.green.airline.repository.model.Faq;
 import com.green.airline.repository.model.FaqCategory;
+import com.green.airline.utils.PagingObj;
 
 @Service
 public class FaqService {
@@ -33,6 +34,28 @@ public class FaqService {
 		keyword = "%" + keyword + "%";
 		List<FaqResponseDto> faqList = faqRepository.selectFaqByKeyword(keyword);
 		return faqList;
+	}
+
+	// 관리자 측 게시물 삭제 기능
+	public void deleteFaqById(Integer id) {
+		int result = faqRepository.deleteFaqById(id);
+		if (result == 1) {
+			System.out.println("삭제 성공");
+		}
+	}
+
+	// 관리자 측 게시물 수정 기능
+	public void updateFaqById(Integer id, FaqResponseDto faq) {
+		int result = faqRepository.updateFaqById(id, faq);
+		if (result == 1) {
+			System.out.println("수정 성공");
+		}
+	}
+	
+	// 아이디 기반 faq 출력 기능
+	public FaqResponseDto readFaqById(Integer id) {
+		FaqResponseDto faqResponseDto = faqRepository.selectFaqById(id);
+		return faqResponseDto;
 	}
 
 }
