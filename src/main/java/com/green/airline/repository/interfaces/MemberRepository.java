@@ -18,14 +18,18 @@ public interface MemberRepository {
 
 	// 일반 회원가입 처리
 	public int insertMember(JoinFormDto joinFormDto);
+
 	// 소셜 회원가입 처리
 	public int insertSocialMember(SocialJoinFormDto socialJoinFormDto);
-	
+
 	// 소셜 회원가입 필수값 처리
 	public int insertBySocialDto(@Param("id") String id, @Param("nickname") String nickname,
 			@Param("email") String email, @Param("gender") String gender);
 
 	// 아이디 중복 확인
 	public Member existsById(String id);
+
+	// 회원 정보 수정
+	public int updateMemberById(@Param("id") String id, @Param("member") Member member);
 	
 }

@@ -19,4 +19,21 @@
 	<select id="selectSocialDtoById" resultType="com.green.airline.repository.model.User">
 		SELECT * FROM user_tb WHERE id = #{id}
 	</select>
+	
+	<select id="selectUserById" resultType="com.green.airline.repository.model.User">
+		select * from user_tb WHERE id = #{id}
+	</select>
+	
+	<update id="updateUser">
+		update user_tb
+		set password = #{password}
+		where id = #{id}
+	</update>
+	
+	<update id="updateUserByStatus">
+		update user_tb
+		set status = #{status}
+		where id = #{id}
+	</update>
+	
 </mapper>

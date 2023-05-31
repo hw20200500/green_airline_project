@@ -122,9 +122,11 @@ public class NoticeController {
 
 	@GetMapping("/noticeUpdate")
 	public String noticeUpdate(@RequestParam Integer id, Model model) {
+		NoticeResponseDto noticeResponseDto = noticeService.readNoticeById(id);
 		List<NoticeCategory> categoryList = noticeService.readNoticeCategory();
 		model.addAttribute("categoryList", categoryList);
 		model.addAttribute("id", id);
+		model.addAttribute("noticeResponseDto", noticeResponseDto);
 		return "/notice/noticeUpdate";
 	}
 

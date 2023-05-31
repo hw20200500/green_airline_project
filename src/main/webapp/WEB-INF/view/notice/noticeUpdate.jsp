@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <style>
 </style>
 
@@ -15,14 +12,16 @@
 	</c:otherwise>
 </c:choose>
 
-<input type="hidden" name="menuName" id="menuName" value="공지사항">
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 
 <div>
 	<main>
 		<h1>관리자 쪽 공지사항 수정</h1>
 		<form action="/notice/noticeUpdate" method="post">
 		<input type="hidden" name="id" value="${id}">
-			제목 <input type="text" name="title">
+			제목 <input type="text" name="title" value="${noticeResponseDto.title}">
 			<select name="categoryId" id="categoryId">
 				<optgroup label="카테고리">
 					<c:forEach var="categoryList" items="${categoryList}">
@@ -30,7 +29,7 @@
 					</c:forEach>
 				</optgroup>
 			</select>
-			<textarea class="form-control summernote" rows="5" id="content" name="content"></textarea>
+			<textarea class="form-control summernote" rows="5" id="content" name="content">${noticeResponseDto.content}</textarea>
 			<button type="submit">올리기</button>
 		</form>
 	</main>

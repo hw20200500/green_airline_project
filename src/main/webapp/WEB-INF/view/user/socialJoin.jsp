@@ -16,7 +16,9 @@
 	flex-direction: column;
 }
 </style>
-
+<script>
+	let gender = `${gender}`;
+</script>
 <main>
 	<div>
 		<h1>회원가입</h1>
@@ -27,8 +29,8 @@
 					<c:when test="${socialJoinFormDto != null}">
 						아이디 <input type="text" name="id" value="${socialJoinFormDto.id}" readonly="readonly">
 						<div style="color: red;">
-							<c:if test="${valid_id != null}">
-							${valid_id}
+							<c:if test="${idValid != null}">
+							${idValid}
 						</c:if>
 						</div>
 					</c:when>
@@ -41,13 +43,13 @@
 					<c:when test="${socialJoinFormDto != null}">
 				한국 이름 <input type="text" name="korName" required="required" value="${socialJoinFormDto.korName}">
 						<div style="color: red;">
-							<c:if test="${valid_korName != null}">
-							${valid_korName}
+							<c:if test="${korNameValid != null}">
+							${korNameValid}
 						</c:if>
 						</div>
 					</c:when>
 					<c:otherwise>
-				한국 이름 <input type="text" name="korName" required="required">
+				한국 이름 <input type="text" name="korName" required="required" value="ㅇㅇ">
 					</c:otherwise>
 				</c:choose>
 
@@ -55,39 +57,39 @@
 					<c:when test="${socialJoinFormDto != null}">
 				영어 이름 <input type="text" name="engName" required="required" value="${socialJoinFormDto.engName}">
 						<div style="color: red;">
-							<c:if test="${valid_engName != null}">
-							${valid_engName}
+							<c:if test="${engNameValid != null}">
+							${engNameValid}
 						</c:if>
 						</div>
 					</c:when>
 					<c:otherwise>
-				영어 이름 <input type="text" name="engName" required="required">
+				영어 이름 <input type="text" name="engName" required="required" value="DDD">
 					</c:otherwise>
 				</c:choose>
 				<c:choose>
 					<c:when test="${socialJoinFormDto != null}">
 				생년월일 <input type="text" id="datepicker" name="birthDate" required="required" value="${socialJoinFormDto.birthDate}">
 						<div style="color: red;">
-							<c:if test="${valid_birthDate != null}">
-							${valid_birthDate}
+							<c:if test="${birthDateValid != null}">
+							${birthDateValid}
 						</c:if>
 						</div>
 					</c:when>
 					<c:otherwise>
-				생년월일 <input type="text" id="datepicker" name="birthDate" required="required">
+				생년월일 <input type="text" id="datepicker" name="birthDate" required="required" value="2000-01-18">
 					</c:otherwise>
 				</c:choose>
 
 				<div class="gender--wrap">
 					<c:choose>
 						<c:when test="${socialJoinFormDto != null}">
-							성별 <label> <input type="radio" name="gender" value="M" required="required"> 남
+							성별 <label> <input type="radio" name="gender" value="M" required="required" class="gender--input"> 남
 							</label>
-							<label> <input type="radio" name="gender" required="required" value="F"> 여
+							<label> <input type="radio" name="gender" required="required" value="F" class="gender--input"> 여
 							</label>
 							<div style="color: red;">
-								<c:if test="${valid_gender != null}">
-								${valid_gender}
+								<c:if test="${genderValid != null}">
+								${genderValid}
 								</c:if>
 							</div>
 						</c:when>
@@ -98,9 +100,9 @@
 							</label>
 						</c:when>
 						<c:otherwise>
-								성별 <label> <input type="radio" name="gender" value="M" required="required"> 남
+								성별 <label> <input type="radio" name="gender" value="M" required="required" class="gender--input"> 남
 							</label>
-							<label> <input type="radio" name="gender" required="required" value="F"> 여
+							<label> <input type="radio" name="gender" required="required" value="F" class="gender--input"> 여
 							</label>
 						</c:otherwise>
 					</c:choose>
@@ -109,21 +111,21 @@
 					<c:when test="${socialJoinFormDto != null}">
 				휴대전화 <input type="text" name="phoneNumber" placeholder="예:010-0000-0000" required="required">
 						<div style="color: red;">
-							<c:if test="${valid_phoneNumber != null}">
-							${valid_phoneNumber}
+							<c:if test="${phoneNumberValid != null}">
+							${phoneNumberValid}
 						</c:if>
 						</div>
 					</c:when>
 					<c:otherwise>
-				휴대전화 <input type="text" name="phoneNumber" placeholder="예:010-0000-0000" required="required">
+				휴대전화 <input type="text" name="phoneNumber" placeholder="예:010-0000-0000" required="required" value="010-1234-123">
 					</c:otherwise>
 				</c:choose>
 				<c:choose>
 					<c:when test="${socialJoinFormDto != null}">
 						이메일 <input type="text" name="email" value="${email}" required="required">
 						<div style="color: red;">
-							<c:if test="${valid_email != null}">
-							${valid_email}
+							<c:if test="${emailValid != null}">
+							${emailValid}
 						</c:if>
 						</div>
 					</c:when>
@@ -131,31 +133,27 @@
 								이메일 <input type="email" name="email" required="required">
 					</c:when>
 					<c:otherwise>
-								이메일 <input type="email" name="email" value="${email}" required="required">
+								이메일 <input type="email" name="email" value="${email}" required="required" value="kmg1151@naver.com">
 					</c:otherwise>
 				</c:choose>
 
 				<c:choose>
 					<c:when test="${socialJoinFormDto != null}">
-						<input type="text" id="postcode" name="postcode" value="${socialJoinFormDto.postcode}" placeholder="우편번호" required="required">
-						<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
+						<input type="text" id="address" name="address" placeholder="주소" required="required" value="${socialJoinFormDto.address}">
+						<input type="button" onclick="execDaumPostcode()" value="주소 찾기" required="required">
 						<br>
-						<input type="text" id="address" name="address" placeholder="주소" value="${socialJoinFormDto.address}">
-						<br>
-						<input type="text" id="detailAddress" name="detailAddress" value="${socialJoinFormDto.detailAddress}" placeholder="상세주소">
+						<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">
 						<div style="color: red;">
-							<c:if test="${valid_address != null}">
-							${valid_address}
+							<c:if test="${addressValid != null}">
+							${addressValid}
 							</c:if>
 						</div>
 					</c:when>
 					<c:otherwise>
-						<input type="text" id="postcode" name="postcode" placeholder="우편번호" required="required">
-						<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
+						<input type="text" id="address" name="address" placeholder="주소" required="required" value="부산 사상구 가야대로 1">
+						<input type="button" onclick="execDaumPostcode()" value="주소 찾기" required="required">
 						<br>
-						<input type="text" id="address" name="address" placeholder="주소">
-						<br>
-						<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">
+						<input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소" value="1">
 					</c:otherwise>
 				</c:choose>
 				<c:choose>
@@ -166,8 +164,8 @@
 							</c:forEach>
 						</select>
 						<div style="color: red;">
-							<c:if test="${valid_address != null}">
-							${valid_address}
+							<c:if test="${addressValid != null}">
+							${addressValid}
 						</c:if>
 						</div>
 					</c:when>

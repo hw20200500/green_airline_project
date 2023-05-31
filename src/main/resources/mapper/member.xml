@@ -25,6 +25,7 @@
 		#{email}, #{address}, #{nationality})
 	</insert>
 
+	<!-- Todo 삭제 -->
 	<insert id="insertSocialMember">
 		INSERT INTO member_tb(id, kor_name, eng_name,
 		birth_date, gender,
@@ -33,7 +34,7 @@
 		#{phoneNumber},
 		#{email}, #{address}, #{nationality})
 	</insert>
-
+	
 	<insert id="insertBySocialDto">
 		INSERT INTO member_tb(id, kor_name, email, gender)
 		VALUES(#{id}, #{nickname}, #{email}, #{gender})
@@ -42,5 +43,11 @@
 	<select id="existsById" resultType="com.green.airline.repository.model.Member">
 		SELECT * FROM member_tb WHERE id = #{id}
 	</select>
+	
+	<update id="updateMemberById">
+		update member_tb
+		set kor_name = #{member.korName}, eng_name = #{member.engName}, birth_date = #{member.birthDate}, gender = #{member.gender}, phone_number = #{member.phoneNumber}, email = #{member.email}, address = #{member.address}, nationality = #{member.nationality}
+		where id = #{id}
+	</update>
 	
 </mapper>

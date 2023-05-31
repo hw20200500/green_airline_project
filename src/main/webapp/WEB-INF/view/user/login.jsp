@@ -9,7 +9,6 @@
 		<%@ include file="/WEB-INF/view/layout/header.jsp"%>
 	</c:otherwise>
 </c:choose>
-
 <style>
 #login--form {
 	border: 1px solid #ccc;
@@ -39,7 +38,7 @@
 			</div>
 			<br>
 			<div class="d-flex justify-content-center">
-				<button type="submit" class="btn btn-primary">로그인</button>
+				<button type="submit" class="btn btn-primary" id="login--btn">로그인</button>
 				<a href="https://kauth.kakao.com/oauth/authorize?client_id=91cf28839247e9924114aeb1a23b8852&redirect_uri=http://localhost:80/auth/kakao/callback&response_type=code"><img alt=""
 					src="/images/kakao_login_medium.png" style="margin-left: 10px;"> </a>
 			</div>

@@ -88,6 +88,7 @@ public class UserService {
 	@Transactional
 	public void createSocialMember(SocialJoinFormDto socialJoinFormDto) {
 
+		// update 처리로 바꾸기
 		int result = memberRepository.insertSocialMember(socialJoinFormDto);
 		// 소셜 회원가입 (email, gender, id 중 하나라도 동의하지 않은 경우)
 		int result2 = userRepository.insertByUser(socialJoinFormDto.getId(), greenKey, UserRole.SOCIAL);
@@ -140,7 +141,7 @@ public class UserService {
 		Map<String, String> validateResult = new HashMap<>();
 
 		for (FieldError error : errors.getFieldErrors()) { // 유효성 검사에 실패한 필드 목록
-			String validKeyName = "valid_" + error.getField(); // 유효성 검사에 실패한 필드명
+			String validKeyName = error.getField() + "Valid"; // 유효성 검사에 실패한 필드명
 			validateResult.put(validKeyName, error.getDefaultMessage()); // 유효성 검사에 실패한 필드에 정의된 메세지
 		}
 
@@ -152,6 +153,28 @@ public class UserService {
 	public Member readById(String id) {
 		Member memberEntity = memberRepository.existsById(id);
 		return memberEntity;
+	}
+
+	public User readUserById(String id) {
+		User userEntity = userRepository.selectUserById(id);
+
+		return userEntity;
+	}
+
+	// 회원 정보 수정 기능
+	public void updateMemberById(String id, Member member) {
+		int resultCnt = memberRepository.updateMemberById(id, member);
+		if (resultCnt == 1) {
+			System.out.println("수정 성공");
+		}
+	}
+	
+	// id 기반 user 상태값 변경
+	public void updateUserByStatus(String id, Integer status) {
+		int resultCnt = userRepository.updateUserByStatus(id, status);
+		if(resultCnt == 1) {
+			System.out.println("탈퇴 성공");
+		}
 	}
 
 }

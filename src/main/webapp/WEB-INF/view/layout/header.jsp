@@ -19,6 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </head>
 
 <style>
@@ -70,9 +71,8 @@
 								<ul class="ul--dropdown--menu">
 									<li class="li--dropdown--menu"><a href="/notice/noticeList">공지사항</a></li>
 									<li class="li--dropdown--menu"><a href="/faq/faqList">자주묻는질문</a></li>
-									<li class="li--dropdown--menu"><a href="/voc/list/1">고객의 말씀</a></li>										
-								</ul>
-							</li>
+									<li class="li--dropdown--menu"><a href="/voc/list/1">고객의 말씀</a></li>
+								</ul></li>
 						</c:when>
 						<c:otherwise>
 							<li class="material--li"><a href="/logout"><span class="material-symbols-outlined" style="font-size: 22px;">logout</span></a></li>
@@ -88,21 +88,17 @@
 									<li class="li--dropdown--menu"><a href="/faq/faqList">자주묻는질문</a></li>
 									<c:choose>
 										<c:when test="${principal.userRole.equals(\"관리자\")}">
-											<li class="li--dropdown--menu"><a href="/voc/list/not/1">고객의 말씀</a></li>										
+											<li class="li--dropdown--menu"><a href="/voc/list/not/1">고객의 말씀</a></li>
 										</c:when>
 										<c:otherwise>
-											<li class="li--dropdown--menu"><a href="/voc/list/1">고객의 말씀</a></li>										
+											<li class="li--dropdown--menu"><a href="/voc/list/1">고객의 말씀</a></li>
 										</c:otherwise>
 									</c:choose>
-								</ul>
-							</li>
-									<!-- <li class="li--dropdown--menu"><a href="/faq/faqList">자주묻는질문</a></li>
-									<li class="li--dropdown--menu">&nbsp;</li>
-									<li class="li--dropdown--menu">&nbsp;</li> -->
+								</ul></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>
-			
+
 			</div>
 			<nav>
 				<img alt="" src="/images/logo.jpg" class="logo" onclick="location.href='/';">
@@ -135,8 +131,8 @@
 								<li><a href="/baggage/guide">수하물 안내</a>
 								<li><a href="/baggage/baggageMiss">수하물 유실 (임시)</a>
 								<li><a href="#">기내 서비스 신청 내역</a>
-								<li><a href="/userUpdate">회원 정보 수정</a>
-								<li><a href="#">탈퇴</a>
+								<li><a href="/userPwCheck">회원 정보 수정</a>
+								<li><a href="/userWithdraw">탈퇴</a>
 							</ul>
 							<div class="nav--split"></div>
 							<ul>
@@ -146,7 +142,7 @@
 								<li><a href="#">세부메뉴</a>
 								<li><a href="#">세부메뉴</a>
 								<li><a href="#">세부메뉴</a>
-								<li><a href="#">세부메뉴</a>
+								<li><a href="/confirmPw">비밀번호 변경</a>
 							</ul>
 							<div class="nav--split"></div>
 							<ul>

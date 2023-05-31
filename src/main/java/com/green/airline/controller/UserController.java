@@ -2,6 +2,7 @@ package com.green.airline.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.channels.MembershipKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,21 +11,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import com.green.airline.dto.kakao.SocialDto;
 import com.green.airline.dto.nation.NationDto;
 import com.green.airline.dto.request.JoinFormDto;
 import com.green.airline.dto.request.LoginFormDto;
 import com.green.airline.dto.request.SocialJoinFormDto;
+import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.model.Airport;
 import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.User;
@@ -41,7 +46,7 @@ public class UserController {
 
 	@Autowired
 	private HttpSession session;
-	
+
 	@Autowired
 	private AirportService airportService;
 
@@ -52,10 +57,10 @@ public class UserController {
 	public String mainPage(Model model) {
 		int isMain = 1;
 		model.addAttribute("isMain", isMain);
-		
+
 		List<Airport> regionList = airportService.readRegion();
 		model.addAttribute("regionList", regionList);
-		
+
 		return "/mainPage";
 	}
 
@@ -73,12 +78,17 @@ public class UserController {
 	@PostMapping("/login")
 	public String loginProc(LoginFormDto loginFormDto) {
 		User principal = userService.readUserByIdAndPassword(loginFormDto);
-		if (principal != null) {
+		if (principal != null && principal.getStatus() == 0) {
 			session.setAttribute(Define.PRINCIPAL, principal);
 			if (principal.getUserRole().equals("관리자")) {
 				return "redirect:/manager/dashboard";
 			}
 		}
+
+		if (principal.getStatus() == 1) {
+			throw new CustomRestfullException("탈퇴한 회원입니다.", HttpStatus.BAD_REQUEST);
+		}
+
 		return "redirect:/";
 	}
 
@@ -96,9 +106,8 @@ public class UserController {
 	@ResponseBody
 	@GetMapping("/loginMemberInfo")
 	public Member loginMemberInfoData() {
-		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		String id = user.getId();
-		Member response = userService.readMemberById(id);
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		Member response = userService.readMemberById(principal.getId());
 		return response;
 	}
 
@@ -113,18 +122,18 @@ public class UserController {
 	}
 
 	// 카카오 로그인 페이지
-	@GetMapping("/socialJoin")
-	public String apiJoinPage(@RequestParam(name = "id") String id, @RequestParam(defaultValue = "none") String email,
-			@RequestParam(defaultValue = "none") String gender, Model model) {
-
-		ArrayList<String> countryNm = nationalityApi();
-
-		model.addAttribute("countryNm", countryNm);
-		model.addAttribute("id", id);
-		model.addAttribute("email", email);
-		model.addAttribute("gender", gender);
-		return "/user/socialJoin";
-	}
+//	@GetMapping("/socialJoin")
+//	public String apiJoinPage(@RequestParam(name = "id") String id, @RequestParam(defaultValue = "none") String email,
+//			@RequestParam(defaultValue = "none") String gender, Model model) {
+//
+//		ArrayList<String> countryNm = nationalityApi();
+//
+//		model.addAttribute("countryNm", countryNm);
+//		model.addAttribute("id", id);
+//		model.addAttribute("email", email);
+//		model.addAttribute("gender", gender);
+//		return "redirect:/";
+//	}
 
 	// 회원가입 (join.jsp에 회원가입 버튼으로 회원가입하는 경우 무조건 여기로 옴)
 	@PostMapping("/joinProc")
@@ -152,19 +161,26 @@ public class UserController {
 		}
 
 		userService.createMember(joinFormDto);
-		
 
 		return "redirect:/login";
 	}
 
 	@GetMapping("/apiSocialJoin")
-	public String apiSocialJoinPage(Model model) {
+	public String apiSocialJoinPage(@RequestParam(name = "id") String id,
+			@RequestParam(defaultValue = "none") String email, @RequestParam(defaultValue = "none") String gender,
+			Model model) {
 
 		ArrayList<String> countryNm = nationalityApi();
 		model.addAttribute("countryNm", countryNm);
+
+		model.addAttribute("id", id);
+		model.addAttribute("email", email);
+		model.addAttribute("gender", gender);
 		return "/user/socialJoin";
 	}
 
+	// validation 처리가 안됨
+	// 이거를 타게 하면 된다.
 	@PostMapping("/apiSocialJoinProc")
 	public String apiSocialJoinProc(@Validated SocialJoinFormDto socialJoinFormDto, Errors errors, Model model) {
 
@@ -188,8 +204,11 @@ public class UserController {
 			return "/user/socialJoin";
 		}
 
-
-		userService.createSocialMember(socialJoinFormDto);
+		System.out.println("1111111111111111" + socialJoinFormDto);
+		// !@@!!!!!!!!@!@!@@!@!@!@!!@@!@!@!@update 처리해주기
+		userService.updateMemberById(socialJoinFormDto.getId(), null);
+		System.out.println("2222222222222" + socialJoinFormDto);
+		// 로그인이 된 채로 redirect가 되지 않음
 		return "redirect:/";
 	}
 
@@ -213,14 +232,105 @@ public class UserController {
 		}
 		return countryNm;
 	}
-	
+
+	// 회원 정보 수정 페이지 ) 비밀번호 확인 페이지
+	@GetMapping("/userPwCheck")
+	public String userPwCheckPage(Model model) {
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		User user = userService.readUserById(principal.getId());
+
+		model.addAttribute("principal", principal);
+
+		return "/user/userPwCheck";
+	}
+
+	@PostMapping("/userPwCheck")
+	public String userPwCheckProc(LoginFormDto loginFormDto) {
+		// principal과 갖고 온 패스워드 같나 확인하기
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		String id = principal.getId();
+		User user = userService.readUserById(id);
+
+		// 쿼리문 하나 더 만들어서 User로 받자
+		// loginFormDto에서 받은 값이랑 비교해서 가져와야 함
+		System.out.println("user" + user.getPassword());
+		System.out.println("principal" + principal.getPassword());
+		System.out.println("loginFormDto" + loginFormDto.getPassword());
+
+		if (principal != null) {
+			if (principal.getPassword() != user.getPassword()) {
+				throw new CustomRestfullException("비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
+			}
+		}
+
+		return "redirect:/userUpdate";
+	}
+
 	// 회원 정보 수정 페이지
 	@GetMapping("/userUpdate")
-	public String userUpdatePage() {
-		// Todo
-		// !!!!!! 회원 탈퇴 여부 상태값 컬럼 수정하기 !!!!!!!
-		// principal을 잘 활용하자 ~ 
+	public String userUpdatePage(Member member, Errors errors, Model model) {
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		Member meberById = userService.readMemberById(principal.getId());
+
+		model.addAttribute("principal", principal);
+		model.addAttribute("meberById", meberById);
+
+		ArrayList<String> countryNm = nationalityApi();
+		model.addAttribute("countryNm", countryNm);
+
 		return "/user/userUpdate";
 	}
-	
+
+	@PostMapping("/userUpdate")
+	public String userUpdateProc(@RequestParam String id, Member member, Model model) {
+		User principal = userService.readUserById(id);
+		userService.updateMemberById(principal.getId(), member);
+
+		// todo 마이페이지로 이동
+		return "redirect:/";
+	}
+
+	// 회원 탈퇴
+	@GetMapping("/userWithdraw")
+	public String userWithdrawPage(Model model) {
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+
+		// Todo member 정보내려주기
+		Member member = userService.readById(principal.getId());
+		model.addAttribute("member", member);
+
+		if (principal.getStatus() == 1) {
+			throw new CustomRestfullException("", null);
+		}
+
+		model.addAttribute("principal", principal);
+
+		return "/user/userWithdraw";
+	}
+
+	// 회원 탈퇴 상태 변경 0 : 회원 / 1 : 탈퇴 회원
+	@PostMapping("/userWithdraw")
+	public String userWithdrawProc() {
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		userService.updateUserByStatus(principal.getId(), 1);
+		session.invalidate();
+
+		return "redirect:/";
+	}
+
+	// 비밀번호 변경 페이지
+	@GetMapping("/confirmPw")
+	public String confirmPwPage() {
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		userService.readUserById(principal.getId());
+
+		return "/user/confirmPw";
+	}
+
+	@PostMapping("/confirmPw")
+	public String confirmPwProc() {
+
+		return "";
+	}
+
 }

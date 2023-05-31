@@ -25,4 +25,10 @@ public interface UserRepository {
 	// 소셜 회원가입에 사용
 	public User selectSocialDtoById(String id);
 	
+	public User selectUserById(String id);
+	
+	// id 기반 유저 탈퇴 상태값 변경
+	int updateUserByStatus(@Param("id") String id, @Param("status") Integer status);
+	
+	
 }

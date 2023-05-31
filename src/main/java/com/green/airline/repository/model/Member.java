@@ -18,5 +18,8 @@ public class Member {
 	private String address;
 	private String nationality;
 	private String grade;
+
+	private String postcode;
+	private String detailAddress;
 	
 }

@@ -8,7 +8,8 @@ CREATE TABLE user_tb
 (
    id VARCHAR (50) PRIMARY KEY,
    password VARCHAR (255) NOT NULL,
-   user_role VARCHAR (5) NOT NULL DEFAULT '회원'
+   user_role VARCHAR (5) NOT NULL DEFAULT '회원',
+   status TINYINT NOT NULL DEFAULT 0
 );
 -- 회원
 CREATE TABLE member_tb(
