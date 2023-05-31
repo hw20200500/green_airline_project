@@ -19,12 +19,14 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.green.airline.dto.response.MonthlySalesForChartDto;
+import com.green.airline.dto.response.RouteCountDto;
 import com.green.airline.dto.response.VocCountByTypeDto;
 import com.green.airline.dto.response.VocInfoDto;
 import com.green.airline.dto.response.CountByYearAndMonthDto;
 import com.green.airline.repository.model.Memo;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.MemoService;
+import com.green.airline.service.RouteService;
 import com.green.airline.service.TicketPaymentService;
 import com.green.airline.service.UserService;
 import com.green.airline.service.VocService;
@@ -45,6 +47,9 @@ public class ManagerController {
 	
 	@Autowired
 	private VocService vocService;
+	
+	@Autowired
+	private RouteService routeService;
 	
 	@Autowired
 	private HttpSession session;
@@ -92,6 +97,23 @@ public class ManagerController {
 		}
 		String vocData = gson.toJson(jsonArray2);
 		model.addAttribute("vocData", vocData);
+		
+		// 운항 노선 이용객 수 순위
+		List<RouteCountDto> routeCountList = routeService.readGroupByRouteIdLimitN(10);
+		
+		// JSON으로 변환
+		JsonArray jsonArray3 = new JsonArray();
+		Iterator<RouteCountDto> it3 = routeCountList.iterator();
+		while (it3.hasNext()) {
+			RouteCountDto dto = it3.next();
+			JsonObject object = new JsonObject();
+			object.addProperty("departure", dto.getDeparture());
+			object.addProperty("destination", dto.getDestination());
+			object.addProperty("count", dto.getCount());
+			jsonArray3.add(object);
+		}
+		String routeData = gson.toJson(jsonArray3);
+		model.addAttribute("routeData", routeData);
 		
 		// 이번 달 매출액
 		MonthlySalesForChartDto nowMonthSales = ticketPaymentService.readSalesByThisMonth(year, nowMonth);

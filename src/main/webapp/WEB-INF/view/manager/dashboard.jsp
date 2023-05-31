@@ -151,6 +151,9 @@
 		margin-top: -37px;
 		margin-left: 5px;
 	}
+	
+	#routeChart {
+	}
 </style>
 
 <main class="d-flex flex-column">
@@ -204,6 +207,7 @@
 	<div class="d-flex justify-content-between" style="width: 100%; margin-bottom: 20px;">
 		<div class="middle--board">
 			<h5 class="board--title">운항 노선 이용 순위</h5>
+			<canvas id="routeChart"></canvas>
 		</div>	
 		<div class="long--board">
 			<h5 class="board--title">월별 매출액 그래프</h5>
@@ -211,7 +215,7 @@
 		</div>	
 		<div class="middle--board">	
 			<h5 class="board--title">메모</h5>
-			<textarea id="memoArea">${memo.content}</textarea>
+			<textarea id="memoArea" placeholder="간단한 메모를 작성하세요.">${memo.content}</textarea>
 		</div>	
 	</div>
 	<div class="d-flex justify-content-between" style="width: 100%;">
@@ -398,6 +402,58 @@
 			},
 			legend: {
 				position: "right"
+			}
+		}
+	});
+	
+	// 운항 노선 이용객 수 순위
+	let routeData = JSON.parse(JSON.stringify(${routeData}));
+	
+	let labelList3 = new Array();
+	let valueList3 = new Array();
+	
+	for (let i = 0; i < routeData.length; i++) {
+		let target = routeData[i];
+		labelList3.push(target.departure + " → " + target.destination);
+		valueList3.push(target.count);
+	}
+	
+	let data3 = {
+			labels: labelList3,
+			datasets: [{
+				data: valueList3
+			}]
+	};
+
+	let routeContext = document.getElementById('routeChart').getContext('2d');
+	new Chart(routeContext, {
+		type: 'horizontalBar', // 가로형 막대 그래프 
+		data: data3,
+		options: {
+			responsive: false, // canvas에 너비/높이 주면 차트를 원하는 크기로 조정 가능
+			tooltips: {
+				mode: "index",
+				intersect: false // 가까이 가면 툴팁 보이게
+			},
+			scales: {
+				yAxes: [{
+	            	display: false, // y축 없애기
+					gridLines: {
+						display: false // 그리드 선 제거
+					}
+				}],
+				xAxes: [{
+	            	display: false, // x축 없애기
+					gridLines: {
+						display: false // 그리드 선 제거
+					}
+				}]
+			},
+			title: { // 차트 대제목 숨김
+				display: false
+			},
+			legend: {
+				display: false
 			}
 		}
 	});

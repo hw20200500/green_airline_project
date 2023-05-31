@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 
 import com.green.airline.dto.response.InFlightServiceResponseDto;
+import com.green.airline.dto.response.RouteCountDto;
 import com.green.airline.handler.RestfullExceptionHandler;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.interfaces.InFlightServiceRepository;
@@ -23,7 +24,7 @@ public class RouteService {
 
 	@Autowired
 	private InFlightServiceRepository inFlightServiceRepository;
-
+	
 	@Transactional
 	public List<InFlightServiceResponseDto> readByDestAndDepa(String destination, String departure) {
 
@@ -49,6 +50,13 @@ public class RouteService {
 
 		return flightHours;
 
+	}
+	
+	/**
+	 * 이용객 수가 많은 노선 상위 N개 반환
+	 */
+	public List<RouteCountDto> readGroupByRouteIdLimitN(Integer limitCount) {
+		return routeRepository.selectGroupByRouteIdLimitN(limitCount);
 	}
 
 }
