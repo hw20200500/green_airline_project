@@ -38,7 +38,7 @@ public class AuthController {
 	@GetMapping("/auth/kakao/callback")
 	@Transactional
 	public String kakaoCallbackCode(@RequestParam String code) throws JsonProcessingException {
-		
+
 		RestTemplate restTemplate = new RestTemplate();
 
 		// 헤더 만듦
@@ -71,52 +71,60 @@ public class AuthController {
 
 		// 서비스에서 회원가입여부 확인 - select -> null -> 회원가입 처리
 		User principal = userService.readSocialDtoById(res.getId()); // <-- 서비스에서 회원가입여부 확인
+		System.out.println("11111111111111" + principal);
 		// principal이 null이 나올 경우 회원가입이 안된 상태
-		
+
+		String id = res.getId();
+		String email = res.getKakaoAccount().getEmail();
+		String gender = res.getKakaoAccount().getGender();
+
 		if (principal == null) {
 			// return 회원가입 페이지
-			String id = res.getId();
-			String email = res.getKakaoAccount().getEmail();
-			String gender = res.getKakaoAccount().getGender();
 
 			// email은 없고
 			if (email == null) {
+
 				// gender도 없고
 				if (gender == null) {
-					return "redirect:/apiJoin?id=" + id;
+					return "redirect:/apiSocialJoin?id=" + id;
 				}
 				// gender는 있고
-				return "redirect:/apiJoin?id=" + id + "&gender=" + gender;
+				if (gender.equals("male")) {
+					gender = "M";
+				} else if (gender.equals("female")) {
+					gender = "F";
+				}
+				return "redirect:/apiSocialJoin?id=" + id + "&gender=" + gender;
 				// gender만 없고
 			} else if (gender == null) {
-				return "redirect:/apiJoin?id=" + id + "&email=" + email;
+				return "redirect:/apiSocialJoin?id=" + id + "&email=" + email;
 			}
 
 			// email, gender, id 셋 다 있는 경우 여기까지 내려옴
 			// 유저 조회해서 db에 값 없으면 회원가입 처리 후 로그인 처리 있으면
 			// 그냥 로그인처리
 			// 회원가입 처리
-			userService.createByUser(res);
+//			userService.createByUser(res); !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			SocialJoinFormDto joinFormDto = new SocialJoinFormDto();
 			joinFormDto.setId(id);
 			joinFormDto.setKorName(res.getProperties().getNickname());
 			if (gender.equals("male")) {
-				joinFormDto.setGender("M");
+				gender = "M";
 			} else if (gender.equals("female")) {
-				joinFormDto.setGender("F");
+				gender = "F";
 			}
-			// joinFormDto.setGender(gender);
 			joinFormDto.setEmail(email);
-			
+
 			// 멤버 회원가입 처리도 해주기
 			// 로그인 처리
-			User principal2 = userService.readSocialDtoById(res.getId());
-			session.setAttribute(Define.PRINCIPAL, principal2);
+			
+//			 User principal2 = userService.readSocialDtoById(res.getId());
+//			 session.setAttribute(Define.PRINCIPAL, principal2);
+			 
 			// 로그인 처리(session에 값 담기) -> 위 principal에서는 null이 나왔기 때문에
 			// session에 값을 담아주려면 다시 서비스를 불러서 조회해야함
 
-			// 메인으로
-			return "redirect:/";
+			return "redirect:/apiSocialJoin?id=" + id + "&email=" + email + "&gender=" + gender;
 
 		} else {
 			// 위 principal이 null이 아닐 경우 로그인 처리를 위한 session에 값 담기
@@ -124,6 +132,12 @@ public class AuthController {
 			session.setAttribute(Define.PRINCIPAL, principal);
 		}
 
+		if (gender.equals("male")) {
+			gender = "M";
+		} else if (gender.equals("female")) {
+			gender = "F";
+		}
+		
 		return "redirect:/";
 	}
 

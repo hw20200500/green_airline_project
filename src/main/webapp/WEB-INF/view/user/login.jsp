@@ -9,7 +9,6 @@
 		<%@ include file="/WEB-INF/view/layout/header.jsp"%>
 	</c:otherwise>
 </c:choose>
-
 <style>
 #login--form {
 	border: 1px solid #ccc;

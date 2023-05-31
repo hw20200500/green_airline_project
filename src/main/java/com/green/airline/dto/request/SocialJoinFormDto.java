@@ -36,7 +36,6 @@ public class SocialJoinFormDto {
 		@NotBlank(message = "휴대전화를 입력해주세요.")
 		private String phoneNumber;
 		@NotNull
-		private String postcode;
 		private String detailAddress;
 		@NotBlank(message = "주소를 입력해주세요.")
 		private String address;

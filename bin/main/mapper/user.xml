@@ -7,8 +7,6 @@
 		SELECT * FROM user_tb WHERE id = #{id} AND password = #{password}
 	</select>
 	
-	
-	
 	<insert id="insertByUser">
 		INSERT INTO user_tb (id, password, user_role)
 		VALUES(#{id}, #{password}, #{userRole.userRole})
@@ -18,18 +16,36 @@
 		SELECT * FROM user_tb WHERE id = #{id}
 	</select>
 
+	<!-- 비밀번호 찾기 할때 변경할 비밀번 -->
+	<update id="updateUserPwById">
+		update user_tb set password = #{password} where id = #{userId};
+	</update>
+	<!-- 비밀번호 찾기할 때 아이디로 유저 존재 여부 판 -->
+	<select id="selectById" resultType="com.green.airline.repository.model.User">
+		SELECT * FROM user_tb WHERE id = #{id}
+	</select>
+	<update id="updateGradeByMemberId">
+			update member_tb set grade = #{grade} where id = #{memberId}
+	</update>
 
-
-<!-- 비밀번호 찾기 할때 변경할 비밀번 -->
-<update id="updateUserPwById">
-	update user_tb set password = #{password} where id = #{userId};
-</update>
-<!-- 비밀번호 찾기할 때 아이디로 유저 존재 여부 판 -->
-<select id="selectById" resultType="com.green.airline.repository.model.User">
-	SELECT * FROM user_tb WHERE id = #{id}
-</select>
-<update id="updateGradeByMemberId">
-		update member_tb set grade = #{grade} where id = #{memberId}
-</update>
-
+	<select id="selectUserById" resultType="com.green.airline.repository.model.User">
+		select * from user_tb WHERE id = #{id}
+	</select>
+	
+	<update id="updateUserById">
+		update user_tb
+		set password = #{password}
+		where id = #{id}
+	</update>
+	
+	<update id="updateUserByStatus">
+		update user_tb
+		set status = #{status}
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteSocialUserById">
+		delete user_tb where id = #{id}
+	</delete>
+	
 </mapper>

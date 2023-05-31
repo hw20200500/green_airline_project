@@ -32,7 +32,6 @@ function execDaumPostcode() {
 				addr = data.jibunAddress;
 			}
 			// 우편번호와 주소 정보를 해당 필드에 넣는다.
-			document.getElementById('postcode').value = data.zonecode;
 			document.getElementById("address").value = addr;
 			// 커서를 상세주소 필드로 이동한다.
 			document.getElementById("detailAddress").focus();
@@ -45,7 +44,7 @@ $(document).ready(function() {
 	// 아이디 중복 확인 기능
 	$("#exists--id").on("click", function() {
 		let id = $("#member--id").val();
-		
+
 		$.ajax({
 			type: "get",
 			url: "/existsById?id=" + id,
@@ -63,31 +62,39 @@ $(document).ready(function() {
 	});
 
 	// 비밀번호 확인 기능
-	$("#password--check").on("keyup focus change", function(){
+	$("#password--check").on("keyup focus change", function() {
 		let password = $("#password").val();
 		let passwordCheck = $("#password--check").val();
-		let passwordWrap = $(".password--wrap");		
+		let passwordWrap = $(".password--wrap");
 		let divNode = $("<div>");
 		let divNode2 = $("<div>");
 		divNode.attr("class", "validation--check");
 		divNode2.attr("class", "password--validation");
-		
-		if(password != passwordCheck){
+
+		if (password != passwordCheck) {
 			$(".validation--check").empty();
 			$(".password--validation").empty();
 			divNode.text("비밀번호가 일치하지 않습니다.");
 			passwordWrap.append(divNode);
-		}else{
+		} else {
 			$(".validation--check").empty();
 			$(".password--validation").empty();
 			divNode2.text("비밀번호가 일치합니다.");
 			passwordWrap.append(divNode2);
 		}
 	});
-	
-	// 아이디 중복확인 안 눌렀을 시 또는 아이디 중복일 때 회원가입 안 되게
-	$("#exists--id").on("click", function(){
-		
-	});
-});
 
+	// 아이디 중복확인 안 눌렀을 시 또는 아이디 중복일 때 회원가입 안 되게
+	$("#exists--id").on("click", function() {
+
+	});
+
+	// 성별 갖고오기
+	if (gender == "M") {
+		$(".gender--input").eq(0).prop("checked", "true");
+	} else {
+		$(".gender--input").eq(1).prop("checked", "true");
+	}
+
+
+});

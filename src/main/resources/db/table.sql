@@ -1,18 +1,20 @@
 -- 회원 등급
-
 CREATE TABLE member_grade_tb(
    name VARCHAR(10) PRIMARY KEY,
    mileage_rate DOUBLE not null,
    rank_up_mileage BIGINT
 
 );
+
 -- 사용자
 CREATE TABLE user_tb
 (
    id VARCHAR (50) PRIMARY KEY,
    password VARCHAR (255) NOT NULL,
-   user_role VARCHAR (5) NOT NULL DEFAULT '회원'
+   user_role VARCHAR (5) NOT NULL DEFAULT '회원',
+   status TINYINT NOT NULL DEFAULT 0
 );
+
 -- 회원
 CREATE TABLE member_tb(
    id VARCHAR(50) PRIMARY KEY,

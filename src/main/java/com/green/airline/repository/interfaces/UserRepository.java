@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.green.airline.dto.kakao.SocialDto;
 import com.green.airline.dto.request.LoginFormDto;
+import com.green.airline.dto.request.PasswordCheckDto;
 import com.green.airline.enums.UserRole;
 import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.User;
@@ -14,7 +15,7 @@ public interface UserRepository {
 
 	// 로그인 기능
 	public User selectByIdAndPassword(LoginFormDto loginFormDto);
-	
+
 	// 암호화 처리에 사용
 	public User selectById(LoginFormDto loginFormDto);
 
@@ -24,7 +25,19 @@ public interface UserRepository {
 
 	// 소셜 회원가입에 사용
 	public User selectSocialDtoById(String id);
-	
-	public int updateUserPwById(@Param("password")String password, @Param("userId")String userId);
-	public int updateGradeByMemberId(@Param("memberId")String memberId,@Param("grade")String grade);
+
+	public int updateUserPwById(@Param("password") String password, @Param("userId") String userId);
+
+	public int updateGradeByMemberId(@Param("memberId") String memberId, @Param("grade") String grade);
+
+	public User selectUserById(String id);
+
+	// id 기반 유저 탈퇴 상태값 변경
+	int updateUserByStatus(@Param("id") String id, @Param("status") Integer status);
+
+	// 소셜 회원가입시 회원 정보 삭제
+	int deleteSocialUserById(String id);
+
+	int updateUserById(PasswordCheckDto passwordCheckDto);
+
 }
