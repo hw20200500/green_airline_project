@@ -7,9 +7,13 @@ import lombok.Data;
 @Data
 public class UseMileageDto {
 
+	private int id;
 	private Date useDate;
-	private Long useMileage;
+	private int useMileage;
 	private String description;
+	private int productPrice;
+	private int hiddenCount;
 	private String memberId;
+
 	
 }

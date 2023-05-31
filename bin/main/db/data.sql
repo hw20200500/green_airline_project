@@ -1,19 +1,25 @@
-INSERT INTO member_grade_tb
-VALUES 
-	('Silver'),
-	('Gold'),
-	('Platinum'),
-	('Diamond');
+
+INSERT INTO member_grade_tb(name,mileage_rate,rank_up_mileage)
+VALUES ('Silver',0.0025,null),
+('Gold',0.0035,100000),
+('Platinum',0.0045,500000),
+('Diamond',0.0060,1000000);
+
+
+
+
 
  INSERT INTO user_tb 
  VALUES 
-	 ('abc', '$2a$10$nxanAcpAnZv3qVxuRq0rBuVz.cRLE.1mDgcGhI.SAwf0a54fmCp1e', '회원'),
-	 ('a123', '$2a$10$nxanAcpAnZv3qVxuRq0rBuVz.cRLE.1mDgcGhI.SAwf0a54fmCp1e', '회원'),
-	 ('asdf', '$2a$10$nxanAcpAnZv3qVxuRq0rBuVz.cRLE.1mDgcGhI.SAwf0a54fmCp1e', '관리자');
+     ('abc', '$2a$10$nxanAcpAnZv3qVxuRq0rBuVz.cRLE.1mDgcGhI.SAwf0a54fmCp1e', '회원'),
+     ('a123', '$2a$10$nxanAcpAnZv3qVxuRq0rBuVz.cRLE.1mDgcGhI.SAwf0a54fmCp1e', '회원'),
+     ('asdf', '$2a$10$nxanAcpAnZv3qVxuRq0rBuVz.cRLE.1mDgcGhI.SAwf0a54fmCp1e', '관리자'),
+     ('haha', '$2a$10$nxanAcpAnZv3qVxuRq0rBuVz.cRLE.1mDgcGhI.SAwf0a54fmCp1e', '회원');
 
 
 INSERT INTO member_tb
 VALUES 
+
 	 ('abc', '김홍아', 'KIM HONGAH', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', default),
 	 ('a123', '홍길동', 'HONG GILDONG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', default);
 
@@ -53,21 +59,38 @@ INSERT INTO shop_product_tb(brand,name,price,count,product_image,gifticon_image)
 				;
 
 
-insert into mileage_tb(save_date,save_mileage,expiration_date,balance,inserttime,member_id)
-VALUES  ('2023-05-01',500,'2023-07-29',500,'2023-04-01','abc'),
-		('2023-04-01',500,'2023-6-29',500,'2023-04-01','abc'),
-		('2023-03-01',1500,'2023-5-29',1500,'2023-03-01','abc'),
-		('2023-02-01',1000,'2023-5-1',1000,'2023-02-01','abc'),
-		('2023-01-01',500,'2023-3-31',500,'2023-01-01','abc');
+insert into mileage_tb(save_date,save_mileage,expiration_date,balance,member_id)
+VALUES  ('2023-05-01',500,'2023-07-29',500,'abc'),
+		('2023-04-01',500,'2023-6-29',500,'abc'),
+		('2023-03-01',1500,'2023-5-29',1500,'abc'),
+		('2023-02-01',1000,'2023-5-1',1000,'abc'),
+		('2023-01-01',500,'2023-3-31',500,'abc');
 
 
 
-	insert into mileage_tb(use_date,use_mileage,description,inserttime,member_id)
-values('2022-03-05',100,'기프티콘','2023-04-01','abc'),
-('2022-04-05',300,'기프티콘','2023-04-01','abc'),
-('2022-05-10',500,'기프티콘','2023-05-01','abc'),
-('2022-05-15',1000,'기프티콘','2023-05-15','abc');
-	
+	insert into mileage_tb(use_date,use_mileage,description,member_id)
+values('2023-03-05',100,'기프티콘','abc'),
+('2023-04-05',300,'기프티콘','abc'),
+('2023-05-10',500,'기프티콘','abc'),
+('2023-05-15',1000,'기프티콘','abc');
+
+
+insert into shop_order_tb(amount,product_id,member_id)
+VALUES(1000,1,'abc'),
+(1000,2,'abc'),
+(1000,3,'abc'),
+(1000,4,'abc'),
+(1000,5,'abc');
+
+
+	insert into gifticon_tb(end_date,order_id)
+VALUES('2024-05-28',1),
+('2024-05-28',2),
+('2024-05-28',3),
+('2024-05-28',4),
+('2024-05-28',5);
+INSERT into gifticon_revoke_tb(brand,name,amount)
+VALUES('asd','asd',1000);
 
 INSERT INTO notice_category_tb(id, name)
 VALUES(1, '전체'),
@@ -1008,6 +1031,10 @@ VALUES
 	('94635667B', 2, 2, 0, '비즈니스', 'abc', 10,'2023-05-24 09:30'),
 	('42369451', 1, 0, 0, '퍼스트', 'abc', 2, '2023-05-26 14:08');
 
+insert into mileage_request_tb(ticket_id)
+values('32423423');
+insert into mileage_request_tb(ticket_id)
+values('94635667A');
 INSERT INTO reserved_seat_tb
 VALUES 
 	(1, 'G04', '32423423'),

@@ -7,5 +7,6 @@ import lombok.Data;
 public class MemberGrade {
 
 	private String name;
+	private double mileageRate;
 	
 }

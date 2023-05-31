@@ -28,4 +28,5 @@ public interface MemberRepository {
 	// 아이디 중복 확인
 	public Member existsById(String id);
 	
+	public Member selectByKorNameandEmailAndBirthDate(Member member);
 }

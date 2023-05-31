@@ -14,11 +14,13 @@ import org.springframework.validation.FieldError;
 
 import com.green.airline.dto.kakao.SocialDto;
 import com.green.airline.dto.request.JoinFormDto;
+import com.green.airline.dto.SaveMileageDto;
 import com.green.airline.dto.request.LoginFormDto;
 import com.green.airline.dto.request.SocialJoinFormDto;
 import com.green.airline.enums.UserRole;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.interfaces.MemberRepository;
+import com.green.airline.repository.interfaces.MileageRepository;
 import com.green.airline.repository.interfaces.UserRepository;
 import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.User;
@@ -38,13 +40,18 @@ public class UserService {
 	@Value("${green.key}")
 	private String greenKey;
 
+	
+	@Autowired
+	private MileageRepository mileageRepository;
+	
+
 	/**
 	 * @author 서영 로그인
 	 */
 	@Transactional
 	public User readUserByIdAndPassword(LoginFormDto loginFormDto) {
 		User userEntity = userRepository.selectById(loginFormDto);
-
+		System.out.println("userEntity : " + userEntity);
 		if (userEntity == null) {
 			throw new CustomRestfullException("아이디가 존재하지 않습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -56,6 +63,20 @@ public class UserService {
 			throw new CustomRestfullException("비밀번호가 틀렸습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
+		
+		// 로그인 할 때 마일리지 조회 해서 등급 결정
+		/* 로그인 오류로 수정 해야함 마일리지 없는 ㅏ사람은 로그인 안되는 버그 있음
+		 * String memberId = userEntity.getId(); String grade = ""; Long sumSaveMileage
+		 * = mileageRepository.selectSumSaveMileageByMemberId(memberId);
+		 * if(sumSaveMileage < 100000) { grade = "Silver";
+		 * userRepository.updateGradeByMemberId(memberId, grade); }else
+		 * if(sumSaveMileage >= 100000 && sumSaveMileage <500000) { grade = "Gold";
+		 * userRepository.updateGradeByMemberId(memberId, grade); }else
+		 * if(sumSaveMileage >= 500000 && sumSaveMileage < 1000000) { grade =
+		 * "Platinum"; userRepository.updateGradeByMemberId(memberId, grade); }else
+		 * if(sumSaveMileage >= 1000000) { grade = "Diamond";
+		 * userRepository.updateGradeByMemberId(memberId, grade); }
+		 */
 		return userEntity;
 	}
 
@@ -154,4 +175,24 @@ public class UserService {
 		return memberEntity;
 	}
 
+	
+	/**
+	 * 정다운
+	 * 아이디 찾기
+	 * @return
+	 */
+	public Member readByKorNameandEmailAndBirthDate(Member member) {
+		Member memberEntity = memberRepository.selectByKorNameandEmailAndBirthDate(member);
+		return memberEntity;
+	}
+	
+	// 머지할때 변경으로 수정 해야함
+//	public User readByid(String id) {
+//		User user = userRepository.selectById(id);
+//		return user;
+//	}
+public int updateyPassword(String password,String userId) {
+		int result = userRepository.updateUserPwById(password,userId);
+		return result;
+	}
 }

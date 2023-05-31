@@ -7,9 +7,7 @@
 		SELECT * FROM user_tb WHERE id = #{id} AND password = #{password}
 	</select>
 	
-	<select id="selectById" resultType="com.green.airline.repository.model.User">
-		SELECT * FROM user_tb WHERE id = #{id}
-	</select>
+	
 	
 	<insert id="insertByUser">
 		INSERT INTO user_tb (id, password, user_role)
@@ -19,4 +17,19 @@
 	<select id="selectSocialDtoById" resultType="com.green.airline.repository.model.User">
 		SELECT * FROM user_tb WHERE id = #{id}
 	</select>
+
+
+
+<!-- 비밀번호 찾기 할때 변경할 비밀번 -->
+<update id="updateUserPwById">
+	update user_tb set password = #{password} where id = #{userId};
+</update>
+<!-- 비밀번호 찾기할 때 아이디로 유저 존재 여부 판 -->
+<select id="selectById" resultType="com.green.airline.repository.model.User">
+	SELECT * FROM user_tb WHERE id = #{id}
+</select>
+<update id="updateGradeByMemberId">
+		update member_tb set grade = #{grade} where id = #{memberId}
+</update>
+
 </mapper>

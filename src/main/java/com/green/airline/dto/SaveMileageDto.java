@@ -1,17 +1,22 @@
 package com.green.airline.dto;
 
-import java.sql.Date;
-
-import com.green.airline.utils.NumberUtil;
+import java.sql.Timestamp;
 
 import lombok.Data;
 
 @Data
 public class SaveMileageDto {
 
-	private Date saveDate;
-	private Long saveMileage;
-	private int balance;
-	private String memberId;
+	private Timestamp departureDate;
+	private Timestamp expirationDate;
+	
 	private int extinctionMileage;
+	private Long saveMileage;
+	private Long saveMileage2;
+	private int balance;
+	private Timestamp insertTime;
+	private String memberId;
+	private String ticketId;
+	private Long amount1;
+	private Long amount2;
 }

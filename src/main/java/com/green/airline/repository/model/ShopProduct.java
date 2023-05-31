@@ -11,7 +11,7 @@ public class ShopProduct {
 	private int id;
 	private String brand;
 	private String name;
-	private int price;
+	private Long price;
 	private int count;
 	private String productImage;
 	private String gifticonImage;

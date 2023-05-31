@@ -1,7 +1,10 @@
 -- 회원 등급
-CREATE TABLE member_grade_tb
-(
-   name VARCHAR (10) PRIMARY KEY
+
+CREATE TABLE member_grade_tb(
+   name VARCHAR(10) PRIMARY KEY,
+   mileage_rate DOUBLE not null,
+   rank_up_mileage BIGINT
+
 );
 -- 사용자
 CREATE TABLE user_tb
@@ -319,23 +322,45 @@ create table gifticon_tb(
    id int primary key auto_increment,
     start_date date not null default (CURRENT_DATE),
     end_date date not null,
+    status int DEFAULT 0,
     order_id int not null,
     foreign key (order_id) references shop_order_tb (id)
 );
+-- 기프티콘 환불
+CREATE TABLE gifticon_revoke_tb(
+	id int PRIMARY KEY auto_increment,
+	revoke_date DATE DEFAULT (CURRENT_DATE),
+	amount Bigint not null,
+	brand VARCHAR(20) not null,
+	name VARCHAR(50) not null
+	);
 
--- 마일리지 todo inserttime 중간에 _ 넣기
 create table mileage_tb(
 id int primary key auto_increment,
-use_date DATE,
+use_date DATE ,
 use_mileage BIGINT,
 description TEXT,
 save_date DATE,
 expiration_date DATE,
 save_mileage BIGINT,
 balance BIGINT,
-inserttime DATE default (CURRENT_DATE),
 member_id varchar(50),
+ticket_id VARCHAR(15),
+foreign key (ticket_id) references ticket_tb (id) on delete cascade,
 foreign key (member_id) references member_tb (id)
+);
+
+-- 마일리지 금액/사용일자
+CREATE TABLE use_data_list_tb(
+save_date DATE,
+date_form_expiration DATE,
+mileage_from_balance BIGINT,
+product_id int,
+member_id VARCHAR (50),
+buy_mileage_id int,
+gifticon_id int,
+FOREIGN KEY (buy_mileage_id) REFERENCES mileage_tb(id),
+FOREIGN KEY (gifticon_id) REFERENCES gifticon_tb(id)
 );
 
 -- 마일리지 신청 내역
@@ -346,6 +371,7 @@ status int default 0,
 ticket_id VARCHAR(15),
 foreign key (ticket_id) references ticket_tb (id)
 );
+
 
 -- 환불 수수료
 CREATE TABLE refund_fee_tb (
@@ -412,3 +438,5 @@ CREATE TABLE memo_tb (
 	FOREIGN KEY (manager_id) REFERENCES manager_tb (id),
 	content TEXT
 );
+
+

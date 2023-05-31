@@ -25,4 +25,6 @@ public interface UserRepository {
 	// 소셜 회원가입에 사용
 	public User selectSocialDtoById(String id);
 	
+	public int updateUserPwById(@Param("password")String password, @Param("userId")String userId);
+	public int updateGradeByMemberId(@Param("memberId")String memberId,@Param("grade")String grade);
 }

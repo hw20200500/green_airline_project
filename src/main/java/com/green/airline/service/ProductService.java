@@ -14,6 +14,7 @@ import com.green.airline.dto.SaveMileageDto;
 import com.green.airline.dto.PagingVO;
 import com.green.airline.dto.ShopOrderDto;
 import com.green.airline.dto.ShopProductDto;
+import com.green.airline.dto.UseMileageDto;
 import com.green.airline.repository.interfaces.ProductRepository;
 import com.green.airline.repository.model.Mileage;
 import com.green.airline.repository.model.ShopOrder;
@@ -34,9 +35,9 @@ public class ProductService {
 	}
 
 	// 상품 리스트 조회
-	public List<ShopProduct> productList(String searchOrder) {
+	public List<ShopProduct> productList(String searchOrder,PagingVO paging) {
 
-		List<ShopProduct> list = productRepository.selectProductList(searchOrder);
+		List<ShopProduct> list = productRepository.selectProductList(searchOrder,paging);
 		return list;
 	}
 
@@ -45,8 +46,11 @@ public class ProductService {
 		List<ShopProduct> list = productRepository.selectProductList();
 		return list;
 	}
-
 	
+	public List<ShopProduct> readProductByName(String searchProduct, String searchOption,PagingVO paging){
+		List<ShopProduct> list = productRepository.selectProductByName(searchProduct,searchOption,paging);
+		return list;
+	}
 	
 	// 상품 상세 조회
 	public ShopProduct productDetail(int id) {
@@ -95,8 +99,8 @@ public class ProductService {
 	}
 
 	// 마일리지 사용 insert
-	public int createUseMileage(SaveMileageDto mileageDto) {
-		int result = productRepository.insertMileage(mileageDto);
+	public int createUseMileage( UseMileageDto useMileageDto ) {
+		int result = productRepository.insertMileage(useMileageDto);
 		return result;
 	}
 
@@ -124,6 +128,10 @@ public class ProductService {
 	
 	public int getTotalRowCount(PagingVO paging) {
 		int result = productRepository.getTotalRowCount(paging);
+		return result;
+	}
+	public int getSearchTotalRowCount(PagingVO paging,String searchProduct,String searchOption) {
+		int result = productRepository.getSerchTotalRowCount(searchProduct, searchOption, paging);
 		return result;
 	}
 	

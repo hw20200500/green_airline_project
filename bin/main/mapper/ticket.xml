@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.green.airline.repository.interfaces.TicketRepository">
+<mapper
+	namespace="com.green.airline.repository.interfaces.TicketRepository">
 
-<select id="selectById" resultType="com.green.airline.repository.model.Ticket">
-	SELECT * FROM ticket_tb WHERE id = #{id}
-</select>
+	<select id="selectById"
+		resultType="com.green.airline.repository.model.Ticket">
+		SELECT * FROM ticket_tb WHERE id = #{id}
+	</select>
+
 
 <insert id="insert">
 	INSERT INTO ticket_tb 
@@ -105,4 +108,72 @@
 	LIMIT #{index}, 10
  </select>
  
+
+
+	<select id="selectByTicketId"
+		resultType="com.green.airline.dto.response.TicketAllInfoDto">
+		select
+		t.id,t.seat_grade,t.member_id,s.departure_date,r.departure,r.destination,a.name
+		as airplaneName, m.status as reqstatus from ticket_tb as t
+		left join
+		schedule_tb as s
+		on t.schedule_id = s.id
+		left join route_tb as r
+		on s.route_id =
+		r.id
+		left join airplane_tb as a
+		on s.airplane_id = a.id
+		left join
+		mileage_request_tb as m
+		on t.id = m.ticket_id
+		where t.id = #{id};
+	</select>
+
+	<!-- 마일리지 신청 할 때 필요한 select -->
+	<select id="selectTicketList"
+		resultType="com.green.airline.dto.response.TicketAllInfoDto">
+		<if test="type == 0">
+			select
+			t.id,t.seat_grade,t.member_id,s.departure_date,r.departure,r.destination,a.name
+			as airplaneName, m.status as req_status from ticket_tb as t
+			left join
+			schedule_tb as s
+			on t.schedule_id = s.id
+			left join route_tb as r
+			on s.route_id =
+			r.id
+			left join airplane_tb as a
+			on s.airplane_id = a.id
+			left join
+			mileage_request_tb as m
+			on t.id = m.ticket_id
+			where t.member_id = #{memberId}
+			and m.ticket_id is null
+			;
+		</if>
+		<if test="type == 1">
+			select
+			t.id,t.seat_grade,t.member_id,s.departure_date,r.departure,r.destination,a.name
+			as airplaneName, m.status as req_status from ticket_tb as t
+			left join
+			schedule_tb as s
+			on t.schedule_id = s.id
+			left join route_tb as r
+			on s.route_id =
+			r.id
+			left join airplane_tb as a
+			on s.airplane_id = a.id
+			left join
+			mileage_request_tb as m
+			on t.id = m.ticket_id
+			where t.member_id = #{memberId}
+			and m.status = 0;
+		</if>
+	</select>
+	<!-- 신청 입력 --> 
+	<insert id="inserticketIdById">
+		insert into mileage_request_tb(ticket_id)
+		values(#{id});
+	</insert>
+
 </mapper>

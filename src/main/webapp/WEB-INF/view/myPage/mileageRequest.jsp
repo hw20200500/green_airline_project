@@ -20,35 +20,43 @@
 	<div class="container">
 		<h2>신청 가능한 어쩌구</h2>
 		<p>설명 적을거면 적기</p>
-		<table>
-			<thead>
-				<tr>
-					<th>편명</th>
-					<td>편명</td>
-				</tr>
-				<tr>
-					<th>탑승 구간</th>
-					<td>탑승구간 출발 도착</td>
-				</tr>
-				<tr>
-					<th>탑승 클래스</th>
-					<td>선택 만들기</td>
+		<form action="/mileage/insert"method="post">
+			<table>
+				<thead>
 
-				</tr>
-				<tr>
-					<th>탑승 확인</th>
-					<td>좌벅번호 티켓번호</td>
-				</tr>
-				<tr>
-					<th>탑승일</th>
-					<td>탑승일</td>
-				</tr>
-				<tr>
-					<th>적립 마일리지</th>
-					<td>적립 마일리지</td>
-				</tr>
-			</thead>
-		</table>
+					<tr>
+						<th>편명</th>
+						<th>${allInfoDto.airplaneName}</th>
+					</tr>
+					<tr>
+						<th>탑승 구간</th>
+						<td>${allInfoDto.departure}${allInfoDto.destination}</td>
+					</tr>
+					<tr>
+						<th>탑승 클래스</th>
+						<td>${allInfoDto.seatGrade }</td>
+
+					</tr>
+					<tr>
+						<th>탑승 확인</th>
+						<td>${allInfoDto.id}</td>
+					</tr>
+					<tr>
+						<th>탑승일</th>
+						<td>${allInfoDto.formatDepartureDate()}</td>
+					</tr>
+					<tr>
+						<th>적립 마일리지</th>
+						<td>예상 적립 마일리지</td>
+					</tr>
+				
+				</thead>
+			</table>
+			<input type="hidden" value="${allInfoDto.reqStatus}"name="reqStatus">
+			<input type="hidden" value="${allInfoDto.id}"name="id">
+				<button type="submit">신청</button>
+		</form>
+				<button type="submit">신청</button>
 	</div>
 </main>
 

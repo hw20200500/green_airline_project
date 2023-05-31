@@ -9,6 +9,14 @@
 		<%@ include file="/WEB-INF/view/layout/header.jsp"%>
 	</c:otherwise>
 </c:choose>
+<%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<style>
+<!--
+.tab_wrap6 li {
+    float: left;
+}
+-->
+</style>
 
 <!-- 마일리지 조회 페이지 -->
 <main>
@@ -33,7 +41,7 @@
 					<td>${saveMileage.balance}</td>
 					<td>${useMileage.useMileage}</td>
 					<td>${extinctionMileage.extinctionMileage}</td>
-					<td>${saveMileage.balance-useMileage.useMileage}</td>
+					<td>${saveMileage.balance - useMileage.useMileage}</td>
 				</tr>
 
 			</tbody>
@@ -68,7 +76,7 @@
 							<li id="liPeriod3" class="li--period"><a>3개월</a></li>
 							<li id="liPeriod6" class="li--period"><a>6개월</a></li>
 							<li id="liPeriod12" class="li--period"><a>1년</a></li>
-							<li id="liPeriods" class="li--period--s"><a>직접 선택</a></li>
+							<li id="liPeriods" class="li--period--s"><a>직접 선택</a></li><br>
 						</ul>
 					</div>
 				</dd>
@@ -144,6 +152,6 @@
 
 
 <script src="/js/mileage.js">
-	
+		
 </script>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

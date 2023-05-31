@@ -31,6 +31,7 @@ public class TicketAllInfoDto {
 	private String tid;
 	private Long amount;
 	private Integer status;
+	private Integer reqStatus;
 	private Integer scheduleType;
 	
 	
@@ -50,7 +51,9 @@ public class TicketAllInfoDto {
 	public String formatAmount() {
 		return NumberUtil.numberFormat(amount);
 	}
-	
+
+
+
 	public String formatDepartureDate() {
 		return TimestampUtil.dateToString(departureDate);
 	}

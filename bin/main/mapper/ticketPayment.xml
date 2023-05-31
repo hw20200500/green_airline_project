@@ -13,6 +13,7 @@
 	WHERE ticket_id1 = #{ticketId} OR ticket_id2 = #{ticketId}
 </update>
 
+
 <update id="updateStatusByTid">
 	
 	<if test="type == 1">
@@ -26,12 +27,14 @@
 
 </update>
 
+
 <select id="selectByTicketId" resultType="com.green.airline.repository.model.TicketPayment">
 	SELECT * 
 	FROM ticket_tb AS t
 	JOIN ticket_payment_tb AS tp
 	ON t.id IN (tp.ticket_id1, tp.ticket_id2)
 	WHERE t.id = #{id}
+
 </select>
 
 <select id="selectSalesGroupByDate" resultType="com.green.airline.dto.response.MonthlySalesForChartDto">

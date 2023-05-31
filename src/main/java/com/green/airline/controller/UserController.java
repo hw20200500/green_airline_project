@@ -41,9 +41,11 @@ public class UserController {
 
 	@Autowired
 	private HttpSession session;
+
 	
 	@Autowired
 	private AirportService airportService;
+
 
 	/**
 	 * @author 서영 메인 페이지
@@ -68,11 +70,19 @@ public class UserController {
 	}
 
 	/**
+
 	 * 로그인 처리
+
+	 * todo : 비밀번호인코더 처리
+	 * 
+	 * @return
+
 	 */
 	@PostMapping("/login")
 	public String loginProc(LoginFormDto loginFormDto) {
+		System.out.println("loginFormDto : " + loginFormDto);
 		User principal = userService.readUserByIdAndPassword(loginFormDto);
+		
 		if (principal != null) {
 			session.setAttribute(Define.PRINCIPAL, principal);
 			if (principal.getUserRole().equals("관리자")) {
@@ -101,6 +111,7 @@ public class UserController {
 		Member response = userService.readMemberById(id);
 		return response;
 	}
+
 
 	// 일반 회원 로그인 페이지
 	@GetMapping("/join")
@@ -223,4 +234,42 @@ public class UserController {
 		return "/user/userUpdate";
 	}
 	
+
+
+	@GetMapping("/userIdSearch")
+	public String userIdSearchPage() {
+
+		return "/user/userIdSearch";
+	}
+
+	@GetMapping("/userPwSearch")
+	public String userPwSearchPage() {
+
+		return "/user/userPwSearch";
+	}
+
+	
+	@PostMapping("/findByUserId")
+	public String findByUserId(Model model, Member member) {
+		Member response = userService.readByKorNameandEmailAndBirthDate(member);
+		model.addAttribute("response", response);
+		return "/user/userIdSearch";
+	}
+	/**
+	 *정다운
+	 * 비밀번호 변경
+	 * @return
+	 */
+	@PostMapping("/updatePassword")
+public String updatePasswordById(String password,String userId) {
+	userService.updateyPassword(password, userId);
+	return "/user/login";
 }
+	@GetMapping("/userMain")
+	public String userMainPage() {
+		
+		return "/myPage/myMainPage";
+	}
+	
+}
+
