@@ -32,9 +32,9 @@
 	}
 	
 	#salesChart {
-		width: 630px;
-		height: 250px;
-		margin-left: -12px;
+		width: 620px;
+		height: 230px;
+		margin-left: -9px;
 	}
 	
 	.small--board {
@@ -70,7 +70,7 @@
 	
 	.middle--board {
 		background-color: white;
-		height: 290px;
+		height: 270px;
 		width: 315px;
 		box-shadow: 0 0 3px 3px #e5e5e5;
 		padding: 12px;
@@ -78,7 +78,7 @@
 	
 	.long--board {
 		background-color: white;
-		height: 290px;
+		height: 270px;
 		width: 650px;
 		box-shadow: 0 0 3px 3px #e5e5e5;
 		padding: 12px;
@@ -103,7 +103,7 @@
 	
 	#memoArea {
 		resize: none;
-		height: 225px;
+		height: 207px;
 		width: 280px;
 		margin-left: 5px;
 		margin-top: 5px;
@@ -153,6 +153,10 @@
 	}
 	
 	#routeChart {
+		margin-left: -10px;
+		margin-top: 20px;
+		width: 330px;
+		height: 190px;
 	}
 </style>
 
@@ -206,7 +210,7 @@
 	</div>
 	<div class="d-flex justify-content-between" style="width: 100%; margin-bottom: 20px;">
 		<div class="middle--board">
-			<h5 class="board--title">운항 노선 이용 순위</h5>
+			<h5 class="board--title">도착지별 이용객 수 순위</h5>
 			<canvas id="routeChart"></canvas>
 		</div>	
 		<div class="long--board">
@@ -214,7 +218,7 @@
 			<canvas id="salesChart"></canvas>
 		</div>	
 		<div class="middle--board">	
-			<h5 class="board--title">메모</h5>
+			<h5 class="board--title">개인 메모</h5>
 			<textarea id="memoArea" placeholder="간단한 메모를 작성하세요.">${memo.content}</textarea>
 		</div>	
 	</div>
@@ -223,7 +227,7 @@
 			<h5 class="board--title">마일리지샵 인기 상품</h5>
 		</div>	
 		<div class="middle--board" style="height: 260px;">
-			<h5 class="board--title"><%=LocalDateTime.now().getMonth().getValue() %>월 고객의 말씀 비율</h5>
+			<h5 class="board--title">지난 달 고객의 말씀 비율</h5>
 			<canvas id="vocChart"></canvas>
 		</div>	
 		<div class="long--board" style="height: 260px;">
@@ -406,7 +410,7 @@
 		}
 	});
 	
-	// 운항 노선 이용객 수 순위
+	// 도착지별 이용객 수 순위
 	let routeData = JSON.parse(JSON.stringify(${routeData}));
 	
 	let labelList3 = new Array();
@@ -414,14 +418,15 @@
 	
 	for (let i = 0; i < routeData.length; i++) {
 		let target = routeData[i];
-		labelList3.push(target.departure + " → " + target.destination);
+		labelList3.push(target.destination);
 		valueList3.push(target.count);
 	}
 	
 	let data3 = {
 			labels: labelList3,
 			datasets: [{
-				data: valueList3
+				data: valueList3,
+				backgroundColor: '#afcedc'
 			}]
 	};
 
@@ -433,11 +438,10 @@
 			responsive: false, // canvas에 너비/높이 주면 차트를 원하는 크기로 조정 가능
 			tooltips: {
 				mode: "index",
-				intersect: false // 가까이 가면 툴팁 보이게
+				intersect: true // 가까이 가면 툴팁 보이게
 			},
 			scales: {
 				yAxes: [{
-	            	display: false, // y축 없애기
 					gridLines: {
 						display: false // 그리드 선 제거
 					}

@@ -18,11 +18,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.green.airline.dto.response.CountByYearAndMonthDto;
+import com.green.airline.dto.response.DestinationCountDto;
 import com.green.airline.dto.response.MonthlySalesForChartDto;
-import com.green.airline.dto.response.RouteCountDto;
 import com.green.airline.dto.response.VocCountByTypeDto;
 import com.green.airline.dto.response.VocInfoDto;
-import com.green.airline.dto.response.CountByYearAndMonthDto;
 import com.green.airline.repository.model.Memo;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.MemoService;
@@ -64,6 +64,7 @@ public class ManagerController {
 		
 		Integer year = LocalDateTime.now().getYear();
 		Integer nowMonth = LocalDateTime.now().getMonthValue();
+		Integer lastMonth = LocalDateTime.now().minusMonths(1).getMonthValue();
 		
 		// 최근 1년간 월간 매출액 (이번 달 제외)
 		List<MonthlySalesForChartDto> salesList = ticketPaymentService.readMonthlySales();
@@ -82,8 +83,14 @@ public class ManagerController {
 		String salesData = gson.toJson(jsonArray);
 		model.addAttribute("salesData", salesData);
 		
-		// 해당 월에 작성된 고객의 말씀 유형별 개수
-		List<VocCountByTypeDto> vocCountList = vocService.readWriteCountGroupByType(year, nowMonth);
+		// 지난 달에 작성된 고객의 말씀 유형별 개수
+		List<VocCountByTypeDto> vocCountList = null;
+		// 만약 저번 달이 12월이라면
+		if (lastMonth.intValue() == 12) {
+			vocCountList = vocService.readWriteCountGroupByType(year - 1, lastMonth);
+		} else {
+			vocCountList = vocService.readWriteCountGroupByType(year, lastMonth);
+		}
 		
 		// JSON으로 변환
 		JsonArray jsonArray2 = new JsonArray();
@@ -98,16 +105,15 @@ public class ManagerController {
 		String vocData = gson.toJson(jsonArray2);
 		model.addAttribute("vocData", vocData);
 		
-		// 운항 노선 이용객 수 순위
-		List<RouteCountDto> routeCountList = routeService.readGroupByRouteIdLimitN(10);
+		// 도착지별 이용객 수 순위
+		List<DestinationCountDto> routeCountList = routeService.readGroupByDestinationLimitN(12);
 		
 		// JSON으로 변환
 		JsonArray jsonArray3 = new JsonArray();
-		Iterator<RouteCountDto> it3 = routeCountList.iterator();
+		Iterator<DestinationCountDto> it3 = routeCountList.iterator();
 		while (it3.hasNext()) {
-			RouteCountDto dto = it3.next();
+			DestinationCountDto dto = it3.next();
 			JsonObject object = new JsonObject();
-			object.addProperty("departure", dto.getDeparture());
 			object.addProperty("destination", dto.getDestination());
 			object.addProperty("count", dto.getCount());
 			jsonArray3.add(object);
@@ -117,19 +123,27 @@ public class ManagerController {
 		
 		// 이번 달 매출액
 		MonthlySalesForChartDto nowMonthSales = ticketPaymentService.readSalesByThisMonth(year, nowMonth);
-		model.addAttribute("thisMonthSales", nowMonthSales.getSales());
+		Long nowMonthSalesValue = (long) 0;
+		if (nowMonthSales != null) {
+			nowMonthSalesValue = nowMonthSales.getSales();
+		}
+		model.addAttribute("thisMonthSales", nowMonthSalesValue);
 		
 		// 저번 달 매출액
-		Integer lastMonth = LocalDateTime.now().minusMonths(1).getMonthValue();
 		MonthlySalesForChartDto lastMonthSales = null;
 		// 만약 저번 달이 12월이라면
 		if (lastMonth.intValue() == 12) {
-			lastMonthSales = ticketPaymentService.readSalesByThisMonth(year, lastMonth - 1);
+			lastMonthSales = ticketPaymentService.readSalesByThisMonth(year - 1, lastMonth);
 		} else {
 			lastMonthSales = ticketPaymentService.readSalesByThisMonth(year, lastMonth);
 		}
+		
+		Long lastMonthSalesValue = (long) 0;
+		if (lastMonthSales != null) {
+			lastMonthSalesValue = lastMonthSales.getSales();
+		}
 		// 저번 달 대비 매출액 증감 여부 (보류)
-		Long salesDiff = nowMonthSales.getSales() - lastMonthSales.getSales();
+		Long salesDiff = nowMonthSalesValue - lastMonthSalesValue;
 		model.addAttribute("salesDiff", salesDiff);
 		
 		// 이번 달 신규 회원 수
