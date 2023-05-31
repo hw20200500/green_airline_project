@@ -86,7 +86,6 @@ public class UserController {
 	 */
 	@PostMapping("/login")
 	public String loginProc(LoginFormDto loginFormDto) {
-		System.out.println("loginFormDto : " + loginFormDto);
 		User principal = userService.readUserByIdAndPassword(loginFormDto);
 		if (principal != null && principal.getStatus() == 0) {
 			session.setAttribute(Define.PRINCIPAL, principal);
@@ -214,15 +213,11 @@ public class UserController {
 			return "/user/socialJoin";
 		}
 
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!");
 		try {
-			System.out.println("1111111111111111" + socialJoinFormDto);
 			userService.createSocialMember(socialJoinFormDto);
-//			userService.createByUser(res);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("2222222222222" + socialJoinFormDto);
 		// 로그인이 된 채로 redirect가 되지 않음
 		return "redirect:/";
 	}
@@ -299,7 +294,6 @@ public class UserController {
 	@PostMapping("/userUpdate")
 	public String userUpdateProc(@RequestParam String id, @Validated UserFormDto userFormDto, Errors errors,
 			Member member, Model model) {
-		System.out.println("1111111111111111111111221221" + userFormDto);
 		User principal = userService.readUserById(id);
 		userService.updateMemberById(principal.getId(), member);
 
@@ -369,7 +363,6 @@ public class UserController {
 	@PostMapping("/changePw")
 	public String changePwProc(PasswordCheckDto passwordCheckDto) {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-		System.out.println(passwordCheckDto);
 		boolean isChecked = bCryptPasswordEncoder.matches(passwordCheckDto.getPassword(), principal.getPassword());
 
 		if (isChecked == false) {

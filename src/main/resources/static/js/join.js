@@ -45,19 +45,25 @@ $(document).ready(function() {
 	$("#exists--id").on("click", function() {
 		let id = $("#member--id").val();
 
-		$.ajax({
-			type: "get",
-			url: "/existsById?id=" + id,
-			contentType: "application/json; charset=utf-8"
-		}).done(function(data) {
-			if (data) {
-				alert("사용 가능한 아이디입니다.");
-			} else {
-				alert("중복된 아이디입니다.");
-			}
-		}).fail(function(error) {
-			console.log(error);
-		});
+		// 컨트롤러를 찍지 않고 공백 검사
+		if (id == ' ' || id == '') {
+			alert("잘못된 입력값입니다.");
+		} else {
+			$.ajax({
+				type: "get",
+				url: "/existsById?id=" + id,
+				contentType: "application/json; charset=utf-8"
+			}).done(function(data) {
+
+				if (data) {
+					alert("사용 가능한 아이디입니다.");
+				} else {
+					alert("중복된 아이디입니다.");
+				}
+			}).fail(function(error) {
+				console.log(error);
+			});
+		}
 
 	});
 
@@ -77,10 +83,16 @@ $(document).ready(function() {
 			divNode.text("비밀번호가 일치하지 않습니다.");
 			passwordWrap.append(divNode);
 		} else {
-			$(".validation--check").empty();
-			$(".password--validation").empty();
-			divNode2.text("비밀번호가 일치합니다.");
-			passwordWrap.append(divNode2);
+			if (password == ' ' || password == '') {
+				$(".validation--check").empty();
+				$(".password--validation").empty();
+			} else {
+				$(".validation--check").empty();
+				$(".password--validation").empty();
+				divNode2.text("비밀번호가 일치합니다.");
+				passwordWrap.append(divNode2);
+				console.log(password);
+			}
 		}
 	});
 
