@@ -32,4 +32,7 @@ public interface MemberRepository {
 	// 회원 정보 수정
 	public int updateMemberById(@Param("id") String id, @Param("member") Member member);
 	
+	// 소셜 회원가입시 회원 정보 삭제
+	public int deleteSocialMemberById(String id);
+	
 }

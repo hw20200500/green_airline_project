@@ -26,17 +26,24 @@
 		<h3>새로운 비밀번호로 변경해 주세요.</h3>
 	</div>
 
-	<div>
-		<p>
-			기존 비밀번호 <input type="text" name="password" placeholder="기존 비밀번호를 입력">
-		</p>
-		<p>
-			신규 비밀번호 <input type="text" name="password" placeholder="8~20자리">
-		</p>
-		<p>
-			신규 비밀번호 확인 <input type="text" name="password" placeholder="8~20자리">
-		</p>
-	</div>
+	<form action="/changePw" method="post">
+		<div>
+			<p>
+				기존 비밀번호 <input type="password" name="password" placeholder="기존 비밀번호를 입력">
+			</p>
+			<p>
+				신규 비밀번호 <input type="password" name="newPassword" placeholder="8~20자리">
+			</p>
+			<p>
+				신규 비밀번호 확인 <input type="password" name="newPasswordCheck" placeholder="8~20자리">
+			</p>
+		</div>
+
+		<div>
+			<button type="submit" class="btn btn-primary">확인</button>
+			<button type="button" onclick="location.href='/'" class="btn btn-danger">취소</button>
+		</div>
+	</form>
 </main>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

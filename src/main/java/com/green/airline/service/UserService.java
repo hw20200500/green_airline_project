@@ -15,6 +15,7 @@ import org.springframework.validation.FieldError;
 import com.green.airline.dto.kakao.SocialDto;
 import com.green.airline.dto.request.JoinFormDto;
 import com.green.airline.dto.request.LoginFormDto;
+import com.green.airline.dto.request.PasswordCheckDto;
 import com.green.airline.dto.request.SocialJoinFormDto;
 import com.green.airline.enums.UserRole;
 import com.green.airline.handler.exception.CustomRestfullException;
@@ -43,19 +44,20 @@ public class UserService {
 	 */
 	@Transactional
 	public User readUserByIdAndPassword(LoginFormDto loginFormDto) {
+		System.out.println("loginFormDto : " + loginFormDto);
 		User userEntity = userRepository.selectById(loginFormDto);
-
+		System.out.println(userEntity);
 		if (userEntity == null) {
 			throw new CustomRestfullException("아이디가 존재하지 않습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 		// 암호화 처리
 		boolean isPwdMatched = passwordEncoder.matches(loginFormDto.getPassword(), userEntity.getPassword());
+		System.out.println(isPwdMatched);
 
 		if (isPwdMatched == false) {
 			throw new CustomRestfullException("비밀번호가 틀렸습니다.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
 		return userEntity;
 	}
 
@@ -168,12 +170,31 @@ public class UserService {
 			System.out.println("수정 성공");
 		}
 	}
-	
+
 	// id 기반 user 상태값 변경
 	public void updateUserByStatus(String id, Integer status) {
 		int resultCnt = userRepository.updateUserByStatus(id, status);
-		if(resultCnt == 1) {
+		if (resultCnt == 1) {
 			System.out.println("탈퇴 성공");
+		}
+	}
+
+	// 소셜 회원가입 시 회원 정보 삭제
+	public void deleteUserAndMemberById(SocialDto socialDto) {
+		int resultCnt = userRepository.deleteSocialUserById(socialDto.getId());
+		int resultCnt2 = memberRepository.deleteSocialMemberById(socialDto.getId());
+
+		if (resultCnt == 1 && resultCnt2 == 1) {
+			System.out.println("삭제 성공");
+		}
+
+	}
+
+	// 비밀번호 변경 기능
+	public void updateUserById(PasswordCheckDto passwordCheckDto) {
+		int resultCnt = userRepository.updateUserById(passwordCheckDto);
+		if (resultCnt == 1) {
+			System.out.println("수정 성공");
 		}
 	}
 

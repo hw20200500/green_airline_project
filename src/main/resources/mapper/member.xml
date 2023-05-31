@@ -50,4 +50,8 @@
 		where id = #{id}
 	</update>
 	
+	<delete id="deleteSocialMemberById">
+		delete member_tb from where id = #{id}
+	</delete>
+	
 </mapper>

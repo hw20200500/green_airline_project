@@ -122,7 +122,7 @@
 				</c:choose>
 				<c:choose>
 					<c:when test="${socialJoinFormDto != null}">
-						이메일 <input type="text" name="email" value="${email}" required="required">
+						이메일 <input type="text" name="email" value="${socialJoinFormDto.email}" required="required">
 						<div style="color: red;">
 							<c:if test="${emailValid != null}">
 							${emailValid}
@@ -133,7 +133,7 @@
 								이메일 <input type="email" name="email" required="required">
 					</c:when>
 					<c:otherwise>
-								이메일 <input type="email" name="email" value="${email}" required="required" value="kmg1151@naver.com">
+								이메일 <input type="email" name="email" value="${email}" required="required">
 					</c:otherwise>
 				</c:choose>
 

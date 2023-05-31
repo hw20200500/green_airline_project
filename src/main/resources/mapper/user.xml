@@ -24,7 +24,7 @@
 		select * from user_tb WHERE id = #{id}
 	</select>
 	
-	<update id="updateUser">
+	<update id="updateUserById">
 		update user_tb
 		set password = #{password}
 		where id = #{id}
@@ -35,5 +35,9 @@
 		set status = #{status}
 		where id = #{id}
 	</update>
+	
+	<delete id="deleteSocialUserById">
+		delete user_tb where id = #{id}
+	</delete>
 	
 </mapper>

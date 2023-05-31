@@ -24,10 +24,10 @@
 	<div>
 		<p>회원님의 개인 정보를 안전하게 보호하기 위해 비밀번호를 다시 입력하여 주십시오.</p>
 	</div>
-
 	<form action="/userPwCheck" method="post">
 		<div>
 			<input type="hidden" name="id" value="${principal.id}"> 회원 아이디 ${principal.id} <br> 비밀번호 확인 <input type="password" name="password">
+			<input type="hidden" name="type" value="${type}">
 		</div>
 		<div class="userPwCheckk--ul--wrap">
 			<ul>
