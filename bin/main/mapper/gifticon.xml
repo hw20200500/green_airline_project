@@ -9,34 +9,39 @@
 		<if test="radio == 'revoke'">
 			select * FROM gifticon_revoke_tb
 			where
-			 revoke_date >= #{startTime} and #{endTime} >= revoke_date
-			
+			revoke_date >= #{startTime} and #{endTime} >= revoke_date
+
 		</if>
 		<if test="radio == 'buy'">
 			select * FROM gifticon_tb as g join shop_order_tb as s
-			on g.order_id = s.id
+			on
+			g.order_id = s.id
 			join shop_product_tb as sp
 			on s.product_id = sp.id
-			where s.member_id = #{id} and g.start_date >= #{startTime} and #{endTime}
-			>= g.start_date
+			where
+			s.member_id = #{id} and g.start_date >= #{startTime} and #{endTime}
+			>=
+			g.start_date and status = 0
 		</if>
 	</select>
 
-<!--기프티콘 구 -->
-	<delete id="deleteGifticonBygifticonId">
-  DELETE FROM gifticon_tb
-  WHERE id IN
-  <foreach collection="gifticonId" item="id" open="(" close=")" separator=",">
-    #{id}
-  </foreach>
-</delete>
 
-<insert id="insertRevokeGifticon">
-  INSERT INTO gifticon_revoke_tb(amount, brand, name)
-  VALUES
-  <foreach collection="amount" item="amountItem" index="index" separator=",">
-    (#{amountItem}, #{brand[${index}]}, #{name[${index}]})
-  </foreach>
-</insert>
-	
+	<update id="updateGifticonStatusChange2">
+		update gifticon_tb set status = 1 where id= #{gifticonId};
+	</update>
+	<insert id="insertRevokeGifticon">
+		INSERT INTO gifticon_revoke_tb(amount, brand, name)
+		VALUES(#{amount}, #{brand}, #{name})
+
+	</insert>
+	<select id="selectGifticonLimit"
+		resultType="com.green.airline.dto.GifticonDto">
+		select * from gifticon_tb order by id desc limit 1;
+	</select>
+	<update id="updateGifticonStatus">
+		update gifticon_tb set status = 1 where id = #{gifticonId}
+	</update>
+
+
+
 </mapper>

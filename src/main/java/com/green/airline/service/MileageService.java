@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.green.airline.dto.GifticonDto;
 import com.green.airline.dto.SaveMileageDto;
 import com.green.airline.dto.UseMileageDto;
+import com.green.airline.repository.interfaces.GifticonRepository;
 import com.green.airline.repository.interfaces.MileageRepository;
 import com.green.airline.repository.interfaces.ProductRepository;
 import com.green.airline.repository.model.Mileage;
@@ -19,6 +21,7 @@ public class MileageService {
 	private MileageRepository mileageRepository;
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired GifticonRepository gifticonRepository;
 	public SaveMileageDto readSaveMileage(String memberId){
 		SaveMileageDto saveMileage = mileageRepository.selectSaveMileage(memberId); 
 		
@@ -52,6 +55,8 @@ public class MileageService {
 		int usemileage = price;// 결제 할 마일리지
 		List<Mileage> mileageList = mileageRepository.selectNowMileage(memberId);
 		Mileage mileageId = mileageRepository.selectMileageByMemberId(memberId);
+		GifticonDto gifticonDto = gifticonRepository.selectGifticonLimit();
+		System.out.println(gifticonDto.getId());
 		for (Mileage mileage : mileageList) {
 			if(mileage.getBalance() >= usemileage) {
 			int updatemileage = mileage.getBalance() - usemileage;
@@ -59,6 +64,7 @@ public class MileageService {
 			mileage.setBalance(updatemileage);
 			mileage.setMileageFromBalance(usemileage);
 			mileage.setDateFormExpiration(mileage.getExpirationDate());
+			mileage.setGifticonId(gifticonDto.getId());
 			mileage.setMemberId(memberId);
 			mileage.setProductId(productId);
 			mileageRepository.insertUseDataList(mileage);
@@ -70,6 +76,7 @@ public class MileageService {
 				usemileage = usemileage - mileage.getBalance();
 				mileage.setMileageFromBalance(mileage.getBalance());
 				mileage.setDateFormExpiration(mileage.getExpirationDate());
+				mileage.setGifticonId(gifticonDto.getId());
 				mileage.setMemberId(memberId);
 				mileage.setProductId(productId);
 				mileage.setBalance(0);

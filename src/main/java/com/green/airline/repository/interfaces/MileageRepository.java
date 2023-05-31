@@ -34,5 +34,7 @@ public interface MileageRepository {
 	public int updateBalance(Mileage mileage);
 	public Long selectSumSaveMileageByMemberId(String memberId);
 	public Mileage selectMileageByMemberId(String memberId);
+	public List<Mileage> selectUseDataListTb(@Param("memberId") String memberId,@Param("gifticonId")String gifticonId);
+	public int updateBalanceById(@Param("mileage")Mileage mileage,@Param("id") int id);
 	// Repository에서 파라미터 여러 개 쓸 때는 @Param 꼭 써야 되는 거 기억
 }

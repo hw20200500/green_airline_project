@@ -275,8 +275,10 @@ public class ProductController {
 		GifticonDto gifticonDto = new GifticonDto();
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		String memberId = principal.getId();
-		shopOrderDto.setMemberId(principal.getId());
+		gifticonDto.setOrderId(productService.readShopOrder(principal.getId()).getId());
+		productService.createGifticon(gifticonDto);
 		
+		shopOrderDto.setMemberId(principal.getId());
 		// 구매 내역
 		mileage.setMemberId(principal.getId());
 		mileage.setBalance(productService.readMileage(principal.getId()).getBalance());
@@ -290,17 +292,15 @@ public class ProductController {
 		useMileageDto.setUseMileage(totalPrice);
 		useMileageDto.setMemberId(memberId);
 		productService.createUseMileage(useMileageDto);
-		System.out.println(useMileageDto);
 
-		gifticonDto.setOrderId(productService.readShopOrder(principal.getId()).getId());
-		productService.updateByProductId(shopProductDto);
 		int productId = shopOrderDto.getProductId();
 		mileageService.readNowMileage(memberId, totalPrice,productId);
+		productService.updateByProductId(shopProductDto);
 		
 		// 기프티콘 이메일 전송
 		String code;
 
-		productService.createGifticon(gifticonDto);
+		
 		try {
 			code = emailService.sendSimpleMessage(email, gifticonImageName);
 			System.out.println("email : " + email);

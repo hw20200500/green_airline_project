@@ -1,8 +1,8 @@
 INSERT INTO member_grade_tb(name,mileage_rate,rank_up_mileage)
-VALUES ('Silver',0.01,null),
-('Gold',0.02,100000),
-('Platinum',0.04,500000),
-('Diamond',0.06,1000000);
+VALUES ('Silver',0.0025,null),
+('Gold',0.0035,100000),
+('Platinum',0.0045,500000),
+('Diamond',0.0060,1000000);
 
 
 
@@ -17,7 +17,7 @@ INSERT INTO member_tb
 VALUES 
 	('abc', '김홍아', 'LEE SEOYOUNG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', 'Gold'),
 	('a123', '홍길이', 'LEE SEOYOUNG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', 'Gold'),
-	('wjdekdns', '정다운', 'JUNG DAUN', '1998-002-02', 'M', '010-1111-2222', 'ekdns8276@naver.com', '부산광역시 해운대구', '대한민국', 'Gold');
+	('wjdekdns', '정다운', 'JUNG DAUN', '1998-02-02', 'M', '010-1111-2222', 'ekdns8276@naver.com', '부산광역시 해운대구', '대한민국', 'Gold');
 
 
 INSERT INTO shop_product_tb(brand,name,price,count,product_image,gifticon_image)

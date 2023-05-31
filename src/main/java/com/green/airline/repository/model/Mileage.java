@@ -22,6 +22,9 @@ public class Mileage {
 	private int mileageFromBalance;
 	private Timestamp dateFormExpiration;
 	private int productId;
+	private int gifticonId;
+	private int status;
+	private int buyMileageId; 
 	 
 	public String balanceNumber() {
 		return  NumberUtil.numberFormat(balance);

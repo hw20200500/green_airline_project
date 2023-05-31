@@ -315,6 +315,7 @@ create table gifticon_tb(
    id int primary key auto_increment,
     start_date date not null default (CURRENT_DATE),
     end_date date not null,
+    status int DEFAULT 0,
     order_id int not null,
     foreign key (order_id) references shop_order_tb (id)
 );
@@ -350,7 +351,9 @@ mileage_from_balance BIGINT,
 product_id int,
 member_id VARCHAR (50),
 buy_mileage_id int,
-FOREIGN KEY (buy_mileage_id) REFERENCES mileage_tb(id)
+gifticon_id int,
+FOREIGN KEY (buy_mileage_id) REFERENCES mileage_tb(id),
+FOREIGN KEY (gifticon_id) REFERENCES gifticon_tb(id)
 );
 
 -- 마일리지 신청 내역

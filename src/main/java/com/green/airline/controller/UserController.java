@@ -110,5 +110,10 @@ public String updatePasswordById(String password,String userId) {
 	userService.updateyPassword(password, userId);
 	return "/user/login";
 }
+	@GetMapping("/userMain")
+	public String userMainPage() {
+		
+		return "/myPage/myMainPage";
+	}
 	
 }

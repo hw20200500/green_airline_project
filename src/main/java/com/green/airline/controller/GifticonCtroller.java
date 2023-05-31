@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.green.airline.repository.model.User;
 import com.green.airline.service.GifticonService;
+import com.green.airline.utils.Define;
 
 @Controller
 @RequestMapping("/gifticon")
@@ -24,13 +26,21 @@ public class GifticonCtroller {
 	public String gifticonList() {
 		
 		return "/myPage/gifticonListPage";
+		
 	}
 	
 	@PostMapping("/deleteGifticonById")
 	public String deleteGifticon(@RequestParam("gifticonId") String[] gifticonId,@RequestParam("productId") String[] productId,@RequestParam("amount") String[] amount,
-			@RequestParam("name") String[] name,@RequestParam("brand") String[] brand) {
-		gifticonService.deleteGifticonBygifticonId(gifticonId);
-		gifticonService.createRevokeGifticon(amount, brand, name);
+			@RequestParam("name") String[] name,@RequestParam("brand") String[] brand, String memberId) {
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		memberId = principal.getId();
+		for (int i = 0; i < gifticonId.length; i++) {
+			gifticonService.createRevokeGifticon(amount[i], brand[i], name[i]);
+			gifticonService.updateMileageAndGifticonStatus(memberId, gifticonId[i]);
+			//gifticonService.updateGifticonStatus(gifticonId[i]);	
+		}
+		
+		
 		return "redirect:/gifticon/list";
 		
 	}
