@@ -23,7 +23,10 @@ public interface TicketPaymentRepository {
 	
 	public TicketPayment selectByTicketId(String ticketId);
 	
-	// 최근 1년간 월간 매출액 
+	// 최근 11개월간 월간 매출액 (이번 달 제외) 
 	public List<MonthlySalesForChartDto> selectSalesGroupByDate();
+	
+	// 특정 월의 매출액
+	public MonthlySalesForChartDto selectSalesByThisMonth(@Param("year") Integer year, @Param("month") Integer month);
 	
 }

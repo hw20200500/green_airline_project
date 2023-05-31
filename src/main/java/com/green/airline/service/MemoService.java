@@ -28,7 +28,12 @@ public class MemoService {
 		if (entity == null) {
 			memoRepository.insert(memo);
 		} else {
+			// content에 변화가 없다면 갱신하지 않음
+			if (memo.getContent().equals(entity.getContent())) {
+				return;
+			}
 			memoRepository.update(memo);
+			System.out.println("dddd");
 		}
 		
 	}

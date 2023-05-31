@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.green.airline.dto.response.CountByYearAndMonthDto;
+import com.green.airline.dto.response.VocCountByTypeDto;
 import com.green.airline.dto.response.VocInfoDto;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.interfaces.VocRepository;
@@ -71,8 +73,8 @@ public class VocService {
 	 * type : 0 > 처리되지 않은, 1 > 처리된
 	 */
 	@Transactional
-	public List<VocInfoDto> readVocListLimit(Integer index, Integer type) {
-		return vocRepository.selectAllLimit(index, type);
+	public List<VocInfoDto> readVocListLimit(Integer index, Integer type, Integer limitCount) {
+		return vocRepository.selectAllLimit(index, type, limitCount);
 	}
 	
 	/**
@@ -137,11 +139,25 @@ public class VocService {
 	}
 	
 	/**
-	 * 답변
+	 * 답변 작성 처리
 	 */
 	@Transactional
 	public void createAnswer(VocAnswer vocAnswer) {
 		vocRepository.insertAnswer(vocAnswer);
+	}
+	
+	/**
+	 * 해당 월에 작성된 고객의 말씀 수
+	 */
+	public CountByYearAndMonthDto readWriteCount(Integer year, Integer month) {
+		return vocRepository.selectCountByMonth(year, month);
+	}
+	
+	/**
+	 * 해당 월에 작성된 고객의 말씀 유형별 개수
+	 */
+	public List<VocCountByTypeDto> readWriteCountGroupByType(Integer year, Integer month) {
+		return vocRepository.selectCountByMonthGroupByType(year, month);
 	}
 	
 }

@@ -20,7 +20,7 @@
 			<h1>공지사항 상세 페이지</h1>
 
 			<div>${noticeResponseDto.title}</div>
-			<div>${noticeResponseDto.name}|${noticeResponseDto.dateFormat()}</div>
+			<div>${noticeResponseDto.name}</div>
 			<div>${noticeResponseDto.content}</div>
 		</div>
 		<c:if test="${principal.userRole.equals(\"관리자\")}">
