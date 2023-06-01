@@ -47,8 +47,9 @@ $(document).ready(function() {
 	$("#join--btn").on("click", function() {
 		if (isCheck == 0) {
 			alert("아이디 중복 확인을 해주세요.");
+			return false;
 		} else {
-
+			// 아이디 중복 확인 기능
 		}
 	});
 

@@ -42,7 +42,7 @@ input[type=password]:focus {
 					<%-- validation에 걸려서 돌아왔을 때 --%>
 					<c:when test="${joinFormDto != null}">
 						<div>
-							아이디 <input type="text" name="id" value="${joinFormDto.id}" class="join--id--class">
+							아이디 <input type="text" name="id" value="${joinFormDto.id}" class="join--id--class" placeholder="Todo 수정 8~20자리">
 							<button type="button" id="exists--id">아이디 중복확인</button>
 							<div class="validation--check">
 								<c:if test="${idValid != null}">
@@ -54,7 +54,7 @@ input[type=password]:focus {
 					<%-- 일반 회원가입 처리 --%>
 					<c:otherwise>
 						<div>
-							아이디 <input type="text" name="id" id="member--id">
+							아이디 <input type="text" name="id" id="member--id" placeholder="Todo 수정 8~20자리">
 							<button type="button" id="exists--id">아이디 중복확인</button>
 						</div>
 					</c:otherwise>
@@ -63,7 +63,7 @@ input[type=password]:focus {
 				<c:choose>
 					<c:when test="${joinFormDto != null}">
 						<div class="password--wrap">
-							비밀번호 <input type="password" name="password" required="required" id="password">
+							비밀번호 <input type="password" name="password" required="required" id="password"  placeholder="Todo 수정 8~20자리">
 							<div class="validation--check">
 								<c:if test="${passwordValid != null}">
 							${passwordValid}
@@ -74,7 +74,7 @@ input[type=password]:focus {
 					</c:when>
 					<c:otherwise>
 						<div class="password--wrap">
-							비밀번호 <input type="password" name="password" required="required" id="password"> 비밀번호 확인 <input type="password" required="required" id="password--check">
+							비밀번호 <input type="password" name="password" required="required" id="password" placeholder="Todo 수정 8~20자리"> 비밀번호 확인 <input type="password" required="required" id="password--check">
 						</div>
 					</c:otherwise>
 				</c:choose>
