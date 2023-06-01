@@ -67,4 +67,31 @@
 	GROUP BY `year`, `month`;
 </select>
 
+<select id="selectSalesByThisMonth" resultType="com.green.airline.dto.response.MonthlySalesForChartDto">
+	SELECT `year`, `month`, SUM(amount) AS sales
+	FROM (
+			(SELECT YEAR(reserved_date) AS `year`, 
+			MONTH(reserved_date) AS `month`, 
+			sum(amount1) AS amount
+			FROM ticket_payment_tb AS p
+			JOIN ticket_tb AS t
+			ON p.ticket_id1 = t.id
+			WHERE status1 = 1
+			GROUP BY `year`, `month`)
+			
+			UNION
+			
+			(SELECT YEAR(reserved_date) AS `year`, 
+			MONTH(reserved_date) AS `month`, 
+			sum(amount2) AS amount
+			FROM ticket_payment_tb AS p
+			JOIN ticket_tb AS t
+			ON p.ticket_id1 = t.id
+			WHERE status2 = 1
+			GROUP BY `year`, `month`) 
+	) AS s
+	WHERE `year` = #{year} AND `month` = #{month}
+	GROUP BY `year`, `month`
+</select>
+
 </mapper>

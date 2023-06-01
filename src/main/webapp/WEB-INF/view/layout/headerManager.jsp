@@ -19,6 +19,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700;900&display=swap" rel="stylesheet">
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </head>
 
 <style>
@@ -42,7 +47,7 @@
 						<ul class="nav--depth1">
 							<li><a href="#">회원관리</a></li>
 							<li><a href="/inFlightService/inFlightServiceSearch">기내서비스</a></li>
-							<li><a href="/product/productMain">마일리지</a></li>
+							<li><a href="/product/productMain/clasic">마일리지</a></li>
 							<li><a href="/notice/noticeList">고객센터</a></li>
 						</ul>
 					</div>

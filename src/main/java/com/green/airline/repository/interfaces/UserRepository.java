@@ -3,11 +3,10 @@ package com.green.airline.repository.interfaces;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.green.airline.dto.kakao.SocialDto;
 import com.green.airline.dto.request.LoginFormDto;
 import com.green.airline.dto.request.PasswordCheckDto;
+import com.green.airline.dto.response.CountByYearAndMonthDto;
 import com.green.airline.enums.UserRole;
-import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.User;
 
 @Mapper
@@ -25,7 +24,7 @@ public interface UserRepository {
 
 	// 소셜 회원가입에 사용
 	public User selectSocialDtoById(String id);
-
+	
 	public int updateUserPwById(@Param("password") String password, @Param("userId") String userId);
 
 	public int updateGradeByMemberId(@Param("memberId") String memberId, @Param("grade") String grade);
@@ -40,4 +39,16 @@ public interface UserRepository {
 
 	int updateUserById(PasswordCheckDto passwordCheckDto);
 
+	/**
+	 * @author 서영
+	 * 해당 월의 신규 회원 수
+	 */
+	public CountByYearAndMonthDto selectNewUserCountByMonth(@Param("year") Integer year, @Param("month") Integer month);
+	
+	/**
+	 * @author 서영
+	 * 해당 월의 탈퇴 회원 수
+	 */
+	public CountByYearAndMonthDto selectWithdrawUserCountByMonth(@Param("year") Integer year, @Param("month") Integer month);
+	
 }

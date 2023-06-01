@@ -142,7 +142,7 @@ public class VocController {
 		
 		// 표시할 글 목록
 		Integer index = (page - 1) * 10;
-		List<VocInfoDto> vocList = vocService.readVocListLimit(index, 0);
+		List<VocInfoDto> vocList = vocService.readVocListLimit(index, 0, 10);
 		
 		model.addAttribute("vocList", vocList);
 		model.addAttribute("processed", 0);
@@ -164,7 +164,7 @@ public class VocController {
 		
 		// 표시할 글 목록
 		Integer index = (page - 1) * 10;
-		List<VocInfoDto> vocList = vocService.readVocListLimit(index, 1);
+		List<VocInfoDto> vocList = vocService.readVocListLimit(index, 1, 10);
 		
 		model.addAttribute("vocList", vocList);
 		model.addAttribute("processed", 1);

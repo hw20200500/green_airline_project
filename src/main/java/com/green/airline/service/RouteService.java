@@ -3,14 +3,11 @@ package com.green.airline.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.BindingResult;
 
+import com.green.airline.dto.response.DestinationCountDto;
 import com.green.airline.dto.response.InFlightServiceResponseDto;
-import com.green.airline.handler.RestfullExceptionHandler;
-import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.interfaces.InFlightServiceRepository;
 import com.green.airline.repository.interfaces.RouteRepository;
 import com.green.airline.repository.model.Route;
@@ -23,7 +20,7 @@ public class RouteService {
 
 	@Autowired
 	private InFlightServiceRepository inFlightServiceRepository;
-
+	
 	@Transactional
 	public List<InFlightServiceResponseDto> readByDestAndDepa(String destination, String departure) {
 
@@ -49,6 +46,13 @@ public class RouteService {
 
 		return flightHours;
 
+	}
+	
+	/**
+	 * 이용객 수가 많은 노선 상위 N개 반환
+	 */
+	public List<DestinationCountDto> readGroupByDestinationLimitN(Integer limitCount) {
+		return routeRepository.selectGroupByDestinationLimitN(limitCount);
 	}
 
 }

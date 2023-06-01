@@ -72,7 +72,7 @@
 		ON v.id = a.voc_id
 		WHERE a.id IS NULL
 		ORDER BY v.id DESC	
-		LIMIT #{index}, 10
+		LIMIT #{index}, #{limitCount}
 	</if>
 	
 	<!-- 처리된 -->
@@ -85,7 +85,7 @@
 		ON v.id = a.voc_id
 		WHERE a.id IS NOT NULL
 		ORDER BY v.id DESC	
-		LIMIT #{index}, 10
+		LIMIT #{index}, #{limitCount}
 	</if>
 </select>
 
@@ -120,5 +120,20 @@
 	INSERT INTO voc_answer_tb (content, voc_id)
 	VALUES (#{content}, #{vocId})
 </insert>
+
+<select id="selectCountByMonth" resultType="com.green.airline.dto.response.CountByYearAndMonthDto">
+	SELECT YEAR(created_at) AS `year`, MONTH(created_at) AS `month`, COUNT(*) AS count
+	FROM voc_tb
+	WHERE YEAR(created_at) = #{year} AND MONTH(created_at) = #{month}
+	GROUP BY `year`, `month`
+</select>
+
+<select id="selectCountByMonthGroupByType" resultType="com.green.airline.dto.response.VocCountByTypeDto">
+	SELECT type, count(*) AS count
+	FROM voc_tb
+	WHERE YEAR(created_at) = #{year} AND MONTH(created_at) = #{month}
+	GROUP BY type
+	ORDER BY count DESC
+</select>
 
 </mapper>

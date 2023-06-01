@@ -18,6 +18,7 @@ import com.green.airline.dto.SaveMileageDto;
 import com.green.airline.dto.request.LoginFormDto;
 import com.green.airline.dto.request.PasswordCheckDto;
 import com.green.airline.dto.request.SocialJoinFormDto;
+import com.green.airline.dto.response.CountByYearAndMonthDto;
 import com.green.airline.enums.UserRole;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.interfaces.MemberRepository;
@@ -174,6 +175,22 @@ public class UserService {
 	public Member readById(String id) {
 		Member memberEntity = memberRepository.existsById(id);
 		return memberEntity;
+	}
+	
+	/**
+	 * @author 서영
+	 * 해당 월의 신규 회원 수
+	 */
+	public CountByYearAndMonthDto readNewUserCount(Integer year, Integer month) {
+		return userRepository.selectNewUserCountByMonth(year, month);
+	}
+	
+	/**
+	 * @author 서영
+	 * 해당 월의 탈퇴 회원 수
+	 */
+	public CountByYearAndMonthDto readWithdrawUserCount(Integer year, Integer month) {
+		return userRepository.selectWithdrawUserCountByMonth(year, month);
 	}
 
 	/**

@@ -19,7 +19,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700;900&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<link
+	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
+	rel="stylesheet">
+<script
+	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </head>
 
 <style>
@@ -146,8 +150,8 @@
 							</ul>
 							<div class="nav--split"></div>
 							<ul>
-								<li><a href="/product/registration">상품 등록</a>
 								<li><a href="/product/productMain/clasic">마일리지 사용몰</a>
+								<li><a href="/product/registration">상품 등록</a>
 								<li><a href="/product/registration">마이페이지</a>
 								<li><a href="/mileage/selectAll">마일리지 조회</a>
 								<li><a href="/mileage/application">마일리지 리스트조회</a>

@@ -12,7 +12,9 @@ CREATE TABLE user_tb
    id VARCHAR (50) PRIMARY KEY,
    password VARCHAR (255) NOT NULL,
    user_role VARCHAR (5) NOT NULL DEFAULT '회원',
-   status TINYINT NOT NULL DEFAULT 0
+   join_at TIMESTAMP DEFAULT now() NOT NULL,
+   withdraw_at TIMESTAMP,
+   status TINYINT DEFAULT 0 NOT NULL
 );
 
 -- 회원

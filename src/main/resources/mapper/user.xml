@@ -48,4 +48,18 @@
 		delete user_tb where id = #{id}
 	</delete>
 	
+	<select id="selectNewUserCountByMonth" resultType="com.green.airline.dto.response.CountByYearAndMonthDto">
+		SELECT YEAR(join_at) AS `year`, MONTH(join_at) AS `month`, COUNT(*) AS count
+		FROM user_tb
+		WHERE YEAR(join_at) = #{year} AND MONTH(join_at)  = #{month}
+		GROUP BY `year`, `month`
+	</select>
+	
+	<select id="selectWithdrawUserCountByMonth" resultType="com.green.airline.dto.response.CountByYearAndMonthDto">
+		SELECT YEAR(withdraw_at) AS `year`, MONTH(withdraw_at) AS `month`, COUNT(*) AS count
+		FROM user_tb
+		WHERE YEAR(withdraw_at) = 2023 AND MONTH(withdraw_at)  = 5
+		GROUP BY `year`, `month`
+	</select>
+	
 </mapper>

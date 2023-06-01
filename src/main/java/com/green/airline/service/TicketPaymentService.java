@@ -19,10 +19,19 @@ public class TicketPaymentService {
 	private TicketPaymentRepository ticketPaymentRepository;
 	
 	/**
-	 * @return 최근 1년간 월간 매출액
+	 * @return 최근 11개월간 월간 매출액 (이번 달 제외)
 	 */
 	public List<MonthlySalesForChartDto> readMonthlySales() {
 		return ticketPaymentRepository.selectSalesGroupByDate();
 	}
+	
+	/**
+	 * @return 특정 월의 매출액
+	 */
+	public MonthlySalesForChartDto readSalesByThisMonth(Integer year, Integer month) {
+		return ticketPaymentRepository.selectSalesByThisMonth(year, month);
+	}
+	
+	
 	
 }
