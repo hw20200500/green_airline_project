@@ -4,14 +4,19 @@
 <mapper
 	namespace="com.green.airline.repository.interfaces.BaggageRequestRepository">
 	
-	<insert id="insertBaggageReq">
-		insert into baggage_request_tb (amount, br_id, member_id)
-		values(#{amount}, #{brId}, #{memberId})
+	<insert id="updateBaggageReq">
+		update baggage_request_tb 
+		set amount = #{amount}
+		where id = #{id}
 	</insert>
 	
-	<!--  -->
-	<select id="selectBaggageReqByMemberId" resultType="com.green.airline.dto.response.BaggageReqResponse">
-		select cb.section, cb.grade_id, bre.amount, r.departure, r.destination, sg.name as seat_grade_name
+	<delete id="deleteBaggageReqById">
+		delete from baggage_request_tb
+		where id = #{id}
+	</delete>
+	
+	<select id="selectBaggageReqByMemberId" resultType="com.green.airline.dto.response.BaggageReqResponseDto">
+		select cb.section, cb.grade_id, bre.amount, r.departure, r.destination, sg.name as seat_grade_name, bre.id as baggage_id
 		from baggage_request_tb as bre
 		join baggage_route_tb as bro
 		on bre.br_id = bro.id
@@ -26,7 +31,7 @@
 		where bre.member_id=#{memberId}
 	</select>
 	
-	<select id="selectBaggageReqGroupBySection" resultType="com.green.airline.dto.response.BaggageReqResponse">
+	<select id="selectBaggageReqGroupBySection" resultType="com.green.airline.dto.response.BaggageReqResponseDto">
 		select cb.section
 		from baggage_request_tb as bre
 		join baggage_route_tb as bro

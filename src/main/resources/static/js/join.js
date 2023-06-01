@@ -41,9 +41,21 @@ function execDaumPostcode() {
 
 
 $(document).ready(function() {
+
+	let isCheck = 0;
+
+	$("#join--btn").on("click", function() {
+		if (isCheck == 0) {
+			alert("아이디 중복 확인을 해주세요.");
+		} else {
+
+		}
+	});
+
 	// 아이디 중복 확인 기능
 	$("#exists--id").on("click", function() {
 		let id = $("#member--id").val();
+
 
 		// 컨트롤러를 찍지 않고 공백 검사
 		if (id == ' ' || id == '') {
@@ -54,9 +66,10 @@ $(document).ready(function() {
 				url: "/existsById?id=" + id,
 				contentType: "application/json; charset=utf-8"
 			}).done(function(data) {
-
+				console.log(isCheck);
 				if (data) {
 					alert("사용 가능한 아이디입니다.");
+					isCheck = 1;
 				} else {
 					alert("중복된 아이디입니다.");
 				}
@@ -66,6 +79,9 @@ $(document).ready(function() {
 		}
 
 	});
+	/*$("#member--id").on("keyup", function(){
+		isCheck = 0;
+	});*/
 
 	// 비밀번호 확인 기능
 	$("#password--check").on("keyup focus change", function() {
@@ -94,11 +110,6 @@ $(document).ready(function() {
 				console.log(password);
 			}
 		}
-	});
-
-	// 아이디 중복확인 안 눌렀을 시 또는 아이디 중복일 때 회원가입 안 되게
-	$("#exists--id").on("click", function() {
-
 	});
 
 	// 성별 갖고오기

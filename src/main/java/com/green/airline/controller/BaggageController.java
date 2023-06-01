@@ -9,19 +9,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.green.airline.dto.request.BaggageReqRequest;
-import com.green.airline.dto.response.BaggageReqResponse;
+import com.green.airline.dto.request.BaggageReqRequestDto;
+import com.green.airline.dto.response.BaggageReqResponseDto;
 import com.green.airline.dto.response.InFlightMealResponseDto;
-import com.green.airline.dto.response.InFlightServiceResponseDto;
 import com.green.airline.repository.model.BaggageMiss;
-import com.green.airline.repository.model.BaggageRequest;
 import com.green.airline.repository.model.CarryOnLiquids;
 import com.green.airline.repository.model.CheckedBaggage;
-import com.green.airline.repository.model.InFlightService;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.BaggageRequestService;
 import com.green.airline.service.BaggageService;
@@ -71,7 +66,7 @@ public class BaggageController {
 		List<CheckedBaggage> checkedBaggages = baggageService.readCheckedBaggageBySection(baggage.get(0).getSection());
 		model.addAttribute("checkedBaggages", checkedBaggages);
 
-		List<BaggageReqResponse> baggageGroupBySection = baggageRequestService.readBaggageReqGroupBySection();
+		List<BaggageReqResponseDto> baggageGroupBySection = baggageRequestService.readBaggageReqGroupBySection();
 		model.addAttribute("baggageGroupBySection", baggageGroupBySection);
 
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
@@ -82,16 +77,14 @@ public class BaggageController {
 			model.addAttribute("inFlightServiceResponseDtos", null); // 좌석 수에 따라 수량을 가져오기 위해
 
 		} else {
-			List<BaggageReqResponse> baggageReqResponses = baggageRequestService
+			List<BaggageReqResponseDto> baggageReqResponses = baggageRequestService
 					.readBaggageReqByMemberId(principal.getId());
-			System.out.println("baggageReqResponses" + baggageReqResponses);
 			model.addAttribute("baggageReqResponses", baggageReqResponses);
 			model.addAttribute("isLogin", true);
 
 			List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
 					.readInFlightMealSchedule(principal.getId());
 			model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
-			System.out.println("inFlightServiceResponseDtos : " + inFlightServiceResponseDtos);
 		}
 
 		return "/baggage/checkedBaggage";
@@ -115,10 +108,11 @@ public class BaggageController {
 	// MIME / application/json
 	@PostMapping("/checkedBaggageProc")
 	// @RequestBody 민정아 이거는 json 형식에 바디 값을 받는 파싱전략이야
-	public String checkedBaggageProc(BaggageReqRequest baggageReqRequest) {
-		User user = (User) session.getAttribute(Define.PRINCIPAL);
-		baggageReqRequest.setMemberId(user.getId());
-		baggageRequestService.createBaggageReq(baggageReqRequest);
+	public String checkedBaggageProc(BaggageReqRequestDto baggageReqRequest) {
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		baggageReqRequest.setMemberId(principal.getId());
+
+		baggageRequestService.updateBaggageReq(baggageReqRequest);
 		return "redirect:/baggage/checkedBaggage";
 	}
 

@@ -38,6 +38,7 @@ public interface UserRepository {
 	// 소셜 회원가입시 회원 정보 삭제
 	int deleteSocialUserById(String id);
 
+	// 비밀번호 확인 기능
 	int updateUserById(PasswordCheckDto passwordCheckDto);
-
+	
 }

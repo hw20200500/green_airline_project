@@ -29,6 +29,7 @@ import com.green.airline.dto.request.LoginFormDto;
 import com.green.airline.dto.request.PasswordCheckDto;
 import com.green.airline.dto.request.SocialJoinFormDto;
 import com.green.airline.dto.request.UserFormDto;
+import com.green.airline.dto.response.BaggageReqResponseDto;
 import com.green.airline.dto.response.InFlightMealResponseDto;
 import com.green.airline.dto.response.SpecialMealResponseDto;
 import com.green.airline.handler.exception.CustomRestfullException;
@@ -38,6 +39,8 @@ import com.green.airline.repository.model.InFlightService;
 import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.AirportService;
+import com.green.airline.service.BaggageRequestService;
+import com.green.airline.service.BaggageService;
 import com.green.airline.service.InFlightSvService;
 import com.green.airline.service.UserService;
 import com.green.airline.utils.Define;
@@ -60,6 +63,9 @@ public class UserController {
 
 	@Autowired
 	private InFlightSvService inFlightSvService;
+
+	@Autowired
+	private BaggageRequestService baggageRequestService;
 
 	/**
 	 * @author 서영 메인 페이지
@@ -177,6 +183,8 @@ public class UserController {
 			return "/user/join";
 		}
 
+		// 몰라 입력받은 id와 원래 있는 아이디가 같다면 회원가입 안 되도록 예외처리
+
 		userService.createMember(joinFormDto);
 
 		return "redirect:/login";
@@ -196,7 +204,6 @@ public class UserController {
 		return "/user/socialJoin";
 	}
 
-	// validation 처리가 안됨
 	// 이거를 타게 하면 된다.
 	@PostMapping("/apiSocialJoinProc")
 	public String apiSocialJoinProc(@Validated SocialJoinFormDto socialJoinFormDto, Errors errors, Model model) {
@@ -398,39 +405,42 @@ public class UserController {
 	}
 
 	// 특별 기내식 신청 내역 페이지
-	@GetMapping("/myReqService")
-	public String myReqServicePage(Model model) {
+	@GetMapping("/myServiceReq")
+	public String myServiceReqPage(Model model) {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-
-		// Todo
-		// member 정보는 c:if 관리자만 보이도록, 특별 기내식 신청 정보 갖고 오기
 		List<SpecialMealResponseDto> specialMealResponseDtos = inFlightSvService
 				.readRequestMealByMemberId(principal.getId());
 		List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
 				.readInFlightMealSchedule(principal.getId());
-		
-		// 수정이라 해봤자 수량 바꾸는 거기 때문에 신청 취소 버튼이랑 신청 -> location.href 버튼 만들기
-		
+
 		model.addAttribute("specialMealResponseDtos", specialMealResponseDtos);
 		model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
 
-		return "/user/myReqService";
+		return "/user/myServiceReq";
 	}
-	
+
 	// 특별 기내식 신청 내역 페이지 (수정 및 삭제)
 	@PostMapping("/myReqServiceDelete")
 	public String myReqServiceDeleteProc(@RequestParam Integer id) {
-		System.out.println("id : " + id);
 		inFlightSvService.deleteRequestMealById(id);
-		return "redirect:/myReqService";
+		return "redirect:/myServiceReq";
 	}
 
 	// 위탁 수하물 신청 내역 페이지 (수정 및 삭제)
-	@GetMapping("/myReqBaggage")
-	public String myReqBaggagePage() {
+	@GetMapping("/myBaggageReq")
+	public String myBaggageReqPage(Model model) {
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+
 		// Todo
-		// member 정보, 위탁 수하물 신청 정보 갖고 오기
-		return "/user/myReqBaggage";
+		// 위탁 수하물 신청 정보 갖고 오기
+		List<BaggageReqResponseDto> baggageReqResponses = baggageRequestService
+				.readBaggageReqByMemberId(principal.getId());
+		List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
+				.readInFlightMealSchedule(principal.getId());
+		model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
+		model.addAttribute("baggageReqResponses", baggageReqResponses);
+
+		return "/user/myBaggageReq";
 	}
 
 }

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <c:choose>
 	<c:when test="${\"관리자\".equals(principal.userRole)}">
 		<%@ include file="/WEB-INF/view/layout/headerManager.jsp"%>
@@ -24,6 +23,12 @@
 .password--validation {
 	color: black;
 }
+input[type=text]:focus {
+	outline: none;
+}
+input[type=password]:focus {
+	outline: none;
+}
 </style>
 <script>
 	let gender = `${joinFormDto.gender}`;
@@ -37,7 +42,7 @@
 					<%-- validation에 걸려서 돌아왔을 때 --%>
 					<c:when test="${joinFormDto != null}">
 						<div>
-							아이디 <input type="text" name="id" value="${joinFormDto.id}">
+							아이디 <input type="text" name="id" value="${joinFormDto.id}" class="join--id--class">
 							<button type="button" id="exists--id">아이디 중복확인</button>
 							<div class="validation--check">
 								<c:if test="${idValid != null}">

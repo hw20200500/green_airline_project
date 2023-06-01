@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.green.airline.dto.request.BaggageReqRequest;
-import com.green.airline.dto.response.BaggageReqResponse;
+import com.green.airline.dto.request.BaggageReqRequestDto;
+import com.green.airline.dto.response.BaggageReqResponseDto;
 import com.green.airline.repository.interfaces.BaggageRequestRepository;
 
 @Service
@@ -28,8 +28,8 @@ public class BaggageRequestService {
 	// 수하물 추가 해야 함.
 
 	// 수하물 신청 모달에 출력할 내용들
-	public List<BaggageReqResponse> readBaggageReqByMemberId(String memberId) {
-		List<BaggageReqResponse> baggageReqResponses = baggageRequestRepository.selectBaggageReqByMemberId(memberId);
+	public List<BaggageReqResponseDto> readBaggageReqByMemberId(String memberId) {
+		List<BaggageReqResponseDto> baggageReqResponses = baggageRequestRepository.selectBaggageReqByMemberId(memberId);
 
 		return baggageReqResponses;
 	}
@@ -45,13 +45,27 @@ public class BaggageRequestService {
 	// 수정 예상
 	// Todo
 	@Transactional
-	public void createBaggageReq(BaggageReqRequest baggageReqRequest) {
-		baggageRequestRepository.insertBaggageReq(baggageReqRequest);
+	public int updateBaggageReq(BaggageReqRequestDto baggageReqRequest) {
+		int resultCnt = baggageRequestRepository.updateBaggageReq(baggageReqRequest);
+		if (resultCnt == 1) {
+			System.out.println("수정 성공");
+		}
+		
+		return resultCnt;
 	}
 
-	public List<BaggageReqResponse> readBaggageReqGroupBySection() {
-		List<BaggageReqResponse> baggageReqResponses = baggageRequestRepository.selectBaggageReqGroupBySection();
+	public List<BaggageReqResponseDto> readBaggageReqGroupBySection() {
+		List<BaggageReqResponseDto> baggageReqResponses = baggageRequestRepository.selectBaggageReqGroupBySection();
 		return baggageReqResponses;
+	}
+	
+	// 신청 삭제 취소
+	public int deleteBaggageReqById(Integer id) {
+		int resultCnt = baggageRequestRepository.deleteBaggageReqById(id);
+		if(resultCnt == 1) {
+			System.out.println("삭제 성공");
+		}
+		return resultCnt;
 	}
 
 }

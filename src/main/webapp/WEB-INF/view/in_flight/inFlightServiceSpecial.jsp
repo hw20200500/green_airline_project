@@ -120,38 +120,40 @@
 
 					<!-- Modal body -->
 					<div class="modal-body">
-						<div>
-							<div>출발 일정</div>
-							<div class="modal--div--arrivaldate">
-								<div id="inFlight--arrival">
-									<!-- db 안에 들어있는 departureDate는 format 전의 값이니까 2023/05/18 -> 2023년05월18일 -->
-									<select name="modal--name--arrivaldate" id="modal--id--arrivaldate">
-										<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}">
-											<option value="${inFlightServiceResponseDtos.departureDateFormat()}" id="arrival--option">${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination}
-												${inFlightServiceResponseDtos.departureDateFormat()}</option>
+						<form>
+							<div>
+								<div>출발 일정</div>
+								<div class="modal--div--arrivaldate">
+									<div id="inFlight--arrival">
+										<!-- db 안에 들어있는 departureDate는 format 전의 값이니까 2023/05/18 -> 2023년05월18일 -->
+										<select name="modal--name--arrivaldate" id="modal--id--arrivaldate">
+											<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}">
+												<option value="${inFlightServiceResponseDtos.departureDateFormat()}" id="arrival--option">${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination}
+													${inFlightServiceResponseDtos.departureDateFormat()}</option>
+											</c:forEach>
+										</select> <br>
+									</div>
+								</div>
+							</div>
+
+							<div>
+								<div>종류</div>
+								<div class="modal--ifmdName">
+									<div id="inFlightMeals--detail">
+										<c:forEach var="inFlightMeals" items="${inFlightMeals}" varStatus="status">
+											<input type="radio" class="radio--ifmd" name="ifmdName" id="ifmdName--label${status.index}" value="${inFlightMeals.ifmdName}">
+											<label for="ifmdName--label${status.index}">${inFlightMeals.ifmdName}</label>
+											<br>
 										</c:forEach>
-									</select> <br>
+									</div>
 								</div>
 							</div>
-						</div>
 
-						<div>
-							<div>종류</div>
-							<div class="modal--ifmdName">
-								<div id="inFlightMeals--detail">
-									<c:forEach var="inFlightMeals" items="${inFlightMeals}" varStatus="status">
-										<input type="radio" class="radio--ifmd" name="ifmdName" id="ifmdName--label${status.index}" value="${inFlightMeals.ifmdName}">
-										<label for="ifmdName--label${status.index}">${inFlightMeals.ifmdName}</label>
-										<br>
-									</c:forEach>
-								</div>
+							<div>
+								<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
+								수량 &nbsp;<input type="number" id="seat--count--input" name="amount" min="1" max="${inFlightServiceResponseDtos.get(0).seatCount}">
 							</div>
-						</div>
-
-						<div>
-							<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
-							수량 &nbsp;<input type="number" id="seat--count--input" name="amount" min="1" max="${inFlightServiceResponseDtos.get(0).seatCount}">
-						</div>
+						</form>
 					</div>
 
 					<!-- Modal footer -->

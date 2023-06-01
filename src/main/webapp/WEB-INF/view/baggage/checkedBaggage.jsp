@@ -85,24 +85,25 @@
 						<!-- Modal body -->
 						<div class="modal-body">
 
-							<div>
-								<div>예약 노선 보여주기</div>
-								<div class="">
-									<select>
+							<form action="/baggage/checkedBaggageProc" method="post">
+								<div>
+									<div>예약 노선 보여주기</div>
+									<div class="">
+										<%-- <select>
 										<c:forEach var="baggageGroupBySection" items="${baggageGroupBySection}">
 											<option value="${baggageGroupBySection.section}">${baggageGroupBySection.section}
 										</c:forEach>
-									</select> <br> <select name="modal--name--arrivaldate" id="modal--id--departuredate">
-										<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}" varStatus="status">
-											<option value="${inFlightServiceResponseDtos.departureDateFormat()}" id="arrival--option">
-											<%-- ${baggageReqResponses.get(status.index).seatGradeName} |  --%>
-											${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination} ${inFlightServiceResponseDtos.departureDateFormat()}</option>
-										</c:forEach>
-									</select>
+									</select> <br> --%>
+										<select name="modal--name--arrivaldate" id="modal--id--departuredate">
+											<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}" varStatus="status">
+												<option value="${inFlightServiceResponseDtos.departureDateFormat()}_${baggageReqResponses.get(status.index).baggageId}" id="arrival--option">${baggageReqResponses.get(status.index).seatGradeName}|
+													${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination} ${inFlightServiceResponseDtos.departureDateFormat()}</option>
+											</c:forEach>
+										</select>
+									</div>
 								</div>
-							</div>
 
-							<form action="/baggage/checkedBaggageProc" method="post">
+								<input type="hidden" name="id" id="input--baggageId" value="${baggageReqResponses.get(0).baggageId}">
 								<div>
 									<div>개수 *1인당 최대 4개</div>
 									<div class="">
@@ -111,12 +112,10 @@
 								</div>
 								<div>*현장에서 추가 무게 발생시 추가 요금 발생합니다.</div>
 
-								<div></div>
-								<input type="hidden" name="brId"> <input type="hidden" name="memberId">
 								<!-- Modal footer -->
 								<div class="modal-footer">
 									<button type="submit" class="btn btn-primary">Submit</button>
-									<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+									<button type="button" class="btn btn-danger modal_close" data-dismiss="modal">Close</button>
 								</div>
 							</form>
 						</div>
