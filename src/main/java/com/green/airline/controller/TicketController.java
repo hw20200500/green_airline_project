@@ -388,8 +388,11 @@ public class TicketController {
 		
 		Integer statusCode = HttpStatus.OK.value();
 		String message = "정상적인 선택입니다.";
-		String code = "1";
-		String resultCode = "success";
+		
+		// code 또는 resultCode를 사용해서 script단에서 실행코드를 나눌 수 있음
+		// 예시 : if (code == 1) { 성공 시 코드 } else if (code == -1) { 실패 시 코드 }
+		int code = Define.CODE_SUCCESS;
+		String resultCode = Define.RESULT_CODE_SUCCESS;
 		Boolean data = false;
 		
 		ScheduleInfoResponseDto sch1 = scheduleService.readInfoDtoByScheduleId(scheduleDto.getScheduleId1());
@@ -398,10 +401,12 @@ public class TicketController {
 		// 스케줄1의 출발시간이 스케줄2의 출발시간보다 늦다면
 		// 즉, 스케줄2가 스케줄1보다 먼저라면
 		if (sch1.getDepartureDate().after(sch2.getDepartureDate())) {
+			// 상태코드
 			statusCode = HttpStatus.BAD_REQUEST.value();
+			// alert 메시지로 사용함
 			message = "첫 번째 여정과 두 번째 여정의 순서가 잘못되었습니다.\n다시 선택해주시길 바랍니다.";
-			code = "-1";
-			resultCode = "fail";
+			code = Define.CODE_FAIL;
+			resultCode = Define.RESULT_CODE_FAIL;
 			data = true;
 			
 		// 스케줄1의 도착시간이 스케줄2의 출발시간보다 늦다면
@@ -409,13 +414,12 @@ public class TicketController {
 		} else if (sch1.getArrivalDate().after(sch2.getDepartureDate())) {
 			statusCode = HttpStatus.BAD_REQUEST.value();
 			message = "첫 번째 여정과 두 번째 여정의 일정이 겹칩니다.\n다시 선택해주시길 바랍니다.";
-			code = "-1";
-			resultCode = "fail";
+			code = Define.CODE_FAIL;
+			resultCode = Define.RESULT_CODE_FAIL;
 			data = true;
 		}
 		
-		ResponseDto<Boolean> responseDto = new ResponseDto<Boolean>(statusCode, code, message, resultCode, data);
-		return responseDto;	
+		return new ResponseDto<Boolean>(statusCode, code, message, resultCode, data);	
 	}
 	
 }

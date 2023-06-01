@@ -120,4 +120,6 @@
 	select count(*) as totalRowCount from shop_product_tb where name like '%'||#{searchProduct}||'%';
 	 </if>
 	</select>
+	
+	
 </mapper>

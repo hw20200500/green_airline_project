@@ -27,7 +27,7 @@ public class RestfullExceptionHandler {
 	public String basicException(CustomRestfullException e) {
 		System.out.println(e.getCause());
 		// code : 1 / - 1
-		// mesage : 뭐가 잘못는지 설계
+		// message : 뭐가 잘못는지 설계
 		// data : ---
 		// 에러 발생시 에러 DTO 설계 - 통일 ( T data)
 		StringBuffer sb = new StringBuffer();

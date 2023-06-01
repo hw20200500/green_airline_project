@@ -1024,9 +1024,9 @@ $("#selectSeatBtn").on("click", function() {
 			dataType: 'json',
 			async: false   // 이거 해주니까 ajax 기다렸다가 아래에 return result 실행
 		})
-		.done(async (res) => {
+		.done((res) => {
 			// 일정 선택에 문제가 있다면
-			if (res.data) {
+			if (res.code == -1) {
 				alert(res.message);
 				result = false;
 			}

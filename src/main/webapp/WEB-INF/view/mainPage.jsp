@@ -10,7 +10,7 @@
 	</c:otherwise>
 </c:choose>
 
-<link rel="stylesheet" href="/css/mainPage.css">
+<link rel="stylesheet" href="/css/main_page.css">
 
 <div class="main--img--div">
 	<div style="width: 1178px; margin-left: 24px;">

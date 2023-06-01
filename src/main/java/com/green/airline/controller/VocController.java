@@ -205,10 +205,10 @@ public class VocController {
 		
 		// 삭제가 성공했다면
 		if (data == 1) {
-			response = new ResponseDto<Integer>(HttpStatus.OK.value(), "1", "삭제 성공", "success", data);
+			response = new ResponseDto<Integer>(HttpStatus.OK.value(), Define.CODE_SUCCESS, "삭제 성공", Define.RESULT_CODE_SUCCESS, data);
 		// 삭제가 실패했다면
 		} else {
-			response = new ResponseDto<Integer>(HttpStatus.OK.value(), "0", "삭제 실패", "fail", data);
+			response = new ResponseDto<Integer>(HttpStatus.OK.value(), Define.CODE_FAIL, "삭제 실패", Define.RESULT_CODE_FAIL, data);
 		}
 		
 		return response;

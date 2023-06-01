@@ -33,4 +33,14 @@ public class Define {
 	public static int childPriceRate() {
 		return (int) (CHILD_PRICE_RATE * 100);
 	}
+	
+	
+	// ResponseDto의 resultCode에 사용할 상수
+	public final static String RESULT_CODE_SUCCESS = "success";
+	public final static String RESULT_CODE_FAIL = "fail";
+	
+	public final static int CODE_SUCCESS = 1;
+	public final static int CODE_FAIL = -1;
+	
+	
 }
