@@ -337,10 +337,9 @@ CREATE TABLE gifticon_revoke_tb(
 
 create table mileage_tb(
 id int primary key auto_increment,
-use_date DATE ,
+mileage_date DATE ,
 use_mileage BIGINT,
 description TEXT,
-save_date DATE,
 expiration_date DATE,
 save_mileage BIGINT,
 balance BIGINT,

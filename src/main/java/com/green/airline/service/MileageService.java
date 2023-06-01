@@ -1,5 +1,9 @@
 package com.green.airline.service;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +55,16 @@ public class MileageService {
 		 * mileageRepository.insertMileage(); return saveMileageDto; }
 		 */
 	
+	public Mileage readExprirationBalanceByMemberId(String memberId,Timestamp ts) {
+		
+		Mileage mileage = mileageRepository.selectExprirationBalanceByMemberId(memberId,ts);
+		return mileage;
+	}
+public Mileage readSaveBalanceByMemberId(String memberId,Timestamp ts) {
+		
+		Mileage mileage = mileageRepository.selectSaveBalanceByMemberId(memberId,ts);
+		return mileage;
+	}
 	public void readNowMileage(String memberId, int price ,int productId){
 		int usemileage = price;// 결제 할 마일리지
 		List<Mileage> mileageList = mileageRepository.selectNowMileage(memberId);
