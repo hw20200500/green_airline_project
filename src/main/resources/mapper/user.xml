@@ -45,7 +45,7 @@
 	</update>
 	
 	<delete id="deleteSocialUserById">
-		delete user_tb where id = #{id}
+		delete from user_tb where id = #{id}
 	</delete>
 	
 </mapper>

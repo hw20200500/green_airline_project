@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.green.airline.dto.request.BaggageReqRequest;
 import com.green.airline.dto.response.BaggageReqResponse;
 import com.green.airline.dto.response.InFlightMealResponseDto;
+import com.green.airline.dto.response.InFlightServiceResponseDto;
 import com.green.airline.repository.model.BaggageMiss;
 import com.green.airline.repository.model.BaggageRequest;
 import com.green.airline.repository.model.CarryOnLiquids;
@@ -72,10 +73,9 @@ public class BaggageController {
 
 		List<BaggageReqResponse> baggageGroupBySection = baggageRequestService.readBaggageReqGroupBySection();
 		model.addAttribute("baggageGroupBySection", baggageGroupBySection);
-		
-		
+
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-		
+
 		if (principal == null) {
 			model.addAttribute("baggageReqResponses", null); // 로그인이 안되어 있을 시 데이터 출력이 안되도록 하기 위해 --> 인증처리(인터셉터)
 			model.addAttribute("isLogin", false); // 로그인이 안되어 있을 시 얼럿창을 띄워주기 위해
@@ -84,13 +84,14 @@ public class BaggageController {
 		} else {
 			List<BaggageReqResponse> baggageReqResponses = baggageRequestService
 					.readBaggageReqByMemberId(principal.getId());
+			System.out.println("baggageReqResponses" + baggageReqResponses);
 			model.addAttribute("baggageReqResponses", baggageReqResponses);
 			model.addAttribute("isLogin", true);
 
 			List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
 					.readInFlightMealSchedule(principal.getId());
 			model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
-
+			System.out.println("inFlightServiceResponseDtos : " + inFlightServiceResponseDtos);
 		}
 
 		return "/baggage/checkedBaggage";

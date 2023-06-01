@@ -1,25 +1,24 @@
 $(document).ready(function() {
 
 	$(".search--btn").on("click", function() {
-		let keyword = $("#keyword").val();
-		console.log(keyword);
+		let keyword = $("#keyword").val().replaceAll(" ", "");
 
-		if (keyword == null) {
-			alert("키워드를 입력하세요.");
-		} else {
-			location.href = "/faq/faqSearch?keyword=" + keyword;
-		}
-
+		if (keyword == "") {
+			return false;
+		} 
 	});
 
+	/* 엔터키 누르면 공백 검색 안되도록 막기*/
+	$("#keyword").on("keyup", function(e) {
+		let keyword = $("#keyword").val().replaceAll(" ", "");
 
-	$(".search--btn").on("click", function() {
-		let faqList = $(".faq--faqList--wrap").val();
-		if (faqList == ' ' || faqList == '') {
-			$(".search--btn").attr("type", "button");
-		} else {
-			$(".search--btn").attr("type", "submit");
+		if (e.keyCode == '13') {
+
+			if (keyword == "") {
+				e.preventDefault();
+			} 
 		}
+
 	});
 
 

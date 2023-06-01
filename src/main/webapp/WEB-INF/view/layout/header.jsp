@@ -130,7 +130,7 @@
 								<li><a href="/inFlightService/inFlightServiceSpecial">특별 기내식</a>
 								<li><a href="/baggage/guide">수하물 안내</a>
 								<li><a href="/baggage/baggageMiss">수하물 유실 (임시)</a>
-								<li><a href="#">기내 서비스 신청 내역</a>
+								<li><a href="/myReqService">특별 기내식 신청 내역</a>
 								<li><a href="/userPwCheck?type=userUpdate">회원 정보 수정</a>
 								<li><a href="/userPwCheck?type=userWithdraw">탈퇴</a>
 							</ul>
@@ -141,7 +141,7 @@
 								<li><a href="#">세부메뉴</a>
 								<li><a href="#">세부메뉴</a>
 								<li><a href="#">세부메뉴</a>
-								<li><a href="#">세부메뉴</a>
+								<li><a href="/myReqBaggage">위탁 수하물 신청 내역</a>
 								<li><a href="/changePw">비밀번호 변경</a>
 							</ul>
 							<div class="nav--split"></div>

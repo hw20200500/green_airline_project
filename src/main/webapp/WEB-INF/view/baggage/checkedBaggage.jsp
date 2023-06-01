@@ -94,8 +94,9 @@
 										</c:forEach>
 									</select> <br> <select name="modal--name--arrivaldate" id="modal--id--departuredate">
 										<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}" varStatus="status">
-											<option value="${inFlightServiceResponseDtos.departureDateFormat()}" id="arrival--option">${baggageReqResponses.get(status.index).seatGradeName}|
-												${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination} ${inFlightServiceResponseDtos.departureDateFormat()}</option>
+											<option value="${inFlightServiceResponseDtos.departureDateFormat()}" id="arrival--option">
+											<%-- ${baggageReqResponses.get(status.index).seatGradeName} |  --%>
+											${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination} ${inFlightServiceResponseDtos.departureDateFormat()}</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -105,7 +106,7 @@
 								<div>
 									<div>개수 *1인당 최대 4개</div>
 									<div class="">
-										 <input type="number" name="amount" min="1" id="seat--count--input" max="${inFlightServiceResponseDtos.get(0).seatCount * 4}">
+										<input type="number" name="amount" min="1" id="seat--count--input" max="${inFlightServiceResponseDtos.get(0).seatCount * 4}">
 									</div>
 								</div>
 								<div>*현장에서 추가 무게 발생시 추가 요금 발생합니다.</div>

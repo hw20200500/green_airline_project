@@ -6,14 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.green.airline.dto.request.FaqSearchDto;
 import com.green.airline.dto.response.FaqResponseDto;
 import com.green.airline.repository.model.FaqCategory;
 import com.green.airline.service.FaqService;
-import com.green.airline.utils.PagingObj;
 
 @Controller
 @RequestMapping("/faq")
@@ -36,8 +35,8 @@ public class FaqController {
 
 	// faq 검색 기능
 	@GetMapping("/faqSearch")
-	public String faqSearch(@RequestParam String keyword, Model model) {
-		List<FaqResponseDto> faqResponseDtos = faqService.readFaqByKeyword(keyword);
+	public String faqSearch(FaqSearchDto faqSearchDto, Model model) {
+		List<FaqResponseDto> faqResponseDtos = faqService.readFaqByKeyword(faqSearchDto.getKeyword());
 		List<FaqCategory> categories = faqService.readFaqCategory();
 
 		model.addAttribute("faqResponseDtos", faqResponseDtos);
@@ -45,14 +44,5 @@ public class FaqController {
 
 		return "/faq/faqList";
 	}
-
-//	@GetMapping("/faqDelete")
-//	public String faqDelete(@RequestParam Integer id, Model model) {
-//		FaqResponseDto faqResponseDto = faqService.readFaqById(id);
-//		faqService.deleteFaqById(id);
-//
-//		model.addAttribute("faqResponseDto", faqResponseDto);
-//		return "redirect:/faq/faqList";
-//	}
 
 }

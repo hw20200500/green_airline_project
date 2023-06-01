@@ -6,9 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.green.airline.dto.response.FaqResponseDto;
-import com.green.airline.repository.model.Faq;
 import com.green.airline.repository.model.FaqCategory;
-import com.green.airline.utils.PagingObj;
 
 @Mapper
 public interface FaqRepository {

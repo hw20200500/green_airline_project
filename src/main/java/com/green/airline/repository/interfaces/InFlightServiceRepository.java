@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.green.airline.dto.response.InFlightMealResponseDto;
 import com.green.airline.dto.response.InFlightServiceResponseDto;
+import com.green.airline.dto.response.SpecialMealResponseDto;
 import com.green.airline.repository.model.InFlightMeal;
 import com.green.airline.repository.model.InFlightMealDetail;
 import com.green.airline.repository.model.InFlightService;
@@ -20,7 +21,7 @@ public interface InFlightServiceRepository {
 	// 기내 서비스 검색 기능
 	List<InFlightService> selectInFlightServiceByName(String keyword);
 	
-	// 특별 기내식 조회 기능 
+	// 특별 기내식 상세 정보 name 기반 특별 기내식 조회 기능 
 	List<InFlightMealResponseDto> selectInFlightMeal(String name);
 	
 	// 특별 기내식 조회 기능
@@ -49,6 +50,15 @@ public interface InFlightServiceRepository {
 	
 	// 기내 서비스 조회시 운항 시간별 서비스 조회를 하기 위해 사용
 	List<InFlightServiceResponseDto> selectAvailableServiceByFlightHours(String flightHours);
+	
+	// 마이페이지 특별 기내식 신청 내역 조회
+	List<SpecialMealResponseDto> selectRequestMealByMemberId(String memberId);
+	
+	// 마이페이지 특별 기내식 신청 내역 조회 ) memberId, ticketId 기반 조회
+//	InFlightServiceResponseDto selectTicketByIdAndTicketId(String memberId, String ticketId);
+	
+	// id 기반 기내식 신청 취소 
+	int deleteRequestMealById(Integer id);
 	
 }
  

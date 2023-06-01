@@ -29,11 +29,16 @@ import com.green.airline.dto.request.LoginFormDto;
 import com.green.airline.dto.request.PasswordCheckDto;
 import com.green.airline.dto.request.SocialJoinFormDto;
 import com.green.airline.dto.request.UserFormDto;
+import com.green.airline.dto.response.InFlightMealResponseDto;
+import com.green.airline.dto.response.SpecialMealResponseDto;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.model.Airport;
+import com.green.airline.repository.model.InFlightMeal;
+import com.green.airline.repository.model.InFlightService;
 import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.AirportService;
+import com.green.airline.service.InFlightSvService;
 import com.green.airline.service.UserService;
 import com.green.airline.utils.Define;
 
@@ -52,6 +57,9 @@ public class UserController {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Autowired
+	private InFlightSvService inFlightSvService;
 
 	/**
 	 * @author 서영 메인 페이지
@@ -387,6 +395,42 @@ public class UserController {
 
 		// todo 마이페이지로 이동 아마 ??
 		return "redirect:/";
+	}
+
+	// 특별 기내식 신청 내역 페이지
+	@GetMapping("/myReqService")
+	public String myReqServicePage(Model model) {
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+
+		// Todo
+		// member 정보는 c:if 관리자만 보이도록, 특별 기내식 신청 정보 갖고 오기
+		List<SpecialMealResponseDto> specialMealResponseDtos = inFlightSvService
+				.readRequestMealByMemberId(principal.getId());
+		List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
+				.readInFlightMealSchedule(principal.getId());
+		
+		// 수정이라 해봤자 수량 바꾸는 거기 때문에 신청 취소 버튼이랑 신청 -> location.href 버튼 만들기
+		
+		model.addAttribute("specialMealResponseDtos", specialMealResponseDtos);
+		model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
+
+		return "/user/myReqService";
+	}
+	
+	// 특별 기내식 신청 내역 페이지 (수정 및 삭제)
+	@PostMapping("/myReqServiceDelete")
+	public String myReqServiceDeleteProc(@RequestParam Integer id) {
+		System.out.println("id : " + id);
+		inFlightSvService.deleteRequestMealById(id);
+		return "redirect:/myReqService";
+	}
+
+	// 위탁 수하물 신청 내역 페이지 (수정 및 삭제)
+	@GetMapping("/myReqBaggage")
+	public String myReqBaggagePage() {
+		// Todo
+		// member 정보, 위탁 수하물 신청 정보 갖고 오기
+		return "/user/myReqBaggage";
 	}
 
 }
