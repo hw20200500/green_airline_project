@@ -242,7 +242,7 @@ public class PaymentController {
 		// 환불 관련 DB 처리
 		ticketService.updateStatusRefund(refundDto.getTid(), refundDto.getTicketId(), refundDto.getTicketType());
 		
-		return "redirect:/ticket/list";
+		return "redirect:/ticket/list/1";
 	}
 	
 	

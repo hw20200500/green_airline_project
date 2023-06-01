@@ -33,7 +33,6 @@ import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.Passenger;
 import com.green.airline.repository.model.RefundFee;
 import com.green.airline.repository.model.ReservedSeat;
-import com.green.airline.repository.model.Ticket;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.AirportService;
 import com.green.airline.service.PassengerService;
@@ -386,14 +385,10 @@ public class TicketController {
 	@ResponseBody
 	public ResponseDto<Boolean> checkDateProc(@RequestBody ScheduleDateCheckDto scheduleDto) {
 		
-		Integer statusCode = HttpStatus.OK.value();
+		Boolean result = false;
 		String message = "정상적인 선택입니다.";
-		
-		// code 또는 resultCode를 사용해서 script단에서 실행코드를 나눌 수 있음
-		// 예시 : if (code == 1) { 성공 시 코드 } else if (code == -1) { 실패 시 코드 }
 		int code = Define.CODE_SUCCESS;
-		String resultCode = Define.RESULT_CODE_SUCCESS;
-		Boolean data = false;
+		String resultCode = "success";
 		
 		ScheduleInfoResponseDto sch1 = scheduleService.readInfoDtoByScheduleId(scheduleDto.getScheduleId1());
 		ScheduleInfoResponseDto sch2 = scheduleService.readInfoDtoByScheduleId(scheduleDto.getScheduleId2());
@@ -401,25 +396,27 @@ public class TicketController {
 		// 스케줄1의 출발시간이 스케줄2의 출발시간보다 늦다면
 		// 즉, 스케줄2가 스케줄1보다 먼저라면
 		if (sch1.getDepartureDate().after(sch2.getDepartureDate())) {
-			// 상태코드
-			statusCode = HttpStatus.BAD_REQUEST.value();
-			// alert 메시지로 사용함
+			result = true;
 			message = "첫 번째 여정과 두 번째 여정의 순서가 잘못되었습니다.\n다시 선택해주시길 바랍니다.";
 			code = Define.CODE_FAIL;
-			resultCode = Define.RESULT_CODE_FAIL;
-			data = true;
+			resultCode = "fail";
 			
 		// 스케줄1의 도착시간이 스케줄2의 출발시간보다 늦다면
 		// 즉, 스케줄1과 스케줄2의 운항시간이 겹친다면
 		} else if (sch1.getArrivalDate().after(sch2.getDepartureDate())) {
-			statusCode = HttpStatus.BAD_REQUEST.value();
+			result = true;
 			message = "첫 번째 여정과 두 번째 여정의 일정이 겹칩니다.\n다시 선택해주시길 바랍니다.";
 			code = Define.CODE_FAIL;
-			resultCode = Define.RESULT_CODE_FAIL;
-			data = true;
+			resultCode = "fail";
 		}
 		
-		return new ResponseDto<Boolean>(statusCode, code, message, resultCode, data);	
+		ResponseDto<Boolean> responseDto = new ResponseDto<>();
+		responseDto.setStatusCode(HttpStatus.OK.value());
+		responseDto.setCode(code);
+		responseDto.setMessage(message);
+		responseDto.setResultCode(resultCode);
+		responseDto.setData(result);
+		return responseDto;	
 	}
 	
 }
