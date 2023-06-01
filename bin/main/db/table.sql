@@ -43,11 +43,12 @@ CREATE TABLE manager_tb(
 );
 
 -- 공항
-CREATE TABLE airport_tb
-(
+CREATE TABLE airport_tb(
    id INT PRIMARY KEY AUTO_INCREMENT,
     region VARCHAR(50) NOT NULL,
-    name VARCHAR(50) NOT NULL UNIQUE
+    name VARCHAR(50) NOT NULL UNIQUE,
+    latitude DOUBLE NOT NULL, -- 위도
+    longitude DOUBLE NOT NULL -- 경도
 );
 
 -- 좌석 등급
@@ -273,17 +274,16 @@ CREATE TABLE faq_tb(
 	category_id INT NOT NULL, FOREIGN KEY(category_id) REFERENCES faq_category_tb(id)
 );
 
-
 -- 추천여행지 게시글
 create table recommend_board_tb
 (
-   id int PRIMARY KEY AUTO_INCREMENT,
-   title varchar (50) not null,
-   content TEXT not null,
-   user_id varchar (50) not null,
-   view_count INT not null,
-   origin_name VARCHAR (100) not null,
-   file_name VARCHAR (200) not null,
+   id INTEGER PRIMARY KEY AUTO_INCREMENT,
+   title VARCHAR (50) NOT NULL,
+   content TEXT NOT NULL,
+   user_id VARCHAR (50) NOT NULL,
+   view_count INTEGER NOT NULL,
+   origin_name VARCHAR (100) NOT NULL,
+   file_name VARCHAR (200) NOT NULL,
    created_at TIMESTAMP default now() NOT NULL,
    FOREIGN KEY (user_id) REFERENCES user_tb (id)
 );
@@ -291,9 +291,9 @@ create table recommend_board_tb
 -- 게시글 좋아요 내역
 create table like_heart_tb
 (
-   id int PRIMARY KEY AUTO_INCREMENT,
-   board_id int NOT NULL,
-   user_id varchar(50) NOT NULL,
+   id INTEGER PRIMARY KEY AUTO_INCREMENT,
+   board_id INTEGER NOT NULL,
+   user_id VARCHAR(50) NOT NULL,
    FOREIGN KEY (board_id) REFERENCES recommend_board_tb (id),
    FOREIGN KEY (user_id) REFERENCES user_tb (id)
 );
@@ -375,7 +375,6 @@ status int default 0,
 ticket_id VARCHAR(15),
 foreign key (ticket_id) references ticket_tb (id)
 );
-
 
 -- 환불 수수료
 CREATE TABLE refund_fee_tb (

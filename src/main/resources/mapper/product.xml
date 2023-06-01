@@ -121,5 +121,14 @@
 	 </if>
 	</select>
 	
+	<select id="selectSumAmountGroupByProductLimitN" resultType="com.green.airline.dto.response.ProductBrandOrderAmountDto">
+		SELECT brand, sum(amount) AS order_amount
+		FROM shop_order_tb AS o
+		JOIN shop_product_tb AS p
+		ON o.product_id = p.id
+		GROUP BY brand
+		ORDER BY order_amount DESC
+		LIMIT #{limitCount}
+	</select>
 	
 </mapper>

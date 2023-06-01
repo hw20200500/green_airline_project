@@ -1,6 +1,7 @@
 package com.green.airline.controller;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -21,11 +22,13 @@ import com.google.gson.JsonObject;
 import com.green.airline.dto.response.CountByYearAndMonthDto;
 import com.green.airline.dto.response.DestinationCountDto;
 import com.green.airline.dto.response.MonthlySalesForChartDto;
+import com.green.airline.dto.response.ProductBrandOrderAmountDto;
 import com.green.airline.dto.response.VocCountByTypeDto;
 import com.green.airline.dto.response.VocInfoDto;
 import com.green.airline.repository.model.Memo;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.MemoService;
+import com.green.airline.service.ProductService;
 import com.green.airline.service.RouteService;
 import com.green.airline.service.TicketPaymentService;
 import com.green.airline.service.UserService;
@@ -50,6 +53,9 @@ public class ManagerController {
 	
 	@Autowired
 	private RouteService routeService;
+	
+	@Autowired
+	private ProductService productService;
 	
 	@Autowired
 	private HttpSession session;
@@ -83,6 +89,7 @@ public class ManagerController {
 		String salesData = gson.toJson(jsonArray);
 		model.addAttribute("salesData", salesData);
 		
+		
 		// 지난 달에 작성된 고객의 말씀 유형별 개수
 		List<VocCountByTypeDto> vocCountList = null;
 		// 만약 저번 달이 12월이라면
@@ -105,6 +112,7 @@ public class ManagerController {
 		String vocData = gson.toJson(jsonArray2);
 		model.addAttribute("vocData", vocData);
 		
+		
 		// 도착지별 이용객 수 순위
 		List<DestinationCountDto> routeCountList = routeService.readGroupByDestinationLimitN(12);
 		
@@ -120,6 +128,25 @@ public class ManagerController {
 		}
 		String routeData = gson.toJson(jsonArray3);
 		model.addAttribute("routeData", routeData);
+		
+		
+		// 마일리지샵 구매량 상위 n개 브랜드
+		List<ProductBrandOrderAmountDto> brandList = productService.readTopNBrand(5);
+		Collections.reverse(brandList);
+		
+		// JSON으로 변환
+		JsonArray jsonArray4 = new JsonArray();
+		Iterator<ProductBrandOrderAmountDto> it4 = brandList.iterator();
+		while (it4.hasNext()) {
+			ProductBrandOrderAmountDto dto = it4.next();
+			JsonObject object = new JsonObject();
+			object.addProperty("brand", dto.getBrand());
+			object.addProperty("orderAmount", dto.getOrderAmount());
+			jsonArray4.add(object);
+		}
+		String brandData = gson.toJson(jsonArray4);
+		model.addAttribute("brandData", brandData);
+		
 		
 		// 이번 달 매출액
 		MonthlySalesForChartDto nowMonthSales = ticketPaymentService.readSalesByThisMonth(year, nowMonth);
@@ -146,6 +173,7 @@ public class ManagerController {
 		Long salesDiff = nowMonthSalesValue - lastMonthSalesValue;
 		model.addAttribute("salesDiff", salesDiff);
 		
+		
 		// 이번 달 신규 회원 수
 		Integer newUserCount = 0;
 		CountByYearAndMonthDto newCountDto = userService.readNewUserCount(year, nowMonth);
@@ -154,6 +182,7 @@ public class ManagerController {
 			newUserCount = newCountDto.getCount();
 		}
 		model.addAttribute("newUserCount", newUserCount);
+		
 		
 		// 이번 달 탈퇴 회원 수
 		Integer withdrawUserCount = 0;
@@ -164,6 +193,7 @@ public class ManagerController {
 		}
 		model.addAttribute("withdrawUserCount", withdrawUserCount);
 		
+		
 		// 이번 달에 작성된 고객의 말씀 수
 		Integer vocCount = 0;
 		CountByYearAndMonthDto vocCountDto = vocService.readWriteCount(year, nowMonth);
@@ -173,9 +203,11 @@ public class ManagerController {
 		}
 		model.addAttribute("vocCount", vocCount);
 		
+		
 		// 해당 관리자의 메모 불러오기
 		Memo memo = memoService.readByManagerId(managerId);
 		model.addAttribute("memo", memo);
+		
 		
 		// 처리되지 않은 고객의 말씀 리스트 최근순 5개
 		List<VocInfoDto> vocList = vocService.readVocListLimit(0, 0, 5);

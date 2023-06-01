@@ -22,15 +22,20 @@ $(document).ready(function() {
 			}
 			$(".board--heartCount").text(board.heartCount);
 			$(".board--date").text(date.text());
+
 			// boardId 값 보내기
 			$(".board--heartCount").attr("boardId", boardId);
+
+			// update시 수정할 게시물 번호 설정
+			$("input[name=\"boardId\"]").val(board.id);
+
 		}).fail((error) => {
 			console.log(error);
 		});
 	});
 });
 
-// 찜 클릭
+// 좋아요 클릭
 $(document).on("click", ".board--heartCount", function() {
 	let boardId = parseInt($(this).attr("boardId"));
 
@@ -52,3 +57,22 @@ $(document).on("click", ".board--heartCount", function() {
 	});
 });
 
+// 게시글 수정
+$(document).ready(function() {
+	$("#updateButton").on("click", function() {
+		let boardId = $("input[name=\"boardId\"]").val();
+
+		location.href = `/board/update/${boardId}`;
+
+	});
+});
+
+// 게시글 삭제
+$(document).ready(function() {
+	$("#deleteButton").on("click", function() {
+		let boardId = $("input[name=\"boardId\"]").val();
+
+		location.href = `/board/delete/${boardId}`;
+
+	});
+});

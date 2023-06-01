@@ -126,6 +126,7 @@
 	.list--table th, .list--table td {
 		font-size: 15px;
 		padding: 2px;
+		color: #404040;
 	}
 	
 	.important--span {
@@ -157,6 +158,13 @@
 		margin-top: 20px;
 		width: 330px;
 		height: 190px;
+	}
+	
+	#brandChart {
+		margin-left: -5px;
+		margin-top: 30px;
+		width: 300px;
+		height: 180px;
 	}
 </style>
 
@@ -224,7 +232,8 @@
 	</div>
 	<div class="d-flex justify-content-between" style="width: 100%;">
 		<div class="middle--board" style="height: 260px;">
-			<h5 class="board--title">마일리지샵 인기 상품</h5>
+			<h5 class="board--title">마일리지샵 인기 브랜드</h5>
+			<canvas id="brandChart"></canvas>
 		</div>	
 		<div class="middle--board" style="height: 260px;">
 			<h5 class="board--title">지난 달 고객의 말씀 비율</h5>
@@ -373,7 +382,7 @@
 			datasets: [{
 				// label: 범례 이름
 				data: valueList2,
-				backgroundColor: ['#afcedc', '#ceddd9', '#a4bac9', '#d1d1e0']
+				backgroundColor: ['#afcedc', '#ceddd9', '#E1E9ED', '#d1d1e0']
 			}]
 	};
 	
@@ -442,6 +451,9 @@
 			},
 			scales: {
 				yAxes: [{
+					ticks: {
+						fontSize: 12
+					},
 					gridLines: {
 						display: false // 그리드 선 제거
 					}
@@ -462,8 +474,59 @@
 		}
 	});
 	
+	// 마일리지샵 구매량 상위 n개 브랜드
+	let brandData = JSON.parse(JSON.stringify(${brandData}));
 	
+	let labelList4 = new Array();
+	let valueList4 = new Array();
 	
+	for (let i = 0; i < brandData.length; i++) {
+		let target = brandData[i];
+		labelList4.push(target.brand);
+		valueList4.push(target.orderAmount);
+	}
+	
+	let data4 = {
+			labels: labelList4,
+			datasets: [{
+				data: valueList4,
+				backgroundColor: ['#E1E7EA', '#DFEAF1', '#C8E2ED', '#A8CEDF', '#8BBAD0']
+			}]
+	};
+	
+	let brandContext = document.getElementById('brandChart').getContext('2d');
+	new Chart(brandContext, {
+		type: 'bar', // 가로형 막대 그래프 
+		data: data4,
+		options: {
+			responsive: false, // canvas에 너비/높이 주면 차트를 원하는 크기로 조정 가능
+			tooltips: {
+				enabled: false
+			},
+			scales: {
+				yAxes: [{
+	            	display: false, // y축 없애기
+					gridLines: {
+						display: false // 그리드 선 제거
+					}
+				}],
+				xAxes: [{
+					ticks: {
+						fontSize: 10
+					},
+					gridLines: {
+						display: false // 그리드 선 제거
+					}
+				}]
+			},
+			title: { // 차트 대제목 숨김
+				display: false
+			},
+			legend: {
+				display: false
+			}
+		}
+	});
 	
 	// 메모 갱신
 	$("#memoArea").on("blur", function() {

@@ -9,5 +9,7 @@ public class Airport {
 	private Integer id;
 	private String region;
 	private String name;
+	private double latitude;
+	private double longitude;
 	
 }

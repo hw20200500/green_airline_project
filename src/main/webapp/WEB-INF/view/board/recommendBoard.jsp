@@ -44,9 +44,9 @@
 .td--board {
 	padding: 10px 20px;
 }
-.board--table{
+
+.board--table {
 	flex-wrap: wrap;
-	
 }
 </style>
 <main>
@@ -78,8 +78,15 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
-	<button type="button" class="btn btn-primary"
-		onclick="location.href='/board/insert'">글 쓰기</button>
+	<c:choose>
+		<c:when test="${principal != null}">
+			<button type="button" class="btn btn-primary"
+				onclick="location.href='/board/insert'">글 쓰기</button>
+		</c:when>
+		<c:otherwise>
+			<%-- 미로그인시 버튼 안보이게 처리 --%>
+		</c:otherwise>
+	</c:choose>
 </main>
 <%-- Modal --%>
 <div class="modal fade" id="modalDetail" data-backdrop="static"
@@ -97,6 +104,22 @@
 			</div>
 			<div class="modal-body">
 				<%-- 모달 내용 입력 --%>
+				<!-- 
+				TODO
+				1. id null 값 확인해서 고치기
+				2. 수정 할 화면 불러오기 (게시물 번호로 title, content 불러오기)
+				3. principal == userId 확인해서 내가 쓴 게시물만 수정, 삭제버튼 나오게하기
+				 -->
+				<c:choose>
+					<c:when test="${principal != null}">
+						<input type="hidden" name="boardId">
+						<button type="button" class="btn btn-primary" id="updateButton">수정하기</button>
+						<button type="button" class="btn btn-primary" id="deleteButton">삭제하기</button>
+					</c:when>
+					<c:otherwise>
+
+					</c:otherwise>
+				</c:choose>
 				<div class="board--title"></div>
 				<div class="board--content"></div>
 				<div class="board--userId"></div>
