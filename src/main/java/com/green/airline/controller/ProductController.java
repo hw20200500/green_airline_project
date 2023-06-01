@@ -275,8 +275,6 @@ public class ProductController {
 		GifticonDto gifticonDto = new GifticonDto();
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		String memberId = principal.getId();
-		gifticonDto.setOrderId(productService.readShopOrder(principal.getId()).getId());
-		productService.createGifticon(gifticonDto);
 		
 		shopOrderDto.setMemberId(principal.getId());
 		// 구매 내역
@@ -284,6 +282,9 @@ public class ProductController {
 		mileage.setBalance(productService.readMileage(principal.getId()).getBalance());
 		
 		productService.createByUserId(shopOrderDto);
+		
+		gifticonDto.setOrderId(productService.readShopOrder(principal.getId()).getId());
+		productService.createGifticon(gifticonDto);
 		
 		int totalPrice = shopProductDto.getProductPrice() * shopOrderDto.getAmount();
 		

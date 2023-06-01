@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>그린항공ㅣGREEN AIRLINES</title>
+<title>그린항공ㅣMANAGER</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/css/layoutManager.css">
 

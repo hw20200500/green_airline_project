@@ -72,11 +72,11 @@ values('2023-03-05',100,'기프티콘','abc'),
 
 
 insert into shop_order_tb(amount,product_id,member_id)
-VALUES(1000,1,'abc'),
-(1000,2,'abc'),
-(1000,3,'abc'),
-(1000,4,'abc'),
-(1000,5,'abc');
+VALUES(1,1,'abc'),
+(1,2,'abc'),
+(1,3,'abc'),
+(1,4,'abc'),
+(1,5,'abc');
 
 
 	insert into gifticon_tb(end_date,order_id)
