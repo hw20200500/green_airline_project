@@ -385,7 +385,7 @@
 			responsive: false, // canvas에 너비/높이 주면 차트를 원하는 크기로 조정 가능
 			tooltips: {
 				mode: "index",
-				intersect: false // 가까이 가면 툴팁 보이게
+				intersect: true
 			},
 			scales: {
 				yAxes: [{
@@ -438,7 +438,7 @@
 			responsive: false, // canvas에 너비/높이 주면 차트를 원하는 크기로 조정 가능
 			tooltips: {
 				mode: "index",
-				intersect: true // 가까이 가면 툴팁 보이게
+				intersect: true 
 			},
 			scales: {
 				yAxes: [{

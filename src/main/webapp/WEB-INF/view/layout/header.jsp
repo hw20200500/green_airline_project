@@ -155,7 +155,7 @@
 							</ul>
 							<div class="nav--split"></div>
 							<ul>
-								<li><a href="/product/productMain">마일리지 사용몰</a>
+								<li><a href="/product/productMain/clasic">마일리지 사용몰</a>
 								<li><a href="/product/registration">상품 등록</a>
 								<li><a href="/mileage/selectAll">마일리지 조회</a>
 								<li><a href="/mileage/request">마일리지 신청</a>

@@ -47,7 +47,7 @@
 						<ul class="nav--depth1">
 							<li><a href="#">회원관리</a></li>
 							<li><a href="/inFlightService/inFlightServiceSearch">기내서비스</a></li>
-							<li><a href="/product/productMain">마일리지</a></li>
+							<li><a href="/product/productMain/clasic">마일리지</a></li>
 							<li><a href="/notice/noticeList">고객센터</a></li>
 						</ul>
 					</div>
