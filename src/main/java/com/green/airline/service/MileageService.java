@@ -65,12 +65,17 @@ public Mileage readSaveBalanceByMemberId(String memberId,Timestamp ts) {
 		Mileage mileage = mileageRepository.selectSaveBalanceByMemberId(memberId,ts);
 		return mileage;
 	}
+
+public List<Mileage> readMileageTbOrderByMileageDateByMemberId(String memberId) {
+	List<Mileage> mileage = mileageRepository.selectMileageTbOrderByMileageDateByMemberId(memberId);
+	
+	return mileage;
+}
 	public void readNowMileage(String memberId, int price ,int productId){
 		int usemileage = price;// 결제 할 마일리지
 		List<Mileage> mileageList = mileageRepository.selectNowMileage(memberId);
 		Mileage mileageId = mileageRepository.selectMileageByMemberId(memberId);
 		GifticonDto gifticonDto = gifticonRepository.selectGifticonLimit();
-		System.out.println(gifticonDto.getId());
 		for (Mileage mileage : mileageList) {
 			if(mileage.getBalance() >= usemileage) {
 			int updatemileage = mileage.getBalance() - usemileage;

@@ -1,18 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 .main--img--div {
-	width: 100vw;
+	width: 100%;
 	height: 450px;
 	background-size: 100%;
 	position: relative;
 	background: url("../images/321.jpg");
 	background-size: cover;
+	margin-top: -30px;
 }
-
+main{
+	padding: 0;
+	margin-bottom: -16px;
+}
 .main--img--div::before {
 	content: "";
 	opacity: 0.45;
@@ -40,7 +44,7 @@
 	padding-left: 500px;
 	padding-top: 125px;
 	position: absolute;
-	Transform: translateX(130%);
+	Transform: translateX(100%);
 }
 
 .my--centor {
@@ -49,7 +53,7 @@
 	padding-left: 500px;
 	padding-top: 125px;
 	position: absolute;
-	Transform: translateX(40%);
+	Transform: translateX(50%);
 }
 
 #piechart {
@@ -63,9 +67,7 @@
 	position: absolute;
 }
 
-.material-symbols-outlined {
-	color: white;
-}
+
 
 .mileage {
 	font-size: 1.5em;
@@ -82,7 +84,7 @@
 	padding: 20px 0 100px;
 	margin: 0 auto;
 	background-color: #f0f0f0;
-	height: 100vw;
+	height: 710px;
 }
 
 .my--detail--top {
@@ -191,7 +193,9 @@
 	width: 500px;
 	padding: 35px 39px 35px 37px;
 }
-
+.my--mileage--list td{
+	padding: 7px;
+}
 .etc--box {
 	display: flex;
 	flex-wrap: wrap;
@@ -205,6 +209,9 @@
 	background-color: white;
 	padding: 20px 0px 0px 24px;
 	margin: 5px;
+}
+.add--circle{
+	color: white;
 }
 </style>
 
@@ -227,7 +234,7 @@
 					<c:choose>
 						<c:when test="${mileage.balanceNumber() != null}">
 							<p>
-								소멸 예정 마일리지 <a href="/mileage/selectAll"><span class="material-symbols-outlined">add_circle</span></a>
+								소멸 예정 마일리지 <a href="/mileage/selectAll"><span class="material-symbols-outlined add--circle" >add_circle</span></a>
 							</p>
 							<p>${mileage.balanceNumber()}</p>
 						</c:when>
@@ -281,18 +288,24 @@
 						<div class="my--mileage--list">
 							<h3>최근 마일리지 현황</h3>
 							<hr width="100%" color="#ccc" noshade />
-
+							<table>
+							<tr>
+								<th>날짜</th>
+								<th>가격</th>
+								<th>사용처</th>
+							</tr>
+						<c:forEach items="${mileages}" var="mileages">
+						<tr>
+						
+							<td><c:set var="mileages.mileageDate" value="<%=new java.util.Date()%>" />
+						<fmt:formatDate value="${mileages.mileageDate}" pattern="YYYY-MM-dd" type="date"/></td>
+							<td>${mileages.useMileage}</td>
+							<td>${mileages.description}</td>
+						</tr>
+						</c:forEach>
+						</table>
 						</div>
-						<div class="etc--box">
-							<ul>
-								<li><a href="#">회원정보 수정</a></li>
-								<li><a href="#">회원정보 수정</a></li>
-								<li><a href="#">회원정보 수정</a></li>
-								<li><a href="#">회원정보 수정</a></li>
-							</ul>
-							<!-- 							<a href="#">회원정보 수정</a> <a href="#">회원정보 수정</a> <a href="#">회원정보 수정</a> <a href="#">회원정보 수정</a>
- -->
-						</div>
+					
 					</div>
 
 				</div>

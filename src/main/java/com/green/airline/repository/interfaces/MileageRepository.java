@@ -39,5 +39,6 @@ public interface MileageRepository {
 	public int updateBalanceById(@Param("mileage")Mileage mileage,@Param("id") int id);
 	public Mileage selectExprirationBalanceByMemberId(@Param("memberId") String memberId,@Param("ts")Timestamp ts);
 	public Mileage selectSaveBalanceByMemberId(@Param("memberId") String memberId,@Param("ts")Timestamp ts);
+	public List<Mileage> selectMileageTbOrderByMileageDateByMemberId(String memberId);
 	// Repository에서 파라미터 여러 개 쓸 때는 @Param 꼭 써야 되는 거 기억
 }

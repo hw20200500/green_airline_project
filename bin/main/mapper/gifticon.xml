@@ -42,6 +42,9 @@
 		update gifticon_tb set status = 1 where id = #{gifticonId}
 	</update>
 
-
+<!-- 마이페이지 구매한 기프티콘 수량 조회 -->
+<select id="">
+	select count(*)
+</select>
 
 </mapper>

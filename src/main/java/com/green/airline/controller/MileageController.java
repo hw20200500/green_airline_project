@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.green.airline.dto.SaveMileageDto;
 import com.green.airline.dto.UseMileageDto;
 import com.green.airline.dto.response.TicketAllInfoDto;
+import com.green.airline.repository.model.Mileage;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.MileageService;
 import com.green.airline.service.TicketService;
@@ -41,10 +42,12 @@ public class MileageController {
 		SaveMileageDto saveMileage = mileageService.readSaveMileage(memberId);
 		UseMileageDto useMileage = mileageService.readUseMileage(memberId);
 		SaveMileageDto extinctionMileage = mileageService.readExtinctionMileage(memberId);
-
+		List<Mileage> mileages = mileageService.readMileageTbOrderByMileageDateByMemberId(memberId);
 		model.addAttribute("saveMileage", saveMileage);
 		model.addAttribute("useMileage", useMileage);
 		model.addAttribute("extinctionMileage", extinctionMileage);
+		model.addAttribute("mileages", mileages);
+		System.out.println("mileages : " + mileages);
 		return "/myPage/mileage";
 	}
 

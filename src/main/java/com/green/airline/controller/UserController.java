@@ -3,6 +3,7 @@ package com.green.airline.controller;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -279,27 +280,30 @@ public String updatePasswordById(String password,String userId) {
 	 * @return
 	 */
 	@GetMapping("/userMain")
-	public String userMainPage(Model model,Timestamp ts) {
+	public String userMainPage(Model model) {
 		User user = (User) session.getAttribute(Define.PRINCIPAL);
 		String memberId = user.getId();
 		Date date = new Date();
 		long time = date.getTime();
-		ts = new Timestamp(time);
+		Timestamp ts = new Timestamp(time);
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(ts);
 		cal.add(Calendar.DATE, 30);
 		ts.setTime(cal.getTime().getTime());
-		System.out.println("ts : " + ts);
+		
+		
 		// 현재 마일리지 조회
 		SaveMileageDto sumNowMileage = mileageService.readSaveMileage(memberId);
 		Mileage mileage = mileageService.readExprirationBalanceByMemberId(memberId,ts);
 		Mileage mileage2 = mileageService.readSaveBalanceByMemberId(memberId,ts);
 		Member member = userService.readMemberById(memberId);
+		List<Mileage> mileages = mileageService.readMileageTbOrderByMileageDateByMemberId(memberId);
 		model.addAttribute("sumNowMileage", sumNowMileage);
 		model.addAttribute("mileage", mileage);
 		model.addAttribute("mileage2", mileage2);
 		model.addAttribute("member", member);
-		System.out.println("member : " + member);
+		model.addAttribute("mileages", mileages);
+		System.out.println("mileages : " + mileages);
 		return "/myPage/myMainPage";
 	}
 	

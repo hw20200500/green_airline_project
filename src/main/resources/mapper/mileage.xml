@@ -16,7 +16,11 @@
 	</select>
 	<!-- 마이 페이지에 적립 예정 마일리지 조회 -->
 	<select id="selectSaveBalanceByMemberId" resultType="com.green.airline.repository.model.Mileage">
-		select sum(balance) as balance from mileage_tb where member_id = #{memberId} and save_date > now() and #{ts} > save_date
+		select sum(balance) as balance from mileage_tb where member_id = #{memberId} and mileage_date > now() and #{ts} > mileage_date and save_mileage is not null 
+	</select>
+	<!-- 마이페이지 마일리지 리스트 -->
+	<select id="selectMileageTbOrderByMileageDateByMemberId" resultType="com.green.airline.repository.model.Mileage">
+		SELECT * FROM MILEAGE_TB where member_id = #{memberId} order by mileage_date desc limit 5
 	</select>
 	<!-- 소멸 마일리지 합 -->
 	<select id="selectExtinctionMileage"
@@ -48,7 +52,7 @@
 	<!-- 사용 마일리지 리스트 조회 -->
 	<select id="selectUseMileageList"
 		resultType="com.green.airline.repository.model.UseMileage">
-		select * from mileage_tb where member_id = #{memberId} and use_date
+		select * from mileage_tb where member_id = #{memberId} and save_date
 		is not null;
 	</select>
 
@@ -57,12 +61,12 @@
 	<insert id="insertMileage">
 		<if test="saveMileageDto.saveMileage2 == null">
 			insert into
-			mileage_tb(save_date,expiration_date,save_mileage,balance,member_id,ticket_id)
+			mileage_tb(mileage_date,expiration_date,save_mileage,balance,member_id,ticket_id)
 			values(#{saveMileageDto.departureDate},#{saveMileageDto.expirationDate},#{saveMileageDto.saveMileage},#{saveMileageDto.saveMileage},#{saveMileageDto.memberId},#{saveMileageDto.ticketId})
 		</if>
 		<if test="saveMileageDto.saveMileage2 != null">
 			insert into
-			mileage_tb(save_date,expiration_date,save_mileage,balance,member_id,ticket_id)
+			mileage_tb(mileage_date,expiration_date,save_mileage,balance,member_id,ticket_id)
 			values(#{saveMileageDto.departureDate},#{saveMileageDto.expirationDate},#{saveMileageDto.saveMileage},#{saveMileageDto.saveMileage},#{saveMileageDto.memberId},#{saveMileageDto.ticketId}),
 			(#{saveMileageDto.departureDate},#{saveMileageDto.expirationDate},#{saveMileageDto.saveMileage2},#{saveMileageDto.saveMileage2},#{saveMileageDto.memberId},#{saveMileageDto.ticketId})
 		</if>
@@ -85,7 +89,7 @@
 	<insert id="insertUseDataList">
 		insert into
 		use_data_list_tb(save_date,date_form_expiration,mileage_from_balance,member_id,buy_mileage_id,product_id,gifticon_id)
-		values(#{saveDate},#{dateFormExpiration},#{mileageFromBalance},#{memberId},#{id},#{productId},#{gifticonId});
+		values(#{mileageDate},#{dateFormExpiration},#{mileageFromBalance},#{memberId},#{id},#{productId},#{gifticonId});
 
 	</insert>
 	<!-- 회원 등급 조회 -->
@@ -99,7 +103,7 @@
 	<select id="selectSumSaveMileageByMemberId" resultType="Long">
 		select
 		sum(save_mileage) as saveMileage from MILEAGE_TB where member_id = #{memberId}
-		and now() >= save_date;
+		and now() >= mileage_date and use_mileage is not null;
 	</select>
 	<select id="selectMileageByMemberId"
 		resultType="com.green.airline.repository.model.Mileage">
