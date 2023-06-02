@@ -28,12 +28,13 @@ CREATE TABLE member_tb(
    email VARCHAR(40),
    address VARCHAR(200),
    nationality VARCHAR(50),
-   grade VARCHAR(10) DEFAULT 'Silver', FOREIGN KEY (grade) REFERENCES member_grade_tb(name)
+   grade VARCHAR(10) DEFAULT 'Silver', 
+   FOREIGN KEY (grade) REFERENCES member_grade_tb(name)
 );
 
 -- 관리자
 CREATE TABLE manager_tb(
-   id VARCHAR(50) PRIMARY KEY,
+	id VARCHAR(50) PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
     birth_date DATE NOT NULL,
     gender VARCHAR(1) NOT NULL,
@@ -44,54 +45,50 @@ CREATE TABLE manager_tb(
 
 -- 공항
 CREATE TABLE airport_tb(
-   id INT PRIMARY KEY AUTO_INCREMENT,
-    region VARCHAR(50) NOT NULL,
-    name VARCHAR(50) NOT NULL UNIQUE,
-    latitude DOUBLE NOT NULL, -- 위도
-    longitude DOUBLE NOT NULL -- 경도
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    region VARCHAR(50) NOT NULL COMMENT '지역',
+    name VARCHAR(50) NOT NULL UNIQUE COMMENT '공항',
+    latitude DOUBLE NOT NULL COMMENT '위도', 
+    longitude DOUBLE NOT NULL COMMENT '경도'
 );
 
 -- 좌석 등급
-create table seat_grade_tb
-(
-   name varchar (10) primary key not null,
-   price_multiple int not null
+CREATE TABLE seat_grade_tb (
+   name VARCHAR(10) PRIMARY KEY,
+   price_multiple INT NOT NULL COMMENT '가격 배수 (기준 : 이코노미)'
 );
 
 -- 비행기
-create table airplane_tb
-(
-   id int primary key AUTO_INCREMENT not null,
-   name varchar (20) not null
+CREATE TABLE airplane_tb (
+   id INT PRIMARY KEY AUTO_INCREMENT,
+   name VARCHAR(20) NOT NULL COMMNET '모델명'
 );
 
 -- 좌석
-create table seat_tb(
-    airplane_id int not null,
-    name varchar(10) not null,
-    grade varchar(10) not null,
+CREATE TABLE seat_tb (
+    airplane_id INT NOT NULL,
+    name VARCHAR(10) NOT NULL COMMENT '좌석명',
+    grade VARCHAR(10) NOT NULL COMMENT '좌석등급',
     PRIMARY KEY (airplane_id, name),
-    foreign key (grade) references seat_grade_tb(name),
-    foreign key (airplane_id) references airplane_tb(id)
+    FOREIGN KEY (airplane_id) REFERENCES airplane_tb (id),
+    FOREIGN KEY (grade) REFERENCES seat_grade_tb(name)
 );
 
 -- 노선
-create table route_tb
-(
-   id int primary key auto_increment not null,
-   departure varchar(50) not null,
-   destination varchar(50) not null,
-   flight_time varchar(50) not null,
-   type TINYINT NOT NULL,
-   foreign key (departure) references airport_tb (name),
-   foreign key (destination) references airport_tb (name)
+CREATE TABLE route_tb (
+   id INT PRIMARY KEY AUTO_INCREMENT,
+   departure VARCHAR(50) NOT NULL COMMENT '출발공항',
+   destination VARCHAR(50) NOT NULL COMMENT '도착공항',
+   flight_time VARCHAR(50) NOT NULL COMMENT '운항시간 : h시간 mm분',
+   type TINYINT NOT NULL COMMENT '1 : 국내선, 2 : 국제선',
+   FOREIGN KEY (departure) REFERENCES airport_tb (name),
+   FOREIGN KEY (destination) REFERENCES airport_tb (name)
 );
 
 -- 운항시간별 티켓 가격
-create table ticket_price_tb
-(
-   flight_hours int primary key not null,
-   price bigint not null
+CREATE TABLE ticket_price_tb (
+   flight_hours INT PRIMARY KEY COMMENT '운항시간 : h',
+   price BIGINT NOT NULL
 );
 
 -- 운항 일정
@@ -118,7 +115,8 @@ CREATE TABLE ticket_tb(
     FOREIGN KEY(member_id) REFERENCES member_tb(id),
     schedule_id INT NOT NULL, 
     FOREIGN KEY(schedule_id) REFERENCES schedule_tb(id),
-    reserved_date TIMESTAMP NOT NULL DEFAULT now()
+    reserved_date TIMESTAMP NOT NULL DEFAULT now(),
+    payment_type TINYINT NOT NULL DEFAULT 0
 );
 
 -- 예약 좌석
@@ -275,7 +273,7 @@ CREATE TABLE faq_tb(
 );
 
 -- 추천여행지 게시글
-create table recommend_board_tb
+CREATE TABLE recommend_board_tb
 (
    id INTEGER PRIMARY KEY AUTO_INCREMENT,
    title VARCHAR (50) NOT NULL,
@@ -289,7 +287,7 @@ create table recommend_board_tb
 );
 
 -- 게시글 좋아요 내역
-create table like_heart_tb
+CREATE TABLE like_heart_tb
 (
    id INTEGER PRIMARY KEY AUTO_INCREMENT,
    board_id INTEGER NOT NULL,
@@ -311,7 +309,7 @@ CREATE TABLE shop_product_tb
 );
 
 -- 마일리지 샵 주문 내역
-create table shop_order_tb
+CREATE TABLE shop_order_tb
 (
    id int primary key auto_increment,
    amount int not null,
@@ -322,7 +320,7 @@ create table shop_order_tb
 );
 
 -- 기프티콘
-create table gifticon_tb(
+CREATE TABLE gifticon_tb(
    id int primary key auto_increment,
     start_date date not null default (CURRENT_DATE),
     end_date date not null,
@@ -339,7 +337,7 @@ CREATE TABLE gifticon_revoke_tb(
 	name VARCHAR(50) not null
 	);
 
-create table mileage_tb(
+CREATE TABLE mileage_tb(
 id int primary key auto_increment,
 use_date DATE ,
 use_mileage BIGINT,
@@ -368,7 +366,7 @@ FOREIGN KEY (gifticon_id) REFERENCES gifticon_tb(id)
 );
 
 -- 마일리지 신청 내역
-create table mileage_request_tb(
+CREATE TABLE mileage_request_tb(
 id int primary key auto_increment,
 request_date DATE default (CURRENT_DATE),
 status int default 0,
@@ -430,6 +428,7 @@ CREATE TABLE main_menu_tb (
 
 -- 사이트 서브 메뉴
 CREATE TABLE sub_menu_tb (
+	id INT PRIMARY KEY AUTO_INCREMENT,
 	main_id INT NOT NULL,
 	FOREIGN KEY (main_id) REFERENCES main_menu_tb (id),
 	menu VARCHAR(20) NOT NULL,
@@ -437,7 +436,7 @@ CREATE TABLE sub_menu_tb (
 );
 
 CREATE TABLE memo_tb (
-	manager_id VARCHAR(50) PRIMARY KEY,
+	manager_id VARCHAR(50),
 	FOREIGN KEY (manager_id) REFERENCES manager_tb (id),
 	content TEXT
 );
