@@ -12,7 +12,7 @@
 
 <insert id="insert">
 	INSERT INTO ticket_tb 
-	VALUES (#{id}, #{adultCount}, #{childCount}, #{infantCount}, #{seatGrade}, #{memberId}, #{scheduleId}, now()) 
+	VALUES (#{id}, #{adultCount}, #{childCount}, #{infantCount}, #{seatGrade}, #{memberId}, #{scheduleId}, now(),  #{paymentType}) 
 </insert>
  
  <delete id="deleteById">

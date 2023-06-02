@@ -167,33 +167,35 @@
 							</ul>
 						</button>
 					</div>
-					<div>
-						<button id="subMenu1" class="sub--menu--button" style="border-left: hidden;">
-							<ul class="d-flex justify-content-between" style="width: 100%">
-								<li id="currentMainMenu"></li>
-								<li class="material--li"><span class="material-symbols-outlined material-symbols-outlined-white">expand_more</span></li>
+					<c:if test="${notCategory == null}">
+						<div>
+							<button id="subMenu1" class="sub--menu--button" style="border-left: hidden;">
+								<ul class="d-flex justify-content-between" style="width: 100%">
+									<li id="currentMainMenu"></li>
+									<li class="material--li"><span class="material-symbols-outlined material-symbols-outlined-white">expand_more</span></li>
+								</ul>
+							</button>
+							<ul id="dropMenu1" class="drop--menu">
+								<li><button class="menu--button" onclick="location.href='/ticket/selectSchedule'">예약</button></li>
+								<li><button class="menu--button" onclick="location.href='/inFlightService/inFlightServiceSearch'">여행 준비</button></li>
+								<li><button class="menu--button" onclick="location.href='/board/list'">여행</button></li>
+								<li><button class="menu--button" onclick="location.href='/product/productMain/clasic'">마일리지</button></li>
 							</ul>
-						</button>
-						<ul id="dropMenu1" class="drop--menu">
-							<li><button class="menu--button" onclick="location.href='/ticket/selectSchedule'">예약</button></li>
-							<li><button class="menu--button" onclick="location.href='/inFlightService/inFlightServiceSearch'">여행 준비</button></li>
-							<li><button class="menu--button" onclick="location.href='/board/list'">여행</button></li>
-							<li><button class="menu--button" onclick="location.href='/product/productMain/clasic'">마일리지</button></li>
-						</ul>
-					</div>
-					<div>
-						<button id="subMenu2" class="sub--menu--button" style="border-left: hidden;">
-							<ul class="d-flex justify-content-between" style="width: 100%">
-								<li id="currentSubMenu"></li>
-								<li class="material--li"><span class="material-symbols-outlined material-symbols-outlined-white">expand_more</span></li>
+						</div>
+						<div>
+							<button id="subMenu2" class="sub--menu--button" style="border-left: hidden;">
+								<ul class="d-flex justify-content-between" style="width: 100%">
+									<li id="currentSubMenu"></li>
+									<li class="material--li"><span class="material-symbols-outlined material-symbols-outlined-white">expand_more</span></li>
+								</ul>
+							</button>
+							<ul id="dropMenu2" class="drop--menu">
+								<!-- AJAX로 추가 -->
 							</ul>
-						</button>
-						<ul id="dropMenu2" class="drop--menu">
-							<!-- AJAX로 추가 -->
-						</ul>
-					</div>
-					</div>
-					</div>
+						</div>
+					</c:if>
+				</div>
+			</div>
 		</c:if>
 
 		<script type="text/javascript">

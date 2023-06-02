@@ -16,7 +16,16 @@
 
 <main>
 
-	<h2>항공권 예약</h2>
+	<h2>
+		<c:choose>
+			<c:when test="${manager != null}">
+				항공권 조회
+			</c:when>
+			<c:otherwise>
+				항공권 예약
+			</c:otherwise>
+		</c:choose>
+	</h2>
 	<hr>
 	<br>
 	<!-- 왕복/편도, 출발지/도착지, 탑승일, 탑승객 수/연령 -->
@@ -120,47 +129,48 @@
 				</div>
 			</div>
 			<br> <br>
-
-			<div>
-				<h5>탑승 인원 선택</h5>
-				<div id="ageTypeDiv">
-					<!-- 탑승 인원 선택 -->
-					<div style="margin-right: 58px;">
-						<!-- 성인은 최소 1명 -->
-						<label>성인 (만 12세 이상)</label><br>
-						<div class="age--type--div">
-							<button class="minus--button" type="button">-</button>
-							<input type="number" min="0" max="99" value="1" id="ageType1" readonly>
-							<button class="plus--button" type="button">+</button>
+			<c:if test="${manager == null}">
+				<div>
+					<h5>탑승 인원 선택</h5>
+					<div id="ageTypeDiv">
+						<!-- 탑승 인원 선택 -->
+						<div style="margin-right: 58px;">
+							<!-- 성인은 최소 1명 -->
+							<label>성인 (만 12세 이상)</label><br>
+							<div class="age--type--div">
+								<button class="minus--button" type="button">-</button>
+								<input type="number" min="0" max="99" value="1" id="ageType1" readonly>
+								<button class="plus--button" type="button">+</button>
+							</div>
+						</div>
+	
+						<div style="margin-right: 58px;">
+							<label>소아 (만 2세 이상 ~ 12세 미만)</label><br>
+							<div class="age--type--div">
+								<button class="minus--button" type="button">-</button>
+								<input type="number" min="0" max="99" value="0" id="ageType2" readonly>
+								<button class="plus--button" type="button">+</button>
+							</div>
+						</div>
+	
+						<div>
+							<label>유아 (만 2세 미만)</label><br>
+							<div class="age--type--div">
+								<button class="minus--button" type="button">-</button>
+								<input type="number" min="0" max="99" value="0" id="ageType3" readonly>
+								<button class="plus--button" type="button">+</button>
+							</div>
 						</div>
 					</div>
-
-					<div style="margin-right: 58px;">
-						<label>소아 (만 2세 이상 ~ 12세 미만)</label><br>
-						<div class="age--type--div">
-							<button class="minus--button" type="button">-</button>
-							<input type="number" min="0" max="99" value="0" id="ageType2" readonly>
-							<button class="plus--button" type="button">+</button>
-						</div>
-					</div>
-
-					<div>
-						<label>유아 (만 2세 미만)</label><br>
-						<div class="age--type--div">
-							<button class="minus--button" type="button">-</button>
-							<input type="number" min="0" max="99" value="0" id="ageType3" readonly>
-							<button class="plus--button" type="button">+</button>
-						</div>
-					</div>
+					<br>
+					<button class="age--calculater" type="button">
+						<ul class="d-flex justify-content-center" style="margin: 0;">
+							<li><span class="material-symbols-outlined material--li" style="font-size: 22px;">calculate</span>
+							<li style="font-size: 15px;">나이 계산기
+						</ul>
+					</button>
 				</div>
-				<br>
-				<button class="age--calculater" type="button">
-					<ul class="d-flex justify-content-center" style="margin: 0;">
-						<li><span class="material-symbols-outlined material--li" style="font-size: 22px;">calculate</span>
-						<li style="font-size: 15px;">나이 계산기
-					</ul>
-				</button>
-			</div>
+			</c:if>
 			<br>
 			<div class="d-flex justify-content-end" style="width: 100%">
 				<button class="search--btn--big" id="selectScheduleBtn" type="button">
@@ -237,14 +247,16 @@
 					</tbody>
 				</table>
 			</div>
-			<div id="selectSeatBtnDiv">
-				<button type="submit" class="search--btn--middle" id="selectSeatBtn">
-					<ul class="d-flex justify-content-center" style="margin: 0;">
-						<li style="margin-right: 4px;">좌석 선택
-						<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">airline_seat_recline_extra</span>
-					</ul>
-				</button>
-			</div>
+			<c:if test="${manager == null}">
+				<div id="selectSeatBtnDiv">
+					<button type="submit" class="search--btn--middle" id="selectSeatBtn">
+						<ul class="d-flex justify-content-center" style="margin: 0;">
+							<li style="margin-right: 4px;">좌석 선택
+							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">airline_seat_recline_extra</span>
+						</ul>
+					</button>
+				</div>
+			</c:if>
 		</form>
 	</div>
 
@@ -315,13 +327,23 @@
 
 </main>
 
-<script src="/js/ticket.js"></script>
+<c:choose>
+	<c:when test="${manager == 1}">
+		<script>let manager = 1</script>
+	</c:when>
+	<c:otherwise>
+		<script>let manager = 0</script>
+	</c:otherwise>
+</c:choose>
+
+
 <script>
 	// 출발날짜 - 현재날짜
 	let curDate = new Date();
 	let birthDate = stringToDate(`${memberBirthDate}`);
 	let memberAgeType = calculateAgeType(birthDate, curDate);
 </script>
+<script src="/js/ticket.js"></script>
 
 <!-- 메인 페이지에서 넘어온 경우 -->
 <c:if test="${option != null}">

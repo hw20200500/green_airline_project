@@ -784,7 +784,9 @@ $("#selectScheduleBtn").on("click", function() {
 				$(this).parent().css("background-color", "#F8FCFD");
 			});
 			
-			window.scrollTo(0, 880);
+			if (manager == 0) {
+				window.scrollTo(0, 880);				
+			}
 
 		}).fail((error) => {
 			console.log(error);
@@ -937,7 +939,9 @@ $("#selectScheduleBtn").on("click", function() {
 			// 에러 방지용
 			$("#scheduleList1").append(`<input type="hidden" name="schedule2" value="0" class="error--prevent">`);
 			
-			window.scrollTo(0, 880);
+			if (manager == 0) {
+				window.scrollTo(0, 880);				
+			}
 	
 		}).fail((error) => {
 			console.log(error);

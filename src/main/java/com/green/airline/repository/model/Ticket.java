@@ -22,6 +22,7 @@ public class Ticket {
 	private String memberId;
 	private Integer scheduleId;
 	private Timestamp reservedDate;
+	private Integer paymentType;
 	
 	public Ticket(Integer adultCount, Integer childCount, Integer infantCount, String seatGrade,
 			Integer scheduleId) {

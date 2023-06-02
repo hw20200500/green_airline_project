@@ -80,13 +80,9 @@ public class TicketService {
 						.seatGrade(ticketDto.getSeatGrade())
 						.memberId(memberId)
 						.scheduleId(ticketDto.getScheduleId())
+						.paymentType(0)
 						.build();
 		ticketRepository.insert(ticket1);
-		
-		
-		
-		
-		
 		
 		// 예약 좌석 생성
 		for (String seat : ticketDto.getSeatNames()) {
@@ -121,6 +117,7 @@ public class TicketService {
 							.seatGrade(ticketDto.getSeatGrade2())
 							.memberId(memberId)
 							.scheduleId(ticketDto.getScheduleId2())
+							.paymentType(0)
 							.build();
 			ticketRepository.insert(ticket2);
 			
