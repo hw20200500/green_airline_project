@@ -115,5 +115,6 @@
 
 </main>
 
+<input type="hidden" name="menuName" id="menuName" value="항공권 구매 내역">
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

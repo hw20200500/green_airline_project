@@ -419,4 +419,7 @@
 	</main>
 
 </div>
+
+<input type="hidden" name="menuName" id="menuName" value="기내 서비스 조회">
+
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

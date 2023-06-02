@@ -128,5 +128,6 @@
 
 </main>
 
+<input type="hidden" name="menuName" id="menuName" value="항공권 예약">
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

@@ -10,7 +10,7 @@
 </style>
 <!-- 여기 안에 쓰기 -->
 <main>
-	<h1>마일리지 신청 미신청 리스트 조회</h1>
+	<h1>마일리지샵 이용 내역 조회</h1>
 	<div class="container">
 		<h2>
 			<a href="/gifticon/list?type=0">구매 리스트</a>
@@ -110,5 +110,6 @@
 	
 </script>
 
+<input type="hidden" name="menuName" id="menuName" value="마일리지샵 이용 내역">
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

@@ -35,4 +35,6 @@ $(".custom-file-input").on("change", function() {
 });
 </script> -->
 
+<input type="hidden" name="menuName" id="menuName" value="상품 등록">
+
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

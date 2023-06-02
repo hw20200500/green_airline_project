@@ -9,7 +9,6 @@
 		<%@ include file="/WEB-INF/view/layout/header.jsp"%>
 	</c:otherwise>
 </c:choose>
-<%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <style>
 <!--
 .tab_wrap6 li {
@@ -151,7 +150,8 @@
 
 
 
-<script src="/js/mileage.js">
-		
-</script>
+<script src="/js/mileage.js"></script>
+
+<input type="hidden" name="menuName" id="menuName" value="마일리지 조회">
+
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

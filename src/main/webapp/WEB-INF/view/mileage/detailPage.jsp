@@ -535,6 +535,6 @@
 </script>
 
 
+<input type="hidden" name="menuName" id="menuName" value="마일리지샵">
 
-
-		<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
+<%@ include file="/WEB-INF/view/layout/footer.jsp"%>

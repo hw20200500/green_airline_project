@@ -41,4 +41,7 @@
     });
   });
 </script>
+
+<input type="hidden" name="menuName" id="menuName" value="여행일지">
+
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

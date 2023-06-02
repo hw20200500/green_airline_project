@@ -234,5 +234,6 @@ main {
 	</div>
 </main>
 
+<input type="hidden" name="menuName" id="menuName" value="수하물 안내">
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
