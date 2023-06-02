@@ -88,7 +88,7 @@
 	</update>
 	<insert id="insertUseDataList">
 		insert into
-		use_data_list_tb(save_date,date_form_expiration,mileage_from_balance,member_id,buy_mileage_id,product_id,gifticon_id)
+		use_mileage_list_tb(save_date,date_form_expiration,mileage_from_balance,member_id,buy_mileage_id,product_id,gifticon_id)
 		values(#{mileageDate},#{dateFormExpiration},#{mileageFromBalance},#{memberId},#{id},#{productId},#{gifticonId});
 
 	</insert>
@@ -113,7 +113,7 @@
 	<select id="selectUseDataListTb"
 	resultType="com.green.airline.repository.model.Mileage">
 
-select * from USE_DATA_LIST_TB as u
+select * from use_mileage_list_tb as u
 join GIFTICON_TB as g
 on u.GIFTICON_ID = g.id
 join MILEAGE_TB  as m

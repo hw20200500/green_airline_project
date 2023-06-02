@@ -350,7 +350,7 @@ foreign key (member_id) references member_tb (id)
 );
 
 -- 마일리지 금액/사용일자
-CREATE TABLE use_data_list_tb(
+CREATE TABLE use_mileage_list_tb(
 save_date DATE,
 date_form_expiration DATE,
 mileage_from_balance BIGINT,
