@@ -235,4 +235,19 @@ public class ManagerController {
 		memoService.updateMemo(memo);
 	}
 	
+	/**
+	 * @return 회원정보 조회
+	 */
+	@GetMapping("/memberList")
+	public String memberListPage() {
+		return "/manager/memberList";
+	}
+	
+	/**
+	 * @return 항공 서비스 탭 메인 페이징
+	 */
+	@GetMapping("/airService")
+	public String airServicePage() {
+		return "/manager/airService";
+	}
 }

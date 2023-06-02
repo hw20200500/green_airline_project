@@ -30,7 +30,7 @@
 			if (menuIndex == 1) {
 				$(".nav--bar").animate({left : navBarLeft + 1}, 700);	
 			} else if (menuIndex > 2) {
-				$(".nav--bar").animate({left : navBarLeft + 2}, 700);			
+				$(".nav--bar").animate({left : navBarLeft + 3}, 700);			
 			} else {
 				$(".nav--bar").animate({left : navBarLeft}, 700);
 			}
@@ -48,7 +48,7 @@
 			//$(".header--menu--split").css("width", $(".page--container").width());
 			
 			// 세부 메뉴 밑으로는 어둡게 처리
-			let headerHeight = 569;
+			let headerHeight = 412;
 			let backgroundHeight;
 			if (footerBottom < window.innerHeight) {
 				backgroundHeight = window.innerHeight - headerHeight;	

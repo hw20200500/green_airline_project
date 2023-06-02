@@ -72,7 +72,7 @@
 							<li class="top--text--li"><a href="/join">회원가입</a></li>
 							<li class="li--split">ㅣ</li>
 							<li class="material--li"><a href="#"><span class="material-symbols-outlined" style="font-size: 22px;">support_agent</span></a></li>
-							<li class="customer--service--li top--text--li"><a href="#">고객센터</a>
+							<li class="customer--service--li top--text--li"><a href="/notice/noticeList">고객센터</a>
 								<ul class="ul--dropdown--menu">
 									<li class="li--dropdown--menu"><a href="/notice/noticeList">공지사항</a></li>
 									<li class="li--dropdown--menu"><a href="/faq/faqList">자주묻는질문</a></li>
@@ -176,7 +176,7 @@
 						</button>
 						<ul id="dropMenu1" class="drop--menu">
 							<li><button class="menu--button" onclick="location.href='/ticket/selectSchedule'">예약</button></li>
-							<li><button class="menu--button" onclick="location.href='/inFlightService/inFlightServiceSearch'">여행준비</button></li>
+							<li><button class="menu--button" onclick="location.href='/inFlightService/inFlightServiceSearch'">여행 준비</button></li>
 							<li><button class="menu--button" onclick="location.href='/board/list'">여행</button></li>
 							<li><button class="menu--button" onclick="location.href='/product/productMain/clasic'">마일리지</button></li>
 						</ul>

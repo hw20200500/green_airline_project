@@ -50,8 +50,6 @@ public class MenuRestController {
 			= new ResponseDto<List<MenuDto>>(HttpStatus.OK.value(), 
 					Define.CODE_SUCCESS, "서브 메뉴 조회", Define.RESULT_CODE_SUCCESS, data);
 		
-		System.out.println(data);
-		
 		return response;
 	}
 	

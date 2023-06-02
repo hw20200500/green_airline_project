@@ -46,11 +46,11 @@
 					<img alt="" src="/images/logo2.png" class="logo" onclick="location.href='/manager/dashboard';">
 					<div class="main--menu" style="width: 100%;">
 						<ul class="nav--depth1">
-							<li><a href="#">회원관리</a></li>
-							<li><a href="#">항공서비스</a></li>
+							<li><a href="/manager/memberList">회원관리</a></li>
+							<li><a href="/manager/airService">항공서비스</a></li>
 							<li><a href="/board/list">추천여행지</a></li>
 							<li><a href="/product/productMain/clasic">마일리지샵</a></li>
-							<li><a href="#">고객센터</a></li>
+							<li><a href="/notice/noticeList">고객센터</a></li>
 						</ul>
 					</div>
 				</nav>
@@ -76,8 +76,8 @@
 							</ul>
 						</button>
 						<ul id="dropMenu1" class="drop--menu">
-							<li><button class="menu--button" onclick="location.href='#'">회원관리</button></li>
-							<li><button class="menu--button" onclick="location.href='#'">항공서비스</button></li>
+							<li><button class="menu--button" onclick="location.href='/manager/memberList'">회원관리</button></li>
+							<li><button class="menu--button" onclick="location.href='/manager/airService'">항공서비스</button></li>
 							<li><button class="menu--button" onclick="location.href='/board/list'">추천여행지</button></li>
 							<li><button class="menu--button" onclick="location.href='/product/productMain/clasic'">마일리지샵</button></li>
 							<li><button class="menu--button" onclick="location.href='#'">고객센터</button></li>
