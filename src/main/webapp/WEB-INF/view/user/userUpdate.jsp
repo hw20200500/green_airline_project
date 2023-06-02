@@ -18,7 +18,8 @@
 </style>
 
 <script>
-	let gender = `${meberById.gender}`;
+	let gender = `${memberById.gender}`;
+	console.log(gender);
 </script>
 <main>
 	<div>
@@ -35,7 +36,7 @@
 				<c:choose>
 					<c:when test="${userFormDto != null}">
 						<div>
-							아이디 <input type="text" name="id" value="${userFormDto.id}">
+							아이디 <input type="text" name="id" value="${userFormDto.id}" readonly="readonly">
 							<div class="validation--check">
 								<c:if test="${idValid != null}">
 							${idValid}
@@ -63,7 +64,7 @@
 					</c:when>
 					<c:otherwise>
 						<div>
-							한글 이름 <input type="text" name="korName" value="${meberById.korName}">
+							한글 이름 <input type="text" name="korName" value="${memberById.korName}">
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -81,7 +82,7 @@
 					</c:when>
 					<c:otherwise>
 						<div>
-							영어 이름 <input type="text" name="engName" value="${meberById.engName}">
+							영어 이름 <input type="text" name="engName" value="${memberById.engName}">
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -99,7 +100,7 @@
 					</c:when>
 					<c:otherwise>
 						<div>
-							생년월일 <input type="text" id="datepicker" name="birthDate" value="${meberById.birthDate}">
+							생년월일 <input type="text" id="datepicker" name="birthDate" value="${memberById.birthDate}" readonly="readonly">
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -136,7 +137,7 @@
 					</c:when>
 					<c:otherwise>
 						<div>
-							휴대전화 <input type="text" name="phoneNumber" placeholder="예:010-0000-0000" value="${meberById.phoneNumber}">
+							휴대전화 <input type="text" name="phoneNumber" placeholder="예:010-0000-0000" value="${memberById.phoneNumber}">
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -152,7 +153,7 @@
 					</c:when>
 					<c:otherwise>
 						<div>
-							이메일 <input type="text" name="email" value="${meberById.email}">
+							이메일 <input type="text" name="email" value="${memberById.email}">
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -171,8 +172,8 @@
 					</c:when>
 					<c:otherwise>
 						<div>
-							<input type="text" id="address" name="address" value="${meberById.address}" placeholder="주소"> <input type="button" onclick="execDaumPostcode()" value="주소 찾기"> <br> <input
-								type="text" id="detailAddress" name="detailAddress" value="${meberById.detailAddress}" placeholder="상세주소">
+							<input type="text" id="address" name="address" value="${memberById.address}" placeholder="주소"> <input type="button" onclick="execDaumPostcode()" value="주소 찾기"> <br> <input
+								type="text" id="detailAddress" name="detailAddress" value="${memberById.detailAddress}" placeholder="상세주소">
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -201,9 +202,6 @@
 					</c:otherwise>
 				</c:choose>
 
-				<div>
-					<input type="text" name="grade" readonly="readonly" value="${meberById.grade}">
-				</div>
 			</div>
 
 			<div>
@@ -214,7 +212,7 @@
 		</form>
 	</div>
 
-	<script src="/js/join.js"></script>
+	<script src="/js/userUpdate.js"></script>
 </main>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

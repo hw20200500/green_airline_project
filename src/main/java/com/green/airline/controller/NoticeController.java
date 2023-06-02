@@ -99,6 +99,7 @@ public class NoticeController {
 		model.addAttribute("paging", obj);
 		List<NoticeResponseDto> noticeList = noticeService.readNoticeByCategoryId(obj, categoryId);
 		model.addAttribute("noticeList", noticeList);
+		System.out.println("111111111111111111111" + noticeList);
 		List<NoticeCategory> categoryList = noticeService.readNoticeCategory();
 		model.addAttribute("categoryList", categoryList);
 
@@ -108,8 +109,10 @@ public class NoticeController {
 	// id기반 공지사항 상세글 조회
 	@GetMapping("/noticeDetail/{id}")
 	public String noticeDetailPage(@PathVariable Integer id, Model model) {
-		NoticeResponseDto noticeResponseDto = noticeService.readNoticeById(id);
-		model.addAttribute("noticeResponseDto", noticeResponseDto);
+		NoticeResponseDto noticeList = noticeService.readNoticeById(id);
+		System.out.println("id : " + id);
+		System.out.println("notcieList : " + noticeList);
+		model.addAttribute("noticeList", noticeList);
 
 		return "/notice/noticeDetail";
 	}

@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <c:choose>
@@ -17,16 +18,19 @@
 <div>
 	<main>
 		<div>
+			<input type="hidden" name="id" value="${noticeList.id}">
 			<h1>공지사항 상세 페이지</h1>
 
-			<div>${noticeResponseDto.title}</div>
-			<div>${noticeResponseDto.name}</div>
-			<div>${noticeResponseDto.content}</div>
+			<div>${noticeList.title}</div>
+			<div>${noticeList.name}</div>
+			<div>${noticeList.content}</div>
 		</div>
 		<c:if test="${principal.userRole.equals(\"관리자\")}">
 			<div>
-				<button class="btn btn-primary" onclick="location.href='/notice/noticeUpdate?id=${id}'">수정</button>
-				<button class="btn btn-danger" onclick="location.href='/notice/noticeDelete?id=${id}'">삭제</button>
+				<button class="btn btn-primary"
+					onclick="location.href='/notice/noticeUpdate?id=${id}'">수정</button>
+				<button class="btn btn-danger"
+					onclick="location.href='/notice/noticeDelete?id=${id}'">삭제</button>
 			</div>
 		</c:if>
 	</main>

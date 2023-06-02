@@ -295,10 +295,10 @@ public class UserController {
 	@GetMapping("/userUpdate")
 	public String userUpdatePage(Member member, Errors errors, Model model) {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-		Member meberById = userService.readMemberById(principal.getId());
+		Member memberById = userService.readMemberById(principal.getId());
 
 		model.addAttribute("principal", principal);
-		model.addAttribute("meberById", meberById);
+		model.addAttribute("memberById", memberById);
 
 		ArrayList<String> countryNm = nationalityApi();
 		model.addAttribute("countryNm", countryNm);

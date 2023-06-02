@@ -6,13 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.green.airline.dto.request.BaggageReqRequestDto;
 import com.green.airline.dto.response.ResponseDto;
-import com.green.airline.repository.model.BaggageMiss;
 import com.green.airline.repository.model.CarryOnLiquids;
 import com.green.airline.repository.model.CheckedBaggage;
 import com.green.airline.service.BaggageRequestService;
@@ -41,12 +39,6 @@ public class BaggageApiController {
 		return baggages;
 	}
 
-	@GetMapping("/baggageMiss")
-	public List<BaggageMiss> baggageMiss(@RequestParam String name) {
-		List<BaggageMiss> baggageMisses = baggageService.readBaggageMissByName(name);
-		return baggageMisses;
-	}
-	
 	@PostMapping("/baggageDelete")
 	public ResponseDto<?> deleteBaggageReqById(BaggageReqRequestDto baggageReqRequest) {
 		int result = baggageRequestService.updateBaggageReq(baggageReqRequest);

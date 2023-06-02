@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.green.airline.repository.interfaces.BaggageRepository;
-import com.green.airline.repository.model.BaggageMiss;
 import com.green.airline.repository.model.CarryOnLiquids;
 import com.green.airline.repository.model.CheckedBaggage;
 
@@ -43,17 +42,5 @@ public class BaggageService {
 		return checkedBaggageEntity;
 	}
 
-	// 수하물 유실 name에 따른 안내와 유의사항 -> BaggageApiController
-	public List<BaggageMiss> readBaggageMissByName(String name) {
-		List<BaggageMiss> baggageMisses = baggageRepository.selectBaggageMissByName(name);
-		return baggageMisses;
-	}
-
-	// 수하물 유실 카테고리 -> BaggageController
-	public List<BaggageMiss> readBaggageMiss() {
-		List<BaggageMiss> baggageMisses = baggageRepository.selectBaggageMiss();
-		
-		return baggageMisses;
-	}
 
 }
