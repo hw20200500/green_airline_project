@@ -26,6 +26,6 @@
 
 
 
-<input type="hidden" name="menuName" id="menuName" value="항공 서비스">
+<input type="hidden" name="menuName" id="menuName" value="항공서비스">
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

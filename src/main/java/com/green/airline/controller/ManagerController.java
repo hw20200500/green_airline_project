@@ -19,17 +19,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.green.airline.dto.request.ScheduleOptionForMainPageDto;
 import com.green.airline.dto.response.CountByYearAndMonthDto;
 import com.green.airline.dto.response.DestinationCountDto;
 import com.green.airline.dto.response.MonthlySalesForChartDto;
 import com.green.airline.dto.response.ProductBrandOrderAmountDto;
 import com.green.airline.dto.response.VocCountByTypeDto;
 import com.green.airline.dto.response.VocInfoDto;
+import com.green.airline.repository.model.Airport;
+import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.Memo;
 import com.green.airline.repository.model.User;
+import com.green.airline.service.AirportService;
 import com.green.airline.service.MemoService;
 import com.green.airline.service.ProductService;
 import com.green.airline.service.RouteService;
+import com.green.airline.service.ScheduleService;
 import com.green.airline.service.TicketPaymentService;
 import com.green.airline.service.UserService;
 import com.green.airline.service.VocService;
@@ -56,6 +61,12 @@ public class ManagerController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private AirportService airportService;
+	
+	@Autowired
+	private ScheduleService scheduleService;
 	
 	@Autowired
 	private HttpSession session;
@@ -250,4 +261,18 @@ public class ManagerController {
 	public String airServicePage() {
 		return "/manager/airService";
 	}
+	
+	/**
+	 * @return 관리자용 항공권 조회 페이지
+	 */
+	@GetMapping("/scheduleList")
+	public String selectTicketOptionPage(Model model) {
+		
+		List<Airport> regionList = airportService.readRegion();
+		model.addAttribute("regionList", regionList);
+		model.addAttribute("manager", 1);
+		
+		return "/ticket/selectSchedule";
+	}
+	
 }

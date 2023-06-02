@@ -62,7 +62,6 @@ $("#subMenu2").parent().on("mouseleave", function() {
 
 $(document).ready(function() {
 	let subMenu = $("#menuName").val();
-	$("#currentSubMenu").text(subMenu);
 	
 	// 서브메뉴 목록 가져오기
 	$.ajax({
@@ -74,11 +73,24 @@ $(document).ready(function() {
 		for (let i = 0; i < res.data.length; i++) {
 			var li = $("<li>");
 			var btn = $(`<button class="menu--button" onclick="location.href='${res.data[i].mapping}'">`);
-			btn.text(res.data[i].subMenu);
+			if (res.data[i].subMenu == res.data[i].mainMenu) {
+				btn.text("메인");
+				$("#currentSubMenu").text("메인");
+			} else {	
+				btn.text(res.data[i].subMenu);
+				$("#currentSubMenu").text(res.data[i].subMenu);
+			}
 			li.append(btn);
 			$("#dropMenu2").append(li);
 		}
+		
 		$("#currentMainMenu").text(res.data[0].mainMenu);	
+		
+		if ($("#currentMainMenu").text() == subMenu) {
+			$("#currentSubMenu").text("메인");		
+		} else {
+			$("#currentSubMenu").text(subMenu);
+		}
 		
 	})
 	.fail((error) => {

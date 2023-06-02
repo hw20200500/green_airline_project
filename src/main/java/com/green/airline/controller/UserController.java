@@ -92,7 +92,11 @@ public class UserController {
 	 * @author 서영 로그인 페이지
 	 */
 	@GetMapping("/login")
-	public String loginPage() {
+	public String loginPage(Model model) {
+		
+		int notCategory = 1;
+		model.addAttribute("notCategory", notCategory);
+		
 		return "/user/login";
 	}
 
@@ -144,9 +148,12 @@ public class UserController {
 	// 일반 회원 로그인 페이지
 	@GetMapping("/join")
 	public String joinPage(Model model) {
+		
 		ArrayList<String> countryNm = nationalityApi();
-
 		model.addAttribute("countryNm", countryNm);
+		
+		int notCategory = 1;
+		model.addAttribute("notCategory", notCategory);
 
 		return "/user/join";
 	}
@@ -208,6 +215,10 @@ public class UserController {
 		model.addAttribute("id", id);
 		model.addAttribute("email", email);
 		model.addAttribute("gender", gender);
+		
+		int notCategory = 1;
+		model.addAttribute("notCategory", notCategory);
+		
 		return "/user/socialJoin";
 	}
 
@@ -377,7 +388,6 @@ public class UserController {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		userService.readUserById(principal.getId());
 
-		// Todo
 		model.addAttribute("principal", principal);
 		return "/user/changePw";
 	}
