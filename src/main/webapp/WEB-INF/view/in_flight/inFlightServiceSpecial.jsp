@@ -105,65 +105,66 @@
 		</div>
 
 		<!-- The Modal -->
-		<div class="modal" id="special--meal--req">
-			<input type="hidden" id="isLogin--check" value="${isLogin}">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<!-- Modal Header -->
-					<div class="modal-header">
-						<div>
-							<h4 class="modal-title">특별 기내식 신청</h4>
-							<div>*특별 기내식을 신청하지 않으시면 기본 기내식이 제공됩니다.</div>
+		<c:if test="${inFlightServiceResponseDtos.size() != 0}">
+			<div class="modal" id="special--meal--req">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<!-- Modal Header -->
+						<div class="modal-header">
+							<div>
+								<h4 class="modal-title">특별 기내식 신청</h4>
+								<div>*특별 기내식을 신청하지 않으시면 기본 기내식이 제공됩니다.</div>
+							</div>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
 
-					<!-- Modal body -->
-					<div class="modal-body">
-						<form>
-							<div>
-								<div>출발 일정</div>
-								<div class="modal--div--arrivaldate">
-									<div id="inFlight--arrival">
-										<!-- db 안에 들어있는 departureDate는 format 전의 값이니까 2023/05/18 -> 2023년05월18일 -->
-										<select name="modal--name--arrivaldate" id="modal--id--arrivaldate">
-											<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}">
-												<option value="${inFlightServiceResponseDtos.departureDateFormat()}" id="arrival--option">${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination}
-													${inFlightServiceResponseDtos.departureDateFormat()}</option>
+						<!-- Modal body -->
+						<div class="modal-body">
+							<form>
+								<div>
+									<div>출발 일정</div>
+									<div class="modal--div--arrivaldate">
+										<div id="inFlight--arrival">
+											<!-- db 안에 들어있는 departureDate는 format 전의 값이니까 2023/05/18 -> 2023년05월18일 -->
+											<select name="modal--name--arrivaldate" id="modal--id--arrivaldate">
+												<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}">
+													<option value="${inFlightServiceResponseDtos.departureDateFormat()}" id="arrival--option">${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination}
+														${inFlightServiceResponseDtos.departureDateFormat()}</option>
+												</c:forEach>
+											</select> <br>
+										</div>
+									</div>
+								</div>
+
+								<div>
+									<div>종류</div>
+									<div class="modal--ifmdName">
+										<div id="inFlightMeals--detail">
+											<c:forEach var="inFlightMeals" items="${inFlightMeals}" varStatus="status">
+												<input type="radio" class="radio--ifmd" name="ifmdName" id="ifmdName--label${status.index}" value="${inFlightMeals.ifmdName}">
+												<label for="ifmdName--label${status.index}">${inFlightMeals.ifmdName}</label>
+												<br>
 											</c:forEach>
-										</select> <br>
+										</div>
 									</div>
 								</div>
-							</div>
 
-							<div>
-								<div>종류</div>
-								<div class="modal--ifmdName">
-									<div id="inFlightMeals--detail">
-										<c:forEach var="inFlightMeals" items="${inFlightMeals}" varStatus="status">
-											<input type="radio" class="radio--ifmd" name="ifmdName" id="ifmdName--label${status.index}" value="${inFlightMeals.ifmdName}">
-											<label for="ifmdName--label${status.index}">${inFlightMeals.ifmdName}</label>
-											<br>
-										</c:forEach>
-									</div>
+								<div>
+									<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
+									수량 &nbsp;<input type="number" id="seat--count--input" name="amount" min="1" max="${inFlightServiceResponseDtos.get(0).seatCount}">
 								</div>
-							</div>
+							</form>
+						</div>
 
-							<div>
-								<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
-								수량 &nbsp;<input type="number" id="seat--count--input" name="amount" min="1" max="${inFlightServiceResponseDtos.get(0).seatCount}">
-							</div>
-						</form>
-					</div>
-
-					<!-- Modal footer -->
-					<div class="modal-footer">
-						<button type="button" id="inflightmeal--request" class="btn btn-primary" data-dismiss="modal">Submit</button>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						<!-- Modal footer -->
+						<div class="modal-footer">
+							<button type="button" id="inflightmeal--request" class="btn btn-primary" data-dismiss="modal">Submit</button>
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</c:if>
 	</main>
 
 	<script src="/js/inFlightServiceSpecial.js">

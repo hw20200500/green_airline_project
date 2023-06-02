@@ -109,7 +109,13 @@
 		on t.schedule_id = s.id
 		inner join route_tb as r
 		on r.id = route_id
-		where t.member_id=#{memberId} and departure_date>now()
+		where t.member_id=#{memberId} and departure_date>now() and not(t.id IN (
+			select rm.ticket_id 
+			from request_meal_tb as rm
+            join ticket_tb as t
+			on t.id = rm.ticket_id
+			where t.member_id = #{memberId}
+		));
 	</select>
 	
 	<!-- 수량 조회를 위한 select 문 js에서 memberId와 departureDate 받아와서 동적으로 바꿔줄 거임 -->

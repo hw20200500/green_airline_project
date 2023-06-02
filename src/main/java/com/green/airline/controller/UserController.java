@@ -58,7 +58,6 @@ public class UserController {
 	@Autowired
 	private HttpSession session;
 
-
 	@Autowired
 	private MileageService mileageService;
 
@@ -67,12 +66,6 @@ public class UserController {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-	@Autowired
-	private InFlightSvService inFlightSvService;
-
-	@Autowired
-	private BaggageRequestService baggageRequestService;
 
 	/**
 	 * @author 서영 메인 페이지
@@ -411,51 +404,9 @@ public class UserController {
 		return "redirect:/";
 	}
 
-	// 특별 기내식 신청 내역 페이지
-	@GetMapping("/myServiceReq")
-	public String myServiceReqPage(Model model) {
-		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-		List<SpecialMealResponseDto> specialMealResponseDtos = inFlightSvService
-				.readRequestMealByMemberId(principal.getId());
-		List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
-				.readInFlightMealSchedule(principal.getId());
-
-		model.addAttribute("specialMealResponseDtos", specialMealResponseDtos);
-		model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
-
-		return "/user/myServiceReq";
-	}
-
-	// 특별 기내식 신청 내역 페이지 (수정 및 삭제)
-	@PostMapping("/myReqServiceDelete")
-	public String myReqServiceDeleteProc(@RequestParam Integer id) {
-		inFlightSvService.deleteRequestMealById(id);
-		return "redirect:/myServiceReq";
-	}
-
-	// 위탁 수하물 신청 내역 페이지 (수정 및 삭제)
-	@GetMapping("/myBaggageReq")
-	public String myBaggageReqPage(Model model) {
-		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-
-		// Todo
-		// 위탁 수하물 신청 정보 갖고 오기
-		List<BaggageReqResponseDto> baggageReqResponses = baggageRequestService
-				.readBaggageReqByMemberId(principal.getId());
-		List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
-				.readInFlightMealSchedule(principal.getId());
-		model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
-		model.addAttribute("baggageReqResponses", baggageReqResponses);
-
-		return "/user/myBaggageReq";
-	}
-
-
-
-	
 	/**
-	 * 정다운
-	 * 마이페이지
+	 * 정다운 마이페이지
+	 * 
 	 * @return
 	 */
 	@GetMapping("/userMain")
@@ -469,12 +420,11 @@ public class UserController {
 		cal.setTime(ts);
 		cal.add(Calendar.DATE, 30);
 		ts.setTime(cal.getTime().getTime());
-		
-		
+
 		// 현재 마일리지 조회
 		SaveMileageDto sumNowMileage = mileageService.readSaveMileage(memberId);
-		Mileage mileage = mileageService.readExprirationBalanceByMemberId(memberId,ts);
-		Mileage mileage2 = mileageService.readSaveBalanceByMemberId(memberId,ts);
+		Mileage mileage = mileageService.readExprirationBalanceByMemberId(memberId, ts);
+		Mileage mileage2 = mileageService.readSaveBalanceByMemberId(memberId, ts);
 		Member member = userService.readMemberById(memberId);
 		List<Mileage> mileages = mileageService.readMileageTbOrderByMileageDateByMemberId(memberId);
 		model.addAttribute("sumNowMileage", sumNowMileage);
@@ -485,6 +435,5 @@ public class UserController {
 		System.out.println("mileages : " + mileages);
 		return "/myPage/myMainPage";
 	}
-	
-}
 
+}

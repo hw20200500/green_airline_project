@@ -18,24 +18,25 @@
 		<div>
 			<div>티켓 번호 | 출발지 -> 도착지 | 출발 날짜 | 특별 기내식 종류 | 수량</div>
 
-			<c:forEach var="specialMealResponseDtos" items="${specialMealResponseDtos}">
-				<form action="/myReqServiceDelete?id=${specialMealResponseDtos.rmId}" method="post">
-					<input type="hidden" name="id" value="${specialMealResponseDtos.rmId}">
-					<c:choose>
-						<c:when test="${specialMealResponseDtos != null}">
+			<c:choose>
+				<c:when test="${specialMealResponseDtos.size() != 0}">
+					<c:forEach var="specialMealResponseDtos" items="${specialMealResponseDtos}">
+						<form action="/inFlightService/myReqServiceDelete?id=${specialMealResponseDtos.rmId}" method="post">
+							<input type="hidden" name="id" value="${specialMealResponseDtos.rmId}">
 							<div>
-								${specialMealResponseDtos.ticketId} ${specialMealResponseDtos.departure} -> ${specialMealResponseDtos.destination} 
-								${specialMealResponseDtos.departureDateFormat()} ${specialMealResponseDtos.ifmName} ${specialMealResponseDtos.rmAmount} 개
+								${specialMealResponseDtos.ticketId} ${specialMealResponseDtos.departure} -> ${specialMealResponseDtos.destination} ${specialMealResponseDtos.departureDateFormat()}
+								${specialMealResponseDtos.ifmName} ${specialMealResponseDtos.rmAmount} 개
 								<button type="submit" class="btn btn-danger">신청 취소</button>
 							</div>
-						</c:when>
+						</form>
+					</c:forEach>
+				</c:when>
 
-						<c:otherwise>
-							<p>신청한 내역이 없습니다.</p>
-						</c:otherwise>
-					</c:choose>
-				</form>
-			</c:forEach>
+				<c:otherwise>
+					<p>신청한 내역이 없습니다.</p>
+				</c:otherwise>
+			</c:choose>
+
 			<a class="btn btn-primary" href="/inFlightService/inFlightServiceSpecial">특별 기내식 신청 페이지로 이동</a>
 
 		</div>
