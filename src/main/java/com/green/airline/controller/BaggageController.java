@@ -72,14 +72,12 @@ public class BaggageController {
 
 		if (principal == null) {
 			model.addAttribute("baggageReqResponses", null); // 로그인이 안되어 있을 시 데이터 출력이 안되도록 하기 위해 --> 인증처리(인터셉터)
-			model.addAttribute("isLogin", false); // 로그인이 안되어 있을 시 얼럿창을 띄워주기 위해
 			model.addAttribute("inFlightServiceResponseDtos", null); // 좌석 수에 따라 수량을 가져오기 위해
 
 		} else {
 			List<BaggageReqResponseDto> baggageReqResponses = baggageRequestService
 					.readBaggageReqByMemberId(principal.getId());
 			model.addAttribute("baggageReqResponses", baggageReqResponses);
-			model.addAttribute("isLogin", true);
 
 			List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
 					.readInFlightMealSchedule(principal.getId());
@@ -104,6 +102,23 @@ public class BaggageController {
 
 		baggageRequestService.updateBaggageReq(baggageReqRequest);
 		return "redirect:/baggage/checkedBaggage";
+	}
+
+	// 위탁 수하물 신청 내역 페이지 (수정 및 삭제)
+	@GetMapping("/myBaggageReq")
+	public String myBaggageReqPage(Model model) {
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+
+		// Todo
+		// 위탁 수하물 신청 정보 갖고 오기
+		List<BaggageReqResponseDto> baggageReqResponses = baggageRequestService
+				.readBaggageReqByMemberIdAndAmount(principal.getId());
+		List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
+				.readInFlightMealSchedule(principal.getId());
+		model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
+		model.addAttribute("baggageReqResponses", baggageReqResponses);
+
+		return "/user/myBaggageReq";
 	}
 
 }

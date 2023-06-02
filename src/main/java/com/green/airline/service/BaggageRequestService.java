@@ -67,5 +67,10 @@ public class BaggageRequestService {
 		}
 		return resultCnt;
 	}
+	
+	public List<BaggageReqResponseDto> readBaggageReqByMemberIdAndAmount(String memberId){
+		List<BaggageReqResponseDto> baggageReqResponseDtos = baggageRequestRepository.selectBaggageReqByMemberIdAndAmount(memberId);
+		return baggageReqResponseDtos;
+	}
 
 }

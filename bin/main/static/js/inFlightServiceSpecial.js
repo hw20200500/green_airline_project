@@ -61,10 +61,10 @@ $(document).ready(function() {
 
 
 	$("#inFlightMeals--request--btn").on("click", function() {
-		let isLoginCheck = $("#isLogin--check").val();
-		if (isLoginCheck == "false") {
-			alert("로그인 후 이용 가능합니다.");
-			window.location.href = '/login';
+		let selectVal = $("#modal--id--arrivaldate").val();
+		
+		if(selectVal == undefined){
+			alert("특별 기내식 신청 가능 일정이 없습니다.");
 			return false;
 		}
 	});
@@ -81,6 +81,7 @@ $(document).ready(function() {
 			contentType: "application/json; charset=utf-8",
 		}).done(function(data) {
 			console.log(data);
+			location.reload();
 		}).fail(function(error) {
 			console.log(error);
 		})
