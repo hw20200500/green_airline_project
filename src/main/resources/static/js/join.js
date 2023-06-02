@@ -44,19 +44,11 @@ $(document).ready(function() {
 
 	let isCheck = 0;
 
-	$("#join--btn").on("click", function() {
-		if (isCheck == 0) {
-			alert("아이디 중복 확인을 해주세요.");
-			return false;
-		} else {
-			// 아이디 중복 확인 기능
-		}
-	});
 
 	// 아이디 중복 확인 기능
 	$("#exists--id").on("click", function() {
 		let id = $("#member--id").val();
-
+		console.log(isCheck);
 
 		// 컨트롤러를 찍지 않고 공백 검사
 		if (id == ' ' || id == '') {
@@ -73,6 +65,8 @@ $(document).ready(function() {
 					isCheck = 1;
 				} else {
 					alert("중복된 아이디입니다.");
+					$("#member--id").focus();
+					isCheck = 0;
 				}
 			}).fail(function(error) {
 				console.log(error);
@@ -80,9 +74,20 @@ $(document).ready(function() {
 		}
 
 	});
-	/*$("#member--id").on("keyup", function(){
+
+	$("#join--btn").on("click", function() {
+		if (isCheck == 1) {
+		} else {
+			console.log("11112321312312321312");
+			alert("아이디 중복 확인을 해주세요.");
+			location.reload();
+			return false;
+		}
+	});
+	
+	$("#member--id").on("keyup", function() {
 		isCheck = 0;
-	});*/
+	});
 
 	// 비밀번호 확인 기능
 	$("#password--check").on("keyup focus change", function() {

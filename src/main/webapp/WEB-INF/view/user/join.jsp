@@ -54,7 +54,7 @@ input[type=password]:focus {
 					<%-- 일반 회원가입 처리 --%>
 					<c:otherwise>
 						<div>
-							아이디 <input type="text" name="id" id="member--id" placeholder="Todo 수정 8~20자리">
+							아이디 <input type="text" name="id" id="member--id" placeholder="Todo 수정 8~20자리" value="asdfasdfas">
 							<button type="button" id="exists--id">아이디 중복확인</button>
 						</div>
 					</c:otherwise>
@@ -91,7 +91,7 @@ input[type=password]:focus {
 					</c:when>
 					<c:otherwise>
 						<div>
-							한글 이름 <input type="text" name="korName" required="required">
+							한글 이름 <input type="text" name="korName" required="required" value="강강">
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -109,7 +109,7 @@ input[type=password]:focus {
 					</c:when>
 					<c:otherwise>
 						<div>
-							영어 이름 <input type="text" name="engName" required="required">
+							영어 이름 <input type="text" name="engName" required="required" value="KK">
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -124,7 +124,7 @@ input[type=password]:focus {
 						</div>
 					</c:when>
 					<c:otherwise>
-				생년월일 <input type="text" id="datepicker" name="birthDate" required="required">
+				생년월일 <input type="text" id="datepicker" name="birthDate" required="required" value="2023-06-14">
 					</c:otherwise>
 				</c:choose>
 
@@ -160,7 +160,7 @@ input[type=password]:focus {
 						</div>
 					</c:when>
 					<c:otherwise>
-				휴대전화 <input type="text" name="phoneNumber" placeholder="예:010-0000-0000" required="required">
+				휴대전화 <input type="text" name="phoneNumber" placeholder="예:010-0000-0000" required="required" value="010-1234-1234">
 					</c:otherwise>
 				</c:choose>
 
@@ -174,7 +174,7 @@ input[type=password]:focus {
 						</div>
 					</c:when>
 					<c:otherwise>
-						이메일 <input type="text" name="email" value="${email}" required="required">
+						이메일 <input type="text" name="email" required="required" value="kmg1151@naver.com">
 					</c:otherwise>
 				</c:choose>
 
@@ -192,7 +192,7 @@ input[type=password]:focus {
 					</c:when>
 					<c:otherwise>
 						<div>
-							<input type="button" onclick="execDaumPostcode()" value="주소 찾기"> <br> <input type="text" id="address" name="address" placeholder="주소"> <br> <input type="text"
+							<input type="button" onclick="execDaumPostcode()" value="주소 찾기" > <br> <input type="text" id="address" name="address" placeholder="주소" value="부산 사상구 가야대로 1"> <br> <input type="text"
 								id="detailAddress" name="detailAddress" placeholder="상세주소">
 						</div>
 					</c:otherwise>
