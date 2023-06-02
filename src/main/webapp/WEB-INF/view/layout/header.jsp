@@ -84,7 +84,7 @@
 							<li class="top--text--li"><a href="/logout">로그아웃</a></li>
 							<li class="li--split">ㅣ</li>
 							<li class="material--li"><a href="#"><span class="material-symbols-outlined" style="font-size: 22px;">badge</span></a></li>
-							<li class="top--text--li"><a href="#">마이페이지</a></li>
+							<li class="top--text--li"><a href="/userMain">마이페이지</a></li>
 							<li class="li--split">ㅣ</li>
 							<li class="material--li"><a href="#"><span class="material-symbols-outlined" style="font-size: 22px;">support_agent</span></a></li>
 							<li class="customer--service--li top--text--li"><a href="#">고객센터</a>
@@ -133,7 +133,7 @@
 								<li><a href="/inFlightService/inFlightServiceSearch">기내 서비스 조회</a>
 								<li><a href="/inFlightService/inFlightServiceSpecial">특별 기내식 신청</a>
 								<li><a href="/baggage/guide">수하물 안내</a>
-								<li><a href="#">위탁 수하물 신청</a>
+								<li><a href="/baggage/checkedBaggage">위탁 수하물 신청</a>
 							</ul>
 							<div class="nav--split"></div>
 							<ul>

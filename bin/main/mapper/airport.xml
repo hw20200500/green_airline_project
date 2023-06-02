@@ -17,7 +17,7 @@
 
 	<select id="selectRegion"
 		resultType="com.green.airline.repository.model.Airport">
-		SELECT region FROM airport_tb ORDER BY id
+		SELECT DISTINCT region FROM airport_tb ORDER BY id
 	</select>
 
 	<select id="selectByRegion"

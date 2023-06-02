@@ -27,17 +27,4 @@
 		group by section 
 	</select>
 	
-	<select id="selectBaggageMissByName" resultType="com.green.airline.repository.model.BaggageMiss">
-		select name, guide, note
-		from baggage_miss_tb
-		where name = #{name}
-	</select>
-	
-	<select id="selectBaggageMiss" resultType="com.green.airline.repository.model.BaggageMiss">
-		select name
-		from baggage_miss_tb
-		group by name
-	</select>
-	
-
 </mapper>

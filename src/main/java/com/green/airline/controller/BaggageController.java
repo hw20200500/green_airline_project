@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.green.airline.dto.request.BaggageReqRequestDto;
 import com.green.airline.dto.response.BaggageReqResponseDto;
 import com.green.airline.dto.response.InFlightMealResponseDto;
-import com.green.airline.repository.model.BaggageMiss;
 import com.green.airline.repository.model.CarryOnLiquids;
 import com.green.airline.repository.model.CheckedBaggage;
 import com.green.airline.repository.model.User;
@@ -94,15 +93,6 @@ public class BaggageController {
 	@GetMapping("/transitBaggage")
 	public String transitBaggagePage() {
 		return "/baggage/transitBaggage";
-	}
-
-	// 수하물 유실 페이지
-	@GetMapping("/baggageMiss")
-	public String baggageMissPage(Model model) {
-		List<BaggageMiss> baggageMisses = baggageService.readBaggageMiss();
-		model.addAttribute("baggageMisses", baggageMisses);
-
-		return "/baggage/baggageMiss";
 	}
 
 	// MIME / application/json

@@ -15,6 +15,7 @@ public class NoticeResponseDto {
 	private Timestamp createdAt;
 	private int categoryId;
 	private String name;
+	private int ncId;
 	
 	public String dateFormat() {
 		return TimestampUtil.dateTimeToString(createdAt);

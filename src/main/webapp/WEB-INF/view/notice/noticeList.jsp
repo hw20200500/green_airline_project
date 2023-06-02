@@ -82,6 +82,7 @@
 
 		<div class="notice--noticeList--wrap">
 			<c:forEach var="noticeList" items="${noticeList}">
+			<input type="hidden" name="id" value="${noticeList.id}">
 				<div class="noticeList--name--wrap">
 					<a href="/notice/noticeDetail/${noticeList.id}"> [ ${noticeList.name} ] ${noticeList.title}</a>
 				</div>
