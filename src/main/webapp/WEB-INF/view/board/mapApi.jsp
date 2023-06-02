@@ -77,4 +77,6 @@
 
 </main>
 
+<input type="hidden" name="menuName" id="menuName" value="공항 위치 정보">
+
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

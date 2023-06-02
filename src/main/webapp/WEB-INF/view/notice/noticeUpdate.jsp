@@ -63,4 +63,5 @@
 	</script>
 </div>
 
+<input type="hidden" name="menuName" id="menuName" value="공지사항">
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

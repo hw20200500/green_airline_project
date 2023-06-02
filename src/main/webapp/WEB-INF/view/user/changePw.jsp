@@ -46,4 +46,6 @@
 	</form>
 </main>
 
+<input type="hidden" name="menuName" id="menuName" value="비밀번호 변경">
+
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

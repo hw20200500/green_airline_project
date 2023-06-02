@@ -88,6 +88,6 @@ if (id == 1 || id == 4 || id == 5) {
 }
 </script>
 
-
+<input type="hidden" name="menuName" id="menuName" value="항공기 정보">
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

@@ -110,10 +110,10 @@
 				<div class="main--menu" style="width: 100%;">
 					<!-- todo : userRole에 따라 다르게 보이게 하기 -->
 					<ul class="nav--depth1">
-						<li><a href="#">예약</a></li>
-						<li><a href="#">기내서비스</a></li>
-						<li><a href="#">추천여행지</a></li>
-						<li><a href="#">마일리지</a></li>
+						<li><a href="/ticket/selectSchedule">예약</a></li>
+						<li><a href="/inFlightService/inFlightServiceSearch">여행준비</a></li>
+						<li><a href="/board/list">여행</a></li>
+						<li><a href="/product/productMain/clasic">마일리지</a></li>
 					</ul>
 					<div class="nav--bar"></div>
 					<!-- 내려오는 메뉴 -->
@@ -125,41 +125,26 @@
 							<div class="nav--split"></div>
 							<ul>
 								<li><a href="/ticket/selectSchedule">항공권 예약</a>
-								<li><a href="/airplane/info/1">항공기 정보</a>
 								<li><a href="/ticket/list/1">항공권 구매 내역</a>
 								<li><a href="/ticket/refundInfo">환불 안내</a>
 							</ul>
 							<div class="nav--split"></div>
 							<ul>
-								<li><a href="/inFlightService/inFlightServiceSearch">기내 서비스</a>
-								<li><a href="/inFlightService/inFlightServiceSpecial">특별 기내식</a>
+								<li><a href="/inFlightService/inFlightServiceSearch">기내 서비스 조회</a>
+								<li><a href="/inFlightService/inFlightServiceSpecial">특별 기내식 신청</a>
 								<li><a href="/baggage/guide">수하물 안내</a>
-								<li><a href="/baggage/baggageMiss">수하물 유실 (임시)</a>
-								<li><a href="/myServiceReq">특별 기내식 신청 내역</a>
-								<li><a href="/userPwCheck?type=userUpdate">회원 정보 수정</a>
-								<li><a href="/userPwCheck?type=userWithdraw">탈퇴</a>
+								<li><a href="#">위탁 수하물 신청</a>
 							</ul>
 							<div class="nav--split"></div>
 							<ul>
 								<li><a href="/board/list">여행일지</a>
-								<li><a href="/map">공항위치</a>
-								<li><a href="#">세부메뉴</a>
-								<li><a href="#">세부메뉴</a>
-								<li><a href="#">세부메뉴</a>
-								<li><a href="/myBaggageReq">위탁 수하물 신청 내역</a>
-								<li><a href="/changePw">비밀번호 변경</a>
+								<li><a href="/map">공항 위치 정보</a>
+								<li><a href="/airplane/info/1">항공기 정보</a>
 							</ul>
 							<div class="nav--split"></div>
 							<ul>
-								<li><a href="/product/productMain/clasic">마일리지 사용몰</a>
-
-								<li><a href="/product/registration">상품 등록</a>
-
-								<li><a href="/userMain">마이페이지</a>
-
-								<li><a href="/mileage/selectAll">마일리지 조회</a>
-								<li><a href="/mileage/application">마일리지 리스트조회</a>
-								<li><a href="/gifticon/list">기프티콘 구매/환불 리스트</a>
+								<li><a href="#">회원 안내</a>
+								<li><a href="/product/productMain/clasic">마일리지샵</a>
 							</ul>
 							<div class="nav--split"></div>
 						</div>
@@ -190,7 +175,10 @@
 							</ul>
 						</button>
 						<ul id="dropMenu1" class="drop--menu">
-							<!-- AJAX로 추가 -->
+							<li><button class="menu--button" onclick="location.href='/ticket/selectSchedule'">예약</button></li>
+							<li><button class="menu--button" onclick="location.href='/inFlightService/inFlightServiceSearch'">여행준비</button></li>
+							<li><button class="menu--button" onclick="location.href='/board/list'">여행</button></li>
+							<li><button class="menu--button" onclick="location.href='/product/productMain/clasic'">마일리지</button></li>
 						</ul>
 					</div>
 					<div>

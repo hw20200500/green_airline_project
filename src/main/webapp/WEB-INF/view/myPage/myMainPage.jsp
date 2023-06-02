@@ -317,6 +317,6 @@ main{
 </main>
 
 
-
+<input type="hidden" name="menuName" id="menuName" value="마이페이지">
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

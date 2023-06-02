@@ -42,4 +42,6 @@
 	</form>
 </main>
 
+<input type="hidden" name="menuName" id="menuName" value="회원정보 변경">
+
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

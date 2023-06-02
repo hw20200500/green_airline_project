@@ -153,4 +153,6 @@
 4. 추천순, 조회수 많은순 필터링 기능
 -->
 
+<input type="hidden" name="menuName" id="menuName" value="여행일지">
+
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

@@ -3,7 +3,8 @@
 
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 
-	<!-- 여기 안에 쓰기 -->
+	<!-- todo 삭제 -->
+	
 	<main>
 		<h1>구매한 기프티콘/환불 리스트</h1>
 		<div class="container">
