@@ -36,7 +36,7 @@ INSERT INTO shop_product_tb(brand,name,price,count,product_image,gifticon_image)
 				('8번','바닐라 라떼',700,3,'image.png','image2.png'),
 				('9번','바닐라 라떼',800,3,'image.png','image2.png');
 
-insert into mileage_tb(save_date,save_mileage,expiration_date,balance,member_id)
+insert into mileage_tb(mileage_date,save_mileage,expiration_date,balance,member_id)
 VALUES  ('2023-05-01',500,'2023-07-29',500,'abc'),
 		('2023-04-01',500,'2023-6-29',500,'abc'),
 		('2023-03-01',1500,'2023-5-29',1500,'abc'),
@@ -45,7 +45,7 @@ VALUES  ('2023-05-01',500,'2023-07-29',500,'abc'),
 
 
 
-	insert into mileage_tb(use_date,use_mileage,description,member_id)
+	insert into mileage_tb(mileage_date,use_mileage,description,member_id)
 values('2023-03-05',100,'기프티콘','abc'),
 ('2023-04-05',300,'기프티콘','abc'),
 ('2023-05-10',500,'기프티콘','abc'),

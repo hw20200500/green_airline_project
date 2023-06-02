@@ -152,8 +152,11 @@
 							<div class="nav--split"></div>
 							<ul>
 								<li><a href="/product/productMain/clasic">마일리지 사용몰</a>
+
 								<li><a href="/product/registration">상품 등록</a>
-								<li><a href="/product/registration">마이페이지</a>
+
+								<li><a href="/userMain">마이페이지</a>
+
 								<li><a href="/mileage/selectAll">마일리지 조회</a>
 								<li><a href="/mileage/application">마일리지 리스트조회</a>
 								<li><a href="/gifticon/list">기프티콘 구매/환불 리스트</a>

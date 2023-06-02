@@ -37,7 +37,6 @@ public class GifticonCtroller {
 		for (int i = 0; i < gifticonId.length; i++) {
 			gifticonService.createRevokeGifticon(amount[i], brand[i], name[i]);
 			gifticonService.updateMileageAndGifticonStatus(memberId, gifticonId[i]);
-			//gifticonService.updateGifticonStatus(gifticonId[i]);	
 		}
 		
 		

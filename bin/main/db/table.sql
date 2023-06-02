@@ -341,10 +341,9 @@ CREATE TABLE gifticon_revoke_tb(
 
 create table mileage_tb(
 id int primary key auto_increment,
-use_date DATE ,
+mileage_date DATE ,
 use_mileage BIGINT,
 description TEXT,
-save_date DATE,
 expiration_date DATE,
 save_mileage BIGINT,
 balance BIGINT,
@@ -355,7 +354,7 @@ foreign key (member_id) references member_tb (id)
 );
 
 -- 마일리지 금액/사용일자
-CREATE TABLE use_data_list_tb(
+CREATE TABLE use_mileage_list_tb(
 save_date DATE,
 date_form_expiration DATE,
 mileage_from_balance BIGINT,

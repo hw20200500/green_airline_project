@@ -254,12 +254,17 @@ public class ProductController {
 	public String productDetailPage(@PathVariable int id, Model model) {
 		Mileage mileage = new Mileage();
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-		if (principal != null) {
-			mileage = productService.readMileage(principal.getId());
-		}
+		System.out.println(principal);
 		ShopProduct shopProduct = productService.productDetail(id);
 		model.addAttribute(shopProduct);
-		model.addAttribute(mileage);
+		System.out.println("shopProduct : " + shopProduct);
+		
+		if (principal.getUserRole().equals("유저")) {
+			mileage = productService.readMileage(principal.getId());
+			System.out.println("mileage : " + mileage);
+			model.addAttribute(mileage);
+		}
+		System.out.println("model : " + model);
 		return "/mileage/detailPage";
 	}
 	
@@ -289,7 +294,6 @@ public class ProductController {
 		int totalPrice = shopProductDto.getProductPrice() * shopOrderDto.getAmount();
 		
 		
-		// balance 추가 되는거 수정 쿼리문 수정 해야함
 		useMileageDto.setUseMileage(totalPrice);
 		useMileageDto.setMemberId(memberId);
 		productService.createUseMileage(useMileageDto);
@@ -297,10 +301,12 @@ public class ProductController {
 		int productId = shopOrderDto.getProductId();
 		mileageService.readNowMileage(memberId, totalPrice,productId);
 		productService.updateByProductId(shopProductDto);
-		
+		if (email == null || email.isEmpty()) {
+			throw new CustomRestfullException("이메일을 입력하세요", HttpStatus.BAD_REQUEST);
+		}
 		// 기프티콘 이메일 전송
 		String code;
-
+		
 		
 		try {
 			code = emailService.sendSimpleMessage(email, gifticonImageName);

@@ -2,7 +2,10 @@ package com.green.airline.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import com.green.airline.dto.SaveMileageDto;
 import com.green.airline.dto.nation.NationDto;
 import com.green.airline.dto.request.JoinFormDto;
 import com.green.airline.dto.request.LoginFormDto;
@@ -34,14 +38,13 @@ import com.green.airline.dto.response.InFlightMealResponseDto;
 import com.green.airline.dto.response.SpecialMealResponseDto;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.model.Airport;
-import com.green.airline.repository.model.InFlightMeal;
-import com.green.airline.repository.model.InFlightService;
 import com.green.airline.repository.model.Member;
+import com.green.airline.repository.model.Mileage;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.AirportService;
 import com.green.airline.service.BaggageRequestService;
-import com.green.airline.service.BaggageService;
 import com.green.airline.service.InFlightSvService;
+import com.green.airline.service.MileageService;
 import com.green.airline.service.UserService;
 import com.green.airline.utils.Define;
 
@@ -54,6 +57,10 @@ public class UserController {
 
 	@Autowired
 	private HttpSession session;
+
+
+	@Autowired
+	private MileageService mileageService;
 
 	@Autowired
 	private AirportService airportService;
@@ -443,4 +450,41 @@ public class UserController {
 		return "/user/myBaggageReq";
 	}
 
+
+
+	
+	/**
+	 * 정다운
+	 * 마이페이지
+	 * @return
+	 */
+	@GetMapping("/userMain")
+	public String userMainPage(Model model) {
+		User user = (User) session.getAttribute(Define.PRINCIPAL);
+		String memberId = user.getId();
+		Date date = new Date();
+		long time = date.getTime();
+		Timestamp ts = new Timestamp(time);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(ts);
+		cal.add(Calendar.DATE, 30);
+		ts.setTime(cal.getTime().getTime());
+		
+		
+		// 현재 마일리지 조회
+		SaveMileageDto sumNowMileage = mileageService.readSaveMileage(memberId);
+		Mileage mileage = mileageService.readExprirationBalanceByMemberId(memberId,ts);
+		Mileage mileage2 = mileageService.readSaveBalanceByMemberId(memberId,ts);
+		Member member = userService.readMemberById(memberId);
+		List<Mileage> mileages = mileageService.readMileageTbOrderByMileageDateByMemberId(memberId);
+		model.addAttribute("sumNowMileage", sumNowMileage);
+		model.addAttribute("mileage", mileage);
+		model.addAttribute("mileage2", mileage2);
+		model.addAttribute("member", member);
+		model.addAttribute("mileages", mileages);
+		System.out.println("mileages : " + mileages);
+		return "/myPage/myMainPage";
+	}
+	
 }
+

@@ -2,6 +2,8 @@ package com.green.airline.dto;
 
 import java.sql.Timestamp;
 
+import com.green.airline.utils.NumberUtil;
+
 import lombok.Data;
 
 @Data
@@ -19,4 +21,8 @@ public class SaveMileageDto {
 	private String ticketId;
 	private Long amount1;
 	private Long amount2;
+	public String balanceNumber() {
+		return  NumberUtil.numberFormat(balance);
+		
+	}
 }
