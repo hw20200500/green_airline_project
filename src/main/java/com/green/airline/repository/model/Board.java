@@ -30,8 +30,9 @@ public class Board {
 		return TimestampUtil.dateToString(createdAt);
 	}
 	
+	// 썸네일 이미지 경로
 	public String thumbnailImage() {
-		return fileName == null ? "/board/a.png" : "/board/" + fileName;
+		return fileName == null ? "/uploadImage/a.png" : "/uploadImage/" + fileName;
 	}
 
 }

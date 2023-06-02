@@ -15,7 +15,6 @@ VALUES ('Silver',0.0025,null),
 
 INSERT INTO member_tb
 VALUES 
-
 	 ('abc', '김홍아', 'KIM HONGAH', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', default),
 	 ('a123', '홍길동', 'HONG GILDONG', '2000-01-05', 'F', '010-1111-2222', 'os010312@naver.com', '부산광역시 수영구', '대한민국', default);
 

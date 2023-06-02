@@ -50,6 +50,7 @@
 							<li><a href="/inFlightService/inFlightServiceSearch">기내서비스</a></li>
 							<li><a href="/product/productMain/clasic">마일리지</a></li>
 							<li><a href="/notice/noticeList">고객센터</a></li>
+							<li><a href="/board/list">여행일지</a></li>
 						</ul>
 					</div>
 				</nav>

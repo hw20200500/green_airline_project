@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script defer src="/js/mapApi.js"></script>
+<script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAjjGP2VKpJKLym7EhCy_7fAFXxPOBuxL0&callback=initMap"></script>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 
 <style>

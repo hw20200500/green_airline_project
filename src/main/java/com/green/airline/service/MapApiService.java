@@ -16,10 +16,7 @@ public class MapApiService {
 
 	// 공항 좌표값 가져오기
 	public List<Airport> airportSearch(String searchName) {
-		System.out.println("mapAPI post service 전");
 		List<Airport> list = airportRepository.selectByLikeName(searchName);
-		System.out.println(list);
-		System.out.println("mapAPI post service 후");
 		return list;
 	}
 	
