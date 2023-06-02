@@ -7,7 +7,7 @@ import com.green.airline.utils.TimestampUtil;
 import lombok.Data;
 
 @Data
-public class BaggageReqResponse {
+public class BaggageReqResponseDto {
 
 	private Integer id;
 	private String section;

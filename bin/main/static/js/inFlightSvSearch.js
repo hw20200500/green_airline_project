@@ -13,7 +13,7 @@ $("#start").on("click", function() {
 				} else if (searchName.indexOf("\\") != -1) {
 					$(".pop--rel--keyword").empty();
 					let el = $("<li>검색 결과가 존재하지 않습니다.</li>");
-					
+
 					$(".pop--rel--keyword").append(el);
 					return;
 				}
@@ -207,6 +207,14 @@ $(".destination--region--li").on("click", function() {
 	}).fail((error) => {
 		console.log(error);
 	});
+
+	/*$('#departure').on('hidden.bs.modal', function(e) {
+		$(this).find('form')[0].reset();
+	});
+	
+	$('#destination').on('hidden.bs.modal', function(e) {
+		$(this).find('form')[0].reset();
+	});*/
 
 });
 

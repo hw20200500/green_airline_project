@@ -24,7 +24,7 @@ public interface UserRepository {
 
 	// 소셜 회원가입에 사용
 	public User selectSocialDtoById(String id);
-	
+
 	public int updateUserPwById(@Param("password") String password, @Param("userId") String userId);
 
 	public int updateGradeByMemberId(@Param("memberId") String memberId, @Param("grade") String grade);
@@ -37,18 +37,18 @@ public interface UserRepository {
 	// 소셜 회원가입시 회원 정보 삭제
 	int deleteSocialUserById(String id);
 
+	// 비밀번호 확인 기능
 	int updateUserById(PasswordCheckDto passwordCheckDto);
 
 	/**
-	 * @author 서영
-	 * 해당 월의 신규 회원 수
+	 * @author 서영 해당 월의 신규 회원 수
 	 */
 	public CountByYearAndMonthDto selectNewUserCountByMonth(@Param("year") Integer year, @Param("month") Integer month);
-	
+
 	/**
-	 * @author 서영
-	 * 해당 월의 탈퇴 회원 수
+	 * @author 서영 해당 월의 탈퇴 회원 수
 	 */
-	public CountByYearAndMonthDto selectWithdrawUserCountByMonth(@Param("year") Integer year, @Param("month") Integer month);
-	
+	public CountByYearAndMonthDto selectWithdrawUserCountByMonth(@Param("year") Integer year,
+			@Param("month") Integer month);
+
 }

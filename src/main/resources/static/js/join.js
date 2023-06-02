@@ -41,24 +41,52 @@ function execDaumPostcode() {
 
 
 $(document).ready(function() {
+
+	let isCheck = 0;
+
+
 	// 아이디 중복 확인 기능
 	$("#exists--id").on("click", function() {
 		let id = $("#member--id").val();
+		console.log(isCheck);
 
-		$.ajax({
-			type: "get",
-			url: "/existsById?id=" + id,
-			contentType: "application/json; charset=utf-8"
-		}).done(function(data) {
-			if (data) {
-				alert("사용 가능한 아이디입니다.");
-			} else {
-				alert("중복된 아이디입니다.");
-			}
-		}).fail(function(error) {
-			console.log(error);
-		});
+		// 컨트롤러를 찍지 않고 공백 검사
+		if (id == ' ' || id == '') {
+			alert("잘못된 입력값입니다.");
+		} else {
+			$.ajax({
+				type: "get",
+				url: "/existsById?id=" + id,
+				contentType: "application/json; charset=utf-8"
+			}).done(function(data) {
+				console.log(isCheck);
+				if (data) {
+					alert("사용 가능한 아이디입니다.");
+					isCheck = 1;
+				} else {
+					alert("중복된 아이디입니다.");
+					$("#member--id").focus();
+					isCheck = 0;
+				}
+			}).fail(function(error) {
+				console.log(error);
+			});
+		}
 
+	});
+
+	$("#join--btn").on("click", function() {
+		if (isCheck == 1) {
+		} else {
+			console.log("11112321312312321312");
+			alert("아이디 중복 확인을 해주세요.");
+			location.reload();
+			return false;
+		}
+	});
+	
+	$("#member--id").on("keyup", function() {
+		isCheck = 0;
 	});
 
 	// 비밀번호 확인 기능
@@ -77,16 +105,17 @@ $(document).ready(function() {
 			divNode.text("비밀번호가 일치하지 않습니다.");
 			passwordWrap.append(divNode);
 		} else {
-			$(".validation--check").empty();
-			$(".password--validation").empty();
-			divNode2.text("비밀번호가 일치합니다.");
-			passwordWrap.append(divNode2);
+			if (password == ' ' || password == '') {
+				$(".validation--check").empty();
+				$(".password--validation").empty();
+			} else {
+				$(".validation--check").empty();
+				$(".password--validation").empty();
+				divNode2.text("비밀번호가 일치합니다.");
+				passwordWrap.append(divNode2);
+				console.log(password);
+			}
 		}
-	});
-
-	// 아이디 중복확인 안 눌렀을 시 또는 아이디 중복일 때 회원가입 안 되게
-	$("#exists--id").on("click", function() {
-
 	});
 
 	// 성별 갖고오기

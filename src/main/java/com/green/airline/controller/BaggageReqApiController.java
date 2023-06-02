@@ -6,11 +6,10 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.green.airline.dto.response.BaggageReqResponse;
+import com.green.airline.dto.response.BaggageReqResponseDto;
 import com.green.airline.dto.response.InFlightMealResponseDto;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.BaggageRequestService;
@@ -28,13 +27,13 @@ public class BaggageReqApiController {
 	private HttpSession session;
 
 	@GetMapping("/baggageReq")
-	public List<BaggageReqResponse> baggageReqPage() {
+	public List<BaggageReqResponseDto> baggageReqPage() {
 		/*
 		 * baggageRequestService.createBaggageReq(memberId, departureDate,
 		 * baggageReqRequest);
 		 */
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-		List<BaggageReqResponse> baggageRequests = baggageRequestService.readBaggageReqByMemberId(principal.getId());
+		List<BaggageReqResponseDto> baggageRequests = baggageRequestService.readBaggageReqByMemberId(principal.getId());
 
 		return baggageRequests;
 	}

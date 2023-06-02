@@ -3,8 +3,9 @@ package com.green.airline.dto.request;
 import lombok.Data;
 
 @Data
-public class BaggageReqRequest {
+public class BaggageReqRequestDto {
 
+	private Integer id;
 	private Integer amount;
 	private Integer weight;
 	private Integer brId;

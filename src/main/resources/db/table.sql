@@ -20,14 +20,14 @@ CREATE TABLE user_tb
 -- 회원
 CREATE TABLE member_tb(
    id VARCHAR(50) PRIMARY KEY,
-   kor_name VARCHAR(20),
-   eng_name VARCHAR(50),
-   birth_date DATE,
+   kor_name VARCHAR(20) NOT NULL,
+   eng_name VARCHAR(50) NOT NULL,
+   birth_date DATE NOT NULL,
    gender VARCHAR(1) NOT NULL,
-   phone_number VARCHAR(13),
-   email VARCHAR(40),
-   address VARCHAR(200),
-   nationality VARCHAR(50),
+   phone_number VARCHAR(13) NOT NULL,
+   email VARCHAR(40) NOT NULL,
+   address VARCHAR(200) NOT NULL,
+   nationality VARCHAR(50) NOT NULL,
    grade VARCHAR(10) DEFAULT 'Silver', FOREIGN KEY (grade) REFERENCES member_grade_tb(name)
 );
 
@@ -253,7 +253,7 @@ CREATE TABLE baggage_route_tb(
 -- 수하물 신청
 CREATE TABLE baggage_request_tb(
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	amount INT NOT NULL,
+	amount INT NOT NULL DEFAULT 0,
 	br_id INT, FOREIGN KEY(br_id) REFERENCES baggage_route_tb(id),
 	member_id VARCHAR(50), FOREIGN KEY(member_id) REFERENCES member_tb(id)
 );

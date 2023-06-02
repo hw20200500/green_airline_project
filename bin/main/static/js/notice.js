@@ -1,27 +1,24 @@
 $(document).ready(function() {
 
 	$(".search--btn").on("click", function() {
-		let keyword = $("#keyword").val();
-		console.log(keyword);
+		let keyword = $("#keyword").val().replaceAll(" ", "");
 
-		if (keyword == null) {
-			alert("키워드를 입력하세요.");
-		} else {
-			location.href="/notice/noticeSearch?keyword=" + keyword;
+		if (keyword == "") {
+			return false;
 		}
-
 	});
-});
 
-$(document).ready(function() {
-	
-	$(".search--btn").on("click", function() {
-		let noticeList = $(".notice--noticeList--wrap").val();
-		if(noticeList == ' ' || noticeList == ''){
-			$(".search--btn").attr("type", "button");
-		} else {
-			$(".search--btn").attr("type", "submit");
+	/* 엔터키 누르면 공백 검색 안되도록 막기*/
+	$("#keyword").on("keyup", function(e) {
+		let keyword = $("#keyword").val().replaceAll(" ", "");
+
+		if (e.keyCode == '13') {
+
+			if (keyword == "") {
+				e.preventDefault();
+			}
 		}
+
 	});
 });
 

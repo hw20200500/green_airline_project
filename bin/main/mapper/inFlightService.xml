@@ -129,4 +129,34 @@
 		where flight_hours=#{flightHours};
 	</select>
 	
+	<select id="selectRequestMealByMemberId" resultType="com.green.airline.dto.response.SpecialMealResponseDto">
+		select rm.id as rm_id, rm.amount as rm_amount, t.id as ticket_id, ifm.name as ifm_name, s.departure_date, s. arrival_date, r.departure, r.destination 
+		from request_meal_tb as rm
+		join in_flight_meal_tb as ifm
+		on rm.meal_id = ifm.id
+		join ticket_tb as t
+		on rm.ticket_id = t.id
+		join member_tb as m
+		on t.member_id = m.id
+		join schedule_tb as s
+		on t.schedule_id = s.id
+		join route_tb as r
+		on s.route_id = r.id
+		where m.id = #{memberId}
+	</select>
+	
+	<!-- <select id="selectTicketByIdAndTicketId" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
+		select s.departure_date, r.departure, r.destination, (t.adult_count + t.child_count) as seat_count, t.id as ticket_id
+		from ticket_tb as t
+		inner join schedule_tb as s
+		on t.schedule_id = s.id
+		inner join route_tb as r
+		on r.id = route_id
+		where t.member_id=#{memberId} and t.id =#{ticketId}
+	</select> -->
+	
+	<delete id="deleteRequestMealById">
+		delete from request_meal_tb where id = #{id}
+	</delete>
+	
 </mapper>

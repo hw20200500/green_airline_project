@@ -1,5 +1,7 @@
 package com.green.airline.repository.interfaces;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -36,4 +38,5 @@ public interface MemberRepository {
 	public int deleteSocialMemberById(String id);
 	
 	public Member selectByKorNameandEmailAndBirthDate(Member member);
+	
 }

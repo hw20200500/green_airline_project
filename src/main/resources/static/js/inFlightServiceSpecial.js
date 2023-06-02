@@ -68,16 +68,7 @@ $(document).ready(function() {
 			return false;
 		}
 	});
-});
 
-function departureDateFormat(date) {
-	const year = date.getFullYear();
-	const month = (1 + date.getMonth());
-	const day = date.getDate();
-	return `${year}년 ${month}월 ${day}일`; //Template literals 이용
-}
-
-$(document).ready(function() {
 	$("#inflightmeal--request").on("click", function() {
 		// 체크박스 체크 여부 확인
 		let radioVal = $('input[name="ifmdName"]:checked').val();
@@ -89,19 +80,12 @@ $(document).ready(function() {
 			url: "/inFlightService/specialMealReq?name=" + radioVal + "&amount=" + amountVal + "&departureDate=" + selectVal,
 			contentType: "application/json; charset=utf-8",
 		}).done(function(data) {
-
+			console.log(data);
 		}).fail(function(error) {
 			console.log(error);
 		})
 	});
-});
 
-$('.modal').on('hidden.bs.modal', function(e) {
-	console.log('modal close');
-	$(this).find('form')[0].reset();
-});
-
-$(document).ready(function() {
 	$("#modal--id--arrivaldate").on("change", function() {
 		let arrivalDateVal = $("#modal--id--arrivaldate").val();
 
@@ -115,6 +99,17 @@ $(document).ready(function() {
 			console.log(error);
 		});
 	});
+
+	$(".modal").on("hidden.bs.modal", function() {
+		$(this).find('form')[0].reset();
+	});
 });
+
+function departureDateFormat(date) {
+	const year = date.getFullYear();
+	const month = (1 + date.getMonth());
+	const day = date.getDate();
+	return `${year}년 ${month}월 ${day}일`; //Template literals 이용
+}
 
 

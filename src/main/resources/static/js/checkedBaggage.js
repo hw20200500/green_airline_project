@@ -41,10 +41,15 @@ $(document).ready(function() {
 
 	$("#modal--id--departuredate").on("change", function() {
 		let departureDateVal = $("#modal--id--departuredate").val();
+		// 날짜와 baggageId 한번에 받아와서 id와 날짜 분리한 후 각각 세팅
+		let departurDate = departureDateVal.split("_")[0];
+		let baggageId = departureDateVal.split("_")[1];
+		let baggageInputTag = $("#input--baggageId");
+		baggageInputTag.attr("value", baggageId);
 
 		$.ajax({
 			type: "get",
-			url: "/maxCount?departureDate=" + departureDateVal,
+			url: "/maxCount?departureDate=" + departurDate,
 			contentType: "application/json; charset=utf-8"
 		}).done(function(data) {
 			console.log(data);
@@ -62,5 +67,10 @@ $(document).ready(function() {
 			return false;
 		}
 	});
+	
+	$(".modal").on("hidden.bs.modal", function(){
+		$(this).find('form')[0].reset();
+	});
+	
 });
 

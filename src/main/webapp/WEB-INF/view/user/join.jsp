@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <c:choose>
 	<c:when test="${\"관리자\".equals(principal.userRole)}">
 		<%@ include file="/WEB-INF/view/layout/headerManager.jsp"%>
@@ -24,6 +23,12 @@
 .password--validation {
 	color: black;
 }
+input[type=text]:focus {
+	outline: none;
+}
+input[type=password]:focus {
+	outline: none;
+}
 </style>
 <script>
 	let gender = `${joinFormDto.gender}`;
@@ -37,7 +42,7 @@
 					<%-- validation에 걸려서 돌아왔을 때 --%>
 					<c:when test="${joinFormDto != null}">
 						<div>
-							아이디 <input type="text" name="id" value="${joinFormDto.id}">
+							아이디 <input type="text" name="id" value="${joinFormDto.id}" class="join--id--class" placeholder="Todo 수정 8~20자리">
 							<button type="button" id="exists--id">아이디 중복확인</button>
 							<div class="validation--check">
 								<c:if test="${idValid != null}">
@@ -49,7 +54,7 @@
 					<%-- 일반 회원가입 처리 --%>
 					<c:otherwise>
 						<div>
-							아이디 <input type="text" name="id" id="member--id">
+							아이디 <input type="text" name="id" id="member--id" placeholder="Todo 수정 8~20자리" value="asdfasdfas">
 							<button type="button" id="exists--id">아이디 중복확인</button>
 						</div>
 					</c:otherwise>
@@ -58,7 +63,7 @@
 				<c:choose>
 					<c:when test="${joinFormDto != null}">
 						<div class="password--wrap">
-							비밀번호 <input type="password" name="password" required="required" id="password">
+							비밀번호 <input type="password" name="password" required="required" id="password"  placeholder="Todo 수정 8~20자리">
 							<div class="validation--check">
 								<c:if test="${passwordValid != null}">
 							${passwordValid}
@@ -69,7 +74,7 @@
 					</c:when>
 					<c:otherwise>
 						<div class="password--wrap">
-							비밀번호 <input type="password" name="password" required="required" id="password"> 비밀번호 확인 <input type="password" required="required" id="password--check">
+							비밀번호 <input type="password" name="password" required="required" id="password" placeholder="Todo 수정 8~20자리"> 비밀번호 확인 <input type="password" required="required" id="password--check">
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -86,7 +91,7 @@
 					</c:when>
 					<c:otherwise>
 						<div>
-							한글 이름 <input type="text" name="korName" required="required">
+							한글 이름 <input type="text" name="korName" required="required" value="강강">
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -104,7 +109,7 @@
 					</c:when>
 					<c:otherwise>
 						<div>
-							영어 이름 <input type="text" name="engName" required="required">
+							영어 이름 <input type="text" name="engName" required="required" value="KK">
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -119,7 +124,7 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-				생년월일 <input type="text" id="datepicker" name="birthDate" required="required">
+				생년월일 <input type="text" id="datepicker" name="birthDate" required="required" value="2023-06-14">
 					</c:otherwise>
 				</c:choose>
 
@@ -155,7 +160,7 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-				휴대전화 <input type="text" name="phoneNumber" placeholder="예:010-0000-0000" required="required">
+				휴대전화 <input type="text" name="phoneNumber" placeholder="예:010-0000-0000" required="required" value="010-1234-1234">
 					</c:otherwise>
 				</c:choose>
 
@@ -169,7 +174,7 @@
 						</div>
 					</c:when>
 					<c:otherwise>
-						이메일 <input type="text" name="email" value="${email}" required="required">
+						이메일 <input type="text" name="email" required="required" value="kmg1151@naver.com">
 					</c:otherwise>
 				</c:choose>
 
@@ -187,7 +192,7 @@
 					</c:when>
 					<c:otherwise>
 						<div>
-							<input type="button" onclick="execDaumPostcode()" value="주소 찾기"> <br> <input type="text" id="address" name="address" placeholder="주소"> <br> <input type="text"
+							<input type="button" onclick="execDaumPostcode()" value="주소 찾기" > <br> <input type="text" id="address" name="address" placeholder="주소" value="부산 사상구 가야대로 1"> <br> <input type="text"
 								id="detailAddress" name="detailAddress" placeholder="상세주소">
 						</div>
 					</c:otherwise>

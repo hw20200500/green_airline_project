@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.green.airline.dto.response.InFlightMealResponseDto;
 import com.green.airline.dto.response.InFlightServiceResponseDto;
+import com.green.airline.dto.response.SpecialMealResponseDto;
 import com.green.airline.repository.interfaces.InFlightServiceRepository;
 import com.green.airline.repository.model.InFlightMeal;
 import com.green.airline.repository.model.InFlightMealDetail;
@@ -94,6 +95,25 @@ public class InFlightSvService {
 				.selectAvailableServiceByFlightHours(flightHours);
 
 		return inFlightServiceResponseDto;
+	}
+
+	public List<SpecialMealResponseDto> readRequestMealByMemberId(String memberId) {
+		List<SpecialMealResponseDto> specialMealResponseDtos = inFlightServiceRepository
+				.selectRequestMealByMemberId(memberId);
+		return specialMealResponseDtos;
+	}
+
+//	public InFlightServiceResponseDto readTicketByIdAndTicketId(String memberId, String ticketId) {
+//		InFlightServiceResponseDto flightServiceResponseDto = inFlightServiceRepository
+//				.selectTicketByIdAndTicketId(memberId, ticketId);
+//		return flightServiceResponseDto;
+//	}
+	
+	public void deleteRequestMealById(Integer id) {
+		int resultCnt = inFlightServiceRepository.deleteRequestMealById(id);
+		if(resultCnt == 1) {
+			System.out.println("삭제 성공");
+		}
 	}
 
 }

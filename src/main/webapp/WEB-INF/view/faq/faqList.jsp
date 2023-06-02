@@ -127,9 +127,12 @@ p {
 						<input type="hidden" name="categoryId" value="${faqResponseDtos.categoryId}" id="categoryId">
 						<div class="faq--title--content--wrap" id="faq--title--content--wrap${faqResponseDtos.id}">
 							<div class="faq--name--wrap">
-								<p class="faq--name--cursor--wrap">
-									<input type="checkbox" name="id" id="delete--checkbox--id" value="${faqResponseDtos.id}"> [ ${faqResponseDtos.name} ] ${faqResponseDtos.title}
-								</p>
+								<c:if test="${principal.userRole.equals(\"관리자\")}">
+									<p class="faq--name--cursor--wrap">
+										<input type="checkbox" name="id" id="delete--checkbox--id" value="${faqResponseDtos.id}">
+								</c:if>
+								<span class="faq--name--cursor--wrap"> [ ${faqResponseDtos.name} ] ${faqResponseDtos.title} </span>
+								</p> <%-- <-오타 아님 --%>
 								<c:if test="${principal.userRole.equals(\"관리자\")}">
 									<button class="btn btn-primary" type="button" data-toggle="modal" data-target="#myModal${faqResponseDtos.id}">수정</button>
 

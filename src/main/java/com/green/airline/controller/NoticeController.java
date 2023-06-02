@@ -62,7 +62,7 @@ public class NoticeController {
 	}
 
 	@GetMapping("/noticeSearch")
-	public String noticeSearch(@RequestParam String keyword,
+	public String noticeSearch(String keyword,
 			@RequestParam(name = "nowPage", defaultValue = "1", required = false) String nowPage,
 			@RequestParam(name = "cntPerPage", defaultValue = "5", required = false) String cntPerPage, Model model) {
 		int total = 0;

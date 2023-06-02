@@ -29,11 +29,19 @@ import com.green.airline.dto.request.LoginFormDto;
 import com.green.airline.dto.request.PasswordCheckDto;
 import com.green.airline.dto.request.SocialJoinFormDto;
 import com.green.airline.dto.request.UserFormDto;
+import com.green.airline.dto.response.BaggageReqResponseDto;
+import com.green.airline.dto.response.InFlightMealResponseDto;
+import com.green.airline.dto.response.SpecialMealResponseDto;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.model.Airport;
+import com.green.airline.repository.model.InFlightMeal;
+import com.green.airline.repository.model.InFlightService;
 import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.AirportService;
+import com.green.airline.service.BaggageRequestService;
+import com.green.airline.service.BaggageService;
+import com.green.airline.service.InFlightSvService;
 import com.green.airline.service.UserService;
 import com.green.airline.utils.Define;
 
@@ -52,6 +60,12 @@ public class UserController {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+	@Autowired
+	private InFlightSvService inFlightSvService;
+
+	@Autowired
+	private BaggageRequestService baggageRequestService;
 
 	/**
 	 * @author 서영 메인 페이지
@@ -86,7 +100,6 @@ public class UserController {
 	 */
 	@PostMapping("/login")
 	public String loginProc(LoginFormDto loginFormDto) {
-		System.out.println("loginFormDto : " + loginFormDto);
 		User principal = userService.readUserByIdAndPassword(loginFormDto);
 		if (principal != null && principal.getStatus() == 0) {
 			session.setAttribute(Define.PRINCIPAL, principal);
@@ -170,6 +183,8 @@ public class UserController {
 			return "/user/join";
 		}
 
+		// 몰라 입력받은 id와 원래 있는 아이디가 같다면 회원가입 안 되도록 예외처리
+
 		userService.createMember(joinFormDto);
 
 		return "redirect:/login";
@@ -189,7 +204,6 @@ public class UserController {
 		return "/user/socialJoin";
 	}
 
-	// validation 처리가 안됨
 	// 이거를 타게 하면 된다.
 	@PostMapping("/apiSocialJoinProc")
 	public String apiSocialJoinProc(@Validated SocialJoinFormDto socialJoinFormDto, Errors errors, Model model) {
@@ -214,15 +228,11 @@ public class UserController {
 			return "/user/socialJoin";
 		}
 
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!");
 		try {
-			System.out.println("1111111111111111" + socialJoinFormDto);
 			userService.createSocialMember(socialJoinFormDto);
-//			userService.createByUser(res);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("2222222222222" + socialJoinFormDto);
 		// 로그인이 된 채로 redirect가 되지 않음
 		return "redirect:/";
 	}
@@ -299,7 +309,6 @@ public class UserController {
 	@PostMapping("/userUpdate")
 	public String userUpdateProc(@RequestParam String id, @Validated UserFormDto userFormDto, Errors errors,
 			Member member, Model model) {
-		System.out.println("1111111111111111111111221221" + userFormDto);
 		User principal = userService.readUserById(id);
 		userService.updateMemberById(principal.getId(), member);
 
@@ -369,7 +378,6 @@ public class UserController {
 	@PostMapping("/changePw")
 	public String changePwProc(PasswordCheckDto passwordCheckDto) {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-		System.out.println(passwordCheckDto);
 		boolean isChecked = bCryptPasswordEncoder.matches(passwordCheckDto.getPassword(), principal.getPassword());
 
 		if (isChecked == false) {
@@ -394,6 +402,45 @@ public class UserController {
 
 		// todo 마이페이지로 이동 아마 ??
 		return "redirect:/";
+	}
+
+	// 특별 기내식 신청 내역 페이지
+	@GetMapping("/myServiceReq")
+	public String myServiceReqPage(Model model) {
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		List<SpecialMealResponseDto> specialMealResponseDtos = inFlightSvService
+				.readRequestMealByMemberId(principal.getId());
+		List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
+				.readInFlightMealSchedule(principal.getId());
+
+		model.addAttribute("specialMealResponseDtos", specialMealResponseDtos);
+		model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
+
+		return "/user/myServiceReq";
+	}
+
+	// 특별 기내식 신청 내역 페이지 (수정 및 삭제)
+	@PostMapping("/myReqServiceDelete")
+	public String myReqServiceDeleteProc(@RequestParam Integer id) {
+		inFlightSvService.deleteRequestMealById(id);
+		return "redirect:/myServiceReq";
+	}
+
+	// 위탁 수하물 신청 내역 페이지 (수정 및 삭제)
+	@GetMapping("/myBaggageReq")
+	public String myBaggageReqPage(Model model) {
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+
+		// Todo
+		// 위탁 수하물 신청 정보 갖고 오기
+		List<BaggageReqResponseDto> baggageReqResponses = baggageRequestService
+				.readBaggageReqByMemberId(principal.getId());
+		List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
+				.readInFlightMealSchedule(principal.getId());
+		model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
+		model.addAttribute("baggageReqResponses", baggageReqResponses);
+
+		return "/user/myBaggageReq";
 	}
 
 }
