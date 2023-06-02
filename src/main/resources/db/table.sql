@@ -338,7 +338,7 @@ CREATE TABLE gifticon_revoke_tb(
 	brand VARCHAR(20) not null,
 	name VARCHAR(50) not null
 	);
-
+-- 마일리지
 create table mileage_tb(
 id int primary key auto_increment,
 mileage_date DATE ,

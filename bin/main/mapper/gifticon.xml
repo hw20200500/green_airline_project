@@ -43,8 +43,11 @@
 	</update>
 
 <!-- 마이페이지 구매한 기프티콘 수량 조회 -->
-<select id="">
-	select count(*)
+<select id="selectGifticonCount" resultType="com.green.airline.dto.GifticonDto">
+	select count(*) as count from gifticon_tb as g 
+join shop_order_tb as s
+on g.order_id = s.id
+where s.member_id = #{memberId} and g.status = 0;
 </select>
 
 </mapper>

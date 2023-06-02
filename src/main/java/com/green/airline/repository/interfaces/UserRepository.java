@@ -17,7 +17,9 @@ public interface UserRepository {
 
 	// 암호화 처리에 사용
 	public User selectById(LoginFormDto loginFormDto);
-
+	
+	// 아이디 찾기
+	public User selectById(String id);
 	// user_tb에 넣을 값 (kakao login api에 사용)
 	public int insertByUser(@Param("id") String id, @Param("password") String password,
 			@Param("userRole") UserRole userRole);

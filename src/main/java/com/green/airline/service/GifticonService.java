@@ -41,4 +41,9 @@ public class GifticonService {
 		
 		
 	}
+	// 기프티콘 구매 수량 확인 마이페이지 적용
+	public GifticonDto readGifticonCount(String memberId) {
+		GifticonDto count = gifticonRepository.selectGifticonCount(memberId);
+		return count;
+	}
 }

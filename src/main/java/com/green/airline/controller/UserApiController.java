@@ -28,10 +28,16 @@ public class UserApiController {
 
 		return code;
 	}
-	/* 머지할때 오류로 수정 해야함 -정다운
-	 * @GetMapping("/searchId") public int sendNewPw1( @RequestParam("id") String
-	 * id) { int result = 1; System.out.println("id : " + id); User user =
-	 * userService.readByid(id); if(user.getId() != id) { result = 0; } return
-	 * result; }
-	 */
+	// 머지할때 오류로 수정 해야함 -정다운
+	@GetMapping("/searchId")
+	public int sendNewPw1( @RequestParam("id") String id) {
+		int result = 1;
+		System.out.println("id : " + id);
+		User user = userService.readByid(id);
+		if(user.getId() != id) {
+			result = 0;
+		}
+		return result;
+	}
+	 
 }

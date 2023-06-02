@@ -64,18 +64,30 @@ public class UserService {
 		}
 
 		// 로그인 할 때 마일리지 조회 해서 등급 결정
-		/*
-		 * 로그인 오류로 수정 해야함 마일리지 없는 ㅏ사람은 로그인 안되는 버그 있음 String memberId =
-		 * userEntity.getId(); String grade = ""; Long sumSaveMileage =
-		 * mileageRepository.selectSumSaveMileageByMemberId(memberId); if(sumSaveMileage
-		 * < 100000) { grade = "Silver"; userRepository.updateGradeByMemberId(memberId,
-		 * grade); }else if(sumSaveMileage >= 100000 && sumSaveMileage <500000) { grade
-		 * = "Gold"; userRepository.updateGradeByMemberId(memberId, grade); }else
-		 * if(sumSaveMileage >= 500000 && sumSaveMileage < 1000000) { grade =
-		 * "Platinum"; userRepository.updateGradeByMemberId(memberId, grade); }else
-		 * if(sumSaveMileage >= 1000000) { grade = "Diamond";
-		 * userRepository.updateGradeByMemberId(memberId, grade); }
-		 */
+
+		// 로그인 오류로 수정 해야함 마일리지 없는 ㅏ사람은 로그인 안되는 버그 있음 
+		if(userEntity.getUserRole().equals("회원")) {
+			String memberId = userEntity.getId();
+			String grade = "";
+			Long sumSaveMileage = mileageRepository.selectSumSaveMileageByMemberId(memberId);
+			/*
+			 * if (sumSaveMileage < 100000 || sumSaveMileage == 0) { grade = "Silver";
+			 * userRepository.updateGradeByMemberId(memberId, grade);
+			 * }
+			 */
+		  if (sumSaveMileage >= 100000 && sumSaveMileage < 500000) {
+				grade = "Gold";
+				userRepository.updateGradeByMemberId(memberId, grade);
+			} else if (sumSaveMileage >= 500000 && sumSaveMileage < 1000000) {
+				grade = "Platinum";
+				userRepository.updateGradeByMemberId(memberId, grade);
+			} else if (sumSaveMileage >= 1000000) {
+				grade = "Diamond";
+				userRepository.updateGradeByMemberId(memberId, grade);
+			}
+		}
+		
+
 		return userEntity;
 	}
 
@@ -174,18 +186,16 @@ public class UserService {
 		Member memberEntity = memberRepository.existsById(id);
 		return memberEntity;
 	}
-	
+
 	/**
-	 * @author 서영
-	 * 해당 월의 신규 회원 수
+	 * @author 서영 해당 월의 신규 회원 수
 	 */
 	public CountByYearAndMonthDto readNewUserCount(Integer year, Integer month) {
 		return userRepository.selectNewUserCountByMonth(year, month);
 	}
-	
+
 	/**
-	 * @author 서영
-	 * 해당 월의 탈퇴 회원 수
+	 * @author 서영 해당 월의 탈퇴 회원 수
 	 */
 	public CountByYearAndMonthDto readWithdrawUserCount(Integer year, Integer month) {
 		return userRepository.selectWithdrawUserCountByMonth(year, month);
@@ -202,10 +212,11 @@ public class UserService {
 	}
 
 	// 머지할때 변경으로 수정 해야함
-//	public User readByid(String id) {
-//		User user = userRepository.selectById(id);
-//		return user;
-//	}
+	public User readByid(String id) {
+		User user = userRepository.selectById(id);
+		return user;
+	}
+
 	public int updateyPassword(String password, String userId) {
 		int result = userRepository.updateUserPwById(password, userId);
 		return result;
@@ -251,6 +262,5 @@ public class UserService {
 			System.out.println("수정 성공");
 		}
 	}
-
 
 }

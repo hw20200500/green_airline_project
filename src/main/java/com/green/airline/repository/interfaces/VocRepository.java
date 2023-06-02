@@ -54,4 +54,7 @@ public interface VocRepository {
 	// 해당 월에 작성된 고객의 말씀 유형별 개수
 	public List<VocCountByTypeDto> selectCountByMonthGroupByType(@Param("year") Integer year, @Param("month") Integer month);
 	
+	// 질문/답변 카운트 조회
+	public VocInfoDto selectVocCountAndAnserCountByMemberId(String memberId);
+	
 }

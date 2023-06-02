@@ -28,4 +28,6 @@ public interface BoardRepository {
 	public List<LikeHeart> selectByLikeUser(Integer id);
 	// 게시물에 좋아요를 누른 유저 조회
 	public List<LikeHeart> selectByBoardIdAndLikeUser(@Param("id") Integer id, @Param("userId") String userId);
+	// 게시글 수량
+	public BoardDto selectBoardCountByMemberId(String memberId);
 }

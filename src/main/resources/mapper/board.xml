@@ -70,4 +70,9 @@
 		= #{userId}
 	</select>
 
+<!-- 본인 계시글 수량 -->
+	<select id="selectBoardCountByMemberId" resultType="com.green.airline.dto.BoardDto">
+		select count(*) as count from recommend_board_tb where user_id =#{memberId}; 
+	</select>
+
 </mapper>

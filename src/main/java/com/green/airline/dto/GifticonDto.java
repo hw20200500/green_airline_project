@@ -17,4 +17,5 @@ public class GifticonDto {
 	private int id;
 	private Date revokeDate;
 	private int productId;
+	private int count;
 }

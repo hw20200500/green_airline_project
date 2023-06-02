@@ -25,6 +25,7 @@ public class Mileage {
 	private int status;
 	private int buyMileageId;
 	
+	
 	public String balanceNumber() {
 		return  NumberUtil.numberFormat(balance);
 		

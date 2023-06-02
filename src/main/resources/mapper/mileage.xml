@@ -7,7 +7,9 @@
 	<!-- 마일리지 잔액 -->
 	<select id="selectSaveMileage"
 		resultType="com.green.airline.dto.SaveMileageDto">
-		select sum(balance)as balance from mileage_tb where member_id =
+		<!-- select sum(balance)as balance from mileage_tb where member_id =
+		#{memberId} and now() &lt; expiration_date; -->
+		select sum(balance)as balance,(select sum(save_mileage) from mileage_tb)as totalMileage from mileage_tb where member_id =
 		#{memberId} and now() &lt; expiration_date;
 	</select>
 	<!-- 마이 페이지에 서멸 예정 마일리지 조회 -->
@@ -103,7 +105,7 @@
 	<select id="selectSumSaveMileageByMemberId" resultType="Long">
 		select
 		sum(save_mileage) as saveMileage from MILEAGE_TB where member_id = #{memberId}
-		and now() >= mileage_date and use_mileage is not null;
+		and now() >= mileage_date;
 	</select>
 	<select id="selectMileageByMemberId"
 		resultType="com.green.airline.repository.model.Mileage">

@@ -20,4 +20,5 @@ public interface GifticonRepository {
 	// 기프티콘 상태값 업데이트
 	public int updateGifticonStatus(@Param("gifticonId")String gifticonId);
 	public int updateGifticonStatusChange2(@Param("gifticonId")String gifticonId);
+	public GifticonDto selectGifticonCount(String memberId);
 }

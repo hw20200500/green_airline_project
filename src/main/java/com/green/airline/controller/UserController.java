@@ -26,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import com.green.airline.dto.BoardDto;
+import com.green.airline.dto.GifticonDto;
 import com.green.airline.dto.SaveMileageDto;
 import com.green.airline.dto.nation.NationDto;
 import com.green.airline.dto.request.JoinFormDto;
@@ -36,16 +38,21 @@ import com.green.airline.dto.request.UserFormDto;
 import com.green.airline.dto.response.BaggageReqResponseDto;
 import com.green.airline.dto.response.InFlightMealResponseDto;
 import com.green.airline.dto.response.SpecialMealResponseDto;
+import com.green.airline.dto.response.VocInfoDto;
 import com.green.airline.handler.exception.CustomRestfullException;
+import com.green.airline.repository.interfaces.GifticonRepository;
 import com.green.airline.repository.model.Airport;
 import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.Mileage;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.AirportService;
 import com.green.airline.service.BaggageRequestService;
+import com.green.airline.service.BoardService;
+import com.green.airline.service.GifticonService;
 import com.green.airline.service.InFlightSvService;
 import com.green.airline.service.MileageService;
 import com.green.airline.service.UserService;
+import com.green.airline.service.VocService;
 import com.green.airline.utils.Define;
 
 @Controller
@@ -74,6 +81,12 @@ public class UserController {
 	@Autowired
 	private BaggageRequestService baggageRequestService;
 
+	@Autowired
+	private GifticonService gifticonService;
+	@Autowired
+	private BoardService boardService;
+	@Autowired
+	private VocService vocService;
 	/**
 	 * @author 서영 메인 페이지
 	 */
@@ -476,14 +489,50 @@ public class UserController {
 		Mileage mileage = mileageService.readExprirationBalanceByMemberId(memberId,ts);
 		Mileage mileage2 = mileageService.readSaveBalanceByMemberId(memberId,ts);
 		Member member = userService.readMemberById(memberId);
+		GifticonDto gifticonCount = gifticonService.readGifticonCount(memberId);
+		BoardDto boardDto = boardService.readBoardCountByMemberId(memberId);
+		VocInfoDto infoDto =  vocService.readVocCountAndAnserCountByMemberId(memberId);
 		List<Mileage> mileages = mileageService.readMileageTbOrderByMileageDateByMemberId(memberId);
 		model.addAttribute("sumNowMileage", sumNowMileage);
 		model.addAttribute("mileage", mileage);
 		model.addAttribute("mileage2", mileage2);
 		model.addAttribute("member", member);
 		model.addAttribute("mileages", mileages);
-		System.out.println("mileages : " + mileages);
+		model.addAttribute("gifticonCount", gifticonCount);
+		model.addAttribute("boardDto", boardDto);
+		model.addAttribute("infoDto", infoDto);
+		System.out.println(sumNowMileage.getTotalMileage());
 		return "/myPage/myMainPage";
+	}
+	
+	@GetMapping("/userIdSearch")
+	public String userIdSearchPage() {
+
+		return "/user/userIdSearch";
+	}
+	@GetMapping("/userPwSearch")
+	public String userPwSearchPage() {
+
+		return "/user/userPwSearch";
+	}
+
+	
+	
+	/**
+	 *정다운
+	 * 비밀번호 변경
+	 * @return
+	 */
+	@PostMapping("/updatePassword")
+public String updatePasswordById(String password,String userId) {
+	userService.updateyPassword(password, userId);
+	return "/user/login";
+}
+	@PostMapping("/findByUserId")
+	public String findByUserId(Model model, Member member) {
+		Member response = userService.readByKorNameandEmailAndBirthDate(member);
+		model.addAttribute("response", response);
+		return "/user/userIdSearch";
 	}
 	
 }

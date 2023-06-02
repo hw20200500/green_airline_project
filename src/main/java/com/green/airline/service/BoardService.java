@@ -165,5 +165,10 @@ public class BoardService {
 
 		return registration;
 	}
+	@Transactional
+	public BoardDto readBoardCountByMemberId(String memberId) {
+		BoardDto boardDto = boardRepository.selectBoardCountByMemberId(memberId);
+		return boardDto;
+	}
 
 }

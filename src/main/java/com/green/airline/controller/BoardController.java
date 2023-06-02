@@ -216,5 +216,7 @@ public class BoardController {
 
 		return heartCount;
 	}
+	
+	
 
 }

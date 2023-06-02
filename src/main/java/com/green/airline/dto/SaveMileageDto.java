@@ -21,8 +21,12 @@ public class SaveMileageDto {
 	private String ticketId;
 	private Long amount1;
 	private Long amount2;
+	public Long totalMileage;
 	public String balanceNumber() {
 		return  NumberUtil.numberFormat(balance);
+	}
+	public String totalMileageNumber() {
+		return  NumberUtil.numberFormat(totalMileage);
 		
 	}
 }
