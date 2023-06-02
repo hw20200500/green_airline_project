@@ -18,14 +18,14 @@ CREATE TABLE user_tb
 -- 회원
 CREATE TABLE member_tb(
    id VARCHAR(50) PRIMARY KEY,
-   kor_name VARCHAR(20),
-   eng_name VARCHAR(50),
-   birth_date DATE,
+   kor_name VARCHAR(20) NOT NULL,
+   eng_name VARCHAR(50) NOT NULL,
+   birth_date DATE NOT NULL,
    gender VARCHAR(1) NOT NULL,
-   phone_number VARCHAR(13),
-   email VARCHAR(40),
-   address VARCHAR(200),
-   nationality VARCHAR(50),
+   phone_number VARCHAR(13) NOT NULL,
+   email VARCHAR(40) NOT NULL,
+   address VARCHAR(200) NOT NULL,
+   nationality VARCHAR(50) NOT NULL,
    grade VARCHAR(10) DEFAULT 'Silver', FOREIGN KEY (grade) REFERENCES member_grade_tb(name)
 );
 
