@@ -109,10 +109,10 @@
 						</div>
 						<div style="background-color: #f3f3f3; padding: 10px; margin-bottom: 10px;">
 							<div class="datepicker--div">
-								<label for="flightDate1">가는 날</label> <input type="text" class="datepicker flight--date1" id="flightDate1" value="2023-06-13">
+								<label for="flightDate1">가는 날</label> <input type="text" class="datepicker flight--date1" id="flightDate1" readonly value="2023-06-13">
 							</div>
 							<div class="datepicker--div">
-								<label for="flightDate2">오는 날</label> <input type="text" class="datepicker flight--date2" id="flightDate2" value="2023-06-13">
+								<label for="flightDate2">오는 날</label> <input type="text" class="datepicker flight--date2" id="flightDate2" readonly value="2023-06-13">
 							</div>
 						</div>
 					</div>
@@ -175,7 +175,7 @@
 			</c:if>
 			<br>
 			<div class="d-flex justify-content-end" style="width: 100%">
-				<button class="search--btn--big" id="selectScheduleBtn" type="button">
+				<button class="blue--btn--big" id="selectScheduleBtn" type="button">
 					<ul class="d-flex justify-content-center" style="margin: 0;">
 						<li style="margin-right: 3px;">항공권 조회
 						<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">search</span>
@@ -251,7 +251,7 @@
 			</div>
 			<c:if test="${\"관리자\".equals(principal.userRole) == false}">
 				<div id="selectSeatBtnDiv">
-					<button type="submit" class="search--btn--middle" id="selectSeatBtn">
+					<button type="submit" class="blue--btn--middle" id="selectSeatBtn">
 						<ul class="d-flex justify-content-center" style="margin: 0;">
 							<li style="margin-right: 4px;">좌석 선택
 							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">airline_seat_recline_extra</span>

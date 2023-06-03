@@ -26,13 +26,16 @@
 	top: auto;
 	width: 100%;
 	height: 40px;
-	background: #a70638;
+	background-color: #7CB2D5;
 	margin: 0;
 	padding: 0;
 	border: none;
 	cursor: pointer;
 	color: white;
 	margin-bottom: 30px;
+	border-radius: 5px;
+	font-weight: 500;
+	font-size: 17px;
 }
 </style>
 

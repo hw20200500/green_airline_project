@@ -399,13 +399,13 @@
 			
 			<!-- 다음 페이지 or 선택 완료 버튼 -->
 			<div class="btn--div">
-				<button type="button" class="search--btn--middle" id="nextSeatBtn">
+				<button type="button" class="blue--btn--middle" id="nextSeatBtn">
 					<ul class="d-flex justify-content-center" style="margin: 0;">
 						<li style="margin-right: 4px;">다음
 						<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">arrow_forward</span>
 					</ul>
 				</button>
-				<button type="button" class="search--btn--middle" id="prevSeatBtn">
+				<button type="button" class="blue--btn--middle" id="prevSeatBtn">
 					<ul class="d-flex justify-content-center" style="margin: 0;">
 						<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">arrow_back</span>
 						<li style="margin-left: 4px;">이전
@@ -425,7 +425,7 @@
 						<input type="hidden" name="seatGrade2">
 					</c:if>
 					
-					<button type="submit" class="search--btn--middle" id="choiceCompleteBtn">
+					<button type="submit" class="blue--btn--middle" id="choiceCompleteBtn">
 						<ul class="d-flex justify-content-center" style="margin: 0;">
 							<li style="margin-right: 4px;">선택 완료
 							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">done</span>

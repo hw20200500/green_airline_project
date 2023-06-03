@@ -40,7 +40,7 @@
 	
 	<update id="updateUserByStatus">
 		update user_tb
-		set status = #{status}
+		set status = #{status}, withdraw_at = now()
 		where id = #{id}
 	</update>
 	
@@ -61,5 +61,10 @@
 		WHERE YEAR(withdraw_at) = #{year} AND MONTH(withdraw_at) = #{month} AND user_role != '관리자'
 		GROUP BY `year`, `month`
 	</select>
+	
+	<insert id="insert">
+		INSERT INTO user_tb (id, password, user_role)
+		VALUES(#{id}, #{password}, #{userRole})
+	</insert>
 	
 </mapper>

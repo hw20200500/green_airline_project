@@ -4,9 +4,11 @@
 <c:choose>
 	<c:when test="${\"관리자\".equals(principal.userRole)}">
 		<%@ include file="/WEB-INF/view/layout/headerManager.jsp"%>
+		<input type="hidden" name="menuName" id="menuName" value="상품 목록">
 	</c:when>
 	<c:otherwise>
 		<%@ include file="/WEB-INF/view/layout/header.jsp"%>
+		<input type="hidden" name="menuName" id="menuName" value="마일리지샵">
 	</c:otherwise>
 </c:choose>
 
@@ -311,6 +313,5 @@ $(document).ready(function(){
 		 
 </script>
 
-<input type="hidden" name="menuName" id="menuName" value="마일리지샵">
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

@@ -1,7 +1,5 @@
 package com.green.airline.repository.model;
 
-import java.sql.Timestamp;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,13 +9,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class User {
+public class Manager {
 
 	private String id;
-	private String password;
-	private String userRole;
-	private Timestamp joinAt;
-	private Timestamp withdrawAt;
-	private Integer status;
+	private String name;
+	private String birthDate;
+	private String gender;
+	private String phoneNumber;
+	private String email;
 	
 }

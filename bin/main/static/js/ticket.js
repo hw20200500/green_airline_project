@@ -267,18 +267,11 @@ $(".flight--date2").on("change", function() {
 		$(".flight--date2").val("");
 		insertDatepicker(1);
 		return;
+		
 	} else {
 
-		// 현재 날짜보다 이전 날짜를 선택했다면
-		if (getCurrentDate() > $(".flight--date2").val()) {
-			alert("현재 날짜보다 이전 날짜는 선택할 수 없습니다.");
-			$(".flight--date2").focus();
-			$(".flight--date2").val("");
-			insertDatepicker(1);
-			return;
-
-			// 가는 날 이전 날짜를 선택했다면
-		} else if ($(".flight--date1").val() > $(".flight--date2").val()) {
+		// 가는 날 이전 날짜를 선택했다면
+		if ($(".flight--date1").val() > $(".flight--date2").val()) {
 			alert("가는 날 이후 날짜를 선택해주세요.");
 			$(".flight--date2").focus();
 			$(".flight--date2").val("");
@@ -294,16 +287,8 @@ $(".flight--date2").on("change", function() {
 
 $(".flight--date1").on("change", function() {
 
-	// 현재 날짜보다 이전 날짜를 선택했다면
-	if (getCurrentDate() > $(".flight--date1").val()) {
-		alert("현재 날짜보다 이전 날짜는 선택할 수 없습니다.");
-		$(".flight--date1").focus();
-		$(".flight--date1").val("");
-		$("#flightDate").val("");
-		return;
-
-		// 오는 날 이후 날짜를 선택했다면
-	} else if ($(".flight--date2").val() != "" && $(".flight--date1").val() > $(".flight--date2").val()) {
+	// 오는 날 이후 날짜를 선택했다면
+	if ($(".flight--date2").val() != "" && $(".flight--date1").val() > $(".flight--date2").val()) {
 		$(".flight--date2").val("");
 		insertDatepicker(1);
 		return;
@@ -314,14 +299,6 @@ $(".flight--date1").on("change", function() {
 
 // 편도
 $(".flight--date").on("change", function() {
-
-	// 현재 날짜보다 이전 날짜를 선택했다면
-	if (getCurrentDate() > $(".flight--date").val()) {
-		alert("현재 날짜보다 이전 날짜는 선택할 수 없습니다.");
-		$(".flight--date").focus();
-		$(".flight--date").val("");
-		return;
-	}
 
 	insertDatepicker(2);
 	$(".datepicker--div--type2").hide();
@@ -415,59 +392,6 @@ function calculateAgeType (date1, date2) {
 		result = "성인";
 	}
 	return result;
-}
-
-
-// 날짜로 변환
-function stringToDate(str) {
-	let year;
-	let month;
-	let day;
-	if (str.length > 8) {
-		let arr = str.split("-");
-		if (arr.length != 3) {
-			return "error";
-		}
-		year = arr[0];
-		month = arr[1];
-		day = arr[2];
-	} else if (str.length == 8) {
-		
-		try {
-			let test = parseInt(str);
-		} catch (e) {
-			// 숫자가 아니면
-			return "error";
-		}
-		
-		year = str.substr(0, 4);
-		month = str.substr(4, 2);
-		day = str.substr(6, 2);		
-	} else {
-		return "error";	
-	}
-
-	if (month == 2) {
-		if (day == 29) {
-			if (year % 4 != 0 || year % 100 == 0 && year % 400 != 0) {
-				return "error";
-			}
-		}
-		else if (day > 28) {
-			return "error";
-		}
-	} else if (month == 4 || month == 6 || month == 9 || month == 11) {
-		if (day > 30) {
-			return "error";
-		}
-	} else if (month > 12) {
-		return "error";
-	} else {
-		if (day > 31) {
-			return "error";
-		}
-	}
-	return new Date(year, month - 1, day);
 }
 
 // 인원 수 감소 버튼
@@ -1042,4 +966,22 @@ $("#selectSeatBtn").on("click", function() {
 		return result;			
 	}
 	
+});
+
+$.datepicker.setDefaults({
+	dateFormat: 'yy-mm-dd',
+	prevText: '이전 달',
+	nextText: '다음 달',
+	minDate: '0',
+	monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+	dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+	dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+	showMonthAfterYear: true,
+	yearSuffix: '년'
+});
+
+$(function() {
+	$('.datepicker').datepicker();
 });

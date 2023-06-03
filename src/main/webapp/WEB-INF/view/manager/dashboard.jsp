@@ -31,12 +31,6 @@
 		padding: 0;
 	}
 	
-	#salesChart {
-		width: 620px;
-		height: 230px;
-		margin-left: -9px;
-	}
-	
 	.small--board {
 		background-color: white;
 		height: 80px;
@@ -146,6 +140,12 @@
 	.description--p a:hover {
 		font-weight: 500;
 	}
+		
+	#salesChart {
+		width: 620px;
+		height: 230px;
+		margin-left: -9px;
+	}
 	
 	#vocChart {
 		width: 288px;
@@ -156,9 +156,9 @@
 	
 	#routeChart {
 		margin-left: -10px;
-		margin-top: 20px;
-		width: 330px;
-		height: 190px;
+		margin-top: 25px;
+		width: 320px;
+		height: 185px;
 	}
 	
 	#brandChart {
@@ -560,5 +560,5 @@
 	});
 </script>
 
-
+<input type="hidden" name="menuName" id="menuName" value="">
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

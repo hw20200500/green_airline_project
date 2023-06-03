@@ -25,6 +25,7 @@ import com.green.airline.dto.kakao.PayApproveDto;
 import com.green.airline.dto.kakao.PaymentResponseDto;
 import com.green.airline.dto.kakao.RefundResponseDto;
 import com.green.airline.dto.request.RefundDto;
+import com.green.airline.dto.response.MemberInfoDto;
 import com.green.airline.dto.response.TicketAllInfoDto;
 import com.green.airline.dto.response.TicketDto;
 import com.green.airline.repository.model.Member;
@@ -126,7 +127,7 @@ public class PaymentController {
 	public String reserveTicketPage(@RequestParam String pg_token, Model model) {
 		
 		String userId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
-		Member member = userService.readMemberById(userId);
+		MemberInfoDto member = userService.readMemberById(userId);
 		
 		String tel = member.getPhoneNumber();
 		String name = member.getKorName();

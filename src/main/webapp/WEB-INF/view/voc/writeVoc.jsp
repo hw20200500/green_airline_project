@@ -160,13 +160,13 @@ let maxByte = ${Define.MAX_TEXTAREA_LENGTH};
 					</tr>
 				</table>
 				<div style="margin-top: 40px;" class="d-flex justify-content-center">
-					<button type="button" class="search--btn--small" style="margin-right: 60px; padding-left: 9px; background-color: gray" onclick="location.href='/voc/list/1'">
+					<button type="button" class="blue--btn--small" style="margin-right: 60px; padding-left: 9px; background-color: gray" onclick="location.href='/voc/list/1'">
 						<ul class="d-flex justify-content-center" style="margin: 0;">
 							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px; margin-right: 5px;">keyboard_backspace</span>
 							<li>취소
 						</ul>
 					</button>
-					<button type="submit" class="search--btn--small" id="writeBtn">
+					<button type="submit" class="blue--btn--small" id="writeBtn">
 						<ul class="d-flex justify-content-center" style="margin: 0;">
 							<li style="margin-right: 4px;">입력 완료
 							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">done</span>

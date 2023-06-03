@@ -1,38 +1,52 @@
 package com.green.airline.controller;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.green.airline.dto.request.ScheduleOptionForMainPageDto;
+import com.green.airline.dto.request.ManagerFormDto;
 import com.green.airline.dto.response.CountByYearAndMonthDto;
 import com.green.airline.dto.response.DestinationCountDto;
+import com.green.airline.dto.response.MemberInfoDto;
 import com.green.airline.dto.response.MonthlySalesForChartDto;
 import com.green.airline.dto.response.ProductBrandOrderAmountDto;
+import com.green.airline.dto.response.ResponseDto;
 import com.green.airline.dto.response.TicketAllInfoDto;
 import com.green.airline.dto.response.VocCountByTypeDto;
 import com.green.airline.dto.response.VocInfoDto;
+import com.green.airline.enums.UserRole;
+import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.model.Airport;
+import com.green.airline.repository.model.Manager;
 import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.Memo;
+import com.green.airline.repository.model.Ticket;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.AirportService;
+import com.green.airline.service.ManagerService;
 import com.green.airline.service.MemoService;
 import com.green.airline.service.ProductService;
 import com.green.airline.service.RouteService;
@@ -42,6 +56,7 @@ import com.green.airline.service.TicketService;
 import com.green.airline.service.UserService;
 import com.green.airline.service.VocService;
 import com.green.airline.utils.Define;
+import com.green.airline.utils.PhoneNumberUtil;
 
 @RequestMapping("/manager")
 @Controller
@@ -69,15 +84,17 @@ public class ManagerController {
 	private AirportService airportService;
 	
 	@Autowired
-	private ScheduleService scheduleService;
+	private TicketService ticketService;
 	
 	@Autowired
-	private TicketService ticketService;
+	private ManagerService managerService;
 	
 	@Autowired
 	private HttpSession session;
 	
+	
 	/**
+	 * @author 서영
 	 * @return 대시보드 (관리자 페이지의 메인)
 	 */
 	@GetMapping("/dashboard")
@@ -241,6 +258,7 @@ public class ManagerController {
 	}
 	
 	/**
+	 * @author 서영
 	 * 메모 갱신
 	 */
 	@PostMapping("/updateMemo")
@@ -253,15 +271,93 @@ public class ManagerController {
 	}
 	
 	/**
+	 * @author 서영
 	 * @return 회원정보 조회
 	 */
-	@GetMapping("/memberList")
-	public String memberListPage() {
+	@GetMapping("/memberList/{page}")
+	public String memberListPage(@PathVariable Integer page, Model model) {
+		
+		// 전체 회원 목록
+		List<Member> allMemberList = userService.readMemberListAll();
+		// 총 페이지 수
+		int pageCount = (int) Math.ceil(allMemberList.size() / 20.0);
+		model.addAttribute("pageCount", pageCount);
+		
+		// 표시할 글 목록
+		Integer index = (page - 1) * 20;
+		List<MemberInfoDto> memberList = userService.readMemberListAllLimit(index);
+		model.addAttribute("memberList", memberList);
+		
 		return "/manager/memberList";
 	}
 	
 	/**
-	 * @return 항공 서비스 탭 메인 페이징
+	 * @author 서영
+	 * @return 회원정보 조회 검색
+	 */
+	@GetMapping("/memberList/search")
+	public String memberListPage(@RequestParam String memberId, Model model) {
+		
+		List<MemberInfoDto> memberList = userService.readMemberListSearch(memberId.trim());
+		model.addAttribute("memberList", memberList);
+		
+		model.addAttribute("search", memberId);
+		
+		return "/manager/memberList";
+	}
+	
+	/**
+	 * @author 서영
+	 * @return 회원정보 상세 페이지
+	 */
+	@GetMapping("/memberDetail/{id}")
+	public String memberDetailPage(@PathVariable String id, Model model) {
+		
+		MemberInfoDto member = userService.readMemberById(id);
+		model.addAttribute("member", member);
+		
+		return "/manager/memberDetail";
+	}
+	
+	/**
+	 * @author 서영
+	 * @return 관리자 정보 조회
+	 */
+	@GetMapping("/list/{page}")
+	public String managerListPage(@PathVariable Integer page, Model model) {
+		
+		// 전체 회원 목록
+		List<Manager> allManagerList = managerService.readManagerListAll();
+		// 총 페이지 수
+		int pageCount = (int) Math.ceil(allManagerList.size() / 20.0);
+		model.addAttribute("pageCount", pageCount);
+		
+		// 표시할 글 목록
+		Integer index = (page - 1) * 20;
+		List<Manager> managerList = managerService.readManagerListAllLimit(index);
+		model.addAttribute("managerList", managerList);
+		
+		return "/manager/managerList";
+	}
+	
+	/**
+	 * @author 서영
+	 * @return 관리자 정보 조회 검색
+	 */
+	@GetMapping("/list/search")
+	public String managerListPage(@RequestParam String managerId, Model model) {
+		
+		List<Manager> managerList = managerService.readManagerListSearch(managerId.trim());
+		model.addAttribute("managerList", managerList);
+		
+		model.addAttribute("search", managerId);
+		
+		return "/manager/managerList";
+	}
+	
+	/**
+	 * @author 서영
+	 * @return 항공 서비스 탭 메인 페이지
 	 */
 	@GetMapping("/airService")
 	public String airServicePage() {
@@ -269,6 +365,25 @@ public class ManagerController {
 	}
 	
 	/**
+	 * @author 서영
+	 * @return 회원관리 탭 메인 페이지
+	 */
+	@GetMapping("/userManage")
+	public String userManagePage() {
+		return "/manager/userManage";
+	}
+	
+	/**
+	 * @author 서영
+	 * @return 마일리지샵 탭 메인 페이지
+	 */
+	@GetMapping("/mileageShop")
+	public String mileageShopPage() {
+		return "/manager/mileageShop";
+	}
+	
+	/**
+	 * @author 서영
 	 * @return 관리자용 항공권 조회 페이지
 	 */
 	@GetMapping("/scheduleList")
@@ -281,6 +396,7 @@ public class ManagerController {
 	}
 	
 	/**
+	 * @author 서영
 	 * @return 관리자용 항공권 구매 내역 페이지
 	 */
 	@GetMapping("/ticketList/{page}")
@@ -299,5 +415,84 @@ public class ManagerController {
 		
 		return "/manager/ticketList";
 	}
+	
+	/**
+	 * @author 서영
+	 * 회원 탈퇴 처리
+	 */
+	@PutMapping("/memberWithdraw/{memberId}")
+	@ResponseBody
+	public ResponseDto<Boolean> memberWithdraw(@PathVariable String memberId) {
+		
+		Integer statusCode = HttpStatus.OK.value();
+		Integer code = Define.CODE_SUCCESS;
+		String resultCode = Define.RESULT_CODE_SUCCESS;
+		String message = "탈퇴 처리되었습니다.";
+		Boolean data = userService.updateUserByStatus(memberId, 1);
+		
+		// 탈퇴 처리가 되지 않았다면
+		if (data == false) {
+			statusCode = HttpStatus.INTERNAL_SERVER_ERROR.value();
+			code = Define.CODE_FAIL;
+			resultCode = Define.RESULT_CODE_FAIL;
+			message = "이미 탈퇴한 회원입니다.";
+		}
+		return new ResponseDto<Boolean>(statusCode, code, message, resultCode, data);		
+	}
+	
+	/**
+	 * @return 관리자 등록 페이지
+	 */
+	@GetMapping("/registration")
+	public String manageRegPage() {
+		return "/manager/registration";
+	}
+	
+	/**
+	 * 관리자 등록 처리
+	 */
+	@PostMapping("/registration")
+	public String manageRegProc(@Valid ManagerFormDto managerFormDto, BindingResult bindingResult) {
+		
+		// 빈 값이 있는지 확인
+		if (bindingResult.hasErrors()) {
+			throw new CustomRestfullException("입력되지 않은 필수 항목이 존재합니다.", HttpStatus.BAD_REQUEST);
+		}
+		
+		// 전화번호 형식 확인
+		String phoneNumber = PhoneNumberUtil.checkPhoneNumber(managerFormDto.getPhoneNumber());
+		managerFormDto.setPhoneNumber(phoneNumber);
+		
+		// 아이디 생성 (m + 난수 6자리)
+		String id = "m" + (int) Math.floor(Math.random() * 899999 + 100000);		
+		
+		// 해당 id가 이미 존재하는지 확인 (존재한다면 다시)
+		User searchUser = userService.readUserById(id);
+		// 이미 존재한다면 반복문으로 들어감
+		while (searchUser != null) {
+			id = "m" + (int) Math.floor(Math.random() * 899999 + 100000);
+			searchUser = userService.readUserById(id);
+		}
+		
+		Manager manager = Manager.builder()
+							.id(id)
+							.name(managerFormDto.getManagerName())
+							.birthDate(managerFormDto.getBirthDate())
+							.gender(managerFormDto.getGender())
+							.phoneNumber(managerFormDto.getPhoneNumber())
+							.email(managerFormDto.getEmail())
+							.build();
+		managerService.createManager(manager);
+		
+		User user = User.builder()
+					.id(id)
+					.password(id)
+					.userRole(UserRole.ADMIN.getUserRole())
+					.build();
+		userService.createUser(user);
+		
+		return "redirect:/manager/list/1";
+	}
+	
 	
 }

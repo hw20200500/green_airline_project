@@ -51,4 +51,9 @@ public interface UserRepository {
 	public CountByYearAndMonthDto selectWithdrawUserCountByMonth(@Param("year") Integer year,
 			@Param("month") Integer month);
 
+	/**
+	 * @author 서영
+	 */
+	public Integer insert(User user);
+	
 }

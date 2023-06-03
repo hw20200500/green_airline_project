@@ -21,6 +21,7 @@ import com.green.airline.dto.request.ScheduleDateCheckDto;
 import com.green.airline.dto.request.ScheduleOptionForMainPageDto;
 import com.green.airline.dto.request.ScheduleSelectDto;
 import com.green.airline.dto.request.TicketOptionDto;
+import com.green.airline.dto.response.MemberInfoDto;
 import com.green.airline.dto.response.ResponseDto;
 import com.green.airline.dto.response.ScheduleInfoResponseDto;
 import com.green.airline.dto.response.SeatInfoResponseDto;
@@ -92,7 +93,7 @@ public class TicketController {
 		
 		if (session.getAttribute(Define.PRINCIPAL) != null) {
 			String memberId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
-			Member member = userService.readMemberById(memberId);
+			MemberInfoDto member = userService.readMemberById(memberId);
 			model.addAttribute("memberBirthDate", member.getBirthDate());		
 		}
 		
@@ -111,7 +112,7 @@ public class TicketController {
 		model.addAttribute("regionList", regionList);
 		if (session.getAttribute(Define.PRINCIPAL) != null) {
 			String memberId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
-			Member member = userService.readMemberById(memberId);
+			MemberInfoDto member = userService.readMemberById(memberId);
 			model.addAttribute("memberBirthDate", member.getBirthDate());		
 		}
 		return "/ticket/selectSchedule";

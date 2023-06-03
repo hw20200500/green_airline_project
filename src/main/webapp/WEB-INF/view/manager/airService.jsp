@@ -10,44 +10,13 @@
 	</c:otherwise>
 </c:choose>
 
-<style>
-	.service--ul {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		cursor: pointer;
-		padding: 15px 25px;
-		border-radius: 10px;
-		box-shadow: 0 0 3px 3px #ebebeb;
-	}
-	
-	.service--ul:hover {
-		background-color: #eee
-	}
-	
-	.service--ul span {
-		font-size: 70px;
-		color: #657788;
-	}
-	
-	.service--ul span:hover {
-		color: #657788;
-	}
-	
-	.service--ul li:last-of-type {
-		font-size: 23px;
-		font-weight: 600;
-		color: #475462;
-		margin-top: 5px;
-	}
-</style>
+<link rel="stylesheet" href="/css/manager.css">
 
 
 <!-- 항공 서비스 메인 페이지 -->
 
 <main>
-	<h2>항공권 관련 내역 조회</h2>
+	<h2>항공권 관련 내역</h2>
 	<hr>
 	<br>
 	<div class = "d-flex justify-content-around align-items-end" style="height: 280px; padding: 0 20px">
