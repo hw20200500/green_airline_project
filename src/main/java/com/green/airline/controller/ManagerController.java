@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ import com.green.airline.dto.response.CountByYearAndMonthDto;
 import com.green.airline.dto.response.DestinationCountDto;
 import com.green.airline.dto.response.MonthlySalesForChartDto;
 import com.green.airline.dto.response.ProductBrandOrderAmountDto;
+import com.green.airline.dto.response.TicketAllInfoDto;
 import com.green.airline.dto.response.VocCountByTypeDto;
 import com.green.airline.dto.response.VocInfoDto;
 import com.green.airline.repository.model.Airport;
@@ -36,6 +38,7 @@ import com.green.airline.service.ProductService;
 import com.green.airline.service.RouteService;
 import com.green.airline.service.ScheduleService;
 import com.green.airline.service.TicketPaymentService;
+import com.green.airline.service.TicketService;
 import com.green.airline.service.UserService;
 import com.green.airline.service.VocService;
 import com.green.airline.utils.Define;
@@ -67,6 +70,9 @@ public class ManagerController {
 	
 	@Autowired
 	private ScheduleService scheduleService;
+	
+	@Autowired
+	private TicketService ticketService;
 	
 	@Autowired
 	private HttpSession session;
@@ -270,9 +276,28 @@ public class ManagerController {
 		
 		List<Airport> regionList = airportService.readRegion();
 		model.addAttribute("regionList", regionList);
-		model.addAttribute("manager", 1);
 		
 		return "/ticket/selectSchedule";
+	}
+	
+	/**
+	 * @return 관리자용 항공권 구매 내역 페이지
+	 */
+	@GetMapping("/ticketList/{page}")
+	public String ticketListPage(Model model, @PathVariable Integer page) {
+		// 전체 구매 내역
+		List<TicketAllInfoDto> allTicketList = ticketService.readTicketListAll();
+		// 총 페이지 수
+		int pageCount = (int) Math.ceil(allTicketList.size() / 10.0);
+		model.addAttribute("pageCount", pageCount);
+		
+		// 표시할 글 목록
+		Integer index = (page - 1) * 10;
+		List<TicketAllInfoDto> ticketList = ticketService.readTicketListAllLimit(index);
+		
+		model.addAttribute("ticketList", ticketList);
+		
+		return "/manager/ticketList";
 	}
 	
 }

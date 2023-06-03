@@ -335,10 +335,10 @@ public class TicketController {
 	@GetMapping("/detail/{id}")
 	public String ticketDetailPage(Model model, @PathVariable String id) {
 		
-		String memberId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
 		
 		TicketAllInfoDto ticket = ticketService.readTicketAllInfoByTicketId(id);
 		model.addAttribute("ticket", ticket);
+		
 		
 		Integer type = null;
 		if (ticket.getId().length() == 9 && ticket.getId().substring(0, 8).equals("B")) {
@@ -353,9 +353,6 @@ public class TicketController {
 		
 		List<ReservedSeat> reservedSeatList = reservedSeatService.readByTicketId(id);
 		model.addAttribute("reservedSeatList", reservedSeatList);
-		
-		String name = userService.readMemberById(memberId).getKorName();
-		model.addAttribute("name", name);
 		
 		List<RefundFee> refundFeeList = refundService.readByType(ticket.getScheduleType());
 		model.addAttribute("refundFeeList", refundFeeList);

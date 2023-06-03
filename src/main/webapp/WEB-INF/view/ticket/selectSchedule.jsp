@@ -4,9 +4,11 @@
 <c:choose>
 	<c:when test="${\"관리자\".equals(principal.userRole)}">
 		<%@ include file="/WEB-INF/view/layout/headerManager.jsp"%>
+		<script>let manager = 1</script>
 	</c:when>
 	<c:otherwise>
 		<%@ include file="/WEB-INF/view/layout/header.jsp"%>
+		<script>let manager = 0</script>
 	</c:otherwise>
 </c:choose>
 
@@ -18,8 +20,8 @@
 
 	<h2>
 		<c:choose>
-			<c:when test="${manager != null}">
-				항공권 조회
+			<c:when test="${\"관리자\".equals(principal.userRole)}">
+				운항 스케줄 조회
 			</c:when>
 			<c:otherwise>
 				항공권 예약
@@ -129,7 +131,7 @@
 				</div>
 			</div>
 			<br> <br>
-			<c:if test="${manager == null}">
+			<c:if test="${\"관리자\".equals(principal.userRole) == false}">
 				<div>
 					<h5>탑승 인원 선택</h5>
 					<div id="ageTypeDiv">
@@ -247,7 +249,7 @@
 					</tbody>
 				</table>
 			</div>
-			<c:if test="${manager == null}">
+			<c:if test="${\"관리자\".equals(principal.userRole) == false}">
 				<div id="selectSeatBtnDiv">
 					<button type="submit" class="search--btn--middle" id="selectSeatBtn">
 						<ul class="d-flex justify-content-center" style="margin: 0;">
@@ -327,23 +329,13 @@
 
 </main>
 
-<c:choose>
-	<c:when test="${manager == 1}">
-		<script>let manager = 1</script>
-	</c:when>
-	<c:otherwise>
-		<script>let manager = 0</script>
-	</c:otherwise>
-</c:choose>
-
-
+<script src="/js/ticket.js"></script>
 <script>
 	// 출발날짜 - 현재날짜
 	let curDate = new Date();
 	let birthDate = stringToDate(`${memberBirthDate}`);
 	let memberAgeType = calculateAgeType(birthDate, curDate);
 </script>
-<script src="/js/ticket.js"></script>
 
 <!-- 메인 페이지에서 넘어온 경우 -->
 <c:if test="${option != null}">

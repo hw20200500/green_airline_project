@@ -63,6 +63,10 @@ $("#subMenu2").parent().on("mouseleave", function() {
 $(document).ready(function() {
 	let subMenu = $("#menuName").val();
 	
+	if (subMenu == '항공권 예약') {
+		subMenu = '운항 스케줄 조회';
+	}
+	
 	// 서브메뉴 목록 가져오기
 	$.ajax({
 		type: 'GET',
