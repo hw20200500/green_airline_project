@@ -87,6 +87,7 @@
 	#dashboardTitle {
 		font-weight: 600;
 		margin-bottom: 20px;
+		color: #475462;
 	}
 	
 	.board--title {

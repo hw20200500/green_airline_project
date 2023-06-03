@@ -321,4 +321,26 @@ public class TicketService {
 		return result;
 	}
 	
+	/**
+	 * @author 서영
+	 * 모든 티켓 리스트 가져오기
+	 */
+	@Transactional
+	public List<TicketAllInfoDto> readTicketListAll() {
+		List<TicketAllInfoDto> dtoList = ticketRepository.selectTicketListAll();
+		
+		return dtoList;
+	}
+	
+	/**
+	 * @author 서영
+	 * 모든 티켓 리스트 가져오기 (페이징 처리)
+	 */
+	@Transactional
+	public List<TicketAllInfoDto> readTicketListAllLimit(Integer index) {
+		List<TicketAllInfoDto> dtoList = ticketRepository.selectTicketListAllLimit(index);
+		
+		return dtoList;
+	}
+	
 }

@@ -171,33 +171,24 @@ label {
 			<div style="margin-top: 40px;" class="d-flex justify-content-center">
 				<c:choose>
 					<c:when test="${principal.userRole.equals(\"관리자\")}">	
-						<c:choose>
-							<c:when test="${voc.answerId != null}">
-								<button type="button" class="search--btn--small" id="goListBtn" style="padding-left: 9px; background-color: gray" onclick="location.href='/voc/list/not/1'">
-									<ul class="d-flex justify-content-center" style="margin: 0;">
-										<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px; margin-right: 5px;">keyboard_backspace</span>
-										<li>목록
-									</ul>
-								</button>
-							</c:when>
-							<c:otherwise>
-								<button type="button" class="search--btn--small" id="goListBtn" style="margin-right: 60px; padding-left: 9px; background-color: gray" onclick="location.href='/voc/list/not/1'">
-									<ul class="d-flex justify-content-center" style="margin: 0;">
-										<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px; margin-right: 5px;">keyboard_backspace</span>
-										<li>목록
-									</ul>
-								</button>
-								<button type="button" class="search--btn--small" id="answerBtn">
-									<ul class="d-flex justify-content-center" style="margin: 0;">
-										<li style="margin-right: 4px;">답변 작성
-										<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">edit</span>
-									</ul>
-								</button>
-							</c:otherwise>
-						</c:choose>
+						<button type="button" class="search--btn--small" id="goListBtn" style="padding-left: 9px; background-color: gray" onclick="location.href='/voc/list/not/1'">
+							<ul class="d-flex justify-content-center" style="margin: 0;">
+								<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px; margin-right: 5px;">keyboard_backspace</span>
+								<li>목록
+							</ul>
+						</button>
+						<c:if test="${voc.answerId == null}">
+							<span style="margin: 0 30px"></span>
+							<button type="button" class="search--btn--small" id="answerBtn">
+								<ul class="d-flex justify-content-center" style="margin: 0;">
+									<li style="margin-right: 4px;">답변 작성
+									<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">edit</span>
+								</ul>
+							</button>
+						</c:if>
 					</c:when>
 					<c:otherwise>
-							<button type="button" class="search--btn--small" style="margin-right: 60px; padding-left: 9px; background-color: gray" onclick="location.href='/voc/list/1'">
+							<button type="button" class="search--btn--small" style="padding-left: 9px; background-color: gray" onclick="location.href='/voc/list/1'">
 								<ul class="d-flex justify-content-center" style="margin: 0;">
 									<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px; margin-right: 5px;">keyboard_backspace</span>
 									<li>목록
@@ -205,14 +196,18 @@ label {
 							</button>
 						<%-- 수정은 답변이 달리지 않았을 때에만 가능 --%>
 						<c:if test="${voc.answerId == null}">
-							<button type="button" class="search--btn--small" style="margin: 0 20px" onclick="location.href='/voc/update/${id}'">
+							<span style="margin: 0 30px"></span>
+							<button type="button" class="search--btn--small" style="margin: 0 10px" onclick="location.href='/voc/update/${id}'">
 								<ul class="d-flex justify-content-center" style="margin: 0;">
 									<li style="margin-right: 4px;">수정
 									<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">edit</span>
 								</ul>
 							</button>
 						</c:if>
-						<button type="button" class="search--btn--small" id="vocDeleteBtn">
+						<c:if test="${voc.answerId != null}">
+							<span style="margin: 0 30px"></span>
+						</c:if>
+						<button type="button" class="search--btn--small" id="vocDeleteBtn" style="margin: 0 10px">
 							<ul class="d-flex justify-content-center" style="margin: 0;">
 								<li style="margin-right: 4px;">삭제
 								<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">delete_forever</span>

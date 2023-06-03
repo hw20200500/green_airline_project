@@ -176,4 +176,51 @@
 		values(#{id});
 	</insert>
 
+ <select id="selectTicketListAll" resultType="com.green.airline.dto.response.TicketAllInfoDto">
+	SELECT t.*, departure_date, arrival_date, departure, destination, flight_time, a.name AS airplane_name, tid, r.type AS schedule_type,
+	        CASE 
+				WHEN t.id = tp.ticket_id1 THEN amount1 
+	            WHEN t.id = tp.ticket_id2 THEN amount2
+			END AS amount,
+			CASE
+				WHEN t.id = tp.ticket_id1 THEN status1
+	            WHEN t.id = tp.ticket_id2 THEN status2
+			END AS status
+	FROM ticket_tb AS t
+	JOIN schedule_tb AS s
+	ON t.schedule_id = s.id
+	JOIN route_tb AS r
+	ON r.id = s.route_id
+	JOIN airplane_tb AS a
+	ON s.airplane_id = a.id
+	JOIN ticket_payment_tb AS tp
+	ON t.id IN (tp.ticket_id1, tp.ticket_id2)
+	WHERE status1 != 0 OR status2 != 0
+	ORDER BY reserved_date DESC;
+ </select>
+ 
+ <select id="selectTicketListAllLimit" resultType="com.green.airline.dto.response.TicketAllInfoDto">
+	SELECT t.*, departure_date, arrival_date, departure, destination, flight_time, a.name AS airplane_name, tid, r.type AS schedule_type,
+	        CASE 
+				WHEN t.id = tp.ticket_id1 THEN amount1 
+	            WHEN t.id = tp.ticket_id2 THEN amount2
+			END AS amount,
+			CASE
+				WHEN t.id = tp.ticket_id1 THEN status1
+	            WHEN t.id = tp.ticket_id2 THEN status2
+			END AS status
+	FROM ticket_tb AS t
+	JOIN schedule_tb AS s
+	ON t.schedule_id = s.id
+	JOIN route_tb AS r
+	ON r.id = s.route_id
+	JOIN airplane_tb AS a
+	ON s.airplane_id = a.id
+	JOIN ticket_payment_tb AS tp
+	ON t.id IN (tp.ticket_id1, tp.ticket_id2)
+	WHERE status1 != 0 OR status2 != 0
+	ORDER BY reserved_date DESC
+	LIMIT #{index}, 10
+ </select>
+
 </mapper>

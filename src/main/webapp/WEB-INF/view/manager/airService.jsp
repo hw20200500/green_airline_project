@@ -10,16 +10,63 @@
 	</c:otherwise>
 </c:choose>
 
+<style>
+	.service--ul {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		padding: 15px 25px;
+		border-radius: 10px;
+		box-shadow: 0 0 3px 3px #ebebeb;
+	}
+	
+	.service--ul:hover {
+		background-color: #eee
+	}
+	
+	.service--ul span {
+		font-size: 70px;
+		color: #657788;
+	}
+	
+	.service--ul span:hover {
+		color: #657788;
+	}
+	
+	.service--ul li:last-of-type {
+		font-size: 23px;
+		font-weight: 600;
+		color: #475462;
+		margin-top: 5px;
+	}
+</style>
 
-<!-- 회원정보 조회 -->
+
+<!-- 항공 서비스 메인 페이지 -->
 
 <main>
-
 	<h2>항공 서비스</h2>
 	<hr>
 	<br>
-	<div>
-		항공권 조회, 항공권 구매 내역 (최근순), ...
+	<div class = "d-flex justify-content-around align-items-end" style="height: 280px; padding: 0 20px">
+		<ul class="service--ul" onclick="location.href='/manager/scheduleList'">
+			<li><span class="material-symbols-outlined">flight</span>
+			<li>운항 스케줄 조회
+		</ul>
+		<ul class="service--ul" onclick="location.href='/manager/ticketList/1'">
+			<li><span class="material-symbols-outlined">airplane_ticket</span>
+			<li>항공권 구매 내역
+		</ul>
+		<ul class="service--ul" onclick="location.href='#'">
+			<li><span class="material-symbols-outlined">restaurant</span>
+			<li>기내식 신청 내역
+		</ul>
+		<ul class="service--ul" onclick="location.href='#'">
+			<li><span class="material-symbols-outlined">luggage</span>
+			<li>수하물 신청 내역
+		</ul>
 	</div>
 
 </main>

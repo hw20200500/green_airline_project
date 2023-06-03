@@ -27,7 +27,7 @@ public interface TicketRepository {
 	public Integer deleteById(String id);
 
 	/**
-	 * @author 서영 해당 유저가 예매한 티켓들을 최근순으로 조회
+	 * @author 서영 해당 유저가 예매한 티켓들을 최근순으로 조회 (결제 내역 추가용 간단한 정보들만)
 	 */
 	public List<Ticket> selectByUserIdOrderByDate(String memberId);
 
@@ -71,4 +71,17 @@ public interface TicketRepository {
 	public TicketAllInfoDto selectByTicketId(String id);
 	
 	public int inserticketIdById(TicketAllInfoDto ticketAllInfoDto);
+	
+	/**
+	 * @author 서영
+	 * 모든 티켓 구매 내역들을 최근순으로 조회
+	 */
+	public List<TicketAllInfoDto> selectTicketListAll();
+	
+	/**
+	 * @author 서영
+	 * 모든 티켓 구매 내역들을 최근순으로 조회
+	 */
+	public List<TicketAllInfoDto> selectTicketListAllLimit(Integer index);
+	
 }

@@ -196,16 +196,41 @@
 					</tr>
 				</tbody>
 			</table>
-			<c:if test="${ticket.checkRefundable()}">
-				<div class="d-flex justify-content-center" style="width: 100%; margin: 70px 0 40px;">
-					<button class="search--btn--middle" style="padding: 8px 12px 4px 5px;" id="refundBtn">
-						<ul class="d-flex justify-content-center">
-							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 26px; margin-top: 1px;">attach_money</span>
-							<li style="margin-left: 4px;">환불 신청
-						</ul>
-					</button>
-				</div>
-			</c:if>
+			<div class="d-flex justify-content-center" style="width: 100%; margin: 70px 0 40px;">
+				<c:choose>
+					<%-- 관리자라면 --%>
+					<c:when test="${principal.userRole.equals(\"관리자\")}">
+						<button type="button" class="search--btn--middle" style="padding-left: 9px; background-color: gray" onclick="location.href='/manager/ticketList/1'">
+							<ul class="d-flex justify-content-center" style="margin: 0;">
+								<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 26px; margin-top: 1px; margin-right: 5px;">keyboard_backspace</span>
+								<li>목록
+							</ul>
+						</button>
+					</c:when>
+					<%-- 회원이라면 (소셜회원, 회원, 비회원 모두 포함) --%>
+					<c:otherwise>
+						<button type="button" class="search--btn--middle" style="padding-left: 9px; background-color: gray" onclick="location.href='/ticket/list/1'">
+							<ul class="d-flex justify-content-center" style="margin: 0;">
+								<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 26px; margin-top: 1px; margin-right: 5px;">keyboard_backspace</span>
+								<li>목록
+							</ul>
+						</button>
+					</c:otherwise>
+				</c:choose>
+				<%-- 티켓이 환불 가능한 상태인지 확인 --%>
+				<c:if test="${ticket.checkRefundable()}">
+					<%-- 현재 로그인한 사용자와 티켓 예약자가 동일한지 확인 --%>
+					<c:if test="${ticket.memberId.equals(principal.id)}">
+						<span style="margin: 0 30px"></span>
+						<button class="search--btn--middle" style="padding: 8px 12px 4px 5px;" id="refundBtn">
+							<ul class="d-flex justify-content-center">
+								<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 26px; margin-top: 1px;">attach_money</span>
+								<li style="margin-left: 4px;">환불 신청
+							</ul>
+						</button>
+					</c:if>
+				</c:if>
+			</div>
 		</div>
 	</div>
 	
