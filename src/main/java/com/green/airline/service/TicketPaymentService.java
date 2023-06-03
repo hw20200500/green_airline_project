@@ -21,8 +21,8 @@ public class TicketPaymentService {
 	/**
 	 * @return 최근 11개월간 월간 매출액 (이번 달 제외)
 	 */
-	public List<MonthlySalesForChartDto> readMonthlySales() {
-		return ticketPaymentRepository.selectSalesGroupByDate();
+	public List<MonthlySalesForChartDto> readMonthlySales(String date) {
+		return ticketPaymentRepository.selectSalesGroupByDate(date);
 	}
 	
 	/**
