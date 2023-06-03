@@ -27,4 +27,7 @@ public interface BaggageRequestRepository {
 	// 신청 취소 삭제
 	int deleteBaggageReqById(Integer id);
 	
+	// 수하물 신청 내역 조회 amount가 0이 아닐 때 신청 내역이 없습니다. 출력
+	List<BaggageReqResponseDto> selectBaggageReqByMemberIdAndAmount(String memberId);
+	
 }

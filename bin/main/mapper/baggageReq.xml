@@ -31,6 +31,22 @@
 		where bre.member_id=#{memberId}
 	</select>
 	
+	<select id="selectBaggageReqByMemberIdAndAmount" resultType="com.green.airline.dto.response.BaggageReqResponseDto">
+		select cb.section, cb.grade_id, bre.amount, r.departure, r.destination, sg.name as seat_grade_name, bre.id as baggage_id
+		from baggage_request_tb as bre
+		join baggage_route_tb as bro
+		on bre.br_id = bro.id
+		join route_tb as r 
+		on r.id = bro.route_id
+		join checked_baggage_tb as cb
+		on cb.id = bro.baggage_id
+		join seat_grade_tb as sg
+		on sg.name = cb.grade_id
+		join member_tb as m
+		on bre.member_id = m.id
+		where bre.member_id=#{memberId} and bre.amount>0
+	</select>
+	
 	<select id="selectBaggageReqGroupBySection" resultType="com.green.airline.dto.response.BaggageReqResponseDto">
 		select cb.section
 		from baggage_request_tb as bre

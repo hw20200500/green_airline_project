@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.green.airline.dto.response.InFlightMealResponseDto;
+import com.green.airline.dto.response.SpecialMealResponseDto;
 import com.green.airline.repository.model.Airport;
 import com.green.airline.repository.model.InFlightMeal;
 import com.green.airline.repository.model.InFlightService;
@@ -27,10 +29,10 @@ public class InFlightServiceController {
 
 	@Autowired
 	private InFlightSvService inFlightSvService;
-	
+
 	@Autowired
 	private AirportService airportService;
-	
+
 	@Autowired
 	private RouteService routeService;
 
@@ -83,12 +85,10 @@ public class InFlightServiceController {
 
 		if (principal == null) {
 			model.addAttribute("inFlightServiceResponseDtos", null);
-			model.addAttribute("isLogin", false);
 		} else {
 			List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
 					.readInFlightMealSchedule(principal.getId());
 			model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
-			model.addAttribute("isLogin", true);
 		}
 
 		return "/in_flight/inFlightServiceSpecial";
@@ -106,14 +106,35 @@ public class InFlightServiceController {
 
 		return "/in_flight/inFlightServiceSpecial";
 	}
-	
+
 	// 기내 서비스 페이지
 	@GetMapping("/list")
 	public String inFlightServiceListPage(Model model) {
 		List<InFlightService> inFlightServices = inFlightSvService.readInFlightService();
 		model.addAttribute("inFlightServices", inFlightServices);
-		
+
 		return "/in_flight/inFlightService";
 	}
-	
+
+	// 특별 기내식 신청 내역 페이지
+	@GetMapping("/myServiceReq")
+	public String myServiceReqPage(Model model) {
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		List<SpecialMealResponseDto> specialMealResponseDtos = inFlightSvService
+				.readRequestMealByMemberId(principal.getId());
+		List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
+				.readInFlightMealSchedule(principal.getId());
+
+		model.addAttribute("specialMealResponseDtos", specialMealResponseDtos);
+		model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
+
+		return "/user/myServiceReq";
+	}
+
+	// 특별 기내식 신청 내역 페이지 (수정 및 삭제)
+	@PostMapping("/myReqServiceDelete")
+	public String myReqServiceDeleteProc(@RequestParam Integer id) {
+		inFlightSvService.deleteRequestMealById(id);
+		return "redirect:/inFlightService/myServiceReq";
+	}
 }
