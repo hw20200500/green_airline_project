@@ -10,7 +10,7 @@
 	</c:otherwise>
 </c:choose>
 
-<link rel="stylesheet" href="/css/main_page.css">
+<link rel="stylesheet" href="/css/mainPage.css">
 
 <div class="main--img--div">
 	<div style="width: 1178px; margin-left: 24px;">
@@ -180,7 +180,7 @@
 					</div>
 				</div>
 				<div class="d-flex justify-content-end" style="width: 100%">
-					<button class="search--btn--middle" id="schedulePageBtn" type="submit">
+					<button class="blue--btn--middle" id="schedulePageBtn" type="submit">
 						<ul class="d-flex justify-content-center" style="margin: 0;">
 							<li style="margin-right: 3px;">항공권 조회
 							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">search</span>
@@ -331,5 +331,7 @@
 	});
 	
 </script>
+
+<input type="hidden" name="menuName" id="menuName" value="">
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

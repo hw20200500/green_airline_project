@@ -35,6 +35,7 @@ import com.green.airline.dto.request.SocialJoinFormDto;
 import com.green.airline.dto.request.UserFormDto;
 import com.green.airline.dto.response.BaggageReqResponseDto;
 import com.green.airline.dto.response.InFlightMealResponseDto;
+import com.green.airline.dto.response.MemberInfoDto;
 import com.green.airline.dto.response.SpecialMealResponseDto;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.model.Airport;
@@ -132,9 +133,9 @@ public class UserController {
 	 */
 	@ResponseBody
 	@GetMapping("/loginMemberInfo")
-	public Member loginMemberInfoData() {
+	public MemberInfoDto loginMemberInfoData() {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-		Member response = userService.readMemberById(principal.getId());
+		MemberInfoDto response = userService.readMemberById(principal.getId());
 		return response;
 	}
 
@@ -306,7 +307,7 @@ public class UserController {
 	@GetMapping("/userUpdate")
 	public String userUpdatePage(Member member, Errors errors, Model model) {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-		Member memberById = userService.readMemberById(principal.getId());
+		MemberInfoDto memberById = userService.readMemberById(principal.getId());
 
 		model.addAttribute("principal", principal);
 		model.addAttribute("memberById", memberById);
@@ -435,7 +436,7 @@ public class UserController {
 		SaveMileageDto sumNowMileage = mileageService.readSaveMileage(memberId);
 		Mileage mileage = mileageService.readExprirationBalanceByMemberId(memberId, ts);
 		Mileage mileage2 = mileageService.readSaveBalanceByMemberId(memberId, ts);
-		Member member = userService.readMemberById(memberId);
+		MemberInfoDto member = userService.readMemberById(memberId);
 		List<Mileage> mileages = mileageService.readMileageTbOrderByMileageDateByMemberId(memberId);
 		model.addAttribute("sumNowMileage", sumNowMileage);
 		model.addAttribute("mileage", mileage);

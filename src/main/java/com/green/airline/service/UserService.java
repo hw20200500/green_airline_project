@@ -20,6 +20,7 @@ import com.green.airline.dto.request.LoginFormDto;
 import com.green.airline.dto.request.PasswordCheckDto;
 import com.green.airline.dto.request.SocialJoinFormDto;
 import com.green.airline.dto.response.CountByYearAndMonthDto;
+import com.green.airline.dto.response.MemberInfoDto;
 import com.green.airline.enums.UserRole;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.interfaces.MemberRepository;
@@ -47,7 +48,7 @@ public class UserService {
 	private MileageRepository mileageRepository;
 
 	/**
-	 * @author 서영 로그인
+	 * 로그인
 	 */
 	@Transactional
 	public User readUserByIdAndPassword(LoginFormDto loginFormDto) {
@@ -84,8 +85,8 @@ public class UserService {
 	 * @return 회원 정보
 	 */
 	@Transactional
-	public Member readMemberById(String id) {
-		Member memberEntity = memberRepository.selectById(id);
+	public MemberInfoDto readMemberById(String id) {
+		MemberInfoDto memberEntity = memberRepository.selectById(id);
 		return memberEntity;
 	}
 
@@ -226,10 +227,12 @@ public class UserService {
 	}
 
 	// id 기반 user 상태값 변경
-	public void updateUserByStatus(String id, Integer status) {
+	public Boolean updateUserByStatus(String id, Integer status) {
 		int resultCnt = userRepository.updateUserByStatus(id, status);
 		if (resultCnt == 1) {
-			System.out.println("탈퇴 성공");
+			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -252,5 +255,37 @@ public class UserService {
 		}
 	}
 
+	/**
+	 * @author 서영
+	 * @return 모든 회원 목록 (가입상태-탈퇴상태 순)
+	 */
+	public List<Member> readMemberListAll() {
+		return memberRepository.selectMemberListAll();
+	}
+	
+	// 페이징용
+	public List<MemberInfoDto> readMemberListAllLimit(Integer index) {
+		return memberRepository.selectMemberListAllLimit(index);
+	}
 
+	/**
+	 * @author 서영
+	 * @return 회원 검색
+	 */
+	public List<MemberInfoDto> readMemberListSearch(String search) {
+		return memberRepository.selectMemberListSearch(search);
+	}
+	
+	/**
+	 * @author 서영
+	 * User 모델을 이용한 User 등록
+	 */
+	@Transactional
+	public void createUser(User user) {
+		String rawPwd = user.getPassword();
+		String hashPwd = passwordEncoder.encode(rawPwd);
+		user.setPassword(hashPwd); // 암호화 처리
+		userRepository.insert(user);
+	}
+	
 }

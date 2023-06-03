@@ -183,7 +183,7 @@
 			</div>
 			<br>
 			<div class="d-flex justify-content-center" style="width: 100%; margin: 30px 0 40px;">
-				<button class="search--btn--middle" id="passengerInfoBtn">
+				<button class="blue--btn--middle" id="passengerInfoBtn">
 					<ul class="d-flex justify-content-center">
 						<li style="margin-right: 4px;">입력 완료
 						<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">done</span>

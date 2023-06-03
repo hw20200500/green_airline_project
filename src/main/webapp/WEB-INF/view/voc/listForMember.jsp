@@ -125,9 +125,9 @@
 	</c:choose>
 	
 	<div class="d-flex justify-content-end">
-		<button type="button" class="search--btn--small" onclick="location.href='/voc/write'" style="margin-top: -30px;">
+		<button type="button" class="blue--btn--small" onclick="location.href='/voc/write'" style="margin-top: -30px;">
 			<ul class="d-flex justify-content-center" style="margin: 0;">
-				<li style="margin-right: 4px;">게시글 작성
+				<li style="margin-right: 4px;">고객의 말씀 작성
 				<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">edit</span>
 			</ul>
 		</button>

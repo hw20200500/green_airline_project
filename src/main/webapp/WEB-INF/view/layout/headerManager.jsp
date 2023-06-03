@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>그린항공ㅣMANAGER</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="/css/layout_manager.css">
+<link rel="stylesheet" href="/css/layoutManager.css">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
@@ -45,10 +45,10 @@
 					<img alt="" src="/images/logo2.png" class="logo" onclick="location.href='/manager/dashboard';">
 					<div class="main--menu" style="width: 100%;">
 						<ul class="nav--depth1">
-							<li><a href="/manager/memberList">회원관리</a></li>
+							<li><a href="/manager/userManage">회원관리</a></li>
 							<li><a href="/manager/airService">항공서비스</a></li>
+							<li><a href="/manager/mileageShop">마일리지샵</a></li>
 							<li><a href="/board/list">추천여행지</a></li>
-							<li><a href="/product/productMain/clasic">마일리지샵</a></li>
 							<li><a href="/notice/noticeList">고객센터</a></li>
 						</ul>
 					</div>
@@ -62,7 +62,7 @@
 					<div>
 						<button class="sub--menu--button home--button" onclick="location.href='/manager/dashboard';">
 							<ul class="d-flex">
-								<li class="material--li"><span class="material-symbols-outlined material-symbols-outlined-white">house</span></li>
+								<li class="material--li"><span class="material-symbols-outlined material-symbols-outlined-white">bar_chart</span></li>
 								<li>Dashboard</li>
 							</ul>
 						</button>
@@ -76,10 +76,10 @@
 								</ul>
 							</button>
 							<ul id="dropMenu1" class="drop--menu">
-								<li><button class="menu--button" onclick="location.href='/manager/memberList'">회원관리</button></li>
+								<li><button class="menu--button" onclick="location.href='/manager/userManage'">회원관리</button></li>
 								<li><button class="menu--button" onclick="location.href='/manager/airService'">항공서비스</button></li>
+								<li><button class="menu--button" onclick="location.href='/manager/mileageShop'">마일리지샵</button></li>
 								<li><button class="menu--button" onclick="location.href='/board/list'">추천여행지</button></li>
-								<li><button class="menu--button" onclick="location.href='/product/productMain/clasic'">마일리지샵</button></li>
 								<li><button class="menu--button" onclick="location.href='#'">고객센터</button></li>
 							</ul>
 						</div>

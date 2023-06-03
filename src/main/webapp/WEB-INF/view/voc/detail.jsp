@@ -171,7 +171,7 @@ label {
 			<div style="margin-top: 40px;" class="d-flex justify-content-center">
 				<c:choose>
 					<c:when test="${principal.userRole.equals(\"관리자\")}">	
-						<button type="button" class="search--btn--small" id="goListBtn" style="padding-left: 9px; background-color: gray" onclick="location.href='/voc/list/not/1'">
+						<button type="button" class="blue--btn--small" id="goListBtn" style="padding-left: 9px; background-color: gray" onclick="location.href='/voc/list/not/1'">
 							<ul class="d-flex justify-content-center" style="margin: 0;">
 								<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px; margin-right: 5px;">keyboard_backspace</span>
 								<li>목록
@@ -179,7 +179,7 @@ label {
 						</button>
 						<c:if test="${voc.answerId == null}">
 							<span style="margin: 0 30px"></span>
-							<button type="button" class="search--btn--small" id="answerBtn">
+							<button type="button" class="blue--btn--small" id="answerBtn">
 								<ul class="d-flex justify-content-center" style="margin: 0;">
 									<li style="margin-right: 4px;">답변 작성
 									<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">edit</span>
@@ -188,7 +188,7 @@ label {
 						</c:if>
 					</c:when>
 					<c:otherwise>
-							<button type="button" class="search--btn--small" style="padding-left: 9px; background-color: gray" onclick="location.href='/voc/list/1'">
+							<button type="button" class="blue--btn--small" style="padding-left: 9px; background-color: gray" onclick="location.href='/voc/list/1'">
 								<ul class="d-flex justify-content-center" style="margin: 0;">
 									<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px; margin-right: 5px;">keyboard_backspace</span>
 									<li>목록
@@ -197,7 +197,7 @@ label {
 						<%-- 수정은 답변이 달리지 않았을 때에만 가능 --%>
 						<c:if test="${voc.answerId == null}">
 							<span style="margin: 0 30px"></span>
-							<button type="button" class="search--btn--small" style="margin: 0 10px" onclick="location.href='/voc/update/${id}'">
+							<button type="button" class="blue--btn--small" style="margin: 0 10px" onclick="location.href='/voc/update/${id}'">
 								<ul class="d-flex justify-content-center" style="margin: 0;">
 									<li style="margin-right: 4px;">수정
 									<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">edit</span>
@@ -207,7 +207,7 @@ label {
 						<c:if test="${voc.answerId != null}">
 							<span style="margin: 0 30px"></span>
 						</c:if>
-						<button type="button" class="search--btn--small" id="vocDeleteBtn" style="margin: 0 10px">
+						<button type="button" class="blue--btn--small" id="vocDeleteBtn" style="margin: 0 10px">
 							<ul class="d-flex justify-content-center" style="margin: 0;">
 								<li style="margin-right: 4px;">삭제
 								<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">delete_forever</span>
@@ -246,13 +246,13 @@ label {
 					</table>
 					
 					<div style="margin-top: 40px;" class="d-flex justify-content-center">
-						<button type="button" class="search--btn--small" id="answerCloseBtn" style="margin-right: 60px; background-color: gray">
+						<button type="button" class="blue--btn--small" id="answerCloseBtn" style="margin-right: 60px; background-color: gray">
 							<ul class="d-flex justify-content-center" style="margin: 0;">
 								<li style="margin-right: 4px;">취소
 								<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">close</span>
 							</ul>
 						</button>
-						<button type="submit" class="search--btn--small">
+						<button type="submit" class="blue--btn--small">
 							<ul class="d-flex justify-content-center" style="margin: 0;">
 								<li style="margin-right: 4px;">입력 완료
 								<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">done</span>

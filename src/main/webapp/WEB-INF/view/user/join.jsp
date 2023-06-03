@@ -29,6 +29,20 @@ input[type=text]:focus {
 input[type=password]:focus {
 	outline: none;
 }
+
+.ui-datepicker select.ui-datepicker-year {
+	width: 70px !important;	
+	margin-right: -20px !important;
+}
+
+.ui-datepicker select.ui-datepicker-month {
+	width: 60px !important;	
+}
+
+.ui-datepicker .ui-datepicker-title {
+	display: flex;
+	justify-content: space-around;
+}
 </style>
 <script>
 	let gender = `${joinFormDto.gender}`;
