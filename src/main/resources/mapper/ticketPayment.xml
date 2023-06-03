@@ -46,10 +46,10 @@
 			FROM ticket_payment_tb AS p
 			JOIN ticket_tb AS t
 			ON p.ticket_id1 = t.id
-			WHERE status1 = 1
+			WHERE status1 = 1 AND #{date} > reserved_date 
 			GROUP BY `year`, `month`
 			ORDER BY `year` DESC, `month` DESC
-			LIMIT 1, 11)
+			LIMIT 11)
 			
 			UNION
 			
@@ -59,12 +59,13 @@
 			FROM ticket_payment_tb AS p
 			JOIN ticket_tb AS t
 			ON p.ticket_id1 = t.id
-			WHERE status2 = 1
+			WHERE status2 = 1 AND #{date} > reserved_date
 			GROUP BY `year`, `month`
 			ORDER BY `year` DESC, `month` DESC
-			LIMIT 1, 11) 
+			LIMIT 11) 
 	) AS s
-	GROUP BY `year`, `month`;
+	GROUP BY `year`, `month`
+    ORDER BY `year` , `month`
 </select>
 
 <select id="selectSalesByThisMonth" resultType="com.green.airline.dto.response.MonthlySalesForChartDto">

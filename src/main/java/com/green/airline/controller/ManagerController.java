@@ -84,7 +84,7 @@ public class ManagerController {
 		Integer lastMonth = LocalDateTime.now().minusMonths(1).getMonthValue();
 		
 		// 최근 1년간 월간 매출액 (이번 달 제외)
-		List<MonthlySalesForChartDto> salesList = ticketPaymentService.readMonthlySales();
+		List<MonthlySalesForChartDto> salesList = ticketPaymentService.readMonthlySales(year + "-" + nowMonth + "-01");
 		
 		// JSON으로 변환
 		Gson gson = new Gson();
