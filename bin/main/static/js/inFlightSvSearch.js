@@ -125,14 +125,27 @@ $("#modal--select--btn--id").on("click", function() {
 			alert("노선 정보가 없습니다.");
 			window.location.reload();
 		} else {
-			let destinationResId = $("#destination--res--id");
-
+			let destinationWrap = $("#destination--res--wrap");
+			/*let destinationTitle = $("#destination--res--title");
+			let destinationImg = $("#destination--res--img");
+			let destinationContent = $("#destination--res--content");*/
 			for (let i = 0; i < data.length; i++) {
+				let destinationTitle = $("<div>");
+				let destinationImg = $("<div>");
+				let destinationContent = $("<div>");
+				destinationTitle.attr("id", "destination--res--title");
+				destinationImg.attr("id", "destination--res--img");
+				destinationContent.attr("id", "destination--res--content");
+				
 				let imgNode = $("<img>");
 				imgNode.attr("src", "/images/in_flight/" + data[i].detailImage);
-				destinationResId.append(data[i].name);
-				destinationResId.append(imgNode);
-				destinationResId.append(data[i].description);
+				
+				destinationTitle.append(data[i].name);
+				destinationImg.append(imgNode);
+				destinationContent.append(data[i].description);
+				destinationWrap.append(destinationTitle);
+				destinationWrap.append(destinationImg);
+				destinationWrap.append(destinationContent);
 			}
 		}
 
@@ -246,4 +259,18 @@ function insertDestinationAirportClass(i) {
 	$(`#destination`).val(liValue);
 }
 
+function changeValue() {
+	let departure = $("#modal--departure--btn--id");
+	let destination = $("#modal--destination--btn--id");
+	let departureValue = $("#modal--departure--btn--id").text();
+	let destinationValue = $("#modal--destination--btn--id").text();
+	let destinationInputTag = $("#destination");
+	let departureInputTag = $("#departure");
+	let tempValue;
+	tempValue = departureValue;
+	departureInputTag.val(destinationValue);
+	destinationInputTag.val(tempValue);
+	departure.text(destinationValue);
+	destination.text(tempValue);
+};
 

@@ -7,7 +7,7 @@ public class BaggageRequest {
 
 	private Integer id;
 	private Integer amount;
-	private Integer brId;
+	private String ticketId;
 	private String memberId;
 	
 }

@@ -8,7 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.green.airline.dto.request.BaggageReqRequestDto;
 import com.green.airline.dto.response.BaggageReqResponseDto;
+import com.green.airline.dto.response.InFlightMealResponseDto;
 import com.green.airline.repository.interfaces.BaggageRequestRepository;
+import com.green.airline.repository.model.BaggageRequest;
 
 @Service
 public class BaggageRequestService {
@@ -72,5 +74,25 @@ public class BaggageRequestService {
 		List<BaggageReqResponseDto> baggageReqResponseDtos = baggageRequestRepository.selectBaggageReqByMemberIdAndAmount(memberId);
 		return baggageReqResponseDtos;
 	}
+	
+	// 수하물 신청
+	public int createBaggageReq(BaggageRequest baggageRequest) {
+		int resultCnt = baggageRequestRepository.insertBaggageReq(baggageRequest);
+		if(resultCnt == 1) {
+			System.out.println("insert 성공");
+		}
+		return resultCnt;
+	}
+	
+	public List<InFlightMealResponseDto> readBaggageReqPossibleTicket(String memberId){
+		List<InFlightMealResponseDto> flightMealResponseDtos = baggageRequestRepository.selectBaggageReqPossibleTicket(memberId);
+		return flightMealResponseDtos;
+	}
+	
+	public List<InFlightMealResponseDto> readBaggageReqForManager(){
+		List<InFlightMealResponseDto> inFlightMealResponseDtos = baggageRequestRepository.selectBaggageReqForManager();
+		return inFlightMealResponseDtos;
+	}
+	
 
 }

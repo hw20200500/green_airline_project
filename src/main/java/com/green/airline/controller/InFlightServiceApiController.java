@@ -6,12 +6,17 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.green.airline.dto.request.InFlightReqRequestDto;
 import com.green.airline.dto.response.InFlightMealResponseDto;
 import com.green.airline.dto.response.InFlightServiceResponseDto;
+import com.green.airline.dto.response.ResponseDto;
 import com.green.airline.dto.response.RouteResponseDto;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.model.Airport;
@@ -41,7 +46,7 @@ public class InFlightServiceApiController {
 	@GetMapping("/changeCategory")
 	public List<InFlightMealResponseDto> inFlightServiceSpecialPage(
 			@RequestParam(name = "name", defaultValue = "유아식 및 아동식", required = false) String name) {
-		List<InFlightMealResponseDto> inFlightMeals = inFlightSvService.readInFlightMeal(name);
+		List<InFlightMealResponseDto> inFlightMeals = inFlightSvService.readInFlightMealByName(name);
 
 		return inFlightMeals;
 	}
@@ -75,6 +80,32 @@ public class InFlightServiceApiController {
 	public List<InFlightServiceResponseDto> searchRoute(@RequestParam String destination, @RequestParam String departure) {
 		List<InFlightServiceResponseDto> reqRouteList = routeService.readByDestAndDepa(destination, departure);
 		return reqRouteList;
+	}
+	
+	// 특별 기내식 신청 페이지
+	@PostMapping("/specialMealReq")
+	public ResponseDto<?> specialMealReqPage(Model model, @RequestBody InFlightReqRequestDto inFlightReqRequestDto) {
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		// todo
+		// 특별 기내식 상세 조회 기능 갖고 와야 함
+		// myInfo에 찍어줘야 함 (특별 기내식 신청 내역 페이지를 하나 만들던가 해야 함.)
+		inFlightReqRequestDto.setMemberId(principal.getId());
+		int result = inFlightSvService.createInFlightMealRequest(inFlightReqRequestDto);
+		if(result == 0) {
+			ResponseDto<Object> failMsg = ResponseDto.builder()
+					.statusCode(HttpStatus.BAD_REQUEST.value())
+					.message("신청 실패")
+					.build();
+			System.out.println(failMsg);
+			return failMsg;
+		} else {
+			ResponseDto<Object> successMsg = ResponseDto
+					.builder()
+					.statusCode(HttpStatus.OK.value())
+					.message("신청 완료되었습니다.").build();
+			System.out.println(successMsg);
+			return successMsg;
+		}
 	}
 
 }

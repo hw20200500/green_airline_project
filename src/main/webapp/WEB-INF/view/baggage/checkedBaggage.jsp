@@ -10,51 +10,179 @@
 	</c:otherwise>
 </c:choose>
 
+<style>
+.checkedBaggage--title--wrap {
+	display: flex;
+}
+
+.checkedBaggage--ul {
+	display: flex;
+	justify-content: space-between;
+}
+
+.checkedBaggage--ul li {
+	display: flex;
+}
+
+.checkedBaggage--ul li a {
+	display: block;
+	display: flex;
+	background-color: white;
+	width: 600px;
+	height: 50px;
+	border: 1px solid #ebebeb;
+	justify-content: center;
+	align-items: center;
+}
+
+.checkedBaggage--ul li a:hover {
+	background-color: #8abbe1;
+	color: white;
+}
+
+.checkedBaggage--content--wrap {
+	margin-top: 20px;
+}
+
+.checkedBaggage--select--all--class {
+	border: 1px solid #ebebeb;
+	padding: 30px;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20px;
+}
+
+.checkedBaggage--select--class {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 1138px;
+}
+
+.checkedBaggage--select--class p {
+	margin-right: 330px;
+	font-size: 15px;
+	color: #767676;
+}
+
+#free--baggage--id {
+	border: none;
+	border-bottom: 1px solid black;
+	padding-bottom: 10px;
+	width: 400px;
+}
+
+table {
+	width: 1200px;
+	border-left: none;
+	border-right: none;
+	margin-bottom: 20px;
+}
+
+table tr th, table tr td {
+	text-align: center;
+	padding: 10px;
+	border: 1px solid #ebebeb;
+}
+
+.checkedBaggage--notice--class {
+	background-color: #f8f9fc;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+
+.checkedBaggage--notice--ul {
+	font-size: 15px;
+}
+
+.checkedBaggage--notice--ul li {
+	list-style: disc;
+	margin-left: 20px;
+}
+
+.btn--primary {
+	color: white;
+	border: none;
+	background-color: #8ABBE2;
+}
+
+.btn--primary:hover {
+	color: white;
+	border: none;
+	background-color: #8ABBE2;
+}
+
+.btn--danger {
+	color: white;
+	border: none;
+	background-color: #DC6093;
+}
+
+.btn--danger:hover {
+	color: white;
+	border: none;
+	background-color: #DC6093;
+}
+
+#free--baggage--id:focus {
+	outline: none;
+}
+
+.checkedBaggage--background {
+	background-color: #8ABBE2;
+}
+
+</style>
+
 <main>
 	<div>
 		<div>
-
-			<%-- 위탁 수하물 레이아웃 만들기 --%>
-			<h1>위탁 수하물 안내</h1>
+			<h2>위탁 수하물 안내</h2>
 			<p>항공사에 맡기는 각종 수하물의 크기, 요금, 준비 방법 등에 대한 정보를 안내해 드립니다.</p>
 		</div>
 
-		<div>
-			<button type="button" onclick="location.href='/baggage/checkedBaggage'" class="btn btn-primary">수하물 규정</button>
-			<button type="button" onclick="location.href='/baggage/transitBaggage'" class="btn btn-primary">환승 수하물</button>
+		<div class="checkedBaggage--title--wrap">
+			<ul class="checkedBaggage--ul">
+				<li><a href="/baggage/checkedBaggage" style="background-color: #8ABBE2; color: white;" id="left--li">수하물 규정</a></li>
+				<li><a href="/baggage/transitBaggage" id="right--li">환승 수하물</a></li>
+			</ul>
 		</div>
 
-		<div>
-			<h3>무료 위탁 수하물</h3>
+		<div class="checkedBaggage--content--wrap">
+			<h4>무료 위탁 수하물</h4>
 			<p>탑승 여정에 맞는 무료 수하물 허용량을 조회해 보세요.</p>
 		</div>
 
-		<div>
-			<select id="free--baggage--id" name="section">
-				<c:forEach var="baggage" items="${baggage}">
-					<option value="${baggage.section}">${baggage.section}</option>
-				</c:forEach>
-			</select>
+		<div class="checkedBaggage--select--all--class">
+			<div class="checkedBaggage--select--class">
+				<p>구간 선택</p>
+				<select id="free--baggage--id" name="section">
+					<c:forEach var="baggage" items="${baggage}">
+						<option value="${baggage.section}">${baggage.section}</option>
+					</c:forEach>
+				</select>
+			</div>
 		</div>
 
 		<div class="free--baggage--description--class">
 			<table border="1">
-				<tr>
-					<td>좌석 등급</td>
-					<td>무료 수하물 허용량</td>
+				<tr style="background-color: #f8f9fc">
+					<th style="border-left: none;">좌석 등급</th>
+					<th style="border-right: none;">무료 수하물 허용량</th>
 				</tr>
 				<c:forEach var="checkedBaggages" items="${checkedBaggages}" varStatus="status">
 					<tr class="checkedBaggages--all--class${status.index} checkedBaggages--empty--class">
-						<td class="checkedBaggages--gradeId--class">${checkedBaggages.gradeId}</td>
-						<td class="checkedBaggages--freeAllowance--class">${checkedBaggages.freeAllowance}</td>
+						<td class="checkedBaggages--gradeId--class" style="border-left: none;">${checkedBaggages.gradeId}</td>
+						<td class="checkedBaggages--freeAllowance--class" style="border-right: none;">${checkedBaggages.freeAllowance}</td>
 					</tr>
 				</c:forEach>
 			</table>
 		</div>
 
-		<div>
-			<h3>유의사항</h3>
-			<ul>
+		<div class="checkedBaggage--notice--class">
+			<h5>유의사항</h5>
+			<ul class="checkedBaggage--notice--ul">
 				<li>조회 결과는 조회 구간에 대한 일반 규정으로, 경유지가 포함되어 있을 수 있으며 실제 운항 여부는 확인이 필요합니다.</li>
 				<li>이 정보는 참고용으로 공항에서 지불시 제시되는 금액입니다.</li>
 				<li>위탁수하물 개수가 <b>1인당 4개</b>를 초과할 경우 또는 다구간 여정일 경우 그린항공 서비스센터로 문의하여 주시기 바랍니다.<br> (추가 위탁 가능한 수하물 개수는 항공기의 운항 상황에 따라 제한될 수 있습니다.)
@@ -65,7 +193,7 @@
 		</div>
 
 		<div>
-			<button type="button" id="checkedBaggage--request--btn" class="btn btn-primary" data-toggle="modal" data-target="#baggage--req">위탁 수하물 신청</button>
+			<button type="button" id="checkedBaggage--request--btn" class="btn btn--primary" data-toggle="modal" data-target="#baggage--req">위탁 수하물 신청</button>
 		</div>
 
 		<div>
@@ -84,8 +212,6 @@
 
 							<!-- Modal body -->
 							<div class="modal-body">
-
-								<form action="/baggage/checkedBaggageProc" method="post">
 									<div>
 										<div>예약 노선 보여주기</div>
 										<div class="">
@@ -94,16 +220,16 @@
 											<option value="${baggageGroupBySection.section}">${baggageGroupBySection.section}
 										</c:forEach>
 									</select> <br> --%>
-											<select name="modal--name--arrivaldate" id="modal--id--departuredate">
+											<select name="ticketId" id="modal--id--departuredate">
 												<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}" varStatus="status">
-													<option value="${inFlightServiceResponseDtos.departureDateFormat()}_${baggageReqResponses.get(status.index).baggageId}" id="arrival--option">${baggageReqResponses.get(status.index).seatGradeName}|
+													<%-- <input type="hidden" value="${inFlightServiceResponseDtos.ticketId}" name="ticketId"> --%>
+													<option value="${inFlightServiceResponseDtos.ticketId}" id="arrival--option">${inFlightServiceResponseDtos.seatGradeName}|
 														${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination} ${inFlightServiceResponseDtos.departureDateFormat()}</option>
 												</c:forEach>
 											</select>
 										</div>
 									</div>
 
-									<input type="hidden" name="id" id="input--baggageId" value="${baggageReqResponses.get(0).baggageId}">
 									<div>
 										<div>개수 *1인당 최대 4개</div>
 										<div class="">
@@ -114,10 +240,9 @@
 
 									<!-- Modal footer -->
 									<div class="modal-footer">
-										<button type="submit" class="btn btn-primary">Submit</button>
-										<button type="button" class="btn btn-danger modal_close" data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn--primary" id="submit--btn">Submit</button>
+										<button type="button" class="btn btn--danger modal_close" data-dismiss="modal">Close</button>
 									</div>
-								</form>
 							</div>
 
 						</div>

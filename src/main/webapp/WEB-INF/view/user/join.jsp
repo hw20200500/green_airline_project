@@ -23,39 +23,93 @@
 .password--validation {
 	color: black;
 }
+
 input[type=text]:focus {
 	outline: none;
 }
+
 input[type=password]:focus {
 	outline: none;
+}
+
+.join--id--class2 {
+	font-size: 18px;
+}
+
+main {
+	display: flex;
+	justify-content: center;
+}
+
+.join--border--wrap {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	width: 800px;
+	border-radius: 20px;
+	padding: 20px;
+}
+
+input[type=text], input[type=password]{
+	border: 1px solid #ebebeb;
+	border-radius: 10px;
+	width: 680px;
+	padding: 10px;
+}
+
+.join--input--btn--class{
+	display: flex;
+	justify-content: space-between;
+}
+
+main {
+	width: 100%;
+	background: linear-gradient(to bottom, #8bbdf8 -75%, #e9f3fb 89%);
+	margin-top: -30px;
 }
 </style>
 <script>
 	let gender = `${joinFormDto.gender}`;
 </script>
 <main>
-	<div>
-		<h1>회원가입</h1>
+	<div class="join--border--wrap">
+		<h2>회원가입</h2>
+		<h5>회원이 되어 다양한 혜택을 경험해 보세요!</h5>
+		<hr>
 		<form action="/joinProc" method="post">
 			<div class="join--all--wrap">
 				<c:choose>
 					<%-- validation에 걸려서 돌아왔을 때 --%>
 					<c:when test="${joinFormDto != null}">
-						<div>
-							아이디 <input type="text" name="id" value="${joinFormDto.id}" class="join--id--class" placeholder="Todo 수정 8~20자리">
-							<button type="button" id="exists--id">아이디 중복확인</button>
-							<div class="validation--check">
-								<c:if test="${idValid != null}">
-							${idValid}
-							</c:if>
+						<div class="join--id--class">
+							<div class="join--id--class2">
+								아이디 <br>
+								<div class="join--input--btn--class">
+									<div>
+										<input type="text" name="id" value="${joinFormDto.id}" class="join--id--class" placeholder="Todo 수정 8~20자리">
+										<button type="button" id="exists--id">중복 확인</button>
+										<div class="validation--check">
+											<c:if test="${idValid != null}">
+											${idValid}
+											</c:if>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</c:when>
 					<%-- 일반 회원가입 처리 --%>
 					<c:otherwise>
-						<div>
-							아이디 <input type="text" name="id" id="member--id" placeholder="Todo 수정 8~20자리" value="asdfasdfas">
-							<button type="button" id="exists--id">아이디 중복확인</button>
+						<div class="join--id--class">
+							<div class="join--id--class2">
+								아이디 <br>
+								<div class="join--input--btn--class">
+									<div>
+										<input type="text" name="id" id="member--id" placeholder="Todo 수정 8~20자리" value="asdfasdfas">
+										<button type="button" id="exists--id">중복 확인</button>
+									</div>
+								</div>
+							</div>
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -63,25 +117,34 @@ input[type=password]:focus {
 				<c:choose>
 					<c:when test="${joinFormDto != null}">
 						<div class="password--wrap">
-							비밀번호 <input type="password" name="password" required="required" id="password"  placeholder="Todo 수정 8~20자리">
+							<div>
+								비밀번호 <br> <input type="password" name="password" required="required" id="password" placeholder="Todo 수정 8~20자리">
+							</div>
 							<div class="validation--check">
 								<c:if test="${passwordValid != null}">
 							${passwordValid}
 							</c:if>
 							</div>
-							비밀번호 확인 <input type="password" required="required" id="password--check">
+							<div>
+								비밀번호 확인 <br> <input type="password" required="required" id="password--check">
+							</div>
 						</div>
 					</c:when>
 					<c:otherwise>
 						<div class="password--wrap">
-							비밀번호 <input type="password" name="password" required="required" id="password" placeholder="Todo 수정 8~20자리"> 비밀번호 확인 <input type="password" required="required" id="password--check">
+							<div>
+								비밀번호 <br> <input type="password" name="password" required="required" id="password" placeholder="Todo 수정 8~20자리">
+							</div>
+							<div>
+								비밀번호 확인 <br> <input type="password" required="required" id="password--check">
+							</div>
 						</div>
 					</c:otherwise>
 				</c:choose>
 				<c:choose>
 					<c:when test="${joinFormDto != null}">
 						<div>
-							한글 이름 <input type="text" name="korName" required="required" value="${joinFormDto.korName}">
+							한글 이름 <br> <input type="text" name="korName" required="required" value="${joinFormDto.korName}">
 							<div class="validation--check">
 								<c:if test="${korNameValid != null}">
 							${korNameValid}
@@ -91,7 +154,7 @@ input[type=password]:focus {
 					</c:when>
 					<c:otherwise>
 						<div>
-							한글 이름 <input type="text" name="korName" required="required" value="강강">
+							한글 이름 <br> <input type="text" name="korName" required="required" value="강강">
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -99,7 +162,7 @@ input[type=password]:focus {
 				<c:choose>
 					<c:when test="${joinFormDto != null}">
 						<div>
-							영어 이름 <input type="text" name="engName" required="required" value="${joinFormDto.engName}">
+							영어 이름 <br> <input type="text" name="engName" required="required" value="${joinFormDto.engName}">
 							<div class="validation--check">
 								<c:if test="${engNameValid != null}">
 							${engNameValid}
@@ -109,7 +172,7 @@ input[type=password]:focus {
 					</c:when>
 					<c:otherwise>
 						<div>
-							영어 이름 <input type="text" name="engName" required="required" value="KK">
+							영어 이름 <br> <input type="text" name="engName" required="required" value="KK">
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -192,8 +255,8 @@ input[type=password]:focus {
 					</c:when>
 					<c:otherwise>
 						<div>
-							<input type="button" onclick="execDaumPostcode()" value="주소 찾기" > <br> <input type="text" id="address" name="address" placeholder="주소" value="부산 사상구 가야대로 1"> <br> <input type="text"
-								id="detailAddress" name="detailAddress" placeholder="상세주소">
+							<input type="button" onclick="execDaumPostcode()" value="주소 찾기"> <br> <input type="text" id="address" name="address" placeholder="주소" value="부산 사상구 가야대로 1"> <br> <input
+								type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">
 						</div>
 					</c:otherwise>
 				</c:choose>

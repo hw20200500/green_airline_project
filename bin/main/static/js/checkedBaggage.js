@@ -52,16 +52,10 @@ $(document).ready(function() {
 	});
 
 	$("#modal--id--departuredate").on("change", function() {
-		let departureDateVal = $("#modal--id--departuredate").val();
-		// 날짜와 baggageId 한번에 받아와서 id와 날짜 분리한 후 각각 세팅
-		let departurDate = departureDateVal.split("_")[0];
-		let baggageId = departureDateVal.split("_")[1];
-		let baggageInputTag = $("#input--baggageId");
-		baggageInputTag.attr("value", baggageId);
-
+		let ticketId = $("#modal--id--departuredate").val();
 		$.ajax({
 			type: "get",
-			url: "/maxCount?departureDate=" + departurDate,
+			url: "/maxCount?ticketId=" + ticketId,
 			contentType: "application/json; charset=utf-8"
 		}).done(function(data) {
 			console.log(data);
@@ -77,4 +71,67 @@ $(document).ready(function() {
 	});
 
 });
+
+$("#right--li").on("mouseover", function() {
+	$("#left--li").css('background-color', '#fff');
+	$("#left--li").css('color', '#000');
+});
+
+$("#right--li").on("mouseout", function() {
+	$("#left--li").css('background-color', '#8ABBE2');
+	$("#left--li").css('color', '#fff');
+});
+
+$("#submit--btn").on("click", function() {
+	let amount = $("#seat--count--input").val();
+	let ticketId = $("#modal--id--departuredate").val();
+	console.log(amount);
+	console.log(ticketId);
+	$.ajax({
+		method: "post",
+		url: "/checkedBaggageProc",
+		contentType: "application/json; charset=utf-8",
+		data: JSON.stringify({
+			amount: amount,
+			ticketId: ticketId,
+		}),
+		dataType: "json"
+	}).done(function(res) {
+		if (res.statusCode == 200) {
+			alert(res.message);
+			location.reload();
+		} else {
+			alert(res.message);
+			location.reload();
+		}
+	}).fail(function(error) {
+		console.log(error);
+	});
+});
+
+/*let submitBtn = document.getElementById('submit--btn');
+submitBtn.addEventListener("click", function() {
+	let formData = {
+		"amount": $("#seat--count--input").val(),
+		"ticketId": $("#modal--id--departuredate").val()
+	};
+	fetch("/checkedBaggageProc", ({
+		method: "post",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(formData),
+	})).then(response => {
+		let result = response.json();
+		console.log(result);
+		if(result.status == 200) {
+			alert(result.message);
+			// location.href = "/baggage/myBaggageReq";
+		} else {
+			alert(result.message);
+			// location.reload();
+		}	
+		
+	});
+});*/
 

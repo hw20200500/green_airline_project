@@ -22,6 +22,7 @@ import com.google.gson.JsonObject;
 import com.green.airline.dto.request.ScheduleOptionForMainPageDto;
 import com.green.airline.dto.response.CountByYearAndMonthDto;
 import com.green.airline.dto.response.DestinationCountDto;
+import com.green.airline.dto.response.InFlightMealResponseDto;
 import com.green.airline.dto.response.MonthlySalesForChartDto;
 import com.green.airline.dto.response.ProductBrandOrderAmountDto;
 import com.green.airline.dto.response.VocCountByTypeDto;
@@ -31,6 +32,9 @@ import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.Memo;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.AirportService;
+import com.green.airline.service.BaggageRequestService;
+import com.green.airline.service.BaggageService;
+import com.green.airline.service.InFlightSvService;
 import com.green.airline.service.MemoService;
 import com.green.airline.service.ProductService;
 import com.green.airline.service.RouteService;
@@ -43,49 +47,55 @@ import com.green.airline.utils.Define;
 @RequestMapping("/manager")
 @Controller
 public class ManagerController {
-	
+
 	@Autowired
 	private TicketPaymentService ticketPaymentService;
-	
+
 	@Autowired
 	private MemoService memoService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private VocService vocService;
-	
+
 	@Autowired
 	private RouteService routeService;
-	
+
 	@Autowired
 	private ProductService productService;
-	
+
 	@Autowired
 	private AirportService airportService;
-	
+
 	@Autowired
 	private ScheduleService scheduleService;
-	
+
+	@Autowired
+	private InFlightSvService inFlightSvService;
+
+	@Autowired
+	private BaggageRequestService baggageRequestService;
+
 	@Autowired
 	private HttpSession session;
-	
+
 	/**
 	 * @return 대시보드 (관리자 페이지의 메인)
 	 */
 	@GetMapping("/dashboard")
 	public String dashboardPage(Model model) {
-		
+
 		String managerId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
-		
+
 		Integer year = LocalDateTime.now().getYear();
 		Integer nowMonth = LocalDateTime.now().getMonthValue();
 		Integer lastMonth = LocalDateTime.now().minusMonths(1).getMonthValue();
-		
+
 		// 최근 1년간 월간 매출액 (이번 달 제외)
 		List<MonthlySalesForChartDto> salesList = ticketPaymentService.readMonthlySales();
-		
+
 		// JSON으로 변환
 		Gson gson = new Gson();
 		JsonArray jsonArray = new JsonArray();
@@ -99,8 +109,7 @@ public class ManagerController {
 		}
 		String salesData = gson.toJson(jsonArray);
 		model.addAttribute("salesData", salesData);
-		
-		
+
 		// 지난 달에 작성된 고객의 말씀 유형별 개수
 		List<VocCountByTypeDto> vocCountList = null;
 		// 만약 저번 달이 12월이라면
@@ -109,7 +118,7 @@ public class ManagerController {
 		} else {
 			vocCountList = vocService.readWriteCountGroupByType(year, lastMonth);
 		}
-		
+
 		// JSON으로 변환
 		JsonArray jsonArray2 = new JsonArray();
 		Iterator<VocCountByTypeDto> it2 = vocCountList.iterator();
@@ -122,11 +131,10 @@ public class ManagerController {
 		}
 		String vocData = gson.toJson(jsonArray2);
 		model.addAttribute("vocData", vocData);
-		
-		
+
 		// 도착지별 이용객 수 순위
 		List<DestinationCountDto> routeCountList = routeService.readGroupByDestinationLimitN(12);
-		
+
 		// JSON으로 변환
 		JsonArray jsonArray3 = new JsonArray();
 		Iterator<DestinationCountDto> it3 = routeCountList.iterator();
@@ -139,12 +147,11 @@ public class ManagerController {
 		}
 		String routeData = gson.toJson(jsonArray3);
 		model.addAttribute("routeData", routeData);
-		
-		
+
 		// 마일리지샵 구매량 상위 n개 브랜드
 		List<ProductBrandOrderAmountDto> brandList = productService.readTopNBrand(5);
 		Collections.reverse(brandList);
-		
+
 		// JSON으로 변환
 		JsonArray jsonArray4 = new JsonArray();
 		Iterator<ProductBrandOrderAmountDto> it4 = brandList.iterator();
@@ -157,8 +164,7 @@ public class ManagerController {
 		}
 		String brandData = gson.toJson(jsonArray4);
 		model.addAttribute("brandData", brandData);
-		
-		
+
 		// 이번 달 매출액
 		MonthlySalesForChartDto nowMonthSales = ticketPaymentService.readSalesByThisMonth(year, nowMonth);
 		Long nowMonthSalesValue = (long) 0;
@@ -166,7 +172,7 @@ public class ManagerController {
 			nowMonthSalesValue = nowMonthSales.getSales();
 		}
 		model.addAttribute("thisMonthSales", nowMonthSalesValue);
-		
+
 		// 저번 달 매출액
 		MonthlySalesForChartDto lastMonthSales = null;
 		// 만약 저번 달이 12월이라면
@@ -175,7 +181,7 @@ public class ManagerController {
 		} else {
 			lastMonthSales = ticketPaymentService.readSalesByThisMonth(year, lastMonth);
 		}
-		
+
 		Long lastMonthSalesValue = (long) 0;
 		if (lastMonthSales != null) {
 			lastMonthSalesValue = lastMonthSales.getSales();
@@ -183,8 +189,7 @@ public class ManagerController {
 		// 저번 달 대비 매출액 증감 여부 (보류)
 		Long salesDiff = nowMonthSalesValue - lastMonthSalesValue;
 		model.addAttribute("salesDiff", salesDiff);
-		
-		
+
 		// 이번 달 신규 회원 수
 		Integer newUserCount = 0;
 		CountByYearAndMonthDto newCountDto = userService.readNewUserCount(year, nowMonth);
@@ -193,8 +198,7 @@ public class ManagerController {
 			newUserCount = newCountDto.getCount();
 		}
 		model.addAttribute("newUserCount", newUserCount);
-		
-		
+
 		// 이번 달 탈퇴 회원 수
 		Integer withdrawUserCount = 0;
 		CountByYearAndMonthDto withdrawCountDto = userService.readWithdrawUserCount(year, nowMonth);
@@ -203,8 +207,7 @@ public class ManagerController {
 			withdrawUserCount = withdrawCountDto.getCount();
 		}
 		model.addAttribute("withdrawUserCount", withdrawUserCount);
-		
-		
+
 		// 이번 달에 작성된 고객의 말씀 수
 		Integer vocCount = 0;
 		CountByYearAndMonthDto vocCountDto = vocService.readWriteCount(year, nowMonth);
@@ -213,39 +216,37 @@ public class ManagerController {
 			vocCount = vocCountDto.getCount();
 		}
 		model.addAttribute("vocCount", vocCount);
-		
-		
+
 		// 해당 관리자의 메모 불러오기
 		Memo memo = memoService.readByManagerId(managerId);
 		model.addAttribute("memo", memo);
-		
-		
+
 		// 처리되지 않은 고객의 말씀 리스트 최근순 5개
 		List<VocInfoDto> vocList = vocService.readVocListLimit(0, 0, 5);
 		model.addAttribute("vocList", vocList);
 		// 처리되지 않은 고객의 말씀 리스트 개수
 		Integer vocListCount = vocService.readVocList(0).size();
 		model.addAttribute("vocListCount", vocListCount);
-		
+
 		// 메인 페이지임을 표시 (메뉴 설정 시 필요)
 		int isMain = 1;
 		model.addAttribute("isMain", isMain);
-		
+
 		return "/manager/dashboard";
 	}
-	
+
 	/**
 	 * 메모 갱신
 	 */
 	@PostMapping("/updateMemo")
 	@ResponseBody
 	public void updateMemoProc(@RequestBody Memo memo) {
-		
+
 		String managerId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
 		memo.setManagerId(managerId);
 		memoService.updateMemo(memo);
 	}
-	
+
 	/**
 	 * @return 회원정보 조회
 	 */
@@ -253,7 +254,7 @@ public class ManagerController {
 	public String memberListPage() {
 		return "/manager/memberList";
 	}
-	
+
 	/**
 	 * @return 항공 서비스 탭 메인 페이징
 	 */
@@ -261,18 +262,34 @@ public class ManagerController {
 	public String airServicePage() {
 		return "/manager/airService";
 	}
-	
+
 	/**
 	 * @return 관리자용 항공권 조회 페이지
 	 */
 	@GetMapping("/scheduleList")
 	public String selectTicketOptionPage(Model model) {
-		
+
 		List<Airport> regionList = airportService.readRegion();
 		model.addAttribute("regionList", regionList);
 		model.addAttribute("manager", 1);
-		
+
 		return "/ticket/selectSchedule";
 	}
-	
+
+	// 특별 기내식 신청 내역
+	@GetMapping("/inFlightSpecialMeal")
+	public String inFlightSpecialMealPage(Model model) {
+		List<InFlightMealResponseDto> inFlightMealResonseDtos = inFlightSvService.readInFlightMealForManager();
+		System.out.println(inFlightMealResonseDtos);
+		model.addAttribute("inFlightMealResonseDtos", inFlightMealResonseDtos);
+		return "/manager/inFlightSpecialMeal";
+	}
+
+	// 위탁 수하물 신청 내역
+	@GetMapping("/baggageRequest")
+	public String baggageRequestPage(Model model) {
+		List<InFlightMealResponseDto> inFlightMealResponseDtos = baggageRequestService.readBaggageReqForManager();
+		model.addAttribute("inFlightMealResponseDtos", inFlightMealResponseDtos);
+		return "/manager/baggageRequest";
+	}
 }

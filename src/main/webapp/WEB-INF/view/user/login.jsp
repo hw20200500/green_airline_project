@@ -11,9 +11,12 @@
 </c:choose>
 <style>
 #login--form {
-	border: 1px solid #ccc;
-	padding: 20px;
-	width: 400px;
+	margin-top: 30px;
+	border: 1px solid white;
+	background: white;
+	padding: 50px;
+	width: 500px;
+	height: 600px;
 }
 
 #login--form label {
@@ -23,6 +26,47 @@
 #login--form input {
 	flex: 2;
 }
+
+main {
+	width: 100%;
+	background: linear-gradient(to bottom, #8bbdf8 -75%, #e9f3fb 89%);
+	margin-top: -30px;
+}
+
+.login--wrap {
+	display: flex;
+	flex-direction: column;
+	margin-top: 20px;
+}
+
+input[type=text], input[type=password] {
+	border: none;
+	border-bottom: 1px solid black;
+	width: 400px;
+}
+
+.login--btn {
+	background: #00256c;
+	border: none;
+	width: 400px;
+	padding: 10px;
+}
+
+.login--idPwSearch--class {
+	margin-top: 10px;
+	display: flex;
+	justify-content: flex-start;
+}
+
+.login--kakao--btn {
+	
+}
+
+.login--content {
+	margin-top: 20px; 
+	justify-content: center;
+	display: flex;
+}
 </style>
 
 
@@ -30,19 +74,42 @@
 <main>
 	<div class="d-flex justify-content-center">
 		<form id="login--form" action="/login" method="post">
-			<div class="d-flex">
-				<label for="id">아이디</label> <input type="text" id="id" name="id" value="abc">
+			<div>
+				<h2>로그인</h2>
+				<hr>
+			</div>
+			<div class="d-flex login--wrap">
+				<div class="login--id--class">
+					<label for="id">아이디</label>
+				</div>
+				<div class="login--id--input--class">
+					<input type="text" id="id" name="id" value="abc">
+				</div>
 			</div>
 			<br>
-			<div class="d-flex">
-				<label for="password">비밀번호</label> <input type="password" id="password" name="password" value="1234">
+			<div class="d-flex login--wrap">
+				<div>
+					<label for="password">비밀번호</label> <br>
+				</div>
+				<div>
+					<input type="password" id="password" name="password" value="1234">
+				</div>
 			</div>
 			<br>
-			<div class="d-flex justify-content-center">
-				<button type="submit" class="btn btn-primary">로그인</button>
-				<a href="/userIdSearch" class="btn btn-primary">아이디/비밀번호 찾기</a>
-				<a href="https://kauth.kakao.com/oauth/authorize?client_id=91cf28839247e9924114aeb1a23b8852&redirect_uri=http://localhost:80/auth/kakao/callback&response_type=code"><img alt=""
-					src="/images/kakao_login_medium.png" style="margin-left: 10px;"> </a>
+			<div class="justify-content-center">
+				<div>
+					<button type="submit" class="btn btn-primary login--btn">로그인</button>
+				</div>
+				<div class="login--idPwSearch--class">
+					<a href="/userIdSearch">아이디/비밀번호 찾기 > </a>
+				</div>
+				<div class="login--content">
+					<p>다른 계정으로 로그인</p>
+				</div>
+				<div class="login--kakao--btn">
+					<a href="https://kauth.kakao.com/oauth/authorize?client_id=91cf28839247e9924114aeb1a23b8852&redirect_uri=http://localhost:80/auth/kakao/callback&response_type=code"><img alt=""
+						src="/images/kakao_login_medium.png" style="margin-left: 10px;"> </a>
+				</div>
 			</div>
 		</form>
 	</div>

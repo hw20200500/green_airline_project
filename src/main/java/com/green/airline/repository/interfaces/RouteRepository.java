@@ -18,4 +18,7 @@ public interface RouteRepository {
 	// 많이 이용된 노선 상위 n개 
 	public List<DestinationCountDto> selectGroupByDestinationLimitN(Integer limitCount);
 	
+	// 위탁 수하물 노선 테이블 검색
+	public Route selectById(Integer id);
+	
 }

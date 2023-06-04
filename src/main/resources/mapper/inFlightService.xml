@@ -14,8 +14,8 @@
 		where name like
 		#{keyword}
 	</select>
-
-	<select id="selectInFlightMeal"
+	
+	<select id="selectInFlightMealByName"
 		resultType="com.green.airline.dto.response.InFlightMealResponseDto">
 		<if test="name=='유아식 및 아동식'">
 		select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
@@ -103,28 +103,29 @@
 	</select>
 
 	<select id="selectInFlightScheduleByMemberId" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
-		select s.departure_date, r.departure, r.destination, (t.adult_count + t.child_count) as seat_count, t.id as ticket_id
-		from ticket_tb as t
-		inner join schedule_tb as s
-		on t.schedule_id = s.id
-		inner join route_tb as r
-		on r.id = route_id
-		where t.member_id=#{memberId} and departure_date>now() and not(t.id IN (
-			select rm.ticket_id 
-			from request_meal_tb as rm
-            join ticket_tb as t
-			on t.id = rm.ticket_id
-			where t.member_id = #{memberId}
-		));
+		SELECT s.departure_date, r.departure, r.destination, (t.adult_count + t.child_count) as seat_count, t.id as ticket_id, t.seat_grade as seat_grade_name
+		FROM ticket_tb AS t
+		JOIN (
+	      SELECT t.id AS ticket_id, ifnull(SUM(amount), 0) AS amount
+	      FROM request_meal_tb AS r
+	      RIGHT JOIN ticket_tb AS t
+	      ON r.ticket_id = t.id
+	      WHERE t.member_id = #{memberId}
+	      GROUP BY t.id
+	    ) AS ta
+		ON ta.ticket_id = t.id
+		JOIN schedule_tb as s
+		ON t.schedule_id = s.id
+		JOIN route_tb as r
+		ON r.id = route_id
+		WHERE (adult_count + child_count + infant_count) > amount AND departure_date > now();
 	</select>
 	
 	<!-- 수량 조회를 위한 select 문 js에서 memberId와 departureDate 받아와서 동적으로 바꿔줄 거임 -->
 	<select id="selectInFlightRequestForSeatCount" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
 		select (t.adult_count + t.child_count) as seat_count 
 		from ticket_tb as t
-		inner join schedule_tb as s
-		on t.schedule_id=s.id
-		where t.member_id=#{memberId} and s.departure_date=#{departureDate}
+		where t.member_id=#{memberId} and t.id = #{ticketId} 
 	</select>
 	
 	<select id="selectAvailableServiceByFlightHours" resultType="com.green.airline.dto.response.InFlightServiceResponseDto">
@@ -164,5 +165,34 @@
 	<delete id="deleteRequestMealById">
 		delete from request_meal_tb where id = #{id}
 	</delete>
+	
+	<select id="selectInFlightMealByMealId" resultType="com.green.airline.repository.model.InFlightMealDetail">
+		select *
+		from in_flight_meal_detail_tb
+		where meal_id=#{mealDetail}
+	</select>
+	
+	<select id="selectInFlightMealForManager" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
+		SELECT t.member_id, s.departure_date, r.departure, r.destination, (t.adult_count + t.child_count) as seat_count, t.id as ticket_id, t.seat_grade as seat_grade_name, rm.amount, ifmd.name
+			FROM ticket_tb AS t
+			JOIN (
+		      SELECT t.id AS ticket_id
+			  FROM request_meal_tb AS r
+			  RIGHT JOIN ticket_tb AS t
+			  ON r.ticket_id = t.id
+		    ) AS ta
+			ON ta.ticket_id = t.id
+			JOIN schedule_tb as s
+			ON t.schedule_id = s.id
+			JOIN route_tb as r
+			ON r.id = route_id
+            JOIN request_meal_tb AS rm
+            ON rm.ticket_id = t.id
+            JOIN in_flight_meal_tb as ifm
+            on rm.meal_id = ifm.id
+            JOIN in_flight_meal_detail_tb as ifmd
+            on ifmd.meal_id = ifm.id
+			WHERE departure_date > now() and rm.amount != 0;
+	</select>
 	
 </mapper>
