@@ -181,7 +181,15 @@
 							${ticket.tid}
 						</td>
 						<td>
-							${ticket.formatAmount()}원
+							${ticket.formatAmount()}
+							<c:choose>
+								<c:when test="${ticket.paymentType == 1}">
+									마일
+								</c:when>
+								<c:otherwise>
+									원
+								</c:otherwise>
+							</c:choose>
 						</td>
 						<td>
 							<c:choose>
@@ -275,7 +283,14 @@
 												</c:otherwise>
 											</c:choose>
 										</td>
-										<td>${refundFee.formatFee()}원</td>
+										<c:choose>
+											<c:when test="${ticket.paymentType == 0}">
+												<td>${refundFee.formatFee()}원</td>											
+											</c:when>
+											<c:otherwise>
+												<td>${refundFee.formatMilesFee()}마일</td>											
+											</c:otherwise>
+										</c:choose>
 									</tr>
 								</c:forEach>
 							</tbody>

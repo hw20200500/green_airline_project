@@ -157,17 +157,32 @@ ul, label {
 	display: none;
 }
 
+#milesPayBtn {
+	height: 46px; 
+	width: 133px; 
+	background-color: gray; 
+	padding-right: 13px;
+}
+
 #checkCurrentUserLabel {
 	font-size: 15px;
 }
 
-#kakaoPayImgDiv {
+#kakaoPayImgDiv, #milesBtnDiv {
 	width: 100%;
 	text-align: center;
 }
 
 #kakaoPayImg:hover {
 	cursor: pointer;
+}
+
+#milesPayDiv {
+	display: none;
+}
+
+#kakaoPayImg {
+	height: 46px;
 }
 
 .split--div {
@@ -216,4 +231,8 @@ ul, label {
 	background-color: white;
 	padding: 5px 8px 1px 7px;
 	margin-top: 25px;
+}
+
+label {
+	cursor: pointer;
 }

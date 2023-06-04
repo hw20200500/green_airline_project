@@ -32,11 +32,11 @@
 			<li><span class="material-symbols-outlined">airplane_ticket</span>
 			<li>항공권 구매 내역
 		</ul>
-		<ul class="service--ul" onclick="location.href='#'">
+		<ul class="service--ul" onclick="location.href='/manager/inFlightSpecialMeal'">
 			<li><span class="material-symbols-outlined">restaurant</span>
 			<li>기내식 신청 내역
 		</ul>
-		<ul class="service--ul" onclick="location.href='#'">
+		<ul class="service--ul" onclick="location.href='/manager/baggageRequest'">
 			<li><span class="material-symbols-outlined">luggage</span>
 			<li>수하물 신청 내역
 		</ul>

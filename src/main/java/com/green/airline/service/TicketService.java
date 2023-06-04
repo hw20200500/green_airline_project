@@ -48,11 +48,16 @@ public class TicketService {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private MileageService mileageService;
+	
 	/**
+	 * @author 서영
 	 * 결제 요청 시 예약 내역 + 결제 내역을 추가하는 로직
 	 */
 	@Transactional
-	public void createTicketAndPayment(TicketDto ticketDto, String memberId) {
+	public void createTicketAndPayment(TicketDto ticketDto, String memberId, Integer paymentType) {
 		
 		// 예약 id 난수로 생성
 		String ticketId = (int) Math.floor(Math.random() * 89000000 + 10000000) + "";		
@@ -80,7 +85,7 @@ public class TicketService {
 						.seatGrade(ticketDto.getSeatGrade())
 						.memberId(memberId)
 						.scheduleId(ticketDto.getScheduleId())
-						.paymentType(0)
+						.paymentType(paymentType)
 						.build();
 		ticketRepository.insert(ticket1);
 		
@@ -117,7 +122,7 @@ public class TicketService {
 							.seatGrade(ticketDto.getSeatGrade2())
 							.memberId(memberId)
 							.scheduleId(ticketDto.getScheduleId2())
-							.paymentType(0)
+							.paymentType(paymentType)
 							.build();
 			ticketRepository.insert(ticket2);
 			
@@ -137,41 +142,76 @@ public class TicketService {
 			}
 		}
 		
-		// 결제 내역
-		TicketPayment ticketPayment = TicketPayment.builder()
-										.tid(ticketDto.getTid())
-										.ticketId1(ticketId1)
-										.ticketId2(ticketId2)
-										.amount1(ticketDto.getPrice())
-										.amount2(ticketDto.getPrice2())
-										.status1(0)
-										.status2(status2)
-										.build();
-		ticketPaymentRepository.insert(ticketPayment);
-		// 여기에 넣기 ticket1 ticket2 사용 TicketAllInfoDto 티켓 readTicketAllInfoByTicketId 불러와서 티켓 정보 사용하기
-				SaveMileageDto saveMileageDto = new SaveMileageDto();
-				// 티켓 정보
-				TicketAllInfoDto ticketAllInfoDto = readTicketAllInfoByTicketId(ticketId1);
-				
-				saveMileageDto.setDepartureDate(ticketAllInfoDto.getDepartureDate());
-				saveMileageDto.setExpirationDate(ticketAllInfoDto.getDepartureDate());
-				saveMileageDto.setMemberId(memberId);
-				saveMileageDto.setTicketId(ticketId1);
-				// 회원 등급
-				MemberGrade memberGrade = mileageRepository.selectUserGradeByMemberId(memberId);
-				saveMileageDto.setSaveMileage((long) (ticketPayment.getAmount1()*memberGrade.getMileageRate()));
-				
-				 
-				Calendar cal = Calendar.getInstance();
-				cal.add(Calendar.DATE, +365);
-				Timestamp date = new Timestamp(cal.getTimeInMillis());
-				saveMileageDto.setExpirationDate(date);
-				if(ticketPayment.getAmount2() != null) {
-					saveMileageDto.setSaveMileage2((long) (ticketPayment.getAmount2()*memberGrade.getMileageRate()));
-				}
-				
-				// 로그인 할 때 업데이트 하는걸로 바꿔야함
-				mileageRepository.insertMileage(saveMileageDto,memberGrade);
+		// 결제 내역 추가
+		// 카카오페이 결제인 경우
+		if (paymentType == 0) {			
+			TicketPayment ticketPayment = TicketPayment.builder()
+											.tid(ticketDto.getTid())
+											.ticketId1(ticketId1)
+											.ticketId2(ticketId2)
+											.amount1(ticketDto.getPrice())
+											.amount2(ticketDto.getPrice2())
+											.status1(0)
+											.status2(status2)
+											.build();
+			ticketPaymentRepository.insert(ticketPayment);
+			
+			/**
+			 * @author 정다운
+			 * 마일리지 적립
+			 * ticket1 ticket2 사용 TicketAllInfoDto 티켓 readTicketAllInfoByTicketId 불러와서 티켓 정보 사용하기
+			 */
+			SaveMileageDto saveMileageDto = new SaveMileageDto();
+			// 티켓 정보
+			TicketAllInfoDto ticketAllInfoDto = readTicketAllInfoByTicketId(ticketId1);
+			
+			saveMileageDto.setDepartureDate(ticketAllInfoDto.getDepartureDate());
+			saveMileageDto.setExpirationDate(ticketAllInfoDto.getDepartureDate());
+			saveMileageDto.setMemberId(memberId);
+			saveMileageDto.setTicketId(ticketId1);
+			// 회원 등급
+			MemberGrade memberGrade = mileageRepository.selectUserGradeByMemberId(memberId);
+			saveMileageDto.setSaveMileage((long) (ticketPayment.getAmount1() * memberGrade.getMileageRate()));
+			 
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.DATE, +365);
+			Timestamp date = new Timestamp(cal.getTimeInMillis());
+			saveMileageDto.setExpirationDate(date);
+			if(ticketPayment.getAmount2() != null) {
+				saveMileageDto.setSaveMileage2((long) (ticketPayment.getAmount2() * memberGrade.getMileageRate()));
+			}
+			// 로그인 할 때 업데이트 하는걸로 바꿔야함
+			mileageRepository.insertMileage(saveMileageDto,memberGrade);
+			
+		// 마일리지 결제인 경우
+		} else {
+			// 결제번호 난수로 생성
+			String tid = "M" + (int) Math.floor(Math.random() * 8900000 + 1000000) 
+							+ (int) Math.floor(Math.random() * 890000 + 100000)
+							+ (int) Math.floor(Math.random() * 890000 + 100000);
+			
+			if (ticketDto.getScheduleId2() != null) {
+				status2 = 1;
+			}
+			
+			TicketPayment ticketPayment = TicketPayment.builder()
+					.tid(tid)
+					.ticketId1(ticketId1)
+					.ticketId2(ticketId2)
+					.amount1((long) ticketDto.getMilesPrice())
+					.amount2((long) ticketDto.getMilesPrice2())
+					.status1(1)
+					.status2(status2)
+					.build();
+			ticketPaymentRepository.insert(ticketPayment);
+			
+			// 마일리지 사용
+			mileageService.createUseMilesDataByTicket(memberId, ticketDto.getMilesPrice(), ticketId1);
+			if (ticketDto.getScheduleId2() != null) {
+				mileageService.createUseMilesDataByTicket(memberId, ticketDto.getMilesPrice2(), ticketId2);
+			}
+			
+		}
 				
 	}
 	
@@ -199,6 +239,7 @@ public class TicketService {
 	}
 	
 	/**
+	 * @author 서영
 	 * 결제 완료 처리
 	 */
 	@Transactional

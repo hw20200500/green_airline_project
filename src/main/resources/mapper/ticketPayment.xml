@@ -5,7 +5,7 @@
 
 <insert id="insert">
 	INSERT INTO ticket_payment_tb
-	VALUES (#{tid}, #{ticketId1}, #{ticketId2}, #{amount1}, #{amount2}, 0, 0);
+	VALUES (#{tid}, #{ticketId1}, #{ticketId2}, #{amount1}, #{amount2}, #{status1}, #{status2});
 </insert>
 
 <update id="updateStatus">

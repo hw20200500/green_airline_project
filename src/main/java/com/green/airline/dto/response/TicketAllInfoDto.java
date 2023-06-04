@@ -33,6 +33,7 @@ public class TicketAllInfoDto {
 	private Integer status;
 	private Integer reqStatus;
 	private Integer scheduleType;
+	private Integer paymentType;
 	
 	
 	// 출발일이 현재보다 이전이라면 || 이미 환불되었다면 false -> 환불 신청 불가능

@@ -18,14 +18,22 @@ import com.green.airline.repository.interfaces.ProductRepository;
 import com.green.airline.repository.model.Mileage;
 import com.green.airline.repository.model.UseMileage;
 
+/**
+ * @author 정다운
+ *
+ */
 @Service
 public class MileageService {
 
 	@Autowired
 	private MileageRepository mileageRepository;
+	
 	@Autowired
 	private ProductRepository productRepository;
-	@Autowired GifticonRepository gifticonRepository;
+	
+	@Autowired 
+	private GifticonRepository gifticonRepository;
+	
 	public SaveMileageDto readSaveMileage(String memberId){
 		SaveMileageDto saveMileage = mileageRepository.selectSaveMileage(memberId); 
 		
@@ -101,6 +109,44 @@ public List<Mileage> readMileageTbOrderByMileageDateByMemberId(String memberId) 
 				mileage.setBalance(0);
 				mileageRepository.insertUseDataList(mileage);
 				mileageRepository.updateBalance(mileage);
+			}
+		}
+	}
+	
+	/**
+	 * @author 서영
+	 * 마일리지 티켓 결제
+	 */
+	public void createUseMilesDataByTicket(String memberId, int price, String ticketId) {
+		// 결제할 마일리지
+		int useMileage = price;
+		// 유효 기간이 남은 적립 마일리지 목록
+		List<Mileage> mileageList = mileageRepository.selectNowMileage(memberId);
+		
+		for (Mileage m : mileageList) {
+			// 해당 내역의 잔여 마일리지가 결제할 마일리지보다 많거나 서로 같다면
+			if (m.getBalance() >= useMileage) {
+				int updateMileage = m.getBalance() - useMileage;
+
+				m.setBalance(updateMileage);
+				m.setMileageFromBalance(useMileage);
+				m.setDateFormExpiration(m.getExpirationDate());
+				m.setTicketId(ticketId);
+				//mileageRepository.insertUseDataList(m);
+				mileageRepository.updateBalance(m);
+				
+				useMileage = 0;
+				break;
+			// 해당 내역의 잔여 마일리지가 결제할 마일리지보다 적다면 (다음 반복으로 넘어감)
+			} else {
+				useMileage = useMileage - m.getBalance();
+				
+				m.setMileageFromBalance(m.getBalance());
+				m.setDateFormExpiration(m.getExpirationDate());
+				m.setTicketId(ticketId);
+				m.setBalance(0);
+				//mileageRepository.insertUseDataList(m);
+				mileageRepository.updateBalance(m);
 			}
 		}
 	}

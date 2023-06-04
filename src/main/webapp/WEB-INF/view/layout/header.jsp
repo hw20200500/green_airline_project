@@ -181,8 +181,6 @@
 								<li><button class="menu--button" onclick="location.href='/inFlightService/inFlightServiceSearch'">여행 준비</button></li>
 								<li><button class="menu--button" onclick="location.href='/board/list'">여행</button></li>
 								<li><button class="menu--button" onclick="location.href='/product/productMain/clasic'">마일리지</button></li>
-								<li><button class="menu--button" onclick="location.href='/userMain'">마이페이지</button></li>
-								<li><button class="menu--button" onclick="location.href='/customerCenter'">고객센터</button></li>
 							</ul>
 						</div>
 						<div>

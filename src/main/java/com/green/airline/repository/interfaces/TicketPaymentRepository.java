@@ -28,5 +28,5 @@ public interface TicketPaymentRepository {
 	
 	// 특정 월의 매출액
 	public MonthlySalesForChartDto selectSalesByThisMonth(@Param("year") Integer year, @Param("month") Integer month);
-	
+
 }

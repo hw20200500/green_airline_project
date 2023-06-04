@@ -1,5 +1,7 @@
 package com.green.airline.dto.response;
 
+import com.green.airline.utils.Define;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,6 +10,7 @@ import lombok.NoArgsConstructor;
 /**
  * @author 서영
  * request용으로도 사용됨
+ * 결제 정보를 포함함
  */
 @Data
 @NoArgsConstructor
@@ -27,11 +30,13 @@ public class TicketDto {
 	private Integer scheduleId;
 	private String[] seatNames;
 	private Long price;
+	private int milesPrice;
 	
 	private String seatGrade2;
 	private Integer scheduleId2;
 	private String[] seatNames2;
 	private Long price2;
+	private int milesPrice2;
 	
 	// 결제 시
 	private Integer totalAmount;
@@ -48,6 +53,19 @@ public class TicketDto {
 		this.infantCount = infantCount;
 		this.seatGrade = seatGrade;
 		this.scheduleId = scheduleId;
+	}
+	
+	// 마일리지 가격으로 환산
+	public Long milesPrice(Long price) {
+		return (long) Math.floor(price * Define.MILES_TICKET_RATE);
+	}
+	
+	public int totalMilesPrice() {
+		if (scheduleId2 == null) {
+			return milesPrice;
+		} else {
+			return milesPrice + milesPrice2;
+		}
 	}
 	
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,16 +22,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import com.green.airline.dto.SaveMileageDto;
 import com.green.airline.dto.kakao.PayApproveDto;
 import com.green.airline.dto.kakao.PaymentResponseDto;
 import com.green.airline.dto.kakao.RefundResponseDto;
 import com.green.airline.dto.request.RefundDto;
 import com.green.airline.dto.response.MemberInfoDto;
+import com.green.airline.dto.response.ResponseDto;
 import com.green.airline.dto.response.TicketAllInfoDto;
 import com.green.airline.dto.response.TicketDto;
+import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.CoolSmsService;
+import com.green.airline.service.MileageService;
 import com.green.airline.service.RefundService;
 import com.green.airline.service.TicketService;
 import com.green.airline.service.UserService;
@@ -57,6 +62,8 @@ public class PaymentController {
 	
 	private final String KAKAO_API_KEY = "3634279e46d43dee4be45365feaec12f";
 	
+	@Autowired
+	private MileageService mileageService;
 
 	/**
 	 * @author 서영
@@ -108,18 +115,19 @@ public class PaymentController {
 		// 해당 유저의 가장 최근 예약 내역을 가져오면 예약 ID를 가져올 수 있음
 		// 예약 ID를 가져와서 결제 내역도 삭제
 		try {
-			ticketService.createTicketAndPayment(ticketDto, userId);
+			ticketService.createTicketAndPayment(ticketDto, userId, 0);
 			
 		} catch (Exception e) {
 			// 뒤로가기 했다가 다시 결제 요청을 할 경우를 대비해서 삭제했다가 다시 추가
 			ticketService.deleteTicketByPaymentCancel(userId);
-			ticketService.createTicketAndPayment(ticketDto, userId);
+			ticketService.createTicketAndPayment(ticketDto, userId, 0);
 		}
 		
 		return responseDto.getBody().getNextRedirectPcUrl().toString();
 	}
 
 	/**
+	 * @author 서영
 	 * 결제 완료 시 티켓 예약 처리
 	 * @return 결제 완료 페이지
 	 */
@@ -164,6 +172,7 @@ public class PaymentController {
 	}
 	
 	/**
+	 * @author 서영
 	 * 결제 취소 시
 	 * @return 항공스케줄 선택 페이지
 	 */
@@ -178,6 +187,7 @@ public class PaymentController {
 	}
 	
 	/**
+	 * @author 서영
 	 * 결제 실패 시
 	 * @return 항공스케줄 선택 페이지
 	 */
@@ -192,6 +202,7 @@ public class PaymentController {
 	}
 	
 	/**
+	 * @author 서영
 	 * 환불 요청
 	 */
 	@PostMapping("/refund")
@@ -246,5 +257,40 @@ public class PaymentController {
 		return "redirect:/ticket/list/1";
 	}
 	
+	/**
+	 * @author 서영
+	 * 마일리지 결제
+	 * ticket.totalMilesPrice() == 결제할 총 마일리지
+	 */
+	@PostMapping("/miles")
+	@ResponseBody
+	public ResponseDto<?> milesPaymentProc(@RequestBody TicketDto ticketDto) {
+		
+		int statusCode = HttpStatus.OK.value();
+		int code = Define.CODE_SUCCESS;
+		String message = "결제가 성공했습니다.";
+		String resultCode = Define.RESULT_CODE_SUCCESS;
+		boolean data = true;
+		
+		String userId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
+		// 현재 마일리지
+		Long currentMiles = (long) mileageService.readSaveMileage(userId).getBalance();
+		
+		// 현재 마일리지보다 결제할 마일리지가 높다면
+		if (currentMiles < ticketDto.totalMilesPrice()) {
+			statusCode = HttpStatus.BAD_REQUEST.value();
+			code = Define.CODE_FAIL;
+			message = "마일리지가 부족합니다.";
+			resultCode = Define.RESULT_CODE_FAIL;
+			data = false;
+			
+		} else {
+			// 결제 처리
+			ticketService.createTicketAndPayment(ticketDto, userId, 1);
+			
+		}
+				
+		return new ResponseDto<Boolean>(statusCode, code, message, resultCode, data);
+	}
 	
 }

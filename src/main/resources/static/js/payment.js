@@ -190,4 +190,69 @@ $("#kakaoPayImg").on("click", function() {
 	});
 });
 
+$("#milesPayBtn").on("click", function() {
+	let ticket;
+	// 편도면
+	if (scheduleCount == 1) {
+		ticket = {
+			adultCount: adultCount,
+			childCount: childCount,
+			infantCount: infantCount,
+			scheduleId: scheduleId1,
+			seatGrade: seatGrade1,
+			seatNames: seatNames1,
+			milesPrice: milesPrice,
+			passengerInfos: passengerInfos,
+		}
+	// 왕복이면
+	} else {
+		ticket = {
+			adultCount: adultCount,
+			childCount: childCount,
+			infantCount: infantCount,
+			scheduleId: scheduleId1,
+			seatGrade: seatGrade1,
+			seatNames: seatNames1,
+			milesPrice: milesPrice,
+			scheduleId2: scheduleId2,
+			seatGrade2: seatGrade2,
+			seatNames2: seatNames2,
+			passengerInfos: passengerInfos,
+			milesPrice2: milesPrice2,
+		}
+	}
+	
+	$.ajax({
+		type: "POST",
+		url: "/payment/miles",
+		contentType: "application/json; charset=UTF-8",
+		data: JSON.stringify(ticket)
+	})
+	.done((res) => {
+		// 결제 실패
+		if (res.code == -1) {
+			alert(res.message);
+		// 결제 성공
+		} else {
+			alert(res.message);
+			location.href="/ticket/list/1";
+		}
+	})
+	.fail((error) => {
+		console.log(error);
+	});
+});
 
+$("input[name=\"paymentType\"]").on("change", function() {
+	if ($(this).is(":checked")) {
+		if ($(this).val() == 0) {
+			$("#kakaoPayDiv").show();
+			$("#milesPayDiv").hide();
+			
+		} else {
+			$("#kakaoPayDiv").hide();
+			$("#milesPayDiv").show();
+			
+		}
+	}
+});

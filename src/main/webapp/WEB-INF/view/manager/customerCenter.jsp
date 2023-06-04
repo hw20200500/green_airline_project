@@ -29,7 +29,7 @@
 			<li>자주 묻는 질문
 		</ul>
 		<ul class="service--ul" onclick="location.href='/voc/list/not/1'">
-			<li style="margin-left: 13px;"><span class="material-symbols-outlined">mark_as_unread</span>
+			<li><span class="material-symbols-outlined">mark_as_unread</span>
 			<li>고객의 말씀
 		</ul>
 	</div>
