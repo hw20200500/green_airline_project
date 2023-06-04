@@ -13,13 +13,17 @@
 <link rel="stylesheet" href="/css/manager.css">
 
 
+<style>
+
+</style>
+
 <!-- 항공 서비스 메인 페이지 -->
 
 <main>
-	<h2>항공권 관련 내역</h2>
+	<h2>항공 서비스</h2>
 	<hr>
 	<br>
-	<div class = "d-flex justify-content-around align-items-end" style="height: 280px; padding: 0 20px">
+	<div class="service--div">
 		<ul class="service--ul" onclick="location.href='/manager/scheduleList'">
 			<li><span class="material-symbols-outlined">flight</span>
 			<li>운항 스케줄 목록
@@ -42,6 +46,6 @@
 
 
 
-<input type="hidden" name="menuName" id="menuName" value="항공서비스">
+<input type="hidden" name="menuName" id="menuName" value="항공 서비스">
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

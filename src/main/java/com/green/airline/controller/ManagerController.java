@@ -1,9 +1,7 @@
 package com.green.airline.controller;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -43,14 +41,12 @@ import com.green.airline.repository.model.Airport;
 import com.green.airline.repository.model.Manager;
 import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.Memo;
-import com.green.airline.repository.model.Ticket;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.AirportService;
 import com.green.airline.service.ManagerService;
 import com.green.airline.service.MemoService;
 import com.green.airline.service.ProductService;
 import com.green.airline.service.RouteService;
-import com.green.airline.service.ScheduleService;
 import com.green.airline.service.TicketPaymentService;
 import com.green.airline.service.TicketService;
 import com.green.airline.service.UserService;
@@ -494,5 +490,22 @@ public class ManagerController {
 		return "redirect:/manager/list/1";
 	}
 	
+	/**
+	 * @author 서영
+	 * @return 고객센터 탭 메인 페이지
+	 */
+	@GetMapping("/customerCenter")
+	public String customerCenterPage() {
+		return "/manager/customerCenter";
+	}
+	
+	/**
+	 * @author 서영
+	 * @return 게시판 관리 탭 메인 페이지
+	 */
+	@GetMapping("/boardManage")
+	public String boardManagePage() {
+		return "/manager/boardManage";
+	}
 	
 }

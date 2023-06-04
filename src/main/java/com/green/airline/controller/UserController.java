@@ -498,4 +498,16 @@ public class UserController {
 		return "/user/memberGrade";
 	}
 	
+	/**
+	 * @author 서영
+	 * @return 회원용 고객센터
+	 */
+	@GetMapping("/customerCenter")
+	public String customerCenterPage(Model model) {
+		
+		
+		
+		return "/user/customerCenter";
+	}
+	
 }

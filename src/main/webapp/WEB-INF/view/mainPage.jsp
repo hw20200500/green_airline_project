@@ -12,49 +12,6 @@
 
 <link rel="stylesheet" href="/css/mainPage.css">
 
-<style>
-.service--div {
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	background-color: #d3e3ed;
-	padding: 60px 40px;
-	margin: 0 20px;
-	border-radius: 10px;
-}
-
-.service--ul {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	cursor: pointer;
-	padding: 20px 0;
-	border-radius: 10px;
-	width: 240px;
-	background-color: #edf7fb;
-}
-
-.service--ul:hover {
-	background-color: #f5f5f5;
-}
-
-.service--ul span {
-	font-size: 60px;
-	color: #657788;
-}
-
-.service--ul span:hover {
-	color: #657788;
-}
-
-.service--ul li:last-of-type {
-	font-size: 22px;
-	font-weight: 600;
-	color: #475462;
-	margin-top: 5px;
-}
-</style>
 
 <div class="main--img--div">
 	<div style="width: 1178px; margin-left: 24px;">

@@ -27,16 +27,24 @@
 </head>
 
 <style>
-.ul--dropdown--menu>li {
-	display: none;
-	width: 85px;
+.ul--dropdown--menu > li {
+	width: 100px;
+	font-weight: 500;
 }
 
 .ul--dropdown--menu {
 	position: absolute;
-	padding: 5px;
-	margin-left: -20px;
+	padding: 10px 7px 10px 10px;
+	margin-left: -43px;
+	background-color: white;
+	border: 1px solid #ccc;
+	display: none;
 }
+
+.ul--dropdown--menu > li a:hover {
+	color: #406395;
+}
+
 </style>
 
 <body>
@@ -67,38 +75,32 @@
 							<li class="material--li"><a href="/login"><span class="material-symbols-outlined" style="font-size: 22px;">login</span></a></li>
 							<li class="top--text--li"><a href="/login">로그인</a></li>
 							<li class="li--split">ㅣ</li>
-							<li class="material--li"><a href="#"><span class="material-symbols-outlined" style="font-size: 22px;">person_add</span></a></li>
+							<li class="material--li"><a href="/join"><span class="material-symbols-outlined" style="font-size: 22px;">person_add</span></a></li>
 							<li class="top--text--li"><a href="/join">회원가입</a></li>
 							<li class="li--split">ㅣ</li>
-							<li class="material--li"><a href="#"><span class="material-symbols-outlined" style="font-size: 22px;">support_agent</span></a></li>
-							<li class="customer--service--li top--text--li"><a href="/notice/noticeList">고객센터</a>
+							<li class="material--li"><a href="/notice/noticeList"><span class="material-symbols-outlined" style="font-size: 22px;">support_agent</span></a></li>
+							<li class="customer--service--li top--text--li"><a href="/customerCenter">고객센터</a>
 								<ul class="ul--dropdown--menu">
-									<li class="li--dropdown--menu"><a href="/notice/noticeList">공지사항</a></li>
-									<li class="li--dropdown--menu"><a href="/faq/faqList">자주묻는질문</a></li>
-									<li class="li--dropdown--menu"><a href="/voc/list/1">고객의 말씀</a></li>
+									<li class="li--dropdown--menu"><a href="/notice/noticeList">·&nbsp;&nbsp;공지사항</a></li>
+									<li class="li--dropdown--menu"><a href="/faq/faqList">·&nbsp;&nbsp;자주 묻는 질문</a></li>
+									<li class="li--dropdown--menu"><a href="/voc/list/1">·&nbsp;&nbsp;고객의 말씀</a></li>
 								</ul></li>
 						</c:when>
 						<c:otherwise>
 							<li class="material--li"><a href="/logout"><span class="material-symbols-outlined" style="font-size: 22px;">logout</span></a></li>
 							<li class="top--text--li"><a href="/logout">로그아웃</a></li>
 							<li class="li--split">ㅣ</li>
-							<li class="material--li"><a href="#"><span class="material-symbols-outlined" style="font-size: 22px;">badge</span></a></li>
+							<li class="material--li"><a href="/userMain"><span class="material-symbols-outlined" style="font-size: 22px;">badge</span></a></li>
 							<li class="top--text--li"><a href="/userMain">마이페이지</a></li>
 							<li class="li--split">ㅣ</li>
-							<li class="material--li"><a href="#"><span class="material-symbols-outlined" style="font-size: 22px;">support_agent</span></a></li>
-							<li class="customer--service--li top--text--li"><a href="#">고객센터</a>
+							<li class="material--li"><a href="/customerCenter"><span class="material-symbols-outlined" style="font-size: 22px;">support_agent</span></a></li>
+							<li class="customer--service--li top--text--li"><a href="/customerCenter">고객센터</a>
 								<ul class="ul--dropdown--menu">
-									<li class="li--dropdown--menu"><a href="/notice/noticeList">공지사항</a></li>
-									<li class="li--dropdown--menu"><a href="/faq/faqList">자주묻는질문</a></li>
-									<c:choose>
-										<c:when test="${principal.userRole.equals(\"관리자\")}">
-											<li class="li--dropdown--menu"><a href="/voc/list/not/1">고객의 말씀</a></li>
-										</c:when>
-										<c:otherwise>
-											<li class="li--dropdown--menu"><a href="/voc/list/1">고객의 말씀</a></li>
-										</c:otherwise>
-									</c:choose>
-								</ul></li>
+									<li class="li--dropdown--menu"><a href="/notice/noticeList">·&nbsp;&nbsp;공지사항</a></li>
+									<li class="li--dropdown--menu"><a href="/faq/faqList">·&nbsp;&nbsp;자주 묻는 질문</a></li>
+									<li class="li--dropdown--menu"><a href="/voc/list/1">·&nbsp;&nbsp;고객의 말씀</a></li>
+								</ul>
+							</li>
 						</c:otherwise>
 					</c:choose>
 				</ul>
@@ -179,6 +181,8 @@
 								<li><button class="menu--button" onclick="location.href='/inFlightService/inFlightServiceSearch'">여행 준비</button></li>
 								<li><button class="menu--button" onclick="location.href='/board/list'">여행</button></li>
 								<li><button class="menu--button" onclick="location.href='/product/productMain/clasic'">마일리지</button></li>
+								<li><button class="menu--button" onclick="location.href='/userMain'">마이페이지</button></li>
+								<li><button class="menu--button" onclick="location.href='/customerCenter'">고객센터</button></li>
 							</ul>
 						</div>
 						<div>
@@ -198,15 +202,12 @@
 		</c:if>
 
 		<script type="text/javascript">
-			$(".customer--service--li").on("mouseover", function() {
+			$(".customer--service--li").on("mouseenter", function() {
 				$(".ul--dropdown--menu").css("display", "block");
-				$(".li--dropdown--menu").css("display", "block");
-				$(".ul--dropdown--menu").css("border", "1px solid black");
 			});
 
 			$(".customer--service--li").on("mouseleave", function() {
 				$(".ul--dropdown--menu").css("display", "none");
-				$(".li--dropdown--menu").css("display", "none");
 			});
 		</script>
 		<script src="/js/layout.js"></script>
