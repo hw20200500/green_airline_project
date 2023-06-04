@@ -20,4 +20,9 @@ public class NoticeResponseDto {
 	public String dateFormat() {
 		return TimestampUtil.dateTimeToString(createdAt);
 	}
+	
+	// 날짜만 보이게
+	public String dateFormatType2() {
+		return TimestampUtil.dateToString(createdAt);
+	}
 }

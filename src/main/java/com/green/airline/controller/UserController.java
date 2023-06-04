@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,19 +35,24 @@ import com.green.airline.dto.request.PasswordCheckDto;
 import com.green.airline.dto.request.SocialJoinFormDto;
 import com.green.airline.dto.request.UserFormDto;
 import com.green.airline.dto.response.BaggageReqResponseDto;
+import com.green.airline.dto.response.FaqResponseDto;
 import com.green.airline.dto.response.InFlightMealResponseDto;
 import com.green.airline.dto.response.MemberInfoDto;
+import com.green.airline.dto.response.NoticeResponseDto;
 import com.green.airline.dto.response.SpecialMealResponseDto;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.model.Airport;
 import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.MemberGrade;
 import com.green.airline.repository.model.Mileage;
+import com.green.airline.repository.model.Notice;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.AirportService;
 import com.green.airline.service.BaggageRequestService;
+import com.green.airline.service.FaqService;
 import com.green.airline.service.InFlightSvService;
 import com.green.airline.service.MileageService;
+import com.green.airline.service.NoticeService;
 import com.green.airline.service.UserService;
 import com.green.airline.utils.Define;
 
@@ -68,9 +74,16 @@ public class UserController {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	private NoticeService noticeService;
 
+	@Autowired
+	private FaqService faqService;
+	
 	/**
-	 * @author 서영 메인 페이지
+	 * @author 서영 
+	 * @return 메인 페이지
 	 */
 	@GetMapping("")
 	public String mainPage(Model model) {
@@ -79,12 +92,36 @@ public class UserController {
 
 		List<Airport> regionList = airportService.readRegion();
 		model.addAttribute("regionList", regionList);
-
+		
+		// 공지사항 최근순 5개
+		List<NoticeResponseDto> noticeList = noticeService.readOrderByCreatedAtDescLimitN(5);
+		model.addAttribute("noticeList", noticeList);
+		
+		// 자주 묻는 질문 전체
+		List<FaqResponseDto> allFaqList = faqService.readFaqAll();
+		model.addAttribute("faqList", allFaqList);		
+		
+		// 인덱스 5개를 랜덤으로 정함
+        int[] indexArr = new int[5];
+        Random r = new Random();  
+        for (int i = 0; i < indexArr.length; i++) {
+        	// 0 ~ 자주 묻는 질문 개수 내에서 랜덤 정수 뽑음
+            indexArr[i] = r.nextInt(allFaqList.size());
+            // 중복 제거
+            for (int j = 0; j < i; j++) {
+                if (indexArr[i] == indexArr[j]) {
+                    i--; // 이번 반복을 취소하고 다시 하도록 함
+                }
+            }
+        }
+        model.addAttribute("indexArr", indexArr);	
+		
 		return "/mainPage";
 	}
 
 	/**
-	 * @author 서영 로그인 페이지
+	 * @author 서영 
+	 * @return 로그인 페이지
 	 */
 	@GetMapping("/login")
 	public String loginPage(Model model) {

@@ -175,5 +175,14 @@
 		select *
 		from notice_category_tb
 	</select>
+	
+	<select id="selectOrderByIdDescLimitN" resultType="com.green.airline.dto.response.NoticeResponseDto">
+		select n.title, n.content, n.created_at, n.category_id, nc.name, n.id
+		from notice_tb as n
+		inner join notice_category_tb as nc
+		on nc.id = n.category_id
+		ORDER BY id DESC
+		LIMIT #{limitCount}
+	</select>
 
 </mapper>

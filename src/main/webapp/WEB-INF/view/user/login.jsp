@@ -48,4 +48,5 @@
 	</div>
 </main>
 
+<input type="hidden" name="menuName" id="menuName" value="">
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

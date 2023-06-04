@@ -90,5 +90,13 @@ public class NoticeService {
 			System.out.println("수정 성공");
 		}
 	}
+	
+	/**
+	 * @author 서영
+	 * 메인페이지용 
+	 */
+	public List<NoticeResponseDto> readOrderByCreatedAtDescLimitN(Integer limitCount) {
+		return noticeRepository.selectOrderByIdDescLimitN(limitCount);
+	}
 
 }

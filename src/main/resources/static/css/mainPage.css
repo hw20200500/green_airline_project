@@ -2,14 +2,14 @@
 
 .main--img--div {
 	min-width: 100%;
-	height: 480px;
+	height: 420px;
 	background-image: url("/images/main1.jpg");
 	background-size:100%;
 	background-position: center;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding-top: 140px;
+	padding-top: 100px;
 	border-top: 1px solid #bbb;
 }
 
@@ -311,4 +311,88 @@ label {
 
 .option--name--p span:hover {
 	color: #314f79;
+}
+
+.main--page--notice, .main--page--faq {
+	margin: 0 50px;
+}
+
+.main--page--notice tr td:first-of-type {
+	width: 455px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: inline-block;
+	margin-right: 20px;
+	padding: 4px 0;
+}
+
+.main--page--notice tr, .main--page--faq tr {
+	border-bottom: 1px solid #ddd;
+}
+
+.main--page--notice tr:last-of-type, .main--page--faq tr:last-of-type {
+	border-bottom: hidden;
+}
+
+.main--page--notice tr td a, .main--page--faq tr td a {
+	font-size: 17px;
+	color: #303030;
+}
+
+.main--page--notice tr td a:hover, .main--page--faq tr td a:hover {
+	font-weight: 500;
+	color: #132A50;
+}
+
+.main--page--notice td:nth-of-type(2) {
+	color: #777;
+}
+
+.main--page--faq tr td  {
+	padding: 4px 0;
+	max-width: 505px;
+	min-width: 505px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.title--div {
+	font-weight: 600;
+	font-size: 24px;
+	padding: 5px 0;
+	text-align: left;
+	border: hidden;
+	border-bottom: 2px solid #475462;
+	width: 100%;
+	margin-bottom: 5px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.title--div a:first-of-type {
+	color: #464e57;
+}
+
+.title--div span {
+	font-size: 30px;
+	color: #475462;
+}
+
+.title--div a:last-of-type {
+	display: flex;
+	align-items: flex-end;
+}
+
+.category--span {
+	font-weight: 500;
+}
+
+.notice--faq--div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 70px 0 100px;
 }

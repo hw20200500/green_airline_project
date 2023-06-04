@@ -60,4 +60,12 @@
 		where f.id = #{id}
 	</select>
 	
+	<select id="selectFaqAll" resultType="com.green.airline.dto.response.FaqResponseDto">
+			select f.id, f.title, f.content, f.category_id, fc.name
+			from faq_tb as f
+			join faq_category_tb as fc
+			on fc.id = f.category_id
+	</select>
+	
+	
 </mapper>
