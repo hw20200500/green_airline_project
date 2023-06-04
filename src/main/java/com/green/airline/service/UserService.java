@@ -23,10 +23,12 @@ import com.green.airline.dto.response.CountByYearAndMonthDto;
 import com.green.airline.dto.response.MemberInfoDto;
 import com.green.airline.enums.UserRole;
 import com.green.airline.handler.exception.CustomRestfullException;
+import com.green.airline.repository.interfaces.MemberGradeRepository;
 import com.green.airline.repository.interfaces.MemberRepository;
 import com.green.airline.repository.interfaces.MileageRepository;
 import com.green.airline.repository.interfaces.UserRepository;
 import com.green.airline.repository.model.Member;
+import com.green.airline.repository.model.MemberGrade;
 import com.green.airline.repository.model.User;
 
 @Service
@@ -46,6 +48,9 @@ public class UserService {
 
 	@Autowired
 	private MileageRepository mileageRepository;
+	
+	@Autowired
+	private MemberGradeRepository memberGradeRepository;
 
 	/**
 	 * 로그인
@@ -286,6 +291,14 @@ public class UserService {
 		String hashPwd = passwordEncoder.encode(rawPwd);
 		user.setPassword(hashPwd); // 암호화 처리
 		userRepository.insert(user);
+	}
+
+	/**
+	 * @author 서영
+	 * @return 회원 등급 리스트
+	 */
+	public List<MemberGrade> readMemberGradeList() {
+		return memberGradeRepository.selectAll();
 	}
 	
 }

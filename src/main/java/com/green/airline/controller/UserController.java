@@ -40,6 +40,7 @@ import com.green.airline.dto.response.SpecialMealResponseDto;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.model.Airport;
 import com.green.airline.repository.model.Member;
+import com.green.airline.repository.model.MemberGrade;
 import com.green.airline.repository.model.Mileage;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.AirportService;
@@ -447,4 +448,17 @@ public class UserController {
 		return "/myPage/myMainPage";
 	}
 
+	/**
+	 * @author 서영
+	 * @return 회원 안내
+	 */
+	@GetMapping("/memberGrade")
+	public String memberGradePage(Model model) {
+
+		List<MemberGrade> memberGradeList = userService.readMemberGradeList();
+		model.addAttribute("memberGradeList", memberGradeList);
+		
+		return "/user/memberGrade";
+	}
+	
 }

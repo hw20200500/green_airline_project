@@ -142,8 +142,8 @@
 							</ul>
 							<div class="nav--split"></div>
 							<ul>
-								<li><a href="#">회원 안내</a>
 								<li><a href="/product/productMain/clasic">마일리지샵</a>
+								<li><a href="/memberGrade">회원 안내</a>
 							</ul>
 							<div class="nav--split"></div>
 						</div>
