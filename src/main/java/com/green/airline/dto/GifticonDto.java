@@ -18,4 +18,5 @@ public class GifticonDto {
 	private Date revokeDate;
 	private int productId;
 	private int count;
+	private Long price;
 }

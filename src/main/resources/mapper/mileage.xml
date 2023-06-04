@@ -12,6 +12,9 @@
 		select sum(balance)as balance,(select sum(save_mileage) from mileage_tb)as totalMileage from mileage_tb where member_id =
 		#{memberId} and now() &lt; expiration_date;
 	</select>
+	<select id="selectAllSaveMileage" resultType="com.green.airline.repository.model.Mileage">
+		
+	</select>
 	<!-- 마이 페이지에 서멸 예정 마일리지 조회 -->
 	<select id="selectExprirationBalanceByMemberId" resultType="com.green.airline.repository.model.Mileage">
 		select sum(balance) as balance from mileage_tb where member_id = #{memberId} and EXPIRATION_DATE > now() and #{ts} > EXPIRATION_DATE;

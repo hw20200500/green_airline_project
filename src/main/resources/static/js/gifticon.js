@@ -68,11 +68,12 @@ $("#liPeriods").on("click", function() {
 	$("#sCalendar01").val("");
 	$("#sCalendar02").val("");
 });
-
+$('.deleteBtn').hide();
 $("#gifticon--search")
 	.on(
 		"click",
 		function() {
+			$('.deleteBtn').show();
 			let form = $("form").serialize();
 			let startTime = $("#sCalendar01").val();
 			let endTime = $("#sCalendar02").val();
@@ -81,24 +82,25 @@ $("#gifticon--search")
 				$("#gifticonList--tr--tbody").empty();
 				$("#gifticonList--tr--thead").empty();
 				let body = '';
-				body += '<tr>';
-				body += '<td>' + "체크" + '</td>';
-				body += '<td>' + "브랜드" + '</td>';
-				body += '<td>' + "이름" + '</td>';
-				body += '<td>' + "발급날짜" + '</td>';
-				body += '<td>' + "유효기간" + '</td>';
-				body += '<td>' + "가격" + '</td>';
-				body += '</tr>';
+				 body += '<tr>';
+				    body += '<th style="background-color: #f2f2f2;">' + "체크" + '</th>';
+				    body += '<th style="background-color: #f2f2f2;">' + "브랜드" + '</th>';
+				    body += '<th style="background-color: #f2f2f2;">' + "이름" + '</th>';
+				    body += '<th style="background-color: #f2f2f2;">' + "발급날짜" + '</th>';
+				    body += '<th style="background-color: #f2f2f2;">' + "유효기간" + '</th>';
+				    body += '<th style="background-color: #f2f2f2;">' + "가격" + '</th>';
+				    body += '</tr>';
 				$("#gifticonList--tr--thead").append(body);
 			} else {
 				$("#gifticonList--tr--tbody").empty();
 				$("#gifticonList--tr--thead").empty();
+				$('.deleteBtn').hide();
 				let body = '';
 				body += '<tr>';
-				body += '<td>' + "브랜드" + '</td>';
-				body += '<td>' + "이름" + '</td>';
-				body += '<td>' + "취소날짜" + '</td>';
-				body += '<td>' + "가격" + '</td>';
+				body += '<th style="background-color: #f2f2f2;">' + "브랜드" + '</th>';
+				body += '<th style="background-color: #f2f2f2;">' + "이름" + '</th>';
+				body += '<th style="background-color: #f2f2f2;">' + "취소날짜" + '</th>';
+				body += '<th style="background-color: #f2f2f2;">' + "가격" + '</th>';
 				body += '</tr>';
 				$("#gifticonList--tr--thead").append(body);
 			}
@@ -117,9 +119,9 @@ $("#gifticon--search")
 					})
 				.done(
 					function(response) {
-
+						console.log(response)
 						for (i = 0; i < response.length; i++) {
-
+							console.log(response[i]);
 							if (radio == 'buy') {
 
 								let body = '';
@@ -143,7 +145,7 @@ $("#gifticon--search")
 									+ response[i].endDate
 									+ '</td>';
 								body += '<td>'
-									+ response[i].amount
+									+ response[i].price
 									+ '</td>';
 								body += '</tr>';
 								$("#gifticonList--tr--tbody")
@@ -162,7 +164,7 @@ $("#gifticon--search")
 									+ response[i].revokeDate
 									+ '</td>';
 								body += '<td>'
-									+ response[i].amount
+									+ response[i].price
 									+ '</td>';
 								body += '</tr>';
 								$("#gifticonList--tr--tbody")

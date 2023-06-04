@@ -118,7 +118,7 @@ h2 {
 			<c:forEach var="productList" items="${productList}">
 				<div class="product_card" id="product">
 					<div class="prd_img">
-						<a href="/product/productdetail/${productList.id}" class="aTagImage"><img class="imgClass" alt="prd_img" src="/product/${productList.productImage}"></a>
+						<a href="/product/productdetail/${productList.id}" class="aTagImage"><img class="imgClass" alt="prd_img" src="/uploadImage/${productList.productImage}"></a>
 					</div>
 					<dl class="prd_info">
 						<dt>

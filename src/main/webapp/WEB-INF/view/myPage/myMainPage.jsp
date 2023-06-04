@@ -1,8 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
 .main--img--div {
 	width: 100%;
@@ -258,20 +260,39 @@ main {
 }
 
 .trip--origin {
-	margin-left: 480px;
+	font-size: 30px;
+	margin-left: 465px;
 	position: relative;
-	Transform: translateX(-20%);
-	Transform: translateY(-80%);
+	Transform: translateX(-200%);
+	Transform: translateY(-240%);
 	font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
 }
 
-
-.rankImg{
+.rankImg {
 	width: 50px;
 	height: 52px;
 	position: relative;
-	Transform: translateX(10%);
-	Transform: translateY(-70%);
+	margin-left: 3px;
+	Transform: translateX(60%);
+	Transform: translateY(-60%);
+}
+
+.progress {
+	height: 10px;
+	width: 430px;
+	margin-left: 50px;
+}
+
+.imgText {
+	color: white;
+	position: relative;
+	margin-left: 12px;
+	margin-left: 15px;
+	Transform: translateY(-250%);
+}
+
+.help {
+	margin-top: 3px;
 }
 </style>
 
@@ -297,13 +318,15 @@ main {
 					<c:choose>
 						<c:when test="${mileage.balanceNumber() != null}">
 							<p>
-								소멸 예정 마일리지 <a href="/mileage/selectAll"><span class="material-symbols-outlined add--circle">add_circle</span></a>
+								소멸 예정 마일리지 <a href="/mileage/selectAll"><span
+									class="material-symbols-outlined add--circle">add_circle</span></a>
 							</p>
 							<p>${mileage.balanceNumber()}</p>
 						</c:when>
 						<c:otherwise>
 							<p>
-								소멸 예정 마일리지 <a href="/mileage/selectAll"><span class="material-symbols-outlined">add_circle</span></a>
+								소멸 예정 마일리지 <a href="/mileage/selectAll"><span
+									class="material-symbols-outlined">add_circle</span></a>
 							</p>
 							<p>예정인 마일리지가 없습니다</p>
 						</c:otherwise>
@@ -314,7 +337,8 @@ main {
 					<c:choose>
 						<c:when test="${mileage2.balanceNumber() != null}">
 							<p>
-								적립 예정 마일리지 <a href="/mileage/selectAll"><span class="material-symbols-outlined">add_circle</span></a>
+								적립 예정 마일리지 <a href="/mileage/selectAll"><span
+									class="material-symbols-outlined">add_circle</span></a>
 							</p>
 							<p>${mileage2.balanceNumber()}</p>
 						</c:when>
@@ -330,51 +354,86 @@ main {
 		<div class="bottom--my--info">
 			<div class="my--detail">
 				<div class="my--detail--top">
-					<a href="#"><span class="my--detail--tit">작성한 여행 일지</span> <br> <span class="num">${boardDto.count}</span> <span class="material-symbols-outlined" id="edit--calendar">edit_calendar</span></a>
-					<a href="#"><span> 답변/고객의 말씀</span> <br> <span class="num">${infoDto.answerCount}/${infoDto.vocCount}</span> <span class="material-symbols-outlined" id="clinical--notes">clinical_notes</span></a>
-					<a href="/gifticon/list"><span>구매한 기프티콘 조회</span> <br> <span class="num">${gifticonCount.count}</span> <!-- barcode    barcode_scanner --> <span class="material-symbols-outlined"
-						id="barcode--scanner">shopping_cart_checkout</span></a> <a href="/ticket/list/1" class="my--detail--gray" id="my--detail--gray"><span>항공권 예약 현황</span> <br> <span
-						class="material-symbols-outlined" id="airplane--ticket">airplane_ticket </span></a>
+					<a href="#"><span class="my--detail--tit">작성한 여행 일지</span> <br>
+						<span class="num">${boardDto.count}</span> <span
+						class="material-symbols-outlined" id="edit--calendar">edit_calendar</span></a>
+					<a href="#"><span> 답변/고객의 말씀</span> <br> <span class="num">${infoDto.answerCount}/${infoDto.vocCount}</span>
+						<span class="material-symbols-outlined" id="clinical--notes">clinical_notes</span></a>
+					<a href="/gifticon/list"><span>구매한 기프티콘 조회</span> <br> <span
+						class="num">${gifticonCount.count}</span> <!-- barcode    barcode_scanner -->
+						<span class="material-symbols-outlined" id="barcode--scanner">shopping_cart_checkout</span></a>
+					<a href="/ticket/list/1" class="my--detail--gray"
+						id="my--detail--gray"><span>항공권 예약 현황</span> <br> <span
+						class="material-symbols-outlined" id="airplane--ticket">airplane_ticket
+					</span></a>
 				</div>
 				<div class="my--detail--bottom">
 					<div class="my--detail--left">
 						<div class="text--top">
-							등급 산정 마일리지를 도움말 <br>
+							누적 적립 마일리지를 <a href="#"><span class="material-symbols-outlined help"> help
+							</span></a> <br>
 							<c:choose>
 								<c:when test="${sumNowMileage.totalMileage < 100000}">
-									<span>${100000 - sumNowMileage.totalMileage}</span>마일 추가 적립 또는 그린항공 <strong>Gold</strong>회원으로 승급됩니다.<br>
+									<span><fmt:formatNumber type="number"
+											maxFractionDigits="3"
+											value="${100000 - sumNowMileage.totalMileage}" /></span>마일 적립 그린항공 <strong>Gold</strong>회원으로 승급됩니다.<br>
 									<a href="/mileage/selectAll">마일리지 조회</a>
 									<hr>
-									<p>Gold 등급 까지 ${100000 - sumNowMileage.totalMileage} 마일 남았습니다</p>
-									<fmt:formatNumber type="number" maxFractionDigits="0" value="${sumNowMileage.totalMileage * 100 / 100000}" />%
-									<div class="progress">
-										<div class="progress-bar" style="width: <fmt:formatNumber type="number" maxFractionDigits="0"  value="${sumNowMileage.totalMileage * 100 / 100000}" />%"></div>
-									</div>
+									<div class="balloon_03">
 
+										<p class="bulloonText">
+											Gold 등급 까지
+											<fmt:formatNumber type="number" maxFractionDigits="3"
+												value="${100000 - sumNowMileage.totalMileage}" />
+											마일 남았습니다
+										</p>
+									</div>
+									<%-- <fmt:formatNumber type="number" maxFractionDigits="0"
+										 value="${sumNowMileage.totalMileage * 100 / 100000}" />% --%>
+									<div class="progress">
+										<div class="progress-bar"
+											style="width: <fmt:formatNumber type="number" maxFractionDigits="0"  value="${sumNowMileage.totalMileage * 100 / 100000}"/>%"></div>
+									</div>
+									<img alt="" src="../images/rank.png" class="rankImg">
+									<span class="material-symbols-outlined trip--origin ">
+										trip_origin </span>
+									<h1 class="imgText">S</h1>
 								</c:when>
-								<c:when test="${sumNowMileage.totalMileage > 100000 && sumNowMileage.totalMileage < 500000}">
+								<c:when
+									test="${sumNowMileage.totalMileage > 100000 && sumNowMileage.totalMileage < 500000}">
 									<span>${500000 - sumNowMileage.totalMileage}</span>마일 추가 적립 또는 그린항공 <strong>Platinum</strong>회원으로 승급됩니다.<br>
 									<a href="/mileage/selectAll">마일리지 조회</a>
 									<hr>
 
 									<div class="balloon_03">
-										<p class="bulloonText">Platinum 등급 까지 ${500000 - sumNowMileage.totalMileage} 마일 남았습니다</p>
+										<p class="bulloonText">Platinum 등급 까지 ${500000 - sumNowMileage.totalMileage}
+											마일 남았습니다</p>
 									</div>
-									<fmt:formatNumber type="number" maxFractionDigits="0" value="${sumNowMileage.totalMileage * 100 / 500000}" />%
+									<fmt:formatNumber type="number" maxFractionDigits="0"
+										value="${sumNowMileage.totalMileage * 100 / 500000}" />%
 										<div class="progress">
-											<div class="progress-bar" style="width: <fmt:formatNumber type="number" maxFractionDigits="0"  value="${sumNowMileage.totalMileage * 100 / 500000}"/>%"></div>
-										</div>
-									<img alt="" src="../images/rank.png" class="rankImg">
-										<span class="material-symbols-outlined trip--origin "> trip_origin </span>
+										<div class="progress-bar"
+											style="width: <fmt:formatNumber type="number" maxFractionDigits="0"  value="${sumNowMileage.totalMileage * 100 / 500000}"/>%"></div>
+									</div>
+									<div class="rankImgAndText">
+
+										<img alt="" src="../images/rank.png" class="rankImg">
+									</div>
+									<span class="material-symbols-outlined trip--origin ">
+										trip_origin </span>
 								</c:when>
-								<c:when test="${sumNowMileage.totalMileage > 500000 && sumNowMileage.totalMileage < 1000000}">
+								<c:when
+									test="${sumNowMileage.totalMileage > 500000 && sumNowMileage.totalMileage < 1000000}">
 									<span>${1000000 - sumNowMileage.totalMileage}</span>마일 추가 적립 또는 그린항공 <strong>Diamond</strong>으로 승급됩니다.<br>
 									<a href="/mileage/selectAll">마일리지 조회</a>
 									<hr>
-									<p>Diamond 등급 까지 ${1000000 - sumNowMileage.totalMileage} 마일 남았습니다</p>
-									<fmt:formatNumber type="number" maxFractionDigits="0" value="${sumNowMileage.totalMileage * 100 / 1000000}" />%
+									<p>Diamond 등급 까지 ${1000000 - sumNowMileage.totalMileage} 마일
+										남았습니다</p>
+									<fmt:formatNumber type="number" maxFractionDigits="0"
+										value="${sumNowMileage.totalMileage * 100 / 1000000}" />%
 									<div class="progress">
-										<div class="progress-bar" style="width: <fmt:formatNumber type="number" maxFractionDigits="0"  value="${sumNowMileage.totalMileage * 100 / 1000000}" />%"></div>
+										<div class="progress-bar"
+											style="width: <fmt:formatNumber type="number" maxFractionDigits="0"  value="${sumNowMileage.totalMileage * 100 / 1000000}" />%"></div>
 									</div>
 								</c:when>
 							</c:choose>
@@ -385,7 +444,8 @@ main {
 					<div class="my--detail--right">
 						<div class="my--mileage--list">
 							<h3>
-								최근 마일리지 현황 <a href="/mileage/selectAll"><span class="material-symbols-outlined add"> add </span></a>
+								최근 마일리지 현황 <a href="/mileage/selectAll"><span
+									class="material-symbols-outlined add"> add </span></a>
 							</h3>
 							<hr width="100%" color="#ccc" noshade />
 							<table class="mileageListTable">
@@ -397,7 +457,10 @@ main {
 								<c:forEach items="${mileages}" var="mileages">
 									<tr>
 
-										<td><c:set var="mileages.mileageDate" value="<%=new java.util.Date()%>" /> <fmt:formatDate value="${mileages.mileageDate}" pattern="YYYY-MM-dd" type="date" /></td>
+										<td><c:set var="mileages.mileageDate"
+												value="<%=new java.util.Date()%>" /> <fmt:formatDate
+												value="${mileages.mileageDate}" pattern="YYYY-MM-dd"
+												type="date" /></td>
 										<c:choose>
 											<c:when test="${mileages.useMileage != 0}">
 												<td>- ${mileages.useMileage}</td>

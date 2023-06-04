@@ -21,6 +21,10 @@ public class GifticonService {
 		List<GifticonDto> gifticonDtos = gifticonRepository.selectGifticonList(memberId,startTime,endTime,radio);
 		return gifticonDtos; 
 	}
+	public List<GifticonDto> readGifticonListByIdForManager(String memberId,String startTime,String endTime,String radio){
+		List<GifticonDto> gifticonDtos = gifticonRepository.selectGifticonListForManager(memberId,startTime,endTime,radio);
+		return gifticonDtos; 
+	}
 	public int createRevokeGifticon(String amount,String brand,String name) {
 		int result = gifticonRepository.insertRevokeGifticon(amount, brand, name);
 		return result;

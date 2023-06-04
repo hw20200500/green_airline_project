@@ -532,6 +532,7 @@ public String updatePasswordById(String password,String userId) {
 	public String findByUserId(Model model, Member member) {
 		Member response = userService.readByKorNameandEmailAndBirthDate(member);
 		model.addAttribute("response", response);
+		System.out.println("response : " + response);
 		return "/user/userIdSearch";
 	}
 	

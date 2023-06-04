@@ -235,4 +235,9 @@ public class ManagerController {
 		memoService.updateMemo(memo);
 	}
 	
+	@GetMapping("/productBuyList")
+	public String productBuyListPage() {
+		
+		return "/manager/productBuyList";
+	}
 }

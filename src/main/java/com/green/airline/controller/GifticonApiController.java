@@ -34,4 +34,10 @@ public class GifticonApiController {
 		System.out.println("gifticonDtos : " + gifticonDtos);
 		return gifticonDtos;
 	}
+	@GetMapping("/api/managerGifticonList")
+	public List<GifticonDto> managerGifticonList( Model model,@RequestParam String startTime,@RequestParam String endTime,@RequestParam String radio,@RequestParam String memberId) {
+		
+		List<GifticonDto> gifticonDtos = gifticonService.readGifticonListByIdForManager(memberId,startTime,endTime,radio);
+		return gifticonDtos;
+	}
 }

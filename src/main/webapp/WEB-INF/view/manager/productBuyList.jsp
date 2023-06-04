@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<%@ include file="/WEB-INF/view/layout/headerManager.jsp"%>
 <style>
 .tab_wrap6 li {
 	float: left;
@@ -94,7 +94,7 @@ table#gifticonList--tr--thead{
 }
 
 .calendar_wrap {
-	margin-left: 330px;
+	margin-left: 260px;
 }
 
 .btn-light {
@@ -145,6 +145,7 @@ table#gifticonList--tr--thead{
 							<span class="mid_txt">부터 ~</span>
 							<input type="text" name="endTime" title="종료일" id="sCalendar02" class="datepicker input_cal" placeholder="종료일 선택" data-dateformat="y.mm.dd D" data-type="single_infinite_last"> <a
 								href="#none" class="btn_airport type2 calendar_focus"></a>
+								<input type="text" name="memberId" class="mamberId" id="searchMemberId" placeholder="유저 이름">
 								<button id="gifticon--search" type="button" class="btn btn-light">조회하기</button>
 						</div>
 					</div>
@@ -160,14 +161,13 @@ table#gifticonList--tr--thead{
 
 				</tbody>
 			</table>
-			<button onclick="refundGifticon()" class="btn btn-light deleteBtn">환불</button>
 			<input type="hidden" name="gifticonId" value="" id="gifticonId"> <input type="hidden" name="productId" value="" id="productId"> <input type="hidden" name="amount" value=""
 				id="gifticonAmount"> <input type="hidden" name="name" value="" id="gifticonName"> <input type="hidden" name="brand" value="" id="gifticonBrand">
 		</form>
 	</div>
 </main>
 
-<script src="/js/gifticon.js">
+<script src="/js/buyProduct.js">
 	
 </script>
 

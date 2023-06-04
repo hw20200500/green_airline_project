@@ -9,22 +9,128 @@
 		<%@ include file="/WEB-INF/view/layout/header.jsp"%>
 	</c:otherwise>
 </c:choose>
-<%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <style>
 <!--
 .tab_wrap6 li {
-    float: left;
+	float: left;
+}
+
+.title {
+	text-align: center;
+}
+
+#tab_title {
+	text-align: center;
+	margin-top: 20px;
+}
+
+strong {
+	margin-right: 300px;
+}
+
+.sortation {
+	margin-right: 300px;
+}
+
+#checkboxList {
+	margin-top: 20px;
+	font-size: 20px;
+}
+
+form {
+	background-color: rgb(240, 240, 240);
+	padding: 30px 50px;
+	
+}
+
+.container {
+	margin-top: 20px;
+}
+
+table.table-bordered {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+table.table-bordered th, table.table-bordered td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: center;
+}
+
+table.table-bordered th {
+	background-color: #f2f2f2;
+}
+
+main {
+	padding: 20px;
+}
+
+.mileage--list {
+	margin-top: 20px;
+}
+
+h4#tab_title {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.searchKind, input[type=radio] {
+	width: 17px;
+	height: 17px;
+}
+
+table#savemileage--List, table#usemileage--List, table#expirationDatemileage--List {
+	border-collapse: collapse;
+	width: 100%;
+	margin-top: 20px;
+}
+
+table#savemileage--List th, table#savemileage--List td, table#usemileage--List th, table#usemileage--List td, table#expirationDatemileage--List th, table#expirationDatemileage--List td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: center;
+}
+
+table#savemileage--List th, table#usemileage--List th, table#expirationDatemileage--List th {
+	background-color: #f2f2f2;
+}
+
+.li--period, .li--period--s {
+	width: 105px;
+	height: 46px;
+	background-color: white;
+	text-align: center;
+	padding: 10px;
+	border: 1px solid #ccc;
+}
+
+.tab_wrap6 ul {
+	height: 60px;
+}
+
+.tab_wrap6 {
+	margin-left: 300px;
+}
+
+.calendar_wrap {
+	margin-left: 330px;
+}
+.btn-light{
+padding-top: 0;
+margin-bottom2px;
+	height: 30px;
+	text-align: center;
 }
 -->
 </style>
 
 <!-- 마일리지 조회 페이지 -->
 <main>
-
-	<h1>마일리지 조회</h1>
+	<div class="title">
+		<h1>마일리지 내역 조회</h1>
+	</div>
 	<div class="container">
-		<h3>회원이름 회원님의 사용가능 마일리지</h3>
-		<h3>숫자나오게 마일(글자 중앙 이동 해야함)</h3>
 		<table class="table table-bordered">
 			<thead>
 				<tr>
@@ -38,7 +144,7 @@
 			<tbody>
 				<tr>
 					<td>마일리지</td>
-					<td>${saveMileage.balance}</td>
+					<td>${saveMileage.totalMileage}</td>
 					<td>${useMileage.useMileage}</td>
 					<td>${extinctionMileage.extinctionMileage}</td>
 					<td>${saveMileage.balance - useMileage.useMileage}</td>
@@ -51,21 +157,16 @@
 		<h4 class="hidden" id="tab_title">적립/사용 상세내역조회</h4>
 		<form action="mileageList" method="post" id="form">
 			<div id="checkboxList">
-				<input type="checkbox" class="searchKind" id="mileageType0" name="isAllSearch" value="isAllSearch" /> 
-				<label for="mileageType0">전체</label> 
-				<input type="checkbox" class="searchKind" id="mileageType1"name="isUpSearch" value="isUpSearch" /> 
-					<label for="mileageType1">적립</label>
-					 <input type="checkbox" class="searchKind" id="mileageType2" name="isUseSearch" value="isUseSearch" />
-					  <label for="mileageType2">사용</label>
-				<input type="checkbox" class="searchKind" id="mileageType3" name="isExpireSearch" value="isExpireSearch" />
-				 <label for="mileageType3">소멸된 마일리지</label>
+				<strong class="sortation">구분</strong> <input type="checkbox" class="searchKind" id="mileageType0" name="isAllSearch" value="isAllSearch" /> <label for="mileageType0">전체</label> <input
+					type="checkbox" class="searchKind" id="mileageType1" name="isUpSearch" value="isUpSearch" /> <label for="mileageType1">적립</label> <input type="checkbox" class="searchKind" id="mileageType2"
+					name="isUseSearch" value="isUseSearch" /> <label for="mileageType2">사용</label> <input type="checkbox" class="searchKind" id="mileageType3" name="isExpireSearch" value="isExpireSearch" /> <label
+					for="mileageType3">소멸된 마일리지</label>
 			</div>
 
 			<dl>
-				<dt>조회기간</dt>
 				<dd>
-					<input type="radio" name="searchType" id="searchType1" value="P" checked="checked" /> <label for="searchType1">기간으로 조회</label> <input type="radio" name="searchType" id="searchType2" value="R" />
-					<label for="searchType2">가입일로부터 조회</label>
+					<strong>조회기간</strong><input type="radio" name="searchType" id="searchType1" value="P" checked="checked" /> <label for="searchType1">기간으로 조회</label> <input type="radio" name="searchType"
+						id="searchType2" value="R" /> <label for="searchType2">가입일로부터 조회</label>
 				</dd>
 			</dl>
 			<dl>
@@ -76,7 +177,8 @@
 							<li id="liPeriod3" class="li--period"><a>3개월</a></li>
 							<li id="liPeriod6" class="li--period"><a>6개월</a></li>
 							<li id="liPeriod12" class="li--period"><a>1년</a></li>
-							<li id="liPeriods" class="li--period--s"><a>직접 선택</a></li><br>
+							<li id="liPeriods" class="li--period--s"><a>직접 선택</a></li>
+							<br>
 						</ul>
 					</div>
 				</dd>
@@ -86,39 +188,17 @@
 
 					<div class="relative_calendar">
 						<div class="calendar_wrap">
-							<input type="text" name="startTime" title="시작일" id="sCalendar01" class="datepicker input_cal" placeholder="시작일 선택" data-dateformat="y.mm.dd D" data-type="single_infinite">
+							<input type="text" name="startTime" title="시작일" id="sCalendar01" class="datepicker input_cal" placeholder="시작일 선택" data-dateformat="y.mm.dd D" data-type="single_infinite"> <span
+								class="mid_txt">부터 ~</span> 
+								<input type="text" name="endTime" title="종료일" id="sCalendar02" class="datepicker input_cal" placeholder="종료일 선택" data-dateformat="y.mm.dd D"
+								data-type="single_infinite_last"> <a href="#none" class="btn_airport type2 calendar_focus"></a>
+								<button id="mileage--search" type="button" class="btn btn-light">조회하기</button>
 						</div>
-
-						<div class="calendar_layer">
-
-
-							<div class="compareCalendar"></div>
-							<a href="#none" class="cal_status02">시작일</a> <a href="#none" class="cal_reset"> <span class="hidden">달력 새로고침</span></a> <a href="#none" class="btn_cal_close"> <span class="hidden">닫기</span></a>
-						</div>
-
 					</div>
 
-					<span class="mid_txt">부터 ~</span>
-					<div class="relative_calendar">
-						<div class="calendar_wrap">
-							<input type="text" name="endTime" title="종료일" id="sCalendar02" class="datepicker input_cal" placeholder="종료일 선택" data-dateformat="y.mm.dd D" data-type="single_infinite_last"> <a
-								href="#none" class="btn_airport type2 calendar_focus"></a>
-						</div>
-
-						<div class="calendar_layer">
-
-							<div class="compareCalendar"></div>
-							<a href="#none" class="cal_status02">종료일</a> <a href="#none" class="cal_reset"><span class="hidden">달력 새로고침</span></a> <a href="#none" class="btn_cal_close"><span class="hidden">닫기</span></a>
-						</div>
-
-					</div>
-
-					<span class="mid_txt">까지</span>
-
-					<button id="mileage--search" type="button" class="btn_M red">조회하기</button>
+					
 				</dd>
 			</dl>
-			<a href="javascript:sharpNothig();" class="lang_close top25"><span class="hidden">닫기</span></a>
 		</form>
 	</div>
 	<div id="">
@@ -152,6 +232,6 @@
 
 
 <script src="/js/mileage.js">
-		
+	
 </script>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
