@@ -129,7 +129,7 @@ public class InFlightServiceController {
 		model.addAttribute("specialMealResponseDtos", specialMealResponseDtos);
 		model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
 
-		return "/user/myServiceReq";
+		return "/in_flight/myServiceReq";
 	}
 
 	// 특별 기내식 신청 내역 페이지 (수정 및 삭제)

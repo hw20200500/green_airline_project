@@ -59,6 +59,7 @@ $(document).ready(function() {
 			contentType: "application/json; charset=utf-8"
 		}).done(function(data) {
 			console.log(data);
+			$("#seat--count--input").val(0);
 			$("#seat--count--input").attr("max", data.seatCount * 4);
 		}).fail(function(error) {
 			console.log(error);
@@ -135,3 +136,24 @@ submitBtn.addEventListener("click", function() {
 	});
 });*/
 
+function seatCountPlus() {
+	const resultElement = $("#seat--count--input");
+	let maxNumberValue = $("#seat--count--input").attr('max');
+	console.log(maxNumberValue);
+
+	let number = resultElement.val();
+	console.log(number < maxNumberValue);
+	if (parseInt(number) < parseInt(maxNumberValue)) {
+		number = parseInt(number) + 1;
+		resultElement.val(number);
+	}
+}
+
+function seatCountMinus() {
+	const resultElement = $("#seat--count--input");
+	let number = resultElement.val();
+	if (number > 0) {
+		number = parseInt(number) - 1;
+		resultElement.val(number);
+	}
+}

@@ -133,18 +133,18 @@ $("#modal--select--btn--id").on("click", function() {
 				let destinationTitle = $("<div>");
 				let destinationImg = $("<div>");
 				let destinationContent = $("<div>");
-				destinationTitle.attr("id", "destination--res--title");
 				destinationImg.attr("id", "destination--res--img");
+				destinationTitle.attr("id", "destination--res--title");
 				destinationContent.attr("id", "destination--res--content");
 				
 				let imgNode = $("<img>");
 				imgNode.attr("src", "/images/in_flight/" + data[i].detailImage);
 				
-				destinationTitle.append(data[i].name);
 				destinationImg.append(imgNode);
-				destinationContent.append(data[i].description);
-				destinationWrap.append(destinationTitle);
+				destinationImg.append(data[i].name);
+				destinationImg.append(data[i].description);
 				destinationWrap.append(destinationImg);
+				destinationWrap.append(destinationTitle);
 				destinationWrap.append(destinationContent);
 			}
 		}

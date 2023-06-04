@@ -13,9 +13,10 @@
 <input type="hidden" name="menuName" id="menuName" value="공지사항">
 
 <style>
-.btn-primary {
-	background-color: #174481;
+.btn--primary {
 	border: none;
+	background-color: #8ABBE2;
+	color: white;
 }
 
 .notice--header {
@@ -39,7 +40,7 @@
 	display: flex;
 	justify-content: center;
 	border: none;
-	border-bottom: 2px solid black;
+	border-bottom: 1px solid black;
 	font-size: 30px;
 }
 
@@ -50,7 +51,6 @@
 	justify-content: space-between;
 	margin-bottom: 30px;
 	width: 1200px;
-	border: 1px solid black;
 }
 
 .noticeList--name--wrap {
@@ -73,7 +73,7 @@
 			<div class="keyword--search--wrap">
 				<form action="/notice/noticeSearch" method="get" class="keyword--search--form">
 					<input type="text" id="keyword" name="keyword" placeholder="키워드 검색">
-					<button class="search--btn btn btn-primary" type="submit">검색</button>
+					<button class="search--btn btn btn--primary" type="submit">검색</button>
 				</form>
 			</div>
 
@@ -122,7 +122,7 @@
 
 		<c:if test="${principal.userRole.equals(\"관리자\")}">
 			<div>
-				<button class="btn btn-primary" onclick="location.href='/notice/noticeInsert'">글 작성</button>
+				<button class="btn btn--primary" onclick="location.href='/notice/noticeInsert'">글 작성</button>
 			</div>
 		</c:if>
 	</main>

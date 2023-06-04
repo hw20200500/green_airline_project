@@ -308,6 +308,34 @@
 	border: none;
 	background-color: #DC6093;
 }
+
+#destination--res--wrap{
+	margin: 50px;
+	display: flex;
+	flex-direction:column;
+	width: 1200px;
+}
+
+#destination--res--title{
+	margin-left: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#destination--res--img img{
+	width: 600px;
+}
+#destination--res--img{
+	display: flex;
+	align-items: center;
+}
+
+#destination--res--content{
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
 </style>
 <div>
 	<main>

@@ -137,10 +137,12 @@
 	</select>
 	
 	<select id="selectRequestMealByMemberId" resultType="com.green.airline.dto.response.SpecialMealResponseDto">
-		select rm.id as rm_id, rm.amount as rm_amount, t.id as ticket_id, ifm.name as ifm_name, s.departure_date, s. arrival_date, r.departure, r.destination 
+		select rm.id as rm_id, rm.amount as rm_amount, t.id as ticket_id, ifm.name as ifm_name, s.departure_date, s. arrival_date, r.departure, r.destination, ifmd.name as ifmdName
 		from request_meal_tb as rm
 		join in_flight_meal_tb as ifm
 		on rm.meal_id = ifm.id
+        join in_flight_meal_detail_tb as ifmd
+        on ifmd.meal_id = ifm.id
 		join ticket_tb as t
 		on rm.ticket_id = t.id
 		join member_tb as m
@@ -149,7 +151,7 @@
 		on t.schedule_id = s.id
 		join route_tb as r
 		on s.route_id = r.id
-		where m.id = #{memberId}
+		where m.id = #{memberId};
 	</select>
 	
 	<!-- <select id="selectTicketByIdAndTicketId" resultType="com.green.airline.dto.response.InFlightMealResponseDto">

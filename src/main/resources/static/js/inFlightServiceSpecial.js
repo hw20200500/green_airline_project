@@ -6,9 +6,9 @@ $(document).ready(function() {
 		let nameVal = $("#inFlightMeals--option").val();
 		$("#inFlightMeals--description").empty();
 		$("#inFlightMeals--details").empty();
-		$(".modal--ifmdName").empty();
-		$(".modal-content").empty();
-		console.log(nameVal);
+		/*$(".modal--ifmdName").empty();*/
+		/*$(".modal-content").empty();*/
+		
 		$.ajax({
 			type: "get",
 			url: "/changeCategory?name=" + nameVal,
@@ -17,7 +17,7 @@ $(document).ready(function() {
 			console.log(data);
 			let description = $("#inFlightMeals--description");
 			let detail = $("#inFlightMeals--details");
-			let modalIfmdName = $(".modal--ifmdName");
+			
 			for (let i = 0; i < data.length; i++) {
 				// div태그 만들기
 				let divNode = $("<div>");
@@ -28,19 +28,6 @@ $(document).ready(function() {
 				let divNode2 = $("<span>");
 				divNode.append(divNode2);
 				divNode2.append(data[i].ifmdName);
-
-				let radioNode = $("<input>");
-				radioNode.attr("type", "radio");
-				radioNode.attr("name", "ifmdName");
-				radioNode.attr("id", "ifmdName--label" + i);
-				radioNode.attr("value", data[i].ifmdName);
-				modalIfmdName.append(radioNode);
-
-				let labelNode = $("<label>");
-				labelNode.attr("for", "ifmdName--label" + i);
-				labelNode.append(data[i].ifmdName);
-				modalIfmdName.append(labelNode);
-				modalIfmdName.append("<br>");
 
 				let divNode3 = $("<p>");
 				divNode.append(divNode3);
@@ -194,17 +181,11 @@ $(document).ready(function() {
 	});
 
 	$("#modal--id--arrivaldate").on("change", function() {
-		let arrivalDateVal = $("#modal--id--arrivaldate").val();
+		let ticketId = $("#modal--id--arrivaldate").val();
+		console.log(ticketId);
+		let maxNumber = maxNumberValue.split("_")[1];
 
-		$.ajax({
-			type: "get",
-			url: "/setMaxCount?departureDate=" + arrivalDateVal,
-			contentType: "application/json; charset=utf-8"
-		}).done(function(data) {
-			$("#seat--count--input").attr("max", data.seatCount);
-		}).fail(function(error) {
-			console.log(error);
-		});
+		$("#seat--count--input").attr("max", maxNumber);		
 	});
 
 	$(".modal").on("hidden.bs.modal", function() {

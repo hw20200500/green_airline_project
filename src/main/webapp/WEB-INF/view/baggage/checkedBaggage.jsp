@@ -133,6 +133,41 @@ table tr th, table tr td {
 	background-color: #8ABBE2;
 }
 
+.amount--count {
+	margin-top: 15px;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 15px;
+}
+
+.inflightSv--amount--wrap {
+	display: flex;
+	align-items: center;
+	height: 29px;
+	cursor: pointer;
+}
+
+#modal--id--departuredate {
+	border: none;
+	border-bottom: 1px solid #ebebeb;
+	background: #f8f9fc;
+	padding: 10px;
+	width: 350px;
+}
+
+.checkedBaggage-modal--select {
+	display: flex;
+	justify-content: center;
+}
+
+#seat--count--input {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.checkedBaggage--modal--marginBottom{
+	margin-bottom: 10px;
+}
 </style>
 
 <main>
@@ -212,37 +247,44 @@ table tr th, table tr td {
 
 							<!-- Modal body -->
 							<div class="modal-body">
+								<div>
 									<div>
-										<div>예약 노선 보여주기</div>
-										<div class="">
-											<%-- <select>
-										<c:forEach var="baggageGroupBySection" items="${baggageGroupBySection}">
-											<option value="${baggageGroupBySection.section}">${baggageGroupBySection.section}
-										</c:forEach>
-									</select> <br> --%>
-											<select name="ticketId" id="modal--id--departuredate">
-												<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}" varStatus="status">
-													<%-- <input type="hidden" value="${inFlightServiceResponseDtos.ticketId}" name="ticketId"> --%>
-													<option value="${inFlightServiceResponseDtos.ticketId}" id="arrival--option">${inFlightServiceResponseDtos.seatGradeName}|
-														${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination} ${inFlightServiceResponseDtos.departureDateFormat()}</option>
-												</c:forEach>
-											</select>
+										<h4 style="margin-left: 58px;">출발 일정</h4>
+									</div>
+									<div class="checkedBaggage-modal--select">
+										<select name="ticketId" id="modal--id--departuredate">
+											<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}" varStatus="status">
+												<option value="${inFlightServiceResponseDtos.ticketId}" id="arrival--option">${inFlightServiceResponseDtos.seatGradeName} |
+													${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination} ${inFlightServiceResponseDtos.departureDateFormat()}</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
+
+								<div>
+									<div class="amount--count">
+										<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
+										<div class="inflightSv--amount--wrap">
+											<span class="material-symbols-outlined symbol" onclick="seatCountMinus()">remove</span>
+										</div>
+										<input type="text" name="amount" min="1" id="seat--count--input" max="${inFlightServiceResponseDtos.get(0).seatCount*4}" value="0" readonly="readonly"
+											style="width: 50px; border: none; text-align: center;">
+										<div class="inflightSv--amount--wrap">
+											<span class="material-symbols-outlined symbol" onclick="seatCountPlus()">add</span>
 										</div>
 									</div>
-
-									<div>
-										<div>개수 *1인당 최대 4개</div>
-										<div class="">
-											<input type="number" name="amount" min="1" id="seat--count--input" max="${inFlightServiceResponseDtos.get(0).seatCount * 4}">
-										</div>
+								</div>
+								<div class="checkedBaggage--modal--marginBottom">
+									<div style="margin-left: 58px;">
+										개수 <b>1인당 최대 4개</b>
 									</div>
-									<div>*현장에서 추가 무게 발생시 추가 요금 발생합니다.</div>
-
-									<!-- Modal footer -->
-									<div class="modal-footer">
-										<button type="button" class="btn btn--primary" id="submit--btn">Submit</button>
-										<button type="button" class="btn btn--danger modal_close" data-dismiss="modal">Close</button>
-									</div>
+									<div style="margin-left: 58px;">*현장에서 추가 무게 발생시 추가 요금 발생합니다.</div>
+								</div>
+								<!-- Modal footer -->
+								<div class="modal-footer">
+									<button type="button" class="btn btn--primary" id="submit--btn">Submit</button>
+									<button type="button" class="btn btn--danger modal_close" data-dismiss="modal">Close</button>
+								</div>
 							</div>
 
 						</div>
