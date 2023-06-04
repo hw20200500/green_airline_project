@@ -9,6 +9,7 @@ import com.green.airline.dto.BoardDto;
 import com.green.airline.dto.BoardUpdateDto;
 import com.green.airline.repository.model.Board;
 import com.green.airline.repository.model.LoveHeart;
+import com.green.airline.utils.PagingObj;
 
 @Mapper
 public interface BoardRepository {
@@ -35,4 +36,6 @@ public interface BoardRepository {
 	public List<LoveHeart> selectByLikeUser(Integer id);
 	// 게시물에 좋아요를 누른 유저 조회
 	public List<LoveHeart> selectByBoardIdAndLikeUser(@Param("id") Integer id, @Param("userId") String userId);
+	// 페이징 처리
+	public List<Board> selectByBoardList(PagingObj obj, String keyword);
 }

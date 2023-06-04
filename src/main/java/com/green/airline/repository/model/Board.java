@@ -18,6 +18,7 @@ public class Board {
 	private Integer viewCount = 0;
 	private Timestamp createdAt;
 	private Integer heartCount = 0;
+	private double average;
 
 	private MultipartFile file;
 

@@ -1,5 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <c:choose>
 	<c:when test="${\"관리자\".equals(principal.userRole)}">
@@ -12,10 +15,15 @@
 
 <style>
 .container {
-	text-align: center;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: flex-start;
+	max-width: 1230px; /* 원하는 너비 값으로 변경해주세요 */
+	margin: 0 auto; /* 가운데 정렬을 위해 margin을 auto로 설정합니다 */
+	justify-content: center;
+	width: 100%;
+}
+
+.popular--board {
+	width: 100%;
+	align-items: center;
 }
 
 .modal-dialog.modal-fullsize {
@@ -32,79 +40,176 @@
 }
 
 .img {
-	width: 300px;
-	height: 300px;
+	width: 380px;
+	height: 235px;
+}
+
+.popular--img {
+	width: 380px;
+	height: 235px;
 }
 
 .td--img {
-	padding: 5px 20px;
+	padding: 5px 10px;
+	align-items: center;
+	justify-content: center;
 }
 
 .td--board {
-	padding: 10px 40px;
+	padding: 10px 10px;
 }
 
-.board--table {
+.board--table.d-flex {
 	flex-wrap: wrap;
 }
 
-.modal-header {
+.modal--header {
 	border-bottom: none;
 }
 
-.modal-title {
+.modal--title {
 	font-weight: bolder;
 }
 
-.btn-write {
+.btn--write {
 	width: 100%;
+}
+
+.board--title {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 300px;
+}
+
+.popular--h1 {
+	text-align: left;
+	padding: 5px 20px;
+}
+
+.board--user--date {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: right;
+}
+
+.board--table {
+	white-space: nowrap;
+	width: 100%;
+	display: block;
+}
+
+.h4--title {
+	justify-content: left;
+	display: flex;
+	margin-left: 10px;
+}
+
+.basic--board {
+	align-items: center;
 }
 </style>
 <main>
-	<h1>게시판 화면</h1>
 	<div class="container">
-		<c:choose>
-			<c:when test="${boardList!=null}">
-				<%-- 게시글이 있는 경우 --%>
-				<div class="board--table d-flex">
-					<c:forEach var="board" items="${boardList}">
-						<div class="tr--boardList" data-toggle="modal" data-target="#modalDetail" id="boardDetail${board.id}" style="cursor: pointer;">
-							<div class="td--img">
-								<img src="<c:url value="${board.thumbnailImage()}"/>" alt="" class="img">
-							</div>
-							<div class="td--board">
-								<div>${board.title}</div>
-								<div>
-									<img src="/images/like/eye.png">${board.viewCount}</div>
-							</div>
+		<div class="popular--board">
+			<h4 class="h4--title">인기 게시물</h4>
+			<div class="board--table d-flex" id="popularBoardSlider">
+				<c:forEach var="board" items="${popularBoard}" varStatus="loop">
+					<div class="tr--boardList" data-toggle="modal"
+						data-target="#modalDetail" id="boardDetail${board.id}"
+						style="cursor: pointer;">
+						<div class="td--img">
+							<img src="<c:url value="${board.thumbnailImage()}"/>" alt=""
+								class="popular--img">
 						</div>
-					</c:forEach>
+						<div class="td--board">
+							<div class="board--title">${board.title}</div>
+							<div>
+								<img src="/images/like/eye.png">${board.viewCount}</div>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+
+		</div>
+		<div class="basic--board">
+			<h4 class="h4--title" style="margin-top: 50px;">여행일기</h4>
+			<c:choose>
+				<c:when test="${boardList != null && not empty boardList}">
+					<div class="board--table d-flex">
+						<c:forEach var="board" items="${boardList}">
+							<div class="tr--boardList" data-toggle="modal"
+								data-target="#modalDetail" id="boardDetail${board.id}"
+								style="cursor: pointer;">
+								<div class="td--img">
+									<img src="<c:url value="${board.thumbnailImage()}"/>" alt=""
+										class="img">
+								</div>
+								<div class="td--board">
+									<div class="board--title">${board.title}</div>
+									<div>
+										<img src="/images/like/eye.png">${board.viewCount}</div>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<p>게시물이 없습니다.</p>
+				</c:otherwise>
+			</c:choose>
+		</div>
+		<c:choose>
+			<c:when
+				test="${principal != null and !\"관리자\".equals(principal.userRole)}">
+				<div class="btn--write d-flex flex-row-reverse"
+					style="padding: 20px;">
+					<button type="button" class="btn btn-primary p-2"
+						style="margin-right: 55px;"
+						onclick="location.href='/board/insert'">글 쓰기</button>
 				</div>
 			</c:when>
 			<c:otherwise>
-				<p>게시물이 없습니다.</p>
+
 			</c:otherwise>
 		</c:choose>
 	</div>
-	<c:choose>
-		<%-- 미로그인시 버튼 안보이게 처리 --%>
-		<c:when test="${principal != null} and ${!\"관리자\".equals(principal.userRole)}">
-			<div class="btn--write d-flex flex-row-reverse">
-				<button type="button" class="btn btn-primary p-2" onclick="location.href='/board/insert'">글 쓰기</button>
-			</div>
-		</c:when>
-		<c:otherwise>
-
-		</c:otherwise>
-	</c:choose>
+	
+	<!-- 페이지 숫자(< 3 4 5 >) -->
+	<div style="display: block; text-align: center;">
+		<c:if test="${paging.startPage != 1}">
+			<a
+				href="/notice/noticeList?nowPage=${paging.startPage - 1}&cntPerPage=${paging.cntPerPage}">&lt;</a>
+		</c:if>
+		<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
+			<c:choose>
+				<c:when test="${p == paging.nowPage}">
+					<b>${p}</b>
+				</c:when>
+				<c:when test="${p != paging.nowPage}">
+					<a
+						href="/notice/noticeList?nowPage=${p}&cntPerPage=${paging.cntPerPage}">${p}</a>
+				</c:when>
+			</c:choose>
+		</c:forEach>
+		<c:if test="${paging.endPage != paging.lastPage}">
+			<a
+				href="/notice/noticeList?nowPage=${paging.endPage+1}&cntPerPage=${paging.cntPerPage}">&gt;</a>
+		</c:if>
+	</div>
+	
 </main>
 <%-- Modal --%>
-<div class="modal fade" id="modalDetail" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="myFullsizeModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+<div class="modal fade" id="modalDetail" data-backdrop="static"
+	data-keyboard="false" tabindex="-1"
+	aria-labelledby="myFullsizeModalLabel" aria-hidden="true">
+	<div
+		class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h2 class="modal-title">그린에어 여행일지</h2>
-				<button type="button" class="close" aria-label="Close" data-dismiss="modal">
+				<button type="button" class="close" aria-label="Close"
+					data-dismiss="modal">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
@@ -112,31 +217,43 @@
 			<div class="modal-body">
 				<%-- 모달 내용 입력 --%>
 				<input type="hidden" name="boardId">
+				<div class="board--user--date">
+					<div class="board--date"
+						style="justify-content: right; padding-right: 5px; color: #808080;"></div>
+				</div>
 				<div class="board--heart-eye d-flex align-items-center">
 
-					<h2 class="board--title p-2 mr-auto"></h2>
-					
-					<div class="board--userId"></div>
+					<h2 class="board--title--modal p-2 mr-auto"></h2>
 
 					<div>
 						<img src="/images/like/eye.png">
 					</div>
 					<div class="board--viewCount p-2"></div>
 
-					<img src="/images/like/like.png" class="board--heartCount d-flex jflex-row-reverse" style="cursor: pointer; width: 30px; height: 30px;">
+					<img src="/images/like/like.png"
+						class="board--heartCount d-flex jflex-row-reverse"
+						style="cursor: pointer; width: 25px; height: 25px;">
 					<div class="board--heartCount p-2"></div>
 				</div>
 
-				<div class="board--content"></div>
+				<div class="board--content" style="text-align: center;"></div>
+				<div class="board--user--date">
+					<p style="color: #808080;">작성자 &ensp;</p>
+					<div class="board--userId"
+						style="justify-content: right; padding-right: 5px; color: #808080;"></div>
+				</div>
 
 				<%-- 비동기통신으로 값 넘겨주기 --%>
 				<input type="hidden" id="userRole" value="${principal.userRole}">
-				<input type="hidden" id="managerRole" value="관리자">
-				<input type="hidden" id="loginUserId" value="${principal.id}">
-				<input type="hidden" class="board--date" value="${board.formatDate()}">
-
-				<button type="button" class="btn btn-primary" id="updateButton" style="display: none;">수정하기</button>
-				<button type="button" class="btn btn-primary" id="deleteButton" style="display: none;">삭제하기</button>
+				<input type="hidden" id="managerRole" value="관리자"> <input
+					type="hidden" id="loginUserId" value="${principal.id}"> <br>
+				<br> <br> <br> <br> <br> <br> <br>
+				<div class="modal--upDelete">
+					<button type="button" class="btn btn-primary" id="updateButton"
+						style="display: none; margin-right: 10px;">수정하기</button>
+					<button type="button" class="btn btn-primary" id="deleteButton"
+						style="display: none;">삭제하기</button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -158,7 +275,6 @@
 
 5. 내가 작성한 게시물만 조회
 
-6. 날짜 나오게하기
 -->
 
 <%-- 회원만 찜 누를 수 있음 --%>

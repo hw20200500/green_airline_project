@@ -16,18 +16,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.green.airline.dto.BoardDto;
 import com.green.airline.dto.BoardUpdateDto;
+import com.green.airline.dto.response.NoticeResponseDto;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.interfaces.BoardRepository;
 import com.green.airline.repository.model.Board;
 import com.green.airline.repository.model.LoveHeart;
+import com.green.airline.repository.model.NoticeCategory;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.BoardService;
 import com.green.airline.utils.Define;
+import com.green.airline.utils.PagingObj;
 
 /**
  * @author 치승 추천 여행지 게시글
@@ -50,14 +54,19 @@ public class BoardController {
 	@GetMapping("/list")
 	public String boardListAllPage(Model model) {
 
+		// 일반 게시물
 		List<Board> boardList = boardService.readByBoardList();
-
+		// 추천 게시물
+		List<Board> popularBoard = boardService.readPopularBoardList();
+		
 		if (boardList.isEmpty()) {
 			model.addAttribute("boardList", null);
+			model.addAttribute("popularBoard", null);
 		} else {
 			model.addAttribute("boardList", boardList);
+			model.addAttribute("popularBoard", popularBoard);
 		}
-
+		
 		return "/board/recommendBoard";
 	}
 
@@ -128,8 +137,6 @@ public class BoardController {
 
 		BoardDto boardDto = boardService.readByBoardListDetail(id);
 		model.addAttribute("boardDto", boardDto);
-		
-		System.out.println(boardDto.getUserId()+" : lkkkkl");
 
 		return "/board/updateBoard";
 	}
@@ -190,7 +197,8 @@ public class BoardController {
 	// 추천여행지 상세 보기
 	@ResponseBody
 	@GetMapping("/detail/{id}")
-	public BoardDto boardDetailProc(@PathVariable Integer id, HttpServletRequest request, HttpServletResponse response) {
+	public BoardDto boardDetailProc(@PathVariable Integer id, HttpServletRequest request,
+			HttpServletResponse response) {
 
 		// 좋아요 수 조회
 		BoardDto loveHeart = boardService.selectLoveHeart(id);
@@ -214,7 +222,7 @@ public class BoardController {
 				loveHeart.setStatement(true);
 			}
 		}
-		
+
 		return loveHeart;
 	}
 
@@ -229,6 +237,25 @@ public class BoardController {
 		Integer heartCount = boardService.selectLoveHeart(id).getHeartCount();
 
 		return heartCount;
+	}
+	
+	@GetMapping("/boardSearch")
+	public String noticeSearch(@RequestParam String keyword,
+			@RequestParam(name = "nowPage", defaultValue = "1", required = false) String nowPage,
+			@RequestParam(name = "cntPerPage", defaultValue = "5", required = false) String cntPerPage, Model model) {
+		int total = 0;
+		if (keyword.equals("")) {
+			total = boardService.readNoticeCount();
+		} else {
+			total = boardService.readNoticeByKeywordCount(keyword);
+		}
+		PagingObj obj = new PagingObj(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		List<Board> noticeList = boardService.readNoticeByTitle(obj, keyword);
+
+		model.addAttribute("paging", obj);
+		model.addAttribute("noticeList", noticeList);
+
+		return "/notice/noticeList";
 	}
 
 }
