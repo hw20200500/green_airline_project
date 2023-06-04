@@ -21,11 +21,16 @@
 	padding-bottom: 5px;
 }
 
+.inFlightSvSearch--img--wrap {
+	margin-bottom: 50px;
+}
+
 .inFlightSvSearch--img--wrap img {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	width: auto;
+	text-align: center;
 }
 
 .inFlightService--name--div {
@@ -71,6 +76,7 @@
 }
 
 .all--btn--class {
+	font-size: 28px;
 	background-color: white;
 	color: black;
 	border: 1px solid white;
@@ -84,8 +90,8 @@
 }
 
 .modal--all--btn--div {
-	display: flex;
 	border: 1px solid #ebebeb;
+	display: flex;
 	justify-content: space-between;
 	align-items: center;
 }
@@ -105,6 +111,7 @@
 .inFlightSvSearch--description--wrap {
 	margin-top: 30px;
 	margin-bottom: 5px;
+	margin-left: 100px;
 	font-size: 18px;
 }
 
@@ -148,21 +155,27 @@
 	cursor: pointer;
 }
 
-/* #modal--select--btn--id{
-	width:200px;
-	border:none;
-	height:80px;
-	background-color: #174481;
-	border-radius: 15px;
-} */
+#modal--select--btn--id {
+	width: 100px;
+	border: none;
+	height: 50px;
+	background-color: #8ABBE2;
+	border-radius: 5px;
+	color: white;
+	font-size: 20px;
+	margin-right: 20px;
+}
+
 #destination--res--id {
+	font-size: 18px;
 	display: flex;
 	flex-direction: column;
+	margin-top: 30px;
 }
 
 #destination--res--id img {
-	width: 300px;
-	height: 200px;
+	width: 600px;
+	height: 500px;
 }
 
 .autocomplete--list {
@@ -202,8 +215,8 @@
 	color: #3163aa;
 }
 
-.departure--airport--li--class:hover,
-	.destination--airport--li--class:hover {
+.departure--airport--li--class:hover, .destination--airport--li--class:hover
+	{
 	cursor: pointer;
 	font-weight: 600;
 	color: #3163aa;
@@ -250,11 +263,57 @@
 	display: flex;
 	flex-direction: row;
 }
+
+#modal--departure--btn--id {
+	font-weight: bolder;
+}
+
+#modal--destination--btn--id {
+	font-weight: bolder;
+	
+}
+
+.inFlightService--image--name--wrap {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	align-items: center;
+}
+
+#modal--start--btn {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.btn--primary {
+	color: white;
+	border: none;
+	background-color: #8ABBE2;
+}
+
+.btn--primary:hover {
+	color: white;
+	border: none;
+	background-color: #8ABBE2;
+}
+
+.btn--danger {
+	color: white;
+	border: none;
+	background-color: #DC6093;
+}
+
+.btn--danger:hover{
+	color: white;
+	border: none;
+	background-color: #DC6093;
+}
 </style>
 <div>
 	<main>
 		<div class="inFlightSvSearch--header--wrap">
 			<h2>기내 서비스 조회</h2>
+			출/도착지를 입력하여 기내 서비스 상세 정보를 확인해 보세요.
 		</div>
 		<div class="inFlightSvSearch--img--wrap">
 			<c:forEach var="inFlightServices" items="${inFlightServices}">
@@ -267,10 +326,11 @@
 			</c:forEach>
 		</div>
 
-		<div class="inFlightSvSearch--description--wrap">출/도착지를 입력하여 상세 정보를 확인해 보세요.</div>
+		<%--<div class="inFlightSvSearch--description--wrap">출/도착지를 입력하여 상세 정보를 확인해 보세요.</div> --%>
 
 		<div class="modal--all--btn--div">
 			<button type="button" id="modal--departure--btn--id" class="all--btn--class" data-toggle="modal" data-target="#start">출발지</button>
+			<span class="material-symbols-outlined" style="color: #4c4c4c; font-size: 28px; cursor: pointer;" onclick="changeValue()">swap_horiz</span>
 			<button type="button" id="modal--destination--btn--id" class="all--btn--class" data-toggle="modal" data-target="#arrival">도착지</button>
 			<button type="button" id="modal--select--btn--id" class="search--btn--class">조회</button>
 		</div>
@@ -295,11 +355,11 @@
 					<!-- Modal footer -->
 					<div class="modal-footer">
 						<div class="modal--all--region">
-							<a data-toggle="modal" href="#all--departure--airport--search" class="departure--button all--airport btn btn-primary">모든 지역 보기</a>
+							<a data-toggle="modal" href="#all--departure--airport--search" class="departure--button all--airport btn btn--primary">모든 지역 보기</a>
 						</div>
 						<div class="modal--cancel--btn">
-							<button type="button" id="start--modal--btn" class="btn btn-primary" data-dismiss="modal">Submit</button>
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+							<button type="button" id="start--modal--btn" class="btn btn--primary" data-dismiss="modal">Submit</button>
+							<button type="button" class="btn btn--danger" data-dismiss="modal">Close</button>
 						</div>
 					</div>
 				</div>
@@ -336,7 +396,7 @@
 					</div>
 					<div class="modal-footer">
 						<div class="modal--cancel--btn">
-							<button type="button" id="start--modal--btn" class="btn btn-primary" data-dismiss="modal">Submit</button>
+							<button type="button" id="start--modal--btn modal--start--btn" class="btn btn--primary" data-dismiss="modal">Submit</button>
 						</div>
 					</div>
 				</div>
@@ -362,11 +422,11 @@
 
 					<div class="modal-footer">
 						<div class="modal--all--region">
-							<a data-toggle="modal" href="#all--destination--airport--search" class="destination--button all--airport btn btn-primary">모든 지역 보기</a>
+							<a data-toggle="modal" href="#all--destination--airport--search" class="destination--button all--airport btn btn--primary">모든 지역 보기</a>
 						</div>
 						<div class="modal--cancel--btn">
-							<button type="button" id="arrival--modal--btn" class="btn btn-primary" data-dismiss="modal">Submit</button>
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+							<button type="button" id="arrival--modal--btn" class="btn btn--primary" data-dismiss="modal">Submit</button>
+							<button type="button" class="btn btn--danger" data-dismiss="modal">Close</button>
 						</div>
 					</div>
 				</div>
@@ -403,17 +463,13 @@
 					</div>
 					<div class="modal-footer">
 						<div class="modal--cancel--btn">
-							<button type="button" id="arrival--modal--btn" class="btn btn-primary" data-dismiss="modal">Submit</button>
+							<button type="button" id="arrival--modal--btn" class="btn btn--primary" data-dismiss="modal">Submit</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<div id="destination--res--id"></div>
-
-
-
+		<div id="destination--res--wrap"></div>
 
 		<script src="/js/inFlightSvSearch.js"></script>
 	</main>

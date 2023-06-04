@@ -4,11 +4,16 @@
 <mapper
 	namespace="com.green.airline.repository.interfaces.BaggageRequestRepository">
 	
-	<insert id="updateBaggageReq">
+	<insert id="insertBaggageReq">
+		insert into baggage_request_tb(amount, member_id, ticket_id)
+		values(#{amount}, #{memberId}, #{ticketId})
+	</insert>
+	
+	<update id="updateBaggageReq">
 		update baggage_request_tb 
 		set amount = #{amount}
 		where id = #{id}
-	</insert>
+	</update>
 	
 	<delete id="deleteBaggageReqById">
 		delete from baggage_request_tb
@@ -16,51 +21,80 @@
 	</delete>
 	
 	<select id="selectBaggageReqByMemberId" resultType="com.green.airline.dto.response.BaggageReqResponseDto">
-		select cb.section, cb.grade_id, bre.amount, r.departure, r.destination, sg.name as seat_grade_name, bre.id as baggage_id
+		select bre.amount, r.departure, r.destination, sg.name as seat_grade_name, bre.id as baggage_id
 		from baggage_request_tb as bre
-		join baggage_route_tb as bro
-		on bre.br_id = bro.id
+		join ticket_tb as t
+		on bre.ticket_id = t.id
+        join schedule_tb as sc
+        on t.schedule_id = sc.id
 		join route_tb as r 
-		on r.id = bro.route_id
-		join checked_baggage_tb as cb
-		on cb.id = bro.baggage_id
+		on r.id = sc.route_id
 		join seat_grade_tb as sg
-		on sg.name = cb.grade_id
+		on sg.name = t.seat_grade
 		join member_tb as m
 		on bre.member_id = m.id
-		where bre.member_id=#{memberId}
+		where bre.member_id=#{memberId};
 	</select>
 	
 	<select id="selectBaggageReqByMemberIdAndAmount" resultType="com.green.airline.dto.response.BaggageReqResponseDto">
-		select cb.section, cb.grade_id, bre.amount, r.departure, r.destination, sg.name as seat_grade_name, bre.id as baggage_id
+		select bre.amount, r.departure, r.destination, sg.name as seat_grade_name, bre.id as baggage_id
 		from baggage_request_tb as bre
-		join baggage_route_tb as bro
-		on bre.br_id = bro.id
+		join ticket_tb as t
+		on bre.ticket_id = t.id
+        join schedule_tb as sc
+        on t.schedule_id = sc.id
 		join route_tb as r 
-		on r.id = bro.route_id
-		join checked_baggage_tb as cb
-		on cb.id = bro.baggage_id
+		on r.id = sc.route_id
 		join seat_grade_tb as sg
-		on sg.name = cb.grade_id
+		on sg.name = t.seat_grade
 		join member_tb as m
 		on bre.member_id = m.id
-		where bre.member_id=#{memberId} and bre.amount>0
+		where bre.member_id=#{memberId} and bre.amount>0;
 	</select>
 	
 	<select id="selectBaggageReqGroupBySection" resultType="com.green.airline.dto.response.BaggageReqResponseDto">
-		select cb.section
-		from baggage_request_tb as bre
-		join baggage_route_tb as bro
-		on bre.br_id = bro.id
-		join route_tb as r 
-		on r.id = bro.route_id
-		join checked_baggage_tb as cb
-		on cb.id = bro.baggage_id
-		join seat_grade_tb as sg
-		on sg.name = cb.grade_id
-		join member_tb as m
-		on bre.member_id = m.id
-		group by cb.section
+		select section
+		from checked_baggage_tb
+		group by section
+	</select>
+	
+	<select id="selectBaggageReqPossibleTicket" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
+		SELECT s.departure_date, r.departure, r.destination, (t.adult_count + t.child_count) as seat_count, t.id as ticket_id, t.seat_grade as seat_grade_name
+			FROM ticket_tb AS t
+			JOIN (
+		      SELECT t.id AS ticket_id, ifnull(SUM(amount), 0) AS amount
+		      FROM baggage_request_tb AS b
+		      RIGHT JOIN ticket_tb AS t
+		      ON b.ticket_id = t.id
+		      WHERE t.member_id = #{memberId}
+		      GROUP BY t.id
+		    ) AS ta
+			ON ta.ticket_id = t.id
+			JOIN schedule_tb as s
+			ON t.schedule_id = s.id
+			JOIN route_tb as r
+			ON r.id = route_id
+			WHERE (adult_count + child_count + infant_count) > amount AND departure_date > now();
+	</select>
+	
+	<select id="selectBaggageReqForManager" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
+		SELECT t.member_id, s.departure_date, r.departure, r.destination, (t.adult_count + t.child_count) as seat_count, t.id as ticket_id, t.seat_grade as seat_grade_name, b.amount
+			FROM ticket_tb AS t
+			JOIN (
+		      SELECT t.id AS ticket_id
+		      FROM baggage_request_tb AS b
+		      RIGHT JOIN ticket_tb AS t
+		      ON b.ticket_id = t.id
+		      GROUP BY t.id
+		    ) AS ta
+			ON ta.ticket_id = t.id
+			JOIN schedule_tb as s
+			ON t.schedule_id = s.id
+			JOIN route_tb as r
+			ON r.id = route_id
+            JOIN baggage_request_tb as b
+            ON b.ticket_id = t.id
+			WHERE departure_date > now() and amount != 0
 	</select>
 	
 </mapper>

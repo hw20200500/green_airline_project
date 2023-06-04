@@ -44,13 +44,20 @@
 }
 
 .notice--category--wrap {
+	padding: 20px;
+	border-radius: 10px;
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 30px;
+	width: 1200px;
+	border: 1px solid black;
 }
 
 .noticeList--name--wrap {
 	font-size: 20px;
+}
+
+.notice--category--ul{
 }
 </style>
 
@@ -73,24 +80,28 @@
 		</div>
 		<div class="notice--category--wrap">
 			<c:forEach var="categoryList" items="${categoryList}">
-				<h4>
-					<a href="/notice/noticeCategory/${categoryList.id}">${categoryList.name}</a>
-				</h4>
+				<ul class="notice--category--ul">
+					<li>
+						<h4>
+							<a href="/notice/noticeCategory/${categoryList.id}">${categoryList.name}</a>
+						</h4>
+					</li>
+				</ul>
 			</c:forEach>
 		</div>
 
 
 		<div class="notice--noticeList--wrap">
 			<c:forEach var="noticeList" items="${noticeList}">
-			<input type="hidden" name="id" value="${noticeList.id}">
+				<input type="hidden" name="id" value="${noticeList.id}">
 				<div class="noticeList--name--wrap">
 					<a href="/notice/noticeDetail/${noticeList.id}"> [ ${noticeList.name} ] ${noticeList.title}</a>
 				</div>
 			</c:forEach>
 		</div>
-		
+
 		<!-- 페이지 숫자(< 3 4 5 >) -->
-		<div style="display: block; text-align: center;">		
+		<div style="display: block; text-align: center;">
 			<c:if test="${paging.startPage != 1}">
 				<a href="/notice/noticeList?nowPage=${paging.startPage - 1}&cntPerPage=${paging.cntPerPage}">&lt;</a>
 			</c:if>

@@ -18,7 +18,6 @@ public class BaggageReqResponseDto {
 	private Integer baggageId;
 	private Integer breId;
 	private Integer amount;
-	private Integer brId;
 	private String memberId;
 	private Timestamp departureDate;
 	private String ticketId;

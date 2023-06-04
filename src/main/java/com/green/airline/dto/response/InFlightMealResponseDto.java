@@ -28,6 +28,7 @@ public class InFlightMealResponseDto {
 	private Integer routeId;
 	private Timestamp reservedDate;
 	private Integer seatCount;
+	private String seatGradeName;
 	private String image;
 	private String departure;
 	private String destination;

@@ -11,15 +11,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.green.airline.dto.request.BaggageReqRequestDto;
 import com.green.airline.dto.response.BaggageReqResponseDto;
 import com.green.airline.dto.response.InFlightMealResponseDto;
+import com.green.airline.dto.response.TicketAllInfoDto;
+import com.green.airline.repository.model.BaggageRequest;
 import com.green.airline.repository.model.CarryOnLiquids;
 import com.green.airline.repository.model.CheckedBaggage;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.BaggageRequestService;
 import com.green.airline.service.BaggageService;
 import com.green.airline.service.InFlightSvService;
+import com.green.airline.service.TicketService;
 import com.green.airline.utils.Define;
 
 @Controller
@@ -34,6 +36,8 @@ public class BaggageController {
 	private InFlightSvService inFlightSvService;
 	@Autowired
 	private HttpSession session;
+	@Autowired
+	private TicketService ticketService;
 
 	// 수하물 안내 페이지
 	@GetMapping("/guide")
@@ -75,12 +79,8 @@ public class BaggageController {
 			model.addAttribute("inFlightServiceResponseDtos", null); // 좌석 수에 따라 수량을 가져오기 위해
 
 		} else {
-			List<BaggageReqResponseDto> baggageReqResponses = baggageRequestService
-					.readBaggageReqByMemberId(principal.getId());
-			model.addAttribute("baggageReqResponses", baggageReqResponses);
-
-			List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
-					.readInFlightMealSchedule(principal.getId());
+			List<InFlightMealResponseDto> inFlightServiceResponseDtos = baggageRequestService
+					.readBaggageReqPossibleTicket(principal.getId());
 			model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
 		}
 
@@ -91,17 +91,6 @@ public class BaggageController {
 	@GetMapping("/transitBaggage")
 	public String transitBaggagePage() {
 		return "/baggage/transitBaggage";
-	}
-
-	// MIME / application/json
-	@PostMapping("/checkedBaggageProc")
-	// @RequestBody 민정아 이거는 json 형식에 바디 값을 받는 파싱전략이야
-	public String checkedBaggageProc(BaggageReqRequestDto baggageReqRequest) {
-		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-		baggageReqRequest.setMemberId(principal.getId());
-
-		baggageRequestService.updateBaggageReq(baggageReqRequest);
-		return "redirect:/baggage/checkedBaggage";
 	}
 
 	// 위탁 수하물 신청 내역 페이지 (수정 및 삭제)
@@ -120,5 +109,5 @@ public class BaggageController {
 
 		return "/user/myBaggageReq";
 	}
-
+	
 }

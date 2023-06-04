@@ -9,13 +9,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.green.airline.dto.request.InFlightReqRequestDto;
 import com.green.airline.dto.response.InFlightMealResponseDto;
 import com.green.airline.dto.response.SpecialMealResponseDto;
+import com.green.airline.enums.MealDetail;
 import com.green.airline.repository.model.Airport;
 import com.green.airline.repository.model.InFlightMeal;
+import com.green.airline.repository.model.InFlightMealDetail;
 import com.green.airline.repository.model.InFlightService;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.AirportService;
@@ -71,15 +76,24 @@ public class InFlightServiceController {
 	public String inFlightServiceSpecialPage(Model model,
 			@RequestParam(name = "name", defaultValue = "유아식 및 아동식", required = false) String name) {
 
-		List<InFlightMealResponseDto> inFlightMeals = inFlightSvService.readInFlightMeal(name);
+		List<InFlightMealResponseDto> inFlightMeals = inFlightSvService.readInFlightMealByName(name);
 		model.addAttribute("inFlightMeals", inFlightMeals);
 
 		List<InFlightMeal> flightMeals = inFlightSvService.readInFlightMealCategory();
 		model.addAttribute("flightMeals", flightMeals);
 
-		// todo 지울 수도 있음.
-//		List<InFlightServiceResponseDto> reqRouteList = routeService.readByDestAndDepa(destination, departure);
-//		model.addAttribute("reqRouteList", reqRouteList);
+		List<InFlightMealDetail> babyMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.BABYMEAL);
+		List<InFlightMealDetail> veganMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.VEGANMEAL);
+		List<InFlightMealDetail> religionMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.RELIGIONMEAL);
+		List<InFlightMealDetail> etcMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.ETCMEAL);
+		List<InFlightMealDetail> lowfatMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.LOWFATMEAL);
+		System.out.println(babyMeal);
+
+		model.addAttribute("babyMeal", babyMeal);
+		model.addAttribute("veganMeal", veganMeal);
+		model.addAttribute("religionMeal", religionMeal);
+		model.addAttribute("etcMeal", etcMeal);
+		model.addAttribute("lowfatMeal", lowfatMeal);
 
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 
@@ -90,19 +104,6 @@ public class InFlightServiceController {
 					.readInFlightMealSchedule(principal.getId());
 			model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
 		}
-
-		return "/in_flight/inFlightServiceSpecial";
-	}
-
-	// 특별 기내식 신청 페이지
-	@GetMapping("/specialMealReq")
-	public String specialMealReqPage(Model model, @RequestParam String name, @RequestParam Integer amount,
-			@RequestParam String departureDate) {
-		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-		// todo
-		// 특별 기내식 상세 조회 기능 갖고 와야 함
-		// myInfo에 찍어줘야 함 (특별 기내식 신청 내역 페이지를 하나 만들던가 해야 함.)
-		inFlightSvService.createInFlightMealRequest(principal.getId(), name, amount, departureDate);
 
 		return "/in_flight/inFlightServiceSpecial";
 	}

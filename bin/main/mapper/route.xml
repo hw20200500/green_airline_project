@@ -23,4 +23,8 @@
 		LIMIT #{limitCount}
 	</select>
 	
+	<select id="selectById" resultType="com.green.airline.repository.model.Route">
+		select * from route_tb where id = #{id}
+	</select>
+	
 </mapper>

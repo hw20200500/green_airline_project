@@ -12,12 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.green.airline.dto.SaveMileageDto;
 import com.green.airline.dto.response.TicketAllInfoDto;
 import com.green.airline.dto.response.TicketDto;
+import com.green.airline.repository.interfaces.BaggageRepository;
+import com.green.airline.repository.interfaces.BaggageRequestRepository;
 import com.green.airline.repository.interfaces.MileageRepository;
 import com.green.airline.repository.interfaces.PassengerRepository;
 import com.green.airline.repository.interfaces.ReservedSeatRepository;
+import com.green.airline.repository.interfaces.RouteRepository;
+import com.green.airline.repository.interfaces.ScheduleRepository;
 import com.green.airline.repository.interfaces.TicketPaymentRepository;
 import com.green.airline.repository.interfaces.TicketRepository;
-import com.green.airline.repository.interfaces.UserRepository;
 import com.green.airline.repository.model.MemberGrade;
 import com.green.airline.repository.model.Passenger;
 import com.green.airline.repository.model.ReservedSeat;
@@ -47,13 +50,22 @@ public class TicketService {
 	private MileageRepository mileageRepository;
 	
 	@Autowired
-	private UserRepository userRepository;
+	private ScheduleRepository scheduleRepository;
+	
+	@Autowired
+	private BaggageRepository baggageRepository;
+	
+	@Autowired
+	private BaggageRequestRepository baggageRequestRepository;
+	
+	@Autowired
+	private RouteRepository routeRepository;
+	
 	/**
 	 * 결제 요청 시 예약 내역 + 결제 내역을 추가하는 로직
 	 */
 	@Transactional
 	public void createTicketAndPayment(TicketDto ticketDto, String memberId) {
-		
 		// 예약 id 난수로 생성
 		String ticketId = (int) Math.floor(Math.random() * 89000000 + 10000000) + "";		
 		
@@ -83,6 +95,7 @@ public class TicketService {
 						.paymentType(0)
 						.build();
 		ticketRepository.insert(ticket1);
+		
 		
 		// 예약 좌석 생성
 		for (String seat : ticketDto.getSeatNames()) {
@@ -120,6 +133,8 @@ public class TicketService {
 							.paymentType(0)
 							.build();
 			ticketRepository.insert(ticket2);
+			
+			
 			
 			// 예약 좌석 생성
 			for (String seat : ticketDto.getSeatNames2()) {
@@ -182,6 +197,7 @@ public class TicketService {
 	public void deleteTicketByPaymentCancel(String memberId) {
 		
 		List<Ticket> ticketList = ticketRepository.selectByUserIdOrderByDate(memberId);
+		System.out.println(ticketList);
 		// 해당 유저가 가장 최근에 예매한 티켓 id 가져오기
 		String ticketId1 = ticketList.get(0).getId();
 		String ticketId2 = null;

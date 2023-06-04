@@ -21,11 +21,15 @@
 	height: 40px;
 	border: none;
 	border-bottom: 1px solid black;
-	font-size: 20px;
+	font-size: 25px;
 	margin-bottom: 50px;
 	margin-top: 30px;
 	padding-bottom: 5px;
 	text-align: center;
+}
+
+#inFlightMeals--option:focus {
+	outline: none;
 }
 
 #inFlightMeals--image {
@@ -36,19 +40,23 @@
 #inFlightMeals--description {
 	display: flex;
 	justify-content: center;
-}
-
-#inFlightMeals--description>span {
-	width: 1000px;
-	font-size: 1em;
+	font-size: 17.5px;
 	margin-bottom: 20px;
+	font-weight: bold;
 }
 
+/* #inFlightMeals--description>span {
+	width: 1000px;
+} */
 #inFlightMeals--details {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	margin-bottom: 10px;
+}
+
+#inFlightMeals--detail {
+	display: flex;
 }
 
 .detail--wrap {
@@ -62,6 +70,39 @@
 
 .inFlightMeals--btn--wrap>div {
 	width: 1000px;
+}
+
+#seat--count--input:focus {
+	outline: none;
+}
+
+.modal-content {
+	width: 1400px;
+	height: 700px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+}
+
+.amount--count {
+	display: flex;
+}
+
+.btn--primary {
+	color: white;
+	border: none;
+	background-color: #8ABBE2;
+}
+
+.btn--danger {
+	color: white;
+	border: none;
+	background-color: #DC6093;
 }
 </style>
 
@@ -100,7 +141,7 @@
 
 		<div class="inFlightMeals--btn--wrap">
 			<div>
-				<button type="button" id="inFlightMeals--request--btn" class="btn btn-primary" data-toggle="modal" data-target="#special--meal--req">특별 기내식 신청</button>
+				<button type="button" id="inFlightMeals--request--btn" class="btn btn--primary" data-toggle="modal" data-target="#special--meal--req">특별 기내식 신청</button>
 			</div>
 		</div>
 
@@ -120,7 +161,7 @@
 
 						<!-- Modal body -->
 						<div class="modal-body">
-							<form>
+							<form action="/inFlightService/specialMealReq" method="post">
 								<div>
 									<div>출발 일정</div>
 									<div class="modal--div--arrivaldate">
@@ -128,7 +169,7 @@
 											<!-- db 안에 들어있는 departureDate는 format 전의 값이니까 2023/05/18 -> 2023년05월18일 -->
 											<select name="modal--name--arrivaldate" id="modal--id--arrivaldate">
 												<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}">
-													<option value="${inFlightServiceResponseDtos.departureDateFormat()}" id="arrival--option">${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination}
+													<option value="${inFlightServiceResponseDtos.ticketId}_${inFlightServiceResponseDtos.seatCount}" id="arrival--option">${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination}
 														${inFlightServiceResponseDtos.departureDateFormat()}</option>
 												</c:forEach>
 											</select> <br>
@@ -139,27 +180,132 @@
 								<div>
 									<div>종류</div>
 									<div class="modal--ifmdName">
-										<div id="inFlightMeals--detail">
-											<c:forEach var="inFlightMeals" items="${inFlightMeals}" varStatus="status">
-												<input type="radio" class="radio--ifmd" name="ifmdName" id="ifmdName--label${status.index}" value="${inFlightMeals.ifmdName}">
-												<label for="ifmdName--label${status.index}">${inFlightMeals.ifmdName}</label>
-												<br>
+										<%-- <div>
+											<c:forEach>
+												
 											</c:forEach>
+										</div> --%>
+										<div id="inFlightMeals--detail">
+											<div>
+												<div>
+													<h5>유아식 및 아동식</h5>
+												</div>
+												<br>
+												<c:forEach var="babyMeal" items="${babyMeal}" varStatus="status">
+													<input type="radio" class="radio--ifmd" name="babyMeal" id="babyMeal--label${status.index}" value="${babyMeal.mealId}">
+													<label for="babyMeal--label${status.index}">${babyMeal.name}</label>
+													<br>
+												</c:forEach>
+												<div class="amount--count">
+													<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
+													수량 <br>
+													<div>
+														<span class="material-symbols-outlined symbol" onclick="seatCountMinus(1)">do_not_disturb_on</span>
+													</div>
+													<input type="text" class="seat--count--input" id="seat--count--input1" name="amount1" value="0" readonly="readonly" style="width: 50px;">
+													<div>
+														<span class="material-symbols-outlined symbol" onclick="seatCountPlus(1)">add_circle</span>
+													</div>
+												</div>
+											</div>
+											<div>
+												<div>
+													<h5>야채식</h5>
+												</div>
+												<br>
+												<c:forEach var="veganMeal" items="${veganMeal}" varStatus="status">
+													<input type="radio" class="radio--ifmd" name="veganMeal" id="veganMeal--label${status.index}" value="${veganMeal.mealId}">
+													<label for="veganMeal--label${status.index}">${veganMeal.name}</label>
+													<br>
+												</c:forEach>
+												<div class="amount--count">
+													<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
+													수량 <br>
+													<div>
+														<span class="material-symbols-outlined symbol" onclick="seatCountMinus(2)">do_not_disturb_on</span>
+													</div>
+													<input type="text" class="seat--count--input" id="seat--count--input2" name="amount2" value="0" readonly="readonly" style="width: 50px;">
+													<div>
+														<span class="material-symbols-outlined symbol" onclick="seatCountPlus(2)">add_circle</span>
+													</div>
+												</div>
+											</div>
+											<div>
+												<div>
+													<h5>식사 조절식</h5>
+												</div>
+												<br>
+												<c:forEach var="lowfatMeal" items="${lowfatMeal}" varStatus="status">
+													<input type="radio" class="radio--ifmd" name="lowfatMeal" id="lowfatMeal--label${status.index}" value="${lowfatMeal.mealId}">
+													<label for="lowfatMeal--label${status.index}">${lowfatMeal.name}</label>
+													<br>
+												</c:forEach>
+												<div class="amount--count">
+													<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
+													수량 <br>
+													<div>
+														<span class="material-symbols-outlined symbol" onclick="seatCountMinus(3)">do_not_disturb_on</span>
+													</div>
+													<input type="text" class="seat--count--input" id="seat--count--input3" name="amount3" value="0" readonly="readonly" style="width: 50px;">
+													<div>
+														<span class="material-symbols-outlined symbol" onclick="seatCountPlus(3)">add_circle</span>
+													</div>
+												</div>
+											</div>
+											<div>
+												<div>
+													<h5>종교식</h5>
+												</div>
+												<br>
+												<c:forEach var="religionMeal" items="${religionMeal}" varStatus="status">
+													<input type="radio" class="radio--ifmd" name="religionMeal" id="religionMeal--label${status.index}" value="${religionMeal.mealId}">
+													<label for="religionMeal--label${status.index}">${religionMeal.name}</label>
+													<br>
+												</c:forEach>
+												<div class="amount--count">
+													<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
+													수량 <br>
+													<div>
+														<span class="material-symbols-outlined symbol" onclick="seatCountMinus(4)">do_not_disturb_on</span>
+													</div>
+													<input type="text" class="seat--count--input" id="seat--count--input4" name="amount4" value="0" readonly="readonly" style="width: 50px;">
+													<div>
+														<span class="material-symbols-outlined symbol" onclick="seatCountPlus(4)">add_circle</span>
+													</div>
+												</div>
+											</div>
+											<div>
+												<div>
+													<h5>기타 특별식</h5>
+												</div>
+												<br>
+												<c:forEach var="etcMeal" items="${etcMeal}" varStatus="status">
+													<input type="radio" class="radio--ifmd" name="etcMeal" id="etcMeal--label${status.index}" value="${etcMeal.mealId}">
+													<label for="etcMeal--label${status.index}">${etcMeal.name}</label>
+													<br>
+												</c:forEach>
+												<div class="amount--count">
+													<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
+													수량 <br>
+													<div>
+														<span class="material-symbols-outlined symbol" onclick="seatCountMinus(5)">do_not_disturb_on</span>
+													</div>
+													<input type="text" class="seat--count--input" id="seat--count--input5" name="amount5" value="0" readonly="readonly" style="width: 50px;">
+													<div>
+														<span class="material-symbols-outlined symbol" onclick="seatCountPlus(5)">add_circle</span>
+													</div>
+												</div>
+											</div>
 										</div>
 									</div>
-								</div>
-
-								<div>
-									<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
-									수량 &nbsp;<input type="number" id="seat--count--input" name="amount" min="1" max="${inFlightServiceResponseDtos.get(0).seatCount}">
 								</div>
 							</form>
 						</div>
 
 						<!-- Modal footer -->
 						<div class="modal-footer">
-							<button type="button" id="inflightmeal--request" class="btn btn-primary" data-dismiss="modal">Submit</button>
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+							<button type="button" id="inflightmeal--request" class="btn btn--primary" data-dismiss="modal">Submit</button>
+							<button type="button" class="btn btn--danger" data-dismiss="modal">Close</button>
 						</div>
 					</div>
 				</div>

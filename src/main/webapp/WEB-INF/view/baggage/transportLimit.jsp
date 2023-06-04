@@ -11,12 +11,19 @@
 </c:choose>
 
 <style>
+
+
 table {
 	border: 1px solid black;
+	width: 1200px;
 }
 
 table td {
 	padding: 30px;
+}
+
+table th{
+	text-align: center;
 }
 
 .transportLimit--ul>li {
@@ -30,21 +37,39 @@ table td {
 main {
 	width: 1200px;
 }
+
+#carryOnLiquids--select--box {
+	border: none;
+	border-bottom: 1px solid black; padding : 10px;
+	width: 300px;
+	font-size: 20px;
+	padding: 10px;
+	justify-content: center;
+	text-align: center; 
+}
+
+.carryOnLiquids--select--box--wrap {
+	display: flex;
+	justify-content: center;
+	text-align: center; 
+	padding: 30px;
+	width: 1200px;
+	border: 1px solid #ebebeb;
+	margin-bottom: 20px;
+}
 </style>
 <main>
 	<div>
 		<div>
-			<h1>운송 제한 물품 페이지</h1>
-		</div>
-
-		<div>
-			<p>
-				아시아나항공은 기내 안전을 위해 반입이 제한되거나 엄격히 금지되어 있는<br> 물품들이 있습니다. 항공 여행 전 아래 내용을 반드시 확인해 주시기 바랍니다.
-			</p>
+			<h2>운송 제한 물품 페이지</h2>
+			<p>그린항공은 기내 안전을 위해 반입이 제한되거나 엄격히 금지되어 있는 물품들이 있습니다. 항공 여행 전 아래 내용을 반드시 확인해 주시기 바랍니다.</p>
+			<hr>
+			<br>
 		</div>
 
 		<div>
 			<h3>항공 운송 금지 품목</h3>
+			<br>
 
 			<div>
 				<h5>리튬배터리로 구동되는 일체의 탈 것류, 160Wh 초과하는 리튬배터리</h5>
@@ -58,6 +83,8 @@ main {
 				<h5>인화성 고압가스가 들어있는 용기</h5>
 				<p>부탄가스, 개인용 산소통 등 * 개인용 산소통은 사전예약을 통해 당사에서 제공하는 산소통을 이용하시기 바랍니다.</p>
 			</div>
+
+			<br>
 		</div>
 
 		<div>
@@ -68,6 +95,7 @@ main {
 					<li>1인당 2.5kg 이내의 드라이아이스</li>
 					<li>용기당(미국행) 또는 인당(호주발) 350ml 미만의 분말류(파우더류) 물품 ('18.6.30 부, 미국행/호주발 국제선 항공편에 한함)</li>
 				</ul>
+				<br>
 			</div>
 
 			<div>
@@ -103,9 +131,11 @@ main {
 					</tr>
 				</table>
 			</div>
+			<br>
 		</div>
 
 		<div>
+			<br>
 			<h3>휴대용 일반 전자기기의 리튬배터리 운송 규정 안내</h3>
 			<p>
 				항공 위험물 운송기술기준에 의해 위험물로 분류되는 리튬 배터리는 기내 휴대나 위탁수하물 반입이 금지되어 있으나,<br> 국제항공 운송협회 위험물 규정(IATA Dangerous Goods Regulations)에 의거하여 손님이 여행 중 개인 사용 목적으로 인정될 수 있는 소량에 한하여 운송을 허가하고 있습니다.
@@ -149,6 +179,7 @@ main {
 				</tr>
 			</table>
 
+			<br>
 			* 배터리 용량 구하는 법 : 용량(Wh) = 전압(V) X 전류(Ah), 1Ah= 1,000mAh
 			<ul class="transportLimit--ul transportLimit--ul--li">
 				<li>여분의 리튬배터리 및 보조 배터리는 위탁수하물로 운송이 불가하며, 휴대용 전자기기를 위탁수하물로 운송하는 경우 반드시 전원을 꺼주시기 바랍니다.</li>
@@ -158,9 +189,11 @@ main {
 				<li>객실 내 사용을 위한 POC, CPAP 등의 휴대용 전자 의료기기에는 별도의 규정이 적용됩니다.</li>
 				<li>일본 출발 항공편의 경우 리튬배터리 분리불가형 헤어컬(고데기)은 기내반입/수하물 위탁 모두 불가합니다.</li>
 			</ul>
+			<br>
 		</div>
 
 		<div>
+			<br>
 			<h3>전동휠체어 및 전동스쿠터(장애인/노약자용, 非레저용) 배터리 운송 규정 안내</h3>
 			<table border="1">
 				<tr>
@@ -184,9 +217,11 @@ main {
 					</td>
 				</tr>
 			</table>
+			<br>
+			<br>
 		</div>
 
-		<div>
+		<div class="carryOnLiquids--select--box--wrap">
 			<select id="carryOnLiquids--select--box">
 				<c:forEach var="carryOnLiquids" items="${carryOnLiquids}">
 					<option id="carryOnLiquids--category" value="${carryOnLiquids.name}">${carryOnLiquids.name}</option>
@@ -195,21 +230,21 @@ main {
 		</div>
 		<div>
 			<div>
-				<h2 id="carryOnLiquids--name--id">${carryOnLiquids.get(0).name}의조회 결과입니다.</h2>
+				<h3 id="carryOnLiquids--name--id">${carryOnLiquids.get(0).name}의조회결과입니다.</h3>
 			</div>
 
 			<div>
 				<table border="1">
 					<tr>
-						<td>대상</td>
+						<td style="width: 150px;">대상</td>
 						<td id="carryOnLiquids--target--id">${carryOnLiquids.get(0).target}</td>
 					</tr>
 					<tr>
-						<td>제한 지침</td>
+						<td style="width: 150px;">제한 지침</td>
 						<td id="carryOnLiquids--limitGuide--id">${carryOnLiquids.get(0).limitGuide}</td>
 					</tr>
 					<tr>
-						<td>면세품 지침</td>
+						<td style="width: 150px;">면세품 지침</td>
 						<td id="carryOnLiquids--taxFreeGuide--id">${carryOnLiquids.get(0).taxFreeGuide}</td>
 					</tr>
 
@@ -218,6 +253,7 @@ main {
 		</div>
 
 		<div>
+			<br>
 			<h3>유의사항</h3>
 			<ul class="transportLimit--ul transportLimit--ul--li">
 				<li>의사가 처방한 의약품에 대하여는 의약 상품명 또는 의사소견서를 소지하고 물품의 출처를 증명하는 서류 (처방전, 약 봉투, 진단서 등)를 제시하여야 합니다.</li>

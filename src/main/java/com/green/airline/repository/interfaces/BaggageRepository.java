@@ -3,7 +3,9 @@ package com.green.airline.repository.interfaces;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import com.green.airline.enums.BaggageSection;
 import com.green.airline.repository.model.CarryOnLiquids;
 import com.green.airline.repository.model.CheckedBaggage;
 
@@ -21,5 +23,9 @@ public interface BaggageRepository {
 
 	// 위탁 수하물 카테고리 
 	List<CheckedBaggage> selectCheckedBaggage();
+	
+	// checked_baggage_tb 조회
+	CheckedBaggage selectCheckedBaggageBySectionAndGradeId(@Param("section") BaggageSection section, @Param("gradeId") String gradeId);
+	
 	
 }

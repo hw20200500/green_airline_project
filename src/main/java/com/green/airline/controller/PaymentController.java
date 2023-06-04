@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,7 @@ import com.green.airline.dto.request.RefundDto;
 import com.green.airline.dto.response.MemberInfoDto;
 import com.green.airline.dto.response.TicketAllInfoDto;
 import com.green.airline.dto.response.TicketDto;
+import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.CoolSmsService;
@@ -103,6 +105,10 @@ public class PaymentController {
 		ticketDto.setTid(responseDto.getBody().getTid());
 		
 		String userId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
+		if(userId == null) {
+			// 수정 할 것
+			throw new CustomRestfullException("로그인 안됨", HttpStatus.BAD_REQUEST);
+		}
 		
 		// 예약 처리 (결제 성공 시 그대로 남고, 결제 실패/취소 시 삭제)
 		// 해당 유저의 가장 최근 예약 내역을 가져오면 예약 ID를 가져올 수 있음

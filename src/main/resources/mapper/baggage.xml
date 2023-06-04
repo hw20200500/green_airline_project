@@ -21,10 +21,17 @@
 		where section=#{section}
 	</select>
 	
+	<select id="selectCheckedBaggageBySectionAndGradeId" resultType="com.green.airline.repository.model.CheckedBaggage">
+		select *
+		from checked_baggage_tb
+		where section=#{section.section} and grade_id=#{gradeId}
+	</select>
+	
 	<select id="selectCheckedBaggage" resultType="com.green.airline.repository.model.CheckedBaggage">
 		select section
 		from checked_baggage_tb
 		group by section 
 	</select>
+	
 	
 </mapper>
