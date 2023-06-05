@@ -92,16 +92,16 @@ main {
 		</div>
 		<div class="center--menu--btn--div">
 			<div class="d-flex justify-content-center align-items-center">
-				<button class="center--menu--btn" onclick="/notice/noticeList">
+				<button class="center--menu--btn" onclick="location.href='/notice/noticeList'">
 					<h4>공지사항</h4>
 					<p></p>
 					<span class="material-symbols-outlined" >campaign</span>
 				</button>
-				<button class="center--menu--btn" onclick="/faq/faqList">
+				<button class="center--menu--btn" onclick="location.href='/faq/faqList'">
 					<h4>자주 묻는 질문</h4>
 					<span class="material-symbols-outlined" >live_help</span>
 				</button>
-				<button class="center--menu--btn" onclick="/voc/list/1">
+				<button class="center--menu--btn" onclick="location.href='/voc/list/1'">
 					<h4>고객의 말씀</h4>
 					<span class="material-symbols-outlined" >mark_as_unread</span>
 				</button>

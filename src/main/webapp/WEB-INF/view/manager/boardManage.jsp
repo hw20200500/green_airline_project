@@ -20,7 +20,7 @@
 	<hr>
 	<br>
 	<div class="service--div">
-		<ul class="service--ul" onclick="location.href='/board/list'">
+		<ul class="service--ul" onclick="location.href='/board/list/1'">
 			<li><span class="material-symbols-outlined">edit_calendar</span>
 			<li>여행일지 게시판
 		</ul>
