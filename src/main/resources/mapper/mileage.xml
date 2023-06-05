@@ -126,5 +126,31 @@ and g.id = #{gifticonId};
 	<update id="updateBalanceById">
 		update mileage_tb set balance = #{mileage.balance} where id = #{id}
 	</update>
+	
+	<!-- mileage_tb에 티켓 관련 사용 내역 추가 -->
+	<insert id="insertUseMileageByTicket">
+		INSERT INTO mileage_tb (mileage_date, use_mileage, description, member_id, ticket_id)
+		VALUES (now(), #{useMileage}, #{description}, #{memberId}, #{ticketId})
+	</insert>
+	
+	<insert id="insertUseMileageDetailByTicket">
+		INSERT INTO use_mileage_list_tb (mileage_from_balance, buy_mileage_id, ticket_id)
+		VALUES (#{mileageFromBalance}, #{buyMileageId}, #{ticketId})
+	</insert>
+	
+	<select id="selectUseMileageDataDetailByTicketId" resultType="com.green.airline.repository.model.UseMileage">
+		SELECT *
+		FROM use_mileage_list_tb
+		WHERE ticket_id = #{ticketId}
+	</select>
+	
+	<update id="updateBalanceByRefund">
+		UPDATE mileage_tb SET balance = balance + #{balance} WHERE id = #{id};
+	</update>
+	
+	<delete id="deleteUseMileageDetailByMilesId">
+		DELETE FROM use_mileage_list_tb WHERE buy_mileage_id = #{id}
+	</delete>
+	
 </mapper>
 

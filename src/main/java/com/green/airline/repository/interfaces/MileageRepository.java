@@ -40,5 +40,34 @@ public interface MileageRepository {
 	public Mileage selectExprirationBalanceByMemberId(@Param("memberId") String memberId,@Param("ts")Timestamp ts);
 	public Mileage selectSaveBalanceByMemberId(@Param("memberId") String memberId,@Param("ts")Timestamp ts);
 	public List<Mileage> selectMileageTbOrderByMileageDateByMemberId(String memberId);
-	// Repository에서 파라미터 여러 개 쓸 때는 @Param 꼭 써야 되는 거 기억
+	
+	/**
+	 * @author 서영
+	 * mileage_tb에 티켓 관련 사용 내역 추가
+	 */
+	public Integer insertUseMileageByTicket(Mileage mileage);
+	
+	/**
+	 * @author 서영
+	 * use_mileage_list_tb에 티켓 관련 사용 내역 상세 추가
+	 */
+	public Integer insertUseMileageDetailByTicket(UseMileage useMileage);
+	
+	/**
+	 * @author 서영
+	 * 해당 티켓 아이디에 의해 사용된 마일리지 상세 내역 가져오기
+	 */
+	public List<UseMileage> selectUseMileageDataDetailByTicketId(String ticketId);
+	
+	/**
+	 * @author 서영
+	 * 환불 시 사용하는 balance 갱신
+	 */
+	public Integer updateBalanceByRefund(@Param("id") Integer id, @Param("balance") Long balance);
+	
+	/**
+	 * @author 서영
+	 * 환불 후 사용 상세 내역은 삭제
+	 */
+	public Integer deleteUseMileageDetailByMilesId(Integer id);
 }

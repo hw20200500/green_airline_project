@@ -202,7 +202,7 @@ $("#milesPayBtn").on("click", function() {
 			seatGrade: seatGrade1,
 			seatNames: seatNames1,
 			milesPrice: milesPrice,
-			passengerInfos: passengerInfos,
+			passengerInfos: passengerInfos
 		}
 	// 왕복이면
 	} else {
@@ -218,7 +218,7 @@ $("#milesPayBtn").on("click", function() {
 			seatGrade2: seatGrade2,
 			seatNames2: seatNames2,
 			passengerInfos: passengerInfos,
-			milesPrice2: milesPrice2,
+			milesPrice2: milesPrice2
 		}
 	}
 	
@@ -235,7 +235,7 @@ $("#milesPayBtn").on("click", function() {
 		// 결제 성공
 		} else {
 			alert(res.message);
-			location.href="/ticket/list/1";
+			location.href="/ticket/detail/" + res.data;
 		}
 	})
 	.fail((error) => {

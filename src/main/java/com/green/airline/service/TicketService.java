@@ -57,7 +57,7 @@ public class TicketService {
 	 * 결제 요청 시 예약 내역 + 결제 내역을 추가하는 로직
 	 */
 	@Transactional
-	public void createTicketAndPayment(TicketDto ticketDto, String memberId, Integer paymentType) {
+	public String createTicketAndPayment(TicketDto ticketDto, String memberId, Integer paymentType) {
 		
 		// 예약 id 난수로 생성
 		String ticketId = (int) Math.floor(Math.random() * 89000000 + 10000000) + "";		
@@ -198,8 +198,8 @@ public class TicketService {
 					.tid(tid)
 					.ticketId1(ticketId1)
 					.ticketId2(ticketId2)
-					.amount1((long) ticketDto.getMilesPrice())
-					.amount2((long) ticketDto.getMilesPrice2())
+					.amount1(ticketDto.getMilesPrice())
+					.amount2(ticketDto.getMilesPrice2())
 					.status1(1)
 					.status2(status2)
 					.build();
@@ -212,7 +212,7 @@ public class TicketService {
 			}
 			
 		}
-				
+		return ticketId1;
 	}
 	
 	/**
@@ -328,7 +328,7 @@ public class TicketService {
 	 * 예약 좌석, 탑승객 정보 삭제
 	 */
 	@Transactional
-	public void updateStatusRefund(String tid, String ticketId,Integer type) {
+	public void updateStatusRefund(String tid, String ticketId, Integer type) {
 		// status 변경
 		ticketPaymentRepository.updateStatusByTid(tid, type, 2);
 		

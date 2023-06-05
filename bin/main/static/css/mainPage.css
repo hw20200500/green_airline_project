@@ -1,0 +1,440 @@
+@charset "UTF-8";
+
+.main--img--div {
+	min-width: 100%;
+	height: 420px;
+	background-image: url("/images/main1.jpg");
+	background-size:100%;
+	background-position: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 100px;
+	border-top: 1px solid #bbb;
+}
+
+.ticket--option--div {
+	background-color: white;
+	width: 1178px;
+	height: 229px;
+	border-radius: 0 25px 25px 25px;
+	box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.1);
+	margin-left: 24px;
+	padding: 30px 40px 30px;
+}
+
+.menu--name--div {
+	box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.1);
+	font-size: 18px;
+	font-weight: 600;
+	color: #404040;
+	height: 55px;
+	border: none;
+	background-color: #E5EFF3;
+	width: 270px;
+	border-radius: 15px 15px 0 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+	
+.ticket--type {
+	display: flex;
+	align-items: center;
+	width: 150px;
+	font-size: 17px;
+	color: rgba(0, 0, 0, 0.8);
+	font-weight: 600;
+	margin-bottom: 45px;
+}
+
+.ticket--type li {
+	cursor: pointer;
+	width: 40px;
+	text-align: center;
+	padding: 3px 0;
+	border-bottom: 3px solid white;
+	margin-right: 20px;
+}
+
+.selected--type {
+	color: #3569b0 !important;
+	border-bottom: 3px solid #3569b0 !important;
+}
+
+#departure, #destination, #flightDate, #passenger {
+	text-align: center;
+	padding: 10px 5px 4px;
+	font-size: 20px;
+	width: 170px;
+	font-weight: 600;
+	border-top: hidden;
+	border-right: hidden;
+	border-left: hidden;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+	outline: none;
+}
+
+#passenger {
+	cursor: pointer;
+	width: 220px !important;
+}
+
+#flightDate {
+	cursor: pointer;
+	width: 260px !important;
+}
+
+#flightDateDiv, #passengerDiv {
+	margin-left: 20px;
+}
+
+#airportSwapBtn {
+	border: none;
+	background-color: white;
+	height: 25px;
+	border-radius: 20px;
+	margin: 13px 15px 0;
+} 
+
+#ageTypeDiv, .airport--div, .datepicker--div--type1, .datepicker--div--type2 {
+	border: 1px solid #ccc;
+	width: 300px;
+	position: absolute;
+	padding: 15px 20px 20px;
+	display: none;
+	background-color: white;
+}
+
+#ageTypeDiv {
+	width: 640px !important;
+	margin-left: -420px;	
+	flex-direction: column;
+	justify-content: center;
+	
+}
+
+.datepicker--div--type1, .datepicker--div--type2 {
+	padding: 15px 20px 10px;	
+}
+
+.airport--div h5, .datepicker--div--type1 h5, .datepicker--div--type1 h5, #ageTypeDiv h5 {
+	margin-top: 10px;
+	font-size: 18px;
+	margin-bottom: 0;
+}
+
+.autocomplete--list {
+	width: 100%;
+	background-color: #f3f3f3;
+	min-height: 44px;
+	max-height: 210px;
+	margin: 0 0 15px;
+	padding: 0px 10px;
+	overflow: auto; /* max-height 넘으면 스크롤 생김 */
+}
+
+.autocomplete--list li {
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+}
+
+.departure--airport--li, .destination--airport--li {
+	padding: 8px;
+	border-bottom: 1px solid buttonhighlight;
+}
+
+.autocomplete--list li:last-of-type, 
+.departure--airport--li:last-of-type, .destination--airport--li:last-of-type {
+	border-bottom: hidden;
+}
+
+.departure--li:hover, .destination--li:hover, 
+.departure--airport--li:hover, .destination--airport--li:hover {
+	cursor: pointer;
+	font-weight: 600;
+	color: #3163aa;
+}
+
+.all--airport, .age--calculater {
+	color: rgba(0, 0, 0, 0.7);
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: white;
+	padding: 5px 7px 1px 3px;
+}
+
+.age--calculater {
+	margin: 0 0 6px 30px
+}
+
+.all--airport--modal, .age--calculater--modal {
+	margin-top: 200px;
+}
+
+.search--btn {
+	background-color: gray;
+	padding: 2px 6px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	height: 28px;
+}
+
+.age--calculater--modal input {
+	padding: 0px 3px 1px;
+	width: 120px;
+}
+
+.modal--title--div {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+	background-color: #ccc;
+}
+
+.modal--title {
+	margin: 0;
+}
+
+.region--li {
+	padding: 10px;
+	border-right: 1px solid white;
+	border-bottom: 1px solid white;
+	background-color: #f3f3f3;
+	cursor: pointer;
+}
+
+.region--li--selected {
+	background-color: #BCE3F6;
+}
+
+.airport--ul {
+	margin: 0;
+	max-height: 300px;
+	overflow: auto;
+}
+
+.datepicker {
+	text-align: center;
+	padding: 0px 0 1px;
+	width: 130px;
+}
+
+.datepicker--div:first-of-type {
+	margin-bottom: 10px;
+}
+
+.datepicker--div label {
+	margin-right: 15px;
+	margin-bottom: 0;
+}
+
+.datepicker--div input {
+	cursor: pointer;
+}
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.age--type--div {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 130px;
+	padding: 5px;
+	border-radius: 3px;
+}
+
+.age--type--div input {
+	border: none;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+	background: none;
+	outline: none; /*선택 시 나오는 테두리 없애기*/
+	width: 30px;
+	text-align: center;
+	font-size: 22px;
+	margin-bottom: 5px;
+}
+
+.minus--button, .plus--button {
+	border: 1px solid #ccc;
+	font-size: 17px;
+	width: 30px;
+	height: 30px;
+	background-color: white;
+	border-radius: 50%;
+}
+
+#ageTypeDiv > div > label {
+	width: 100%;
+	text-align: center;
+}
+
+label {
+	margin: 0;
+}
+
+#calculaterResult {
+	text-align: center;
+	height: 40px;
+	margin-top: 30px;
+}
+
+#calculaterResult span:first-of-type {
+	color: gray;
+}
+
+#calculaterResult span:last-of-type {
+	color: #314f79;
+	font-weight: 600;
+}
+
+.option--name--p {
+	margin-bottom: 10px;
+	color: #314f79;
+	font-weight: 500;
+	display: flex;
+	align-items: center;
+}
+
+.option--name--p span:first-of-type {
+	margin-right: 5px;
+}
+
+.option--name--p span:hover {
+	color: #314f79;
+}
+
+.main--page--notice, .main--page--faq {
+	margin: 0 50px;
+}
+
+.main--page--notice tr td:first-of-type {
+	width: 455px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: inline-block;
+	margin-right: 20px;
+	padding: 4px 0;
+}
+
+.main--page--notice tr, .main--page--faq tr {
+	border-bottom: 1px solid #ddd;
+}
+
+.main--page--notice tr:last-of-type, .main--page--faq tr:last-of-type {
+	border-bottom: hidden;
+}
+
+.main--page--notice tr td a, .main--page--faq tr td a {
+	font-size: 17px;
+	color: #303030;
+}
+
+.main--page--notice tr td a:hover, .main--page--faq tr td a:hover {
+	font-weight: 500;
+	color: #132A50;
+}
+
+.main--page--notice td:nth-of-type(2) {
+	color: #777;
+}
+
+.main--page--faq tr td  {
+	padding: 4px 0;
+	max-width: 505px;
+	min-width: 505px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.title--div {
+	font-weight: 600;
+	font-size: 24px;
+	padding: 5px 0;
+	text-align: left;
+	border: hidden;
+	border-bottom: 2px solid #475462;
+	width: 100%;
+	margin-bottom: 5px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.title--div a:first-of-type {
+	color: #464e57;
+}
+
+.title--div span {
+	font-size: 30px;
+	color: #475462;
+}
+
+.title--div a:last-of-type {
+	display: flex;
+	align-items: flex-end;
+}
+
+.category--span {
+	font-weight: 500;
+}
+
+.notice--faq--div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 70px 0 100px;
+}
+
+.service--div {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background-color: #d3e3ed;
+	padding: 60px 40px;
+	margin: 0 20px;
+	border-radius: 10px;
+}
+
+.service--ul {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	padding: 20px 0;
+	border-radius: 10px;
+	width: 240px;
+	background-color: #edf7fb;
+}
+
+.service--ul:hover {
+	background-color: #f5f5f5;
+}
+
+.service--ul span {
+	font-size: 60px;
+	color: #657788;
+}
+
+.service--ul span:hover {
+	color: #657788;
+}
+
+.service--ul li:last-of-type {
+	font-size: 22px;
+	font-weight: 600;
+	color: #475462;
+	margin-top: 5px;
+}

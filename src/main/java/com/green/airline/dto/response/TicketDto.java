@@ -30,13 +30,13 @@ public class TicketDto {
 	private Integer scheduleId;
 	private String[] seatNames;
 	private Long price;
-	private int milesPrice;
+	private Long milesPrice;
 	
 	private String seatGrade2;
 	private Integer scheduleId2;
 	private String[] seatNames2;
 	private Long price2;
-	private int milesPrice2;
+	private Long milesPrice2;
 	
 	// 결제 시
 	private Integer totalAmount;
@@ -60,12 +60,6 @@ public class TicketDto {
 		return (long) Math.floor(price * Define.MILES_TICKET_RATE);
 	}
 	
-	public int totalMilesPrice() {
-		if (scheduleId2 == null) {
-			return milesPrice;
-		} else {
-			return milesPrice + milesPrice2;
-		}
-	}
+
 	
 }

@@ -43,6 +43,6 @@ public class Define {
 	public final static int CODE_FAIL = -1;
 	
 	// 마일리지 결제 시 마일리지 금액은 기존 금액의 0.02
-	public final static double MILES_TICKET_RATE = 0.006;
+	public final static double MILES_TICKET_RATE = 0.005;
 	
 }
