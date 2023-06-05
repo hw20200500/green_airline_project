@@ -87,8 +87,8 @@
 	</select>
 	
 	<insert id="insertInFlightMealRequest">
-		insert into request_meal_tb(amount, meal_id, ticket_id)
-		values(#{amount}, #{mealId}, #{ticketId})
+		insert into request_meal_tb(amount, meal_id, ticket_id, name)
+		values(#{amount}, #{mealId}, #{ticketId}, #{name})
 	</insert>
 	
 	<select id="selectInFlightMealRequestByMemberId" resultType="com.green.airline.repository.model.InFlightMealDetail">
@@ -137,12 +137,10 @@
 	</select>
 	
 	<select id="selectRequestMealByMemberId" resultType="com.green.airline.dto.response.SpecialMealResponseDto">
-		  select rm.id as rm_id, rm.amount as rm_amount, t.id as ticket_id, ifm.name as ifm_name, s.departure_date, s. arrival_date, r.departure, r.destination, ifmd.name as ifmdName
+		select rm.id as rm_id, rm.amount as rm_amount, t.id as ticket_id, ifm.name as ifm_name, s.departure_date, s. arrival_date, r.departure, r.destination, rm.name
 		from request_meal_tb as rm
 		join in_flight_meal_tb as ifm
 		on rm.meal_id = ifm.id
-        join in_flight_meal_detail_tb as ifmd
-        on ifmd.meal_id = ifm.id
 		join ticket_tb as t
 		on rm.ticket_id = t.id
 		join member_tb as m
@@ -152,6 +150,7 @@
 		join route_tb as r
 		on s.route_id = r.id
 		where m.id = #{memberId}
+		ORDER BY rm.id DESC;
 	</select>
 	
 	<!-- <select id="selectTicketByIdAndTicketId" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
@@ -175,26 +174,31 @@
 	</select>
 	
 	<select id="selectInFlightMealForManager" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
-		SELECT t.member_id, s.departure_date, r.departure, r.destination, (t.adult_count + t.child_count) as seat_count, t.id as ticket_id, t.seat_grade as seat_grade_name, rm.amount, ifmd.name
-			FROM ticket_tb AS t
-			JOIN (
-		      SELECT t.id AS ticket_id
-			  FROM request_meal_tb AS r
-			  RIGHT JOIN ticket_tb AS t
-			  ON r.ticket_id = t.id
-		    ) AS ta
-			ON ta.ticket_id = t.id
-			JOIN schedule_tb as s
-			ON t.schedule_id = s.id
-			JOIN route_tb as r
-			ON r.id = route_id
-            JOIN request_meal_tb AS rm
-            ON rm.ticket_id = t.id
-            JOIN in_flight_meal_tb as ifm
-            on rm.meal_id = ifm.id
-            JOIN in_flight_meal_detail_tb as ifmd
-            on ifmd.meal_id = ifm.id
-			WHERE departure_date > now() and rm.amount != 0;
+		select *
+		from(
+			SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM, A.* 
+		        FROM (
+					select rm.id as rm_id, rm.amount as rm_amount, t.id as ticket_id, ifm.name as ifm_name, s.departure_date, s. arrival_date, r.departure, r.destination, rm.name as rm_name, t.member_id
+					from request_meal_tb as rm
+					join in_flight_meal_tb as ifm
+					on rm.meal_id = ifm.id
+					join ticket_tb as t
+					on rm.ticket_id = t.id
+					join member_tb as m
+					on t.member_id = m.id
+					join schedule_tb as s
+					on t.schedule_id = s.id
+					join route_tb as r
+					on s.route_id = r.id
+		            ORDER BY rm.id DESC
+		            ) A, 
+		        (SELECT @ROWNUM := 0 ) B
+		        ) as C
+		where C.ROWNUM BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="selectInFlightMealCount" resultType="Integer">
+		select count(*) from request_meal_tb;
 	</select>
 	
 	<delete id="deleteByTicketId">

@@ -17,13 +17,13 @@
 
 #modal--id--arrivaldate {
 	border: none;
-	border-bottom: 1px solid #ebebeb;
-	background: #fff;
 	padding: 10px;
-	width: 350px;
-	border-bottom: 1px solid black;
+	width: 580px;
+	border-bottom: 1px solid #ddd;
 	margin-bottom: 20px;
 	display: flex;
+	background-color: #f8f9fc;
+	font-size: 22px;
 }
 
 input[type=text]:focus {
@@ -101,6 +101,7 @@ table tr th {
 .inFlightSv--selectBox--wrap {
 	display: flex;
 	justify-content: center;
+	margin-bottom: 40px;
 }
 
 table tr th, table tr td {
@@ -129,7 +130,7 @@ table tr th {
 	<div>
 		<div class="modal-header">
 			<div>
-				<h4 class="modal-title">특별 기내식 신청</h4>
+				<h2 class="modal-title">특별 기내식 신청</h2>
 				<div>*특별 기내식을 신청하지 않으시면 기본 기내식이 제공됩니다.</div>
 			</div>
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -137,13 +138,13 @@ table tr th {
 
 		<div id="inFlight--arrival">
 			<div>
-				<h3>출발 일정</h3>
+				<h3 style="margin-bottom: 10px;">출발 일정</h3>
 			</div>
 			<div class="inFlightSv--selectBox--wrap">
 				<!-- db 안에 들어있는 departureDate는 format 전의 값이니까 2023/05/18 -> 2023년05월18일 -->
 				<select name="modal--name--arrivaldate" id="modal--id--arrivaldate">
 					<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}">
-						<option value="${inFlightServiceResponseDtos.ticketId}_${inFlightServiceResponseDtos.seatCount}" id="arrival--option">${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination}
+						<option value="${inFlightServiceResponseDtos.ticketId}_${inFlightServiceResponseDtos.seatCount}" id="arrival--option">${inFlightServiceResponseDtos.ticketId} ㅣ ${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination}
 							${inFlightServiceResponseDtos.departureDateFormat()}</option>
 					</c:forEach>
 				</select> <br>
@@ -161,7 +162,8 @@ table tr th {
 				<tr>
 					<td style="text-align: center;">유아식 및 아동식</td>
 					<td><c:forEach var="babyMeal" items="${babyMeal}" varStatus="status">
-							<input type="radio" class="radio--ifmd" name="babyMeal" id="babyMeal--label${status.index}" value="${babyMeal.mealId}">
+							<input type="radio" class="radio--ifmd" name="babyMeal" id="babyMeal--label${status.index}" value="${babyMeal.name}">
+							<input type="hidden" name="mealId" value="${babyMeal.mealId}" class="babyMealId--input">
 							<label for="babyMeal--label${status.index}">${babyMeal.name}</label>
 							<br>
 						</c:forEach></td>
@@ -180,7 +182,8 @@ table tr th {
 				<tr>
 					<td style="text-align: center;">야채식</td>
 					<td><c:forEach var="veganMeal" items="${veganMeal}" varStatus="status">
-							<input type="radio" class="radio--ifmd" name="veganMeal" id="veganMeal--label${status.index}" value="${veganMeal.mealId}">
+							<input type="radio" class="radio--ifmd" name="veganMeal" id="veganMeal--label${status.index}" value="${veganMeal.name}">
+							<input type="hidden" name="mealId" value="${veganMeal.mealId}" class="veganMealId--input">
 							<label for="veganMeal--label${status.index}">${veganMeal.name}</label>
 							<br>
 						</c:forEach></td>
@@ -199,7 +202,8 @@ table tr th {
 				<tr>
 					<td style="text-align: center;">식사 조절식</td>
 					<td><c:forEach var="lowfatMeal" items="${lowfatMeal}" varStatus="status">
-							<input type="radio" class="radio--ifmd" name="lowfatMeal" id="lowfatMeal--label${status.index}" value="${lowfatMeal.mealId}">
+							<input type="radio" class="radio--ifmd" name="lowfatMeal" id="lowfatMeal--label${status.index}" value="${lowfatMeal.name}">
+							<input type="hidden" name="mealId" value="${lowfatMeal.mealId}" class="lowfatMealId--input">
 							<label for="lowfatMeal--label${status.index}">${lowfatMeal.name}</label>
 							<br>
 						</c:forEach></td>
@@ -218,7 +222,8 @@ table tr th {
 				<tr>
 					<td style="text-align: center;">종교식</td>
 					<td><c:forEach var="religionMeal" items="${religionMeal}" varStatus="status">
-							<input type="radio" class="radio--ifmd" name="religionMeal" id="religionMeal--label${status.index}" value="${religionMeal.mealId}">
+							<input type="radio" class="radio--ifmd" name="religionMeal" id="religionMeal--label${status.index}" value="${religionMeal.name}">
+							<input type="hidden" name="mealId" value="${religionMeal.mealId}" class="religionMealId--input">
 							<label for="religionMeal--label${status.index}">${religionMeal.name}</label>
 							<br>
 						</c:forEach></td>
@@ -237,7 +242,8 @@ table tr th {
 				<tr>
 					<td style="text-align: center;">기타 특별식</td>
 					<td><c:forEach var="etcMeal" items="${etcMeal}" varStatus="status">
-							<input type="radio" class="radio--ifmd" name="etcMeal" id="etcMeal--label${status.index}" value="${etcMeal.mealId}">
+							<input type="radio" class="radio--ifmd" name="etcMeal" id="etcMeal--label${status.index}" value="${etcMeal.name}">
+							<input type="hidden" name="mealId" value="${etcMeal.mealId}" class="etcMealId--input">
 							<label for="etcMeal--label${status.index}">${etcMeal.name}</label>
 							<br>
 						</c:forEach></td>
@@ -256,7 +262,8 @@ table tr th {
 			</table>
 			
 			<div>
-				<button type="button">신청 완료</button>
+				<button type="button" id="inflightmeal--request">신청 완료</button>
+				<button type="button" onclick="location.href='/inFlightService/inFlightServiceSpecial'">특별 기내식 안내</button>
 			</div>
 		</form>
 	</div>

@@ -19,17 +19,17 @@ $(document).ready(function() {
 			let detail = $("#inFlightMeals--details");
 			
 			for (let i = 0; i < data.length; i++) {
-				// div태그 만들기
 				let divNode = $("<div>");
-				// 속성 추가
 				divNode.attr("class", "detail--wrap");
 				detail.append(divNode);
 
 				let divNode2 = $("<span>");
+				divNode2.attr("class", "inFlightMeals--ifmdName--content");
 				divNode.append(divNode2);
 				divNode2.append(data[i].ifmdName);
 
 				let divNode3 = $("<p>");
+				divNode3.attr("class", "inFlightMeals--imfdDescription--content");
 				divNode.append(divNode3);
 				divNode3.append(data[i].ifmdDescription);
 
@@ -83,7 +83,11 @@ $(document).ready(function() {
 		let etcMealAmount = $('#seat--count--input5').val();
 		let ticketId = $('select[name="modal--name--arrivaldate"').val();
 		
-		console.log(ticketId);
+		let babyMealId = $(".babyMealId--input").val();
+		let veganMealId = $(".veganMealId--input").val();
+		let lowfatMealId = $(".lowfatMealId--input").val();
+		let religionMealId = $(".religionMealId--input").val();
+		let etcMealId = $(".etcMealId--input").val();
 		
 		if (babyMealCheck) {
 			if (babyMealAmount == 0) {
@@ -149,7 +153,7 @@ $(document).ready(function() {
 			alert("입력된 값이 없습니다.");
 			return false;
 		}
-
+		
 		ticketId = ticketId.split("_")[0];
 		let formData = {
 			"babyMeal": babyMeal,
@@ -162,6 +166,11 @@ $(document).ready(function() {
 			"lowfatMealAmount": lowfatMealAmount,
 			"religionMealAmount": religionMealAmount,
 			"etcMealAmount": etcMealAmount,
+			"babyMealId": babyMealId,
+			"veganMealId": veganMealId,
+			"lowfatMealId": lowfatMealId,
+			"religionMealId": religionMealId,
+			"etcMealId": etcMealId,
 			"ticketId": ticketId,
 		}
 		$.ajax({
@@ -185,7 +194,7 @@ $(document).ready(function() {
 
 	$("#modal--id--arrivaldate").on("change", function() {
 		let ticketId = $("#modal--id--arrivaldate").val();
-		console.log(ticketId);
+		let maxNumberValue = $("#modal--id--arrivaldate").val();
 		let maxNumber = maxNumberValue.split("_")[1];
 
 		$("#seat--count--input").attr("max", maxNumber);		
@@ -239,8 +248,6 @@ let beforeChecked = 0;
 $(document).on("click", "input[type=radio]", function(e) {
 	
 	let index = $(this).parent().index("label");
-	console.log(index)
-	console.log(beforeChecked)
 
 	if (beforeChecked == index) {
 		beforeChecked = 0;

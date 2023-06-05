@@ -85,6 +85,7 @@ public class InFlightServiceApiController {
 	// 특별 기내식 신청 페이지
 	@PostMapping("/specialMealReq")
 	public ResponseDto<?> specialMealReqPage(Model model, @RequestBody InFlightReqRequestDto inFlightReqRequestDto) {
+		System.out.println(inFlightReqRequestDto);
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		// todo
 		// 특별 기내식 상세 조회 기능 갖고 와야 함

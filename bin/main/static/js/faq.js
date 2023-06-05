@@ -23,11 +23,17 @@ $(document).ready(function() {
 
 
 	$(".faq--name--wrap").on("click", function() {
-		if ($(this).siblings().hasClass("faq--toggle")) {
-			$(this).siblings().removeClass("faq--toggle");
-		} else {
-			$(".faq--content--wrap").removeClass("faq--toggle");
-			$(this).siblings().addClass("faq--toggle");
+		let isChecked = $(".delete--checkbox--class").is(":checked");
+		let isOn = $(".btn").val();
+		console.log(isOn);
+		if(isChecked == false){
+			if ($(this).siblings().hasClass("faq--toggle")) {
+				$(this).siblings().removeClass("faq--toggle");
+			} else {
+				$(".faq--content--wrap").removeClass("faq--toggle");
+				$(this).siblings().addClass("faq--toggle");
+				$(".modal").removeClass("faq--toggle");
+			}
 		}
 	});
 

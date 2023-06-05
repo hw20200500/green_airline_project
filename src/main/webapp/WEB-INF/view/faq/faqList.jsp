@@ -74,6 +74,7 @@ p {
 	margin-bottom: 10px;
 	display: flex;
 	flex-direction: row;
+	justify-content: center;
 }
 
 .faq--faqList--wrap {
@@ -95,10 +96,16 @@ p {
 	margin-bottom: 15px;
 }
 
-.btn--primary{
+.btn--primary {
 	background-color: #8ABBE2;
 	color: white;
 }
+
+.delete--checkbox--class {
+	margin-bottom: 10px;
+	margin-right: 5px;
+}
+
 </style>
 
 <div>
@@ -123,7 +130,6 @@ p {
 						</h4>
 					</c:forEach>
 				</div>
-
 				<div class="faq--faqList--wrap">
 					<c:forEach var="faqResponseDtos" items="${faqResponseDtos}">
 						<input type="hidden" name="id" value="${faqResponseDtos.id}" id="id" class="${faqResponseDtos.id}">
@@ -134,44 +140,44 @@ p {
 							<div class="faq--name--wrap">
 								<c:if test="${principal.userRole.equals(\"관리자\")}">
 									<p class="faq--name--cursor--wrap">
-										<input type="checkbox" name="id" id="delete--checkbox--id" value="${faqResponseDtos.id}">
+										<input type="checkbox" name="id" class="delete--checkbox--class" value="${faqResponseDtos.id}">
 								</c:if>
 								<span class="faq--name--cursor--wrap"> [ ${faqResponseDtos.name} ] ${faqResponseDtos.title} </span>
-								</p> <%-- <-오타 아님 --%>
+								</p>
+								<%-- <-오타 아님 --%>
 								<c:if test="${principal.userRole.equals(\"관리자\")}">
 									<button class="btn btn--primary" type="button" data-toggle="modal" data-target="#myModal${faqResponseDtos.id}">수정</button>
+								</c:if>
+							</div>
+							<div class="modal fade" id="myModal${faqResponseDtos.id}">
+								<div class="modal-dialog">
+									<div class="modal-content">
 
-									<div class="modal fade" id="myModal${faqResponseDtos.id}">
-										<div class="modal-dialog">
-											<div class="modal-content">
+										<div class="modal-header">
+											<input type="text" id="faq--modal--title${faqResponseDtos.id}" value="${faqResponseDtos.title}" style="width: 520px;">
+											<button type="button" class="close" data-dismiss="modal">×</button>
+										</div>
 
-												<div class="modal-header">
-													<input type="text" id="faq--modal--title${faqResponseDtos.id}" value="${faqResponseDtos.title}" style="width: 520px;">
-													<button type="button" class="close" data-dismiss="modal">×</button>
-												</div>
-
-												<div class="modal-body">
-													<div class="faq--category--modal--wrap">
-														<select id="faq--modal--category${faqResponseDtos.id}">
-															<c:forEach var="categories" items="${categories}">
-																<option value="${categories.id}">${categories.name}</option>
-															</c:forEach>
-														</select>
-													</div>
-													<div>
-														<textarea rows="6" cols="57" style="resize: none;" id="faq--modal--content${faqResponseDtos.id}">${faqResponseDtos.content}</textarea>
-													</div>
-												</div>
-
-												<div class="modal-footer">
-													<button type="button" class="btn btn--primary faq--update--btn" data-dismiss="modal" onclick="updateFaq(${faqResponseDtos.id})">Submit</button>
-													<button type="button" class="btn btn--danger" data-dismiss="modal">Close</button>
-												</div>
-
+										<div class="modal-body">
+											<div class="faq--category--modal--wrap">
+												<select id="faq--modal--category${faqResponseDtos.id}">
+													<c:forEach var="categories" items="${categories}">
+														<option value="${categories.id}">${categories.name}</option>
+													</c:forEach>
+												</select>
+											</div>
+											<div>
+												<textarea rows="6" cols="57" style="resize: none;" id="faq--modal--content${faqResponseDtos.id}">${faqResponseDtos.content}</textarea>
 											</div>
 										</div>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn--primary faq--update--btn" data-dismiss="modal" onclick="updateFaq(${faqResponseDtos.id})">Submit</button>
+											<button type="button" class="btn btn--danger" data-dismiss="modal">Close</button>
+										</div>
+
 									</div>
-								</c:if>
+								</div>
 							</div>
 							<div class="faq--content--wrap">${faqResponseDtos.content}</div>
 						</div>
