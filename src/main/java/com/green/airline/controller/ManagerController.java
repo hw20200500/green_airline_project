@@ -525,4 +525,9 @@ public class ManagerController {
 		return "/manager/boardManage";
 	}
 	
+	@GetMapping("/productBuyList")
+	public String productBuyListPage() {
+		
+		return "/manager/productBuyList";
+	}
 }

@@ -19,6 +19,7 @@ public class BoardDto {
 	private Timestamp createdAt;
 	private Integer heartCount = 0;
 	private boolean statement;
+	private int count; // 계시글 count
 
 	private MultipartFile file;
 

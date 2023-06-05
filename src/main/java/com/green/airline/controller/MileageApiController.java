@@ -42,7 +42,6 @@ public class MileageApiController {
 		String isUpSearch = data.get("isUpSearch");
 		String isUseSearch = data.get("isUseSearch");
 		String isExpireSearch = data.get("isExpireSearch");
-		System.out.println(data);
 		/*
 		 * data.entrySet().forEach(e -> { System.out.println("e key : " + e.getKey());
 		 * System.out.println("e value : " + e.getValue()); });
@@ -52,6 +51,7 @@ public class MileageApiController {
 		List<Mileage> savemileage = mileageService.readSaveMileageList(memberId, startTime, 
 				endTime,isAllSearch,isUpSearch,isUseSearch,isExpireSearch);
 		model.addAttribute("savemileage", savemileage);
+		System.out.println("savemileage : " + savemileage);
 		return savemileage;
 	}
 }

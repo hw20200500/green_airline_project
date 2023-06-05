@@ -67,23 +67,22 @@ $("#liPeriods").on("click", function() {
 
 	$("#sCalendar01").val("");
 	$("#sCalendar02").val("");
+	
 });
-$('.deleteBtn').hide();
 $("#gifticon--search")
 	.on(
 		"click",
 		function() {
-			$('.deleteBtn').show();
 			let form = $("form").serialize();
 			let startTime = $("#sCalendar01").val();
 			let endTime = $("#sCalendar02").val();
 			let radio = $("input[name=chk]:checked").val();
+			let memberId = $('#searchMemberId').val();
 			if (radio == 'buy') {
 				$("#gifticonList--tr--tbody").empty();
 				$("#gifticonList--tr--thead").empty();
 				let body = '';
 				 body += '<tr>';
-				    body += '<th style="background-color: #f2f2f2;">' + "체크" + '</th>';
 				    body += '<th style="background-color: #f2f2f2;">' + "브랜드" + '</th>';
 				    body += '<th style="background-color: #f2f2f2;">' + "이름" + '</th>';
 				    body += '<th style="background-color: #f2f2f2;">' + "발급날짜" + '</th>';
@@ -107,14 +106,15 @@ $("#gifticon--search")
 			$
 				.ajax(
 					{
-						url: "/api/gifticonList",
+						url: "/api/managerGifticonList",
 						type: "get",
 						contentType: "application/json; charset=utf-8",
 						dataType: "json",
 						data: {
 							startTime: startTime,
 							endTime: endTime,
-							radio: radio
+							radio: radio,
+							memberId: memberId
 						}
 					})
 				.done(
@@ -127,10 +127,7 @@ $("#gifticon--search")
 								let body = '';
 
 								body += '<tr>';
-								body += '<td>'
-									+ '<input type="checkbox" name="checkbox" value="'
-									+ response[i].id + '">'
-									+ '</td>';
+								
 
 								body += '<td>'
 									+ response[i].brand

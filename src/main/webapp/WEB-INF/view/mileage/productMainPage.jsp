@@ -90,6 +90,22 @@ h2 {
 	width: 200px;
 	height: 200px
 }
+#selectBoxId{
+background-color: rgb(243, 243, 243);
+	border: none;	
+}
+#searchProduct{
+background-color: rgb(243, 243, 243);
+	border: 1px solid #ccc;
+	margin: 5px 0px 5px 5px;
+}
+#searchButton{
+	height: 28px;
+	padding:3px;
+	margin-bottom: 3px;
+	width: 80px;
+}
+
 </style>
 
 <!-- 여기 안에 쓰기 -->
@@ -110,7 +126,7 @@ h2 {
 					<option value="brand">브랜드</option>
 					<option value="name">이름</option>
 				</select> <input type="text" name="searchProduct" id="searchProduct">
-				<button type="submit" id="searchButton">검색</button>
+				<button type="submit" id="searchButton" class=" btn btn-light">검색</button>
 			</form>
 		</div>
 
@@ -120,7 +136,7 @@ h2 {
 			<c:forEach var="productList" items="${productList}">
 				<div class="product_card" id="product">
 					<div class="prd_img">
-						<a href="/product/productdetail/${productList.id}" class="aTagImage"><img class="imgClass" alt="prd_img" src="/product/${productList.productImage}"></a>
+						<a href="/product/productdetail/${productList.id}" class="aTagImage"><img class="imgClass" alt="prd_img" src="/uploadImage/${productList.productImage}"></a>
 					</div>
 					<dl class="prd_info">
 						<dt>

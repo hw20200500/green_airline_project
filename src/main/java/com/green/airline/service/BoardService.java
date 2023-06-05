@@ -236,4 +236,11 @@ public class BoardService {
 	public List<Board> readBoardListLimit(Integer index, Integer limitCount) {
 		return boardRepository.selectBoardListLimit(index, limitCount);
 	}
+	
+	@Transactional
+	public BoardDto readBoardCountByMemberId(String memberId) {
+		BoardDto boardDto = boardRepository.selectBoardCountByMemberId(memberId);
+		return boardDto;
+	}
+	
 }

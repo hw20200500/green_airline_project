@@ -17,6 +17,8 @@
 	border: 1px solid gray;
 	font-size: 12pt;;
 	font-family: 'Malgun Gothic';
+	 
+	
 }
 
 .tbl_prdinfo .tbl_prdinfo_tit {
@@ -40,6 +42,91 @@
 	text-align: center;
 	font-weight: 600;
 }
+
+#amount {
+	font-size: 15px;
+	border: none;
+	width: 10px;
+	margin: 0 5px 0 5px;
+	background-color: rgb(243, 243, 243);
+	border: none;
+}
+
+.btn-light {
+	font-weight: bold;
+}
+
+#buyButton {
+	margin-top: 10px;
+	width: 100%;
+}
+
+#optionList {
+	height: 40px;
+	width: 100%;
+	margin: 10px 0;
+	background-color: rgb(243, 243, 243);
+	border: none;
+}
+
+.prd_info {
+	display: flex;
+}
+
+.productImg {
+	width: 400px;
+	height: 400px;
+}
+
+img {
+	margin-left: 30px;
+}
+
+.left--container {
+	margin-left: 100px;
+}
+
+
+.small {
+	background-color: rgb(243, 243, 243);
+	width: 19%;
+	padding: 3px;
+	padding-left: 7px;
+}
+
+.modal--btn {
+	margin-top: 10px;
+	width: 100%;
+}
+
+.delete--btn {
+	margin: 10px 0;
+}
+
+.total--mileage {
+	margin-right: 360px;
+}
+
+#spanPrice {
+	font-weight: bold;
+	font-size: 25px;
+}
+
+.tab_head li {
+	width: 24.9%;
+	float: left;
+	text-align: center;
+	background-color: rgb(217, 217, 217);
+	margin-right: 1px; height : 50px;
+	padding-top: 10px;
+	height: 50px;
+}
+
+.email {
+	width: 50%;
+	background-color: rgb(243, 243, 243);
+	border: 1px solid #ccc;
+}
 </style>
 
 <div>
@@ -51,114 +138,121 @@
 			<div class="prd_detail mar_to50">
 				<!-- 상품 정보영역 -->
 				<div class="prd_info">
+					<img alt="" class="productImg" src="/uploadImage/${shopProduct.productImage}">
+					<div class="left--container">
+						<h1 class="title">[기프티콘] [${shopProduct.brand}] ${shopProduct.name}</h1>
+						<hr>
+						<%-- <img alt="" class="productImg" src="/uploadImage/${shopProduct.productImage}"> --%>
 
-					<p class="title">[${shopProduct.brand}] ${shopProduct.name}</p>
-					<img alt="" src="/product/${shopProduct.productImage}">
+						<div class="mileage">
+							<c:choose>
+								<c:when test="${principal.userRole == '관리자'}">
+								</c:when>
+								<c:otherwise>
+									<c:choose>
+										<c:when test="${principal == null}">
+											<p class="desc">
+												<a href="/login" class="btn_arrow flow-action-login">로그인</a> 을 하시면 마일리지를 확인하실 수 있습니다.
+											</p>
+										</c:when>
+										<c:otherwise>
+											<p>
+												현재 마일리지 : <span class="">${mileage.balanceNumber()}</span>
+											</p>
+											<span class="myMileage" style="display: none">${mileage.balance}</span>
+										</c:otherwise>
+									</c:choose>
+								</c:otherwise>
+							</c:choose>
 
-					<div class="mileage">
-						<c:choose>
-							<c:when test="${principal.userRole == '관리자'}">
-							</c:when>
-							<c:otherwise>
-								<c:choose>
-									<c:when test="${principal == null}">
-										<p class="desc">
-											<a href="/login" class="btn_arrow flow-action-login">로그인</a> 을 하시면 마일리지를 확인하실 수 있습니다.
-										</p>
-									</c:when>
-									<c:otherwise>
+
+
+						</div>
+
+						<!-- 상품 선택영역 -->
+						<form name="frmDefault" id="frmDefault" method="post" action="/product/buyProduct">
+							<div class="select_area">
+								<select id="optionList" title="상품 선택">
+									<option value="">옵션을 선택해주세요.</option>
+
+									<option value="001">[${shopProduct.brand}] ${shopProduct.name} | ${shopProduct.count}개 남음</option>
+
+								</select>
+
+
+								<div class="selected_prd 001" style="display: none;">
+									<div class="tit">
 										<p>
-											현재 마일리지 : <span class="">${mileage.balanceNumber()}</span>
+											<span class="type">[${shopProduct.brand}] ${shopProduct.name} | <fmt:formatNumber value="${shopProduct.price}" pattern="#,###" /> 마일 | ${shopProduct.count}개
+											</span>
 										</p>
-										<span class="myMileage" style="display: none">${mileage.balance}</span>
-									</c:otherwise>
-								</c:choose>
-							</c:otherwise>
-						</c:choose>
+									</div>
+									<div class="quantity">
+										<div class="btn_number_box small">
 
-
-
-					</div>
-
-					<!-- 상품 선택영역 -->
-					<form name="frmDefault" id="frmDefault" method="post" action="/product/buyProduct">
-						<div class="select_area">
-							<select id="optionList" title="상품 선택" style="width: 100%">
-								<option value="">옵션을 선택해주세요.</option>
-
-								<option value="001">[${shopProduct.brand}] ${shopProduct.name} | ${shopProduct.count}개 남음</option>
-
-							</select>
-
-
-							<div class="selected_prd 001" style="display: none;">
-								<div class="tit">
-									<p>
-										<span class="type">[${shopProduct.brand}] ${shopProduct.name}</span>
-									</p>
-								</div>
-								<div class="quantity">
-									<div class="btn_number_box small">
-
-										<input type="text" name="amount" title="상품 개수" value="1" readonly="readonly" id="amount">
-
-										<button type="button" class="btn_number minus">감소</button>
-										<button type="button" class="btn_number plus">증가</button>
+											<button type="button" class="btn btn-light minus">-</button>
+											<input type="text" name="amount" title="상품 개수" value="1" readonly="readonly" id="amount">
+											<button type="button" class="btn btn-light plus">+</button>
+										</div>
+										<div class="delete--btn">
+											<a href="#none" class="btn_delete"><span class="hidden">삭제</span></a>
+										</div>
 									</div>
 								</div>
-								<div class="price">
-									<span class="">${shopProduct.priceNumber()}</span> 마일 <span class="num each_mile" style="display: none">${shopProduct.price}</span>
+							</div>
+							<div class="price">
+								<span class="num each_mile" style="display: none">${shopProduct.price}</span>
+
+
+
+
+								<dl class="total_mile">
+									<dd>
+										<strong class="total--mileage">총 필요 마일리지</strong> <span class="num" id="spanPrice"><fmt:formatNumber value="${shopProduct.price}" pattern="#,###" /> </span> 마일
+										<!-- input hidden 으로 변경된 값 넣어서 xml에 보내기  useMileage -> productPrice로 변경-->
+										<input type="hidden" value="${shopProduct.price}" name="productPrice" id="productPrice">
+
+									</dd>
+								</dl>
+
+								<div class="btn_area">
+
+
+
+									<c:choose>
+										<c:when test="${principal != null}">
+											<div id="inputEmail">
+												<input type="text" name="email" placeholder="이메일을 입력 해주세요" class="email"> <input type="hidden" name="gifticonImageName" value="${shopProduct.gifticonImage}">
+											</div>
+											<br>
+											<c:choose>
+												<c:when test="${principal.userRole == '관리자'}">
+													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">수정</button>
+												</c:when>
+												<c:otherwise>
+													<button type="submit" class="buyButton btn btn-light" id="buyButton">구매</button>
+													<!-- <button type="submit" class="buyButton btn btn-light" id="buyButton">구매하기 버튼으로 만들꺼임</button> -->
+												</c:otherwise>
+											</c:choose>
+										</c:when>
+										<c:otherwise>
+											<a href="/login" class="btn_arrow flow-action-login">로그인 페이지로 이동</a>
+										</c:otherwise>
+									</c:choose>
 
 								</div>
-								<a href="#none" class="btn_delete"><span class="hidden">삭제</span></a>
 							</div>
+							<input type="hidden" name="productId" value="${shopProduct.id}"> <input type="hidden" name="description" value="[${shopProduct.brand}] ${shopProduct.name}"> <input type="hidden"
+								name="hiddenCount" value="${shopProduct.count}">
+						</form>
+					</div>
 
-
-							<dl class="total_mile">
-								<dt>총 필요 마일리지</dt>
-								<dd>
-
-									<span class="num" id="spanPrice"><fmt:formatNumber value="${shopProduct.price}" pattern="#,###" /></span> 마일
-									<!-- input hidden 으로 변경된 값 넣어서 xml에 보내기  useMileage -> productPrice로 변경-->
-									<input type="hidden" value="${shopProduct.price}" name="productPrice" id="productPrice">
-
-								</dd>
-							</dl>
-
-							<div class="btn_area">
-								
-								
-								
-								<c:choose>
-									<c:when test="${principal != null}">
-										<input type="text" name="email" placeholder="이메일을 입력 해주세요" id = "inputEmail">
-										<input type="hidden" name="gifticonImageName" value="${shopProduct.gifticonImage}">
-										
-										<c:choose>
-									<c:when test="${principal.userRole == '관리자'}">
-									</c:when>
-									<c:otherwise>
-									<button type="submit" class="buyButton" id="buyButton">구매하기 버튼으로 만들꺼임</button>
-									</c:otherwise>
-								</c:choose>
-									</c:when>
-									<c:otherwise>
-										<a href="/login" class="btn_arrow flow-action-login">로그인 페이지로 이동</a>
-									</c:otherwise>
-								</c:choose>
-
-							</div>
-						</div>
-						<input type="hidden" name="productId" value="${shopProduct.id}"> <input type="hidden" name="description" value="[${shopProduct.brand}] ${shopProduct.name}"> <input type="hidden"
-							name="hiddenCount" value="${shopProduct.count}">
-					</form>
 					<!-- 상품 선택영역 -->
 
 				</div>
 				<!--// 상품 정보영역 -->
 				<!-- Button to Open the Modal -->
-				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">수정</button>
-				<a href="/product/productMain">목록 페이지 이동</a>
+				<a href="/product/productMain/clasic">목록 페이지 이동</a>
 				<!-- The Modal -->
 				<div class="modal" id="myModal">
 					<div class="modal-dialog">
@@ -254,7 +348,7 @@
 								<tbody>
 									<tr>
 										<td class="td_sub_tit">사용안내</td>
-										<td>- 아시아나항공 홈페이지 &gt; 아시아나클럽 &gt; 마일리지 사용몰 &gt; Weekly Deals에서 마일리지 공제<br> - 주문내역을 SMS로 발송 후, 수신 문자 내역을 해당 매장에서 확인 후 사용<br> <br> 문자가 미수신된 경우 아래와 같이 휴대폰 확인 부탁드립니다.<br>
+										<td>- 그린항공 홈페이지 &gt; 아시아나클럽 &gt; 마일리지 사용몰 &gt; Weekly Deals에서 마일리지 공제<br> - 주문내역을 SMS로 발송 후, 수신 문자 내역을 해당 매장에서 확인 후 사용<br> <br> 문자가 미수신된 경우 아래와 같이 휴대폰 확인 부탁드립니다.<br>
 											- 데이터 차단 (wi-fi 사용) 혹은 데이터 제한 요금제 사용 여부 확인 부탁드립니다.<br> - 휴대폰 스팸 설정 여부 확인 부탁드립니다. (통신사에 요청했거나, 단말기내 스팸 문구 설정)<br> - 수신 번호가 15XX, 060, 070으로 시작하는 경우 스팸 차단 가능성이 있습니다.<br> - 그 외
 											특정 문구 사용시 단말기내 스팸 보관함으로 필터링 될 수 있습니다.<br> - 전원이 꺼져 있거나, 망 이외의 지역에 있는지 확인 부탁드립니다.<br> - 구형 스마트폰 단말기 및 기타 단말기 오류 등으로 인해 수신을 못할 수 있습니다.<br> - 문자 발송까지 시간이 다소 소요됩니다.<br> 위 사항
 											확인하시고 상품 구매 24시간 경과 후에도 문자가 미수신된 경우 고객센터로 연락 주시기 바랍니다. <br> <br> <a href="http://gishow.kr/voc"> ▶ 접속 URL: gishow.kr/voc</a><br> - 간편하게 수신자 휴대폰번호 인증만으로 [쿠폰수신내역 조회 및 MMS 재발송]
@@ -262,7 +356,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td class="td_sub_tit">아시아나클럽 <br> 문의
+										<td class="td_sub_tit">그린클럽 <br> 문의
 										</td>
 										<td>-&nbsp;고객센터: 1588-8180<br> - 운영시간: 평일 09:00~18:00 (주말/공휴일 휴무)
 										</td>
@@ -345,6 +439,7 @@
 				</div>
 			</div>
 		</div>
+		</main>
 		<script type="text/javascript">
 		/* 옵션 선택하면 구매하기 버튼 숨기기 */
 		let buyBtn = $("#buyButton").hide();
@@ -383,15 +478,15 @@
 	
 	
 	// 수량 증가 버튼 클릭 시
-	document.querySelector('.btn_number.plus')
+	document.querySelector('.plus')
 			.addEventListener(
 					'click',
 					function() {
 						let minusTarget = document
-						.querySelector('.btn_number.minus');
+						.querySelector('.minus');
 						
 						let target = document
-								.querySelector('.btn_number.plus');
+								.querySelector('.plus');
 						let countInput = document
 								.querySelector('input[name="amount"]');
 						let countValue = parseInt(countInput.value); 
@@ -427,14 +522,14 @@
 					});
 
 	// 수량 감소 버튼 클릭 시
-	document.querySelector('.btn_number.minus')
+	document.querySelector('.minus')
 			.addEventListener(
 					'click',
 					function() {
 						let target = document
-						.querySelector('.btn_number.plus');
+						.querySelector('.plus');
 						let minusTarget = document
-						.querySelector('.btn_number.minus');
+						.querySelector('.minus');
 						let countInput = document
 								.querySelector('input[name="amount"]');
 						let countValue = parseInt(countInput.value);
@@ -447,7 +542,6 @@
 								.querySelector('input[name="productPrice"]');
 						let hiddenCount = document
 						.querySelector('input[name="hiddenCount"]');
-						
 						
 						if (countValue > 1) {
 							countInput.value = countValue - 1;
@@ -471,6 +565,8 @@
 	document.querySelector('.buyButton')
 			.addEventListener('click',
 					function() {
+				let email = $('.email').val();
+				let exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 				let myMileage = document
 				.querySelector('.myMileage').innerHTML;
 				 let total = $('#productPrice').val();
@@ -484,23 +580,42 @@
 					 event.preventDefault();
 					 location.reload();
 				}
+				if(email == null){
+					alert('이메일을 입력 하세요');
+					 event.preventDefault();
+					 location.reload();
+					}
 				
-					
-				
+				if(exptext.test(email)==false){
+
+				//이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우			
+
+				alert("이메일형식이 올바르지 않습니다.");
+				event.preventDefault();
+				 location.reload();
+
+			return false;
+				}
 			});
-	
+	var tabContents = document.getElementsByClassName("tab_cont");
+    console.log(tabContents.length)
+    console.log('asdasd')
+    for (var i = 1; i < tabContents.length; i++) {
+        tabContents[i].style.display = "none";
+    }
 	 function toggleTab(tabIndex) {
+		 	
 	        // 모든 탭 내용 숨기기
 	        var tabContents = document.getElementsByClassName("tab_cont");
 	        for (var i = 0; i < tabContents.length; i++) {
 	            tabContents[i].style.display = "none";
 	        }
-	        
 	        // 선택한 탭 내용 보이기
 	        var selectedTab = document.getElementById("tab" + (tabIndex + 1));
 	        selectedTab.style.display = "block";
 	    }
-	
+
+	 
 	
 </script>
 

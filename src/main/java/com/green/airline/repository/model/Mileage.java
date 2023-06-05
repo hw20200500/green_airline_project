@@ -34,6 +34,7 @@ public class Mileage {
 	private Integer status;
 	
 	
+	
 	public String balanceNumber() {
 		return  NumberUtil.numberFormat(balance);
 		

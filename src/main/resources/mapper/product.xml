@@ -101,11 +101,11 @@
 	<!-- 상품 검색 -->
 	 <select id="selectProductByName" resultType="com.green.airline.repository.model.ShopProduct">
 	 <!-- h2에서 mysql로 변경할 때 바꿔야함 -> '%#{searchProduct}%' -->
-	 <if test="searchOption == 'brand'">
-	select * from shop_product_tb where brand like '%'||#{searchProduct}||'%' LIMIT #{paging.firstRow},8;
+	 <if test="searchOption == 'brand'">			
+	select * from shop_product_tb where brand like concat("%",#{searchProduct},"%") LIMIT #{paging.firstRow},8;
 	 </if>
 	 <if test="searchOption == 'name'">
-	select * from shop_product_tb where name like '%'||#{searchProduct}||'%' LIMIT #{paging.firstRow},8;
+	select * from shop_product_tb where name like concat("%",#{searchProduct},"%") LIMIT #{paging.firstRow},8;
 	 </if>
 	</select>
 	
@@ -114,10 +114,10 @@
 	 <select id="getSerchTotalRowCount" resultType="int" parameterType="com.green.airline.dto.PagingVO">
 	 <!-- h2에서 mysql로 변경할 때 바꿔야함 -> '%#{searchProduct}%' -->
 	 <if test="searchOption == 'brand'">
-	select count(*) as totalRowCount from shop_product_tb where brand like '%'||#{searchProduct}||'%';
+	select count(*) as totalRowCount from shop_product_tb where brand like concat("%",#{searchProduct},"%");
 	 </if>
 	 <if test="searchOption == 'name'">
-	select count(*) as totalRowCount from shop_product_tb where name like '%'||#{searchProduct}||'%';
+	select count(*) as totalRowCount from shop_product_tb where name like concat("%",#{searchProduct},"%");
 	 </if>
 	</select>
 	

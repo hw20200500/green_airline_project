@@ -47,7 +47,6 @@ public class MileageController {
 		model.addAttribute("useMileage", useMileage);
 		model.addAttribute("extinctionMileage", extinctionMileage);
 		model.addAttribute("mileages", mileages);
-		System.out.println("mileages : " + mileages);
 		return "/myPage/mileage";
 	}
 

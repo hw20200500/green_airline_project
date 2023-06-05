@@ -24,11 +24,13 @@ public class VocInfoDto {
 	private String memberId;
 	private String ticketId;
 	private Timestamp createdAt;
+	private int vocCount;
 	
 	// 답변
 	private Integer answerId;
 	private String answerContent;
 	private Timestamp answerCreatedAt;
+	private int answerCount;
 	
 	public String formatCreatedAt() {
 		return TimestampUtil.dateTimeToString(createdAt);

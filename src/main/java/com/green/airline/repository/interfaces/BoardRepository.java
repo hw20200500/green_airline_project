@@ -39,4 +39,7 @@ public interface BoardRepository {
 	
 	// 페이징용
 	public List<Board> selectBoardListLimit(@Param("index") Integer index, @Param("limitCount") Integer limitCount);
+	// 게시글 수량
+		public BoardDto selectBoardCountByMemberId(String memberId);
 }
+

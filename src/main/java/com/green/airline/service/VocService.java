@@ -160,4 +160,10 @@ public class VocService {
 		return vocRepository.selectCountByMonthGroupByType(year, month);
 	}
 	
+	/**
+	 * 지문/ 답변 카운트 수 조회
+	 */
+	public VocInfoDto readVocCountAndAnserCountByMemberId(String memberId) {
+		return vocRepository.selectVocCountAndAnserCountByMemberId(memberId);
+	}
 }

@@ -21,8 +21,12 @@ public class GifticonService {
 		List<GifticonDto> gifticonDtos = gifticonRepository.selectGifticonList(memberId,startTime,endTime,radio);
 		return gifticonDtos; 
 	}
-	public int createRevokeGifticon(String amount,String brand,String name) {
-		int result = gifticonRepository.insertRevokeGifticon(amount, brand, name);
+	public List<GifticonDto> readGifticonListByIdForManager(String memberId,String startTime,String endTime,String radio){
+		List<GifticonDto> gifticonDtos = gifticonRepository.selectGifticonListForManager(memberId,startTime,endTime,radio);
+		return gifticonDtos; 
+	}
+	public int createRevokeGifticon(String gifticonId) {
+		int result = gifticonRepository.insertRevokeGifticon(gifticonId);
 		return result;
 	}
 	
@@ -40,5 +44,10 @@ public class GifticonService {
 //		gifticonRepository.updateGifticonStatusChange2(gifticonId);
 		
 		
+	}
+	// 기프티콘 구매 수량 확인 마이페이지 적용
+	public GifticonDto readGifticonCount(String memberId) {
+		GifticonDto count = gifticonRepository.selectGifticonCount(memberId);
+		return count;
 	}
 }

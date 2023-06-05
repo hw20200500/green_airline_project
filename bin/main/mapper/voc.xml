@@ -135,5 +135,10 @@
 	GROUP BY type
 	ORDER BY count DESC
 </select>
+<select id="selectVocCountAndAnserCountByMemberId" resultType="com.green.airline.dto.response.VocInfoDto">
+	select count(*) as answerCount,(select count(*) from voc_tb) as vocCount from voc_tb as v
+left join voc_answer_tb as van
+on v.id = van.voc_id where v.member_id = #{memberId}  and van.voc_id is  not null;
+</select>
 
 </mapper>

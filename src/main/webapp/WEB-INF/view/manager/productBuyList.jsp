@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<%@ include file="/WEB-INF/view/layout/header.jsp"%>
+<%@ include file="/WEB-INF/view/layout/headerManager.jsp"%>
 <style>
-
 .tab_wrap6 li {
 	float: left;
 }
@@ -20,7 +19,7 @@
 
 
 .sortation {
-	margin-left: 300px;
+	margin-left: 450px;
 }
 
 #checkboxList {
@@ -99,9 +98,14 @@ table#gifticonList--tr--thead{
 }
 
 .btn-light {
-	padding-top: 0; margin-bottom2px;
+	padding-top: 0; 
+	margin-top:8px;
 	height: 30px;
 	text-align: center;
+	width: 121px;
+}
+#gifticon--search{
+	margin-left: 182px;
 }
 #gifticonList{
 	background-color: white;
@@ -109,20 +113,18 @@ table#gifticonList--tr--thead{
 .title{
 	text-align: center;
 }
-#sCalendar01,#sCalendar02{
-	width: 150px;
+label{
+margin-right:8px;
 }
-.buy{
-margin-right: 15px;
+#sCalendar01,#sCalendar02,#searchMemberId{
+width:128px;
+	border: 1px solid #ccc;
 }
+
 </style>
 <!-- 여기 안에 쓰기 -->
 <main>
-<<<<<<< HEAD
-	<h1>마일리지샵 이용 내역 조회</h1>
-=======
-	<h1 class="title">기프티콘 구매/환불 리스트</h1>
->>>>>>> feature/myPage2
+	<h1 class="title">고객 기프티콘 구매/환불 리스트</h1>
 	<div class="container">
 		<form action="mileageList" method="get" id="form">
 			<div id="checkboxList"></div>
@@ -130,7 +132,7 @@ margin-right: 15px;
 			<dl>
 				
 				<dd>
-					<strong class="sortation"></strong><input type="radio" name="chk" value="buy" ><span class="buy">구매내역</span><input type="radio" name="chk" value="revoke">취소내역
+					<strong class="sortation"></strong><input type="radio" name="chk" value="buy"><label>구매내역</label> <input type="radio" name="chk" value="revoke"><label>취소내역</label>
 				</dd>
 			</dl>
 			<dl>
@@ -156,7 +158,11 @@ margin-right: 15px;
 							<span class="mid_txt">부터 ~</span>
 							<input type="text" name="endTime" title="종료일" id="sCalendar02" class="datepicker input_cal" placeholder="종료일 선택" data-dateformat="y.mm.dd D" data-type="single_infinite_last"> <a
 								href="#none" class="btn_airport type2 calendar_focus"></a>
+								<label>회원 이름 : </label>
+								<input type="text" name="memberId" class="mamberId" id="searchMemberId" placeholder="회원 이름">
+								<div class="btnDiv">
 								<button id="gifticon--search" type="button" class="btn btn-light">조회하기</button>
+								</div>
 						</div>
 					</div>
 				</dd>
@@ -171,17 +177,15 @@ margin-right: 15px;
 
 				</tbody>
 			</table>
-			<button onclick="refundGifticon()" class="btn btn-light deleteBtn">환불</button>
 			<input type="hidden" name="gifticonId" value="" id="gifticonId"> <input type="hidden" name="productId" value="" id="productId"> <input type="hidden" name="amount" value=""
 				id="gifticonAmount"> <input type="hidden" name="name" value="" id="gifticonName"> <input type="hidden" name="brand" value="" id="gifticonBrand">
 		</form>
 	</div>
 </main>
 
-<script src="/js/gifticon.js">
+<script src="/js/buyProduct.js">
 	
 </script>
 
-<input type="hidden" name="menuName" id="menuName" value="마일리지샵 이용 내역">
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
