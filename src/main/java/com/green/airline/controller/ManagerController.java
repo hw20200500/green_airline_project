@@ -525,6 +525,10 @@ public class ManagerController {
 		return "/manager/boardManage";
 	}
 	
+	/**
+	 * 정다운
+	 * @return 관리자 마일리지샵 판매 조회
+	 */
 	@GetMapping("/productBuyList")
 	public String productBuyListPage() {
 		

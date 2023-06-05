@@ -492,7 +492,9 @@ public class UserController {
 		Mileage mileage = mileageService.readExprirationBalanceByMemberId(memberId, ts);
 		Mileage mileage2 = mileageService.readSaveBalanceByMemberId(memberId, ts);
 		MemberInfoDto member = userService.readMemberById(memberId);
-
+		System.out.println(sumNowMileage);
+		System.out.println(mileage);
+		System.out.println(mileage2);
 		GifticonDto gifticonCount = gifticonService.readGifticonCount(memberId);
 		BoardDto boardDto = boardService.readBoardCountByMemberId(memberId);
 		VocInfoDto infoDto =  vocService.readVocCountAndAnserCountByMemberId(memberId);
@@ -505,7 +507,6 @@ public class UserController {
 		model.addAttribute("gifticonCount", gifticonCount);
 		model.addAttribute("boardDto", boardDto);
 		model.addAttribute("infoDto", infoDto);
-		System.out.println(sumNowMileage.getTotalMileage());
 		return "/myPage/myMainPage";
 	}
 
@@ -561,7 +562,6 @@ public String updatePasswordById(String password,String userId) {
 	public String findByUserId(Model model, Member member) {
 		Member response = userService.readByKorNameandEmailAndBirthDate(member);
 		model.addAttribute("response", response);
-		System.out.println("response : " + response);
 		return "/user/userIdSearch";
 	}
 	

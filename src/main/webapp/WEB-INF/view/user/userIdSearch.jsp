@@ -61,13 +61,14 @@ text-align: center;
 </main>
 
 <script type="text/javascript">
-	$('.findId').hide();
-	
+$( document ).ready(function() {
 	let korName = '<c:out value="${response.korName}"></c:out>';
 	let id = '<c:out value="${response.id}"></c:out>';
 	$('.btn-light').on('click',function(){
 		alert(korName+'의 아이디는 '+ id+ '입니다')
 	});
+});
+	
 </script>
 
 

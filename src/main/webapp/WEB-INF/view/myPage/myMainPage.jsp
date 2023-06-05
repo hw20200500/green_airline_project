@@ -153,7 +153,6 @@ main {
 
 .my--detail--left {
 	width: 580px;
-	height: 650px;
 }
 
 .my--detail--right {
@@ -410,9 +409,9 @@ main {
 									<div class="balloon_03">
 
 										<p class="bulloonText">
-											Gold 등급 까지
+											Platinum 등급 까지
 											<fmt:formatNumber type="number" maxFractionDigits="3"
-												value="${100000 - sumNowMileage.totalMileage}" />
+												value="${500000 - sumNowMileage.totalMileage}" />
 											마일 남았습니다
 										</p>
 									</div>

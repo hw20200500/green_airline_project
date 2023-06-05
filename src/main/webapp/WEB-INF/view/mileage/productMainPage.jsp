@@ -157,18 +157,6 @@ background-color: rgb(243, 243, 243);
 		<h2>
 			<a href="/product/registration">등록 페이지</a>
 		</h2>
-		<!--/* 페이지네이션 렌더링 영역 */-->
-		<%-- <div class="paging">
-			<a href="/product/productMain?curPage=1">&laquo;</a> <a href="/product/productMain?curPage=${paging.curPage-1 }">&lt;</a>
-			<c:forEach begin="${paging.firstPage }" end="${paging.lastPage }" var="i">
-				<a href="/product/productMain?curPage=${i }"> <c:if test="${i eq paging.curPage }">
-						<span style="color: red"> ${i } </span>
-					</c:if> <c:if test="${i ne paging.curPage }">  ${i } </c:if>
-				</a>
-			</c:forEach>
-			<a href="/product/productMain?curPage=${paging.curPage+1 }">&gt;</a> <a href="/product/productMain?curPage=${paging.totalPageCount }">&raquo;</a>
-
-		</div> --%>
 <div class="paging">
     <c:set var="prevPage" value="${paging.curPage - 1}" />
     <c:set var="nextPage" value="${paging.curPage + 1}" />
@@ -190,8 +178,8 @@ background-color: rgb(243, 243, 243);
             <c:if test="${i ne paging.curPage}">${i}</c:if>
         </a>
     </c:forEach>
-    <a href="/product/productSearch?curPage=${nextPage}&">&gt;</a>
-    <a href="/product/productSearch?curPage=${paging.totalPageCount}">&raquo;</a>
+    <a href="/product/productMain/DESC?curPage=${nextPage}">&gt;</a>
+    <a href="/product/productMain/DESC?curPage=${paging.totalPageCount}">&raquo;</a>
 </div>
  
 
@@ -234,16 +222,33 @@ background-color: rgb(243, 243, 243);
 	</div>
 </main>
 <script>
-$(document).ready(function(){
+$("#searchButton").on("click",function(){
+	
+	let search = $("searchProduct").val().replaceAll(" ","");
+	if(search == ""){
+		return false;			
+	}
+});
+	$("#searchProduct").on("keyup", function(e)){
+		let search = $("searchProduct").val().replaceAll(" ","");
+		if(e.keyCode == '13'){
+			if(search == ""){
+				e.preventDefault();
+			}
+		}
+
+});
+
+/* $(document).ready(function(){
 		$("#searchButton").on("click",()=>{
-	let searchProduct = $("#searchProduct").val();
+			let searchProduct = $("#searchProduct").val();
 	if(searchProduct == ' '||searchProduct == ''){
 		$('#searchButton').attr("type","button");
 	}else{
 		$('#searchButton').attr("type","submit");
 	}
 		});
-});
+}); */
      
 $(document).ready(function(){
     $(".gifticon-order").on("change", () => {
@@ -252,6 +257,7 @@ $(document).ready(function(){
          if (value === "ASC" || value === "DESC") {
             window.location.href = "/product/productMain/"+value;
         } 
+         
         // Ajax 요청 처리
        /*  $.ajax({
             type: "get",
