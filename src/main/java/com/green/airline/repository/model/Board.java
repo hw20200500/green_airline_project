@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.green.airline.utils.NumberUtil;
 import com.green.airline.utils.TimestampUtil;
 
 import lombok.Data;
@@ -18,6 +19,7 @@ public class Board {
 	private Integer viewCount = 0;
 	private Timestamp createdAt;
 	private Integer heartCount = 0;
+	private double average;
 
 	private MultipartFile file;
 
@@ -30,8 +32,13 @@ public class Board {
 		return TimestampUtil.dateToString(createdAt);
 	}
 	
+	public String numberFormat() {
+		return NumberUtil.numberFormat(viewCount);
+	}
+	
+	// 썸네일 이미지 경로
 	public String thumbnailImage() {
-		return fileName == null ? "/board/a.png" : "/board/" + fileName;
+		return fileName == null ? "/uploadImage/a.png" : "/uploadImage/" + fileName;
 	}
 
 }

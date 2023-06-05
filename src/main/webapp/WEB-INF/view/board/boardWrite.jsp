@@ -39,6 +39,7 @@
 		</div>
 		<div class="modal-footer">
 			<button type="submit" class="btn btn-primary">작성하기</button>
+			<button onclick="history.back();" class="btn btn-primary">뒤로가기</button>
 		</div>
 	</form>
 </main>

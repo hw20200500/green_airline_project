@@ -14,6 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js" integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
 	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
 	integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -111,7 +112,7 @@
 					<ul class="nav--depth1">
 						<li><a href="/ticket/selectSchedule">예약</a></li>
 						<li><a href="/inFlightService/inFlightServiceSearch">여행준비</a></li>
-						<li><a href="/board/list">여행</a></li>
+						<li><a href="/board/list/1">여행</a></li>
 						<li><a href="/product/productMain/clasic">마일리지</a></li>
 					</ul>
 					<div class="nav--bar"></div>
@@ -136,7 +137,7 @@
 							</ul>
 							<div class="nav--split"></div>
 							<ul>
-								<li><a href="/board/list">여행일지</a>
+								<li><a href="/board/list/1">여행일지</a>
 								<li><a href="/map">공항 위치 정보</a>
 								<li><a href="/airplane/info/1">항공기 정보</a>
 							</ul>
@@ -177,7 +178,7 @@
 							<ul id="dropMenu1" class="drop--menu">
 								<li><button class="menu--button" onclick="location.href='/ticket/selectSchedule'">예약</button></li>
 								<li><button class="menu--button" onclick="location.href='/inFlightService/inFlightServiceSearch'">여행 준비</button></li>
-								<li><button class="menu--button" onclick="location.href='/board/list'">여행</button></li>
+								<li><button class="menu--button" onclick="location.href='/board/list/1'">여행</button></li>
 								<li><button class="menu--button" onclick="location.href='/product/productMain/clasic'">마일리지</button></li>
 							</ul>
 						</div>

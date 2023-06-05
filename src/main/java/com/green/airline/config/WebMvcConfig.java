@@ -24,8 +24,6 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	  
 	  }
 	  
-	 
-	
 	// 집 이미지 경로 
 	/*
 	 * @Override public void addResourceHandlers(ResourceHandlerRegistry registry) {

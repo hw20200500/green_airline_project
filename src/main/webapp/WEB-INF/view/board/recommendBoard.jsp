@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <c:choose>
 	<c:when test="${\"관리자\".equals(principal.userRole)}">
@@ -13,10 +13,15 @@
 
 <style>
 .container {
-	text-align: center;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: flex-start;
+	max-width: 1230px; /* 원하는 너비 값으로 변경해주세요 */
+	margin: 0 auto; /* 가운데 정렬을 위해 margin을 auto로 설정합니다 */
+	justify-content: center;
+	width: 100%;
+}
+
+.popular--board {
+	width: 100%;
+	align-items: center;
 }
 
 .modal-dialog.modal-fullsize {
@@ -33,105 +38,204 @@
 }
 
 .img {
-	width: 150px;
-	height: 150px;
+	width: 380px;
+	height: 235px;
+}
+
+.popular--img {
+	width: 380px;
+	height: 235px;
 }
 
 .td--img {
-	padding: 5px 20px;
+	padding: 5px 10px;
+	align-items: center;
+	justify-content: center;
 }
 
 .td--board {
-	padding: 10px 20px;
+	padding: 10px 10px;
+}
+
+.board--table.d-flex {
+	flex-wrap: wrap;
+}
+
+.modal--header {
+	border-bottom: none;
+}
+
+.modal--title {
+	font-weight: bolder;
+}
+
+.modal-body {
+	padding-top: 0;
+}
+
+.btn--write {
+	width: 100%;
+}
+
+.board--title {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 300px;
+}
+
+.popular--h1 {
+	text-align: left;
+	padding: 5px 20px;
+}
+
+.board--user--date {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: right;
+	height: 5px;
+	margin-top: 0;
 }
 
 .board--table {
-	flex-wrap: wrap;
+	white-space: nowrap;
+	width: 100%;
+	display: block;
+}
+
+.h4--title {
+	justify-content: left;
+	display: flex;
+	margin-left: 10px;
+}
+
+.basic--board {
+	align-items: center;
+}
+
+.board--content {
+	padding: 30px;
 }
 </style>
 <main>
-	<h1>게시판 화면</h1>
 	<div class="container">
-		<c:choose>
-			<c:when test="${boardList!=null}">
-				<%-- 게시글이 있는 경우 --%>
-				<div class="board--table d-flex">
-					<c:forEach var="board" items="${boardList}">
-						<div class="tr--boardList" data-toggle="modal"
-							data-target="#modalDetail" id="boardDetail${board.id}"
-							style="cursor: pointer;">
-							<div class="td--img">
-								<img src="<c:url value="${board.thumbnailImage()}"/>" alt=""
-									class="img">
-							</div>
-							<div class="td--board d-flex justify-content-between">
-								<div>${board.viewCount}</div>
-								<div>${board.title}</div>
-							</div>
+		<div class="popular--board">
+			<h4 class="h4--title">인기 게시물</h4>
+			<div class="board--table d-flex" id="popularBoardSlider">
+				<c:forEach var="board" items="${popularBoard}" varStatus="loop">
+					<div class="tr--boardList" data-toggle="modal" data-target="#modalDetail" id="boardDetail${board.id}" style="cursor: pointer;">
+						<div class="td--img">
+							<img src="<c:url value="${board.thumbnailImage()}"/>" alt="" class="popular--img">
 						</div>
-					</c:forEach>
+						<div class="td--board">
+							<div class="board--title">${board.title}</div>
+							<div>
+								<img src="/images/like/eye.png">${board.numberFormat()}</div>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+
+		</div>
+		<div class="basic--board">
+			<h4 class="h4--title" style="margin-top: 50px;">여행일기</h4>
+			<c:choose>
+				<c:when test="${boardList != null && not empty boardList}">
+					<div class="board--table d-flex">
+						<c:forEach var="board" items="${boardList}">
+							<div class="tr--boardList" data-toggle="modal" data-target="#modalDetail" id="boardDetail${board.id}" style="cursor: pointer;">
+								<div class="td--img">
+									<img src="<c:url value="${board.thumbnailImage()}"/>" alt="" class="img">
+								</div>
+								<div class="td--board">
+									<div class="board--title">${board.title}</div>
+									<div>
+										<img src="/images/like/eye.png">${board.numberFormat()}</div>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<p>게시물이 없습니다.</p>
+				</c:otherwise>
+			</c:choose>
+		</div>
+		<c:choose>
+			<c:when test="${principal != null and !\"관리자\".equals(principal.userRole)}">
+				<div class="btn--write d-flex flex-row-reverse" style="padding: 20px;">
+					<button type="button" class="btn btn-primary p-2" onclick="location.href='/board/insert'">글 쓰기</button>
 				</div>
 			</c:when>
 			<c:otherwise>
-				<%-- 게시글이 없는 경우 --%>
-				<p>게시물이 없습니다.</p>
+
 			</c:otherwise>
 		</c:choose>
 	</div>
-	<c:choose>
-		<c:when test="${principal != null}">
-			<button type="button" class="btn btn-primary"
-				onclick="location.href='/board/insert'">글 쓰기</button>
-		</c:when>
-		<c:otherwise>
-			<%-- 미로그인시 버튼 안보이게 처리 --%>
-		</c:otherwise>
-	</c:choose>
+
+	<div style="display: block; text-align: center;">
+
+		<c:if test="${pageCount != null}">
+			<ul class="page--list">
+				<c:forEach var="i" begin="1" end="${pageCount}" step="1">
+					<c:choose>
+						<c:when test="${i == page}">
+							<li><a href="/board/list/${i}" style="font-weight: 700; color: #007bff">${i}</a>									
+						</c:when>
+						<c:otherwise>
+							<li><a href="/board/list/${i}">${i}</a>									
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</ul>
+		</c:if>
+	</div>
+
 </main>
 <%-- Modal --%>
-<div class="modal fade" id="modalDetail" data-backdrop="static"
-	data-keyboard="false" tabindex="-1"
-	aria-labelledby="myFullsizeModalLabel" aria-hidden="true">
-	<div
-		class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
-		<div class="modal-content modal-fullsize">
+<div class="modal fade" id="modalDetail" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="myFullsizeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="staticBackdropLabel">그린에어 여행일지</h5>
-				<button type="button" class="close" aria-label="Close"
-					data-dismiss="modal">
+				<h2 class="modal-title">그린에어 여행일지</h2>
+				<button type="button" class="close" aria-label="Close" data-dismiss="modal">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
+
 			<div class="modal-body">
 				<%-- 모달 내용 입력 --%>
-				<!-- 
-				TODO
-				1. id null 값 확인해서 고치기
-				2. 수정 할 화면 불러오기 (게시물 번호로 title, content 불러오기)
-				3. principal == userId 확인해서 내가 쓴 게시물만 수정, 삭제버튼 나오게하기
-				 -->
-				<c:choose>
-					<c:when test="${principal != null}">
-						<input type="hidden" name="boardId">
-						<button type="button" class="btn btn-primary" id="updateButton">수정하기</button>
-						<button type="button" class="btn btn-primary" id="deleteButton">삭제하기</button>
-					</c:when>
-					<c:otherwise>
+				<input type="hidden" name="boardId">
+				<div class="board--user--date">
 
-					</c:otherwise>
-				</c:choose>
-				<div class="board--title"></div>
-				<div class="board--content"></div>
-				<div class="board--userId"></div>
-				<div class="board--viewCount"></div>
-				<!-- 게시물id 가져와서 경로에 넣어주기 -->
-				<%
-				String boardId = request.getParameter("boardId");
-				%>
-				<img src="/images/like/like.png" class="board--heartCount"
-					id="boardDetail<%=boardId%>"
-					style="cursor: pointer; width: 30px; height: 30px;"></img>
-				<div class="board--heartCount" id="boardDetail<%=boardId%>"></div>
+					<p style="color: #808080;">작성자 &ensp;</p>
+					<div class="board--userId" style="justify-content: right; padding-right: 5px; color: #808080;"></div>
+
+					<div class="board--date" style="justify-content: right; padding-right: 5px; color: #808080;"></div>
+				</div>
+				<div class="board--heart-eye d-flex align-items-center">
+
+					<h2 class="board--title--modal p-2 mr-auto"></h2>
+
+					<div>
+						<img src="/images/like/eye.png">
+					</div>
+					<div class="board--viewCount p-2"></div>
+
+					<img src="/images/like/like.png" class="board--heartCount d-flex jflex-row-reverse" style="cursor: pointer; width: 25px; height: 25px;">
+					<div class="board--heartCount p-2"></div>
+				</div>
+
+				<div class="board--content" style="text-align: center;"></div>
+
+
+				<%-- 비동기통신으로 값 넘겨주기 --%>
+				<input type="hidden" id="userRole" value="${principal.userRole}"> <input type="hidden" id="managerRole" value="관리자"> <input type="hidden" id="loginUserId" value="${principal.id}">
+				<br> <br> <br> <br> <br> <br> <br> <br>
+				<div class="modal--upDelete">
+					<button type="button" class="btn btn-primary" id="updateButton" style="display: none; margin-right: 10px;">수정하기</button>
+					<button type="button" class="btn btn-primary" id="deleteButton" style="display: none;">삭제하기</button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -143,16 +247,31 @@
 === TODO ===
 1. 페이징처리
 
-2-1. 찜 + 조회수 / 게시물 = 높은 숫자 게시물 5개만
+2. 찜 + 조회수 / 게시물 = 높은 숫자 게시물 5개만
 상위에 보여주기
 
-2-2 회원만 찜 누를 수 있게하기
-// principal이 null이 아닐때만 img태그가 보이게하기
-// 비회원은 찜 누르면 로그인창으로
+
+3. css 제목 ...처리 
 
 4. 추천순, 조회수 많은순 필터링 기능
+
+5. 내가 작성한 게시물만 조회
+
 -->
 
 <input type="hidden" name="menuName" id="menuName" value="여행일지">
+<%-- 회원만 찜 누를 수 있음 --%>
+<c:if test="${principal == null}">
+	<script>
+		$(".board--heartCount").on("click", function() {
+			let loginConfirm = confirm('로그인이 필요한 서비스입니다.\n로그인 하시겠습니까?');
+			if (loginConfirm) {
+				location.href = '/login';
+			} else {
+				return false;
+			}
+		});
+	</script>
+</c:if>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
