@@ -51,15 +51,15 @@ public class InFlightServiceApiController {
 		return inFlightMeals;
 	}
 
-	@GetMapping("/setMaxCount")
-	public InFlightMealResponseDto setMaxCount(@RequestParam String departureDate) {
-		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-		// 좌석 수를 동적으로 갖고 오려고
-		InFlightMealResponseDto flightMealResponseDto = inFlightSvService
-				.readInFlightRequestForSeatCount(principal.getId(), departureDate);
-
-		return flightMealResponseDto;
-	}
+//	@GetMapping("/setMaxCount")
+//	public InFlightMealResponseDto setMaxCount(@RequestParam String departureDate) {
+//		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+//		// 좌석 수를 동적으로 갖고 오려고
+//		InFlightMealResponseDto flightMealResponseDto = inFlightSvService
+//				.readInFlightRequestForSeatCount(principal.getId(), departureDate);
+//
+//		return flightMealResponseDto;
+//	}
 
 	// 공항 리스트 자동 완성
 	@GetMapping("/search")

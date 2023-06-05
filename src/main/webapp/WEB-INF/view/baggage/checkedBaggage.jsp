@@ -133,13 +133,55 @@ table tr th, table tr td {
 	background-color: #8ABBE2;
 }
 
+.amount--count {
+	margin-top: 15px;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 15px;
+}
+
+.inflightSv--amount--wrap {
+	display: flex;
+	align-items: center;
+	height: 29px;
+	cursor: pointer;
+}
+
+#modal--id--departuredate {
+	border: none;
+	border-bottom: 1px solid #ebebeb;
+	background: #f8f9fc;
+	padding: 10px;
+	width: 360px;
+}
+
+.checkedBaggage-modal--select {
+	display: flex;
+	justify-content: center;
+}
+
+#seat--count--input {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.checkedBaggage--modal--marginBottom {
+	margin-bottom: 10px;
+}
+
+p {
+	font-size: 15px;
+}
 </style>
 
 <main>
 	<div>
 		<div>
-			<h2>위탁 수하물 안내</h2>
-			<p>항공사에 맡기는 각종 수하물의 크기, 요금, 준비 방법 등에 대한 정보를 안내해 드립니다.</p>
+			<h2>수하물 이용 안내</h2>
+			<p>
+				수하물은 고객이 여행 시 휴대 또는 탁송을 의뢰한 소지품 및 물품을 의미하는 단어입니다.<br> 짐을 준비하시는 고객님의 여행이 한결 편할 수 있도록 꼭 알아두셔야 하는 수하물 관련 정보를 안내합니다.
+			</p>
+			<hr>
 		</div>
 
 		<div class="checkedBaggage--title--wrap">
@@ -150,7 +192,7 @@ table tr th, table tr td {
 		</div>
 
 		<div class="checkedBaggage--content--wrap">
-			<h4>무료 위탁 수하물</h4>
+			<h4 style="color:#174481">무료 위탁 수하물</h4>
 			<p>탑승 여정에 맞는 무료 수하물 허용량을 조회해 보세요.</p>
 		</div>
 
@@ -194,6 +236,7 @@ table tr th, table tr td {
 
 		<div>
 			<button type="button" id="checkedBaggage--request--btn" class="btn btn--primary" data-toggle="modal" data-target="#baggage--req">위탁 수하물 신청</button>
+			<button type="button" class="btn btn--primary" onclick="location.href='/baggage/limit'">운송 제한 물품</button>
 		</div>
 
 		<div>
@@ -212,37 +255,44 @@ table tr th, table tr td {
 
 							<!-- Modal body -->
 							<div class="modal-body">
+								<div>
 									<div>
-										<div>예약 노선 보여주기</div>
-										<div class="">
-											<%-- <select>
-										<c:forEach var="baggageGroupBySection" items="${baggageGroupBySection}">
-											<option value="${baggageGroupBySection.section}">${baggageGroupBySection.section}
-										</c:forEach>
-									</select> <br> --%>
-											<select name="ticketId" id="modal--id--departuredate">
-												<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}" varStatus="status">
-													<%-- <input type="hidden" value="${inFlightServiceResponseDtos.ticketId}" name="ticketId"> --%>
-													<option value="${inFlightServiceResponseDtos.ticketId}" id="arrival--option">${inFlightServiceResponseDtos.seatGradeName}|
-														${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination} ${inFlightServiceResponseDtos.departureDateFormat()}</option>
-												</c:forEach>
-											</select>
+										<h4 style="margin-left: 58px;">출발 일정</h4>
+									</div>
+									<div class="checkedBaggage-modal--select">
+										<select name="ticketId" id="modal--id--departuredate">
+											<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}" varStatus="status">
+												<option value="${inFlightServiceResponseDtos.ticketId}" id="arrival--option">${inFlightServiceResponseDtos.ticketId}
+													${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination} ${inFlightServiceResponseDtos.departureDateFormat()}</option>
+											</c:forEach>
+										</select>
+									</div>
+								</div>
+
+								<div>
+									<div class="amount--count">
+										<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
+										<div class="inflightSv--amount--wrap">
+											<span class="material-symbols-outlined symbol" onclick="seatCountMinus()">remove</span>
+										</div>
+										<input type="text" name="amount" min="1" id="seat--count--input" max="${inFlightServiceResponseDtos.get(0).seatCount*4}" value="0" readonly="readonly"
+											style="width: 50px; border: none; text-align: center;">
+										<div class="inflightSv--amount--wrap">
+											<span class="material-symbols-outlined symbol" onclick="seatCountPlus()">add</span>
 										</div>
 									</div>
-
-									<div>
-										<div>개수 *1인당 최대 4개</div>
-										<div class="">
-											<input type="number" name="amount" min="1" id="seat--count--input" max="${inFlightServiceResponseDtos.get(0).seatCount * 4}">
-										</div>
+								</div>
+								<div class="checkedBaggage--modal--marginBottom">
+									<div style="margin-left: 58px;">
+										개수 <b>1인당 최대 4개</b>
 									</div>
-									<div>*현장에서 추가 무게 발생시 추가 요금 발생합니다.</div>
-
-									<!-- Modal footer -->
-									<div class="modal-footer">
-										<button type="button" class="btn btn--primary" id="submit--btn">Submit</button>
-										<button type="button" class="btn btn--danger modal_close" data-dismiss="modal">Close</button>
-									</div>
+									<div style="margin-left: 58px;">*현장에서 추가 무게 발생시 추가 요금 발생합니다.</div>
+								</div>
+								<!-- Modal footer -->
+								<div class="modal-footer">
+									<button type="button" class="btn btn--primary" id="submit--btn">Submit</button>
+									<button type="button" class="btn btn--danger modal_close" data-dismiss="modal">Close</button>
+								</div>
 							</div>
 
 						</div>

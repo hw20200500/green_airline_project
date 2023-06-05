@@ -10,25 +10,46 @@
 	</c:otherwise>
 </c:choose>
 <style>
-	.inRequest--wrap{
-		display: flex;
-	}
+table{
+	width: 1200px;
+	text-align: center;
+	border: 1px solid #ccc;
+	margin-top: 30px;
+}
+
+table tr th, table tr td {
+	padding: 5px;
+}
 </style>
 <main>
 	<div>
 		<h2>특별 기내식 신청 내역 조회</h2>
-		
-		<c:forEach var="inFlightMealResonseDtos" items="${inFlightMealResonseDtos}">
-			<div class="inRequest--wrap">
-				<div>${inFlightMealResonseDtos.memberId}</div>
-				<div>${inFlightMealResonseDtos.ticketId}</div>
-				<div>${inFlightMealResonseDtos.departureDateFormat()}</div>
-				<div>${inFlightMealResonseDtos.destination}</div>
-				<div>${inFlightMealResonseDtos.seatCount}</div>
-				<div>${inFlightMealResonseDtos.amount}</div>
-				<div>${inFlightMealResonseDtos.name}</div>
-			</div>
-		</c:forEach>
+		<hr>
+
+		<table border="1">
+			<tr style="background-color:#E5EFF3;">
+				<th>예약자</th>
+				<th>티켓번호</th>
+				<th>출발지</th>
+				<th>도착지</th>
+				<th>출발일자</th>
+				<th>신청 수량</th>
+				<th>신청 특별 기내식 종류</th>
+			</tr>
+
+			<c:forEach var="inFlightMealResonseDtos" items="${inFlightMealResonseDtos}">
+				<tr>
+					<td>${inFlightMealResonseDtos.memberId}</td>
+					<td>${inFlightMealResonseDtos.ticketId}</td>
+					<td>${inFlightMealResonseDtos.departure}</td>
+					<td>${inFlightMealResonseDtos.destination}</td>
+					<td>${inFlightMealResonseDtos.departureDateFormat()}</td>
+					<td>${inFlightMealResonseDtos.amount}개</td>
+					<td>${inFlightMealResonseDtos.name}</td>
+				</tr>
+			</c:forEach>
+		</table>
+
 	</div>
 </main>
 

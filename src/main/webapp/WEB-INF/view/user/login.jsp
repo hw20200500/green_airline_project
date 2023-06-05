@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <c:choose>
@@ -10,8 +11,11 @@
 	</c:otherwise>
 </c:choose>
 <style>
+.login--head--wrap {
+	margin-bottom: 40px;
+}
+
 #login--form {
-	margin-top: 30px;
 	border: 1px solid white;
 	background: white;
 	padding: 50px;
@@ -29,24 +33,36 @@
 
 main {
 	width: 100%;
-	background: linear-gradient(to bottom, #8bbdf8 -75%, #e9f3fb 89%);
+	/* background: linear-gradient(to bottom, #8bbdf8 -75%, #e9f3fb 89%); */
 	margin-top: -30px;
 }
 
 .login--wrap {
 	display: flex;
 	flex-direction: column;
-	margin-top: 20px;
+	/* margin-top: 20px; */
 }
 
 input[type=text], input[type=password] {
 	border: none;
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid #ebebeb;
 	width: 400px;
+	background: #f8f9fc;
+	padding: 10px;
+	outline: none;
 }
 
 .login--btn {
-	background: #00256c;
+	background: #8ABBE2;
+	border: none;
+	width: 400px;
+	padding: 10px;
+	color: white;
+}
+
+.login--btn:hover {
+	background: #8ABBE2;
+	color: white;
 	border: none;
 	width: 400px;
 	padding: 10px;
@@ -55,17 +71,36 @@ input[type=text], input[type=password] {
 .login--idPwSearch--class {
 	margin-top: 10px;
 	display: flex;
-	justify-content: flex-start;
-}
-
-.login--kakao--btn {
-	
+	justify-content: space-between;
 }
 
 .login--content {
-	margin-top: 20px; 
+	margin-top: 20px;
 	justify-content: center;
 	display: flex;
+}
+
+.login--kakao--btn--wrap {
+	display: flex;
+}
+
+.btn--primary {
+	background-color: #8ABBE2;
+	color: white;
+}
+
+.btn--primary:hover {
+	background-color: #8ABBE2;
+	color: white;
+}
+
+.join--btn--wrap {
+	display: flex;
+}
+
+.join--btn {
+	display: flex;
+	background-color: #314f79;
 }
 </style>
 
@@ -74,9 +109,8 @@ input[type=text], input[type=password] {
 <main>
 	<div class="d-flex justify-content-center">
 		<form id="login--form" action="/login" method="post">
-			<div>
+			<div class="login--head--wrap">
 				<h2>로그인</h2>
-				<hr>
 			</div>
 			<div class="d-flex login--wrap">
 				<div class="login--id--class">
@@ -97,18 +131,18 @@ input[type=text], input[type=password] {
 			</div>
 			<br>
 			<div class="justify-content-center">
-				<div>
-					<button type="submit" class="btn btn-primary login--btn">로그인</button>
+				<div class="login--kakao--btn--wrap">
+					<button type="submit" class="btn btn--primary login--btn">로그인</button>
 				</div>
 				<div class="login--idPwSearch--class">
-					<a href="/userIdSearch">아이디/비밀번호 찾기 > </a>
-				</div>
-				<div class="login--content">
-					<p>다른 계정으로 로그인</p>
-				</div>
-				<div class="login--kakao--btn">
-					<a href="https://kauth.kakao.com/oauth/authorize?client_id=91cf28839247e9924114aeb1a23b8852&redirect_uri=http://localhost:80/auth/kakao/callback&response_type=code"><img alt=""
-						src="/images/kakao_login_medium.png" style="margin-left: 10px;"> </a>
+						<a href="/userIdSearch" style="font-size: 15px;">아이디/비밀번호 찾기 > </a> 
+					<div>
+						<a href="https://kauth.kakao.com/oauth/authorize?client_id=91cf28839247e9924114aeb1a23b8852&redirect_uri=http://localhost:80/auth/kakao/callback&response_type=code">
+						<img alt="" src="/images/kakao_login_medium.png" style="margin-left: 10px;"> </a>
+					</div>
+					<div>
+						<button type="button" class="btn btn--primary join--btn" onclick="location.href='/join'" style="width: 90px; height: 45px;">회원가입</button>
+					</div>
 				</div>
 			</div>
 		</form>

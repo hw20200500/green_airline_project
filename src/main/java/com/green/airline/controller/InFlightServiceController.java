@@ -57,14 +57,6 @@ public class InFlightServiceController {
 		return "/in_flight/inFlightSvSearch";
 	}
 
-//	@PostMapping("/inFlightServiceSearch")
-//	public String inFlightServiceSearch(Model model, @RequestBody String keyword) {
-//		List<InFlightService> inFlightServices = inFlightSvService.readInFlightServiceByName(keyword);
-//		model.addAttribute("inFlightServices", inFlightServices);
-//
-//		return "/in_flight/inFlightSearch";
-//	}
-
 	// inFlightServiceSpecialSearch?name=값
 	@GetMapping("/inFlightServiceSpecialSearch")
 	public String inFlightServiceSearch2(@RequestParam String name) {
@@ -129,7 +121,7 @@ public class InFlightServiceController {
 		model.addAttribute("specialMealResponseDtos", specialMealResponseDtos);
 		model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
 
-		return "/user/myServiceReq";
+		return "/in_flight/myServiceReq";
 	}
 
 	// 특별 기내식 신청 내역 페이지 (수정 및 삭제)
@@ -137,5 +129,22 @@ public class InFlightServiceController {
 	public String myReqServiceDeleteProc(@RequestParam Integer id) {
 		inFlightSvService.deleteRequestMealById(id);
 		return "redirect:/inFlightService/myServiceReq";
+	}
+
+	// 특별 기내식 신청 페이지
+	@GetMapping("/inFlightSpecialReq")
+	public String inFlightSpecialReq(Model model) {
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		List<SpecialMealResponseDto> specialMealResponseDtos = inFlightSvService
+				.readRequestMealByMemberId(principal.getId());
+		List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
+				.readInFlightMealSchedule(principal.getId());
+		System.out.println(specialMealResponseDtos);
+		System.out.println(inFlightServiceResponseDtos);
+
+		model.addAttribute("specialMealResponseDtos", specialMealResponseDtos);
+		model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
+
+		return "/in_flight/inFlightSvSpecialRequest";
 	}
 }

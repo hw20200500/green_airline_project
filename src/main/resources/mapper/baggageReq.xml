@@ -37,7 +37,7 @@
 	</select>
 	
 	<select id="selectBaggageReqByMemberIdAndAmount" resultType="com.green.airline.dto.response.BaggageReqResponseDto">
-		select bre.amount, r.departure, r.destination, sg.name as seat_grade_name, bre.id as baggage_id
+		select bre.amount, r.departure, r.destination, sg.name as seat_grade_name, bre.id as baggage_id, sc.departure_date
 		from baggage_request_tb as bre
 		join ticket_tb as t
 		on bre.ticket_id = t.id

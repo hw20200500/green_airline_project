@@ -59,6 +59,7 @@ $(document).ready(function() {
 			contentType: "application/json; charset=utf-8"
 		}).done(function(data) {
 			console.log(data);
+			$("#seat--count--input").val(0);
 			$("#seat--count--input").attr("max", data.seatCount * 4);
 		}).fail(function(error) {
 			console.log(error);
@@ -85,8 +86,12 @@ $("#right--li").on("mouseout", function() {
 $("#submit--btn").on("click", function() {
 	let amount = $("#seat--count--input").val();
 	let ticketId = $("#modal--id--departuredate").val();
-	console.log(amount);
-	console.log(ticketId);
+	
+	if(amount == 0){
+		alert("수량을 입력해주세요.");
+		return false;
+	}
+	
 	$.ajax({
 		method: "post",
 		url: "/checkedBaggageProc",
@@ -135,3 +140,24 @@ submitBtn.addEventListener("click", function() {
 	});
 });*/
 
+function seatCountPlus() {
+	const resultElement = $("#seat--count--input");
+	let maxNumberValue = $("#seat--count--input").attr('max');
+	console.log(maxNumberValue);
+
+	let number = resultElement.val();
+	console.log(number < maxNumberValue);
+	if (parseInt(number) < parseInt(maxNumberValue)) {
+		number = parseInt(number) + 1;
+		resultElement.val(number);
+	}
+}
+
+function seatCountMinus() {
+	const resultElement = $("#seat--count--input");
+	let number = resultElement.val();
+	if (number > 0) {
+		number = parseInt(number) - 1;
+		resultElement.val(number);
+	}
+}

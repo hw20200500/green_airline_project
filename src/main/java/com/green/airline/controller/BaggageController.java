@@ -107,7 +107,7 @@ public class BaggageController {
 		model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
 		model.addAttribute("baggageReqResponses", baggageReqResponses);
 
-		return "/user/myBaggageReq";
+		return "/baggage/myBaggageReq";
 	}
 	
 }

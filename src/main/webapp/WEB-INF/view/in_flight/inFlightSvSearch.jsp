@@ -22,7 +22,7 @@
 }
 
 .inFlightSvSearch--img--wrap {
-	margin-bottom: 50px;
+margin-bottom: 50px;
 }
 
 .inFlightSvSearch--img--wrap img {
@@ -90,16 +90,11 @@
 }
 
 .modal--all--btn--div {
-	border: 1px solid #ebebeb;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 }
 
-.inFlightSvSearch--header--wrap {
-	border-bottom: 1px solid #ebebeb;
-	padding-bottom: 10px;
-}
 
 .inFlightSvSearch--img--wrap {
 	display: flex;
@@ -270,7 +265,6 @@
 
 #modal--destination--btn--id {
 	font-weight: bolder;
-	
 }
 
 .inFlightService--image--name--wrap {
@@ -308,12 +302,46 @@
 	border: none;
 	background-color: #DC6093;
 }
+
+#destination--res--wrap{
+	margin: 50px;
+	display: flex;
+	flex-direction:column;
+	width: 1200px;
+}
+
+#destination--res--title{
+	margin-left: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+#destination--res--img img{
+	width: 600px;
+}
+#destination--res--img{
+	display: flex;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+#destination--res--content{
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+main{
+	width: 1180px;
+}
 </style>
 <div>
 	<main>
 		<div class="inFlightSvSearch--header--wrap">
 			<h2>기내 서비스 조회</h2>
 			출/도착지를 입력하여 기내 서비스 상세 정보를 확인해 보세요.
+			<hr>
 		</div>
 		<div class="inFlightSvSearch--img--wrap">
 			<c:forEach var="inFlightServices" items="${inFlightServices}">
@@ -358,8 +386,8 @@
 							<a data-toggle="modal" href="#all--departure--airport--search" class="departure--button all--airport btn btn--primary">모든 지역 보기</a>
 						</div>
 						<div class="modal--cancel--btn">
-							<button type="button" id="start--modal--btn" class="btn btn--primary" data-dismiss="modal">Submit</button>
-							<button type="button" class="btn btn--danger" data-dismiss="modal">Close</button>
+							<button type="button" id="start--modal--btn" class="btn btn--primary" data-dismiss="modal">확인</button>
+							<button type="button" class="btn btn--danger" data-dismiss="modal">닫기</button>
 						</div>
 					</div>
 				</div>
