@@ -14,6 +14,7 @@ import com.green.airline.dto.response.TicketAllInfoDto;
 import com.green.airline.dto.response.TicketDto;
 import com.green.airline.repository.interfaces.BaggageRepository;
 import com.green.airline.repository.interfaces.BaggageRequestRepository;
+import com.green.airline.repository.interfaces.InFlightServiceRepository;
 import com.green.airline.repository.interfaces.MileageRepository;
 import com.green.airline.repository.interfaces.PassengerRepository;
 import com.green.airline.repository.interfaces.ReservedSeatRepository;
@@ -67,6 +68,9 @@ public class TicketService {
 	
 	@Autowired
 	private MileageService mileageService;
+	
+	@Autowired
+	private InFlightServiceRepository inFlightServiceRepository;
 	
 	/**
 	 * @author 서영
@@ -357,6 +361,12 @@ public class TicketService {
 		
 		// 탑승객 정보 삭제
 		passengerRepository.deleteByTicketId(ticketId);	
+		
+		// 수하물 신청 내역 삭제
+		baggageRequestRepository.deleteByTicketId(ticketId);
+		
+		// 기내식 신청 내역 삭제
+		inFlightServiceRepository.deleteByTicketId(ticketId);
 	}
 	
 	/**

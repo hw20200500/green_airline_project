@@ -195,4 +195,8 @@
 			WHERE departure_date > now() and rm.amount != 0;
 	</select>
 	
+	<delete id="deleteByTicketId">
+		DELETE FROM request_meal_tb WHERE ticket_id = #{ticketId}
+	</delete>
+	
 </mapper>

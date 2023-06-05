@@ -70,4 +70,12 @@ public interface MileageRepository {
 	 * 환불 후 사용 상세 내역은 삭제
 	 */
 	public Integer deleteUseMileageDetailByMilesId(Integer id);
+	
+	/**
+	 * @author 서영
+	 * 환불된 마일리지를 적립 내역으로 추가
+	 */
+	public Integer insertRefundMiles(Mileage mileage);
+	
+	public Mileage selectById(Integer id);
 }

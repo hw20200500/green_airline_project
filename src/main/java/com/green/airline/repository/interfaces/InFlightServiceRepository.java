@@ -67,6 +67,12 @@ public interface InFlightServiceRepository {
 	// 매니저 기내 특별식 신청 내역 조회
 	List<InFlightMealResponseDto> selectInFlightMealForManager();
 	
+	
+	/**
+	 * @author 서영
+	 * 티켓 취소/환불 시 신청 삭제
+	 */
+	Integer deleteByTicketId(String ticketId);
 }
  
 

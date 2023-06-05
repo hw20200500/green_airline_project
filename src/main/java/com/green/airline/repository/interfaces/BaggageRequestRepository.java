@@ -43,5 +43,11 @@ public interface BaggageRequestRepository {
 	
 	// 매니저 위탁 수하물 신청 내역 조회
 	List<InFlightMealResponseDto> selectBaggageReqForManager();
+	
+	/**
+	 * @author 서영
+	 * 티켓 취소/환불 시 신청 삭제
+	 */
+	Integer deleteByTicketId(String ticketId);
 
 }

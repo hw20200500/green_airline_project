@@ -183,7 +183,6 @@ public List<Mileage> readMileageTbOrderByMileageDateByMemberId(String memberId) 
 		// refundAmount : 수수료를 제외하고, 환불해주어야 하는 총 마일리지
 		
 		// 환불 수수료를 사용 내역으로 남김
-		// 마일리지 사용 내역 추가
 		Mileage useMiles = Mileage.builder()
 							.useMileage(fee)
 							.description("항공권 환불 수수료")
@@ -202,8 +201,22 @@ public List<Mileage> readMileageTbOrderByMileageDateByMemberId(String memberId) 
 			if (refundAmount >= u.getMileageFromBalance()) {
 				// 환불 잔여 마일리지 차감
 				refundAmount -= u.getMileageFromBalance();
-				// 마일리지 환불
-				mileageRepository.updateBalanceByRefund(u.getBuyMileageId(), u.getMileageFromBalance());
+				
+				// 해당 내역으로 마일리지 적립 내역 추가
+				// 유효기간이 기존 마일리지와 동일해야 하며,
+				
+				// 해당 적립 내역의 유효기간 가져오기
+				Timestamp expirationDate = mileageRepository.selectById(u.getBuyMileageId()).getExpirationDate();
+				
+				// 환불된 마일리지를 적립 내역으로 남김
+				Mileage refundMiles = Mileage.builder()
+									.saveMileage(u.getMileageFromBalance())
+									.balance(u.getMileageFromBalance())
+									.description("항공권 환불")
+									.expirationDate(expirationDate)
+									.memberId(memberId)
+									.build();
+				mileageRepository.insertRefundMiles(refundMiles);
 				
 				// 환불된 후, 사용 상세 내역 삭제
 				mileageRepository.deleteUseMileageDetailByMilesId(u.getBuyMileageId());
@@ -211,8 +224,20 @@ public List<Mileage> readMileageTbOrderByMileageDateByMemberId(String memberId) 
 			// 환불 잔여 마일리지보다 해당 적립 내역에 돌려주어야 하는 마일리지가 크다면
 			// 환불 수수료가 부과되었다는 의미 (반복 종료)
 			} else {
-				// 마일리지 환불
-				mileageRepository.updateBalanceByRefund(u.getBuyMileageId(), refundAmount);
+				
+				// 해당 적립 내역의 유효기간 가져오기
+				Timestamp expirationDate = mileageRepository.selectById(u.getBuyMileageId()).getExpirationDate();
+				
+				// 환불된 마일리지를 적립 내역으로 남김
+				Mileage refundMiles = Mileage.builder()
+									.saveMileage(refundAmount)
+									.balance(refundAmount)
+									.description("항공권 환불")
+									.expirationDate(expirationDate)
+									.memberId(memberId)
+									.build();
+				mileageRepository.insertRefundMiles(refundMiles);
+				
 				// 환불 잔여 마일리지 차감
 				refundAmount = (long) 0;
 				
