@@ -97,4 +97,8 @@
 			WHERE departure_date > now() and amount != 0
 	</select>
 	
+	<delete id="deleteByTicketId">
+		DELETE FROM baggage_request_tb WHERE ticket_id = #{ticketId}
+	</delete>
+	
 </mapper>

@@ -152,5 +152,14 @@ and g.id = #{gifticonId};
 		DELETE FROM use_mileage_list_tb WHERE buy_mileage_id = #{id}
 	</delete>
 	
+	<insert id="insertRefundMiles">
+		INSERT INTO mileage_tb (mileage_date, description, expiration_date, save_mileage, balance, member_id)
+		VALUES (now(), #{description}, #{expirationDate}, #{saveMileage}, #{balance}, #{memberId})
+	</insert>
+	
+	<select id="selectById" resultType="com.green.airline.repository.model.Mileage">
+		SELECT * FROM mileage_tb WHERE id = #{id}	
+	</select>
+	
 </mapper>
 
