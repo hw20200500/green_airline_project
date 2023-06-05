@@ -153,7 +153,6 @@ main {
 
 .my--detail--left {
 	width: 580px;
-	height: 650px;
 }
 
 .my--detail--right {

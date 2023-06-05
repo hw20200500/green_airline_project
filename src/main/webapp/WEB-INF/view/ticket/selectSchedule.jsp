@@ -183,13 +183,13 @@
 				</button>
 			</div>
 		</div>
-		<br>
-		<hr style="width: 100%">
-		<br>
 
 		<!-- 여기서부터 운항 스케줄 출력 -->
 		<form action="/ticket/selectSeat" method="get">
 			<div class="schedule--list--div" id="scheduleList1">
+				<br>
+				<hr style="width: 100%">
+				<br>
 				<h6 class="d-flex align-items-center" style="margin-bottom: 15px; color: #314f79">
 					<span class="material-symbols-outlined" style="font-size: 20px;">flight</span>&nbsp;
 					<!-- 왕복 : 첫 번째 여정 / 편도 : 편도로 표시 -->
