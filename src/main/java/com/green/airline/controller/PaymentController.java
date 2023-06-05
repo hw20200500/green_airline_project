@@ -229,7 +229,7 @@ public class PaymentController {
 		Integer childCount = refundDto.getChildCount();
 		
 		// 카카오페이라면
-		if (refundDto.getTid().substring(0, 0).equals("T")) {
+		if (refundDto.getTid().substring(0, 1).equals("T")) {
 		
 			RestTemplate restTemplate = new RestTemplate();
 			
