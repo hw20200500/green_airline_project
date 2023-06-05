@@ -128,8 +128,8 @@ main {
 }
 
 #vocChart {
-	width: 288px;
-	height: 288px;
+	width: 288px !important;
+	height: 288px !important;
 	margin-top: -37px;
 	margin-left: 5px;
 }

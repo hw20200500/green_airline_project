@@ -82,6 +82,9 @@ $(document).ready(function() {
 		let religionMealAmount = $('#seat--count--input4').val();
 		let etcMealAmount = $('#seat--count--input5').val();
 		let ticketId = $('select[name="modal--name--arrivaldate"').val();
+		
+		console.log(ticketId);
+		
 		if (babyMealCheck) {
 			if (babyMealAmount == 0) {
 				alert("신청 수량을 입력해주세요.")

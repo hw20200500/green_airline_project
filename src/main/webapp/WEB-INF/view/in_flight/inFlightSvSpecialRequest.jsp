@@ -11,7 +11,6 @@
 </c:choose>
 
 <style>
-
 #modal--id--arrivaldate:focus {
 	outline: none;
 }
@@ -19,9 +18,12 @@
 #modal--id--arrivaldate {
 	border: none;
 	border-bottom: 1px solid #ebebeb;
-	background: #f8f9fc;
+	background: #fff;
 	padding: 10px;
 	width: 350px;
+	border-bottom: 1px solid black;
+	margin-bottom: 20px;
+	display: flex;
 }
 
 input[type=text]:focus {
@@ -31,6 +33,94 @@ input[type=text]:focus {
 input[type=text] {
 	text-align: center;
 	border: none;
+}
+
+.btn--primary {
+	color: white;
+	border: none;
+	background-color: #8ABBE2;
+}
+
+.btn--primary:hover {
+	color: white;
+	border: none;
+	background-color: #8ABBE2;
+}
+
+.btn--danger {
+	color: white;
+	border: none;
+	background-color: #DC6093;
+}
+
+.btn--danger:hover {
+	color: white;
+	border: none;
+	background-color: #DC6093;
+}
+
+#free--baggage--id:focus {
+	outline: none;
+}
+
+.checkedBaggage--background {
+	background-color: #8ABBE2;
+}
+
+.amount--count {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.inFlightSvSpecial--one--wrap {
+	background-color: #f8f9fc;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	width: 400px;
+	height: 310px;
+}
+
+table {
+	width: 1180px;
+	border: none;
+}
+
+table tr th {
+	text-align: center;
+}
+
+#inFlight--arrival {
+	margin-top: 30px;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.inFlightSv--selectBox--wrap {
+	display: flex;
+	justify-content: center;
+}
+
+table tr th, table tr td {
+	padding: 10px;
+}
+
+table tr th {
+	background-color: #f8f9fc;
+}
+
+.inflightSv--amount--wrap {
+	display: flex;
+	align-items: center;
+	height: 29px;
+	cursor: pointer;
+}
+
+#amount--count {
+	display: flex;
+	justify-content: center;
 }
 </style>
 
@@ -45,147 +135,130 @@ input[type=text] {
 			<button type="button" class="close" data-dismiss="modal">&times;</button>
 		</div>
 
-		<!-- Modal body -->
-		<div class="modal-body">
-			<form action="/inFlightService/specialMealReq" method="post">
-				<div class="inFlightMeal--selectBox">
-					<h4 style="font-size: 25px;">출발 일정</h4>
-					<div class="modal--div--arrivaldate">
-						<div id="inFlight--arrival">
-							<!-- db 안에 들어있는 departureDate는 format 전의 값이니까 2023/05/18 -> 2023년05월18일 -->
-							<select name="modal--name--arrivaldate" id="modal--id--arrivaldate">
-								<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}">
-									<option value="${inFlightServiceResponseDtos.ticketId}_${inFlightServiceResponseDtos.seatCount}" id="arrival--option">${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination}
-										${inFlightServiceResponseDtos.departureDateFormat()}</option>
-								</c:forEach>
-							</select> <br>
-						</div>
-					</div>
-				</div>
-
-				<div>
-					<div class="modal--ifmdName">
-						<div id="inFlightMeals--detail">
-							<div class="inFlightMeals--request--wrap">
-								<div>
-									<h5>유아식 및 아동식</h5>
-								</div>
-								<br>
-								<div class="inflightService--wrap">
-									<c:forEach var="babyMeal" items="${babyMeal}" varStatus="status">
-										<input type="radio" class="radio--ifmd" name="babyMeal" id="babyMeal--label${status.index}" value="${babyMeal.mealId}">
-										<label for="babyMeal--label${status.index}">${babyMeal.name}</label>
-										<br>
-									</c:forEach>
-								</div>
-								<div class="amount--count">
-									<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
-									<div class="inflightSv--amount--wrap">
-										<span class="material-symbols-outlined symbol" onclick="seatCountMinus(1)">remove</span>
-									</div>
-									<input type="text" class="seat--count--input" id="seat--count--input1" name="amount1" value="0" readonly="readonly" style="width: 50px;">
-									<div class="inflightSv--amount--wrap">
-										<span class="material-symbols-outlined symbol" onclick="seatCountPlus(1)">add</span>
-									</div>
-								</div>
-							</div>
-							<div class="inFlightMeals--request--wrap">
-								<div>
-									<h5>야채식</h5>
-								</div>
-								<br>
-								<div class="inflightService--wrap">
-									<c:forEach var="veganMeal" items="${veganMeal}" varStatus="status">
-										<input type="radio" class="radio--ifmd" name="veganMeal" id="veganMeal--label${status.index}" value="${veganMeal.mealId}">
-										<label for="veganMeal--label${status.index}">${veganMeal.name}</label>
-										<br>
-									</c:forEach>
-								</div>
-								<div class="amount--count">
-									<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
-									<div class="inflightSv--amount--wrap">
-										<span class="material-symbols-outlined symbol" onclick="seatCountMinus(2)">remove</span>
-									</div>
-									<input type="text" class="seat--count--input" id="seat--count--input2" name="amount2" value="0" readonly="readonly" style="width: 50px;">
-									<div class="inflightSv--amount--wrap">
-										<span class="material-symbols-outlined symbol" onclick="seatCountPlus(2)">add</span>
-									</div>
-								</div>
-							</div>
-							<div class="inFlightMeals--request--wrap">
-								<div>
-									<h5>식사 조절식</h5>
-								</div>
-								<br>
-								<div class="inflightService--wrap">
-									<c:forEach var="lowfatMeal" items="${lowfatMeal}" varStatus="status">
-										<input type="radio" class="radio--ifmd" name="lowfatMeal" id="lowfatMeal--label${status.index}" value="${lowfatMeal.mealId}">
-										<label for="lowfatMeal--label${status.index}">${lowfatMeal.name}</label>
-										<br>
-									</c:forEach>
-								</div>
-								<div class="amount--count">
-									<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
-									<div class="inflightSv--amount--wrap">
-										<span class="material-symbols-outlined symbol" onclick="seatCountMinus(3)">remove</span>
-									</div>
-									<input type="text" class="seat--count--input" id="seat--count--input3" name="amount3" value="0" readonly="readonly" style="width: 50px;">
-									<div class="inflightSv--amount--wrap">
-										<span class="material-symbols-outlined symbol" onclick="seatCountPlus(3)">add</span>
-									</div>
-								</div>
-							</div>
-							<div class="inFlightMeals--request--wrap">
-								<div>
-									<h5>종교식</h5>
-								</div>
-								<br>
-								<div class="inflightService--wrap">
-									<c:forEach var="religionMeal" items="${religionMeal}" varStatus="status">
-										<input type="radio" class="radio--ifmd" name="religionMeal" id="religionMeal--label${status.index}" value="${religionMeal.mealId}">
-										<label for="religionMeal--label${status.index}">${religionMeal.name}</label>
-										<br>
-									</c:forEach>
-								</div>
-								<div class="amount--count">
-									<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
-									<div class="inflightSv--amount--wrap">
-										<span class="material-symbols-outlined symbol" onclick="seatCountMinus(4)">remove</span>
-									</div>
-									<input type="text" class="seat--count--input" id="seat--count--input4" name="amount4" value="0" readonly="readonly" style="width: 50px;">
-									<div class="inflightSv--amount--wrap">
-										<span class="material-symbols-outlined symbol" onclick="seatCountPlus(4)">add</span>
-									</div>
-								</div>
-							</div>
-							<div class="inFlightMeals--request--wrap">
-								<div>
-									<h5>기타 특별식</h5>
-								</div>
-								<br>
-								<div class="inflightService--wrap">
-									<c:forEach var="etcMeal" items="${etcMeal}" varStatus="status">
-										<input type="radio" class="radio--ifmd" name="etcMeal" id="etcMeal--label${status.index}" value="${etcMeal.mealId}">
-										<label for="etcMeal--label${status.index}">${etcMeal.name}</label>
-										<br>
-									</c:forEach>
-								</div>
-								<div class="amount--count">
-									<%-- 수량 인원 수에 맞게 조절할 수 있도록 하기 --%>
-									<div class="inflightSv--amount--wrap">
-										<span class="material-symbols-outlined symbol" onclick="seatCountMinus(5)">remove</span>
-									</div>
-									<input type="text" class="seat--count--input" id="seat--count--input5" name="amount5" value="0" readonly="readonly" style="width: 50px;">
-									<div class="inflightSv--amount--wrap">
-										<span class="material-symbols-outlined symbol" onclick="seatCountPlus(5)">add</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</form>
+		<div id="inFlight--arrival">
+			<div>
+				<h3>출발 일정</h3>
+			</div>
+			<div class="inFlightSv--selectBox--wrap">
+				<!-- db 안에 들어있는 departureDate는 format 전의 값이니까 2023/05/18 -> 2023년05월18일 -->
+				<select name="modal--name--arrivaldate" id="modal--id--arrivaldate">
+					<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}">
+						<option value="${inFlightServiceResponseDtos.ticketId}_${inFlightServiceResponseDtos.seatCount}" id="arrival--option">${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination}
+							${inFlightServiceResponseDtos.departureDateFormat()}</option>
+					</c:forEach>
+				</select> <br>
+			</div>
 		</div>
+
+		<form action="#">
+			<table border="1">
+				<tr>
+					<th>특별 기내식 종류</th>
+					<th>특별 기내식 상세</th>
+					<th>수량</th>
+				</tr>
+
+				<tr>
+					<td style="text-align: center;">유아식 및 아동식</td>
+					<td><c:forEach var="babyMeal" items="${babyMeal}" varStatus="status">
+							<input type="radio" class="radio--ifmd" name="babyMeal" id="babyMeal--label${status.index}" value="${babyMeal.mealId}">
+							<label for="babyMeal--label${status.index}">${babyMeal.name}</label>
+							<br>
+						</c:forEach></td>
+					<td>
+						<div id="amount--count">
+							<div class="inflightSv--amount--wrap">
+								<span class="material-symbols-outlined symbol" onclick="seatCountMinus(1)">remove</span>
+							</div>
+							<input type="text" class="seat--count--input" id="seat--count--input1" name="amount1" value="0" readonly="readonly" style="width: 50px;">
+							<div class="inflightSv--amount--wrap">
+								<span class="material-symbols-outlined symbol" onclick="seatCountPlus(1)">add</span>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;">야채식</td>
+					<td><c:forEach var="veganMeal" items="${veganMeal}" varStatus="status">
+							<input type="radio" class="radio--ifmd" name="veganMeal" id="veganMeal--label${status.index}" value="${veganMeal.mealId}">
+							<label for="veganMeal--label${status.index}">${veganMeal.name}</label>
+							<br>
+						</c:forEach></td>
+					<td>
+						<div id="amount--count">
+							<div class="inflightSv--amount--wrap">
+								<span class="material-symbols-outlined symbol" onclick="seatCountMinus(2)">remove</span>
+							</div>
+							<input type="text" class="seat--count--input" id="seat--count--input2" name="amount2" value="0" readonly="readonly" style="width: 50px;">
+							<div class="inflightSv--amount--wrap">
+								<span class="material-symbols-outlined symbol" onclick="seatCountPlus(2)">add</span>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;">식사 조절식</td>
+					<td><c:forEach var="lowfatMeal" items="${lowfatMeal}" varStatus="status">
+							<input type="radio" class="radio--ifmd" name="lowfatMeal" id="lowfatMeal--label${status.index}" value="${lowfatMeal.mealId}">
+							<label for="lowfatMeal--label${status.index}">${lowfatMeal.name}</label>
+							<br>
+						</c:forEach></td>
+					<td>
+						<div id="amount--count">
+							<div class="inflightSv--amount--wrap">
+								<span class="material-symbols-outlined symbol" onclick="seatCountMinus(3)">remove</span>
+							</div>
+							<input type="text" class="seat--count--input" id="seat--count--input3" name="amount3" value="0" readonly="readonly" style="width: 50px;">
+							<div class="inflightSv--amount--wrap">
+								<span class="material-symbols-outlined symbol" onclick="seatCountPlus(3)">add</span>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;">종교식</td>
+					<td><c:forEach var="religionMeal" items="${religionMeal}" varStatus="status">
+							<input type="radio" class="radio--ifmd" name="religionMeal" id="religionMeal--label${status.index}" value="${religionMeal.mealId}">
+							<label for="religionMeal--label${status.index}">${religionMeal.name}</label>
+							<br>
+						</c:forEach></td>
+					<td>
+						<div id="amount--count">
+							<div class="inflightSv--amount--wrap">
+								<span class="material-symbols-outlined symbol" onclick="seatCountMinus(4)">remove</span>
+							</div>
+							<input type="text" class="seat--count--input" id="seat--count--input4" name="amount4" value="0" readonly="readonly" style="width: 50px;">
+							<div class="inflightSv--amount--wrap">
+								<span class="material-symbols-outlined symbol" onclick="seatCountPlus(4)">add</span>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;">기타 특별식</td>
+					<td><c:forEach var="etcMeal" items="${etcMeal}" varStatus="status">
+							<input type="radio" class="radio--ifmd" name="etcMeal" id="etcMeal--label${status.index}" value="${etcMeal.mealId}">
+							<label for="etcMeal--label${status.index}">${etcMeal.name}</label>
+							<br>
+						</c:forEach></td>
+					<td>
+						<div id="amount--count">
+							<div class="inflightSv--amount--wrap">
+								<span class="material-symbols-outlined symbol" onclick="seatCountMinus(5)">remove</span>
+							</div>
+							<input type="text" class="seat--count--input" id="seat--count--input5" name="amount5" value="0" readonly="readonly" style="width: 50px;">
+							<div class="inflightSv--amount--wrap">
+								<span class="material-symbols-outlined symbol" onclick="seatCountPlus(5)">add</span>
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+			
+			<div>
+				<button type="button">신청 완료</button>
+			</div>
+		</form>
 	</div>
 </main>
 
