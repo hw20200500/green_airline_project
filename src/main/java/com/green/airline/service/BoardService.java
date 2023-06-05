@@ -232,18 +232,8 @@ public class BoardService {
 		return resultCount;
 	}
 
-	public List<Board> readNoticeByTitle(PagingObj obj, String keyword) {
-		keyword = "%" + keyword + "%";
-		List<Board> noticeResponseDtoList = boardRepository.selectByBoardList(obj, keyword);
-
-		return noticeResponseDtoList;
+	// 페이징용
+	public List<Board> readBoardListLimit(Integer index, Integer limitCount) {
+		return boardRepository.selectBoardListLimit(index, limitCount);
 	}
-	
-	// 글 총 개수 가져오기
-	public int readNoticeByKeywordCount(String keyword) {
-		keyword = "%" + keyword + "%";
-		int resultCnt = noticeRepository.selectNoticeByKeywordCount(keyword);
-		return resultCnt;
-	}
-	
 }

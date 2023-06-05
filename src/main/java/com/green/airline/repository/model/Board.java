@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.green.airline.utils.NumberUtil;
 import com.green.airline.utils.TimestampUtil;
 
 import lombok.Data;
@@ -29,6 +30,10 @@ public class Board {
 	
 	public String formatDate() {
 		return TimestampUtil.dateToString(createdAt);
+	}
+	
+	public String numberFormat() {
+		return NumberUtil.numberFormat(viewCount);
 	}
 	
 	// 썸네일 이미지 경로

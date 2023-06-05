@@ -1,8 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <c:choose>
 	<c:when test="${\"관리자\".equals(principal.userRole)}">
@@ -71,6 +69,10 @@
 	font-weight: bolder;
 }
 
+.modal-body {
+	padding-top: 0;
+}
+
 .btn--write {
 	width: 100%;
 }
@@ -91,6 +93,8 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: right;
+	height: 5px;
+	margin-top: 0;
 }
 
 .board--table {
@@ -108,6 +112,10 @@
 .basic--board {
 	align-items: center;
 }
+
+.board--content {
+	padding: 30px;
+}
 </style>
 <main>
 	<div class="container">
@@ -115,17 +123,14 @@
 			<h4 class="h4--title">인기 게시물</h4>
 			<div class="board--table d-flex" id="popularBoardSlider">
 				<c:forEach var="board" items="${popularBoard}" varStatus="loop">
-					<div class="tr--boardList" data-toggle="modal"
-						data-target="#modalDetail" id="boardDetail${board.id}"
-						style="cursor: pointer;">
+					<div class="tr--boardList" data-toggle="modal" data-target="#modalDetail" id="boardDetail${board.id}" style="cursor: pointer;">
 						<div class="td--img">
-							<img src="<c:url value="${board.thumbnailImage()}"/>" alt=""
-								class="popular--img">
+							<img src="<c:url value="${board.thumbnailImage()}"/>" alt="" class="popular--img">
 						</div>
 						<div class="td--board">
 							<div class="board--title">${board.title}</div>
 							<div>
-								<img src="/images/like/eye.png">${board.viewCount}</div>
+								<img src="/images/like/eye.png">${board.numberFormat()}</div>
 						</div>
 					</div>
 				</c:forEach>
@@ -138,17 +143,14 @@
 				<c:when test="${boardList != null && not empty boardList}">
 					<div class="board--table d-flex">
 						<c:forEach var="board" items="${boardList}">
-							<div class="tr--boardList" data-toggle="modal"
-								data-target="#modalDetail" id="boardDetail${board.id}"
-								style="cursor: pointer;">
+							<div class="tr--boardList" data-toggle="modal" data-target="#modalDetail" id="boardDetail${board.id}" style="cursor: pointer;">
 								<div class="td--img">
-									<img src="<c:url value="${board.thumbnailImage()}"/>" alt=""
-										class="img">
+									<img src="<c:url value="${board.thumbnailImage()}"/>" alt="" class="img">
 								</div>
 								<div class="td--board">
 									<div class="board--title">${board.title}</div>
 									<div>
-										<img src="/images/like/eye.png">${board.viewCount}</div>
+										<img src="/images/like/eye.png">${board.numberFormat()}</div>
 								</div>
 							</div>
 						</c:forEach>
@@ -160,13 +162,9 @@
 			</c:choose>
 		</div>
 		<c:choose>
-			<c:when
-				test="${principal != null and !\"관리자\".equals(principal.userRole)}">
-				<div class="btn--write d-flex flex-row-reverse"
-					style="padding: 20px;">
-					<button type="button" class="btn btn-primary p-2"
-						style="margin-right: 55px;"
-						onclick="location.href='/board/insert'">글 쓰기</button>
+			<c:when test="${principal != null and !\"관리자\".equals(principal.userRole)}">
+				<div class="btn--write d-flex flex-row-reverse" style="padding: 20px;">
+					<button type="button" class="btn btn-primary p-2" onclick="location.href='/board/insert'">글 쓰기</button>
 				</div>
 			</c:when>
 			<c:otherwise>
@@ -174,42 +172,33 @@
 			</c:otherwise>
 		</c:choose>
 	</div>
-	
-	<!-- 페이지 숫자(< 3 4 5 >) -->
+
 	<div style="display: block; text-align: center;">
-		<c:if test="${paging.startPage != 1}">
-			<a
-				href="/notice/noticeList?nowPage=${paging.startPage - 1}&cntPerPage=${paging.cntPerPage}">&lt;</a>
-		</c:if>
-		<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
-			<c:choose>
-				<c:when test="${p == paging.nowPage}">
-					<b>${p}</b>
-				</c:when>
-				<c:when test="${p != paging.nowPage}">
-					<a
-						href="/notice/noticeList?nowPage=${p}&cntPerPage=${paging.cntPerPage}">${p}</a>
-				</c:when>
-			</c:choose>
-		</c:forEach>
-		<c:if test="${paging.endPage != paging.lastPage}">
-			<a
-				href="/notice/noticeList?nowPage=${paging.endPage+1}&cntPerPage=${paging.cntPerPage}">&gt;</a>
+
+		<c:if test="${pageCount != null}">
+			<ul class="page--list">
+				<c:forEach var="i" begin="1" end="${pageCount}" step="1">
+					<c:choose>
+						<c:when test="${i == page}">
+							<li><a href="/board/list/${i}" style="font-weight: 700; color: #007bff">${i}</a>									
+						</c:when>
+						<c:otherwise>
+							<li><a href="/board/list/${i}">${i}</a>									
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</ul>
 		</c:if>
 	</div>
-	
+
 </main>
 <%-- Modal --%>
-<div class="modal fade" id="modalDetail" data-backdrop="static"
-	data-keyboard="false" tabindex="-1"
-	aria-labelledby="myFullsizeModalLabel" aria-hidden="true">
-	<div
-		class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+<div class="modal fade" id="modalDetail" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="myFullsizeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h2 class="modal-title">그린에어 여행일지</h2>
-				<button type="button" class="close" aria-label="Close"
-					data-dismiss="modal">
+				<button type="button" class="close" aria-label="Close" data-dismiss="modal">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
@@ -218,8 +207,11 @@
 				<%-- 모달 내용 입력 --%>
 				<input type="hidden" name="boardId">
 				<div class="board--user--date">
-					<div class="board--date"
-						style="justify-content: right; padding-right: 5px; color: #808080;"></div>
+
+					<p style="color: #808080;">작성자 &ensp;</p>
+					<div class="board--userId" style="justify-content: right; padding-right: 5px; color: #808080;"></div>
+
+					<div class="board--date" style="justify-content: right; padding-right: 5px; color: #808080;"></div>
 				</div>
 				<div class="board--heart-eye d-flex align-items-center">
 
@@ -230,29 +222,19 @@
 					</div>
 					<div class="board--viewCount p-2"></div>
 
-					<img src="/images/like/like.png"
-						class="board--heartCount d-flex jflex-row-reverse"
-						style="cursor: pointer; width: 25px; height: 25px;">
+					<img src="/images/like/like.png" class="board--heartCount d-flex jflex-row-reverse" style="cursor: pointer; width: 25px; height: 25px;">
 					<div class="board--heartCount p-2"></div>
 				</div>
 
 				<div class="board--content" style="text-align: center;"></div>
-				<div class="board--user--date">
-					<p style="color: #808080;">작성자 &ensp;</p>
-					<div class="board--userId"
-						style="justify-content: right; padding-right: 5px; color: #808080;"></div>
-				</div>
+
 
 				<%-- 비동기통신으로 값 넘겨주기 --%>
-				<input type="hidden" id="userRole" value="${principal.userRole}">
-				<input type="hidden" id="managerRole" value="관리자"> <input
-					type="hidden" id="loginUserId" value="${principal.id}"> <br>
-				<br> <br> <br> <br> <br> <br> <br>
+				<input type="hidden" id="userRole" value="${principal.userRole}"> <input type="hidden" id="managerRole" value="관리자"> <input type="hidden" id="loginUserId" value="${principal.id}">
+				<br> <br> <br> <br> <br> <br> <br> <br>
 				<div class="modal--upDelete">
-					<button type="button" class="btn btn-primary" id="updateButton"
-						style="display: none; margin-right: 10px;">수정하기</button>
-					<button type="button" class="btn btn-primary" id="deleteButton"
-						style="display: none;">삭제하기</button>
+					<button type="button" class="btn btn-primary" id="updateButton" style="display: none; margin-right: 10px;">수정하기</button>
+					<button type="button" class="btn btn-primary" id="deleteButton" style="display: none;">삭제하기</button>
 				</div>
 			</div>
 		</div>

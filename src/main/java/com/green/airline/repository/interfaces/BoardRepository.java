@@ -36,6 +36,7 @@ public interface BoardRepository {
 	public List<LoveHeart> selectByLikeUser(Integer id);
 	// 게시물에 좋아요를 누른 유저 조회
 	public List<LoveHeart> selectByBoardIdAndLikeUser(@Param("id") Integer id, @Param("userId") String userId);
-	// 페이징 처리
-	public List<Board> selectByBoardList(PagingObj obj, String keyword);
+	
+	// 페이징용
+	public List<Board> selectBoardListLimit(@Param("index") Integer index, @Param("limitCount") Integer limitCount);
 }

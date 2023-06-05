@@ -93,5 +93,14 @@
 		user_id
 		= #{userId}
 	</select>
+	
+	<!-- 게시물 목록보기 페이징용 -->
+	<select id="selectBoardListLimit"
+		resultType="com.green.airline.repository.model.Board">
+		select * 
+		FROM recommend_board_tb 
+		ORDER BY created_at DESC
+		LIMIT #{index}, #{limitCount}
+	</select>
 
 </mapper>

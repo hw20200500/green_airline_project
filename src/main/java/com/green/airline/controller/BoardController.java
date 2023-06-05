@@ -51,11 +51,22 @@ public class BoardController {
 	private BoardRepository boardRepository;
 
 	// 게시글 전체 보기
-	@GetMapping("/list")
-	public String boardListAllPage(Model model) {
+	@GetMapping("/list/{page}")
+	public String boardListAllPage(Model model, @PathVariable Integer page) {
 
-		// 일반 게시물
-		List<Board> boardList = boardService.readByBoardList();
+		// 일반 게시물 (전체)
+		List<Board> allBoardList = boardService.readByBoardList();
+		
+		// 페이지 개수
+		Integer pageCount = (int) Math.ceil(allBoardList.size() / 9.0);
+		model.addAttribute("pageCount", pageCount);
+		
+		// 현재 페이지에 따라 인덱스 계산
+		Integer index = (page - 1) * 9;
+		
+		// 보여줄 게시글 (페이징)
+		List<Board> boardList = boardService.readBoardListLimit(index, 9);
+		
 		// 추천 게시물
 		List<Board> popularBoard = boardService.readPopularBoardList();
 		
@@ -239,23 +250,4 @@ public class BoardController {
 		return heartCount;
 	}
 	
-	@GetMapping("/boardSearch")
-	public String noticeSearch(@RequestParam String keyword,
-			@RequestParam(name = "nowPage", defaultValue = "1", required = false) String nowPage,
-			@RequestParam(name = "cntPerPage", defaultValue = "5", required = false) String cntPerPage, Model model) {
-		int total = 0;
-		if (keyword.equals("")) {
-			total = boardService.readNoticeCount();
-		} else {
-			total = boardService.readNoticeByKeywordCount(keyword);
-		}
-		PagingObj obj = new PagingObj(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-		List<Board> noticeList = boardService.readNoticeByTitle(obj, keyword);
-
-		model.addAttribute("paging", obj);
-		model.addAttribute("noticeList", noticeList);
-
-		return "/notice/noticeList";
-	}
-
 }
