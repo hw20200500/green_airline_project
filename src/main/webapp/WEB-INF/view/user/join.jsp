@@ -308,5 +308,5 @@ main {
 	<script src="/js/join.js"></script>
 </main>
 
-
+<input type="hidden" name="menuName" id="menuName" value="">
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.green.airline.dto.GifticonDto;
 import com.green.airline.dto.SaveMileageDto;
@@ -18,14 +19,22 @@ import com.green.airline.repository.interfaces.ProductRepository;
 import com.green.airline.repository.model.Mileage;
 import com.green.airline.repository.model.UseMileage;
 
+/**
+ * @author 정다운
+ *
+ */
 @Service
 public class MileageService {
 
 	@Autowired
 	private MileageRepository mileageRepository;
+	
 	@Autowired
 	private ProductRepository productRepository;
-	@Autowired GifticonRepository gifticonRepository;
+	
+	@Autowired 
+	private GifticonRepository gifticonRepository;
+	
 	public SaveMileageDto readSaveMileage(String memberId){
 		SaveMileageDto saveMileage = mileageRepository.selectSaveMileage(memberId); 
 		
@@ -72,13 +81,13 @@ public List<Mileage> readMileageTbOrderByMileageDateByMemberId(String memberId) 
 	return mileage;
 }
 	public void readNowMileage(String memberId, int price ,int productId){
-		int usemileage = price;// 결제 할 마일리지
+		Long usemileage = (long) price;// 결제 할 마일리지
 		List<Mileage> mileageList = mileageRepository.selectNowMileage(memberId);
 		Mileage mileageId = mileageRepository.selectMileageByMemberId(memberId);
 		GifticonDto gifticonDto = gifticonRepository.selectGifticonLimit();
 		for (Mileage mileage : mileageList) {
 			if(mileage.getBalance() >= usemileage) {
-			int updatemileage = mileage.getBalance() - usemileage;
+			Long updatemileage = mileage.getBalance() - usemileage;
 			// update 해줘야함
 			mileage.setBalance(updatemileage);
 			mileage.setMileageFromBalance(usemileage);
@@ -89,7 +98,7 @@ public List<Mileage> readMileageTbOrderByMileageDateByMemberId(String memberId) 
 			mileageRepository.insertUseDataList(mileage);
 			mileageRepository.updateBalance(mileage);
 			
-			usemileage = 0;
+			usemileage = (long) 0;
 			break;
 			}else {
 				usemileage = usemileage - mileage.getBalance();
@@ -98,10 +107,123 @@ public List<Mileage> readMileageTbOrderByMileageDateByMemberId(String memberId) 
 				mileage.setGifticonId(gifticonDto.getId());
 				mileage.setMemberId(memberId);
 				mileage.setProductId(productId);
-				mileage.setBalance(0);
+				mileage.setBalance((long) 0);
 				mileageRepository.insertUseDataList(mileage);
 				mileageRepository.updateBalance(mileage);
 			}
 		}
 	}
+	
+	/**
+	 * @author 서영
+	 * 마일리지 티켓 결제
+	 */
+	@Transactional
+	public void createUseMilesDataByTicket(String memberId, Long price, String ticketId) {
+		// 결제할 마일리지
+		Long useMileage = price;
+		// 유효 기간이 남은 적립 마일리지 목록
+		List<Mileage> mileageList = mileageRepository.selectNowMileage(memberId);
+		
+		// 마일리지 사용 내역 추가
+		Mileage useMiles = Mileage.builder()
+							.useMileage(useMileage)
+							.description("항공권 예매")
+							.memberId(memberId)
+							.ticketId(ticketId)
+							.build();
+		mileageRepository.insertUseMileageByTicket(useMiles);
+		
+		for (Mileage m : mileageList) {
+			// 해당 내역의 잔여 마일리지가 결제할 마일리지보다 많거나 서로 같다면
+			if (m.getBalance() >= useMileage) {
+				Long updateMileage = m.getBalance() - useMileage;
+
+				m.setBalance(updateMileage);
+				m.setMileageFromBalance(useMileage);
+				m.setDateFormExpiration(m.getExpirationDate());
+				m.setTicketId(ticketId);
+				
+				// 마일리지 차감
+				mileageRepository.updateBalance(m);
+				
+				// 마일리지 사용 내역 상세 추가
+				UseMileage useMilesDetail = new UseMileage(useMileage, m.getId(), ticketId);
+				mileageRepository.insertUseMileageDetailByTicket(useMilesDetail);
+				
+				useMileage = (long) 0;
+				break;
+				
+			// 해당 내역의 잔여 마일리지가 결제할 마일리지보다 적다면 (다음 반복으로 넘어감)
+			} else {
+				useMileage = useMileage - m.getBalance();
+				
+				// 마일리지 사용 내역 상세 추가
+				UseMileage useMilesDetail = new UseMileage(m.getBalance(), m.getId(), ticketId);
+				
+				m.setMileageFromBalance(m.getBalance());
+				m.setDateFormExpiration(m.getExpirationDate());
+				m.setTicketId(ticketId);
+				m.setBalance((long) 0);
+				
+				// 마일리지 차감
+				mileageRepository.updateBalance(m);
+				
+				mileageRepository.insertUseMileageDetailByTicket(useMilesDetail);
+			}
+		}
+	}
+	
+	/**
+	 * @author 서영
+	 * 티켓 마일리지 결제 환불 처리
+	 */
+	@Transactional
+	public void updateUseMilesDataStatus(String memberId, Long fee, Long refundAmount, String ticketId) {
+		// refundAmount : 수수료를 제외하고, 환불해주어야 하는 총 마일리지
+		
+		// 환불 수수료를 사용 내역으로 남김
+		// 마일리지 사용 내역 추가
+		Mileage useMiles = Mileage.builder()
+							.useMileage(fee)
+							.description("항공권 환불 수수료")
+							.memberId(memberId)
+							.ticketId(ticketId)
+							.build();
+		mileageRepository.insertUseMileageByTicket(useMiles);
+		
+		// 마일리지 상세 사용 내역 가져오기
+		List<UseMileage> useMilesDetailList = mileageRepository.selectUseMileageDataDetailByTicketId(ticketId);
+		// mileageFromBalance : 해당 적립 내역에서 사용한 마일리지
+		
+		// 유효기간이 적은 마일리지부터 돌려줌
+		for (UseMileage u : useMilesDetailList) {
+			// 환불 잔여 마일리지보다 해당 적립 내역에 돌려주어야 하는 마일리지가 적거나 서로 같다면 (다음 반복 진행)
+			if (refundAmount >= u.getMileageFromBalance()) {
+				// 환불 잔여 마일리지 차감
+				refundAmount -= u.getMileageFromBalance();
+				// 마일리지 환불
+				mileageRepository.updateBalanceByRefund(u.getBuyMileageId(), u.getMileageFromBalance());
+				
+				// 환불된 후, 사용 상세 내역 삭제
+				mileageRepository.deleteUseMileageDetailByMilesId(u.getBuyMileageId());
+				
+			// 환불 잔여 마일리지보다 해당 적립 내역에 돌려주어야 하는 마일리지가 크다면
+			// 환불 수수료가 부과되었다는 의미 (반복 종료)
+			} else {
+				// 마일리지 환불
+				mileageRepository.updateBalanceByRefund(u.getBuyMileageId(), refundAmount);
+				// 환불 잔여 마일리지 차감
+				refundAmount = (long) 0;
+				
+				// 환불된 후, 사용 상세 내역 삭제
+				mileageRepository.deleteUseMileageDetailByMilesId(u.getBuyMileageId());
+				
+				break;
+			}
+		}
+	}
+	
+	
+	
 }

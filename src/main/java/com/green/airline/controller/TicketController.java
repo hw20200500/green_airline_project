@@ -281,6 +281,9 @@ public class TicketController {
 		
 		Long price = sch1AdultPrice + sch1ChildPrice + sch1InfantPrice;
 		ticketDto.setPrice(price);
+		// 마일리지 가격
+		Long milesPrice = (long) Math.floor(price * Define.MILES_TICKET_RATE);
+		model.addAttribute("milesPrice", milesPrice);
 		
 		// 왕복이라면
 		if (ticketDto.getScheduleId2() != null) {
@@ -302,6 +305,8 @@ public class TicketController {
 			
 			Long price2 = sch2AdultPrice + sch2ChildPrice + sch2InfantPrice;
 			ticketDto.setPrice2(price2);
+			Long milesPrice2 = (long) Math.floor(price2 * Define.MILES_TICKET_RATE);
+			model.addAttribute("milesPrice2", milesPrice2);
 		}
 		
 		model.addAttribute("ticket", ticketDto);

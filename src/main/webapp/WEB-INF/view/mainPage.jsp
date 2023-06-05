@@ -12,6 +12,7 @@
 
 <link rel="stylesheet" href="/css/mainPage.css">
 
+
 <div class="main--img--div">
 	<div style="width: 1178px; margin-left: 24px;">
 		<div class="menu--name--div">
@@ -193,8 +194,74 @@
 </div>
 
 
-<!-- 여기 안에 쓰기 -->
-<main></main>
+<main>
+	<!-- 공지사항, 자주 묻는 질문 -->
+	<div class="notice--faq--div">
+		<!-- 공지사항 -->
+		<div class="main--page--notice">
+			<div class="title--div">
+				<a href="/notice/noticeList">공지사항</a>
+				<a href="/notice/noticeList"><span class="material-symbols-outlined">add</span></a>
+			</div>
+			<table>
+				<c:forEach var="notice" items="${noticeList}">
+					<tr>
+						<td>
+							<a href="/notice/noticeDetail/${notice.id}">
+								<span class="category--span">[${notice.name}]</span>&nbsp;&nbsp;${notice.title}
+							</a>
+						</td>
+						<td>${notice.dateFormatType2()}
+					</tr>
+				</c:forEach>
+			</table>
+		</div>
+		
+		<div class="main--page--faq">
+			<div class="title--div">
+				<a href="/faq/faqList?categoryId=1">자주 묻는 질문</a>
+				<a href="/faq/faqList?categoryId=1"><span class="material-symbols-outlined">add</span></a>
+			</div>
+			<table>
+				<c:forEach var="i" items="${indexArr}">
+					<tr>
+						<td>
+							<a href="/faq/faqList?categoryId=${faqList.get(i).categoryId}">
+								<span class="category--span">[${faqList.get(i).name}]</span>&nbsp;&nbsp;${faqList.get(i).title}
+							</a>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+
+		</div>
+	</div>
+	
+	<!-- 주요 서비스 -->
+	<div class="service--div">
+		<ul class="service--ul" onclick="location.href='/map'">
+			<li><span class="material-symbols-outlined">location_on</span>
+			<li>공항 위치 조회
+		</ul>
+		<ul class="service--ul" onclick="location.href='/inFlightService/inFlightServiceSearch'">
+			<li><span class="material-symbols-outlined">flight</span>
+			<li>기내 서비스 조회
+		</ul>
+		<ul class="service--ul" onclick="location.href='/board/list'">
+			<li><span class="material-symbols-outlined">luggage</span>
+			<li>여행지 추천
+		</ul>
+		<ul class="service--ul" onclick="location.href='/product/productMain/clasic'">
+			<li><span class="material-symbols-outlined">fastfood</span>
+			<li>마일리지샵
+		</ul>
+	</div>
+</main>
+
+
+
+
+
 
 <!-- 전체 공항 조회 모달 -->
 <div class="modal fade header--modal all--airport--modal">

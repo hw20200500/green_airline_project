@@ -198,7 +198,13 @@
 					<span class="material-symbols-outlined">credit_card</span>
 					<span>결제 정보</span>
 				</h5>
-				<div>
+				<div style="width: 100%; text-align: center;">
+					<label><input type="radio" name="paymentType" value="0" checked>&nbsp;카카오페이</label>
+					<span style="margin: 20px;"></span>
+					<label><input type="radio" name="paymentType" value="1">&nbsp;마일리지</label>
+				</div>
+				<br>
+				<div id="kakaoPayDiv">
 					<table border="1" class="payment--table">
 						<tr class="payment--tb--depth--1">
 							<th colspan="2">
@@ -274,15 +280,100 @@
 							</th>
 						</tr>
 					</table>
+					<br>
 					
+					<div id="kakaoPayImgDiv">
+						<img src="/images/kakao_pay.png" id="kakaoPayImg">
+					</div>
 				</div>
-				<br>
 				
-				<div id="kakaoPayImgDiv">
-					<img src="/images/kakao_pay.png" id="kakaoPayImg">
+				<div id="milesPayDiv">
+					<table border="1" class="payment--table">
+						<tr class="payment--tb--depth--1">
+							<th colspan="2">
+								<c:choose>
+									<c:when test="${ticket.scheduleId2 != null}">
+										여정 1 요금	
+									</c:when>
+									<c:otherwise>
+										편도 요금
+									</c:otherwise>
+								</c:choose>
+							</th>
+						</tr>
+						<tr class="payment--tb--depth--2">
+							<td>${ticket.seatGrade}</td>
+							<td><td>
+						<tr class="payment--tb--depth--3">
+							<td>성인 ${ticket.adultCount}인</td>
+							<!-- 콤마 찍어서 나타내기 -->
+							<td><fmt:formatNumber value="${ticket.milesPrice(sch1AdultPrice)}" pattern="#,###"/>&nbsp;마일</td>
+						</tr>
+						<c:if test="${ticket.childCount != 0}">
+							<tr class="payment--tb--depth--3">
+								<td>소아 ${ticket.childCount}인</td>
+								<td><fmt:formatNumber value="${ticket.milesPrice(sch1ChildPrice)}" pattern="#,###"/>&nbsp;마일</td>
+							</tr>
+						</c:if>
+						<c:if test="${ticket.infantCount != 0}">
+							<tr class="payment--tb--depth--3">
+								<td>유아 ${ticket.infantCount}인</td>
+								<td><fmt:formatNumber value="${ticket.milesPrice(sch1InfantPrice)}" pattern="#,###"/>&nbsp;마일</td>
+							</tr>
+						</c:if>
+						
+						<!-- 왕복이라면 -->
+						<c:if test="${ticket.scheduleId2 != null}">
+							<tr class="payment--tb--depth--1">
+								<th colspan="2">여정 2 요금</th>
+							</tr>
+							<tr class="payment--tb--depth--2">
+								<td>${ticket.seatGrade2}</td>
+								<td><td>
+							</tr>
+							<tr class="payment--tb--depth--3">
+								<td>성인 ${ticket.adultCount}인</td>
+								<!-- 콤마 찍어서 나타내기 -->
+								<td><fmt:formatNumber value="${ticket.milesPrice(sch2AdultPrice)}" pattern="#,###"/>&nbsp;마일</td>
+							</tr>
+							<c:if test="${ticket.childCount != 0}">
+								<tr class="payment--tb--depth--3">
+									<td>소아 ${ticket.childCount}인</td>
+									<td><fmt:formatNumber value="${ticket.milesPrice(sch2ChildPrice)}" pattern="#,###"/>&nbsp;마일</td>
+								</tr>
+							</c:if>
+							<c:if test="${ticket.infantCount != 0}">
+								<tr class="payment--tb--depth--3">
+									<td>유아 ${ticket.infantCount}인</td>
+									<td><fmt:formatNumber value="${ticket.milesPrice(sch2InfantPrice)}" pattern="#,###"/>&nbsp;마일</td>
+								</tr>
+							</c:if>
+						</c:if>
+						<tr>
+							<th>총액</th>
+							<th>
+								<c:choose>
+									<c:when test="${ticket.scheduleId2 != null}">
+										<fmt:formatNumber value="${ticket.milesPrice(ticket.price) + ticket.milesPrice(ticket.price2)}" pattern="#,###"/>&nbsp;마일
+									</c:when>
+									<c:otherwise>
+										<fmt:formatNumber value="${ticket.milesPrice(ticket.price)}" pattern="#,###"/>&nbsp;마일
+									</c:otherwise>
+								</c:choose>
+							</th>
+						</tr>
+					</table>
+					<br>
+					<div id="milesBtnDiv">
+						<button type="submit" id="milesPayBtn" class="blue--btn--small" onclick="return confirm('마일리지 결제를 진행하시겠습니까?');">
+							<ul class="d-flex justify-content-center" style="margin: 0;">
+								<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">flight</span>
+								<li style="margin-left: 4px;">Miles Pay
+							</ul>
+						</button>
+					</div>
 				</div>
 			</div>
-			
 		</div>
 	</div>
 	
@@ -297,6 +388,7 @@
 	let seatGrade1 = `${ticket.seatGrade}`;
 	let seatNames1 = new Array();
 	let price = ${ticket.price};
+	let milesPrice = ${milesPrice};
 	
 	// 여정 개수 (1 == 편도, 2 == 왕복)
 	let scheduleCount = 1;
@@ -325,6 +417,7 @@
 	<script>
 		scheduleCount = 2;
 		let price2 = ${ticket.price2};
+		let milesPrice2 = ${milesPrice2};
 		scheduleId2 = ${ticket.scheduleId2};
 		seatGrade2 = `${ticket.seatGrade2}`;
 		seatNames2 = new Array();

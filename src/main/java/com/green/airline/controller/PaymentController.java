@@ -22,17 +22,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import com.green.airline.dto.SaveMileageDto;
 import com.green.airline.dto.kakao.PayApproveDto;
 import com.green.airline.dto.kakao.PaymentResponseDto;
 import com.green.airline.dto.kakao.RefundResponseDto;
 import com.green.airline.dto.request.RefundDto;
 import com.green.airline.dto.response.MemberInfoDto;
+import com.green.airline.dto.response.ResponseDto;
 import com.green.airline.dto.response.TicketAllInfoDto;
 import com.green.airline.dto.response.TicketDto;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.model.Member;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.CoolSmsService;
+import com.green.airline.service.MileageService;
 import com.green.airline.service.RefundService;
 import com.green.airline.service.TicketService;
 import com.green.airline.service.UserService;
@@ -59,6 +62,8 @@ public class PaymentController {
 	
 	private final String KAKAO_API_KEY = "3634279e46d43dee4be45365feaec12f";
 	
+	@Autowired
+	private MileageService mileageService;
 
 	/**
 	 * @author 서영
@@ -114,18 +119,19 @@ public class PaymentController {
 		// 해당 유저의 가장 최근 예약 내역을 가져오면 예약 ID를 가져올 수 있음
 		// 예약 ID를 가져와서 결제 내역도 삭제
 		try {
-			ticketService.createTicketAndPayment(ticketDto, userId);
+			ticketService.createTicketAndPayment(ticketDto, userId, 0);
 			
 		} catch (Exception e) {
 			// 뒤로가기 했다가 다시 결제 요청을 할 경우를 대비해서 삭제했다가 다시 추가
 			ticketService.deleteTicketByPaymentCancel(userId);
-			ticketService.createTicketAndPayment(ticketDto, userId);
+			ticketService.createTicketAndPayment(ticketDto, userId, 0);
 		}
 		
 		return responseDto.getBody().getNextRedirectPcUrl().toString();
 	}
 
 	/**
+	 * @author 서영
 	 * 결제 완료 시 티켓 예약 처리
 	 * @return 결제 완료 페이지
 	 */
@@ -170,6 +176,7 @@ public class PaymentController {
 	}
 	
 	/**
+	 * @author 서영
 	 * 결제 취소 시
 	 * @return 항공스케줄 선택 페이지
 	 */
@@ -184,6 +191,7 @@ public class PaymentController {
 	}
 	
 	/**
+	 * @author 서영
 	 * 결제 실패 시
 	 * @return 항공스케줄 선택 페이지
 	 */
@@ -198,16 +206,13 @@ public class PaymentController {
 	}
 	
 	/**
+	 * @author 서영
 	 * 환불 요청
 	 */
 	@PostMapping("/refund")
 	public String refundProc(RefundDto refundDto) {
 		
-		RestTemplate restTemplate = new RestTemplate();
-		
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Authorization", "KakaoAK " + KAKAO_API_KEY);
-		headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+		String userId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
 		
 		// 취소 금액 여기서 계산
 		// 전체 결제 금액
@@ -216,41 +221,97 @@ public class PaymentController {
 		// 환불 수수료 구하기
 		// 국내선/국제선 여부
 		Integer scheduleType = refundDto.getScheduleType();
+
 		// 티켓 출발일 - 현재 날짜 차이
 		Integer dayCount = refundDto.getDayCount();
-		System.out.println("날짜 차이 : " + dayCount);
-		
-		// 성인 1인 기준 환불 수수료
-		Long fee = refundService.readRefundFee(scheduleType, dayCount);
-		System.out.println("인당 수수료 : " + fee);
 		
 		Integer adultCount = refundDto.getAdultCount();
 		Integer childCount = refundDto.getChildCount();
 		
-		Long totalFee = (fee * adultCount) + Math.round(fee * childCount * Define.CHILD_PRICE_RATE);	
-		System.out.println("최종 수수료 : " + totalFee);
+		// 카카오페이라면
+		if (refundDto.getTid().substring(0, 0).equals("T")) {
 		
-		// 최종 환불 금액
-		Long refundAmount = paymentAmount - totalFee;
-		System.out.println("최종 환불 금액 : " + refundAmount);
-		
-		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-		params.add("cid", "TC0ONETIME");
-		params.add("tid", refundDto.getTid());
-		params.add("cancel_amount", refundAmount + "");
-		params.add("cancel_tax_free_amount", "0");
-		
-		HttpEntity<MultiValueMap<String, String>> reqEntity = new HttpEntity<>(params, headers);
-		
-		ResponseEntity<RefundResponseDto> responseDto
-			= restTemplate.exchange("https://kapi.kakao.com/v1/payment/cancel", HttpMethod.POST,
-									reqEntity, RefundResponseDto.class);
+			RestTemplate restTemplate = new RestTemplate();
+			
+			HttpHeaders headers = new HttpHeaders();
+			headers.add("Authorization", "KakaoAK " + KAKAO_API_KEY);
+			headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+			
+			// 성인 1인 기준 환불 수수료
+			Long fee = refundService.readRefundFee(scheduleType, dayCount);
+			Long totalFee = (fee * adultCount) + Math.round(fee * childCount * Define.CHILD_PRICE_RATE);	
+			
+			// 최종 환불 금액
+			Long refundAmount = paymentAmount - totalFee;
+			
+			MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+			params.add("cid", "TC0ONETIME");
+			params.add("tid", refundDto.getTid());
+			params.add("cancel_amount", refundAmount + "");
+			params.add("cancel_tax_free_amount", "0");
+			
+			HttpEntity<MultiValueMap<String, String>> reqEntity = new HttpEntity<>(params, headers);
+			
+			ResponseEntity<RefundResponseDto> responseDto
+				= restTemplate.exchange("https://kapi.kakao.com/v1/payment/cancel", HttpMethod.POST,
+										reqEntity, RefundResponseDto.class);
+		// 마일리지 결제라면
+		} else {
+			
+			// 성인 1인 기준 환불 수수료
+			Long fee = (long) Math.floor(refundService.readRefundFee(scheduleType, dayCount) * Define.MILES_TICKET_RATE);
+			Long totalFee = (fee * adultCount) + Math.round(fee * childCount * Define.CHILD_PRICE_RATE);	
+			
+			// 최종 환불 금액
+			Long refundAmount = paymentAmount - totalFee;
+			// 마일리지 환불 처리
+			mileageService.updateUseMilesDataStatus(userId, totalFee, refundAmount, refundDto.getTicketId());
+			
+		}
 		
 		// 환불 관련 DB 처리
 		ticketService.updateStatusRefund(refundDto.getTid(), refundDto.getTicketId(), refundDto.getTicketType());
 		
-		return "redirect:/ticket/list/1";
+		return "redirect:/ticket/detail/" + refundDto.getTicketId();
 	}
 	
+	/**
+	 * @author 서영
+	 * 마일리지 결제
+	 */
+	@PostMapping("/miles")
+	@ResponseBody
+	public ResponseDto<String> milesPaymentProc(@RequestBody TicketDto ticketDto) {
+		
+		int statusCode = HttpStatus.OK.value();
+		int code = Define.CODE_SUCCESS;
+		String message = "결제가 성공했습니다.";
+		String resultCode = Define.RESULT_CODE_SUCCESS;
+		String data = "";
+		
+		String userId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
+		// 현재 마일리지
+		Long currentMiles = (long) mileageService.readSaveMileage(userId).getBalance();
+		
+		Long milesPrice = ticketDto.getMilesPrice();
+		// 결제할 마일리지
+		if (ticketDto.getScheduleId2() != null) {
+			milesPrice += ticketDto.getMilesPrice2();
+		}
+		
+		// 현재 마일리지보다 결제할 마일리지가 높다면
+		if (currentMiles < milesPrice) {
+			statusCode = HttpStatus.BAD_REQUEST.value();
+			code = Define.CODE_FAIL;
+			message = "마일리지가 부족합니다.";
+			resultCode = Define.RESULT_CODE_FAIL;
+			
+		} else {
+			// 결제 처리 (티켓아이디 반환)
+			data = ticketService.createTicketAndPayment(ticketDto, userId, 1);
+			
+		}
+		return new ResponseDto<String>(statusCode, code, message, resultCode, data);
+	}
 	
 }

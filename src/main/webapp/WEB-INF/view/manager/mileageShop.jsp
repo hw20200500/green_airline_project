@@ -19,7 +19,7 @@
 	<h2>마일리지샵</h2>
 	<hr>
 	<br>
-	<div class = "d-flex justify-content-around align-items-end" style="height: 280px; padding: 0 165px">
+	<div class="service--div">
 		<ul class="service--ul" onclick="location.href='/product/productMain/clasic'">
 			<li><span class="material-symbols-outlined">fastfood</span>
 			<li>상품 목록

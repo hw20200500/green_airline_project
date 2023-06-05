@@ -90,9 +90,6 @@ public class ManagerController {
 	private ManagerService managerService;
 	
 	@Autowired
-	private ScheduleService scheduleService;
-
-	@Autowired
 	private InFlightSvService inFlightSvService;
 
 	@Autowired
@@ -509,4 +506,23 @@ public class ManagerController {
 		model.addAttribute("inFlightMealResponseDtos", inFlightMealResponseDtos);
 		return "/manager/baggageRequest";
 	}
+	
+	/**
+	 * @author 서영
+	 * @return 고객센터 탭 메인 페이지
+	 */
+	@GetMapping("/customerCenter")
+	public String customerCenterPage() {
+		return "/manager/customerCenter";
+	}
+	
+	/**
+	 * @author 서영
+	 * @return 게시판 관리 탭 메인 페이지
+	 */
+	@GetMapping("/boardManage")
+	public String boardManagePage() {
+		return "/manager/boardManage";
+	}
+	
 }

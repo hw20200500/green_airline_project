@@ -64,4 +64,11 @@ public class FaqService {
 		return faqResponseDto;
 	}
 
+	/**
+	 * @author 서영
+	 * @return 모든 faq
+	 */
+	public List<FaqResponseDto> readFaqAll() {
+		return faqRepository.selectFaqAll();
+	}
 }
