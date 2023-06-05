@@ -143,8 +143,8 @@ public class ProductController {
 				file2.transferTo(destination2);
 
 				// 객체 상태 변경(dto)
-				shopProduct.setOriginFileName(file.getOriginalFilename());
-				shopProduct.setOriginFileName2(file2.getOriginalFilename());
+				shopProduct.setOriginFileName(fileName);
+				shopProduct.setOriginFileName2(fileName2);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -169,7 +169,7 @@ public class ProductController {
 		}
 
 		productService.productRegistration(shopProduct);
-		return "redirect:/product/productMain";
+		return "redirect:/product/productMain/clasic";
 	}
 
 	/**
@@ -254,12 +254,10 @@ public class ProductController {
 	public String productDetailPage(@PathVariable int id, Model model) {
 		Mileage mileage = new Mileage();
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-		System.out.println(principal);
 		ShopProduct shopProduct = productService.productDetail(id);
 		model.addAttribute(shopProduct);
-		System.out.println("shopProduct : " + shopProduct);
 		
-		if (principal.getUserRole().equals("유저")) {
+		if (principal.getUserRole().equals("회원")) {
 			mileage = productService.readMileage(principal.getId());
 			System.out.println("mileage : " + mileage);
 			model.addAttribute(mileage);

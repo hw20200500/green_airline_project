@@ -65,7 +65,7 @@ h4#tab_title {
 
 .searchKind, input[type=radio] {
 	width: 17px;
-	height: 17px;
+	height: 14px;
 }
 
 table#gifticonList--tr--thead{
@@ -94,13 +94,18 @@ table#gifticonList--tr--thead{
 }
 
 .calendar_wrap {
-	margin-left: 260px;
+	margin-left: 300px;
 }
 
 .btn-light {
-	padding-top: 0; margin-bottom2px;
+	padding-top: 0; 
+	margin-top:8px;
 	height: 30px;
 	text-align: center;
+	width: 121px;
+}
+#gifticon--search{
+	margin-left: 182px;
 }
 #gifticonList{
 	background-color: white;
@@ -108,10 +113,18 @@ table#gifticonList--tr--thead{
 .title{
 	text-align: center;
 }
+label{
+margin-right:8px;
+}
+#sCalendar01,#sCalendar02,#searchMemberId{
+width:128px;
+	border: 1px solid #ccc;
+}
+
 </style>
 <!-- 여기 안에 쓰기 -->
 <main>
-	<h1 class="title">기프티콘 구매/환불 리스트</h1>
+	<h1 class="title">고객 기프티콘 구매/환불 리스트</h1>
 	<div class="container">
 		<form action="mileageList" method="get" id="form">
 			<div id="checkboxList"></div>
@@ -119,7 +132,7 @@ table#gifticonList--tr--thead{
 			<dl>
 				
 				<dd>
-					<strong class="sortation"></strong><input type="radio" name="chk" value="buy">구매내역 <input type="radio" name="chk" value="revoke">취소내역
+					<strong class="sortation"></strong><input type="radio" name="chk" value="buy"><label>구매내역</label> <input type="radio" name="chk" value="revoke"><label>취소내역</label>
 				</dd>
 			</dl>
 			<dl>
@@ -145,8 +158,11 @@ table#gifticonList--tr--thead{
 							<span class="mid_txt">부터 ~</span>
 							<input type="text" name="endTime" title="종료일" id="sCalendar02" class="datepicker input_cal" placeholder="종료일 선택" data-dateformat="y.mm.dd D" data-type="single_infinite_last"> <a
 								href="#none" class="btn_airport type2 calendar_focus"></a>
-								<input type="text" name="memberId" class="mamberId" id="searchMemberId" placeholder="유저 이름">
+								<label>회원 이름 : </label>
+								<input type="text" name="memberId" class="mamberId" id="searchMemberId" placeholder="회원 이름">
+								<div class="btnDiv">
 								<button id="gifticon--search" type="button" class="btn btn-light">조회하기</button>
+								</div>
 						</div>
 					</div>
 				</dd>

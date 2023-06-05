@@ -16,7 +16,7 @@ public interface GifticonRepository {
 	public List<GifticonDto> selectGifticonList(@Param("id")String id,@Param("startTime")String startTime,@Param("endTime")String endTime,@Param("radio")String radio);
 	public List<GifticonDto> selectGifticonListForManager(@Param("id")String id,@Param("startTime")String startTime,@Param("endTime")String endTime,@Param("radio")String radio);
 	public int deleteGifticonBygifticonId(@Param("gifticonId")String[] gifticonId);
-	public int insertRevokeGifticon(@Param("amount")String amount,@Param("brand")String brand,@Param("name")String name);
+	public int insertRevokeGifticon(String gifticonId);
 	public GifticonDto selectGifticonLimit();
 	// 기프티콘 상태값 업데이트
 	public int updateGifticonStatus(@Param("gifticonId")String gifticonId);

@@ -66,8 +66,8 @@
 		update gifticon_tb set status = 1 where id= #{gifticonId};
 	</update>
 	<insert id="insertRevokeGifticon">
-		INSERT INTO gifticon_revoke_tb(amount, brand, name)
-		VALUES(#{amount}, #{brand}, #{name})
+		INSERT INTO gifticon_revoke_tb(gifticon_id)
+		VALUES(#{gifticonId})
 
 	</insert>
 	<select id="selectGifticonLimit" resultType="com.green.airline.dto.GifticonDto">

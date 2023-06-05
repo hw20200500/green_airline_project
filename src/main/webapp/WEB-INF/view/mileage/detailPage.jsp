@@ -17,6 +17,8 @@
 	border: 1px solid gray;
 	font-size: 12pt;;
 	font-family: 'Malgun Gothic';
+	 
+	
 }
 
 .tbl_prdinfo .tbl_prdinfo_tit {
@@ -84,9 +86,6 @@ img {
 	margin-left: 100px;
 }
 
-hr {
-	background: black;
-}
 
 .small {
 	background-color: rgb(243, 243, 243);
@@ -125,6 +124,8 @@ hr {
 
 .email {
 	width: 50%;
+	background-color: rgb(243, 243, 243);
+	border: 1px solid #ccc;
 }
 </style>
 
@@ -438,6 +439,7 @@ hr {
 				</div>
 			</div>
 		</div>
+		</main>
 		<script type="text/javascript">
 		/* 옵션 선택하면 구매하기 버튼 숨기기 */
 		let buyBtn = $("#buyButton").hide();

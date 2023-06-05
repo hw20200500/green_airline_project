@@ -25,8 +25,8 @@ public class GifticonService {
 		List<GifticonDto> gifticonDtos = gifticonRepository.selectGifticonListForManager(memberId,startTime,endTime,radio);
 		return gifticonDtos; 
 	}
-	public int createRevokeGifticon(String amount,String brand,String name) {
-		int result = gifticonRepository.insertRevokeGifticon(amount, brand, name);
+	public int createRevokeGifticon(String gifticonId) {
+		int result = gifticonRepository.insertRevokeGifticon(gifticonId);
 		return result;
 	}
 	

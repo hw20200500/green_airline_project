@@ -3,6 +3,7 @@
 
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <style>
+
 .tab_wrap6 li {
 	float: left;
 }
@@ -19,7 +20,7 @@
 
 
 .sortation {
-	margin-left: 450px;
+	margin-left: 300px;
 }
 
 #checkboxList {
@@ -65,7 +66,7 @@ h4#tab_title {
 
 .searchKind, input[type=radio] {
 	width: 17px;
-	height: 17px;
+	height: 14px;
 }
 
 table#gifticonList--tr--thead{
@@ -94,7 +95,7 @@ table#gifticonList--tr--thead{
 }
 
 .calendar_wrap {
-	margin-left: 330px;
+	margin-left: 300px;
 }
 
 .btn-light {
@@ -108,6 +109,12 @@ table#gifticonList--tr--thead{
 .title{
 	text-align: center;
 }
+#sCalendar01,#sCalendar02{
+	width: 150px;
+}
+.buy{
+margin-right: 15px;
+}
 </style>
 <!-- 여기 안에 쓰기 -->
 <main>
@@ -119,7 +126,7 @@ table#gifticonList--tr--thead{
 			<dl>
 				
 				<dd>
-					<strong class="sortation"></strong><input type="radio" name="chk" value="buy">구매내역 <input type="radio" name="chk" value="revoke">취소내역
+					<strong class="sortation"></strong><input type="radio" name="chk" value="buy" ><span class="buy">구매내역</span><input type="radio" name="chk" value="revoke">취소내역
 				</dd>
 			</dl>
 			<dl>

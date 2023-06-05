@@ -25,11 +25,11 @@
 }
 
 strong {
-	margin-right: 300px;
+	margin-right: 240px;
 }
 
 .sortation {
-	margin-right: 300px;
+	margin-right: 255px;
 }
 
 #checkboxList {
@@ -77,7 +77,7 @@ h4#tab_title {
 
 .searchKind, input[type=radio] {
 	width: 17px;
-	height: 17px;
+	height: 14px;
 }
 
 table#savemileage--List, table#usemileage--List, table#expirationDatemileage--List {
@@ -114,13 +114,16 @@ table#savemileage--List th, table#usemileage--List th, table#expirationDatemilea
 }
 
 .calendar_wrap {
-	margin-left: 330px;
+	margin-left: 300px;
 }
 .btn-light{
 padding-top: 0;
 margin-bottom2px;
 	height: 30px;
 	text-align: center;
+}
+#sCalendar01,#sCalendar02{
+	width: 191px;
 }
 -->
 </style>
@@ -160,7 +163,7 @@ margin-bottom2px;
 				<strong class="sortation">구분</strong> <input type="checkbox" class="searchKind" id="mileageType0" name="isAllSearch" value="isAllSearch" /> <label for="mileageType0">전체</label> <input
 					type="checkbox" class="searchKind" id="mileageType1" name="isUpSearch" value="isUpSearch" /> <label for="mileageType1">적립</label> <input type="checkbox" class="searchKind" id="mileageType2"
 					name="isUseSearch" value="isUseSearch" /> <label for="mileageType2">사용</label> <input type="checkbox" class="searchKind" id="mileageType3" name="isExpireSearch" value="isExpireSearch" /> <label
-					for="mileageType3">소멸된 마일리지</label>
+					for="mileageType3">소멸</label>
 			</div>
 
 			<dl>

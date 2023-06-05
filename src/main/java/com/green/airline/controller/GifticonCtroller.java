@@ -35,7 +35,7 @@ public class GifticonCtroller {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		memberId = principal.getId();
 		for (int i = 0; i < gifticonId.length; i++) {
-			gifticonService.createRevokeGifticon(amount[i], brand[i], name[i]);
+			gifticonService.createRevokeGifticon(gifticonId[i]);
 			gifticonService.updateMileageAndGifticonStatus(memberId, gifticonId[i]);
 		}
 		

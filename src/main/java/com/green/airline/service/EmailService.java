@@ -11,6 +11,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.struts.taglib.html.ImgTag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.mail.MailException;
@@ -46,28 +47,27 @@ public class EmailService {
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         // 집에서 사용
         // String imagePath = "C:\\Users\\a\\Desktop\\image/"+gifticonImageName;
-        String imagePath = "C:\\Users\\GGG\\Desktop\\image/"+gifticonImageName;
+        String imagePath = "C:\\upload/"+gifticonImageName;
         File imageFile = new File(imagePath);
         helper.setTo(to);
-        helper.setSubject("GREEN AIR 항공 마일리지몰");
+        helper.setSubject("그린항공 마일리지몰");
         if (imageFile.exists()) {
             try {
             	String imageDataUri = getImageDataUri(imagePath);
-                String imageTag = "<img src='" + imageDataUri + "' alt='이미지'>";
+                String imageTag = "<img src='" + imageDataUri + "' alt='이미지' style=width:500px; height:500px;>";
                 String imageCid = "image_cid";
                 // 이미지를 인라인으로 첨부 (Content-ID 설정)
                 helper.addInline(imageCid, new ByteArrayResource(Files.readAllBytes(imageFile.toPath())), "image/png");
                 // HTML 내용 작성
-                String htmlContent = "<div style='margin:100px;'>";
+                String htmlContent = "<div>";
                 htmlContent += "<h1>안녕하세요</h1>";
-                htmlContent += "<h1>GREEN AIR 항공입니다</h1>";
+                htmlContent += "<h1>그린항공입니다</h1>";
                 htmlContent += "<br>";
                 htmlContent += "<p>구입하신 상품의 기프티콘입니다.</p>";
                 htmlContent += "<br>";
-                htmlContent += "<div align='center' style='border:1px solid black; font-family:verdana;'>";
-                htmlContent += "<h3 style='color:blue;'>회원가입 인증 코드입니다.</h3>";
+                htmlContent += "<div style='font-family:verdana;'>";
                 htmlContent += "<div style='font-size:130%'>";
-                htmlContent += ePw + "</strong><div><br/> ";
+                htmlContent += imageTag;
                 htmlContent += "</div>";
                 message.setContent(htmlContent, "text/html; charset=UTF-8");
                 helper.setFrom(new InternetAddress("ekdns8276@naver.com", "GREEN AIR"));
@@ -86,21 +86,26 @@ public class EmailService {
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         // 집에서 사용
         // String imagePath = "C:\\Users\\a\\Desktop\\image/"+gifticonImageName;
+        String imagePath = "C:\\upload/logo/logo.jpg";
+        File imageFile = new File(imagePath);
         helper.setTo(to);
-        helper.setSubject("GREEN AIR 항공 마일리지몰");
+        helper.setSubject("그린항공 이메일 인증을 위한 인증번호를 안내 드립니다.");
             try {
+            	String imageDataUri = getImageDataUri(imagePath);
+                String imageTag = "<img src='" + imageDataUri + "' alt='이미지' style=width:200px; height:200px;>";
                 String imageCid = "image_cid";
                 // 이미지를 인라인으로 첨부 (Content-ID 설정)
+                helper.addInline(imageCid, new ByteArrayResource(Files.readAllBytes(imageFile.toPath())), "image/png");
                 // HTML 내용 작성
-                String htmlContent = "<div style='margin:100px;'>";
-                htmlContent += "<h1>안녕하세요</h1>";
-                htmlContent += "<h1>GREEN AIR 항공입니다</h1>";
+                String htmlContent = "<div style='margin:30px; border: 1px solid #ccc; padding:50px;width:500px; '>";
+                htmlContent += imageTag+"<h1>GREEN AIRlines 이메일 인증 안내</h1>";
                 htmlContent += "<br>";
-                htmlContent += "<p>구입하신 상품의 기프티콘입니다.</p>";
-                htmlContent += "<br>";
-                htmlContent += "<div align='center' style='border:1px solid black; font-family:verdana;'>";
-                htmlContent += "<h3 style='color:blue;'>회원가입 인증 코드입니다.</h3>";
-                htmlContent += "<p>" + ePw + "</P>";
+                htmlContent += "<div  font-family:verdana;'>";
+                htmlContent += "<p>" + "안녕하세요. 고객님" + "</p>";
+                htmlContent += "<p>" + "'비밀번호 찾기'를 위해 이메일 인증을 진행합니다." + "</p>";
+                htmlContent += "<p>" + "아래 발급된 이메일 인증번호를 복사하거나 직접 입력하여 인증을 완료해주세요." + "</p>";
+                htmlContent += "<h3>회원가입 인증 코드입니다.</h3>";
+                htmlContent += "<p style='color:blue;font-weight: bold;'>" + ePw + "</P>";
                 htmlContent += "<div style='font-size:130%'>";
                 htmlContent += "</div>";
                 message.setContent(htmlContent, "text/html; charset=UTF-8");
@@ -149,7 +154,7 @@ public class EmailService {
     	
         ePw = createKey(); // 랜덤 인증번호 생성
 
-        MimeMessage message = createPwCode(to); // 메일 발송
+        MimeMessage message = createMessage(to,gifticonImageName); // 메일 발송
         try {// 예외처리
             emailsender.send(message);
         } catch (MailException es) {

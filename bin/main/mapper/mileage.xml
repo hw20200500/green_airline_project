@@ -25,7 +25,7 @@
 	</select>
 	<!-- 마이페이지 마일리지 리스트 -->
 	<select id="selectMileageTbOrderByMileageDateByMemberId" resultType="com.green.airline.repository.model.Mileage">
-		SELECT * FROM MILEAGE_TB where member_id = #{memberId} order by mileage_date desc limit 5
+		SELECT * FROM MILEAGE_TB where member_id = #{memberId} order by id desc limit 5
 	</select>
 	<!-- 소멸 마일리지 합 -->
 	<select id="selectExtinctionMileage"
@@ -91,10 +91,11 @@
 	<update id="update">
 
 	</update>
+	<!-- 마일리지샵 구매 시 사용 -->
 	<insert id="insertUseDataList">
 		insert into
-		use_mileage_list_tb(save_date,date_form_expiration,mileage_from_balance,member_id,buy_mileage_id,product_id,gifticon_id)
-		values(#{mileageDate},#{dateFormExpiration},#{mileageFromBalance},#{memberId},#{id},#{productId},#{gifticonId});
+		use_mileage_list_tb(mileage_from_balance,buy_mileage_id,gifticon_id)
+		values(#{mileageFromBalance},#{id},#{gifticonId});
 
 	</insert>
 	<!-- 회원 등급 조회 -->
@@ -124,7 +125,7 @@ on u.GIFTICON_ID = g.id
 join MILEAGE_TB  as m
 on u.BUY_MILEAGE_ID = m.id
 where g.status = 0
-and u.member_id = #{memberId}
+and m.member_id = #{memberId}
 and g.id = #{gifticonId};
 
 	</select>

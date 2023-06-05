@@ -31,6 +31,7 @@ text-align: center;
 	width: 550px;
 	height: 100px;
 	padding: 30px;
+	
 }
 
 </style>
@@ -57,15 +58,16 @@ text-align: center;
 			<button type="submit"class="btn btn-light">전송</button>
 		</div>
 	</form>
-	<div class="findId">
-		<p>${response.korName}의 아이디 ${response.id} 입니다</p>
-	</div>
-
 </main>
 
-<script>
+<script type="text/javascript">
 	$('.findId').hide();
 	
+	let korName = '<c:out value="${response.korName}"></c:out>';
+	let id = '<c:out value="${response.id}"></c:out>';
+	$('.btn-light').on('click',function(){
+		alert(korName+'의 아이디는 '+ id+ '입니다')
+	});
 </script>
 
 

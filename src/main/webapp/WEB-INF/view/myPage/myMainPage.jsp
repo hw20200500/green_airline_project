@@ -6,6 +6,8 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
+main{
+}
 .main--img--div {
 	width: 100%;
 	height: 450px;
@@ -144,8 +146,9 @@ main {
 .my--detail--bottom {
 	display: flex;
 	float: left;
-	width: 1180px;
-	margin-left: 80px;
+	    width: 1183px;
+    height: 466px;
+	margin-left: 70px;
 }
 
 .my--detail--left {
@@ -192,7 +195,8 @@ main {
 
 .my--mileage--list {
 	background-color: white;
-	width: 500px;
+	    width: 579px;
+    height: 460px;
 	padding: 35px 39px 35px 37px;
 }
 
@@ -355,16 +359,15 @@ main {
 			<div class="my--detail">
 				<div class="my--detail--top">
 					<a href="#"><span class="my--detail--tit">작성한 여행 일지</span> <br>
-						<span class="num">${boardDto.count}</span> <span
-						class="material-symbols-outlined" id="edit--calendar">edit_calendar</span></a>
+						<span class="num">${boardDto.count}</span> 
+						<span class="material-symbols-outlined" id="edit--calendar">edit_calendar</span></a>
 					<a href="#"><span> 답변/고객의 말씀</span> <br> <span class="num">${infoDto.answerCount}/${infoDto.vocCount}</span>
 						<span class="material-symbols-outlined" id="clinical--notes">clinical_notes</span></a>
-					<a href="/gifticon/list"><span>구매한 기프티콘 조회</span> <br> <span
-						class="num">${gifticonCount.count}</span> <!-- barcode    barcode_scanner -->
+					<a href="/gifticon/list"><span>구매한 기프티콘 조회</span> <br> <span class="num">${gifticonCount.count}</span>
 						<span class="material-symbols-outlined" id="barcode--scanner">shopping_cart_checkout</span></a>
 					<a href="/ticket/list/1" class="my--detail--gray"
-						id="my--detail--gray"><span>항공권 예약 현황</span> <br> <span
-						class="material-symbols-outlined" id="airplane--ticket">airplane_ticket
+						id="my--detail--gray"><span>항공권 예약 현황</span> <br> 
+						<span class="material-symbols-outlined" id="airplane--ticket">airplane_ticket
 					</span></a>
 				</div>
 				<div class="my--detail--bottom">
@@ -388,8 +391,6 @@ main {
 											마일 남았습니다
 										</p>
 									</div>
-									<%-- <fmt:formatNumber type="number" maxFractionDigits="0"
-										 value="${sumNowMileage.totalMileage * 100 / 100000}" />% --%>
 									<div class="progress">
 										<div class="progress-bar"
 											style="width: <fmt:formatNumber type="number" maxFractionDigits="0"  value="${sumNowMileage.totalMileage * 100 / 100000}"/>%"></div>
@@ -401,40 +402,53 @@ main {
 								</c:when>
 								<c:when
 									test="${sumNowMileage.totalMileage > 100000 && sumNowMileage.totalMileage < 500000}">
-									<span>${500000 - sumNowMileage.totalMileage}</span>마일 추가 적립 또는 그린항공 <strong>Platinum</strong>회원으로 승급됩니다.<br>
+										<span><fmt:formatNumber type="number"
+											maxFractionDigits="3"
+											value="${500000 - sumNowMileage.totalMileage}" /></span>마일 적립 그린항공 <strong>Platinum</strong>회원으로 승급됩니다.<br>
 									<a href="/mileage/selectAll">마일리지 조회</a>
 									<hr>
-
 									<div class="balloon_03">
-										<p class="bulloonText">Platinum 등급 까지 ${500000 - sumNowMileage.totalMileage}
-											마일 남았습니다</p>
+
+										<p class="bulloonText">
+											Gold 등급 까지
+											<fmt:formatNumber type="number" maxFractionDigits="3"
+												value="${100000 - sumNowMileage.totalMileage}" />
+											마일 남았습니다
+										</p>
 									</div>
-									<fmt:formatNumber type="number" maxFractionDigits="0"
-										value="${sumNowMileage.totalMileage * 100 / 500000}" />%
-										<div class="progress">
+									<div class="progress">
 										<div class="progress-bar"
 											style="width: <fmt:formatNumber type="number" maxFractionDigits="0"  value="${sumNowMileage.totalMileage * 100 / 500000}"/>%"></div>
 									</div>
-									<div class="rankImgAndText">
-
-										<img alt="" src="../images/rank.png" class="rankImg">
-									</div>
+									<img alt="" src="../images/rank.png" class="rankImg">
 									<span class="material-symbols-outlined trip--origin ">
 										trip_origin </span>
+									<h1 class="imgText">G</h1>
 								</c:when>
 								<c:when
 									test="${sumNowMileage.totalMileage > 500000 && sumNowMileage.totalMileage < 1000000}">
-									<span>${1000000 - sumNowMileage.totalMileage}</span>마일 추가 적립 또는 그린항공 <strong>Diamond</strong>으로 승급됩니다.<br>
+									<span><fmt:formatNumber type="number"
+											maxFractionDigits="3"
+											value="${1000000 - sumNowMileage.totalMileage}" /></span>마일 적립 그린항공 <strong>Diamond</strong>회원으로 승급됩니다.<br>
 									<a href="/mileage/selectAll">마일리지 조회</a>
 									<hr>
-									<p>Diamond 등급 까지 ${1000000 - sumNowMileage.totalMileage} 마일
-										남았습니다</p>
-									<fmt:formatNumber type="number" maxFractionDigits="0"
-										value="${sumNowMileage.totalMileage * 100 / 1000000}" />%
+									<div class="balloon_03">
+
+										<p class="bulloonText">
+											Diamond 등급 까지
+											<fmt:formatNumber type="number" maxFractionDigits="3"
+												value="${1000000 - sumNowMileage.totalMileage}" />
+											마일 남았습니다
+										</p>
+									</div>
 									<div class="progress">
 										<div class="progress-bar"
-											style="width: <fmt:formatNumber type="number" maxFractionDigits="0"  value="${sumNowMileage.totalMileage * 100 / 1000000}" />%"></div>
+											style="width: <fmt:formatNumber type="number" maxFractionDigits="0"  value="${sumNowMileage.totalMileage * 100 / 1000000}"/>%"></div>
 									</div>
+									<img alt="" src="../images/rank.png" class="rankImg">
+									<span class="material-symbols-outlined trip--origin ">
+										trip_origin </span>
+									<h1 class="imgText">P</h1>
 								</c:when>
 							</c:choose>
 

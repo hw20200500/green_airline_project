@@ -21,20 +21,18 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	  
 	  registry.addResourceHandler("/uploadImage/**")
 	  .addResourceLocations("file:///C:\\upload/");
-	  // 맥북 이미지 경로인데 남겨두면 도움이 될지도?? -정다운-
-	  registry.addResourceHandler("/uploadImage/**")
-	  .addResourceLocations("file:/Users/minjoo/Desktop/images/");
+	  
+	  	// 맥북 이미지 경로인데 남겨두면 도움이 될지도?? -정다운-
+		/*
+		 * registry.addResourceHandler("/uploadImage/**")
+		 * .addResourceLocations("file:/Users/minjoo/Desktop/images/");
+		 */
 	  
 	  }
 	  
 	 
 	
-	// 집 이미지 경로 
-	/*
-	 * @Override public void addResourceHandlers(ResourceHandlerRegistry registry) {
-	 * registry.addResourceHandler("/product/**")
-	 * .addResourceLocations("file:///C:\\Users\\a\\Desktop\\image/"); }
-	 */
+	
 	  @Bean
 	  public PasswordEncoder passwordEncoder() {
 		  return new BCryptPasswordEncoder();
