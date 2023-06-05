@@ -5,12 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.security.auth.login.LoginException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.green.airline.handler.exception.ApiErrorResponse;
 import com.green.airline.handler.exception.CustomPathException;
@@ -43,7 +47,7 @@ public class RestfullExceptionHandler {
 	 */
 	@ExceptionHandler(CustomPathException.class)
 	public String customPathException(CustomPathException e) {
-		
+
 		StringBuffer sb = new StringBuffer();
 		sb.append("<script>");
 		sb.append("alert('" + e.getMessage() + "');");
@@ -60,12 +64,26 @@ public class RestfullExceptionHandler {
 		return ApiErrorResponse.builder().statusCode(HttpStatus.BAD_REQUEST.value()).code("-1").resultCode("fail")
 				.message("잘못된 요청입니다.").exceptionFieldMessages(errorList).build();
 	}
-	
+
+	// 파일업로드 초과 예외처리
+
+	@ExceptionHandler(MaxUploadSizeExceededException.class)
+	public String handleMaxSizeException(MaxUploadSizeExceededException e) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("<script>");
+		sb.append("alert('" +"파일용량이 너무 큽니다."+ "');");
+		sb.append("history.back();");
+		sb.append("</script>");
+
+		return sb.toString();
+	}
+
 	// BindException
 	@ExceptionHandler(BindException.class)
 	public String bindException(BindException e) {
 		System.out.println("11111");
-		
+
 		return "test";
 	}
 }

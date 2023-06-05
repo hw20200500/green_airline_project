@@ -20,16 +20,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.green.airline.dto.BoardDto;
 import com.green.airline.dto.BoardUpdateDto;
-import com.green.airline.dto.response.NoticeResponseDto;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.interfaces.BoardRepository;
 import com.green.airline.repository.interfaces.NoticeRepository;
 import com.green.airline.repository.model.Board;
 import com.green.airline.repository.model.LoveHeart;
-import com.green.airline.repository.model.NoticeCategory;
 import com.green.airline.repository.model.User;
 import com.green.airline.utils.Define;
-import com.green.airline.utils.PagingObj;
 
 /**
  * @author 치승 추천 여행지 게시글
@@ -80,9 +77,9 @@ public class BoardService {
 		// 평균값이 높은 순으로 정렬
 		popularBoardList.sort(Comparator.comparingDouble(Board::getAverage).reversed());
 		
-		// 상위 5개의 인기 게시물만 반환
-		if (popularBoardList.size() > 3) {
-			return popularBoardList.subList(0, 3);
+		// 상위 3개의 인기 게시물만 반환
+		if (popularBoardList.size() > 4) {
+			return popularBoardList.subList(0, 4);
 		} else {
 			return popularBoardList;
 		}

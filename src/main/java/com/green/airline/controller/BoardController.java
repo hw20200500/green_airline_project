@@ -16,22 +16,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.green.airline.dto.BoardDto;
 import com.green.airline.dto.BoardUpdateDto;
-import com.green.airline.dto.response.NoticeResponseDto;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.interfaces.BoardRepository;
 import com.green.airline.repository.model.Board;
 import com.green.airline.repository.model.LoveHeart;
-import com.green.airline.repository.model.NoticeCategory;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.BoardService;
 import com.green.airline.utils.Define;
-import com.green.airline.utils.PagingObj;
 
 /**
  * @author 치승 추천 여행지 게시글
@@ -84,7 +80,7 @@ public class BoardController {
 	// 게시글 작성하기
 	@GetMapping("/insert")
 	public String boardWritePage() {
-
+		
 		return "/board/boardWrite";
 	}
 
@@ -93,14 +89,17 @@ public class BoardController {
 	public String boardWirtePage(BoardDto boardDto) {
 
 		if (boardDto.getTitle() == null || boardDto.getTitle().isEmpty()) {
-			throw new CustomRestfullException("제목을 입력해주세요", HttpStatus.BAD_REQUEST);
+			throw new CustomRestfullException("제목을 입력해주세요.", HttpStatus.BAD_REQUEST);
 		}
 		if (boardDto.getContent() == null || boardDto.getContent().isEmpty()) {
-			throw new CustomRestfullException("내용을 입력해주세요", HttpStatus.BAD_REQUEST);
+			throw new CustomRestfullException("내용을 입력해주세요.", HttpStatus.BAD_REQUEST);
+		}
+		if(boardDto.getFile() == null || boardDto.getFile().isEmpty()) {
+			throw new CustomRestfullException("썸네일로 등록할 사진을 업로드 해주세요.", HttpStatus.BAD_REQUEST);
 		}
 
 		MultipartFile file = boardDto.getFile();
-
+		
 		if (!file.isEmpty()) {
 			// 파일 사이즈 체크
 			if (file.getSize() > Define.MAX_FILE_SIZE) {
@@ -139,24 +138,35 @@ public class BoardController {
 
 		boardService.insertByBoard(boardDto);
 
-		return "redirect:/board/list";
+		return "redirect:/board/list/1";
 	}
 
 	// 게시글 수정하기
 	@GetMapping("/update/{id}")
 	public String updateByBoardPage(@PathVariable Integer id, Model model) {
-
+		
 		BoardDto boardDto = boardService.readByBoardListDetail(id);
 		model.addAttribute("boardDto", boardDto);
-
+		
 		return "/board/updateBoard";
 	}
 
 	// 게시글 수정하기
 	@PostMapping("/update/{id}")
 	public String updateByBoardPage(@PathVariable("id") Integer id, BoardUpdateDto boardUpdateDto) {
-		MultipartFile file = boardUpdateDto.getFile();
 
+		if (boardUpdateDto.getTitle() == null || boardUpdateDto.getTitle().isEmpty()) {
+			throw new CustomRestfullException("제목을 입력해주세요.", HttpStatus.BAD_REQUEST);
+		}
+		if (boardUpdateDto.getContent() == null || boardUpdateDto.getContent().isEmpty()) {
+			throw new CustomRestfullException("내용을 입력해주세요.", HttpStatus.BAD_REQUEST);
+		}
+		if(boardUpdateDto.getFile() == null || boardUpdateDto.getFile().isEmpty()) {
+			throw new CustomRestfullException("썸네일로 등록할 사진을 업로드 해주세요.", HttpStatus.BAD_REQUEST);
+		}
+		
+		MultipartFile file = boardUpdateDto.getFile();
+		
 		if (!file.isEmpty()) {
 			// 파일 사이즈 체크
 			if (file.getSize() > Define.MAX_FILE_SIZE) {
@@ -187,13 +197,13 @@ public class BoardController {
 
 				boardUpdateDto.setOriginName(file.getOriginalFilename());
 				boardUpdateDto.setFileName(fileName);
-
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		boardService.updateByBoard(id, boardUpdateDto);
-		return "redirect:/board/list";
+		return "redirect:/board/list/1";
 	}
 
 	// 게시글 삭제하기
@@ -202,7 +212,7 @@ public class BoardController {
 
 		boardService.deleteByBoard(id);
 
-		return "redirect:/board/list";
+		return "redirect:/board/list/1";
 	}
 
 	// 추천여행지 상세 보기

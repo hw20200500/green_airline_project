@@ -3,10 +3,19 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <style>
-  .form-control {
-    width: 1110px;
-    margin-left: 70px;
-  }
+.form--control {
+	width: 1110px;
+}
+
+.board--write{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.container{
+	margin-bottom: 30px;
+}
 </style>
 <main>
   <h5>여행일지</h5>

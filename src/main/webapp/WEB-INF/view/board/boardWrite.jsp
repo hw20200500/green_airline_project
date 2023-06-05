@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <c:choose>
@@ -12,36 +11,42 @@
 </c:choose>
 
 <style>
-.form-control {
+.form--control {
 	width: 1110px;
-	margin-left: 70px;
+}
+
+.board--write {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.container {
+	margin-bottom: 30px;
 }
 </style>
 <main>
 	<h5>여행일지</h5>
+	<div class="board--write">
+		<form action="/board/insert" method="post" enctype="multipart/form-data">
 
-	<form action="/board/insert" method="post"
-		enctype="multipart/form-data">
-
-		<table class="table">
-			<tr>
-				<td><input class="form-control" id="title" type="text"
-					name="title" placeholder="제목"></td>
-			</tr>
-		</table>
-		<div class="container">
-			<textarea class="summernote" id="content" rows="10" name="content"></textarea>
-		</div>
-		<div class="custom-file">
-			<input type="file" class="custom-file-input" id="customFile"
-				accept=".jpg, .jpeg, .png" name="file"> <label
-				class="custom-file-label" for="customFile">썸네일용 이미지</label>
-		</div>
-		<div class="modal-footer">
-			<button type="submit" class="btn btn-primary">작성하기</button>
-			<button onclick="history.back();" class="btn btn-primary">뒤로가기</button>
-		</div>
-	</form>
+			<table class="table">
+				<tr>
+					<td><input class="form-control" id="title" type="text" name="title" placeholder="제목"></td>
+				</tr>
+			</table>
+			<div class="container">
+				<textarea class="summernote" id="content" rows="10" name="content"></textarea>
+			</div>
+			<div class="custom-file">
+				<input type="file" class="custom-file-input" id="customFile" accept=".jpg, .jpeg, .png" name="file"> <label class="custom-file-label" for="customFile">썸네일용 이미지</label>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary">작성하기</button>
+				<button onclick="history.back();" class="btn btn-primary">뒤로가기</button>
+			</div>
+		</form>
+	</div>
 </main>
 <script>
 	$('.summernote').summernote({

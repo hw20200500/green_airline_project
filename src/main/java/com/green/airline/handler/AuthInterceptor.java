@@ -5,12 +5,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.green.airline.handler.exception.UnAuthException;
 import com.green.airline.repository.model.User;
 import com.green.airline.utils.Define;
 
+@RestControllerAdvice
 public class AuthInterceptor implements HandlerInterceptor{
 
 	@Override
