@@ -1,8 +1,10 @@
 function deleteBtn(id) {
+	
 	let baggageReqRequest = {
 		"id": id,
 		"amount": 0
 	}
+
 	$.ajax({
 		method: "post",
 		url: "/baggageDelete",

@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <c:choose>
@@ -10,7 +11,7 @@
 	</c:otherwise>
 </c:choose>
 <style>
-.login--head--wrap{
+.login--head--wrap {
 	margin-bottom: 40px;
 }
 
@@ -70,21 +71,36 @@ input[type=text], input[type=password] {
 .login--idPwSearch--class {
 	margin-top: 10px;
 	display: flex;
-	justify-content: flex-start;
-}
-
-.login--kakao--btn {
-	
+	justify-content: space-between;
 }
 
 .login--content {
-	margin-top: 20px; 
+	margin-top: 20px;
 	justify-content: center;
 	display: flex;
 }
 
-.login--kakao--btn--wrap{
+.login--kakao--btn--wrap {
 	display: flex;
+}
+
+.btn--primary {
+	background-color: #8ABBE2;
+	color: white;
+}
+
+.btn--primary:hover {
+	background-color: #8ABBE2;
+	color: white;
+}
+
+.join--btn--wrap {
+	display: flex;
+}
+
+.join--btn {
+	display: flex;
+	background-color: #314f79;
 }
 </style>
 
@@ -117,11 +133,16 @@ input[type=text], input[type=password] {
 			<div class="justify-content-center">
 				<div class="login--kakao--btn--wrap">
 					<button type="submit" class="btn btn--primary login--btn">로그인</button>
-					<a href="https://kauth.kakao.com/oauth/authorize?client_id=91cf28839247e9924114aeb1a23b8852&redirect_uri=http://localhost:80/auth/kakao/callback&response_type=code"><img alt=""
-						src="/images/kakao_login_medium.png" style="margin-left: 10px;"> </a>
 				</div>
 				<div class="login--idPwSearch--class">
-					<a href="/userIdSearch">아이디/비밀번호 찾기 > </a>
+						<a href="/userIdSearch" style="font-size: 15px;">아이디/비밀번호 찾기 > </a> 
+					<div>
+						<a href="https://kauth.kakao.com/oauth/authorize?client_id=91cf28839247e9924114aeb1a23b8852&redirect_uri=http://localhost:80/auth/kakao/callback&response_type=code">
+						<img alt="" src="/images/kakao_login_medium.png" style="margin-left: 10px;"> </a>
+					</div>
+					<div>
+						<button type="button" class="btn btn--primary join--btn" onclick="location.href='/join'" style="width: 90px; height: 45px;">회원가입</button>
+					</div>
 				</div>
 			</div>
 		</form>

@@ -11,10 +11,8 @@
 </c:choose>
 
 <style>
-
-
 table {
-	border: 1px solid black;
+	border: 1px solid #ebebeb;
 	width: 1200px;
 }
 
@@ -22,12 +20,17 @@ table td {
 	padding: 30px;
 }
 
-table th{
+table th {
 	text-align: center;
 }
 
 .transportLimit--ul>li {
+	margin-left: 20px;
 	list-style: disc;
+}
+
+.transportLimit--ul--li {
+	margin-left: 20px;
 }
 
 .transportLimit--ul--li>li {
@@ -40,47 +43,52 @@ main {
 
 #carryOnLiquids--select--box {
 	border: none;
-	border-bottom: 1px solid black; padding : 10px;
+	border-bottom: 1px solid black;
+	padding: 10px;
 	width: 300px;
 	font-size: 20px;
 	padding: 10px;
 	justify-content: center;
-	text-align: center; 
+	text-align: center;
 }
 
 .carryOnLiquids--select--box--wrap {
 	display: flex;
 	justify-content: center;
-	text-align: center; 
+	text-align: center;
 	padding: 30px;
 	width: 1200px;
 	border: 1px solid #ebebeb;
 	margin-bottom: 20px;
 }
+
+.carryOnLiquids--name--id {
+	margin-bottom: 10px;
+}
+
+.transportLimit--notice--wrap {
+	background-color: #f8f9fc;
+	padding: 20px;
+	margin-top: 40px;
+}
 </style>
 <main>
 	<div>
 		<div>
-			<h2>운송 제한 물품 페이지</h2>
-			<p>그린항공은 기내 안전을 위해 반입이 제한되거나 엄격히 금지되어 있는 물품들이 있습니다. 항공 여행 전 아래 내용을 반드시 확인해 주시기 바랍니다.</p>
+			<h2>항공 운송 금지 품목</h2>
 			<hr>
-			<br>
-		</div>
-
-		<div>
-			<h3>항공 운송 금지 품목</h3>
 			<br>
 
 			<div>
-				<h5>리튬배터리로 구동되는 일체의 탈 것류, 160Wh 초과하는 리튬배터리</h5>
+				<h6>리튬배터리로 구동되는 일체의 탈 것류, 160Wh 초과하는 리튬배터리</h6>
 				<p>에어휠, 솔로휠, 호버보드, 미니 세그웨이, 전기자전거(전동스쿠터), 전동 킥보드 등 (장애인, 노약자용 전동휠체어 제외)</p>
 			</div>
 			<div>
-				<h5>폭발성, 인화성, 유독성 물질</h5>
+				<h6>폭발성, 인화성, 유독성 물질</h6>
 				<p>수류탄, 다이너마이트, 폭죽, 표백제, 수은, 산화제, 독극물, 도수 70%이상 알코올성 음료, 소화기, 최루가스 등</p>
 			</div>
 			<div>
-				<h5>인화성 고압가스가 들어있는 용기</h5>
+				<h6>인화성 고압가스가 들어있는 용기</h6>
 				<p>부탄가스, 개인용 산소통 등 * 개인용 산소통은 사전예약을 통해 당사에서 제공하는 산소통을 이용하시기 바랍니다.</p>
 			</div>
 
@@ -88,7 +96,7 @@ main {
 		</div>
 
 		<div>
-			<h3>제한적으로 운송 가능한 품목</h3>
+			<h4>제한적으로 운송 가능한 품목</h4>
 			<div>
 				<ul class="transportLimit--ul transportLimit--ul--li">
 					<li>여분의 리튬배터리(보조배터리), 전자담배, 라이터는 부치는 짐으로 운송 불가, 휴대하여 객실 반입만 허용 (단,충전식 전기라이터는 전 노선 위탁,객실 반입 불가)</li>
@@ -101,8 +109,8 @@ main {
 			<div>
 				<table border="1">
 					<tr>
-						<th>위탁 수하물 운송 (객실 휴대 불가)</th>
-						<th>휴대 수하물 운송 (부치는 짐 불가)</th>
+						<th style="padding: 5px; background-color: #f8f9fc">위탁 수하물 운송 (객실 휴대 불가)</th>
+						<th style="padding: 5px; background-color: #f8f9fc">휴대 수하물 운송 (부치는 짐 불가)</th>
 					</tr>
 
 					<tr>
@@ -143,16 +151,16 @@ main {
 
 			<table border="1">
 				<tr>
-					<th scope="col" rowspan="2">리튬 배터리 용량</th>
-					<th scope="col" colspan="2">휴대수하물</th>
-					<th scope="col" colspan="2">위탁수하물(부치는짐)</th>
+					<th scope="col" rowspan="2" style="padding: 5px; background-color: #f8f9fc">리튬 배터리 용량</th>
+					<th scope="col" colspan="2" style="padding: 5px; background-color: #f8f9fc">휴대수하물</th>
+					<th scope="col" colspan="2" style="padding: 5px; background-color: #f8f9fc">위탁수하물(부치는짐)</th>
 				</tr>
 
 				<tr>
-					<th scope="col">기기장착 상태</th>
-					<th scope="col">여분(보조)배터리</th>
-					<th scope="col">기기장착 상태</th>
-					<th scope="col">여분(보조)배터리</th>
+					<th scope="col" style="padding: 5px; background-color: #f8f9fc">기기장착 상태</th>
+					<th scope="col" style="padding: 5px; background-color: #f8f9fc">여분(보조)배터리</th>
+					<th scope="col" style="padding: 5px; background-color: #f8f9fc">기기장착 상태</th>
+					<th scope="col" style="padding: 5px; background-color: #f8f9fc">여분(보조)배터리</th>
 				</tr>
 
 				<tr>
@@ -179,8 +187,7 @@ main {
 				</tr>
 			</table>
 
-			<br>
-			* 배터리 용량 구하는 법 : 용량(Wh) = 전압(V) X 전류(Ah), 1Ah= 1,000mAh
+			<br> * 배터리 용량 구하는 법 : 용량(Wh) = 전압(V) X 전류(Ah), 1Ah= 1,000mAh
 			<ul class="transportLimit--ul transportLimit--ul--li">
 				<li>여분의 리튬배터리 및 보조 배터리는 위탁수하물로 운송이 불가하며, 휴대용 전자기기를 위탁수하물로 운송하는 경우 반드시 전원을 꺼주시기 바랍니다.</li>
 				<li>광저우, 베이징 등 중국 출발 항공편에는 리튬배터리(기기 장착, 여분 포함)의 위탁 수하물 반입이 엄격히 제한됩니다. 또한 용량이 표시되지 않았거나 확인 불가시 운송이 거절될 수 있습니다.</li>
@@ -194,12 +201,12 @@ main {
 
 		<div>
 			<br>
-			<h3>전동휠체어 및 전동스쿠터(장애인/노약자용, 非레저용) 배터리 운송 규정 안내</h3>
+			<h4>전동휠체어 및 전동스쿠터(장애인/노약자용, 非레저용) 배터리 운송 규정 안내</h4>
 			<table border="1">
 				<tr>
-					<th scope="col" class="NamoSE_border_show">종류</th>
-					<th scope="col" class="NamoSE_border_show">배터리 용량</th>
-					<th scope="col" class="NamoSE_border_show">비고</th>
+					<th scope="col" class="NamoSE_border_show" style="padding: 5px; background-color: #f8f9fc">종류</th>
+					<th scope="col" class="NamoSE_border_show" style="padding: 5px; background-color: #f8f9fc">배터리 용량</th>
+					<th scope="col" class="NamoSE_border_show" style="padding: 5px; background-color: #f8f9fc">비고</th>
 				</tr>
 
 				<tr>
@@ -217,8 +224,7 @@ main {
 					</td>
 				</tr>
 			</table>
-			<br>
-			<br>
+			<br> <br>
 		</div>
 
 		<div class="carryOnLiquids--select--box--wrap">
@@ -226,11 +232,11 @@ main {
 				<c:forEach var="carryOnLiquids" items="${carryOnLiquids}">
 					<option id="carryOnLiquids--category" value="${carryOnLiquids.name}">${carryOnLiquids.name}</option>
 				</c:forEach>
-			</select>
+			</select> <br>
 		</div>
 		<div>
 			<div>
-				<h3 id="carryOnLiquids--name--id">${carryOnLiquids.get(0).name}의조회결과입니다.</h3>
+				<h4 id="carryOnLiquids--name--id">${carryOnLiquids.get(0).name}의조회결과입니다.</h4>
 			</div>
 
 			<div>
@@ -252,9 +258,9 @@ main {
 			</div>
 		</div>
 
-		<div>
+		<div class="transportLimit--notice--wrap">
 			<br>
-			<h3>유의사항</h3>
+			<h4>유의사항</h4>
 			<ul class="transportLimit--ul transportLimit--ul--li">
 				<li>의사가 처방한 의약품에 대하여는 의약 상품명 또는 의사소견서를 소지하고 물품의 출처를 증명하는 서류 (처방전, 약 봉투, 진단서 등)를 제시하여야 합니다.</li>
 				<li>보안 검색요원에 의해 물품 샘플 채취 또는 진위 여부를 확인 받을 수 있습니다.</li>

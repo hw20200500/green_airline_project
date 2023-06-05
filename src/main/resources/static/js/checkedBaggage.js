@@ -86,8 +86,12 @@ $("#right--li").on("mouseout", function() {
 $("#submit--btn").on("click", function() {
 	let amount = $("#seat--count--input").val();
 	let ticketId = $("#modal--id--departuredate").val();
-	console.log(amount);
-	console.log(ticketId);
+	
+	if(amount == 0){
+		alert("수량을 입력해주세요.");
+		return false;
+	}
+	
 	$.ajax({
 		method: "post",
 		url: "/checkedBaggageProc",

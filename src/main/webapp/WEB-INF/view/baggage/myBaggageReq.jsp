@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <c:choose>
@@ -47,7 +48,7 @@ table tr th, table tr td {
 	color: white;
 }
 
-.myBaggageReq--btn--wrap{
+.myBaggageReq--btn--wrap {
 	margin-top: 30px;
 }
 </style>
@@ -68,28 +69,39 @@ table tr th, table tr td {
 
 				<c:choose>
 					<c:when test="${baggageReqResponses.size() != 0}">
-						<c:forEach var="baggageReqResponses" items="${baggageReqResponses}">
-							<form action="/inFlightService/myReqServiceDelete?id=${specialMealResponseDtos.rmId}" method="post">
-								<input type="hidden" name="id" value="${specialMealResponseDtos.rmId}">
+						<c:forEach var="baggageReqResponses"
+							items="${baggageReqResponses}">
+							<form
+								action="/inFlightService/myReqServiceDelete?id=${specialMealResponseDtos.rmId}"
+								method="post">
+								<input type="hidden" name="id"
+									value="${specialMealResponseDtos.rmId}">
 								<tr>
 									<td>${baggageReqResponses.seatGradeName}</td>
 									<td>${baggageReqResponses.departure}→${baggageReqResponses.destination}</td>
 									<td>${baggageReqResponses.departureDateFormat()}</td>
 									<td>${baggageReqResponses.amount}개</td>
-									<td><button type="button" class="btn btn--danger" onclick="deleteBtn(${baggageReqResponses.baggageId})">신청 취소</button></td>
+									<td><button type="button" class="btn btn--danger"
+											onclick="deleteBtn(${baggageReqResponses.baggageId})">신청
+											취소</button></td>
 								</tr>
 							</form>
 						</c:forEach>
 					</c:when>
 
-					<c:otherwise>
-						<p>신청한 내역이 없습니다.</p>
+						<c:otherwise>
+						<tr>
+							<td>
+								<p>신청한 내역이 없습니다.</p>
+							</td>
+						</tr>
 					</c:otherwise>
 				</c:choose>
 			</table>
 
 			<div class="myBaggageReq--btn--wrap">
-				<a class="btn btn--primary" href="/baggage/checkedBaggage">위탁 수하물 신청 페이지로 이동</a>
+				<a class="btn btn--primary" href="/baggage/checkedBaggage">위탁
+					수하물 신청 페이지로 이동</a>
 			</div>
 		</div>
 	</div>

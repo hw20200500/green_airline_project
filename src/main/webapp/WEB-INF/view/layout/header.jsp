@@ -19,11 +19,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700;900&display=swap" rel="stylesheet">
-<link
-	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </head>
 
 <style>
@@ -130,8 +127,8 @@
 							<div class="nav--split"></div>
 							<ul>
 								<li><a href="/inFlightService/inFlightServiceSearch">기내 서비스 조회</a>
-								<li><a href="/inFlightService/inFlightServiceSpecial">특별 기내식 신청</a>
-								<li><a href="/baggage/guide">수하물 안내</a>
+								<li><a href="/inFlightService/inFlightServiceSpecial">특별 기내식</a>
+								<li><a href="/inFlightService/inFlightSpecialReq">특별 기내식 신청</a>
 								<li><a href="/baggage/checkedBaggage">위탁 수하물 신청</a>
 							</ul>
 							<div class="nav--split"></div>

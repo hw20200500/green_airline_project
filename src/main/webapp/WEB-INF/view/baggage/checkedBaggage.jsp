@@ -152,7 +152,7 @@ table tr th, table tr td {
 	border-bottom: 1px solid #ebebeb;
 	background: #f8f9fc;
 	padding: 10px;
-	width: 350px;
+	width: 360px;
 }
 
 .checkedBaggage-modal--select {
@@ -165,16 +165,23 @@ table tr th, table tr td {
 	justify-content: space-evenly;
 }
 
-.checkedBaggage--modal--marginBottom{
+.checkedBaggage--modal--marginBottom {
 	margin-bottom: 10px;
+}
+
+p {
+	font-size: 15px;
 }
 </style>
 
 <main>
 	<div>
 		<div>
-			<h2>위탁 수하물 안내</h2>
-			<p>항공사에 맡기는 각종 수하물의 크기, 요금, 준비 방법 등에 대한 정보를 안내해 드립니다.</p>
+			<h2>수하물 이용 안내</h2>
+			<p>
+				수하물은 고객이 여행 시 휴대 또는 탁송을 의뢰한 소지품 및 물품을 의미하는 단어입니다.<br> 짐을 준비하시는 고객님의 여행이 한결 편할 수 있도록 꼭 알아두셔야 하는 수하물 관련 정보를 안내합니다.
+			</p>
+			<hr>
 		</div>
 
 		<div class="checkedBaggage--title--wrap">
@@ -185,7 +192,7 @@ table tr th, table tr td {
 		</div>
 
 		<div class="checkedBaggage--content--wrap">
-			<h4>무료 위탁 수하물</h4>
+			<h4 style="color:#174481">무료 위탁 수하물</h4>
 			<p>탑승 여정에 맞는 무료 수하물 허용량을 조회해 보세요.</p>
 		</div>
 
@@ -229,6 +236,7 @@ table tr th, table tr td {
 
 		<div>
 			<button type="button" id="checkedBaggage--request--btn" class="btn btn--primary" data-toggle="modal" data-target="#baggage--req">위탁 수하물 신청</button>
+			<button type="button" class="btn btn--primary" onclick="location.href='/baggage/limit'">운송 제한 물품</button>
 		</div>
 
 		<div>
@@ -254,7 +262,7 @@ table tr th, table tr td {
 									<div class="checkedBaggage-modal--select">
 										<select name="ticketId" id="modal--id--departuredate">
 											<c:forEach var="inFlightServiceResponseDtos" items="${inFlightServiceResponseDtos}" varStatus="status">
-												<option value="${inFlightServiceResponseDtos.ticketId}" id="arrival--option">${inFlightServiceResponseDtos.seatGradeName} |
+												<option value="${inFlightServiceResponseDtos.ticketId}" id="arrival--option">${inFlightServiceResponseDtos.ticketId}
 													${inFlightServiceResponseDtos.departure}→${inFlightServiceResponseDtos.destination} ${inFlightServiceResponseDtos.departureDateFormat()}</option>
 											</c:forEach>
 										</select>

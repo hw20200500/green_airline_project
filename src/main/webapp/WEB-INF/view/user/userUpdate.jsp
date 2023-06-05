@@ -60,13 +60,10 @@ input[type=text]:focus, input[type=password]:focus {
 .userUpdate--telphone--wrap {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+	justify-content: flex-start;
 }
 
-.join--id--class, .userUpdate--id--wrap, .userUpdate--korName,
-	.userUpdate--engName, .userUpdate--birthDate, .userUpdate--gender,
-	.userUpdate--phoneNumber, .userUpdate--email, .userUpdate--address,
-	.userUpdate--nationality {
+.join--id--class, .userUpdate--id--wrap, .userUpdate--korName, .userUpdate--engName, .userUpdate--birthDate, .userUpdate--gender, .userUpdate--phoneNumber {
 	margin-bottom: 20px;
 }
 
@@ -95,7 +92,6 @@ input[type=text]:focus, input[type=password]:focus {
 	margin-top: 20px;
 	border: none;
 }
-
 </style>
 
 <script>
@@ -173,7 +169,7 @@ input[type=text]:focus, input[type=password]:focus {
 					<c:choose>
 						<c:when test="${userFormDto != null}">
 							<div class="userUpdate--birthDate">
-								생년월일 <br> <input type="text" id="datepicker" name="birthDate" required="required" value="${userFormDto.birthDate}">
+								생년월일 <br> <input type="text" id="datepicker" name="birthDate" readonly="readonly" value="${userFormDto.birthDate}">
 								<div class="validation--check">
 									<c:if test="${birthDateValid != null}">
 							${birthDateValid}
@@ -268,37 +264,13 @@ input[type=text]:focus, input[type=password]:focus {
 							</div>
 						</c:otherwise>
 					</c:choose>
-
-					<c:choose>
-						<c:when test="${userFormDto != null}">
-							<div class="userUpdate--nationality">
-								국적<br> <select name="nationality" required="required">
-									<c:forEach var="countryNm" items="${countryNm}">
-										<option value="${countryNm}" <c:if test="${countryNm.equals(\'대한민국\')}"> selected </c:if>>${countryNm}</option>
-									</c:forEach>
-								</select>
-								<div class="validation--check">
-									<c:if test="${nationalityValid != null}">
-							${nationalityValid}
-							</c:if>
-								</div>
-							</div>
-						</c:when>
-						<c:otherwise>
-							<div class="userUpdate--nationality">
-								국적<br> <select name="nationality" id="userUpdate--nation--select">
-									<c:forEach var="countryNm" items="${countryNm}">
-										<option value="${countryNm}" <c:if test="${countryNm.equals(\'대한민국\')}"> selected </c:if>>${countryNm}</option>
-									</c:forEach>
-								</select>
-							</div>
-						</c:otherwise>
-					</c:choose>
+					
+					<input type="hidden" name="nationality">
 
 				</div>
 			</div>
 			<div class="userUpdate--btn--wrap">
-				<button type="submit" class="btn btn--primary" id="join--btn">회원정보 변경</button>
+				<button type="submit" class="btn btn--primary" id="join--btn" onclick="return confirm('정말 수정하시겠습니까?')">회원정보 변경</button>
 			</div>
 
 		</form>

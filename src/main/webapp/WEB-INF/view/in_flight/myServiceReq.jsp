@@ -81,7 +81,9 @@ table tr th, table tr td {
 					</c:when>
 
 					<c:otherwise>
-						<p>신청한 내역이 없습니다.</p>
+						<tr>
+							<td><p>신청한 내역이 없습니다.</p></td>
+						</tr>
 					</c:otherwise>
 				</c:choose>
 			</table>
