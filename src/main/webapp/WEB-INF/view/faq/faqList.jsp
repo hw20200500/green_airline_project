@@ -143,6 +143,10 @@ p {
 	 background-color:#8ABBE2; 
 	color: white;
 }
+
+.faqHeader--keyword--wrap {
+	width: 1180px;
+}
 </style>
 
 <main>
