@@ -68,10 +68,11 @@ p {
 
 .faq--toggle {
 	display: block;
-	background: #f8f9fc;
+	background: #ebebeb;
 	font-size: 18px;
 	margin-bottom: 10px;
 	margin-top: 10px;
+	padding: 5px;
 }
 
 .faq--name--cursor--wrap {
@@ -121,7 +122,7 @@ p {
 .category--id--st {
 	display: block;
 	width: 235px;
-	height: 80px;
+	height: 70px;
 	display: flex;
 	justify-content: center;
 	align-items: center;

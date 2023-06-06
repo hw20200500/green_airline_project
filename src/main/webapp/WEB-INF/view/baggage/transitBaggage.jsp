@@ -29,16 +29,17 @@
 	display: flex;
 	background-color: white;
 	width: 600px;
-	height: 50px;
+    height: 70px;
 	border: 1px solid #ebebeb;
 	justify-content: center;
 	align-items: center;
+	font-size: 23px;
 }
 
-.checkedBaggage--ul li a:hover {
+/* .checkedBaggage--ul li a:hover {
 	background-color: #8abbe1;
 	color: white;
-}
+} */
 
 .transitBaggage--national--wrap {
 	margin-top: 20px;
@@ -122,17 +123,5 @@ p {
 </main>
 
 <input type="hidden" name="menuName" id="menuName" value="수하물 안내">
-
-<script>
-	$("#left--li").on("mouseover", function() {
-		$("#right--li").css('background-color', '#fff');
-		$("#right--li").css('color', '#000');
-	});
-
-	$("#left--li").on("mouseout", function() {
-		$("#right--li").css('background-color', '#8ABBE2');
-		$("#right--li").css('color', '#fff');
-	});
-</script>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

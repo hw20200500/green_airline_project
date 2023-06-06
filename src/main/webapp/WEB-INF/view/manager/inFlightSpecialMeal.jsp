@@ -46,7 +46,7 @@ table tr th, table tr td {
 					<td>${inFlightMealResonseDtos.destination}</td>
 					<td>${inFlightMealResonseDtos.departureDateFormat()}</td>
 					<td>${inFlightMealResonseDtos.rmAmount}개</td>
-					<td>${inFlightMealResonseDtos.rmName}</td>
+					<td>${inFlightMealResonseDtos.name}</td>
 				</tr>
 			</c:forEach>
 		</table>

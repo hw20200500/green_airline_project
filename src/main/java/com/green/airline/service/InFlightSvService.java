@@ -71,33 +71,28 @@ public class InFlightSvService {
 		int result4 = 0;
 		int result5 = 0;
 
-		if (inFlightReqRequestDto.getBabyMeal() != null) {
-			inFlightReqRequestDto.setMealId(inFlightReqRequestDto.getBabyMealId());
-			inFlightReqRequestDto.setName(inFlightReqRequestDto.getBabyMeal());
+		if (inFlightReqRequestDto.getBabyMealId() != null) {
+			inFlightReqRequestDto.setMealDetailId(inFlightReqRequestDto.getBabyMealId());
 			inFlightReqRequestDto.setAmount(inFlightReqRequestDto.getBabyMealAmount());
 			result1 = inFlightServiceRepository.insertInFlightMealRequest(inFlightReqRequestDto);
 		}
-		if (inFlightReqRequestDto.getVeganMeal() != null) {
-			inFlightReqRequestDto.setMealId(inFlightReqRequestDto.getVeganMealId());
-			inFlightReqRequestDto.setName(inFlightReqRequestDto.getVeganMeal());
+		if (inFlightReqRequestDto.getVeganMealId() != null) {
+			inFlightReqRequestDto.setMealDetailId(inFlightReqRequestDto.getVeganMealId());
 			inFlightReqRequestDto.setAmount(inFlightReqRequestDto.getVeganMealAmount());
 			result2 = inFlightServiceRepository.insertInFlightMealRequest(inFlightReqRequestDto);
 		}
-		if (inFlightReqRequestDto.getLowfatMeal() != null) {
-			inFlightReqRequestDto.setMealId(inFlightReqRequestDto.getLowfatMealId());
-			inFlightReqRequestDto.setName(inFlightReqRequestDto.getLowfatMeal());
+		if (inFlightReqRequestDto.getLowfatMealId() != null) {
+			inFlightReqRequestDto.setMealDetailId(inFlightReqRequestDto.getLowfatMealId());
 			inFlightReqRequestDto.setAmount(inFlightReqRequestDto.getLowfatMealAmount());
 			result3 = inFlightServiceRepository.insertInFlightMealRequest(inFlightReqRequestDto);
 		}
-		if (inFlightReqRequestDto.getReligionMeal() != null) {
-			inFlightReqRequestDto.setMealId(inFlightReqRequestDto.getReligionMealId());
-			inFlightReqRequestDto.setName(inFlightReqRequestDto.getReligionMeal());
+		if (inFlightReqRequestDto.getReligionMealId() != null) {
+			inFlightReqRequestDto.setMealDetailId(inFlightReqRequestDto.getReligionMealId());
 			inFlightReqRequestDto.setAmount(inFlightReqRequestDto.getReligionMealAmount());
 			result4 = inFlightServiceRepository.insertInFlightMealRequest(inFlightReqRequestDto);
 		}
-		if (inFlightReqRequestDto.getEtcMeal() != null) {
-			inFlightReqRequestDto.setMealId(inFlightReqRequestDto.getEtcMealId());
-			inFlightReqRequestDto.setName(inFlightReqRequestDto.getEtcMeal());
+		if (inFlightReqRequestDto.getEtcMealId() != null) {
+			inFlightReqRequestDto.setMealDetailId(inFlightReqRequestDto.getEtcMealId());
 			inFlightReqRequestDto.setAmount(inFlightReqRequestDto.getEtcMealAmount());
 			result5 = inFlightServiceRepository.insertInFlightMealRequest(inFlightReqRequestDto);
 		}
@@ -109,14 +104,6 @@ public class InFlightSvService {
 		}
 		return total;
 	}
-
-	// 특별 기내식 신청 전체 조회 기능
-	// memberId 기반 운항 예약 번호를 가져와
-//	public List<InFlightMealResponseDto> readInFlightMealRequest(String memberId) {
-//		List<InFlightMealResponseDto> inFlightMealResponseDtos = inFlightServiceRepository.selectInFlightMealRequestByMemberId(memberId);
-//		
-//		return inFlightMealResponseDtos;
-//	}
 
 	public List<InFlightMealResponseDto> readInFlightMealSchedule(String memberId) {
 		List<InFlightMealResponseDto> inFlightMealResponseDtos = inFlightServiceRepository

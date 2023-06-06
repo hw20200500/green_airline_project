@@ -8,11 +8,6 @@ public class InFlightReqRequestDto {
 	
 	private String memberId;
 	private String ticketId;
-	private String babyMeal;
-	private String veganMeal;
-	private String lowfatMeal;
-	private String religionMeal;
-	private String etcMeal;
 	private String babyMealAmount;
 	private String veganMealAmount;
 	private String lowfatMealAmount;
@@ -23,8 +18,7 @@ public class InFlightReqRequestDto {
 	private String lowfatMealId;
 	private String religionMealId;
 	private String etcMealId;
-	private String mealId;
-	private String name;
+	private String mealDetailId;
 	private String amount;
 
 }

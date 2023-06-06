@@ -29,16 +29,17 @@
 	display: flex;
 	background-color: white;
 	width: 600px;
-	height: 50px;
+	height: 70px;
 	border: 1px solid #ebebeb;
 	justify-content: center;
 	align-items: center;
+	font-size: 23px;
 }
 
-.checkedBaggage--ul li a:hover {
+/* .checkedBaggage--ul li a:hover {
 	background-color: #8abbe1;
 	color: white;
-}
+} */
 
 .checkedBaggage--content--wrap {
 	margin-top: 20px;
@@ -71,6 +72,7 @@
 	border-bottom: 1px solid black;
 	padding-bottom: 10px;
 	width: 400px;
+	font-size: 22px;
 }
 
 table {
@@ -99,6 +101,17 @@ table tr th, table tr td {
 .checkedBaggage--notice--ul li {
 	list-style: disc;
 	margin-left: 20px;
+}
+
+.none--btn--primary{
+	color: white;
+	border: none;
+	background-color: #c0c0c0;
+}
+.none--btn--primary:hover{
+	color: white;
+	border: none;
+	background-color: #c0c0c0;
 }
 
 .btn--primary {
@@ -239,7 +252,7 @@ p {
 
 		<div>
 			<button type="button" id="checkedBaggage--request--btn" class="btn btn--primary" data-toggle="modal" data-target="#baggage--req">위탁 수하물 신청</button>
-			<button type="button" class="btn btn--primary" onclick="location.href='/baggage/limit'">운송 제한 물품</button>
+			<button type="button" class="btn none--btn--primary" onclick="location.href='/baggage/limit'">운송 제한 물품</button>
 		</div>
 
 		<div>
@@ -293,8 +306,8 @@ p {
 								</div>
 								<!-- Modal footer -->
 								<div class="modal-footer">
-									<button type="button" class="btn btn--primary" id="submit--btn">Submit</button>
-									<button type="button" class="btn btn--danger modal_close" data-dismiss="modal">Close</button>
+									<button type="button" class="btn btn--primary" id="submit--btn">신청</button>
+									<button type="button" class="btn btn--danger modal_close" data-dismiss="modal">취소</button>
 								</div>
 							</div>
 

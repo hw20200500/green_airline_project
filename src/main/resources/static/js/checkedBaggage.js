@@ -73,16 +73,6 @@ $(document).ready(function() {
 
 });
 
-$("#right--li").on("mouseover", function() {
-	$("#left--li").css('background-color', '#fff');
-	$("#left--li").css('color', '#000');
-});
-
-$("#right--li").on("mouseout", function() {
-	$("#left--li").css('background-color', '#8ABBE2');
-	$("#left--li").css('color', '#fff');
-});
-
 $("#submit--btn").on("click", function() {
 	let amount = $("#seat--count--input").val();
 	let ticketId = $("#modal--id--departuredate").val();

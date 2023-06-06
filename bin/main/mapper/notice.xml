@@ -40,7 +40,7 @@
 		from (
  			SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM, A.* 
         	FROM (
-				select n.title, n.content, nc.name as name, nc.id as ncId, n.id, n.category_id
+				select n.title, n.content, nc.name as name, nc.id as ncId, n.id, n.category_id, n.created_at
 				from notice_tb as n
 				inner join
 				notice_category_tb as nc
