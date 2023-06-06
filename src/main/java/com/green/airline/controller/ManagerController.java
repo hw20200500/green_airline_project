@@ -275,11 +275,11 @@ public class ManagerController {
 		// 전체 회원 목록
 		List<Member> allMemberList = userService.readMemberListAll();
 		// 총 페이지 수
-		int pageCount = (int) Math.ceil(allMemberList.size() / 20.0);
+		int pageCount = (int) Math.ceil(allMemberList.size() / 10.0);
 		model.addAttribute("pageCount", pageCount);
 
 		// 표시할 글 목록
-		Integer index = (page - 1) * 20;
+		Integer index = (page - 1) * 10;
 		List<MemberInfoDto> memberList = userService.readMemberListAllLimit(index);
 		model.addAttribute("memberList", memberList);
 
@@ -324,11 +324,11 @@ public class ManagerController {
 		// 전체 회원 목록
 		List<Manager> allManagerList = managerService.readManagerListAll();
 		// 총 페이지 수
-		int pageCount = (int) Math.ceil(allManagerList.size() / 20.0);
+		int pageCount = (int) Math.ceil(allManagerList.size() / 10.0);
 		model.addAttribute("pageCount", pageCount);
 
 		// 표시할 글 목록
-		Integer index = (page - 1) * 20;
+		Integer index = (page - 1) * 10;
 		List<Manager> managerList = managerService.readManagerListAllLimit(index);
 		model.addAttribute("managerList", managerList);
 
@@ -476,7 +476,7 @@ public class ManagerController {
 		User user = User.builder().id(id).password(id).userRole(UserRole.ADMIN.getUserRole()).build();
 		userService.createUser(user);
 
-		return "/ticket/selectSchedule";
+		return "redirect:/manager/list/1";
 	}
 
 	// 특별 기내식 신청 내역

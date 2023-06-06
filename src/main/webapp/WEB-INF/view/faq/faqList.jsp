@@ -159,33 +159,6 @@ p {
 			</form>
 		</div>
 
-		<div class="faq--category--content--wrap">
-			<div class="faq--category--wrap">
-				<c:forEach var="categories" items="${categories}">
-					<h4>
-						<a href="/faq/faqList?categoryId=${categories.id}">${categories.name}</a>
-					</h4>
-				</c:forEach>
-			</div>
-
-			<div class="faq--faqList--wrap">
-				<c:forEach var="faqResponseDtos" items="${faqResponseDtos}">
-					<input type="hidden" name="id" value="${faqResponseDtos.id}" id="id" class="${faqResponseDtos.id}">
-					<input type="hidden" name="title" value="${faqResponseDtos.title}" id="title">
-					<input type="hidden" name="content" value="${faqResponseDtos.content}" id="content">
-					<input type="hidden" name="categoryId" value="${faqResponseDtos.categoryId}" id="categoryId">
-					<div class="faq--title--content--wrap" id="faq--title--content--wrap${faqResponseDtos.id}">
-						<div class="faq--name--wrap">
-							<c:if test="${principal.userRole.equals(\"관리자\")}">
-								<p class="faq--name--cursor--wrap">
-									<input type="checkbox" name="id" id="delete--checkbox--id" value="${faqResponseDtos.id}">
-							</c:if>
-							<span class="faq--name--cursor--wrap"> [ ${faqResponseDtos.name} ] ${faqResponseDtos.title} </span>
-							</p> <%-- <-오타 아님 --%>
-							<c:if test="${principal.userRole.equals(\"관리자\")}">
-								<button class="btn btn--primary" type="button" data-toggle="modal" data-target="#myModal${faqResponseDtos.id}">수정</button>
-
-<<<<<<< HEAD
 			<div class="faq--category--content--wrap">
 				<div class="faq--category--wrap">
 					<c:forEach var="categories" items="${categories}">
@@ -241,35 +214,7 @@ p {
 											</div>
 											<div>
 												<textarea rows="6" cols="57" style="resize: none;" id="faq--modal--content${faqResponseDtos.id}">${faqResponseDtos.content}</textarea>
-=======
-								<div class="modal fade" id="myModal${faqResponseDtos.id}">
-									<div class="modal-dialog">
-										<div class="modal-content">
-
-											<div class="modal-header">
-												<input type="text" id="faq--modal--title${faqResponseDtos.id}" value="${faqResponseDtos.title}" style="width: 520px;">
-												<button type="button" class="close" data-dismiss="modal">×</button>
->>>>>>> feature/syBugTest
 											</div>
-
-											<div class="modal-body">
-												<div class="faq--category--modal--wrap">
-													<select id="faq--modal--category${faqResponseDtos.id}">
-														<c:forEach var="categories" items="${categories}">
-															<option value="${categories.id}">${categories.name}</option>
-														</c:forEach>
-													</select>
-												</div>
-												<div>
-													<textarea rows="6" cols="57" style="resize: none;" id="faq--modal--content${faqResponseDtos.id}">${faqResponseDtos.content}</textarea>
-												</div>
-											</div>
-
-											<div class="modal-footer">
-												<button type="button" class="btn btn--primary faq--update--btn" data-dismiss="modal" onclick="updateFaq(${faqResponseDtos.id})">Submit</button>
-												<button type="button" class="btn btn--danger" data-dismiss="modal">Close</button>
-											</div>
-
 										</div>
 
 										<div class="modal-footer">
@@ -279,28 +224,22 @@ p {
 
 									</div>
 								</div>
-<<<<<<< HEAD
 							</div>
 							<div class="faq--content--wrap">${faqResponseDtos.content}</div>
-=======
-							</c:if>
->>>>>>> feature/syBugTest
 						</div>
-						<div class="faq--content--wrap">${faqResponseDtos.content}</div>
+					</c:forEach>
+				</div>
+			</div>
+			<div>
+				<c:if test="${principal.userRole.equals(\"관리자\")}">
+					<div>
+						<button class="btn btn--danger" id="remove--check--btn" name="id" type="button">삭제</button>
+						<button class="btn btn--primary" onclick="location.href='/notice/noticeInsert'">글 작성</button>
 					</div>
-				</c:forEach>
+				</c:if>
 			</div>
 		</div>
-		<div>
-			<c:if test="${principal.userRole.equals(\"관리자\")}">
-				<div>
-					<button class="btn btn--danger" id="remove--check--btn" name="id" type="button">삭제</button>
-					<button class="btn btn--primary" onclick="location.href='/notice/noticeInsert'">글 작성</button>
-				</div>
-			</c:if>
-		</div>
-	</div>
-</main>
+	</main>
 
 <script src="/js/faq.js"></script>
 

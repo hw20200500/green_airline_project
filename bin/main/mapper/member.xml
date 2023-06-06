@@ -71,7 +71,7 @@
 		JOIN user_tb AS u
 		ON m.id = u.id
 		ORDER BY u.join_at DESC
-		LIMIT #{index}, 20
+		LIMIT #{index}, 10
 	</select>
 	
 	<select id="selectMemberListSearch" resultType="com.green.airline.dto.response.MemberInfoDto">
