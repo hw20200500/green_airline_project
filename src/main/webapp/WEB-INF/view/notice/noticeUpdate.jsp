@@ -18,7 +18,10 @@
 
 <div>
 	<main>
-		<h1>관리자 쪽 공지사항 수정</h1>
+		<h2 class="page--title">공지사항 수정</h2>
+		<hr>
+		<br>
+		
 		<form action="/notice/noticeUpdate" method="post">
 		<input type="hidden" name="id" value="${id}">
 			제목 <input type="text" name="title" value="${noticeResponseDto.title}">

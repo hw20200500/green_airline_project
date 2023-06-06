@@ -15,10 +15,10 @@
 <!-- 항공기 좌석 배치도 -->
 
 <main>
-
-	<h2>항공기 정보</h2>
+	<h2 class="page--title">항공기 정보</h2>
 	<hr>
 	<br>
+	
 	<div style="width: 100%; position: relative; margin-bottom: 70px;">
 		<h1 class="airplane--name">
 			<span class="material-symbols-outlined">flight</span>&nbsp;

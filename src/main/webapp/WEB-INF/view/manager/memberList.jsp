@@ -52,21 +52,10 @@
 
 </style>
 
-<script>
-	$(document).ready(function() {
-		$(".list--table tbody tr").on("click", function() {
-			let id = $(this).attr("id").split("tr")[1];
-			
-			location.href="/manager/memberDetail/" + id;
-			
-		});
-	});
-</script>
-
 <!-- 회원정보 조회 -->
 
 <main class="d-flex flex-column">
-	<h2>회원 정보 조회</h2>
+	<h2 class="page--title">회원 정보 조회</h2>
 	<hr>
 	<br>
 	<!-- 필터 및 검색 -->
@@ -142,16 +131,51 @@
 			</table>
 			<c:if test="${pageCount != null}">
 				<ul class="page--list">
-					<c:forEach var="i" begin="1" end="${pageCount}" step="1">
-						<c:choose>
-							<c:when test="${i == page}">
-								<li><a href="/manager/memberList/${i}" style="font-weight: 700; color: #007bff">${i}</a></li>					
-							</c:when>
-							<c:otherwise>
-								<li><a href="/manager/memberList/${i}">${i}</a></li>							
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
+					<c:choose>
+						<c:when test="${pageCount < 11}">
+							<c:forEach var="i" begin="1" end="${pageCount}" step="1">
+								<c:choose>
+									<c:when test="${i == page}">
+										<li><a href="/manager/memberList/${i}" style="font-weight: 700; color: #007bff">${i}</a>									
+									</c:when>
+									<c:otherwise>
+										<li><a href="/manager/memberList/${i}">${i}</a>									
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</c:when>
+						<%-- 페이지가 11개 이상이라면 --%>
+						<c:otherwise>
+							<c:choose>
+								<c:when test="${page < 11}">
+									<c:forEach var="i" begin="1" end="10" step="1">
+										<c:choose>
+											<c:when test="${i == page}">
+												<li><a href="/manager/memberList/${i}" style="font-weight: 700; color: #007bff">${i}</a>									
+											</c:when>
+											<c:otherwise>
+												<li><a href="/manager/memberList/${i}">${i}</a>									
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+									<li><a href="/manager/memberList/11">></a>		
+								</c:when>
+								<c:otherwise>
+									<li><a href="/manager/memberList/1"><</a>		
+									<c:forEach var="i" begin="11" end="${pageCount}" step="1">
+										<c:choose>
+											<c:when test="${i == page}">
+												<li><a href="/manager/memberList/${i}" style="font-weight: 700; color: #007bff">${i}</a>									
+											</c:when>
+											<c:otherwise>
+												<li><a href="/manager/memberList/${i}">${i}</a>									
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						</c:otherwise>
+					</c:choose>
 				</ul>
 			</c:if>
 		</c:otherwise>
@@ -159,23 +183,32 @@
 </main>
 
 <script>
-	$("#searchBtn").on("click", function() {
-		let search = $("#memberId").val().replaceAll(" ", "");
+	
+	$(document).ready(function() {
+		$(".list--table tbody tr").on("click", function() {
+			let id = $(this).attr("id").split("tr")[1];
+			
+			location.href="/manager/memberDetail/" + id;
+			
+		});
+		
+		$("#searchBtn").on("click", function() {
+			let search = $("#memberId").val().replaceAll(" ", "");
 
-		if (search == "") {
-			return false;
-		} 
-	});
-
-	$("#memberId").on("keyup", function(e) {
-		let search = $("#memberId").val().replaceAll(" ", "");
-
-		if (e.keyCode == '13') {
 			if (search == "") {
-				e.preventDefault();
+				return false;
 			} 
-		}
+		});
 
+		$("#memberId").on("keyup", function(e) {
+			let search = $("#memberId").val().replaceAll(" ", "");
+
+			if (e.keyCode == '13') {
+				if (search == "") {
+					e.preventDefault();
+				} 
+			}
+		});
 	});
 </script>
 

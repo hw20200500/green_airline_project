@@ -16,9 +16,10 @@
 <!-- 회원관리 메인 페이지 -->
 
 <main>
-	<h2>회원 및 관리자 관리</h2>
+	<h2 class="page--title">회원 및 관리자 관리</h2>
 	<hr>
 	<br>
+	
 	<div class="service--div">
 		<ul class="service--ul" onclick="location.href='/manager/memberList/1'">
 			<li><span class="material-symbols-outlined">person_search</span>

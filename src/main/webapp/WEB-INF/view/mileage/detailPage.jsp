@@ -17,8 +17,6 @@
 	border: 1px solid gray;
 	font-size: 12pt;;
 	font-family: 'Malgun Gothic';
-	 
-	
 }
 
 .tbl_prdinfo .tbl_prdinfo_tit {
@@ -86,7 +84,6 @@ img {
 	margin-left: 100px;
 }
 
-
 .small {
 	background-color: rgb(243, 243, 243);
 	width: 19%;
@@ -117,7 +114,8 @@ img {
 	float: left;
 	text-align: center;
 	background-color: rgb(217, 217, 217);
-	margin-right: 1px; height : 50px;
+	margin-right: 1px;
+	height: 50px;
 	padding-top: 10px;
 	height: 50px;
 }
@@ -129,11 +127,10 @@ img {
 }
 </style>
 
-<div>
-
-	<!-- 여기 안에 쓰기 -->
 	<main>
-
+		<h2 class="page--title">마일리지샵</h2>
+		<hr>
+		<br>
 		<div class="container">
 			<div class="prd_detail mar_to50">
 				<!-- 상품 정보영역 -->
@@ -146,7 +143,7 @@ img {
 
 						<div class="mileage">
 							<c:choose>
-								<c:when test="${principal.userRole == '관리자'}">
+								<c:when test="${\"관리자\".equals(principal.userRole)}">
 								</c:when>
 								<c:otherwise>
 									<c:choose>
@@ -226,12 +223,11 @@ img {
 											</div>
 											<br>
 											<c:choose>
-												<c:when test="${principal.userRole == '관리자'}">
+												<c:when test="${\"관리자\".equals(principal.userRole)}">
 													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">수정</button>
 												</c:when>
 												<c:otherwise>
 													<button type="submit" class="buyButton btn btn-light" id="buyButton">구매</button>
-													<!-- <button type="submit" class="buyButton btn btn-light" id="buyButton">구매하기 버튼으로 만들꺼임</button> -->
 												</c:otherwise>
 											</c:choose>
 										</c:when>
@@ -439,27 +435,26 @@ img {
 				</div>
 			</div>
 		</div>
-		</main>
-		<script type="text/javascript">
-		/* 옵션 선택하면 구매하기 버튼 숨기기 */
-		let buyBtn = $("#buyButton").hide();
-		let inputEmail = $("#inputEmail").hide();
-
-/* 제품 옵션, 구매 버튼 보이게 */
+	</main>
+<script type="text/javascript">
+	/* 옵션을 선택하지 않으면 구매 버튼 보이지 않게 */
+	let buyBtn = $("#buyButton").hide();
+	let inputEmail = $("#inputEmail").hide();
+	
+	/* 제품 옵션, 구매 버튼 보이게 */
 	$("#optionList").on("change", function() {
 		let selectedOption = $(this).val();
 		buyBtn.show();
 		inputEmail.show();
+		
 		if ($.trim(selectedOption) != "") {
 			$(".selected_prd").hide();
-			$(".selected_prd." + selectedOption).first().show();
-			
+			$(".selected_prd." + selectedOption).first().show();	
 		}
-
+	
 		$(this).val("");
 	});
-	
-	
+		
 	// 삭제 버튼 클릭 시
 	$(".btn_delete").on("click", function() {
 		let countInput = $("input[name='amount']");
@@ -472,154 +467,122 @@ img {
 		inputEmail.hide();
 		countInput.val(1);
 		totalPriceElement.text(initialPrice);
-		$(this).parent().hide();
-		
+		$(this).parent().hide();	
 	});
-	
 	
 	// 수량 증가 버튼 클릭 시
 	document.querySelector('.plus')
-			.addEventListener(
-					'click',
-					function() {
-						let minusTarget = document
-						.querySelector('.minus');
-						
-						let target = document
-								.querySelector('.plus');
-						let countInput = document
-								.querySelector('input[name="amount"]');
+			.addEventListener('click', function() {
+						let minusTarget = document.querySelector('.minus');
+						let target = document.querySelector('.plus');
+						let countInput = document.querySelector('input[name="amount"]');
 						let countValue = parseInt(countInput.value); 
-						console.log('countValue : '+countValue)
-						let priceElement = document
-								.querySelector('.price .num.each_mile');
-						let totalPriceElement = document
-								.querySelector('.total_mile .num');
+						
+						let priceElement = document.querySelector('.price .num.each_mile');
+						let totalPriceElement = document.querySelector('.total_mile .num');
 						let price = parseInt(priceElement.textContent);
-						console.log('price : ' + price)
-						 let hiddenPrice = document
-								.querySelector('input[name="productPrice"]'); 
-						let hiddenCount = document
-						.querySelector('input[name="hiddenCount"]');
+						let hiddenPrice = document.querySelector('input[name="productPrice"]'); 
+						let hiddenCount = document.querySelector('input[name="hiddenCount"]');
 						
 						if (countValue < 5) {
 							countInput.value = countValue + 1;
-							totalPriceElement.textContent = priceToString(price
-									* (countValue + 1));
+							totalPriceElement.textContent = priceToString(price * (countValue + 1));
 							hiddenPrice.value = price * (countValue + 1);
 							hiddenCount.value = ${shopProduct.count} - countInput.value
 							
 							minusTarget.disabled = false;
-						}else if(countValue == 5){
-							alert('최대 5개 까지 선택 가능합니다');
-						}
-						if(${shopProduct.count} == countValue + 1){
-							countInput.value = countValue+1;
-							 target.disabled = true;
-							alert('최대수량입니다');
 							
+						} else if(countValue == 5){
+							alert('최대 5개까지 선택 가능합니다.');
+						}
+						if (${shopProduct.count} == countValue){
+							countInput.value = countValue;
+							target.disabled = true;
+							alert('최대 수량입니다.');
 						}
 					});
 
 	// 수량 감소 버튼 클릭 시
 	document.querySelector('.minus')
-			.addEventListener(
-					'click',
-					function() {
-						let target = document
-						.querySelector('.plus');
-						let minusTarget = document
-						.querySelector('.minus');
-						let countInput = document
-								.querySelector('input[name="amount"]');
+			.addEventListener('click', function() {
+						let target = document.querySelector('.plus');
+						let minusTarget = document.querySelector('.minus');
+						let countInput = document.querySelector('input[name="amount"]');
 						let countValue = parseInt(countInput.value);
-						let priceElement = document
-								.querySelector('.price .num.each_mile');
-						let totalPriceElement = document
-								.querySelector('.total_mile .num');
+						let priceElement = document.querySelector('.price .num.each_mile');
+						let totalPriceElement = document.querySelector('.total_mile .num');
 						let price = parseInt(priceElement.textContent);
-						let hiddenPrice = document
-								.querySelector('input[name="productPrice"]');
-						let hiddenCount = document
-						.querySelector('input[name="hiddenCount"]');
+						let hiddenPrice = document.querySelector('input[name="productPrice"]');
+						let hiddenCount = document.querySelector('input[name="hiddenCount"]');
 						
 						if (countValue > 1) {
 							countInput.value = countValue - 1;
-							totalPriceElement.textContent = priceToString(price
-									* (countValue - 1));
+							totalPriceElement.textContent = priceToString(price * (countValue - 1));
 							hiddenPrice.value = priceToString(price * (countValue - 1));
 							hiddenCount.value = ${shopProduct.count} - countInput.value
-							console.log(hiddenPrice.value);							
 							target.disabled = false;
 						} else if (countValue > 0) {
 							minusTarget.disabled = true;
-							alert('최소 1개는 선택 해야합니다');
+							alert('최소 1개 이상 선택해야 합니다.');
 						}
 					});
+	
 	function priceToString(price1) {
 	    return price1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 	}
 	
-	
 	/* 마일리지 비교 */
 	document.querySelector('.buyButton')
-			.addEventListener('click',
-					function() {
+			.addEventListener('click', function() {
 				let email = $('.email').val();
 				let exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-				let myMileage = document
-				.querySelector('.myMileage').innerHTML;
-				 let total = $('#productPrice').val();
-				 console.log(total);
-				 let amount = $('#amount').val(); 
-				let hiddenCount = document
-				.querySelector('input[name="hiddenCount"]');
+				let myMileage = document.querySelector('.myMileage').innerHTML;
+				let total = $('#productPrice').val();
+				let amount = $('#amount').val(); 
+				let hiddenCount = document.querySelector('input[name="hiddenCount"]');
 				
-				if(parseInt(myMileage) < parseInt(total*amount)){
-					alert('마일리지가 부족 합니다');
-					 event.preventDefault();
-					 location.reload();
+				if (parseInt(myMileage) < parseInt(total * amount)){
+					alert('마일리지가 부족합니다.');
+					event.preventDefault();
+					location.reload();
 				}
-				if(email == null){
-					alert('이메일을 입력 하세요');
-					 event.preventDefault();
-					 location.reload();
-					}
 				
-				if(exptext.test(email)==false){
-
-				//이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우			
-
-				alert("이메일형식이 올바르지 않습니다.");
-				event.preventDefault();
-				 location.reload();
-
-			return false;
+				if (email == ''){
+					alert('이메일을 입력하세요.');
+					event.preventDefault();
+					location.reload();
+				}
+				
+				// 이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우			
+				if (exptext.test(email) == false) {
+					alert("이메일 형식이 올바르지 않습니다.");
+					event.preventDefault();
+				 	location.reload();
+					return false;
 				}
 			});
+	
 	var tabContents = document.getElementsByClassName("tab_cont");
-    console.log(tabContents.length)
-    console.log('asdasd')
+	
     for (var i = 1; i < tabContents.length; i++) {
         tabContents[i].style.display = "none";
     }
-	 function toggleTab(tabIndex) {
+    
+	function toggleTab(tabIndex) {
 		 	
-	        // 모든 탭 내용 숨기기
-	        var tabContents = document.getElementsByClassName("tab_cont");
-	        for (var i = 0; i < tabContents.length; i++) {
-	            tabContents[i].style.display = "none";
-	        }
-	        // 선택한 탭 내용 보이기
-	        var selectedTab = document.getElementById("tab" + (tabIndex + 1));
-	        selectedTab.style.display = "block";
-	    }
+        // 모든 탭 내용 숨기기
+        var tabContents = document.getElementsByClassName("tab_cont");
+        for (var i = 0; i < tabContents.length; i++) {
+            tabContents[i].style.display = "none";
+        }
+        // 선택한 탭 내용 보이기
+        var selectedTab = document.getElementById("tab" + (tabIndex + 1));
+        selectedTab.style.display = "block";
+    }
 
-	 
-	
 </script>
 
 
-<input type="hidden" name="menuName" id="menuName" value="마일리지샵">
+	<input type="hidden" name="menuName" id="menuName" value="마일리지샵">
 
-<%@ include file="/WEB-INF/view/layout/footer.jsp"%>
+	<%@ include file="/WEB-INF/view/layout/footer.jsp"%>

@@ -17,7 +17,7 @@ import com.green.airline.service.MenuService;
 import com.green.airline.utils.Define;
 
 @RestController
-public class MenuRestController {
+public class MenuApiController {
 
 	@Autowired
 	private HttpSession session;

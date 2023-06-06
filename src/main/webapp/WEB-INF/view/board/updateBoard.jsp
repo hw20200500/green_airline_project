@@ -9,7 +9,9 @@
   }
 </style>
 <main>
-  <h5>여행일지</h5>
+	<h2 class="page--title">여행일지</h2>
+	<hr>
+	<br>
 
   <form action="/board/update/${id}" method="post" enctype="multipart/form-data">
     <input type="hidden" name="id" value="${id}">

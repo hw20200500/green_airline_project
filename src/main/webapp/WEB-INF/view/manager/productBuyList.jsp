@@ -50,9 +50,6 @@ table.table-bordered th, table.table-bordered td {
 table#gifticonList th.table-bordered {
   background-color: #f2f2f2;
 }
-main {
-	padding: 20px;
-}
 
 .mileage--list {
 	margin-top: 20px;
@@ -124,7 +121,10 @@ width:128px;
 </style>
 <!-- 여기 안에 쓰기 -->
 <main>
-	<h1 class="title">고객 기프티콘 구매/환불 리스트</h1>
+	<h2 class="page--title">마일리지샵 이용 내역</h2>
+	<hr>
+	<br>
+	
 	<div class="container">
 		<form action="mileageList" method="get" id="form">
 			<div id="checkboxList"></div>
@@ -187,5 +187,6 @@ width:128px;
 	
 </script>
 
+<input type="hidden" name="menuName" id="menuName" value="상품 판매 내역">
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

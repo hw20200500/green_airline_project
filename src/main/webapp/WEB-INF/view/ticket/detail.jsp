@@ -17,9 +17,10 @@
 <!-- 구매한 항공권 상세 페이지 -->
 
 <main class="d-flex flex-column">
-	<h2>항공권 상세 페이지</h2>
+	<h2 class="page--title">항공권 구매 내역</h2>
 	<hr>
 	<br>
+	
 	<div class="d-flex flex-column align-items-center" style="width: 100%;">
 		
 			<h5 class="small--title" style="margin-bottom: 35px;">
@@ -167,9 +168,10 @@
 				<span class="material-symbols-outlined" style="margin-top: 1px;">credit_card</span>
 				<span>결제 정보</span>
 			</h5>
-			<table border="1" class="list--table" style="width: 700px;" id="paymentTable">
+			<table border="1" class="list--table" id="paymentTable">
 				<thead>
 				<tr>
+					<th>구분</th>
 					<th>결제번호</th>
 					<th>결제금액</th>
 					<th>상태</th>
@@ -177,6 +179,16 @@
 				</thead>
 				<tbody>
 					<tr>
+						<td>
+							<c:choose>
+								<c:when test="${ticket.paymentType == 0}">
+									카카오페이
+								</c:when>
+								<c:otherwise>
+									마일리지 결제
+								</c:otherwise>
+							</c:choose>
+						</td>
 						<td>
 							${ticket.tid}
 						</td>

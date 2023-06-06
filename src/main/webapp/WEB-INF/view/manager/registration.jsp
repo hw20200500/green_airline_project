@@ -52,9 +52,10 @@
 <!-- 관리자 등록 -->
 
 <main class="d-flex flex-column">
-	<h2>관리자 등록</h2>
+	<h2 class="page--title">관리자 등록</h2>
 	<hr>
 	<br>
+	
 	<form action="/manager/registration" method="post">
 		<div class="d-flex flex-column align-items-center">
 			<table class="list--table--reverse" border="1" style="width: 600px;">
@@ -104,30 +105,34 @@
 </main>
 
 <script>
-$("#datepicker").datepicker(
-	{
-		dateFormat: "yy-mm-dd",
-		changeMonth: true,
-		changeYear: true,
-		yearRange: '1900:2023',
-		maxDate: '0',
-		showMonthAfterYear: true,
-		monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-		monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-		onSelect: function() {
-			let date = $.datepicker.formatDate("yy-mm-dd", 
-					$("#datepicker").datepicker("getDate"));
-	}
+
+$(document).ready(function(){
+	$("#datepicker").datepicker(
+		{
+			dateFormat: "yy-mm-dd",
+			changeMonth: true,
+			changeYear: true,
+			yearRange: '1900:2023',
+			maxDate: '0',
+			showMonthAfterYear: true,
+			monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+			monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+			onSelect: function() {
+				let date = $.datepicker.formatDate("yy-mm-dd", 
+						$("#datepicker").datepicker("getDate"));
+		}
+	});
+	
+	$("#regBtn").on("click", function() {
+		let birthDate = stringToDate($("input[name=\"birthDate\"]").val());
+	
+		if (birthDate == "error") {
+			alert("유효하지 않은 생년월일입니다.");
+			return false;
+		}
+	});	
 });
 
-$("#regBtn").on("click", function() {
-	let birthDate = stringToDate($("input[name=\"birthDate\"]").val());
-
-	if (birthDate == "error") {
-		alert("유효하지 않은 생년월일입니다.");
-		return false;
-	}
-});
 
 </script>
 

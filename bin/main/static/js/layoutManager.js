@@ -1,49 +1,26 @@
 	
-// 현재 날짜
-function getCurrentDate() {
-    var date = new Date();
-    var year = date.getFullYear().toString();
-
-    var month = date.getMonth() + 1;
-    month = month < 10 ? '0' + month.toString() : month.toString();
-
-    var day = date.getDate();
-    day = day < 10 ? '0' + day.toString() : day.toString();
-
-    return year + "-" + month + "-" + day ;
-}
-	
-// 날짜 차이를 '일'로 계산
-function calculateDayDiff (date1, date2) {
-	let time1 = date1.getTime();
-	let time2 = date2.getTime();
-	let timeDiff = time1 - time2;
-
-	let dayCount = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-	return dayCount;
-}
-
-$("#subMenu1").on("click", function() {
-	$("#dropMenu1").slideDown("fast");
-	$(this).addClass("selected--sub--menu");
-});
-
-$("#subMenu1").parent().on("mouseleave", function() {
-	$("#dropMenu1").hide();
-	$("#subMenu1").removeClass("selected--sub--menu");
-});
-
-$("#subMenu2").on("click", function() {
-	$("#dropMenu2").slideDown("fast");
-	$(this).addClass("selected--sub--menu");
-});
-
-$("#subMenu2").parent().on("mouseleave", function() {
-	$("#dropMenu2").hide();
-	$("#subMenu2").removeClass("selected--sub--menu");
-});
-
 $(document).ready(function() {
+
+	$("#subMenu1").on("click", function() {
+		$("#dropMenu1").slideDown("fast");
+		$(this).addClass("selected--sub--menu");
+	});
+	
+	$("#subMenu1").parent().on("mouseleave", function() {
+		$("#dropMenu1").hide();
+		$("#subMenu1").removeClass("selected--sub--menu");
+	});
+	
+	$("#subMenu2").on("click", function() {
+		$("#dropMenu2").slideDown("fast");
+		$(this).addClass("selected--sub--menu");
+	});
+	
+	$("#subMenu2").parent().on("mouseleave", function() {
+		$("#dropMenu2").hide();
+		$("#subMenu2").removeClass("selected--sub--menu");
+	});
+
 	let subMenu = $("#menuName").val();
 	
 	if (subMenu == '항공권 예약') {
@@ -88,7 +65,31 @@ $(document).ready(function() {
 	}
 });
 
-// 날짜로 변환
+// 현재 날짜 반환
+function getCurrentDate() {
+    var date = new Date();
+    var year = date.getFullYear().toString();
+
+    var month = date.getMonth() + 1;
+    month = month < 10 ? '0' + month.toString() : month.toString();
+
+    var day = date.getDate();
+    day = day < 10 ? '0' + day.toString() : day.toString();
+
+    return year + "-" + month + "-" + day ;
+}
+	
+// 날짜 차이를 '일'로 계산
+function calculateDayDiff (date1, date2) {
+	let time1 = date1.getTime();
+	let time2 = date2.getTime();
+	let timeDiff = time1 - time2;
+
+	let dayCount = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+	return dayCount;
+}
+
+// 문자열을 날짜로 변환
 function stringToDate(str) {
 	let year;
 	let month;

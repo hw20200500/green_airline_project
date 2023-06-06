@@ -37,8 +37,9 @@ table tr th, table tr td {
 
 <main>
 	<div>
-		<h2>위탁 수하물 신청 내역 조회</h2>
+		<h2 class="page--title">위탁 수하물 신청 내역 조회</h2>
 		<hr>
+		<br>
 		
 		<table border="1">
 			<tr style="background-color:#E5EFF3;">

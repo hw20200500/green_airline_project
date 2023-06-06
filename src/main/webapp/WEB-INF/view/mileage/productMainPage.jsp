@@ -81,10 +81,6 @@
 	margin: 0 5px;
 }
 
-h2 {
-	text-align: center;
-	margin-top: 20px;
-}
 
 .imgClass {
 	width: 200px;
@@ -108,11 +104,11 @@ background-color: rgb(243, 243, 243);
 
 </style>
 
-<!-- 여기 안에 쓰기 -->
 <main>
+	<h2 class="page--title">마일리지샵</h2>
+	<hr>
+	<br>
 	<div class="container">
-
-
 		<div class="sort_area">
 			<select title="상품 정렬 순서" class="white gifticon-order" id="selectBoxId">
 				<option value="basic">옵션 선택</option>

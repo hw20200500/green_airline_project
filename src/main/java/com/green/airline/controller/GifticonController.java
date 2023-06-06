@@ -15,7 +15,7 @@ import com.green.airline.utils.Define;
 
 @Controller
 @RequestMapping("/gifticon")
-public class GifticonCtroller {
+public class GifticonController {
 
 	@Autowired
 	private HttpSession session;

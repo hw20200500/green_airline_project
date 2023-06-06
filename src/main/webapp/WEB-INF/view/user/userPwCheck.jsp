@@ -51,16 +51,15 @@ input[type=password] {
 </style>
 
 <main>
-
 	<div>
-		<h2>비밀번호 확인</h2>
-		<hr>
-	</div>
-	<div>
-		<p>회원님의 개인 정보를 안전하게 보호하기 위해 비밀번호를 다시 입력하여 주십시오.</p>
+		<h2 class="page--title">비밀번호 확인</h2>
+		<p class="page--title--description">
+			회원님의 개인 정보를 안전하게 보호하기 위해 그린항공은 비밀번호를 암호화하여 저장, 관리하고 있습니다.
+		</p>
 		<hr>
 		<br>
 	</div>
+
 	<form action="/userPwCheck" method="post">
 		<div class="userPwCheck--id--pw--wrap">
 			<div class="userPwCheck--id--wrap">

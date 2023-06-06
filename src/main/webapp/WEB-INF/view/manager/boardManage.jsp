@@ -16,9 +16,10 @@
 <!-- 게시판관리 메인 페이지 -->
 
 <main>
-	<h2>게시판 관리</h2>
+	<h2 class="page--title">게시판 관리</h2>
 	<hr>
 	<br>
+	
 	<div class="service--div">
 		<ul class="service--ul" onclick="location.href='/board/list/1'">
 			<li><span class="material-symbols-outlined">edit_calendar</span>

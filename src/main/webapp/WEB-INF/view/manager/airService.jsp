@@ -13,16 +13,13 @@
 <link rel="stylesheet" href="/css/manager.css">
 
 
-<style>
-
-</style>
-
 <!-- 항공 서비스 메인 페이지 -->
 
 <main>
-	<h2>항공 서비스</h2>
+	<h2 class="page--title">항공 서비스</h2>
 	<hr>
 	<br>
+	
 	<div class="service--div">
 		<ul class="service--ul" onclick="location.href='/manager/scheduleList'">
 			<li><span class="material-symbols-outlined">flight</span>

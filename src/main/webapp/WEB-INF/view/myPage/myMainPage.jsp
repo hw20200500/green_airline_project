@@ -6,8 +6,6 @@
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <style>
-main{
-}
 .main--img--div {
 	width: 100%;
 	height: 450px;
@@ -153,7 +151,6 @@ main {
 
 .my--detail--left {
 	width: 580px;
-	height: 650px;
 }
 
 .my--detail--right {

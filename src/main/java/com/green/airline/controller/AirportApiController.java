@@ -13,7 +13,7 @@ import com.green.airline.service.AirportService;
 
 @RestController
 @RequestMapping("/airport")
-public class AirportRestController {
+public class AirportApiController {
 
 	@Autowired
 	private AirportService airportService;

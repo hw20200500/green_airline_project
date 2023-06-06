@@ -392,8 +392,10 @@ main {
 <div>
 	<main>
 		<div class="inFlightSvSearch--header--wrap">
-			<h2>기내 서비스 조회</h2>
-			출/도착지를 입력하여 기내 서비스 상세 정보를 확인해 보세요.
+			<h2 class="page--title">기내 서비스 조회</h2>
+			<p class="page--title--description">출/도착지를 입력하여 기내 서비스 상세 정보를 확인해 보세요.</p>
+			<hr>
+			<br>
 		</div>
 
 		<div class="service--head--img">

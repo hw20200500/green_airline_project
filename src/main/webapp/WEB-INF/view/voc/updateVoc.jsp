@@ -13,109 +13,13 @@
 </c:choose>
 
 <link rel="stylesheet" href="/css/ticket.css">
+<link rel="stylesheet" href="/css/voc.css">
 
 <input type="hidden" name="menuName" id="menuName" value="고객의 말씀">
 
-<style>
-.list--table--reverse td {
-	font-size: 17px;
-	padding: 10px 5px 10px 20px;
-}
-
-.list--table--reverse th {
-	width: 300px;
-	height: 52.5px;
-}
-
-label {
-	margin: 0;
-}
-
-input[name="title"], .info--input, textarea[name="content"], select {
-	border: none;
-	outline: none;
-	background-color: #eee;
-	padding: 3px 5px;
-	border-radius: 5px;
-}
-
-.info--input {
-	width: 300px;
-}
-
-input[name="title"] {
-	width: 100%;
-}
-
-textarea[name="content"] {
-	width: 100%;
-	padding: 7px 10px;
-	font-size: 16px;
-	resize: none;
-	height: 400px;
-}
-
-select[name="categoryId"] {
-	width: 300px;
-}
-
-select[name="ticketId"] {
-	width: 550px;
-}
-
-.textarea--p {
-	text-align: right;
-	color: gray;
-	font-size: 14px;
-}
-
-label:hover {
-	cursor: pointer;
-}
-</style>
-
-<script>
-
-// 최대 글자 수 2000자
-let maxByte = ${Define.MAX_TEXTAREA_LENGTH};
-$(document).ready(function() {
-	
-	let type = `${voc.type}`;
-	let categoryId = ${voc.categoryId};
-	let ticketId = `${voc.ticketId}`;
-	
-	// 기존 유형 가져오기
-	for (let i = 0; i < $("input[name=\"type\"]").length; i++) {
-		let target = $("input[name=\"type\"]").eq(i);
-		if (target.val() == type) {
-			target.prop("checked", true);
-		}
-	}
-	
-	// 기존 분야 가져오기
-	for (let i = 0; i < $("select[name=\"categoryId\"] option").length; i++) {
-		let target = $("select[name=\"categoryId\"] option").eq(i);
-		if (target.val() == categoryId) {
-			target.prop("selected", true);
-		}
-	}
-	
-	// 기존 예약번호 가져오기
-	if (ticketId != null) {
-		for (let i = 0; i < $("select[name=\"ticketId\"] option").length; i++) {
-			let target = $("select[name=\"ticketId\"] option").eq(i);
-			if (target.val() == ticketId) {
-				target.prop("selected", true);
-			}
-		}
-	}
-});
-</script>
-
-<!-- 구매한 항공권 상세 페이지 -->
 
 <main class="d-flex flex-column">
-	<h2>고객의 말씀 수정</h2>
+	<h2 class="page--title">고객의 말씀 수정</h2>
 	<hr>
 	<br>
 	<div class="d-flex justify-content-center" style="width: 100%;">
@@ -211,6 +115,44 @@ $(document).ready(function() {
 	</div>
 
 </main>
+
+<script>
+
+	// 최대 글자 수 2000자
+	let maxByte = ${Define.MAX_TEXTAREA_LENGTH};
+	$(document).ready(function() {
+		
+		let type = `${voc.type}`;
+		let categoryId = ${voc.categoryId};
+		let ticketId = `${voc.ticketId}`;
+		
+		// 기존 유형 가져오기
+		for (let i = 0; i < $("input[name=\"type\"]").length; i++) {
+			let target = $("input[name=\"type\"]").eq(i);
+			if (target.val() == type) {
+				target.prop("checked", true);
+			}
+		}
+		
+		// 기존 분야 가져오기
+		for (let i = 0; i < $("select[name=\"categoryId\"] option").length; i++) {
+			let target = $("select[name=\"categoryId\"] option").eq(i);
+			if (target.val() == categoryId) {
+				target.prop("selected", true);
+			}
+		}
+		
+		// 기존 예약번호 가져오기
+		if (ticketId != null) {
+			for (let i = 0; i < $("select[name=\"ticketId\"] option").length; i++) {
+				let target = $("select[name=\"ticketId\"] option").eq(i);
+				if (target.val() == ticketId) {
+					target.prop("selected", true);
+				}
+			}
+		}
+	});
+</script>
 
 <script src="/js/voc.js"></script>
 

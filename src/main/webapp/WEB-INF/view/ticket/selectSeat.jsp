@@ -14,37 +14,8 @@
 
 <!-- 좌석 선택 페이지 -->
 
-<script>
-	// 좌석 선택 완료 버튼 누르면 같이 보낼 데이터들
-	let adultCount = ${ticketList.get(0).adultCount};
-	let childCount = ${ticketList.get(0).childCount};
-	let infantCount = ${ticketList.get(0).infantCount};
-	let scheduleId1 = ${ticketList.get(0).scheduleId};
-	let seatNames1 = new Array();
-	let seatGrade1 = `${ticketList.get(0).seatGrade}`;
-
-	// 1번 스케줄에 운항하는 비행기
-	let airplaneId1 = ${ticketList.get(0).airplaneId};
-	// 스케줄별로 선택할 좌석 수
-	let totalSeatCount = ${totalSeatCount};
-	// 1번 스케줄에 현재 선택한 좌석 개수
-	let seatCount1 = 0;
-	// 여정 개수 (1 == 편도, 2 == 왕복)
-	let scheduleCount = ${ticketList.size()};
-	// 현재 여정 순서
-	let scheduleNumber = 1;
-	
-	// 예외 방지
-	let airplaneId2;
-	let scheduleId2;
-	let seatNames2;
-	let seatGrade2;
-	let seatCount2 = 0;
-</script>
-
-<!-- 여기 안에 쓰기 -->
 <main class="d-flex flex-column">
-	<h2>항공권 예약</h2>
+	<h2 class="page--title">항공권 예약</h2>
 	<hr>
 	<br>
 	<div class="d-flex" style="width: 100%;">
@@ -437,6 +408,34 @@
 	</div>
 
 </main>
+
+<script>
+	// 좌석 선택 완료 버튼 누르면 같이 보낼 데이터들
+	let adultCount = ${ticketList.get(0).adultCount};
+	let childCount = ${ticketList.get(0).childCount};
+	let infantCount = ${ticketList.get(0).infantCount};
+	let scheduleId1 = ${ticketList.get(0).scheduleId};
+	let seatNames1 = new Array();
+	let seatGrade1 = `${ticketList.get(0).seatGrade}`;
+
+	// 1번 스케줄에 운항하는 비행기
+	let airplaneId1 = ${ticketList.get(0).airplaneId};
+	// 스케줄별로 선택할 좌석 수
+	let totalSeatCount = ${totalSeatCount};
+	// 1번 스케줄에 현재 선택한 좌석 개수
+	let seatCount1 = 0;
+	// 여정 개수 (1 == 편도, 2 == 왕복)
+	let scheduleCount = ${ticketList.size()};
+	// 현재 여정 순서
+	let scheduleNumber = 1;
+	
+	// 예외 방지
+	let airplaneId2;
+	let scheduleId2;
+	let seatNames2;
+	let seatGrade2;
+	let seatCount2 = 0;
+</script>
 
 <!-- 왕복인 경우 -->	
 <c:if test="${ticketList.size() == 2}">

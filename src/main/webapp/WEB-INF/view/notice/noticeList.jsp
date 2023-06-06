@@ -19,12 +19,6 @@
 	color: white;
 }
 
-.notice--header {
-	margin-bottom: 20px;
-	display: flex;
-	justify-content: center;
-}
-
 .keyword--search--wrap {
 	padding: 20px;
 	margin-bottom: 50px;
@@ -86,12 +80,11 @@
 <div>
 
 	<main>
+		<h2 class="page--title">공지사항</h2>
+		<hr>
+		<br>
+		
 		<div class="noticeHeader--keyword--wrap">
-
-			<div class="notice--header">
-				<h2>공지사항</h2>
-			</div>
-
 			<div class="keyword--search--wrap">
 				<form action="/notice/noticeSearch" method="get" class="keyword--search--form">
 					<input type="text" id="keyword" name="keyword" placeholder="키워드 검색">

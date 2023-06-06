@@ -156,12 +156,10 @@ table tr th {
 <main>
 
 	<div>
-		<div class="modal-header">
-			<div>
-				<h2 class="modal-title">특별 기내식 신청</h2>
-				<div>*특별 기내식을 신청하지 않으면 기본 기내식이 제공됩니다.</div>
-			</div>
-		</div>
+		<h2 class="page--title">특별 기내식 신청</h2>
+		<p class="page--title--description">특별 기내식을 신청하지 않으시면 기본 기내식이 제공됩니다.</p>
+		<hr>
+		<br>
 
 		<div id="inFlight--arrival">
 			<div>

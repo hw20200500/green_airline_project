@@ -31,7 +31,7 @@
 <!-- 특정 회원 정보 조회 -->
 
 <main class="d-flex flex-column">
-	<h2>회원 정보 조회</h2>
+	<h2 class="page--title">회원 정보 조회</h2>
 	<hr>
 	<br>
 

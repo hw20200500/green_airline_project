@@ -83,8 +83,8 @@ main {
 </style>
 <main>
 	<div>
-		<div class="transportLimit--head--wrap">
-			<h2>항공 운송 금지 품목</h2>
+		<div>
+			<h2 class="page--title">항공 운송 금지 품목</h2>
 			<hr>
 			<br>
 

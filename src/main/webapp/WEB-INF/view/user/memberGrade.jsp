@@ -42,9 +42,10 @@
 </style>
 
 <main class="d-flex flex-column">
-	<h2>회원 안내</h2>
+	<h2 class="page--title">회원 안내</h2>
 	<hr>
 	<br>
+		
 	<div class="d-flex flex-column align-items-center" style="width: 100%;">
 		<div style="width: 900px;">
 			<h4 class="middle--title">

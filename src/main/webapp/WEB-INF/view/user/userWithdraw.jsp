@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
-<style>
-</style>
+
 <main>
 	<div>
-		<h1>회원 탈퇴</h1>
-		<h3>비밀번호 확인을 한 사람만 들어올 수 있음</h3>
+		<div>
+			<h2 class="page--title">회원 탈퇴</h2>
+			<hr>
+			<br>
+		</div>
 
 		<div>
 			<h4>회원 탈퇴 신청 전 유의사항</h4>
@@ -30,7 +32,7 @@
 	</div>
 </main>
 
-<input type="hidden" name="menuName" id="menuName" value="회원정보 변경">
+<input type="hidden" name="menuName" id="menuName" value="회원 탈퇴">
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
 

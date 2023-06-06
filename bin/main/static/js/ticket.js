@@ -1,46 +1,6 @@
-function selectedType(i) {
-	// 이미 선택되어 있다면
-	if ($(`#ticketType${i}`).hasClass("selected--type")) {
-		return;
-		// 선택되어 있지 않다면
-	} else if ($(`#ticket--type${i}`).hasClass("selected--type") == false) {
-		$(`#ticketType${i}`).addClass("selected--type");
-		$(`#ticketType${i}`).siblings().removeClass("selected--type");
-		// 첫 탑승일은 넘김
-
-		// 왕복이라면
-		if (i == 1) {
-			let dateVal = $(".flight--date").val();
-			$(".flight--date1").val(dateVal);
-			$(".flight--date").val("");
-			$("#flightDate").attr("placeholder", "가는 날 ~ 오는 날");
-			if (dateVal == "") {
-				$("#flightDate").val("");			
-			} else {
-				$("#flightDate").val(dateVal + " ~ ");			
-			}
-		} else {
-			let dateVal = $(".flight--date1").val();
-			$(".flight--date").val(dateVal);
-			$(".flight--date1").val("");
-			$("#flightDate").val(dateVal);
-			$("#flightDate").attr("placeholder", "가는 날");
-		}
-		$(".flight--date2").val("");
-		$(".datepicker--div--type1, .datepicker--div--type2").hide();
-	}
-}
-
-// 출발지 도착지 스왑
-function airportSwap() {
-	let departureName = $("#departure").val();
-	let destinationName = $("#destination").val();
-	$("#destination").val(departureName);
-	$("#departure").val(destinationName);
-}
-
 let noneResult = $("<li>검색 결과가 존재하지 않습니다.</li>");
-
+let noneResultP = $(`<p class="none--result">해당하는 운항 스케줄이 존재하지 않습니다.</p>`);
+	
 // 키가 입력될 때마다 자동완성 불러오기
 $("#departure").on("keyup focus change", function() {	
 	// 만약 창이 숨겨진 상태라면
@@ -155,32 +115,17 @@ $(".region--li").on("click", function() {
 	});
 });
 
-// 다른 곳을 클릭하면 팝업 닫기
-$(document).on("click", function(e) {
-
-	if ($("#departureDiv").has(e.target).length === 0) {
-		$("#departureAirport").hide();
-	}
-
-	if ($("#destinationDiv").has(e.target).length === 0) {
-		$("#destinationAirport").hide();
-	}
-
-	if ($(".age--calculater--modal").has(e.target).length === 0) {
-		$(".age--calculater--modal input").val("");
-	}
-
-});
-
 // input에 포커스를 두면 해당하는 팝업 보이게
 $("#departure").on("focus", function() {
 	$("#departureAirport").show();
 	$(".datepicker--div--type1, .datepicker--div--type2").hide();
 });
+
 $("#destination").on("focus", function() {
 	$("#destinationAirport").show();
 	$(".datepicker--div--type1, .datepicker--div--type2").hide();
 });
+
 $("#passenger").on("click", function() {
 	$("#ageTypeDiv").css("display", "flex");
 	$(".datepicker--div--type1, .datepicker--div--type2").hide();
@@ -196,27 +141,6 @@ $("#flightDate").on("focus", function() {
 		$(".datepicker--div--type2").show();
 	}
 });
-
-// 자동 완성 항목 클릭하면 input에 value 들어감
-function insertAutoComplete(i, target) {
-	let liValue = $(`.${target}--li`).eq(i).text();
-
-	// 반대 취항지에 존재하는 값이면 들어가지 못하게 함
-	if (target == "departure") {
-		if ($("#destination").val() == liValue) {
-			alert("도착지와 동일한 취항지입니다.");
-			return;
-		}
-	} else {
-		if ($("#departure").val() == liValue) {
-			alert("출발지와 동일한 취항지입니다.");
-			return;
-		}
-	}
-
-	$(`#${target}`).val(liValue);
-	$(`#${target}Airport`).hide();
-}
 
 // 전체 공항 조회 버튼
 $(".all--airport").on("click", function() {
@@ -236,27 +160,6 @@ $(".all--airport").on("click", function() {
 		$("#departureAirport").hide();
 	}
 });
-
-// 취항지 클릭하면 input에 value 들어감
-function insertAirport(i, target) {
-	let liValue = $(`.${target}--airport--li`).eq(i).text();
-
-	// 반대 취항지에 존재하는 값이면 들어가지 못하게 함
-	if (target == "departure") {
-		if ($("#destination").val() == liValue) {
-			alert("도착지와 동일한 취항지입니다.");
-			return;
-		}
-	} else {
-		if ($("#departure").val() == liValue) {
-			alert("출발지와 동일한 취항지입니다.");
-			return;
-		}
-	}
-
-	$(`#${target}`).val(liValue);
-	$('.all--airport--modal').modal('hide');
-}
 
 $(".flight--date2").on("change", function() {
 
@@ -284,7 +187,6 @@ $(".flight--date2").on("change", function() {
 	}
 });
 
-
 $(".flight--date1").on("change", function() {
 
 	// 오는 날 이후 날짜를 선택했다면
@@ -304,37 +206,6 @@ $(".flight--date").on("change", function() {
 	$(".datepicker--div--type2").hide();
 	$("#flightDate").addClass("flight--date--inserted");
 });
-
-function insertDatepicker(type) {
-	// 왕복
-	if (type == 1) {
-		var dateValue1 = $(".flight--date1").val();
-		var dateValue2 = $(".flight--date2").val();
-		$("#flightDate").val(dateValue1 + " ~ " + dateValue2);
-
-		// 편도
-	} else if (type == 2) {
-		var dateValue = $(".flight--date").val();
-		$("#flightDate").val(dateValue);
-
-	}
-}
-
-function insertPassenger() {
-	let passenger = "성인" + $("input[id=\"ageType1\"]").val();
-	
-	let type2 = $("input[id=\"ageType2\"]").val();
-	let type3 = $("input[id=\"ageType3\"]").val();
-	
-	if (type2 != 0) {
-		passenger = passenger + "  소아" + type2;
-	}
-	
-	if (type3 != 0) {
-		passenger = passenger + "  유아" + type3;
-	} 
-	$("input[id=\"passenger\"]").val(passenger);
-}
 
 // 나이 계산기 버튼
 $(".age--calculater").on("click", function() {
@@ -369,30 +240,74 @@ $("#calculateBtn").on("click", function() {
 	}
 });
 
-
-// 날짜 차이 계산해서 연 단위로 환산해서 성인/소아/유아 구분
-function calculateAgeType (date1, date2) {
-	let bTime = date1.getTime();
-	let tTime = date2.getTime();
-	let timeDiff = tTime - bTime;
-
-	if (timeDiff < 0) {
-		$("#calculaterResult").text("입력된 생년월일이 탑승일 이후입니다.");
-		return;
+$("#selectSeatBtn").on("click", function() {
+	
+	// 성인이 아니면 예매 불가능
+	if (memberAgeType != '성인') {
+		alert("만 12세 이상의 성인만 항공권 예매가 가능합니다.");
+		location.href="/";
+		return false;
 	}
-
-	let age = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365));
-	let result;
-
-	if (age < 2) {
-		result = "유아";
-	} else if (age < 12) {
-		result = "소아";
-	} else {
-		result = "성인";
+	
+	let list = $(`.schedule--list--div input[type="radio"]`);
+	// 왕복 편도 여부 확인 (2 : 왕복, 1 : 편도)
+	let type = 0;
+	for (let j = 0; j < 2; j++) {
+		if ($(".schedule--list--div").eq(j).is(":visible")) {
+			type++;
+		}
 	}
-	return result;
-}
+	
+	// 라디오버튼 체크 개수 확인
+	let checkCount = 0;
+	for (let i = 0; i < list.length; i++) {
+		if (list.eq(i).is(":checked")) {
+			checkCount++;
+		}	
+	}		
+
+	// 선택되지 않은 일정이 있다면 submit하지 않음
+	if (type != checkCount) {
+		alert("선택되지 않은 일정이 존재합니다.");
+		return false;
+	}
+	
+	// 왕복일 때, 첫 번째 여정과 두 번째 여정의 운항시간이 겹치지 않는지 확인
+	if (type == 2) {
+		
+		let sch1Id = $("input[name=\"schedule1\"]:checked").val().split("_")[1];
+		let sch2Id = $("input[name=\"schedule2\"]:checked").val().split("_")[1];
+		
+		let data = {
+			scheduleId1: sch1Id,
+			scheduleId2: sch2Id
+		};
+		
+		let result = true;
+		
+		$.ajax({
+			type: 'POST',
+			url: '/ticket/checkDate',
+			contentType: "application/json; charset=UTF-8",
+			data: JSON.stringify(data),
+			dataType: 'json',
+			async: false   // 이거 해주니까 ajax 기다렸다가 아래에 return result 실행
+		})
+		.done((res) => {
+			// 일정 선택에 문제가 있다면
+			if (res.code == -1) {
+				alert(res.message);
+				result = false;
+			}
+		})
+		.fail((error) => {
+			console.log(error);
+		});
+		
+		return result;			
+	}
+	
+});
 
 // 인원 수 감소 버튼
 $(".minus--button").on("click", function() {
@@ -428,8 +343,6 @@ $(".plus--button").on("click", function() {
 	}
 	$(this).prev().val(parseInt(currentNumber) + 1);
 });
-
-let noneResultP = $(`<p class="none--result">해당하는 운항 스케줄이 존재하지 않습니다.</p>`);
 
 // 스케줄 조회
 $("#selectScheduleBtn").on("click", function() {
@@ -872,6 +785,163 @@ $("#selectScheduleBtn").on("click", function() {
 		});
 	}
 });
+	
+
+// 다른 곳을 클릭하면 팝업 닫기
+$(document).on("click", function(e) {
+
+	if ($("#departureDiv").has(e.target).length === 0) {
+		$("#departureAirport").hide();
+	}
+
+	if ($("#destinationDiv").has(e.target).length === 0) {
+		$("#destinationAirport").hide();
+	}
+
+	if ($(".age--calculater--modal").has(e.target).length === 0) {
+		$(".age--calculater--modal input").val("");
+	}
+
+});
+
+function selectedType(i) {
+	// 이미 선택되어 있다면
+	if ($(`#ticketType${i}`).hasClass("selected--type")) {
+		return;
+		// 선택되어 있지 않다면
+	} else if ($(`#ticket--type${i}`).hasClass("selected--type") == false) {
+		$(`#ticketType${i}`).addClass("selected--type");
+		$(`#ticketType${i}`).siblings().removeClass("selected--type");
+		// 첫 탑승일은 넘김
+
+		// 왕복이라면
+		if (i == 1) {
+			let dateVal = $(".flight--date").val();
+			$(".flight--date1").val(dateVal);
+			$(".flight--date").val("");
+			$("#flightDate").attr("placeholder", "가는 날 ~ 오는 날");
+			if (dateVal == "") {
+				$("#flightDate").val("");			
+			} else {
+				$("#flightDate").val(dateVal + " ~ ");			
+			}
+		} else {
+			let dateVal = $(".flight--date1").val();
+			$(".flight--date").val(dateVal);
+			$(".flight--date1").val("");
+			$("#flightDate").val(dateVal);
+			$("#flightDate").attr("placeholder", "가는 날");
+		}
+		$(".flight--date2").val("");
+		$(".datepicker--div--type1, .datepicker--div--type2").hide();
+	}
+}
+
+// 출발지 도착지 스왑
+function airportSwap() {
+	let departureName = $("#departure").val();
+	let destinationName = $("#destination").val();
+	$("#destination").val(departureName);
+	$("#departure").val(destinationName);
+}
+
+// 자동 완성 항목 클릭하면 input에 value 들어감
+function insertAutoComplete(i, target) {
+	let liValue = $(`.${target}--li`).eq(i).text();
+
+	// 반대 취항지에 존재하는 값이면 들어가지 못하게 함
+	if (target == "departure") {
+		if ($("#destination").val() == liValue) {
+			alert("도착지와 동일한 취항지입니다.");
+			return;
+		}
+	} else {
+		if ($("#departure").val() == liValue) {
+			alert("출발지와 동일한 취항지입니다.");
+			return;
+		}
+	}
+
+	$(`#${target}`).val(liValue);
+	$(`#${target}Airport`).hide();
+}
+
+
+// 취항지 클릭하면 input에 value 들어감
+function insertAirport(i, target) {
+	let liValue = $(`.${target}--airport--li`).eq(i).text();
+
+	// 반대 취항지에 존재하는 값이면 들어가지 못하게 함
+	if (target == "departure") {
+		if ($("#destination").val() == liValue) {
+			alert("도착지와 동일한 취항지입니다.");
+			return;
+		}
+	} else {
+		if ($("#departure").val() == liValue) {
+			alert("출발지와 동일한 취항지입니다.");
+			return;
+		}
+	}
+
+	$(`#${target}`).val(liValue);
+	$('.all--airport--modal').modal('hide');
+}
+
+function insertDatepicker(type) {
+	// 왕복
+	if (type == 1) {
+		var dateValue1 = $(".flight--date1").val();
+		var dateValue2 = $(".flight--date2").val();
+		$("#flightDate").val(dateValue1 + " ~ " + dateValue2);
+
+		// 편도
+	} else if (type == 2) {
+		var dateValue = $(".flight--date").val();
+		$("#flightDate").val(dateValue);
+
+	}
+}
+
+function insertPassenger() {
+	let passenger = "성인" + $("input[id=\"ageType1\"]").val();
+	
+	let type2 = $("input[id=\"ageType2\"]").val();
+	let type3 = $("input[id=\"ageType3\"]").val();
+	
+	if (type2 != 0) {
+		passenger = passenger + "  소아" + type2;
+	}
+	
+	if (type3 != 0) {
+		passenger = passenger + "  유아" + type3;
+	} 
+	$("input[id=\"passenger\"]").val(passenger);
+}
+
+// 날짜 차이 계산해서 연 단위로 환산해서 성인/소아/유아 구분
+function calculateAgeType (date1, date2) {
+	let bTime = date1.getTime();
+	let tTime = date2.getTime();
+	let timeDiff = tTime - bTime;
+
+	if (timeDiff < 0) {
+		$("#calculaterResult").text("입력된 생년월일이 탑승일 이후입니다.");
+		return;
+	}
+
+	let age = Math.floor(timeDiff / (1000 * 60 * 60 * 24 * 365));
+	let result;
+
+	if (age < 2) {
+		result = "유아";
+	} else if (age < 12) {
+		result = "소아";
+	} else {
+		result = "성인";
+	}
+	return result;
+}
 
 // 하드코딩을 줄이기 위한 코드
 function seatNode1(number, grade, i, res, ageType1, ageType2, ageType3) {
@@ -898,75 +968,6 @@ function seatNode2(number, grade, i, strPrice, curCount) {
 	}
 	return node;
 }
-
-$("#selectSeatBtn").on("click", function() {
-	
-	// 성인이 아니면 예매 불가능
-	if (memberAgeType != '성인') {
-		alert("만 12세 이상의 성인만 항공권 예매가 가능합니다.");
-		location.href="/";
-		return false;
-	}
-	
-	let list = $(`.schedule--list--div input[type="radio"]`);
-	// 왕복 편도 여부 확인 (2 : 왕복, 1 : 편도)
-	let type = 0;
-	for (let j = 0; j < 2; j++) {
-		if ($(".schedule--list--div").eq(j).is(":visible")) {
-			type++;
-		}
-	}
-	
-	// 라디오버튼 체크 개수 확인
-	let checkCount = 0;
-	for (let i = 0; i < list.length; i++) {
-		if (list.eq(i).is(":checked")) {
-			checkCount++;
-		}	
-	}		
-
-	// 선택되지 않은 일정이 있다면 submit하지 않음
-	if (type != checkCount) {
-		alert("선택되지 않은 일정이 존재합니다.");
-		return false;
-	}
-	
-	// 왕복일 때, 첫 번째 여정과 두 번째 여정의 운항시간이 겹치지 않는지 확인
-	if (type == 2) {
-		
-		let sch1Id = $("input[name=\"schedule1\"]:checked").val().split("_")[1];
-		let sch2Id = $("input[name=\"schedule2\"]:checked").val().split("_")[1];
-		
-		let data = {
-			scheduleId1: sch1Id,
-			scheduleId2: sch2Id
-		};
-		
-		let result = true;
-		
-		$.ajax({
-			type: 'POST',
-			url: '/ticket/checkDate',
-			contentType: "application/json; charset=UTF-8",
-			data: JSON.stringify(data),
-			dataType: 'json',
-			async: false   // 이거 해주니까 ajax 기다렸다가 아래에 return result 실행
-		})
-		.done((res) => {
-			// 일정 선택에 문제가 있다면
-			if (res.code == -1) {
-				alert(res.message);
-				result = false;
-			}
-		})
-		.fail((error) => {
-			console.log(error);
-		});
-		
-		return result;			
-	}
-	
-});
 
 $.datepicker.setDefaults({
 	dateFormat: 'yy-mm-dd',

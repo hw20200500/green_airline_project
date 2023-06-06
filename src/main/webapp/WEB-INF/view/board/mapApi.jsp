@@ -40,7 +40,9 @@
 </style>
 
 <main>
-	<h1>공항 정보</h1>
+	<h2 class="page--title">공항 위치 정보</h2>
+	<hr>
+	<br>
 
 	<div class="choice--airport">
 		<div class="visual--banner">
