@@ -525,5 +525,6 @@ ul {
 }
 
 .page--title--description {
+	margin-top: 8px;
 	color: #707070;	
 }

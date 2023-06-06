@@ -28,7 +28,7 @@
 	display: block;
 	display: flex;
 	background-color: white;
-	width: 600px;
+	width: 590px;
 	height: 70px;
 	border: 1px solid #ebebeb;
 	justify-content: center;
@@ -58,7 +58,6 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	width: 1138px;
 }
 
 .checkedBaggage--select--class p {
@@ -76,7 +75,7 @@
 }
 
 table {
-	width: 1200px;
+	width: 1180px;
 	border-left: none;
 	border-right: none;
 	margin-bottom: 20px;
@@ -320,6 +319,6 @@ p {
 	</div>
 </main>
 
-<input type="hidden" name="menuName" id="menuName" value="수하물 안내">
+<input type="hidden" name="menuName" id="menuName" value="수하물 이용 안내">
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
