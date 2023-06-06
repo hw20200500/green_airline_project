@@ -22,6 +22,7 @@ import com.green.airline.dto.response.CountByYearAndMonthDto;
 import com.green.airline.dto.response.MemberInfoDto;
 import com.green.airline.enums.UserRole;
 import com.green.airline.handler.exception.CustomRestfullException;
+import com.green.airline.handler.exception.UnAuthException;
 import com.green.airline.repository.interfaces.MemberGradeRepository;
 import com.green.airline.repository.interfaces.MemberRepository;
 import com.green.airline.repository.interfaces.MileageRepository;

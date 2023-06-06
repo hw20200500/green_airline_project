@@ -145,7 +145,7 @@ table tr th {
 .page--move{
 	color: white;
 	border: none;
-	background-color: #ddd;
+	background-color: #c0c0c0;
 	width: 200px;
 	height: 40px;
 	border-radius: 5px;
