@@ -55,23 +55,3 @@ select[name="ticketId"] {
 label:hover {
 	cursor: pointer;
 }
-
-#answerTable td {
-	border: 2px solid #ccc !important;
-}
-
-#answerContentFixed, #contentArea {
-	height: 350px;
-}
-
-#answerForm th {
-	background-color: #e5e5e5 !important;
-}
-
-#answerForm td {
-	padding-top: 12px;
-}
-
-#answerForm {
-	display: none;
-}

@@ -76,7 +76,7 @@
 
 				<!-- 도착지 -->
 				<div id="destinationDiv">
-					<input type="text" name="destination" placeholder="도착지" id="destination" autocomplete="off" value="서울/김포">
+					<input type="text" name="destination" placeholder="도착지" id="destination" autocomplete="off" value="뉴욕">
 					<!-- 자동완성 및 공항 선택 -->
 					<div class="airport--div" id="destinationAirport">
 						<div class="d-flex justify-content-between" style="margin-bottom: 15px;">
@@ -111,10 +111,10 @@
 						</div>
 						<div style="background-color: #f3f3f3; padding: 10px; margin-bottom: 10px;">
 							<div class="datepicker--div">
-								<label for="flightDate1">가는 날</label> <input type="text" class="datepicker flight--date1" id="flightDate1" readonly value="2023-06-13">
+								<label for="flightDate1">가는 날</label> <input type="text" class="datepicker flight--date1" id="flightDate1" readonly value="2023-06-09">
 							</div>
 							<div class="datepicker--div">
-								<label for="flightDate2">오는 날</label> <input type="text" class="datepicker flight--date2" id="flightDate2" readonly value="2023-06-13">
+								<label for="flightDate2">오는 날</label> <input type="text" class="datepicker flight--date2" id="flightDate2" readonly value="2023-06-10">
 							</div>
 						</div>
 					</div>
@@ -127,7 +127,7 @@
 							</button>
 						</div>
 						<div class="datepicker--div" style="background-color: #f3f3f3; padding: 10px; margin-bottom: 10px;">
-							<label for="flightDate0">가는 날</label> <input type="text" class="datepicker flight--date" id="flightDate0" value="2023-06-13">
+							<label for="flightDate0">가는 날</label> <input type="text" class="datepicker flight--date" id="flightDate0" value="2023-06-09">
 						</div>
 					</div>
 				</div>

@@ -47,6 +47,25 @@ textarea[name="content"] {
 	height: 350px;
 }
 
+#answerTable td {
+	border: 2px solid #ccc !important;
+}
+
+#answerContentFixed, #contentArea {
+	height: 350px;
+}
+
+#answerForm th {
+	background-color: #e5e5e5 !important;
+}
+
+#answerForm td {
+	padding-top: 12px;
+}
+
+#answerForm {
+	display: none;
+}
 
 </style>
 
@@ -59,9 +78,19 @@ textarea[name="content"] {
 	
 	<div class="d-flex justify-content-center" style="width: 100%;">
 		<div class="d-flex flex-column" style="width: 1000px">
-			<h5 class="middle--title" style="margin-left: -4px;">
-				<span style="font-size: 28px; margin-right: 3px;" class="material-symbols-outlined">person</span> <span>고객 정보</span>
-			</h5>
+			<div class="d-flex justify-content-between align-items-start">
+				<h5 class="middle--title" style="margin-left: -4px;">
+					<span style="font-size: 28px; margin-right: 3px;" class="material-symbols-outlined">person</span> <span>고객 정보</span>
+				</h5>
+				<c:if test="${\"관리자\".equals(principal.userRole)}">
+					<button class="white--btn" onclick="location.href='/manager/memberDetail/${member.id}'" style="width: 160px; ma`">
+						<ul class="d-flex justify-content-center" style="margin: 0;">
+							<li><span class="material-symbols-outlined material--li" style="font-size: 22px;">person_search</span>
+							<li style="font-size: 15px;">고객 정보 조회
+						</ul>
+					</button>
+				</c:if>
+			</div>
 			<table border="1" class="list--table--reverse">
 				<tr>
 					<th>성함</th>

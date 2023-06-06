@@ -97,13 +97,13 @@
 				</table>
 				
 				<div style="margin-top: 40px;" class="d-flex justify-content-center">
-					<button type="button" class="search--btn--small" style="margin-right: 60px; padding-left: 9px; background-color: gray" onclick="location.href='/voc/detail/${id}'">
+					<button type="button" class="blue--btn--small" style="margin-right: 60px; padding-left: 9px; background-color: gray" onclick="location.href='/voc/detail/${id}'">
 						<ul class="d-flex justify-content-center" style="margin: 0;">
 							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px; margin-right: 5px;">keyboard_backspace</span>
 							<li>취소
 						</ul>
 					</button>
-					<button type="submit" class="search--btn--middle" onclick="location.href='/voc/update/${id}'">
+					<button type="submit" class="blue--btn--small" onclick="location.href='/voc/update/${id}'">
 						<ul class="d-flex justify-content-center" style="margin: 0;">
 							<li style="margin-right: 4px;">수정 완료
 							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">done</span>
