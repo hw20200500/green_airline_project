@@ -28,17 +28,26 @@
 	margin-bottom: 50px;
 }
 
+.keyword--search--form:focus {
+	outline: none;
+}
+
 .keyword--search--form {
 	display: flex;
 	justify-content: center;
 }
 
+#keyword:focus {
+	outline: none;
+}
+
 #keyword {
 	width: 500px;
+	height: 60px;
 	display: flex;
 	justify-content: center;
 	border: none;
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid #ddd;
 	font-size: 30px;
 }
 
@@ -52,8 +61,9 @@ p {
 .faq--category--wrap {
 	display: flex;
 	justify-content: space-between;
-	margin-right: 30px;
+	/* margin-right: 30px; */
 	margin-bottom: 50px;
+	width: 1180px;
 }
 
 .faq--content--wrap {
@@ -74,6 +84,7 @@ p {
 	margin-bottom: 10px;
 	display: flex;
 	flex-direction: row;
+	justify-content: center;
 }
 
 .faq--faqList--wrap {
@@ -95,8 +106,45 @@ p {
 	margin-bottom: 15px;
 }
 
-.btn--primary{
+.btn--primary {
 	background-color: #8ABBE2;
+	color: white;
+	width: 80px;
+}
+.btn--primary:hover {
+	background-color: #8ABBE2;
+	color: white;
+	width: 80px;
+}
+
+.delete--checkbox--class {
+	margin-bottom: 10px;
+	margin-right: 5px;
+}
+
+.category--id--st {
+	display: block;
+	width: 235px;
+	height: 80px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #f8f9fc;
+	color: black;
+}
+
+.category--id--st:hover {
+	background-color:#ddd;
+	color: black;
+}
+
+.faq--h4 {
+	display: flex;
+	flex-direction: column;
+}
+
+.selected--category {
+	 background-color:#8ABBE2; 
 	color: white;
 }
 </style>
@@ -118,12 +166,20 @@ p {
 			<div class="faq--category--content--wrap">
 				<div class="faq--category--wrap">
 					<c:forEach var="categories" items="${categories}">
-						<h4>
-							<a href="/faq/faqList?categoryId=${categories.id}">${categories.name}</a>
-						</h4>
+						<c:choose>
+							<c:when test="${category == categories.id}">
+								<h4 class="faq--h4">
+									<a href="/faq/faqList?categoryId=${categories.id}" class="category--id--st selected--category" style="background-color: #8ABBE2; color: white;">${categories.name}</a>
+								</h4>
+							</c:when>
+							<c:otherwise>
+								<h4 class="faq--h4">
+									<a href="/faq/faqList?categoryId=${categories.id}" class="category--id--st">${categories.name}</a>
+								</h4>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 				</div>
-
 				<div class="faq--faqList--wrap">
 					<c:forEach var="faqResponseDtos" items="${faqResponseDtos}">
 						<input type="hidden" name="id" value="${faqResponseDtos.id}" id="id" class="${faqResponseDtos.id}">
@@ -134,44 +190,44 @@ p {
 							<div class="faq--name--wrap">
 								<c:if test="${principal.userRole.equals(\"관리자\")}">
 									<p class="faq--name--cursor--wrap">
-										<input type="checkbox" name="id" id="delete--checkbox--id" value="${faqResponseDtos.id}">
+										<input type="checkbox" name="id" class="delete--checkbox--class" value="${faqResponseDtos.id}">
 								</c:if>
 								<span class="faq--name--cursor--wrap"> [ ${faqResponseDtos.name} ] ${faqResponseDtos.title} </span>
-								</p> <%-- <-오타 아님 --%>
+								</p>
+								<%-- <-오타 아님 --%>
 								<c:if test="${principal.userRole.equals(\"관리자\")}">
 									<button class="btn btn--primary" type="button" data-toggle="modal" data-target="#myModal${faqResponseDtos.id}">수정</button>
+								</c:if>
+							</div>
+							<div class="modal fade" id="myModal${faqResponseDtos.id}">
+								<div class="modal-dialog">
+									<div class="modal-content">
 
-									<div class="modal fade" id="myModal${faqResponseDtos.id}">
-										<div class="modal-dialog">
-											<div class="modal-content">
+										<div class="modal-header">
+											<input type="text" id="faq--modal--title${faqResponseDtos.id}" value="${faqResponseDtos.title}" style="width: 520px;">
+											<button type="button" class="close" data-dismiss="modal">×</button>
+										</div>
 
-												<div class="modal-header">
-													<input type="text" id="faq--modal--title${faqResponseDtos.id}" value="${faqResponseDtos.title}" style="width: 520px;">
-													<button type="button" class="close" data-dismiss="modal">×</button>
-												</div>
-
-												<div class="modal-body">
-													<div class="faq--category--modal--wrap">
-														<select id="faq--modal--category${faqResponseDtos.id}">
-															<c:forEach var="categories" items="${categories}">
-																<option value="${categories.id}">${categories.name}</option>
-															</c:forEach>
-														</select>
-													</div>
-													<div>
-														<textarea rows="6" cols="57" style="resize: none;" id="faq--modal--content${faqResponseDtos.id}">${faqResponseDtos.content}</textarea>
-													</div>
-												</div>
-
-												<div class="modal-footer">
-													<button type="button" class="btn btn--primary faq--update--btn" data-dismiss="modal" onclick="updateFaq(${faqResponseDtos.id})">Submit</button>
-													<button type="button" class="btn btn--danger" data-dismiss="modal">Close</button>
-												</div>
-
+										<div class="modal-body">
+											<div class="faq--category--modal--wrap">
+												<select id="faq--modal--category${faqResponseDtos.id}">
+													<c:forEach var="categories" items="${categories}">
+														<option value="${categories.id}">${categories.name}</option>
+													</c:forEach>
+												</select>
+											</div>
+											<div>
+												<textarea rows="6" cols="57" style="resize: none;" id="faq--modal--content${faqResponseDtos.id}">${faqResponseDtos.content}</textarea>
 											</div>
 										</div>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn--primary faq--update--btn" data-dismiss="modal" onclick="updateFaq(${faqResponseDtos.id})">Submit</button>
+											<button type="button" class="btn btn--danger" data-dismiss="modal">Close</button>
+										</div>
+
 									</div>
-								</c:if>
+								</div>
 							</div>
 							<div class="faq--content--wrap">${faqResponseDtos.content}</div>
 						</div>

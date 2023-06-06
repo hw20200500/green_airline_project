@@ -11,6 +11,7 @@ import com.green.airline.dto.response.BaggageReqResponseDto;
 import com.green.airline.dto.response.InFlightMealResponseDto;
 import com.green.airline.repository.interfaces.BaggageRequestRepository;
 import com.green.airline.repository.model.BaggageRequest;
+import com.green.airline.utils.PagingObj;
 
 @Service
 public class BaggageRequestService {
@@ -52,7 +53,7 @@ public class BaggageRequestService {
 		if (resultCnt == 1) {
 			System.out.println("수정 성공");
 		}
-		
+
 		return resultCnt;
 	}
 
@@ -60,39 +61,46 @@ public class BaggageRequestService {
 		List<BaggageReqResponseDto> baggageReqResponses = baggageRequestRepository.selectBaggageReqGroupBySection();
 		return baggageReqResponses;
 	}
-	
+
 	// 신청 삭제 취소
 	public int deleteBaggageReqById(Integer id) {
 		int resultCnt = baggageRequestRepository.deleteBaggageReqById(id);
-		if(resultCnt == 1) {
+		if (resultCnt == 1) {
 			System.out.println("삭제 성공");
 		}
 		return resultCnt;
 	}
-	
-	public List<BaggageReqResponseDto> readBaggageReqByMemberIdAndAmount(String memberId){
-		List<BaggageReqResponseDto> baggageReqResponseDtos = baggageRequestRepository.selectBaggageReqByMemberIdAndAmount(memberId);
+
+	public List<BaggageReqResponseDto> readBaggageReqByMemberIdAndAmount(String memberId) {
+		List<BaggageReqResponseDto> baggageReqResponseDtos = baggageRequestRepository
+				.selectBaggageReqByMemberIdAndAmount(memberId);
 		return baggageReqResponseDtos;
 	}
-	
+
 	// 수하물 신청
 	public int createBaggageReq(BaggageRequest baggageRequest) {
 		int resultCnt = baggageRequestRepository.insertBaggageReq(baggageRequest);
-		if(resultCnt == 1) {
+		if (resultCnt == 1) {
 			System.out.println("insert 성공");
 		}
 		return resultCnt;
 	}
-	
-	public List<InFlightMealResponseDto> readBaggageReqPossibleTicket(String memberId){
-		List<InFlightMealResponseDto> flightMealResponseDtos = baggageRequestRepository.selectBaggageReqPossibleTicket(memberId);
+
+	public Integer readBaggageReqCount() {
+		Integer resultCnt = baggageRequestRepository.selectBaggageReqCount();
+		return resultCnt;
+	}
+
+	public List<InFlightMealResponseDto> readBaggageReqPossibleTicket(String memberId) {
+		List<InFlightMealResponseDto> flightMealResponseDtos = baggageRequestRepository
+				.selectBaggageReqPossibleTicket(memberId);
 		return flightMealResponseDtos;
 	}
-	
-	public List<InFlightMealResponseDto> readBaggageReqForManager(){
-		List<InFlightMealResponseDto> inFlightMealResponseDtos = baggageRequestRepository.selectBaggageReqForManager();
+
+	public List<InFlightMealResponseDto> readBaggageReqForManager(PagingObj obj) {
+		List<InFlightMealResponseDto> inFlightMealResponseDtos = baggageRequestRepository
+				.selectBaggageReqForManager(obj);
 		return inFlightMealResponseDtos;
 	}
-	
 
 }

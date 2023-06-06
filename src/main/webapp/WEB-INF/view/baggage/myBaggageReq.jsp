@@ -15,6 +15,7 @@
 table {
 	width: 1180px;
 	border: none;
+	text-align: center;
 }
 
 table tr th, table tr td {

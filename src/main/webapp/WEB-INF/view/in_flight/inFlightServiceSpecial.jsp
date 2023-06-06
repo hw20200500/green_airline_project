@@ -17,15 +17,17 @@
 }
 
 #inFlightMeals--option {
-	width: 300px;
+	background-color: #f8f9fc;
 	height: 40px;
 	border: none;
-	border-bottom: 1px solid black;
-	font-size: 25px;
+	border-bottom: 1px solid #ddd;
+	font-size: 28px;
 	margin-bottom: 50px;
 	margin-top: 30px;
-	padding-bottom: 5px;
 	text-align: center;
+	width: 420px;
+	padding-bottom: 10px;
+    height: 50px;
 }
 
 #inFlightMeals--option:focus {
@@ -40,9 +42,11 @@
 #inFlightMeals--description {
 	display: flex;
 	justify-content: center;
-	font-size: 17.5px;
+	font-size: 19.5px;
 	margin-bottom: 20px;
 	font-weight: bold;
+	padding-left: 3px;
+	margin-bottom: 50px;
 }
 
 /* #inFlightMeals--description>span {
@@ -60,7 +64,7 @@
 }
 
 .detail--wrap {
-	width: 1000px;
+	width: 1100px;
 }
 
 .inFlightMeals--btn--wrap {
@@ -86,6 +90,7 @@
 	border: none;
 	background-color: #8ABBE2;
 }
+
 .btn--primary:hover {
 	color: white;
 	border: none;
@@ -120,6 +125,15 @@
 	align-items: center;
 	margin-bottom: 30px;
 }
+.inFlightMeals--ifmdName--content{
+	font-size: 20px;
+	font-weight: 500;
+}	
+
+.inFlightMeals--imfdDescription--content{
+	font-size: 18px;
+}
+
 </style>
 
 <div>
@@ -139,23 +153,23 @@
 		</div>
 
 		<div id="inFlightMeals--image">
-			<img id="meals--image" style="width: 1000px; height: 700px;" src="/images/in_flight/${inFlightMeals.get(0).image}">
+			<img id="meals--image" style="width: 1100px; height: 700px;" src="/images/in_flight/${inFlightMeals.get(0).image}">
 		</div>
 		<div id="inFlightMeals--description">
-			<span>${inFlightMeals.get(0).ifmName} : ${inFlightMeals.get(0).ifmDescription}</span>
+			<div>${inFlightMeals.get(0).ifmName} : ${inFlightMeals.get(0).ifmDescription}</div>
 		</div>
 
 		<div id="inFlightMeals--details">
 			<c:forEach var="inFlightMeals" items="${inFlightMeals}">
 				<div class="detail--wrap">
-					<span>${inFlightMeals.ifmdName}</span>
-					<p>${inFlightMeals.ifmdDescription}</p>
+					<span class="inFlightMeals--ifmdName--content">${inFlightMeals.ifmdName}</span>
+					<p class="inFlightMeals--imfdDescription--content">${inFlightMeals.ifmdDescription}</p>
 				</div>
 			</c:forEach>
 
 		</div>
 
-		
+
 	</main>
 
 	<script src="/js/inFlightServiceSpecial.js">

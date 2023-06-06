@@ -152,7 +152,7 @@ table tr th, table tr td {
 	border-bottom: 1px solid #ebebeb;
 	background: #f8f9fc;
 	padding: 10px;
-	width: 360px;
+	width: 430px;
 }
 
 .checkedBaggage-modal--select {
@@ -171,6 +171,10 @@ table tr th, table tr td {
 
 p {
 	font-size: 15px;
+}
+
+.modal-body{
+	padding: 5px;
 }
 </style>
 
@@ -257,7 +261,7 @@ p {
 							<div class="modal-body">
 								<div>
 									<div>
-										<h4 style="margin-left: 58px;">출발 일정</h4>
+										<h4 style="margin-left: 25px; padding-top: 10px;">출발 일정</h4>
 									</div>
 									<div class="checkedBaggage-modal--select">
 										<select name="ticketId" id="modal--id--departuredate">
@@ -283,10 +287,10 @@ p {
 									</div>
 								</div>
 								<div class="checkedBaggage--modal--marginBottom">
-									<div style="margin-left: 58px;">
+									<div style="margin-left: 25px;">
 										개수 <b>1인당 최대 4개</b>
 									</div>
-									<div style="margin-left: 58px;">*현장에서 추가 무게 발생시 추가 요금 발생합니다.</div>
+									<div style="margin-left: 25px;">*현장에서 추가 무게 발생시 추가 요금 발생합니다.</div>
 								</div>
 								<!-- Modal footer -->
 								<div class="modal-footer">

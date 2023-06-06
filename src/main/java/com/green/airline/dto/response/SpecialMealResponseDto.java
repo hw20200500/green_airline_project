@@ -19,6 +19,7 @@ public class SpecialMealResponseDto {
 	private Timestamp arrivalDate;
 	private Timestamp departureDate;
 	private String ifmdName;
+	private String name;
 	
 	public String arrivalDateFormat() {
 		return TimestampUtil.dateTimeToString(arrivalDate);

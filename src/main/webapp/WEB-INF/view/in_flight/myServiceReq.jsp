@@ -14,7 +14,12 @@
 table {
 	width: 1180px;
 	border: none;
+	text-align: center;
 }
+
+/* table > tbody > tr:nth-child(1){
+	background-color: #f8f9fc;
+} */
 
 table tr th, table tr td {
 	padding: 10px;
@@ -72,9 +77,9 @@ table tr th, table tr td {
 								<td>${specialMealResponseDtos.ticketId}</td>
 								<td>${specialMealResponseDtos.departure}->${specialMealResponseDtos.destination}</td>
 								<td>${specialMealResponseDtos.departureDateFormat()}</td>
-								<td>${specialMealResponseDtos.ifmdName}</td>
+								<td>${specialMealResponseDtos.name}</td>
 								<td>${specialMealResponseDtos.rmAmount}개</td>
-								<td><button type="submit" class="btn btn--danger">신청 취소</button></td>
+								<td><button type="submit" class="btn btn--danger" onclick="confirm('정말 취소하시겠습니까?')">신청 취소</button></td>
 							</tr>
 							</form>
 						</c:forEach>
@@ -90,7 +95,7 @@ table tr th, table tr td {
 
 
 			<div class="myServiceReq--btn--wrap">
-				<a class="btn btn--primary" href="/inFlightService/inFlightServiceSpecial">특별 기내식 신청 페이지로 이동</a>
+				<a class="btn btn--primary" href="/inFlightService/inFlightSpecialReq">특별 기내식 신청 페이지로 이동</a>
 			</div>
 
 		</div>

@@ -15,7 +15,6 @@ import org.springframework.validation.FieldError;
 
 import com.green.airline.dto.kakao.SocialDto;
 import com.green.airline.dto.request.JoinFormDto;
-import com.green.airline.dto.SaveMileageDto;
 import com.green.airline.dto.request.LoginFormDto;
 import com.green.airline.dto.request.PasswordCheckDto;
 import com.green.airline.dto.request.SocialJoinFormDto;

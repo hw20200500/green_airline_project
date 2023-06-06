@@ -50,28 +50,34 @@ $(document).ready(function() {
 		let id = $("#member--id").val();
 		console.log(isCheck);
 
-		// 컨트롤러를 찍지 않고 공백 검사
-		if (id == ' ' || id == '') {
-			alert("잘못된 입력값입니다.");
+		console.log(id.length)
+		if (id.length <= 20 && id.length >= 7) {
+			if (id == ' ' || id == '') {
+				alert("잘못된 입력값입니다.");
+			} else {
+				$.ajax({
+					type: "get",
+					url: "/existsById?id=" + id,
+					contentType: "application/json; charset=utf-8"
+				}).done(function(data) {
+					console.log(isCheck);
+					if (data) {
+						alert("사용 가능한 아이디입니다.");
+						isCheck = 1;
+					} else {
+						alert("중복된 아이디입니다.");
+						$("#member--id").focus();
+						isCheck = 0;
+					}
+				}).fail(function(error) {
+					console.log(error);
+				});
+			}
 		} else {
-			$.ajax({
-				type: "get",
-				url: "/existsById?id=" + id,
-				contentType: "application/json; charset=utf-8"
-			}).done(function(data) {
-				console.log(isCheck);
-				if (data) {
-					alert("사용 가능한 아이디입니다.");
-					isCheck = 1;
-				} else {
-					alert("중복된 아이디입니다.");
-					$("#member--id").focus();
-					isCheck = 0;
-				}
-			}).fail(function(error) {
-				console.log(error);
-			});
+			alert("아이디는 7자 이상 20자 이하로 입력해주세요.");
 		}
+
+		// 컨트롤러를 찍지 않고 공백 검사
 
 	});
 
@@ -84,7 +90,7 @@ $(document).ready(function() {
 			return false;
 		}
 	});
-	
+
 	$("#member--id").on("keyup", function() {
 		isCheck = 0;
 	});

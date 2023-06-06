@@ -79,7 +79,6 @@ public class InFlightServiceController {
 		List<InFlightMealDetail> religionMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.RELIGIONMEAL);
 		List<InFlightMealDetail> etcMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.ETCMEAL);
 		List<InFlightMealDetail> lowfatMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.LOWFATMEAL);
-		System.out.println(babyMeal);
 
 		model.addAttribute("babyMeal", babyMeal);
 		model.addAttribute("veganMeal", veganMeal);
@@ -133,18 +132,34 @@ public class InFlightServiceController {
 
 	// 특별 기내식 신청 페이지
 	@GetMapping("/inFlightSpecialReq")
-	public String inFlightSpecialReq(Model model) {
+	public String inFlightSpecialReqPage(Model model) {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		List<SpecialMealResponseDto> specialMealResponseDtos = inFlightSvService
 				.readRequestMealByMemberId(principal.getId());
 		List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
 				.readInFlightMealSchedule(principal.getId());
-		System.out.println(specialMealResponseDtos);
-		System.out.println(inFlightServiceResponseDtos);
+		
+		List<InFlightMealDetail> babyMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.BABYMEAL);
+		List<InFlightMealDetail> veganMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.VEGANMEAL);
+		List<InFlightMealDetail> religionMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.RELIGIONMEAL);
+		List<InFlightMealDetail> etcMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.ETCMEAL);
+		List<InFlightMealDetail> lowfatMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.LOWFATMEAL);
 
+		model.addAttribute("babyMeal", babyMeal);
+		model.addAttribute("veganMeal", veganMeal);
+		model.addAttribute("religionMeal", religionMeal);
+		model.addAttribute("etcMeal", etcMeal);
+		model.addAttribute("lowfatMeal", lowfatMeal);
+		
 		model.addAttribute("specialMealResponseDtos", specialMealResponseDtos);
 		model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
 
 		return "/in_flight/inFlightSvSpecialRequest";
+	}
+	
+	@PostMapping("/inFlightSpecialReqProc")
+	public String inFlightSpecialReqProc() {
+		
+		return "";
 	}
 }

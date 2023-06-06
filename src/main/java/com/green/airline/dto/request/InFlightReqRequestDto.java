@@ -1,6 +1,7 @@
 package com.green.airline.dto.request;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 public class InFlightReqRequestDto {
@@ -17,7 +18,13 @@ public class InFlightReqRequestDto {
 	private String lowfatMealAmount;
 	private String religionMealAmount;
 	private String etcMealAmount;
+	private String babyMealId;
+	private String veganMealId;
+	private String lowfatMealId;
+	private String religionMealId;
+	private String etcMealId;
 	private String mealId;
+	private String name;
 	private String amount;
 
 }

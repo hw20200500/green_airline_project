@@ -14,15 +14,6 @@ public class MemberApiController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/existsById")
-	public boolean existsById(@RequestParam String id) {
-		Member memberId = userService.readById(id);
-		if (memberId == null) {
-			return true;
-		} else {
-			return false;
-		}
 
-	}
 
 }

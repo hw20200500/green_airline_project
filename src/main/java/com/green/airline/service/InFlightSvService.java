@@ -17,6 +17,7 @@ import com.green.airline.repository.interfaces.InFlightServiceRepository;
 import com.green.airline.repository.model.InFlightMeal;
 import com.green.airline.repository.model.InFlightMealDetail;
 import com.green.airline.repository.model.InFlightService;
+import com.green.airline.utils.PagingObj;
 
 @Service
 public class InFlightSvService {
@@ -71,27 +72,32 @@ public class InFlightSvService {
 		int result5 = 0;
 
 		if (inFlightReqRequestDto.getBabyMeal() != null) {
-			inFlightReqRequestDto.setMealId(inFlightReqRequestDto.getBabyMeal());
+			inFlightReqRequestDto.setMealId(inFlightReqRequestDto.getBabyMealId());
+			inFlightReqRequestDto.setName(inFlightReqRequestDto.getBabyMeal());
 			inFlightReqRequestDto.setAmount(inFlightReqRequestDto.getBabyMealAmount());
 			result1 = inFlightServiceRepository.insertInFlightMealRequest(inFlightReqRequestDto);
 		}
 		if (inFlightReqRequestDto.getVeganMeal() != null) {
-			inFlightReqRequestDto.setMealId(inFlightReqRequestDto.getVeganMeal());
+			inFlightReqRequestDto.setMealId(inFlightReqRequestDto.getVeganMealId());
+			inFlightReqRequestDto.setName(inFlightReqRequestDto.getVeganMeal());
 			inFlightReqRequestDto.setAmount(inFlightReqRequestDto.getVeganMealAmount());
 			result2 = inFlightServiceRepository.insertInFlightMealRequest(inFlightReqRequestDto);
 		}
 		if (inFlightReqRequestDto.getLowfatMeal() != null) {
-			inFlightReqRequestDto.setMealId(inFlightReqRequestDto.getLowfatMeal());
+			inFlightReqRequestDto.setMealId(inFlightReqRequestDto.getLowfatMealId());
+			inFlightReqRequestDto.setName(inFlightReqRequestDto.getLowfatMeal());
 			inFlightReqRequestDto.setAmount(inFlightReqRequestDto.getLowfatMealAmount());
 			result3 = inFlightServiceRepository.insertInFlightMealRequest(inFlightReqRequestDto);
 		}
 		if (inFlightReqRequestDto.getReligionMeal() != null) {
-			inFlightReqRequestDto.setMealId(inFlightReqRequestDto.getReligionMeal());
+			inFlightReqRequestDto.setMealId(inFlightReqRequestDto.getReligionMealId());
+			inFlightReqRequestDto.setName(inFlightReqRequestDto.getReligionMeal());
 			inFlightReqRequestDto.setAmount(inFlightReqRequestDto.getReligionMealAmount());
 			result4 = inFlightServiceRepository.insertInFlightMealRequest(inFlightReqRequestDto);
 		}
 		if (inFlightReqRequestDto.getEtcMeal() != null) {
-			inFlightReqRequestDto.setMealId(inFlightReqRequestDto.getEtcMeal());
+			inFlightReqRequestDto.setMealId(inFlightReqRequestDto.getEtcMealId());
+			inFlightReqRequestDto.setName(inFlightReqRequestDto.getEtcMeal());
 			inFlightReqRequestDto.setAmount(inFlightReqRequestDto.getEtcMealAmount());
 			result5 = inFlightServiceRepository.insertInFlightMealRequest(inFlightReqRequestDto);
 		}
@@ -153,8 +159,13 @@ public class InFlightSvService {
 		}
 	}
 	
-	public List<InFlightMealResponseDto> readInFlightMealForManager(){
-		List<InFlightMealResponseDto> inFlightMealResponseDtos = inFlightServiceRepository.selectInFlightMealForManager();
+	public Integer readInFlightMealCount() {
+		Integer resultCount = inFlightServiceRepository.selectInFlightMealCount();
+		return resultCount;
+	}
+	
+	public List<InFlightMealResponseDto> readInFlightMealForManager(PagingObj obj){
+		List<InFlightMealResponseDto> inFlightMealResponseDtos = inFlightServiceRepository.selectInFlightMealForManager(obj);
 		return inFlightMealResponseDtos;
 	}
 

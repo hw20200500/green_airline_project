@@ -12,6 +12,7 @@ import com.green.airline.dto.response.SpecialMealResponseDto;
 import com.green.airline.repository.model.InFlightMeal;
 import com.green.airline.repository.model.InFlightMealDetail;
 import com.green.airline.repository.model.InFlightService;
+import com.green.airline.utils.PagingObj;
 
 @Mapper
 public interface InFlightServiceRepository {
@@ -65,7 +66,10 @@ public interface InFlightServiceRepository {
 	int deleteRequestMealById(Integer id);
 	
 	// 매니저 기내 특별식 신청 내역 조회
-	List<InFlightMealResponseDto> selectInFlightMealForManager();
+	List<InFlightMealResponseDto> selectInFlightMealForManager(PagingObj obj);
+	
+	// 매니저 기내 특별식 신청 내역 총 개수
+	Integer selectInFlightMealCount();
 	
 	
 	/**
