@@ -22,7 +22,7 @@
 }
 
 .inFlightSvSearch--img--wrap {
-margin-bottom: 50px;
+	margin-bottom: 50px;
 }
 
 .inFlightSvSearch--img--wrap img {
@@ -61,6 +61,7 @@ margin-bottom: 50px;
 .modal-footer {
 	display: flex;
 	justify-content: space-between;
+	    flex-wrap: nowrap;
 }
 
 .search--airport--li:hover, .destination--airport--li:hover {
@@ -95,10 +96,9 @@ margin-bottom: 50px;
 	align-items: center;
 }
 
-
 .inFlightSvSearch--img--wrap {
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-around;
 	align-items: center;
 	margin-top: 30px;
 }
@@ -151,14 +151,17 @@ margin-bottom: 50px;
 }
 
 #modal--select--btn--id {
-	width: 100px;
 	border: none;
 	height: 50px;
 	background-color: #8ABBE2;
 	border-radius: 5px;
 	color: white;
 	font-size: 20px;
-	margin-right: 20px;
+	height: 50px;
+    display: flex;
+    align-items: center;
+    width: 220px;
+    padding:23px;
 }
 
 #destination--res--id {
@@ -261,10 +264,24 @@ margin-bottom: 50px;
 
 #modal--departure--btn--id {
 	font-weight: bolder;
+	text-align: center;
+	padding: 20px 5px;
+	font-size: 30px;
+	width: 300px;
+	font-weight: 600;
+	border: 1px solid #ccc;
+	border-radius: 3px;
 }
 
 #modal--destination--btn--id {
 	font-weight: bolder;
+	text-align: center;
+	padding: 20px 5px;
+	font-size: 30px;
+	width: 300px;
+	font-weight: 600;
+	border: 1px solid #ccc;
+	border-radius: 3px;
 }
 
 .inFlightService--image--name--wrap {
@@ -292,48 +309,84 @@ margin-bottom: 50px;
 }
 
 .btn--danger {
+margin-left: 10px;
 	color: white;
 	border: none;
 	background-color: #DC6093;
 }
 
-.btn--danger:hover{
+.btn--danger:hover {
 	color: white;
 	border: none;
 	background-color: #DC6093;
 }
 
-#destination--res--wrap{
+#destination--res--wrap {
 	margin: 50px;
 	display: flex;
-	flex-direction:column;
-	width: 1200px;
-}
-
-#destination--res--title{
-	margin-left: 20px;
-	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	width: 1100px;
 }
 
-#destination--res--img img{
+    
+.destination--res--img img {
 	width: 600px;
 }
-#destination--res--img{
+
+.destination--res--img {
 	display: flex;
 	align-items: center;
 	margin-bottom: 20px;
 }
 
-#destination--res--content{
+.destination--res--content {
 	display: flex;
+	flex-direction: column;
 	justify-content: center;
 	flex-direction: column;
 }
 
-main{
+.destination--div--wrap {
+	display: flex;
+}
+
+main {
 	width: 1180px;
+}
+
+.title--data--tag {
+	font-size: 25px;
+	font-weight: bold;
+	margin-bottom: 20px;
+	margin-left: 50px;
+}
+
+.content--data--tag {
+	margin-left: 50px;
+}
+
+.inFlightSvSearch--header--wrap {
+	margin-bottom: 30px;
+}
+
+.service--head--img {
+	margin-bottom: 30px;
+	text-align: center;
+}
+
+.title--data--tag img {
+	margin-right: 10px;
+}
+
+.modal--cancel--btn{
+	display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+#modal--start--btn{
+	display: flex;
+	justify-content: flex-end;
 }
 </style>
 <div>
@@ -341,26 +394,17 @@ main{
 		<div class="inFlightSvSearch--header--wrap">
 			<h2>기내 서비스 조회</h2>
 			출/도착지를 입력하여 기내 서비스 상세 정보를 확인해 보세요.
-			<hr>
-		</div>
-		<div class="inFlightSvSearch--img--wrap">
-			<c:forEach var="inFlightServices" items="${inFlightServices}">
-				<div class="inFlightService--image--name--wrap">
-					<div class="inFlightService--wrap">
-						<img alt="" src="/images/in_flight/${inFlightServices.iconImage}" width="50" height="50">
-					</div>
-					<div class="inFlightService--name--div">${inFlightServices.name}</div>
-				</div>
-			</c:forEach>
 		</div>
 
-		<%--<div class="inFlightSvSearch--description--wrap">출/도착지를 입력하여 상세 정보를 확인해 보세요.</div> --%>
+		<div class="service--head--img">
+			<img alt="" src="/images/in_flight/inFlightServiceSearch.png" style="width: 1170px; height: 350px;">
+		</div>
 
 		<div class="modal--all--btn--div">
 			<button type="button" id="modal--departure--btn--id" class="all--btn--class" data-toggle="modal" data-target="#start">출발지</button>
 			<span class="material-symbols-outlined" style="color: #4c4c4c; font-size: 28px; cursor: pointer;" onclick="changeValue()">swap_horiz</span>
 			<button type="button" id="modal--destination--btn--id" class="all--btn--class" data-toggle="modal" data-target="#arrival">도착지</button>
-			<button type="button" id="modal--select--btn--id" class="search--btn--class">조회</button>
+			<button type="button" id="modal--select--btn--id" class="search--btn--class">기내 서비스 조회<span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 25px; margin-top: 3px;">search</span></button>
 		</div>
 		<!-- The Modal -->
 		<div class="modal fade" id="start" style="z-index: 1050;" aria-hidden="true">
@@ -383,7 +427,7 @@ main{
 					<!-- Modal footer -->
 					<div class="modal-footer">
 						<div class="modal--all--region">
-							<a data-toggle="modal" href="#all--departure--airport--search" class="departure--button all--airport btn btn--primary">모든 지역 보기</a>
+							<a data-toggle="modal" href="#all--departure--airport--search" class="departure--button all--airport btn btn--primary" style="width: 150px;">모든 지역 보기</a>
 						</div>
 						<div class="modal--cancel--btn">
 							<button type="button" id="start--modal--btn" class="btn btn--primary" data-dismiss="modal">확인</button>
@@ -424,7 +468,8 @@ main{
 					</div>
 					<div class="modal-footer">
 						<div class="modal--cancel--btn">
-							<button type="button" id="start--modal--btn modal--start--btn" class="btn btn--primary" data-dismiss="modal">Submit</button>
+							<button type="button" id="start--modal--btn modal--start--btn" class="btn btn--primary" data-dismiss="modal" style="text-align: right;">확인</button>
+							<button type="button" class="btn btn--danger" data-dismiss="modal">닫기</button>
 						</div>
 					</div>
 				</div>
@@ -450,11 +495,11 @@ main{
 
 					<div class="modal-footer">
 						<div class="modal--all--region">
-							<a data-toggle="modal" href="#all--destination--airport--search" class="destination--button all--airport btn btn--primary">모든 지역 보기</a>
+							<a data-toggle="modal" href="#all--destination--airport--search" class="destination--button all--airport btn btn--primary" style="width: 150px;">모든 지역 보기</a>
 						</div>
 						<div class="modal--cancel--btn">
-							<button type="button" id="arrival--modal--btn" class="btn btn--primary" data-dismiss="modal">Submit</button>
-							<button type="button" class="btn btn--danger" data-dismiss="modal">Close</button>
+							<button type="button" id="arrival--modal--btn" class="btn btn--primary" data-dismiss="modal">확인</button>
+							<button type="button" class="btn btn--danger" data-dismiss="modal">닫기</button>
 						</div>
 					</div>
 				</div>
@@ -491,7 +536,8 @@ main{
 					</div>
 					<div class="modal-footer">
 						<div class="modal--cancel--btn">
-							<button type="button" id="arrival--modal--btn" class="btn btn--primary" data-dismiss="modal">Submit</button>
+							<button type="button" id="arrival--modal--btn" class="btn btn--primary" data-dismiss="modal" style="text-align: right;">확인</button>
+							<button type="button" class="btn btn--danger" data-dismiss="modal">닫기</button>
 						</div>
 					</div>
 				</div>

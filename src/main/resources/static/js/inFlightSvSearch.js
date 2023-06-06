@@ -125,27 +125,44 @@ $("#modal--select--btn--id").on("click", function() {
 			alert("노선 정보가 없습니다.");
 			window.location.reload();
 		} else {
-			let destinationWrap = $("#destination--res--wrap");
 			/*let destinationTitle = $("#destination--res--title");
 			let destinationImg = $("#destination--res--img");
 			let destinationContent = $("#destination--res--content");*/
+			let destinationWrap = $("#destination--res--wrap");
 			for (let i = 0; i < data.length; i++) {
-				let destinationTitle = $("<div>");
+				let destinationDivTag = $("<div>");
+				destinationDivTag.attr("class", "destination--div--wrap")
 				let destinationImg = $("<div>");
 				let destinationContent = $("<div>");
-				destinationImg.attr("id", "destination--res--img");
-				destinationTitle.attr("id", "destination--res--title");
-				destinationContent.attr("id", "destination--res--content");
+				let titleDataTag = $("<div>");
+				titleDataTag.attr("class", "title--data--tag");
 				
+				let titleImageTag = $("<img>");
+				titleImageTag.attr("src", "/images/in_flight/"+data[i].iconImage);
+				titleImageTag.attr("style", "width: 30px; height: 30px;");
+				/*titleImageTag.attr("class", "titleImageTag--class");*/
+				titleDataTag.append(titleImageTag);
+				
+				let contnetDataTag = $("<div>");
+				contnetDataTag.attr("class", "content--data--tag");
+				
+				
+				destinationImg.attr("class", "destination--res--img");
+				destinationContent.attr("class", "destination--res--content");
+
 				let imgNode = $("<img>");
 				imgNode.attr("src", "/images/in_flight/" + data[i].detailImage);
-				
+				imgNode.attr("style", "width: 500px; height: 300px;");
+
 				destinationImg.append(imgNode);
-				destinationImg.append(data[i].name);
-				destinationImg.append(data[i].description);
-				destinationWrap.append(destinationImg);
-				destinationWrap.append(destinationTitle);
-				destinationWrap.append(destinationContent);
+				titleDataTag.append(data[i].name);
+				contnetDataTag.append(data[i].description);
+				destinationContent.append(titleDataTag);
+				destinationContent.append(contnetDataTag);
+				
+				destinationDivTag.append(destinationImg);
+				destinationDivTag.append(destinationContent);
+				destinationWrap.append(destinationDivTag);
 			}
 		}
 
@@ -220,14 +237,6 @@ $(".destination--region--li").on("click", function() {
 	}).fail((error) => {
 		console.log(error);
 	});
-
-	/*$('#departure').on('hidden.bs.modal', function(e) {
-		$(this).find('form')[0].reset();
-	});
-	
-	$('#destination').on('hidden.bs.modal', function(e) {
-		$(this).find('form')[0].reset();
-	});*/
 
 });
 

@@ -1,7 +1,10 @@
 package com.green.airline.dto.request;
 
+import java.sql.Date;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
@@ -10,21 +13,21 @@ import lombok.Data;
 @Data
 public class JoinFormDto {
 
-	@Pattern(regexp = "[a-zA-Z1-9]{8,20}", message = "아이디는 영문자, 숫자 포함 8~20자 사이여야 합니다.")
+	@Pattern(regexp = "[a-zA-Z1-9]{8,20}", message = "아이디는 영문자, 숫자 포함 7~20자 사이여야 합니다.")
 	@NotBlank(message = "아이디를 입력해주세요.")
-	@Size(min = 8, max = 20, message = "아이디는 8~20자 사이여야 합니다.")
+	@Size(min = 7, max = 20, message = "아이디는 7~20자 사이여야 합니다.")
 	private String id;
-	@Pattern(regexp = "[a-zA-Z1-9]{8,20}", message="비밀번호는 8~20자리여야 합니다.")
-	@NotBlank(message = "비밀번호는 8~20자 사이여야 합니다.")
-	@Size(min = 8, max = 20, message = "비밀번호는 8~20자 사이여야 합니다.")
+	@Pattern(regexp = "[a-zA-Z1-9]{8,20}", message="비밀번호는 7~20자리여야 합니다.")
+	@NotBlank(message = "비밀번호는 7~20자 사이여야 합니다.")
+	@Size(min = 7, max = 20, message = "비밀번호는 7~20자 사이여야 합니다.")
 	private String password;
 	@Pattern(regexp = "^[가-힣]{2,5}$", message = "한글 이름을 입력해주세요.")
 	@NotBlank(message = "한글 이름을 입력해주세요.")
 	private String korName;
 	@NotBlank(message = "영어 이름을 입력해주세요.")
 	private String engName;
-	@NotBlank(message = "생년월일을 입력해주세요.")
-	private String birthDate;
+	@Past(message = "오늘 날짜 이후는 선택할 수 없습니다.")
+	private Date birthDate;
 	@NotBlank(message = "성별을 선택해주세요.")
 	private String gender;
 	@NotBlank(message = "이메일을 입력해주세요.")

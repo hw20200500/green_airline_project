@@ -40,12 +40,11 @@
 	display: flex;
 	justify-content: center;
 	border: none;
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid #ddd;
 	font-size: 30px;
 }
 
 .notice--category--wrap {
-	padding: 20px;
 	border-radius: 10px;
 	display: flex;
 	justify-content: space-between;
@@ -57,7 +56,30 @@
 	font-size: 20px;
 }
 
-.notice--category--ul{
+.notice--h4 {
+	display: flex;
+	flex-direction: column;
+}
+
+.category--id--st {
+	display: block;
+	width: 240px;
+	height: 80px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #f8f9fc;
+	color: black;
+}
+
+.category--id--st:hover {
+	background-color: #ddd;
+	color: black;
+}
+
+.selected--category {
+	background-color: #8ABBE2;
+	color: white;
 }
 </style>
 
@@ -78,16 +100,24 @@
 			</div>
 
 		</div>
+
+
 		<div class="notice--category--wrap">
 			<c:forEach var="categoryList" items="${categoryList}">
-				<ul class="notice--category--ul">
-					<li>
-						<h4>
-							<a href="/notice/noticeCategory/${categoryList.id}">${categoryList.name}</a>
+				<c:choose>
+					<c:when test="${category == categoryList.id}">
+						<h4 class="notice--h4">
+							<a href="/notice/noticeCategory/${categoryList.id}" class="category--id--st selected--category" style="background-color: #8ABBE2; color: white;">${categoryList.name}</a>
 						</h4>
-					</li>
-				</ul>
+					</c:when>
+					<c:otherwise>
+						<h4 class="notice--h4">
+							<a href="/notice/noticeCategory/${categoryList.id}" class="category--id--st">${categoryList.name}</a>
+						</h4>
+					</c:otherwise>
+				</c:choose>
 			</c:forEach>
+
 		</div>
 
 

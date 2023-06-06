@@ -57,6 +57,7 @@ public class NoticeController {
 		model.addAttribute("noticeList", noticeList);
 		List<NoticeCategory> categoryList = noticeService.readNoticeCategory();
 		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("category", 1);
 
 		return "/notice/noticeList";
 	}
@@ -99,9 +100,9 @@ public class NoticeController {
 		model.addAttribute("paging", obj);
 		List<NoticeResponseDto> noticeList = noticeService.readNoticeByCategoryId(obj, categoryId);
 		model.addAttribute("noticeList", noticeList);
-		System.out.println("111111111111111111111" + noticeList);
 		List<NoticeCategory> categoryList = noticeService.readNoticeCategory();
 		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("category", categoryId);
 
 		return "/notice/noticeList";
 	}

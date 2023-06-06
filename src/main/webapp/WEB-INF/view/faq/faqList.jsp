@@ -28,17 +28,26 @@
 	margin-bottom: 50px;
 }
 
+.keyword--search--form:focus {
+	outline: none;
+}
+
 .keyword--search--form {
 	display: flex;
 	justify-content: center;
 }
 
+#keyword:focus {
+	outline: none;
+}
+
 #keyword {
 	width: 500px;
+	height: 60px;
 	display: flex;
 	justify-content: center;
 	border: none;
-	border-bottom: 1px solid black;
+	border-bottom: 1px solid #ddd;
 	font-size: 30px;
 }
 
@@ -52,8 +61,9 @@ p {
 .faq--category--wrap {
 	display: flex;
 	justify-content: space-between;
-	margin-right: 30px;
+	/* margin-right: 30px; */
 	margin-bottom: 50px;
+	width: 1180px;
 }
 
 .faq--content--wrap {
@@ -99,6 +109,12 @@ p {
 .btn--primary {
 	background-color: #8ABBE2;
 	color: white;
+	width: 80px;
+}
+.btn--primary:hover {
+	background-color: #8ABBE2;
+	color: white;
+	width: 80px;
 }
 
 .delete--checkbox--class {
@@ -106,6 +122,31 @@ p {
 	margin-right: 5px;
 }
 
+.category--id--st {
+	display: block;
+	width: 235px;
+	height: 80px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #f8f9fc;
+	color: black;
+}
+
+.category--id--st:hover {
+	background-color:#ddd;
+	color: black;
+}
+
+.faq--h4 {
+	display: flex;
+	flex-direction: column;
+}
+
+.selected--category {
+	 background-color:#8ABBE2; 
+	color: white;
+}
 </style>
 
 <div>
@@ -125,9 +166,18 @@ p {
 			<div class="faq--category--content--wrap">
 				<div class="faq--category--wrap">
 					<c:forEach var="categories" items="${categories}">
-						<h4>
-							<a href="/faq/faqList?categoryId=${categories.id}">${categories.name}</a>
-						</h4>
+						<c:choose>
+							<c:when test="${category == categories.id}">
+								<h4 class="faq--h4">
+									<a href="/faq/faqList?categoryId=${categories.id}" class="category--id--st selected--category" style="background-color: #8ABBE2; color: white;">${categories.name}</a>
+								</h4>
+							</c:when>
+							<c:otherwise>
+								<h4 class="faq--h4">
+									<a href="/faq/faqList?categoryId=${categories.id}" class="category--id--st">${categories.name}</a>
+								</h4>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 				</div>
 				<div class="faq--faqList--wrap">

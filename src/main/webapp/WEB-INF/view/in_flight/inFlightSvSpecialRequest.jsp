@@ -18,7 +18,7 @@
 #modal--id--arrivaldate {
 	border: none;
 	padding: 10px;
-	width: 580px;
+	width: 600px;
 	border-bottom: 1px solid #ddd;
 	margin-bottom: 20px;
 	display: flex;
@@ -123,6 +123,34 @@ table tr th {
 	display: flex;
 	justify-content: center;
 }
+
+.btn--primary {
+	margin-top: 15px;
+	color: white;
+	border: none;
+	background-color: #8ABBE2;
+	width: 136px;
+	height: 40px;
+	border-radius: 5px;
+}
+
+.btn--primary:hover {
+	color: white;
+	border: none;
+	background-color: #8ABBE2;
+	height: 40px;
+	border-radius: 5px;
+}
+
+.page--move{
+	color: white;
+	border: none;
+	background-color: #8ABBE2;
+	width: 250px;
+	height: 40px;
+	border-radius: 5px;
+	
+}
 </style>
 
 <main>
@@ -131,9 +159,8 @@ table tr th {
 		<div class="modal-header">
 			<div>
 				<h2 class="modal-title">특별 기내식 신청</h2>
-				<div>*특별 기내식을 신청하지 않으시면 기본 기내식이 제공됩니다.</div>
+				<div>*특별 기내식을 신청하지 않으면 기본 기내식이 제공됩니다.</div>
 			</div>
-			<button type="button" class="close" data-dismiss="modal">&times;</button>
 		</div>
 
 		<div id="inFlight--arrival">
@@ -262,8 +289,8 @@ table tr th {
 			</table>
 			
 			<div>
-				<button type="button" id="inflightmeal--request">신청 완료</button>
-				<button type="button" onclick="location.href='/inFlightService/inFlightServiceSpecial'">특별 기내식 안내</button>
+				<button type="button" id="inflightmeal--request" class="btn--primary">신청 완료</button>
+				<button type="button" onclick="location.href='/inFlightService/inFlightServiceSpecial'" class="btn--primary page--move">특별 기내식 페이지로 이동</button>
 			</div>
 		</form>
 	</div>
