@@ -47,7 +47,6 @@
 	border: none;
 	width: 10px;
 	margin: 0 5px 0 5px;
-	background-color: rgb(243, 243, 243);
 	border: none;
 }
 
@@ -229,7 +228,7 @@ width: 160px;
 							<div class="selected_prd 001" style="display: none;">
 								<div class="tit">
 									<p>
-										<span class="type">[${shopProduct.brand}] ${shopProduct.name} ㅣ <fmt:formatNumber value="${shopProduct.price}" pattern="#,###" /> 마일 ㅣ ${shopProduct.count}개
+										<span class="type">[${shopProduct.brand}] ${shopProduct.name} ㅣ <fmt:formatNumber value="${shopProduct.price}" pattern="#,###" /> 마일
 										</span>
 									</p>
 								</div>
@@ -622,18 +621,18 @@ width: 160px;
 				let hiddenCount = document
 				.querySelector('input[name="hiddenCount"]');
 				
-				if(parseInt(myMileage) < parseInt(total*amount)){
+				if(parseInt(myMileage) < parseInt(total*amount) || email == null|| exptext.test(email)==false){
 					alert('마일리지가 부족 합니다');
 					 event.preventDefault();
 					 location.reload();
 				}
-				if(email == null){
+				/* if(email == null){
 					alert('이메일을 입력 하세요');
 					 event.preventDefault();
 					 location.reload();
-					}
+					} */
 				
-				if(exptext.test(email)==false){
+				/* if(exptext.test(email)==false){
 
 				//이메일 형식이 알파벳+숫자@알파벳+숫자.알파벳+숫자 형식이 아닐경우			
 
@@ -642,7 +641,7 @@ width: 160px;
 				 location.reload();
 
 			return false;
-				}
+				} */
 			});
 	var tabContents = document.getElementsByClassName("tab_cont");
     for (var i = 1; i < tabContents.length; i++) {

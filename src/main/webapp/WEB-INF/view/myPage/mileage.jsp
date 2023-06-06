@@ -234,14 +234,10 @@ margin-bottom2px;
 
 
 
-<<<<<<< HEAD
 <script src="/js/mileage.js"></script>
 
 <input type="hidden" name="menuName" id="menuName" value="마일리지 조회">
 
-=======
 <script src="/js/mileage.js">
-	
 </script>
->>>>>>> feature/myPage2
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

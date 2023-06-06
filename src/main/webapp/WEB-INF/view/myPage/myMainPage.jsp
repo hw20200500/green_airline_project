@@ -297,6 +297,40 @@ main {
 .help {
 	margin-top: 3px;
 }
+.mileage--inquiry{
+    height: 40px;
+    padding-top: 7px;
+    margin-top: 11px;
+    margin-bottom: 3px;
+    width: 178px;
+    border-radius: 9px;
+    background-color: rgb(240, 240, 240);
+}
+.mileage--inquiry a{
+	padding: 10px;
+}
+.mileageListTable {
+    border-collapse: collapse;
+    width: 100%;
+    height: 90%;
+  }
+  
+  .mileageListTable th, .mileageListTable td {
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .mileageListTable th {
+    background-color: #f2f2f2;
+  }
+  
+  .mileageListTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .mileageListTable tr:hover {
+    background-color: #f5f5f5;
+  }
 </style>
 
 
@@ -379,7 +413,9 @@ main {
 									<span><fmt:formatNumber type="number"
 											maxFractionDigits="3"
 											value="${100000 - sumNowMileage.totalMileage}" /></span>마일 적립 그린항공 <strong>Gold</strong>회원으로 승급됩니다.<br>
-									<a href="/mileage/selectAll">마일리지 조회</a>
+											<div class="mileage--inquiry">
+									<a href="/mileage/selectAll" >마일리지 조회하러 가기</a>
+									</div>
 									<hr>
 									<div class="balloon_03">
 
