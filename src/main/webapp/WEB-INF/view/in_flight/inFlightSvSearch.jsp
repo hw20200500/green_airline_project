@@ -399,7 +399,7 @@ main {
 		</div>
 
 		<div class="service--head--img">
-			<img alt="" src="/images/in_flight/inFlightServiceSearch.png" style="width: 1170px; height: 350px;">
+			<img alt="" src="/images/in_flight/inFlightServiceSearch.png" style="width: 1170px; height: 450px;">
 		</div>
 
 		<div class="modal--all--btn--div">

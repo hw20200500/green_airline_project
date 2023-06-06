@@ -49,7 +49,8 @@
 		on sg.name = t.seat_grade
 		join member_tb as m
 		on bre.member_id = m.id
-		where bre.member_id=#{memberId} and bre.amount>0;
+		where bre.member_id=#{memberId} and bre.amount>0
+		ORDER BY bre.id DESC;
 	</select>
 	
 	<select id="selectBaggageReqGroupBySection" resultType="com.green.airline.dto.response.BaggageReqResponseDto">

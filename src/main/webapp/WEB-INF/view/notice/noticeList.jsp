@@ -17,6 +17,7 @@
 	border: none;
 	background-color: #8ABBE2;
 	color: white;
+	width: 80px
 }
 
 .keyword--search--wrap {
@@ -31,6 +32,7 @@
 
 #keyword {
 	width: 500px;
+	height: 60px;
 	display: flex;
 	justify-content: center;
 	border: none;
@@ -43,22 +45,27 @@
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 30px;
-	width: 1200px;
+	width: 1180px;
 }
 
 .noticeList--name--wrap {
 	font-size: 20px;
+	margin-bottom: 5px;
+	display: flex;
+	justify-content: space-between;
 }
 
 .notice--h4 {
 	display: flex;
 	flex-direction: column;
+	width: 234px;
+	height: 79px;
 }
 
 .category--id--st {
 	display: block;
 	width: 240px;
-	height: 80px;
+	height: 70px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -74,6 +81,16 @@
 .selected--category {
 	background-color: #8ABBE2;
 	color: white;
+}
+
+.noticeList--title--date--wrap a{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.search--btn{
+	font-size: 22px;
 }
 </style>
 
@@ -118,7 +135,12 @@
 			<c:forEach var="noticeList" items="${noticeList}">
 				<input type="hidden" name="id" value="${noticeList.id}">
 				<div class="noticeList--name--wrap">
-					<a href="/notice/noticeDetail/${noticeList.id}"> [ ${noticeList.name} ] ${noticeList.title}</a>
+					<div class="noticeList--title--date--wrap">
+						<a href="/notice/noticeDetail/${noticeList.id}"> [ ${noticeList.name} ] ${noticeList.title} </a>
+					</div>
+					<div class="noticeList--title--date--wrap">
+						<a href="/notice/noticeDetail/${noticeList.id}">${noticeList.dateFormatType2()}</a>
+					</div>
 				</div>
 			</c:forEach>
 		</div>
