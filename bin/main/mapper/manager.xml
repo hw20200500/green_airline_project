@@ -20,7 +20,7 @@
 		JOIN user_tb AS u
 		ON m.id = u.id
 		ORDER BY u.join_at DESC
-		LIMIT #{index}, 20
+		LIMIT #{index}, 10
 	</select>
 	
 	<select id="selectManagerListSearch" resultType="com.green.airline.repository.model.Manager">
