@@ -100,8 +100,9 @@ input[type=text]:focus, input[type=password]:focus {
 <main>
 	<div>
 		<div>
-			<h2>회원 정보</h2>
+			<h2 class="page--title">회원정보 변경</h2>
 			<hr>
+			<br>
 		</div>
 
 		<div>

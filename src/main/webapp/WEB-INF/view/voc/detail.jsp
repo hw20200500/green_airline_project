@@ -34,31 +34,11 @@ input[name="title"], .info--input, textarea {
 	border-radius: 5px;
 }
 
-.info--input {
-	width: 300px;
-}
-
-input[name="title"] {
-	width: 100%;
-}
-
 textarea {
 	width: 100%;
 	padding: 7px 0;
 	font-size: 16px;
 	resize: none;
-}
-
-#answerForm {
-	display: none;
-}
-
-#answerForm th {
-	background-color: #e5e5e5 !important;
-}
-
-#answerForm td {
-	padding-top: 12px;
 }
 
 textarea[name="content"] {
@@ -67,28 +47,16 @@ textarea[name="content"] {
 	height: 350px;
 }
 
-label {
-	cursor: pointer;
-}
-
-#answerTable td {
-	border: 2px solid #ccc !important;
-}
-
-#answerContentFixed, #contentArea {
-	height: 350px;
-}
-
-
 
 </style>
 
 <!-- 고객의 말씀 상세 페이지 -->
 
 <main class="d-flex flex-column">
-	<h2>고객의 말씀</h2>
+	<h2 class="page--title">고객의 말씀</h2>
 	<hr>
 	<br>
+	
 	<div class="d-flex justify-content-center" style="width: 100%;">
 		<div class="d-flex flex-column" style="width: 1000px">
 			<h5 class="middle--title" style="margin-left: -4px;">
@@ -268,92 +236,96 @@ label {
 </main>
 
 <script>
-	// 게시글 삭제 버튼
-	$("#vocDeleteBtn").on("click", function() {
-		
-		// 질문 -> 예 : true, 아니오 : false 저장
-		let isDelete = confirm("해당 내역을 삭제하시겠습니까?");
-		
-		// 예 (true)를 선택했다면 삭제 진행
-		if (isDelete) {		
-			$.ajax({
-				type: 'DELETE',
-				url: '/voc/delete/' + ${voc.id}
-			})
-			.done((res) => {
-				console.log(res);
-				location.href="/voc/list/1";
-			})
-			.fail((error) => {
-				console.log(error);
-			});
-		}
-	});
-	
-	// 답변 작성 폼 활성화 버튼
-	$("#answerBtn").on("click", function() {
-		
-		if (${principal == null}) {
-			return;
-		// 관리자만 해당 폼을 활성화할 수 있게
-  		} else {
-			let userRole = `${principal.userRole}`;
-			if (userRole != '관리자') {
-				return;
-			}			  			
-  		}
-		
-		$("#answerForm").show();
-		$("#answerBtn").hide();
-		$("#goListBtn").css("margin", "0");
-		window.scrollTo(0, document.body.scrollHeight);
-		
-	});
-	
-	$("#answerCloseBtn").on("click", function() {
-		
-		$("#answerForm").hide();
-		$("#answerContentArea").val("");
-		$("#answerBtn").show();
-		$("#goListBtn").css("margin-right", "60px");
-		
-	});
-	
-	$("input[name=\"type\"]").on("change", function() {
-		let typeName = $(this).val();
-		let formText = "";
-		
-		if (typeName == '문의') {
-			formText = `${formList.get(0).content}`;
-		} else if (typeName == '칭찬') {
-			formText = `${formList.get(1).content}`;
-		} else if (typeName == '불만') {
-			formText = `${formList.get(2).content}`;
-		} else {
-			formText = `${formList.get(3).content}`;
-		}
-		$("#answerContentArea").val(formText);
-	});
-	
-	
-	// 고객의 말씀 유형에 따라 선택
-	let type = `${voc.type}`;
-	for (let i = 0; i < $("input[name=\"type\"]").length; i++) {
-		let target = $("input[name=\"type\"]").eq(i);
-		if (target.val() == type) {
-			target.prop("checked", true);
+
+	$(document).ready(function() {
+		// 게시글 삭제 버튼
+		$("#vocDeleteBtn").on("click", function() {
 			
-			if (target.val() == '문의') {
-				$("#answerContentArea").val(`${formList.get(0).content}`);
-			} else if (target.val() == '칭찬') {
-				$("#answerContentArea").val(`${formList.get(1).content}`);
-			} else if (target.val() == '불만') {
-				$("#answerContentArea").val(`${formList.get(2).content}`);
+			// 질문 -> 예 : true, 아니오 : false 저장
+			let isDelete = confirm("해당 내역을 삭제하시겠습니까?");
+			
+			// 예 (true)를 선택했다면 삭제 진행
+			if (isDelete) {		
+				$.ajax({
+					type: 'DELETE',
+					url: '/voc/delete/' + ${voc.id}
+				})
+				.done((res) => {
+					console.log(res);
+					location.href="/voc/list/1";
+				})
+				.fail((error) => {
+					console.log(error);
+				});
+			}
+		});
+		
+		// 답변 작성 폼 활성화 버튼
+		$("#answerBtn").on("click", function() {
+			
+			if (${principal == null}) {
+				return;
+			// 관리자만 해당 폼을 활성화할 수 있게
+	  		} else {
+				let userRole = `${principal.userRole}`;
+				if (userRole != '관리자') {
+					return;
+				}			  			
+	  		}
+			
+			$("#answerForm").show();
+			$("#answerBtn").hide();
+			$("#goListBtn").css("margin", "0");
+			window.scrollTo(0, document.body.scrollHeight);
+			
+		});
+		
+		$("#answerCloseBtn").on("click", function() {
+			
+			$("#answerForm").hide();
+			$("#answerContentArea").val("");
+			$("#answerBtn").show();
+			$("#goListBtn").css("margin-right", "60px");
+			
+		});
+		
+		$("input[name=\"type\"]").on("change", function() {
+			let typeName = $(this).val();
+			let formText = "";
+			
+			if (typeName == '문의') {
+				formText = `${formList.get(0).content}`;
+			} else if (typeName == '칭찬') {
+				formText = `${formList.get(1).content}`;
+			} else if (typeName == '불만') {
+				formText = `${formList.get(2).content}`;
 			} else {
-				$("#answerContentArea").val(`${formList.get(3).content}`);
+				formText = `${formList.get(3).content}`;
+			}
+			$("#answerContentArea").val(formText);
+		});
+		
+		
+		// 고객의 말씀 유형에 따라 선택
+		let type = `${voc.type}`;
+		for (let i = 0; i < $("input[name=\"type\"]").length; i++) {
+			let target = $("input[name=\"type\"]").eq(i);
+			if (target.val() == type) {
+				target.prop("checked", true);
+				
+				if (target.val() == '문의') {
+					$("#answerContentArea").val(`${formList.get(0).content}`);
+				} else if (target.val() == '칭찬') {
+					$("#answerContentArea").val(`${formList.get(1).content}`);
+				} else if (target.val() == '불만') {
+					$("#answerContentArea").val(`${formList.get(2).content}`);
+				} else {
+					$("#answerContentArea").val(`${formList.get(3).content}`);
+				}
 			}
 		}
-	}
+	});
+	
 	
 </script>
 

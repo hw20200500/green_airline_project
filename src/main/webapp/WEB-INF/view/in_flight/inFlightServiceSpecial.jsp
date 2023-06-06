@@ -124,8 +124,9 @@
 
 <div>
 	<main>
-		<h2>특별 기내식</h2>
+		<h2 class="page--title">특별 기내식</h2>
 		<hr>
+		<br>
 		<input type="hidden" name="memberId" value="memberId">
 
 		<div class="inFlightMeals--option--wrap">

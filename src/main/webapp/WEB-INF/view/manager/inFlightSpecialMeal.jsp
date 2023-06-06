@@ -23,8 +23,9 @@ table tr th, table tr td {
 </style>
 <main>
 	<div>
-		<h2>특별 기내식 신청 내역 조회</h2>
+		<h2 class="page--title">특별 기내식 신청 내역 조회</h2>
 		<hr>
+		<br>
 
 		<table border="1">
 			<tr style="background-color:#E5EFF3;">

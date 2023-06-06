@@ -16,9 +16,10 @@
 
 <!-- 항공권 선택 페이지 -->
 
+
 <main>
 
-	<h2>
+	<h2 class="page--title">
 		<c:choose>
 			<c:when test="${\"관리자\".equals(principal.userRole)}">
 				운항 스케줄 조회
@@ -30,6 +31,7 @@
 	</h2>
 	<hr>
 	<br>
+	
 	<!-- 왕복/편도, 출발지/도착지, 탑승일, 탑승객 수/연령 -->
 	<div class="d-flex align-items-center flex-column" style="width: 100%;">
 		<div style="width: 1016px" class="size--limit--div">
@@ -357,14 +359,12 @@
 		
 		// 왕복이면
 		if (ticketType == 1) {
-			
 			$("#flightDate1").val(date1);
 			$("#flightDate2").val(date2);
 			$("#flightDate").val(date1 + " ~ " + date2);
 			
 		// 편도면
 		} else {
-			
 			$("#flightDate0").val(date0);
 			$("#flightDate").val(date0);
 			

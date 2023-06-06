@@ -16,7 +16,7 @@
 <!-- 마일리지샵 메인 페이지 -->
 
 <main>
-	<h2>마일리지샵</h2>
+	<h2 class="page--title">마일리지샵</h2>
 	<hr>
 	<br>
 	<div class="service--div">
@@ -28,7 +28,7 @@
 			<li><span class="material-symbols-outlined">add_business</span>
 			<li>상품 등록
 		</ul>
-		<ul class="service--ul" onclick="location.href='#'">
+		<ul class="service--ul" onclick="location.href='/manager/productBuyList'">
 			<li><span class="material-symbols-outlined">shopping_cart</span>
 			<li>상품 판매 내역
 		</ul>

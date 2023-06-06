@@ -42,9 +42,10 @@
 </style>
 
 <main class="d-flex flex-column">
-	<h2>항공권 환불 안내</h2>
+	<h2 class="page--title">항공권 환불 안내</h2>
 	<hr>
 	<br>
+	
 	<div class="d-flex flex-column align-items-center" style="width: 100%;">
 		<div style="width: 900px;">
 			<h4 class="middle--title">
@@ -114,6 +115,6 @@
 
 </main>
 
-<input type="hidden" name="menuName" id="menuName" value="환불 안내">
+<input type="hidden" name="menuName" id="menuName" value="항공권 환불 안내">
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

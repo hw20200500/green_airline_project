@@ -13,22 +13,13 @@
 
 <link rel="stylesheet" href="/css/payment.css">
 
-<script>
-	$(document).ready(function() {
-		if ($(".destination--departure").width() > $(".info--ul").eq(0).width()) {
-			$(".split--div").css("width", $(".destination--departure").width() + 30)
-		} else {
-			$(".split--div").css("width", $(".info--ul").eq(0).width() + 30)
-		}
-		
-	});
-</script>
-
 <!-- 결제 완료 페이지 -->
 
 <main class="d-flex flex-column">
-	<h2>항공권 예약</h2>
+	<h2 class="page--title">항공권 예약</h2>
 	<hr>
+	<br>
+	
 	<div class="d-flex align-items-center flex-column" style="width: 100%;">
 		<h3 class="reserve--complete">예약이 완료되었습니다.</h3>
 		<div class="split--div"></div>
@@ -124,9 +115,19 @@
 		</button>
 
 	</div>
-	
 
 </main>
+
+<script>
+	$(document).ready(function() {
+		if ($(".destination--departure").width() > $(".info--ul").eq(0).width()) {
+			$(".split--div").css("width", $(".destination--departure").width() + 30)
+		} else {
+			$(".split--div").css("width", $(".info--ul").eq(0).width() + 30)
+		}
+		
+	});
+</script>
 
 <input type="hidden" name="menuName" id="menuName" value="항공권 예약">
 

@@ -62,10 +62,6 @@ table.table-bordered th {
 	background-color: #f2f2f2;
 }
 
-main {
-	padding: 20px;
-}
-
 .mileage--list {
 	margin-top: 20px;
 }
@@ -130,9 +126,10 @@ margin-bottom2px;
 
 <!-- 마일리지 조회 페이지 -->
 <main>
-	<div class="title">
-		<h1>마일리지 내역 조회</h1>
-	</div>
+	<h2 class="page--title">마일리지 조회</h2>
+	<hr>
+	<br>
+	
 	<div class="container">
 		<table class="table table-bordered">
 			<thead>
@@ -233,15 +230,8 @@ margin-bottom2px;
 </main>
 
 
-
-<<<<<<< HEAD
 <script src="/js/mileage.js"></script>
 
 <input type="hidden" name="menuName" id="menuName" value="마일리지 조회">
 
-=======
-<script src="/js/mileage.js">
-	
-</script>
->>>>>>> feature/myPage2
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

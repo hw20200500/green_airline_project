@@ -331,8 +331,70 @@
 <script src="/js/ticket.js"></script>
 <script>
 
-	$(".minus--button, .plus--button").on("click", function() {
-		insertPassenger();
+	$(document).ready(function() {
+		
+		// 탑승객 수 증감
+		$(".minus--button, .plus--button").on("click", function() {
+			insertPassenger();
+		});
+		
+		// 스케줄 조회 버튼
+		$("#schedulePageBtn").on("click", function() {
+			// 1 : 왕복, 2 : 편도
+			let ticketType = $(".selected--type").index() + 1;
+			$("#ticketTypeInput").val(ticketType);
+			// 취항지 1
+			let airport1 = $("#departure").val();
+			if (airport1 == "") {
+				alert("출발지가 선택되지 않았습니다.");
+				return false;
+			}
+	
+			// 취항지 2
+			let airport2 = $("#destination").val();
+			if (airport2 == "") {
+				alert("도착지가 선택되지 않았습니다.");
+				return false;
+			}
+	
+			// 성인
+			let ageType1 = parseInt($("#ageType1").val());
+			if (ageType1 == 0) {
+				alert("최소 1명의 성인이 필요합니다.");
+				return false;
+			}
+	
+			// 유아
+			let ageType3 = parseInt($("#ageType3").val());
+			if (ageType3 > ageType1) {
+				alert('유아의 수는 동반 성인의 수보다 많을 수 없습니다.');
+				return false;
+			}
+	
+			// 왕복
+			if (ticketType == 1) {
+				// 왕복 - 탑승일 1 (가는 날)
+				let flightDate1 = $("#flightDate1").val();
+				// 왕복 - 탑승일 2 (오는 날)
+				let flightDate2 = $("#flightDate2").val();
+	
+				// 선택하지 않은 날짜가 있다면
+				if (flightDate1 == "" || flightDate2 == "") {
+					alert("선택되지 않은 날짜가 존재합니다.");
+					return false;
+				}
+				// 편도
+			} else {
+				// 탑승일
+				let flightDate = $("#flightDate0").val();
+				// 선택하지 않은 날짜가 있다면
+				if (flightDate == "") {
+					alert("선택되지 않은 날짜가 존재합니다.");
+					return false;
+				}
+			}
+		});
+		
 	});
 	
 	$(document).on("click", function(e) {
@@ -340,63 +402,6 @@
 			$("#ageTypeDiv").hide();
 		}
 	});
-	
-	$("#schedulePageBtn").on("click", function() {
-		// 1 : 왕복, 2 : 편도
-		let ticketType = $(".selected--type").index() + 1;
-		$("#ticketTypeInput").val(ticketType);
-		// 취항지 1
-		let airport1 = $("#departure").val();
-		if (airport1 == "") {
-			alert("출발지가 선택되지 않았습니다.");
-			return false;
-		}
-
-		// 취항지 2
-		let airport2 = $("#destination").val();
-		if (airport2 == "") {
-			alert("도착지가 선택되지 않았습니다.");
-			return false;
-		}
-
-		// 성인
-		let ageType1 = parseInt($("#ageType1").val());
-		if (ageType1 == 0) {
-			alert("최소 1명의 성인이 필요합니다.");
-			return false;
-		}
-
-		// 유아
-		let ageType3 = parseInt($("#ageType3").val());
-		if (ageType3 > ageType1) {
-			alert('유아의 수는 동반 성인의 수보다 많을 수 없습니다.');
-			return false;
-		}
-
-		// 왕복
-		if (ticketType == 1) {
-			// 왕복 - 탑승일 1 (가는 날)
-			let flightDate1 = $("#flightDate1").val();
-			// 왕복 - 탑승일 2 (오는 날)
-			let flightDate2 = $("#flightDate2").val();
-
-			// 선택하지 않은 날짜가 있다면
-			if (flightDate1 == "" || flightDate2 == "") {
-				alert("선택되지 않은 날짜가 존재합니다.");
-				return false;
-			}
-			// 편도
-		} else {
-			// 탑승일
-			let flightDate = $("#flightDate0").val();
-			// 선택하지 않은 날짜가 있다면
-			if (flightDate == "") {
-				alert("선택되지 않은 날짜가 존재합니다.");
-				return false;
-			}
-		}
-	});
-	
 </script>
 
 <input type="hidden" name="menuName" id="menuName" value="">

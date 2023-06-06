@@ -67,6 +67,10 @@ main {
 </style>
 <div>
 	<main>
+		<h2 class="page--title">공지사항</h2>
+		<hr>
+		<br>
+		
 		<div>
 			<input type="hidden" name="id" value="${noticeList.id}">
 			<div class="noticeDetail--title--name--wrap">

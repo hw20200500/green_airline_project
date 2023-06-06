@@ -475,3 +475,10 @@ ul {
 	padding: 5px 7px 1px 3px;
 	font-weight: 500;
 }
+
+.page--title {
+	font-weight: 600;
+	display: flex;
+	color: #464e57;
+	margin: 0 !important;
+}

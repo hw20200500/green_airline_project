@@ -38,9 +38,10 @@ table tr td, table tr th{
 <main>
 	<div>
 		<div>
-			<h2>휴대 수하물</h2>
-			<p>편안한 여행과 안전운항을 위해 기내로 가져갈 수 있는 휴대 수하물의 종류와 규격 및 개수를 안내해드립니다.</p>
+			<h2 class="page--title">휴대 수하물</h2>
+			<p class="page--title--description">편안한 여행과 안전운항을 위해 기내로 가져갈 수 있는 휴대 수하물의 종류와 규격 및 개수를 안내해드립니다.</p>
 			<hr>
+			<br>
 		</div>
 
 		<div>

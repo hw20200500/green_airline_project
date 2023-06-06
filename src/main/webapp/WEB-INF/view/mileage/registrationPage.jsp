@@ -10,7 +10,7 @@
 	</c:otherwise>
 </c:choose>
 <style>
-main{
+form {
 	border: 1px solid #ccc;
 	padding: 50px;
 }
@@ -34,10 +34,12 @@ input[type=text]:focus, input[type=file]:focus {
 	width: 150px;
 }
 </style>
-<div>
 
-	<!-- 여기 안에 쓰기 -->
 	<main>
+		<h2 class="page--title">상품 등록</h2>
+		<hr>
+		<br>
+	
 		<form action="/product/insert" method="post" enctype="multipart/form-data">
 			<span >브랜드 이름 :</span>
 			<br>
@@ -60,8 +62,6 @@ input[type=text]:focus, input[type=file]:focus {
 		</form>
 	</main>
 
-</div>
-<<<<<<< HEAD
 <!-- <script>
 
 // Add the following code if you want the name of the file appear on select
@@ -73,6 +73,4 @@ $(".custom-file-input").on("change", function() {
 
 <input type="hidden" name="menuName" id="menuName" value="상품 등록">
 
-=======
->>>>>>> feature/myPage2
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

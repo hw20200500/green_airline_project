@@ -24,27 +24,6 @@
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </head>
 
-<style>
-.ul--dropdown--menu > li {
-	width: 100px;
-	font-weight: 500;
-}
-
-.ul--dropdown--menu {
-	position: absolute;
-	padding: 10px 7px 10px 10px;
-	margin-left: -43px;
-	background-color: white;
-	border: 1px solid #ccc;
-	display: none;
-}
-
-.ul--dropdown--menu > li a:hover {
-	color: #406395;
-}
-
-</style>
-
 <body>
 
 	<div class="page--container">
@@ -125,7 +104,7 @@
 							<ul>
 								<li><a href="/ticket/selectSchedule">항공권 예약</a>
 								<li><a href="/ticket/list/1">항공권 구매 내역</a>
-								<li><a href="/ticket/refundInfo">환불 안내</a>
+								<li><a href="/ticket/refundInfo">항공권 환불 안내</a>
 							</ul>
 							<div class="nav--split"></div>
 							<ul>
@@ -197,13 +176,4 @@
 			</div>
 		</c:if>
 
-		<script type="text/javascript">
-			$(".customer--service--li").on("mouseenter", function() {
-				$(".ul--dropdown--menu").css("display", "block");
-			});
-
-			$(".customer--service--li").on("mouseleave", function() {
-				$(".ul--dropdown--menu").css("display", "none");
-			});
-		</script>
 		<script src="/js/layout.js"></script>

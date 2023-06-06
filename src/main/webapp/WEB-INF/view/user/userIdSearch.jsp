@@ -42,7 +42,8 @@ text-align: center;
 	<form action="/findByUserId" method="post">
 		<div>
 			<h2 class="title">
-				<a href="userIdSearch">아이디 찾기/ </a>
+				<a href="userIdSearch">아이디 찾기</a>
+				&nbsp;ㅣ&nbsp;
 				<a href="userPwSearch">비밀번호 찾기</a>
 			</h2>
 			<div class="form-group">

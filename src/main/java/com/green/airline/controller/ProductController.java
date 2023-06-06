@@ -228,7 +228,7 @@ public class ProductController {
 
 				// 객체 상태 변경(dto)
 				shopProduct.setProductImage(file.getOriginalFilename());
-				shopProduct.setGifticonImage(file.getOriginalFilename());
+				shopProduct.setGifticonImage(file2.getOriginalFilename());
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -257,12 +257,11 @@ public class ProductController {
 		ShopProduct shopProduct = productService.productDetail(id);
 		model.addAttribute(shopProduct);
 		
-		if (principal.getUserRole().equals("회원")) {
+		if (principal != null && principal.getUserRole().equals("관리자") == false) {
 			mileage = productService.readMileage(principal.getId());
-			System.out.println("mileage : " + mileage);
 			model.addAttribute(mileage);
 		}
-		System.out.println("model : " + model);
+		
 		return "/mileage/detailPage";
 	}
 	

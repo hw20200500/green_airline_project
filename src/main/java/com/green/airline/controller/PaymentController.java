@@ -308,7 +308,14 @@ public class PaymentController {
 			
 		} else {
 			// 결제 처리 (티켓아이디 반환)
-			data = ticketService.createTicketAndPayment(ticketDto, userId, 1);
+			try {
+				data = ticketService.createTicketAndPayment(ticketDto, userId, 1);
+				
+			} catch (Exception e) {
+				// 뒤로가기 했다가 다시 결제 요청을 할 경우를 대비해서 삭제했다가 다시 추가
+				ticketService.deleteTicketByPaymentCancel(userId);
+				data = ticketService.createTicketAndPayment(ticketDto, userId, 1);
+			}
 			
 		}
 		return new ResponseDto<String>(statusCode, code, message, resultCode, data);

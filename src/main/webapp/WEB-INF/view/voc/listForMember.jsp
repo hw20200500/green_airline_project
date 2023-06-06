@@ -49,21 +49,10 @@
 }
 </style>
 
-<script>
-	$(document).ready(function() {
-		$(".list--table tbody tr").on("click", function() {
-			let id = $(this).attr("id").split("tr")[1];
-			
-			location.href="/voc/detail/" + id;
-			
-		});
-	});
-</script>
-
 <!-- 해당 사용자가 작성한 문의 글 목록 -->
 
 <main class="d-flex flex-column">
-	<h2>고객의 말씀</h2>
+	<h2 class="page--title">고객의 말씀</h2>
 	<hr>
 	<br>
 	<h5 class="middle--title" style="margin-left: -3px;">
@@ -135,5 +124,15 @@
 
 </main>
 
+<script>
+	$(document).ready(function() {
+		$(".list--table tbody tr").on("click", function() {
+			let id = $(this).attr("id").split("tr")[1];
+			
+			location.href="/voc/detail/" + id;
+			
+		});
+	});
+</script>
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

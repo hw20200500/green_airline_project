@@ -16,9 +16,10 @@
 <!-- 탑승객 정보 입력 및 결제 페이지 -->
 
 <main class="d-flex flex-column">
-	<h2>항공권 예약</h2>
+	<h2 class="page--title">항공권 예약</h2>
 	<hr>
 	<br>
+	
 	<div class="d-flex justify-content-center" style="width: 100%;">
 		<div style="width: 900px;">
 			<h5 class="small--title">

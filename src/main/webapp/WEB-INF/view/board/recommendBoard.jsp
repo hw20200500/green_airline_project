@@ -118,6 +118,10 @@
 }
 </style>
 <main>
+	<h2 class="page--title">여행일지</h2>
+	<hr>
+	<br>
+
 	<div class="container">
 		<div class="popular--board">
 			<h4 class="h4--title">인기 게시물</h4>

@@ -39,9 +39,10 @@
 <!-- 관리자 정보 조회 -->
 
 <main class="d-flex flex-column">
-	<h2>관리자 정보 조회</h2>
+	<h2 class="page--title">관리자 정보 조회</h2>
 	<hr>
 	<br>
+
 	<!-- 필터 및 검색 -->
 	<div class="filter--div">
 		<form action="/manager/list/search" method="get">
@@ -112,16 +113,51 @@
 			</table>
 			<c:if test="${pageCount != null}">
 				<ul class="page--list">
-					<c:forEach var="i" begin="1" end="${pageCount}" step="1">
-						<c:choose>
-							<c:when test="${i == page}">
-								<li><a href="/manager/list/${i}" style="font-weight: 700; color: #007bff">${i}</a></li>					
-							</c:when>
-							<c:otherwise>
-								<li><a href="/manager/list/${i}">${i}</a></li>							
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
+					<c:choose>
+						<c:when test="${pageCount < 11}">
+							<c:forEach var="i" begin="1" end="${pageCount}" step="1">
+								<c:choose>
+									<c:when test="${i == page}">
+										<li><a href="/manager/list/${i}" style="font-weight: 700; color: #007bff">${i}</a>									
+									</c:when>
+									<c:otherwise>
+										<li><a href="/manager/list/${i}">${i}</a>									
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</c:when>
+						<%-- 페이지가 11개 이상이라면 --%>
+						<c:otherwise>
+							<c:choose>
+								<c:when test="${page < 11}">
+									<c:forEach var="i" begin="1" end="10" step="1">
+										<c:choose>
+											<c:when test="${i == page}">
+												<li><a href="/manager/list/${i}" style="font-weight: 700; color: #007bff">${i}</a>									
+											</c:when>
+											<c:otherwise>
+												<li><a href="/manager/list/${i}">${i}</a>									
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+									<li><a href="/manager/list/11">></a>		
+								</c:when>
+								<c:otherwise>
+									<li><a href="/manager/list/1"><</a>		
+									<c:forEach var="i" begin="11" end="${pageCount}" step="1">
+										<c:choose>
+											<c:when test="${i == page}">
+												<li><a href="/manager/list/${i}" style="font-weight: 700; color: #007bff">${i}</a>									
+											</c:when>
+											<c:otherwise>
+												<li><a href="/manager/list/${i}">${i}</a>									
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+								</c:otherwise>
+							</c:choose>
+						</c:otherwise>
+					</c:choose>
 				</ul>
 			</c:if>
 		</c:otherwise>
@@ -129,23 +165,24 @@
 </main>
 
 <script>
-	$("#searchBtn").on("click", function() {
-		let search = $("#managerId").val().replaceAll(" ", "");
-
-		if (search == "") {
-			return false;
-		} 
-	});
-
-	$("#managerId").on("keyup", function(e) {
-		let search = $("#managerId").val().replaceAll(" ", "");
-
-		if (e.keyCode == '13') {
+	$(document).ready(function() {
+		$("#searchBtn").on("click", function() {
+			let search = $("#managerId").val().replaceAll(" ", "");
+	
 			if (search == "") {
-				e.preventDefault();
+				return false;
 			} 
-		}
-
+		});
+	
+		$("#managerId").on("keyup", function(e) {
+			let search = $("#managerId").val().replaceAll(" ", "");
+	
+			if (e.keyCode == '13') {
+				if (search == "") {
+					e.preventDefault();
+				} 
+			}
+		});
 	});
 </script>
 

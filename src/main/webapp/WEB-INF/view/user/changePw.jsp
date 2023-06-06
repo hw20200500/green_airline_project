@@ -54,8 +54,8 @@ input[type=password] {
 
 <main>
 	<div>
-		<h2>비밀번호 변경</h2>
-		<p>회원님의 개인 정보를 안전하게 보호하기 위해 그린항공은 비밀번호를 암호화하여 저장, 관리하고 있습니다.</p>
+		<h2 class="page--title">비밀번호 변경</h2>
+		<p class="page--title--description">회원님의 개인 정보를 안전하게 보호하기 위해 그린항공은 비밀번호를 암호화하여 저장, 관리하고 있습니다.</p>
 		<hr>
 		<br>
 	</div>

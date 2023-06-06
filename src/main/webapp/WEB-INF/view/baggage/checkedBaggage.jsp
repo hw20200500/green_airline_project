@@ -177,11 +177,10 @@ p {
 <main>
 	<div>
 		<div>
-			<h2>수하물 이용 안내</h2>
-			<p>
-				수하물은 고객이 여행 시 휴대 또는 탁송을 의뢰한 소지품 및 물품을 의미하는 단어입니다.<br> 짐을 준비하시는 고객님의 여행이 한결 편할 수 있도록 꼭 알아두셔야 하는 수하물 관련 정보를 안내합니다.
-			</p>
+			<h2 class="page--title">수하물 이용 안내</h2>
+			<p class="page--title--description">편안한 여행과 안전운항을 위해 기내로 가져갈 수 있는 휴대 수하물의 종류와 규격 및 개수를 안내해드립니다.</p>
 			<hr>
+			<br>
 		</div>
 
 		<div class="checkedBaggage--title--wrap">

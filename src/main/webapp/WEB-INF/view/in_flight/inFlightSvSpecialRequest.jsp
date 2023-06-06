@@ -37,13 +37,10 @@ input[type=text] {
 <main>
 
 	<div>
-		<div class="modal-header">
-			<div>
-				<h4 class="modal-title">특별 기내식 신청</h4>
-				<div>*특별 기내식을 신청하지 않으시면 기본 기내식이 제공됩니다.</div>
-			</div>
-			<button type="button" class="close" data-dismiss="modal">&times;</button>
-		</div>
+		<h2 class="page--title">특별 기내식 신청</h2>
+		<p class="page--title--description">특별 기내식을 신청하지 않으시면 기본 기내식이 제공됩니다.</p>
+		<hr>
+		<br>
 
 		<!-- Modal body -->
 		<div class="modal-body">

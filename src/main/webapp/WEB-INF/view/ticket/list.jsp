@@ -41,23 +41,13 @@
 }
 </style>
 
-<script>
-	$(document).ready(function() {
-		$(".list--table tbody tr").on("click", function() {
-			let id = $(this).attr("id").split("tr")[1];
-			
-			location.href="/ticket/detail/" + id;
-			
-		});
-	});
-</script>
-
 <!-- 항공권 구매 내역 페이지 -->
 
 <main class="d-flex flex-column">
-	<h2>항공권 구매 내역</h2>
+	<h2 class="page--title">항공권 구매 내역</h2>
 	<hr>
 	<br>
+	
 	<c:choose>
 		<c:when test="${ticketList.isEmpty()}">
 			<p class="no--list--p">구매 내역이 존재하지 않습니다.</p>
@@ -114,6 +104,17 @@
 	</c:choose>
 
 </main>
+
+<script>
+	$(document).ready(function() {
+		$(".list--table tbody tr").on("click", function() {
+			let id = $(this).attr("id").split("tr")[1];
+			
+			location.href="/ticket/detail/" + id;
+			
+		});
+	});
+</script>
 
 <input type="hidden" name="menuName" id="menuName" value="항공권 구매 내역">
 

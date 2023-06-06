@@ -16,9 +16,10 @@
 <!-- 고객센터 메인 페이지 -->
 
 <main>
-	<h2>고객센터</h2>
+	<h2 class="page--title">고객센터</h2>
 	<hr>
 	<br>
+	
 	<div class="service--div">
 		<ul class="service--ul" onclick="location.href='/notice/noticeList'">
 			<li><span class="material-symbols-outlined">campaign</span>

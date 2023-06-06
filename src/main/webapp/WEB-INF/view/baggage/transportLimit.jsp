@@ -75,7 +75,7 @@ main {
 <main>
 	<div>
 		<div>
-			<h2>항공 운송 금지 품목</h2>
+			<h2 class="page--title">항공 운송 금지 품목</h2>
 			<hr>
 			<br>
 

@@ -1,5 +1,6 @@
 package com.green.airline.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,21 +31,29 @@ public class GifticonService {
 		return result;
 	}
 	
-	public void updateMileageAndGifticonStatus(String memberId,String gifticonId) {
+	public void updateMileageAndGifticonStatus(String memberId, String gifticonId) {
 		// 기프티콘 상태값 업데이트
 		List<Mileage> mileage = mileageRepository.selectUseDataListTb(memberId,gifticonId);
-		System.out.println(mileage);
-		int id;
-		for (int i = 0; i < mileage.size(); i++) {
-			id = mileage.get(i).getBuyMileageId();
-			mileage.get(i).setBalance(mileage.get(i).getBalance()+mileage.get(i).getMileageFromBalance());
-			mileageRepository.updateBalanceById(mileage.get(i),id);
+
+		for (Mileage m : mileage) {
+			int id = m.getBuyMileageId();
+			// 해당 적립 내역의 유효기간 가져오기
+			Timestamp expirationDate = mileageRepository.selectById(id).getExpirationDate();
+			
+			// 환불된 마일리지를 적립 내역으로 남김
+			Mileage refundMiles = Mileage.builder()
+					.saveMileage(m.getMileageFromBalance())
+					.balance(m.getMileageFromBalance())
+					.description("기프티콘 환불")
+					.expirationDate(expirationDate)
+					.memberId(memberId)
+					.build();
+			mileageRepository.insertRefundMiles(refundMiles);
 		}
+		
 		gifticonRepository.updateGifticonStatus(gifticonId);
-//		gifticonRepository.updateGifticonStatusChange2(gifticonId);
-		
-		
 	}
+	
 	// 기프티콘 구매 수량 확인 마이페이지 적용
 	public GifticonDto readGifticonCount(String memberId) {
 		GifticonDto count = gifticonRepository.selectGifticonCount(memberId);

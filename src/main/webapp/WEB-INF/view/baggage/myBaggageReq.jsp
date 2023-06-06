@@ -54,9 +54,10 @@ table tr th, table tr td {
 </style>
 <main>
 	<div>
-		<h2>위탁 수하물 신청 내역</h2>
+		<h2 class="page--title">위탁 수하물 신청 내역</h2>
 		<hr>
-		<div>
+		<br>
+	<div>
 
 			<table>
 

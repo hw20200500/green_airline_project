@@ -19,7 +19,10 @@
 
 <div>
 	<main>
-		<h1>관리자 쪽 공지사항 작성</h1>
+		<h2 class="page--title">공지사항 작성</h2>
+		<hr>
+		<br>
+		
 		<form action="/notice/noticeInsert" method="post">
 			제목 <input type="text" name="title"> 
 			<select name="categoryId" id="categoryId">
