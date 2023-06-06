@@ -116,6 +116,15 @@ main {
 	padding: 20px;
 	width: 290px;
 }
+.btn--danger:hover {
+	background: #c0c0c0;
+	color: white;
+	margin-top: 20px;
+	margin-left: 10px;
+	width: 100px;
+	padding: 20px;
+	width: 290px;
+}
 
 .join--btn--wrap {
 	width: 600px;
@@ -135,16 +144,6 @@ main {
 	.gender--wrap, .phoneNumber--wrap, .email--wrap, .address--wrap,
 	.nationality--wrap {
 	margin-bottom: 20px;
-}
-
-.btn--danger:hover {
-	background: #ebebeb;
-	color: white;
-	margin-top: 20px;
-	margin-left: 10px;
-	width: 100px;
-	padding: 20px;
-	width: 290px;
 }
 
 .btn--primary:hover {
@@ -192,7 +191,7 @@ main {
 								아이디 <br>
 								<div class="join--input--btn--class">
 									<div style="position: relative;">
-										<input type="text" name="id" id="member--id" placeholder="7~20자" value="asdfasdfas" class="join--id--class">
+										<input type="text" name="id" id="member--id" placeholder="7~20자" class="join--id--class">
 										<button type="button" class="btn btn--primary" id="exists--id" style="position: absolute; right: 5px; top: -14px; width: 90px; height: 38px;">중복 확인</button>
 									</div>
 								</div>

@@ -20,7 +20,6 @@ table {
 /* table > tbody > tr:nth-child(1){
 	background-color: #f8f9fc;
 } */
-
 table tr th, table tr td {
 	padding: 10px;
 }
@@ -43,12 +42,12 @@ table tr th, table tr td {
 }
 
 .btn--danger {
-	background-color: #DC6093;
+	background-color: #c0c0c0;
 	color: white;
 }
 
 .btn--danger:hover {
-	background-color: #DC6093;
+	background-color: #c0c0c0;
 	color: white;
 }
 </style>
@@ -57,7 +56,7 @@ table tr th, table tr td {
 		<h2 class="page--title">특별 기내식 신청 내역</h2>
 		<hr>
 		<br>
-		
+
 		<div>
 			<table>
 
@@ -74,14 +73,14 @@ table tr th, table tr td {
 						<c:forEach var="specialMealResponseDtos" items="${specialMealResponseDtos}">
 							<form action="/inFlightService/myReqServiceDelete?id=${specialMealResponseDtos.rmId}" method="post">
 								<input type="hidden" name="id" value="${specialMealResponseDtos.rmId}">
-							<tr>
-								<td>${specialMealResponseDtos.ticketId}</td>
-								<td>${specialMealResponseDtos.departure}->${specialMealResponseDtos.destination}</td>
-								<td>${specialMealResponseDtos.departureDateFormat()}</td>
-								<td>${specialMealResponseDtos.name}</td>
-								<td>${specialMealResponseDtos.rmAmount}개</td>
-								<td><button type="submit" class="btn btn--danger" onclick="confirm('정말 취소하시겠습니까?')">신청 취소</button></td>
-							</tr>
+								<tr>
+									<td>${specialMealResponseDtos.ticketId}</td>
+									<td>${specialMealResponseDtos.departure}->${specialMealResponseDtos.destination}</td>
+									<td>${specialMealResponseDtos.departureDateFormat()}</td>
+									<td>${specialMealResponseDtos.name}</td>
+									<td>${specialMealResponseDtos.rmAmount}개</td>
+									<td><button type="submit" class="btn btn--danger" onclick="confirm('정말 취소하시겠습니까?')">신청 취소</button></td>
+								</tr>
 							</form>
 						</c:forEach>
 					</c:when>

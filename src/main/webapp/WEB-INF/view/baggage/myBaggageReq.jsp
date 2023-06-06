@@ -40,12 +40,12 @@ table tr th, table tr td {
 }
 
 .btn--danger {
-	background-color: #DC6093;
+	background-color: #c0c0c0;
 	color: white;
 }
 
 .btn--danger:hover {
-	background-color: #DC6093;
+	background-color: #c0c0c0;
 	color: white;
 }
 

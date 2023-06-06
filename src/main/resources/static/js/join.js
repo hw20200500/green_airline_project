@@ -89,6 +89,8 @@ $(document).ready(function() {
 			location.reload();
 			return false;
 		}
+		
+		
 	});
 
 	$("#member--id").on("keyup", function() {

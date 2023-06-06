@@ -91,6 +91,9 @@ input[type=text]:focus, input[type=password]:focus {
 	color: white;
 	margin-top: 20px;
 	border: none;
+	width: 100px;
+	height: 30px;
+	border-radius: 5px;
 }
 </style>
 
