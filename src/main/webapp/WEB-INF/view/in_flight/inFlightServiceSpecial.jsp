@@ -178,5 +178,5 @@
 	</script>
 
 </div>
-
+<input type="hidden" name="menuName" id="menuName" value="특별 기내식">
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
