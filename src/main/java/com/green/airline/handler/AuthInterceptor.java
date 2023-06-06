@@ -22,9 +22,7 @@ public class AuthInterceptor implements HandlerInterceptor{
 		HttpSession session = request.getSession();
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		if (principal == null) {
-
 			throw new UnAuthException("로그인 먼저 해주세요", HttpStatus.UNAUTHORIZED);
-
 		}
 
 		return true;

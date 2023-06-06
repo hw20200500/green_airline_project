@@ -14,11 +14,10 @@
 	<insert id="insertByBoard">
 		insert into recommend_board_tb
 		(title, user_id,
-		content,
-		view_count, origin_name, file_name)
+		content, view_count, origin_name, file_name)
 		values
-		(#{title}, #{userId},
-		#{content}, #{viewCount}, #{originName}, #{fileName});
+		(#{title},
+		#{userId}, #{content}, #{viewCount}, #{originName}, #{fileName});
 	</insert>
 
 	<!-- 게시물 수정 -->
@@ -93,12 +92,12 @@
 		user_id
 		= #{userId}
 	</select>
-	
+
 	<!-- 게시물 목록보기 페이징용 -->
 	<select id="selectBoardListLimit"
 		resultType="com.green.airline.repository.model.Board">
-		select * 
-		FROM recommend_board_tb 
+		select *
+		FROM recommend_board_tb
 		ORDER BY created_at DESC
 		LIMIT #{index}, #{limitCount}
 	</select>

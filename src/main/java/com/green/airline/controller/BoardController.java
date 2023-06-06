@@ -52,20 +52,20 @@ public class BoardController {
 
 		// 일반 게시물 (전체)
 		List<Board> allBoardList = boardService.readByBoardList();
-		
+
 		// 페이지 개수
 		Integer pageCount = (int) Math.ceil(allBoardList.size() / 9.0);
 		model.addAttribute("pageCount", pageCount);
-		
+
 		// 현재 페이지에 따라 인덱스 계산
 		Integer index = (page - 1) * 9;
-		
+
 		// 보여줄 게시글 (페이징)
 		List<Board> boardList = boardService.readBoardListLimit(index, 9);
-		
+
 		// 추천 게시물
 		List<Board> popularBoard = boardService.readPopularBoardList();
-		
+
 		if (boardList.isEmpty()) {
 			model.addAttribute("boardList", null);
 			model.addAttribute("popularBoard", null);
@@ -73,14 +73,14 @@ public class BoardController {
 			model.addAttribute("boardList", boardList);
 			model.addAttribute("popularBoard", popularBoard);
 		}
-		
+
 		return "/board/recommendBoard";
 	}
 
 	// 게시글 작성하기
 	@GetMapping("/insert")
 	public String boardWritePage() {
-		
+
 		return "/board/boardWrite";
 	}
 
@@ -88,18 +88,15 @@ public class BoardController {
 	@PostMapping("/insert")
 	public String boardWirtePage(BoardDto boardDto) {
 
-		if (boardDto.getTitle() == null || boardDto.getTitle().isEmpty()) {
-			throw new CustomRestfullException("제목을 입력해주세요.", HttpStatus.BAD_REQUEST);
-		}
-		if (boardDto.getContent() == null || boardDto.getContent().isEmpty()) {
-			throw new CustomRestfullException("내용을 입력해주세요.", HttpStatus.BAD_REQUEST);
-		}
-		if(boardDto.getFile() == null || boardDto.getFile().isEmpty()) {
-			throw new CustomRestfullException("썸네일로 등록할 사진을 업로드 해주세요.", HttpStatus.BAD_REQUEST);
-		}
-
+			if (boardDto.getTitle() == null || boardDto.getTitle().isEmpty()) {
+				throw new CustomRestfullException("제목을 입력해주세요.", HttpStatus.BAD_REQUEST);
+			}
+			if (boardDto.getContent() == null || boardDto.getContent().isEmpty()) {
+				throw new CustomRestfullException("내용을 입력해주세요.", HttpStatus.BAD_REQUEST);
+			}
+			
 		MultipartFile file = boardDto.getFile();
-		
+
 		if (!file.isEmpty()) {
 			// 파일 사이즈 체크
 			if (file.getSize() > Define.MAX_FILE_SIZE) {
@@ -129,7 +126,7 @@ public class BoardController {
 				file.transferTo(destination);
 
 				boardDto.setOriginName(file.getOriginalFilename());
-				boardDto.setFileName(fileName);
+				boardDto.setFileName("/uploadImage/" + fileName);
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -144,10 +141,10 @@ public class BoardController {
 	// 게시글 수정하기
 	@GetMapping("/update/{id}")
 	public String updateByBoardPage(@PathVariable Integer id, Model model) {
-		
+
 		BoardDto boardDto = boardService.readByBoardListDetail(id);
 		model.addAttribute("boardDto", boardDto);
-		
+
 		return "/board/updateBoard";
 	}
 
@@ -161,12 +158,9 @@ public class BoardController {
 		if (boardUpdateDto.getContent() == null || boardUpdateDto.getContent().isEmpty()) {
 			throw new CustomRestfullException("내용을 입력해주세요.", HttpStatus.BAD_REQUEST);
 		}
-		if(boardUpdateDto.getFile() == null || boardUpdateDto.getFile().isEmpty()) {
-			throw new CustomRestfullException("썸네일로 등록할 사진을 업로드 해주세요.", HttpStatus.BAD_REQUEST);
-		}
-		
+
 		MultipartFile file = boardUpdateDto.getFile();
-		
+
 		if (!file.isEmpty()) {
 			// 파일 사이즈 체크
 			if (file.getSize() > Define.MAX_FILE_SIZE) {
@@ -196,8 +190,8 @@ public class BoardController {
 				file.transferTo(destination);
 
 				boardUpdateDto.setOriginName(file.getOriginalFilename());
-				boardUpdateDto.setFileName(fileName);
-				
+				boardUpdateDto.setFileName("/uploadImage/" + fileName);
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -259,5 +253,5 @@ public class BoardController {
 
 		return heartCount;
 	}
-	
+
 }

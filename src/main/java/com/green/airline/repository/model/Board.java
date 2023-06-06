@@ -27,20 +27,20 @@ public class Board {
 	private String originName;
 	// 실제 업로드 된 이미지 명
 	private String fileName;
-	
+
 	// 날짜 YYYY-MM-DD
 	public String formatDate() {
 		return TimestampUtil.dateToString(createdAt);
 	}
-	
+
 	// 숫자 #,###
 	public String numberFormat() {
 		return NumberUtil.numberFormat(viewCount);
 	}
-	
+
 	// 썸네일 이미지 경로
 	public String thumbnailImage() {
-		return file == null ? "/images/noImage.png" : "/uploadImage/" + fileName;
+		return fileName == null ? "/images/board/noImage.png" : fileName;
 	}
-	
+
 }

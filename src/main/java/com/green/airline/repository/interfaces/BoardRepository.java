@@ -9,7 +9,6 @@ import com.green.airline.dto.BoardDto;
 import com.green.airline.dto.BoardUpdateDto;
 import com.green.airline.repository.model.Board;
 import com.green.airline.repository.model.LoveHeart;
-import com.green.airline.utils.PagingObj;
 
 @Mapper
 public interface BoardRepository {
