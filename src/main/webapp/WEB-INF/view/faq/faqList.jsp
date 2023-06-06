@@ -148,6 +148,10 @@ p {
 .faqHeader--keyword--wrap {
 	width: 1180px;
 }
+
+.search--btn{
+	font-size: 22px;
+}
 </style>
 
 <main>

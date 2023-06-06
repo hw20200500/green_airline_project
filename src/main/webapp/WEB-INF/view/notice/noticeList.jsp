@@ -45,7 +45,7 @@
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 30px;
-	width: 1200px;
+	width: 1180px;
 }
 
 .noticeList--name--wrap {
@@ -87,6 +87,10 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+}
+
+.search--btn{
+	font-size: 22px;
 }
 </style>
 
