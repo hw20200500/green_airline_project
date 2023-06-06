@@ -108,7 +108,7 @@ main {
 
 /* 색상 수정 예정 */
 .btn--danger {
-	background: #ebebeb;
+	background: #c0c0c0;
 	color: white;
 	margin-top: 20px;
 	margin-left: 10px;

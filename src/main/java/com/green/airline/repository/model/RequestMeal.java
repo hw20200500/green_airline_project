@@ -7,7 +7,7 @@ public class RequestMeal {
 
 	private Integer id;
 	private Integer amount;
-	private Integer mealId;
+	private Integer mealDetailId;
 	private String ticketId;
 	
 }

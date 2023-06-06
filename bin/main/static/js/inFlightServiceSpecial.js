@@ -59,11 +59,11 @@ $(document).ready(function() {
 
 	$("#inflightmeal--request").on("click", function() {
 		// 체크박스 체크 여부 확인
-		let babyMeal = $('input[name="babyMeal"]:checked').val();
-		let veganMeal = $('input[name="veganMeal"]:checked').val();
-		let lowfatMeal = $('input[name="lowfatMeal"]:checked').val();
-		let religionMeal = $('input[name="religionMeal"]:checked').val();
-		let etcMeal = $('input[name="etcMeal"]:checked').val();
+		let babyMealId = $('input[name="babyMeal"]:checked').val();
+		let veganMealId = $('input[name="veganMeal"]:checked').val();
+		let lowfatMealId = $('input[name="lowfatMeal"]:checked').val();
+		let religionMealId = $('input[name="religionMeal"]:checked').val();
+		let etcMealId = $('input[name="etcMeal"]:checked').val();
 
 		let babyMealCheck = $('input[name="babyMeal"]:checked').is(':checked');
 		let veganMealCheck = $('input[name="veganMeal"]:checked').is(':checked');
@@ -82,12 +82,6 @@ $(document).ready(function() {
 		let religionMealAmount = $('#seat--count--input4').val();
 		let etcMealAmount = $('#seat--count--input5').val();
 		let ticketId = $('select[name="modal--name--arrivaldate"').val();
-		
-		let babyMealId = $(".babyMealId--input").val();
-		let veganMealId = $(".veganMealId--input").val();
-		let lowfatMealId = $(".lowfatMealId--input").val();
-		let religionMealId = $(".religionMealId--input").val();
-		let etcMealId = $(".etcMealId--input").val();
 		
 		if (babyMealCheck) {
 			if (babyMealAmount == 0) {
@@ -156,11 +150,6 @@ $(document).ready(function() {
 		
 		ticketId = ticketId.split("_")[0];
 		let formData = {
-			"babyMeal": babyMeal,
-			"veganMeal": veganMeal,
-			"lowfatMeal": lowfatMeal,
-			"religionMeal": religionMeal,
-			"etcMeal": etcMeal,
 			"babyMealAmount": babyMealAmount,
 			"veganMealAmount": veganMealAmount,
 			"lowfatMealAmount": lowfatMealAmount,
@@ -193,12 +182,17 @@ $(document).ready(function() {
 	});
 
 	$("#modal--id--arrivaldate").on("change", function() {
-		let ticketId = $("#modal--id--arrivaldate").val();
-		let maxNumberValue = $("#modal--id--arrivaldate").val();
-		let maxNumber = maxNumberValue.split("_")[1];
-
-		$("#seat--count--input").attr("max", maxNumber);		
-	});
+		$("#seat--count--input1").val(0);
+		$("#seat--count--input2").val(0);
+		$("#seat--count--input3").val(0);
+		$("#seat--count--input4").val(0);
+		$("#seat--count--input5").val(0);
+		$('input:radio[name="babyMeal"]').prop("checked", false);
+		$('input:radio[name="veganMeal"]').prop("checked", false);
+		$('input:radio[name="lowfatMeal"]').prop("checked", false);
+		$('input:radio[name="religionMeal"]').prop("checked", false);
+		$('input:radio[name="etcMeal"]').prop("checked", false);
+	}); 
 
 	$(".modal").on("hidden.bs.modal", function() {
 		$(this).find('form')[0].reset();
@@ -206,6 +200,7 @@ $(document).ready(function() {
 });
 
 function seatCountPlus(count) {
+		$("#seat--count--input").val(0);
 	const resultElement = $("#seat--count--input" + count);
 	let maxNumberValue = $("#modal--id--arrivaldate").val();
 	let maxNumber = maxNumberValue.split("_")[1];

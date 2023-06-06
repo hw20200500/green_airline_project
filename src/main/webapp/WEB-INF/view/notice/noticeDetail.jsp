@@ -14,17 +14,21 @@
 
 <style>
 .noticeDetail--title {
-	font-size: 30px;
+	font-size: 35px;
+	font-weight: 500;
 }
 
 .noticeDetail--name {
 	display: flex;
 	align-items: flex-end;
 	margin-right: 30px;
+	font-size: 20px;
 }
 
 .noticeDetail--content {
 	font-size: 18px;
+	background-color: #F3FCFE;
+	padding: 20px;
 }
 
 .noticeDetail--title--name--wrap {
@@ -71,7 +75,7 @@ main {
 			<input type="hidden" name="id" value="${noticeList.id}">
 			<div class="noticeDetail--title--name--wrap">
 				<div class="noticeDetail--title">${noticeList.title}</div>
-				<div class="noticeDetail--name">${noticeList.name}</div>
+				<div class="noticeDetail--name">${noticeList.name} ㅣ ${noticeList.dateFormatType2()}</div>
 			</div>
 			<hr>
 			<div class="noticeDetail--content">${noticeList.content}</div>

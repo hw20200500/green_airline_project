@@ -99,7 +99,7 @@ input[type=text], input[type=password] {
 }
 
 .join--btn {
-	display: flex;
+	color: white;
 	background-color: #314f79;
 }
 </style>
@@ -135,13 +135,13 @@ input[type=text], input[type=password] {
 					<button type="submit" class="btn btn--primary login--btn">로그인</button>
 				</div>
 				<div class="login--idPwSearch--class">
-						<a href="/userIdSearch" style="font-size: 15px;">아이디/비밀번호 찾기 > </a> 
+						<a href="/userIdSearch" style="font-size: 15px;">아이디/비밀번호 찾기 </a> 
 					<div>
 						<a href="https://kauth.kakao.com/oauth/authorize?client_id=91cf28839247e9924114aeb1a23b8852&redirect_uri=http://localhost:80/auth/kakao/callback&response_type=code">
-						<img alt="" src="/images/kakao_login_medium.png" style="margin-left: 10px;"> </a>
+						<img alt="" src="/images/kakao_login_medium.png" style="margin-left: 70px;"> </a>
 					</div>
 					<div>
-						<button type="button" class="btn btn--primary join--btn" onclick="location.href='/join'" style="width: 90px; height: 45px;">회원가입</button>
+						<button type="button" class="btn join--btn" onclick="location.href='/join'" style="width: 90px; height: 45px;">회원가입</button>
 					</div>
 				</div>
 			</div>

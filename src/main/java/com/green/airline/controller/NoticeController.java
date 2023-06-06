@@ -47,7 +47,7 @@ public class NoticeController {
 	@GetMapping("/noticeList")
 	public String noticePage(Model model,
 			@RequestParam(name = "nowPage", defaultValue = "1", required = false) String nowPage,
-			@RequestParam(name = "cntPerPage", defaultValue = "5", required = false) String cntPerPage) {
+			@RequestParam(name = "cntPerPage", defaultValue = "15", required = false) String cntPerPage) {
 		// 총 게시글 개수 가져오기
 		int total = noticeService.readNoticeCount();
 		PagingObj obj = new PagingObj(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
@@ -65,7 +65,7 @@ public class NoticeController {
 	@GetMapping("/noticeSearch")
 	public String noticeSearch(String keyword,
 			@RequestParam(name = "nowPage", defaultValue = "1", required = false) String nowPage,
-			@RequestParam(name = "cntPerPage", defaultValue = "5", required = false) String cntPerPage, Model model) {
+			@RequestParam(name = "cntPerPage", defaultValue = "15", required = false) String cntPerPage, Model model) {
 		int total = 0;
 		if (keyword.equals("")) {
 			total = noticeService.readNoticeCount();
@@ -87,7 +87,7 @@ public class NoticeController {
 	@GetMapping("/noticeCategory/{categoryId}")
 	public String noticeCategory(@PathVariable int categoryId, Model model,
 			@RequestParam(name = "nowPage", defaultValue = "1", required = false) String nowPage,
-			@RequestParam(name = "cntPerPage", defaultValue = "5", required = false) String cntPerPage) {
+			@RequestParam(name = "cntPerPage", defaultValue = "15", required = false) String cntPerPage) {
 
 		int total = 0;
 		if (categoryId == 1) {

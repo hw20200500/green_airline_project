@@ -44,9 +44,6 @@ public interface InFlightServiceRepository {
 	// 특별 기내식 신청 기능 (데이터 삽입)
 	int insertInFlightMealRequest(InFlightReqRequestDto inFlightReqRequestDto);
 	
-	// 특별 기내식 신청 전체 조회 기능
-	List<InFlightMealResponseDto> selectInFlightMealRequestByMemberId(String memberId);
-	
 	// 특별 기내식을 신청한 사람의 스케줄 조회 기능
 	List<InFlightMealResponseDto> selectInFlightScheduleByMemberId(String memberId);
 	

@@ -145,11 +145,10 @@ table tr th {
 .page--move{
 	color: white;
 	border: none;
-	background-color: #8ABBE2;
-	width: 250px;
+	background-color: #ddd;
+	width: 200px;
 	height: 40px;
 	border-radius: 5px;
-	
 }
 </style>
 
@@ -189,8 +188,7 @@ table tr th {
 				<tr>
 					<td style="text-align: center;">유아식 및 아동식</td>
 					<td><c:forEach var="babyMeal" items="${babyMeal}" varStatus="status">
-							<input type="radio" class="radio--ifmd" name="babyMeal" id="babyMeal--label${status.index}" value="${babyMeal.name}">
-							<input type="hidden" name="mealId" value="${babyMeal.mealId}" class="babyMealId--input">
+							<input type="radio" class="radio--ifmd" name="babyMeal" id="babyMeal--label${status.index}" value="${babyMeal.id}">
 							<label for="babyMeal--label${status.index}">${babyMeal.name}</label>
 							<br>
 						</c:forEach></td>
@@ -209,8 +207,7 @@ table tr th {
 				<tr>
 					<td style="text-align: center;">야채식</td>
 					<td><c:forEach var="veganMeal" items="${veganMeal}" varStatus="status">
-							<input type="radio" class="radio--ifmd" name="veganMeal" id="veganMeal--label${status.index}" value="${veganMeal.name}">
-							<input type="hidden" name="mealId" value="${veganMeal.mealId}" class="veganMealId--input">
+							<input type="radio" class="radio--ifmd" name="veganMeal" id="veganMeal--label${status.index}" value="${veganMeal.id}">
 							<label for="veganMeal--label${status.index}">${veganMeal.name}</label>
 							<br>
 						</c:forEach></td>
@@ -229,8 +226,7 @@ table tr th {
 				<tr>
 					<td style="text-align: center;">식사 조절식</td>
 					<td><c:forEach var="lowfatMeal" items="${lowfatMeal}" varStatus="status">
-							<input type="radio" class="radio--ifmd" name="lowfatMeal" id="lowfatMeal--label${status.index}" value="${lowfatMeal.name}">
-							<input type="hidden" name="mealId" value="${lowfatMeal.mealId}" class="lowfatMealId--input">
+							<input type="radio" class="radio--ifmd" name="lowfatMeal" id="lowfatMeal--label${status.index}" value="${lowfatMeal.id}">
 							<label for="lowfatMeal--label${status.index}">${lowfatMeal.name}</label>
 							<br>
 						</c:forEach></td>
@@ -249,8 +245,7 @@ table tr th {
 				<tr>
 					<td style="text-align: center;">종교식</td>
 					<td><c:forEach var="religionMeal" items="${religionMeal}" varStatus="status">
-							<input type="radio" class="radio--ifmd" name="religionMeal" id="religionMeal--label${status.index}" value="${religionMeal.name}">
-							<input type="hidden" name="mealId" value="${religionMeal.mealId}" class="religionMealId--input">
+							<input type="radio" class="radio--ifmd" name="religionMeal" id="religionMeal--label${status.index}" value="${religionMeal.id}">
 							<label for="religionMeal--label${status.index}">${religionMeal.name}</label>
 							<br>
 						</c:forEach></td>
@@ -269,8 +264,7 @@ table tr th {
 				<tr>
 					<td style="text-align: center;">기타 특별식</td>
 					<td><c:forEach var="etcMeal" items="${etcMeal}" varStatus="status">
-							<input type="radio" class="radio--ifmd" name="etcMeal" id="etcMeal--label${status.index}" value="${etcMeal.name}">
-							<input type="hidden" name="mealId" value="${etcMeal.mealId}" class="etcMealId--input">
+							<input type="radio" class="radio--ifmd" name="etcMeal" id="etcMeal--label${status.index}" value="${etcMeal.id}">
 							<label for="etcMeal--label${status.index}">${etcMeal.name}</label>
 							<br>
 						</c:forEach></td>
@@ -290,7 +284,7 @@ table tr th {
 			
 			<div>
 				<button type="button" id="inflightmeal--request" class="btn--primary">신청 완료</button>
-				<button type="button" onclick="location.href='/inFlightService/inFlightServiceSpecial'" class="btn--primary page--move">특별 기내식 페이지로 이동</button>
+				<button type="button" onclick="location.href='/inFlightService/inFlightServiceSpecial'" class="page--move">특별 기내식 페이지</button>
 			</div>
 		</form>
 	</div>
