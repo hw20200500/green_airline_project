@@ -50,12 +50,12 @@ import com.green.airline.service.ManagerService;
 import com.green.airline.service.MemoService;
 import com.green.airline.service.ProductService;
 import com.green.airline.service.RouteService;
-import com.green.airline.service.ScheduleService;
 import com.green.airline.service.TicketPaymentService;
 import com.green.airline.service.TicketService;
 import com.green.airline.service.UserService;
 import com.green.airline.service.VocService;
 import com.green.airline.utils.Define;
+import com.green.airline.utils.PagingObj;
 import com.green.airline.utils.PhoneNumberUtil;
 
 @RequestMapping("/manager")
@@ -85,10 +85,10 @@ public class ManagerController {
 
 	@Autowired
 	private TicketService ticketService;
-	
+
 	@Autowired
 	private ManagerService managerService;
-	
+
 	@Autowired
 	private InFlightSvService inFlightSvService;
 
@@ -113,7 +113,7 @@ public class ManagerController {
 
 		// 최근 1년간 월간 매출액 (이번 달 제외)
 		List<MonthlySalesForChartDto> salesList = ticketPaymentService.readMonthlySales(year + "-" + nowMonth + "-01");
-		
+
 		// JSON으로 변환
 		Gson gson = new Gson();
 		JsonArray jsonArray = new JsonArray();
@@ -254,8 +254,7 @@ public class ManagerController {
 	}
 
 	/**
-	 * @author 서영
-	 * 메모 갱신
+	 * @author 서영 메모 갱신
 	 */
 	@PostMapping("/updateMemo")
 	@ResponseBody
@@ -272,18 +271,18 @@ public class ManagerController {
 	 */
 	@GetMapping("/memberList/{page}")
 	public String memberListPage(@PathVariable Integer page, Model model) {
-		
+
 		// 전체 회원 목록
 		List<Member> allMemberList = userService.readMemberListAll();
 		// 총 페이지 수
 		int pageCount = (int) Math.ceil(allMemberList.size() / 20.0);
 		model.addAttribute("pageCount", pageCount);
-		
+
 		// 표시할 글 목록
 		Integer index = (page - 1) * 20;
 		List<MemberInfoDto> memberList = userService.readMemberListAllLimit(index);
 		model.addAttribute("memberList", memberList);
-		
+
 		return "/manager/memberList";
 	}
 
@@ -293,64 +292,64 @@ public class ManagerController {
 	 */
 	@GetMapping("/memberList/search")
 	public String memberListPage(@RequestParam String memberId, Model model) {
-		
+
 		List<MemberInfoDto> memberList = userService.readMemberListSearch(memberId.trim());
 		model.addAttribute("memberList", memberList);
-		
+
 		model.addAttribute("search", memberId);
-		
+
 		return "/manager/memberList";
 	}
-	
+
 	/**
 	 * @author 서영
 	 * @return 회원정보 상세 페이지
 	 */
 	@GetMapping("/memberDetail/{id}")
 	public String memberDetailPage(@PathVariable String id, Model model) {
-		
+
 		MemberInfoDto member = userService.readMemberById(id);
 		model.addAttribute("member", member);
-		
+
 		return "/manager/memberDetail";
 	}
-	
+
 	/**
 	 * @author 서영
 	 * @return 관리자 정보 조회
 	 */
 	@GetMapping("/list/{page}")
 	public String managerListPage(@PathVariable Integer page, Model model) {
-		
+
 		// 전체 회원 목록
 		List<Manager> allManagerList = managerService.readManagerListAll();
 		// 총 페이지 수
 		int pageCount = (int) Math.ceil(allManagerList.size() / 20.0);
 		model.addAttribute("pageCount", pageCount);
-		
+
 		// 표시할 글 목록
 		Integer index = (page - 1) * 20;
 		List<Manager> managerList = managerService.readManagerListAllLimit(index);
 		model.addAttribute("managerList", managerList);
-		
+
 		return "/manager/managerList";
 	}
-	
+
 	/**
 	 * @author 서영
 	 * @return 관리자 정보 조회 검색
 	 */
 	@GetMapping("/list/search")
 	public String managerListPage(@RequestParam String managerId, Model model) {
-		
+
 		List<Manager> managerList = managerService.readManagerListSearch(managerId.trim());
 		model.addAttribute("managerList", managerList);
-		
+
 		model.addAttribute("search", managerId);
-		
+
 		return "/manager/managerList";
 	}
-	
+
 	/**
 	 * @author 서영
 	 * @return 항공 서비스 탭 메인 페이지
@@ -368,7 +367,7 @@ public class ManagerController {
 	public String userManagePage() {
 		return "/manager/userManage";
 	}
-	
+
 	/**
 	 * @author 서영
 	 * @return 마일리지샵 탭 메인 페이지
@@ -377,7 +376,7 @@ public class ManagerController {
 	public String mileageShopPage() {
 		return "/manager/mileageShop";
 	}
-	
+
 	/**
 	 * @author 서영
 	 * @return 관리자용 항공권 조회 페이지
@@ -387,10 +386,10 @@ public class ManagerController {
 
 		List<Airport> regionList = airportService.readRegion();
 		model.addAttribute("regionList", regionList);
-		
+
 		return "/ticket/selectSchedule";
 	}
-	
+
 	/**
 	 * @author 서영
 	 * @return 관리자용 항공권 구매 내역 페이지
@@ -402,30 +401,29 @@ public class ManagerController {
 		// 총 페이지 수
 		int pageCount = (int) Math.ceil(allTicketList.size() / 10.0);
 		model.addAttribute("pageCount", pageCount);
-		
+
 		// 표시할 글 목록
 		Integer index = (page - 1) * 10;
 		List<TicketAllInfoDto> ticketList = ticketService.readTicketListAllLimit(index);
-		
+
 		model.addAttribute("ticketList", ticketList);
-		
+
 		return "/manager/ticketList";
 	}
-	
+
 	/**
-	 * @author 서영
-	 * 회원 탈퇴 처리
+	 * @author 서영 회원 탈퇴 처리
 	 */
 	@PutMapping("/memberWithdraw/{memberId}")
 	@ResponseBody
 	public ResponseDto<Boolean> memberWithdraw(@PathVariable String memberId) {
-		
+
 		Integer statusCode = HttpStatus.OK.value();
 		Integer code = Define.CODE_SUCCESS;
 		String resultCode = Define.RESULT_CODE_SUCCESS;
 		String message = "탈퇴 처리되었습니다.";
 		Boolean data = userService.updateUserByStatus(memberId, 1);
-		
+
 		// 탈퇴 처리가 되지 않았다면
 		if (data == false) {
 			statusCode = HttpStatus.INTERNAL_SERVER_ERROR.value();
@@ -433,9 +431,9 @@ public class ManagerController {
 			resultCode = Define.RESULT_CODE_FAIL;
 			message = "이미 탈퇴한 회원입니다.";
 		}
-		return new ResponseDto<Boolean>(statusCode, code, message, resultCode, data);		
+		return new ResponseDto<Boolean>(statusCode, code, message, resultCode, data);
 	}
-	
+
 	/**
 	 * @return 관리자 등록 페이지
 	 */
@@ -443,25 +441,25 @@ public class ManagerController {
 	public String manageRegPage() {
 		return "/manager/registration";
 	}
-	
+
 	/**
 	 * 관리자 등록 처리
 	 */
 	@PostMapping("/registration")
 	public String manageRegProc(@Valid ManagerFormDto managerFormDto, BindingResult bindingResult) {
-		
+
 		// 빈 값이 있는지 확인
 		if (bindingResult.hasErrors()) {
 			throw new CustomRestfullException("입력되지 않은 필수 항목이 존재합니다.", HttpStatus.BAD_REQUEST);
 		}
-		
+
 		// 전화번호 형식 확인
 		String phoneNumber = PhoneNumberUtil.checkPhoneNumber(managerFormDto.getPhoneNumber());
 		managerFormDto.setPhoneNumber(phoneNumber);
-		
+
 		// 아이디 생성 (m + 난수 6자리)
-		String id = "m" + (int) Math.floor(Math.random() * 899999 + 100000);		
-		
+		String id = "m" + (int) Math.floor(Math.random() * 899999 + 100000);
+
 		// 해당 id가 이미 존재하는지 확인 (존재한다면 다시)
 		User searchUser = userService.readUserById(id);
 		// 이미 존재한다면 반복문으로 들어감
@@ -469,44 +467,48 @@ public class ManagerController {
 			id = "m" + (int) Math.floor(Math.random() * 899999 + 100000);
 			searchUser = userService.readUserById(id);
 		}
-		
-		Manager manager = Manager.builder()
-							.id(id)
-							.name(managerFormDto.getManagerName())
-							.birthDate(managerFormDto.getBirthDate())
-							.gender(managerFormDto.getGender())
-							.phoneNumber(managerFormDto.getPhoneNumber())
-							.email(managerFormDto.getEmail())
-							.build();
+
+		Manager manager = Manager.builder().id(id).name(managerFormDto.getManagerName())
+				.birthDate(managerFormDto.getBirthDate()).gender(managerFormDto.getGender())
+				.phoneNumber(managerFormDto.getPhoneNumber()).email(managerFormDto.getEmail()).build();
 		managerService.createManager(manager);
-		
-		User user = User.builder()
-					.id(id)
-					.password(id)
-					.userRole(UserRole.ADMIN.getUserRole())
-					.build();
+
+		User user = User.builder().id(id).password(id).userRole(UserRole.ADMIN.getUserRole()).build();
 		userService.createUser(user);
-		
+
 		return "/ticket/selectSchedule";
 	}
 
 	// 특별 기내식 신청 내역
 	@GetMapping("/inFlightSpecialMeal")
-	public String inFlightSpecialMealPage(Model model) {
-		List<InFlightMealResponseDto> inFlightMealResonseDtos = inFlightSvService.readInFlightMealForManager();
-		System.out.println(inFlightMealResonseDtos);
+	public String inFlightSpecialMealPage(Model model,
+			@RequestParam(name = "nowPage", defaultValue = "1", required = false) String nowPage,
+			@RequestParam(name = "cntPerPage", defaultValue = "10", required = false) String cntPerPage) {
+		Integer total = inFlightSvService.readInFlightMealCount();
+		PagingObj obj = new PagingObj(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		List<InFlightMealResponseDto> inFlightMealResonseDtos = inFlightSvService.readInFlightMealForManager(obj);
+
+		model.addAttribute("paging", obj);
 		model.addAttribute("inFlightMealResonseDtos", inFlightMealResonseDtos);
 		return "/manager/inFlightSpecialMeal";
 	}
 
 	// 위탁 수하물 신청 내역
 	@GetMapping("/baggageRequest")
-	public String baggageRequestPage(Model model) {
-		List<InFlightMealResponseDto> inFlightMealResponseDtos = baggageRequestService.readBaggageReqForManager();
+	public String baggageRequestPage(Model model,
+			@RequestParam(name = "nowPage", defaultValue = "1", required = false) String nowPage,
+			@RequestParam(name = "cntPerPage", defaultValue = "10", required = false) String cntPerPage) {
+
+		Integer total = baggageRequestService.readBaggageReqCount();
+		PagingObj obj = new PagingObj(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		List<InFlightMealResponseDto> inFlightMealResponseDtos = baggageRequestService.readBaggageReqForManager(obj);
 		model.addAttribute("inFlightMealResponseDtos", inFlightMealResponseDtos);
+		System.out.println(inFlightMealResponseDtos);
+		model.addAttribute("paging", obj);
+
 		return "/manager/baggageRequest";
 	}
-	
+
 	/**
 	 * @author 서영
 	 * @return 고객센터 탭 메인 페이지
@@ -515,7 +517,7 @@ public class ManagerController {
 	public String customerCenterPage() {
 		return "/manager/customerCenter";
 	}
-	
+
 	/**
 	 * @author 서영
 	 * @return 게시판 관리 탭 메인 페이지
@@ -524,10 +526,10 @@ public class ManagerController {
 	public String boardManagePage() {
 		return "/manager/boardManage";
 	}
-	
+
 	@GetMapping("/productBuyList")
 	public String productBuyListPage() {
-		
+
 		return "/manager/productBuyList";
 	}
 }

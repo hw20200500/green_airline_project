@@ -10,7 +10,7 @@
 	</c:otherwise>
 </c:choose>
 <style>
-table{
+table {
 	width: 1200px;
 	text-align: center;
 	border: 1px solid #ccc;
@@ -28,7 +28,7 @@ table tr th, table tr td {
 		<br>
 
 		<table border="1">
-			<tr style="background-color:#E5EFF3;">
+			<tr style="background-color: #E5EFF3;">
 				<th>예약자</th>
 				<th>티켓번호</th>
 				<th>출발지</th>
@@ -45,12 +45,29 @@ table tr th, table tr td {
 					<td>${inFlightMealResonseDtos.departure}</td>
 					<td>${inFlightMealResonseDtos.destination}</td>
 					<td>${inFlightMealResonseDtos.departureDateFormat()}</td>
-					<td>${inFlightMealResonseDtos.amount}개</td>
-					<td>${inFlightMealResonseDtos.name}</td>
+					<td>${inFlightMealResonseDtos.rmAmount}개</td>
+					<td>${inFlightMealResonseDtos.rmName}</td>
 				</tr>
 			</c:forEach>
 		</table>
-
+		<div style="display: block; text-align: center; cursor: pointer; margin-top: 50px;">
+			<c:if test="${paging.startPage != 1}">
+				<a href="/manager/inFlightSpecialMeal?nowPage=${paging.startPage - 1}&cntPerPage=${paging.cntPerPage}">&lt;</a>
+			</c:if>
+			<c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="p">
+				<c:choose>
+					<c:when test="${p == paging.nowPage}">
+						<b>${p}</b>
+					</c:when>
+					<c:when test="${p != paging.nowPage}">
+						<a href="/manager/inFlightSpecialMeal?nowPage=${p}&cntPerPage=${paging.cntPerPage}">${p}</a>
+					</c:when>
+				</c:choose>
+			</c:forEach>
+			<c:if test="${paging.endPage != paging.lastPage}">
+				<a href="/manager/inFlightSpecialMeal?nowPage=${paging.endPage+1}&cntPerPage=${paging.cntPerPage}">&gt;</a>
+			</c:if>
+		</div>
 	</div>
 </main>
 

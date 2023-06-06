@@ -173,7 +173,7 @@ main {
 								아이디 <br>
 								<div class="join--input--btn--class">
 									<div style="position: relative;">
-										<input type="text" name="id" value="${joinFormDto.id}" class="join--id--class" placeholder="Todo 수정 8~20자리">
+										<input type="text" name="id" id="member--id" value="${joinFormDto.id}" class="join--id--class" placeholder="7~20자">
 										<button type="button" id="exists--id" class="btn btn--primary" style="position: absolute; right: 5px; top: -14px; width: 90px; height: 38px;">중복 확인</button>
 										<div class="validation--check" style="font-size: 16px;">
 											<c:if test="${idValid != null}">
@@ -192,7 +192,7 @@ main {
 								아이디 <br>
 								<div class="join--input--btn--class">
 									<div style="position: relative;">
-										<input type="text" name="id" id="member--id" placeholder="Todo 수정 8~20자리" value="asdfasdfas">
+										<input type="text" name="id" id="member--id" placeholder="7~20자" value="asdfasdfas" class="join--id--class">
 										<button type="button" class="btn btn--primary" id="exists--id" style="position: absolute; right: 5px; top: -14px; width: 90px; height: 38px;">중복 확인</button>
 									</div>
 								</div>
@@ -205,7 +205,7 @@ main {
 					<c:when test="${joinFormDto != null}">
 						<div class="password--wrap">
 							<div>
-								비밀번호 <br> <input type="password" name="password" required="required" id="password" placeholder="Todo 수정 8~20자리">
+								비밀번호 <br> <input type="password" name="password" required="required" id="password" placeholder="7~20자">
 							</div>
 							<div class="validation--check">
 								<c:if test="${passwordValid != null}">
@@ -220,7 +220,7 @@ main {
 					<c:otherwise>
 						<div class="password--wrap">
 							<div>
-								비밀번호 <br> <input type="password" name="password" required="required" id="password" placeholder="Todo 수정 8~20자리">
+								비밀번호 <br> <input type="password" name="password" required="required" id="password" placeholder="7~20자">
 							</div>
 							<div>
 								비밀번호 확인 <br> <input type="password" required="required" id="password--check">

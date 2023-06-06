@@ -27,7 +27,8 @@ public class FaqController {
 			@RequestParam(name = "categoryId", defaultValue = "1", required = false) Integer categoryId) {
 		List<FaqResponseDto> faqResponseDtos = faqService.readFaqByCategoryId(categoryId);
 		List<FaqCategory> categories = faqService.readFaqCategory();
-
+		
+		model.addAttribute("category", categoryId);
 		model.addAttribute("faqResponseDtos", faqResponseDtos);
 		model.addAttribute("categories", categories);
 		return "/faq/faqList";

@@ -8,6 +8,7 @@ import com.green.airline.dto.request.BaggageReqRequestDto;
 import com.green.airline.dto.response.BaggageReqResponseDto;
 import com.green.airline.dto.response.InFlightMealResponseDto;
 import com.green.airline.repository.model.BaggageRequest;
+import com.green.airline.utils.PagingObj;
 
 @Mapper
 public interface BaggageRequestRepository {
@@ -40,13 +41,15 @@ public interface BaggageRequestRepository {
 
 	// 위탁 수하물 신청 가능한 ticket 조회
 	List<InFlightMealResponseDto> selectBaggageReqPossibleTicket(String memberId);
-	
+
+	// 페이징 처리) 매니저 위탁 수하물 신청 내역 조회 총 게시물 수 구하기
+	Integer selectBaggageReqCount();
+
 	// 매니저 위탁 수하물 신청 내역 조회
-	List<InFlightMealResponseDto> selectBaggageReqForManager();
-	
+	List<InFlightMealResponseDto> selectBaggageReqForManager(PagingObj obj);
+
 	/**
-	 * @author 서영
-	 * 티켓 취소/환불 시 신청 삭제
+	 * @author 서영 티켓 취소/환불 시 신청 삭제
 	 */
 	Integer deleteByTicketId(String ticketId);
 

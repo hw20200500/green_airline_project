@@ -41,15 +41,20 @@ main {
 	width: 1200px;
 }
 
+#carryOnLiquids--select--box:focus {
+	outline: none;
+}
+
 #carryOnLiquids--select--box {
 	border: none;
 	border-bottom: 1px solid black;
 	padding: 10px;
-	width: 300px;
+	width: 350px;
 	font-size: 20px;
 	padding: 10px;
 	justify-content: center;
 	text-align: center;
+	background-color: #f8f9fc;
 }
 
 .carryOnLiquids--select--box--wrap {
@@ -59,17 +64,21 @@ main {
 	padding: 30px;
 	width: 1200px;
 	border: 1px solid #ebebeb;
-	margin-bottom: 20px;
+	margin-bottom: 50px;
 }
 
 .carryOnLiquids--name--id {
-	margin-bottom: 10px;
+	margin-bottom: 30px;
 }
 
 .transportLimit--notice--wrap {
 	background-color: #f8f9fc;
 	padding: 20px;
-	margin-top: 40px;
+	margin-top: 70px;
+}
+
+.transportLimit--head--wrap {
+	margin-bottom: 20px;
 }
 </style>
 <main>
@@ -96,7 +105,7 @@ main {
 		</div>
 
 		<div>
-			<h4>제한적으로 운송 가능한 품목</h4>
+			<h4 style="color: #314f79; margin-bottom: 20px;">제한적으로 운송 가능한 품목</h4>
 			<div>
 				<ul class="transportLimit--ul transportLimit--ul--li">
 					<li>여분의 리튬배터리(보조배터리), 전자담배, 라이터는 부치는 짐으로 운송 불가, 휴대하여 객실 반입만 허용 (단,충전식 전기라이터는 전 노선 위탁,객실 반입 불가)</li>
@@ -106,7 +115,7 @@ main {
 				<br>
 			</div>
 
-			<div>
+			<div style="margin-bottom: 20px;">
 				<table border="1">
 					<tr>
 						<th style="padding: 5px; background-color: #f8f9fc">위탁 수하물 운송 (객실 휴대 불가)</th>
@@ -144,8 +153,8 @@ main {
 
 		<div>
 			<br>
-			<h3>휴대용 일반 전자기기의 리튬배터리 운송 규정 안내</h3>
-			<p>
+			<h4 style="color: #314f79; margin-bottom: 10px;">휴대용 일반 전자기기의 리튬배터리 운송 규정 안내</h4>
+			<p style="margin-bottom: 20px;">
 				항공 위험물 운송기술기준에 의해 위험물로 분류되는 리튬 배터리는 기내 휴대나 위탁수하물 반입이 금지되어 있으나,<br> 국제항공 운송협회 위험물 규정(IATA Dangerous Goods Regulations)에 의거하여 손님이 여행 중 개인 사용 목적으로 인정될 수 있는 소량에 한하여 운송을 허가하고 있습니다.
 			</p>
 
@@ -188,7 +197,7 @@ main {
 			</table>
 
 			<br> * 배터리 용량 구하는 법 : 용량(Wh) = 전압(V) X 전류(Ah), 1Ah= 1,000mAh
-			<ul class="transportLimit--ul transportLimit--ul--li">
+			<ul style="margin-bottom: 20px;" class="transportLimit--ul transportLimit--ul--li">
 				<li>여분의 리튬배터리 및 보조 배터리는 위탁수하물로 운송이 불가하며, 휴대용 전자기기를 위탁수하물로 운송하는 경우 반드시 전원을 꺼주시기 바랍니다.</li>
 				<li>광저우, 베이징 등 중국 출발 항공편에는 리튬배터리(기기 장착, 여분 포함)의 위탁 수하물 반입이 엄격히 제한됩니다. 또한 용량이 표시되지 않았거나 확인 불가시 운송이 거절될 수 있습니다.</li>
 				<li>리튬배터리로 구동되는 일체의 탈 것류(장애인, 노약자용 전동 휠체어 제외)는 배터리 용량에 관계없이 기내반입/수하물 위탁 모두 불가합니다.</li>
@@ -201,7 +210,7 @@ main {
 
 		<div>
 			<br>
-			<h4>전동휠체어 및 전동스쿠터(장애인/노약자용, 非레저용) 배터리 운송 규정 안내</h4>
+			<h4 style="color: #314f79; margin-bottom: 10px;">전동휠체어 및 전동스쿠터(장애인/노약자용, 非레저용) 배터리 운송 규정 안내</h4>
 			<table border="1">
 				<tr>
 					<th scope="col" class="NamoSE_border_show" style="padding: 5px; background-color: #f8f9fc">종류</th>
@@ -236,21 +245,21 @@ main {
 		</div>
 		<div>
 			<div>
-				<h4 id="carryOnLiquids--name--id">${carryOnLiquids.get(0).name}의조회결과입니다.</h4>
+				<h4 id="carryOnLiquids--name--id" style="color: #314f79">${carryOnLiquids.get(0).name}의조회결과입니다.</h4>
 			</div>
 
 			<div>
 				<table border="1">
 					<tr>
-						<td style="width: 150px;">대상</td>
+						<th style="width: 150px; background-color: #f8f9fc;">대상</th>
 						<td id="carryOnLiquids--target--id">${carryOnLiquids.get(0).target}</td>
 					</tr>
 					<tr>
-						<td style="width: 150px;">제한 지침</td>
+						<th style="width: 150px; background-color: #f8f9fc;">제한 지침</th>
 						<td id="carryOnLiquids--limitGuide--id">${carryOnLiquids.get(0).limitGuide}</td>
 					</tr>
 					<tr>
-						<td style="width: 150px;">면세품 지침</td>
+						<th style="width: 150px; background-color: #f8f9fc;">면세품 지침</th>
 						<td id="carryOnLiquids--taxFreeGuide--id">${carryOnLiquids.get(0).taxFreeGuide}</td>
 					</tr>
 
@@ -259,8 +268,7 @@ main {
 		</div>
 
 		<div class="transportLimit--notice--wrap">
-			<br>
-			<h4>유의사항</h4>
+			<h4 style="color: #314f79">유의사항</h4>
 			<ul class="transportLimit--ul transportLimit--ul--li">
 				<li>의사가 처방한 의약품에 대하여는 의약 상품명 또는 의사소견서를 소지하고 물품의 출처를 증명하는 서류 (처방전, 약 봉투, 진단서 등)를 제시하여야 합니다.</li>
 				<li>보안 검색요원에 의해 물품 샘플 채취 또는 진위 여부를 확인 받을 수 있습니다.</li>
