@@ -69,9 +69,7 @@ public class UserService {
 		}
 
 		// 로그인 할 때 마일리지 조회 해서 등급 결정
-
-		// 로그인 오류로 수정 해야함 마일리지 없는 ㅏ사람은 로그인 안되는 버그 있음 
-		if(userEntity.getUserRole().equals("회원")) {
+		if	(userEntity.getUserRole().equals("관리자") == false) {
 			String memberId = userEntity.getId();
 			String grade = "";
 			Long sumSaveMileage = mileageRepository.selectSumSaveMileageByMemberId(memberId);
@@ -80,18 +78,21 @@ public class UserService {
 			 * userRepository.updateGradeByMemberId(memberId, grade);
 			 * }
 			 */
-		  if (sumSaveMileage >= 100000 && sumSaveMileage < 500000) {
-				grade = "Gold";
-				userRepository.updateGradeByMemberId(memberId, grade);
-			} else if (sumSaveMileage >= 500000 && sumSaveMileage < 1000000) {
-				grade = "Platinum";
-				userRepository.updateGradeByMemberId(memberId, grade);
-			} else if (sumSaveMileage >= 1000000) {
-				grade = "Diamond";
-				userRepository.updateGradeByMemberId(memberId, grade);
+			
+			if (sumSaveMileage != null) {
+				if (sumSaveMileage >= 100000 && sumSaveMileage < 500000) {
+					grade = "Gold";
+					userRepository.updateGradeByMemberId(memberId, grade);
+				} else if (sumSaveMileage >= 500000 && sumSaveMileage < 1000000) {
+					grade = "Platinum";
+					userRepository.updateGradeByMemberId(memberId, grade);
+				} else if (sumSaveMileage >= 1000000) {
+					grade = "Diamond";
+					userRepository.updateGradeByMemberId(memberId, grade);
+				}
 			}
-		}
 		
+		}
 
 		return userEntity;
 	}
