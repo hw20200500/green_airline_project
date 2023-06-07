@@ -16,24 +16,83 @@
 </c:choose>
 
 <input type="hidden" name="menuName" id="menuName" value="공지사항">
+<style>
+input[type=text] {
+	border: none;
+	border-bottom: 1px solid #ebebeb;
+	width: 840px;
+	background: #f8f9fc;
+	padding: 10px;
+	position: relative;
+	margin-bottom: 20px;
+	margin-right: 20px;
+}
 
+input[type=text]:focus {
+	outline: none;
+}
+
+#categoryId:focus {
+	outline: none;
+}
+
+#categoryId {
+	border: none;
+	border-bottom: 1px solid #ebebeb;
+	width: 300px;
+	background: #f8f9fc;
+	padding: 15px;
+	position: relative;
+	margin-bottom: 20px;
+}
+
+.btn--primary {
+	margin-top: 20px;
+	color: white;
+	border: none;
+	background-color: #8ABBE2;
+}
+
+.btn--primary:hover {
+	color: white;
+	border: none;
+	background-color: #8ABBE2;
+}
+
+.btn--wrap {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.noticeInsert--wrap{
+	display: flex;
+}
+</style>
 <div>
 	<main>
 		<h2 class="page--title">공지사항 작성</h2>
 		<hr>
 		<br>
-		
+
 		<form action="/notice/noticeInsert" method="post">
-			제목 <input type="text" name="title"> 
-			<select name="categoryId" id="categoryId">
-				<optgroup label="카테고리">
-					<c:forEach var="categoryList" items="${categoryList}">
-						<option value="${categoryList.id}">${categoryList.name}</option>
-					</c:forEach>
-				</optgroup>
-			</select>
+			<div class="noticeInsert--wrap">
+				<div style="font-size: 22px;">
+					제목 <input type="text" name="title">
+				</div>
+				<div>
+					<select name="categoryId" id="categoryId">
+						<optgroup label="카테고리">
+							<c:forEach var="categoryList" items="${categoryList}">
+								<option value="${categoryList.id}">${categoryList.name}</option>
+							</c:forEach>
+						</optgroup>
+					</select>
+				</div>
+			</div>
 			<textarea class="form-control summernote" rows="5" id="content" name="content"></textarea>
-			<button type="submit">올리기</button>
+			<div class="btn--wrap">
+				<button type="submit" class="btn btn--primary">올리기</button>
+			</div>
 		</form>
 	</main>
 
@@ -42,15 +101,13 @@
 				{
 					tabsize : 2,
 					height : 500,
-					toolbar: [
-				          ['style', ['style']],
-				          ['font', ['bold', 'underline', 'clear']],
-				          ['color', ['color']],
-				          ['para', ['ul', 'ol', 'paragraph']],
-				          ['table', ['table']],
-				          ['insert', ['link', 'picture', 'video']],
-				          ['view', ['fullscreen', 'codeview', 'help']]
-				        ]
+					toolbar : [ [ 'style', [ 'style' ] ],
+							[ 'font', [ 'bold', 'underline', 'clear' ] ],
+							[ 'color', [ 'color' ] ],
+							[ 'para', [ 'ul', 'ol', 'paragraph' ] ],
+							[ 'table', [ 'table' ] ],
+							[ 'insert', [ 'link', 'picture', 'video' ] ],
+							[ 'view', [ 'fullscreen', 'codeview', 'help' ] ] ]
 				});
 		$(document).ready(function() {
 			$('#summernote').summernote();

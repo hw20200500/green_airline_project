@@ -29,7 +29,7 @@
 	display: flex;
 	background-color: white;
 	width: 590px;
-    height: 70px;
+	height: 70px;
 	border: 1px solid #ebebeb;
 	justify-content: center;
 	align-items: center;
@@ -40,7 +40,6 @@
 	background-color: #8abbe1;
 	color: white;
 } */
-
 .transitBaggage--national--wrap {
 	margin-top: 20px;
 }
@@ -60,7 +59,7 @@ p {
 <main>
 	<div>
 		<div>
-			<h2 class="page--title">수하물 이용 안내</h2>
+			<h2 class="page--title" style="margin-bottom: 30px;">수하물 이용 안내</h2>
 			<p class="page--title--description">
 				수하물은 고객이 여행 시 휴대 또는 탁송을 의뢰한 소지품 및 물품을 의미하는 단어입니다.<br> 짐을 준비하시는 고객님의 여행이 한결 편할 수 있도록 꼭 알아두셔야 하는 수하물 관련 정보를 안내합니다.
 			</p>
@@ -78,7 +77,7 @@ p {
 		<div>
 			<h4>환승 수하물</h4>
 			<p>수하물 연결 수속은 경유지 공항 사정 및 연결편 항공사에 따라 제한될 수 있으니 유형에 맞게 확인하여 주세요.</p>
-			<img alt="" src="/images/baggage/transitBaggage1.png" style="width: 1180px; height: 320px;">
+			<img alt="" src="/images/baggage/transitBaggage1.png" style="width: 1200px; height: 450px;">
 		</div>
 		<div class="transitBaggage--national--wrap">
 			<h4>국제선 - 국제선 연결 시</h4>
