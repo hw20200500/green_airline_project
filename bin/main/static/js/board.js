@@ -83,7 +83,6 @@ $(document).ready(function() {
 		let boardId = $("input[name='boardId']").val();
 		let deleteConfirm = confirm("정말 삭제하시겠습니까?");
 		if (deleteConfirm) {
-			alert("삭제가 완료되었습니다.")
 			location.href = `/board/delete/${boardId}`;
 		} else {
 			return false;

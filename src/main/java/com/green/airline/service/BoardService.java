@@ -35,7 +35,7 @@ public class BoardService {
 
 	@Autowired
 	private BoardRepository boardRepository;
-	
+
 	@Autowired
 	private HttpSession session;
 
@@ -55,7 +55,6 @@ public class BoardService {
 
 		// 인기 게시물의 평균값을 계산하기 위한 리스트
 		List<Board> popularBoardList = new ArrayList<>();
-		
 
 		// 게시물의 수
 		double totalItemCount = boardList.size();
@@ -70,10 +69,10 @@ public class BoardService {
 
 			popularBoardList.add(board);
 		}
-		
+
 		// 평균값이 높은 순으로 정렬
 		popularBoardList.sort(Comparator.comparingDouble(Board::getAverage).reversed());
-		
+
 		// 상위 4개의 인기 게시물만 반환
 		if (popularBoardList.size() > 4) {
 			return popularBoardList.subList(0, 4);
@@ -90,7 +89,7 @@ public class BoardService {
 		boardDto.setUserId(user.getId());
 
 		int result = boardRepository.insertByBoard(boardDto);
-		
+
 		if (result != 1) {
 			throw new CustomRestfullException("잘못된 요청입니다.", HttpStatus.BAD_REQUEST);
 		}
@@ -101,6 +100,16 @@ public class BoardService {
 	public void updateByBoard(Integer id, BoardUpdateDto boardUpdateDto) {
 
 		int result = boardRepository.updateByBoard(id, boardUpdateDto);
+		if (result != 1) {
+			throw new CustomRestfullException("잘못된 요청입니다.", HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	// 추천 여행지 게시글 수정
+	@Transactional
+	public void updateByBoardJustThumbnail(Integer id, BoardUpdateDto boardUpdateDto) {
+		
+		int result = boardRepository.updateByBoardJustThumbnail(id, boardUpdateDto);
 		if (result != 1) {
 			throw new CustomRestfullException("잘못된 요청입니다.", HttpStatus.BAD_REQUEST);
 		}
@@ -220,16 +229,16 @@ public class BoardService {
 
 		return registration;
 	}
-	
+
 	// 페이징용
 	public List<Board> readBoardListLimit(Integer index, Integer limitCount) {
 		return boardRepository.selectBoardListLimit(index, limitCount);
 	}
-	
+
 	@Transactional
 	public BoardDto readBoardCountByMemberId(String memberId) {
 		BoardDto boardDto = boardRepository.selectBoardCountByMemberId(memberId);
 		return boardDto;
 	}
-	
+
 }

@@ -11,8 +11,7 @@ import com.green.airline.repository.model.Airport;
 import com.green.airline.service.MapApiService;
 
 /**
- * @author 치승
- * 구글 맵 API
+ * @author 치승 구글 맵 API
  */
 
 @Controller
@@ -25,10 +24,8 @@ public class MapApiController {
 	@GetMapping("/continent")
 	@ResponseBody
 	public List<Airport> selectByContinentProc(String region) {
-		
-		System.out.println(region);
+
 		List<Airport> list = mapApiService.selectAllName(region);
-		System.out.println(list);
 
 		return list;
 	}
@@ -39,8 +36,7 @@ public class MapApiController {
 	public Airport selectAirportPositionProc(String searchName) {
 
 		List<Airport> list = mapApiService.airportSearch(searchName);
-		System.out.println(list);
-		
+
 		return list.get(0);
 	}
 

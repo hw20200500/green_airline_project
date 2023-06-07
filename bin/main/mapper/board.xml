@@ -29,6 +29,14 @@
 		file_name =
 		#{boardUpdateDto.fileName} where id = #{id};
 	</update>
+	
+	<!-- 게시물 썸네일 안올렸을 때 수정 -->
+	<update id="updateByBoardJustThumbnail">
+		update recommend_board_tb set title =
+		#{boardUpdateDto.title},
+		content = #{boardUpdateDto.content}
+		where id = #{id};
+	</update>
 
 	<!-- 게시물 삭제 -->
 	<delete id="deleteByBoard">
