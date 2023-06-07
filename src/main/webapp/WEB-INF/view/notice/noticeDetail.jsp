@@ -74,12 +74,12 @@ main {
 		<h2 class="page--title">공지사항</h2>
 		<hr>
 		<br>
-		
+
 		<div>
 			<input type="hidden" name="id" value="${noticeList.id}">
 			<div class="noticeDetail--title--name--wrap">
 				<div class="noticeDetail--title">${noticeList.title}</div>
-				<div class="noticeDetail--name">${noticeList.name} ㅣ ${noticeList.dateFormatType2()}</div>
+				<div class="noticeDetail--name">${noticeList.name}ㅣ${noticeList.dateFormatType2()}</div>
 			</div>
 			<hr>
 			<div class="noticeDetail--content">${noticeList.content}</div>
@@ -87,9 +87,18 @@ main {
 		<c:if test="${principal.userRole.equals(\"관리자\")}">
 			<div class="btn--wrap">
 				<button class="btn btn--primary" onclick="location.href='/notice/noticeUpdate?id=${id}'">수정</button>
-				<button class="btn btn--danger" onclick="location.href='/notice/noticeDelete?id=${id}'">삭제</button>
+				<button class="btn btn--danger" onclick="deleteBtn('${id}')">삭제</button>
 			</div>
 		</c:if>
 	</main>
 </div>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
+
+<script>
+	function deleteBtn(id) {
+		if (confirm('정말 삭제하시겠습니까?') == true) {
+			location.href = '/notice/noticeDelete?id=' + id;
+		}
+
+	}
+</script>

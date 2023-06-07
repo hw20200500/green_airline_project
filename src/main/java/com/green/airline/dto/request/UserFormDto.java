@@ -12,11 +12,11 @@ public class UserFormDto {
 
 	@NotBlank(message = "아이디를 입력해주세요.")
 	@NotNull
-	@Size(min = 8, max = 20, message = "아이디는 8~20자 사이여야 합니다.")
+	@Size(min = 7, max = 20, message = "아이디는 7~20자 사이여야 합니다.")
 	private String id;
-	@NotBlank(message = "비밀번호는 8~20자 사이여야 합니다.")
+	@NotBlank(message = "비밀번호는 7~20자 사이여야 합니다.")
 	@NotNull
-	@Size(min = 8, max = 20, message = "비밀번호는 8~20자 사이여야 합니다.")
+	@Size(min = 7, max = 20, message = "비밀번호는 7~20자 사이여야 합니다.")
 	private String password;
 	@Pattern(regexp = "^[가-힣]{2,5}$", message = "한글 이름을 입력해주세요.")
 	@NotBlank(message = "한글 이름을 입력해주세요.")

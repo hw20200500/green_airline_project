@@ -379,7 +379,6 @@ public class UserController {
 			Member member, Model model) {
 		User principal = userService.readUserById(id);
 		userService.updateMemberById(principal.getId(), member);
-
 		if (errors.hasErrors()) {
 			// 회원가입 실패시 입력 데이터 유지
 			model.addAttribute("userFormDto", userFormDto);
@@ -396,6 +395,7 @@ public class UserController {
 			}
 			ArrayList<String> countryNm = nationalityApi();
 			model.addAttribute("countryNm", countryNm);
+
 			// 에러가 발생했을 경우
 			return "/user/userUpdate";
 		}
@@ -460,6 +460,8 @@ public class UserController {
 				passwordCheckDto.setPassword(hashPw);
 				passwordCheckDto.setId(principal.getId());
 				userService.updateUserById(passwordCheckDto);
+				principal.setPassword(hashPw);
+				session.setAttribute(Define.PRINCIPAL, principal);
 			} else {
 				// 같지 않다면 예외처리
 				throw new CustomRestfullException("입력하신 신규 비밀번호와 일치하지 않습니다.", HttpStatus.BAD_REQUEST);
@@ -467,8 +469,7 @@ public class UserController {
 
 		}
 
-		// todo 마이페이지로 이동 아마 ??
-		return "redirect:/";
+		return "redirect:/userMain";
 	}
 
 	/**

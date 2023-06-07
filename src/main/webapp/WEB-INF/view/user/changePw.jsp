@@ -64,16 +64,16 @@ input[type=password] {
 		<h4>새로운 비밀번호로 변경해 주세요.</h4>
 	</div>
 
-	<form action="/changePw" method="post">
+	<form action="/changePw" method="post"  onsubmit="confirm('정말 변경하시겠습니까?')">
 		<div class="changePw--wrap">
 			<div class="chagnePw--pw">
 				기존 비밀번호 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="password" name="password" placeholder="기존 비밀번호를 입력">
 			</div>
 			<div class="chagnePw--pw">
-				신규 비밀번호 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="password" name="newPassword" placeholder="8~20자리">
+				신규 비밀번호 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="password" name="newPassword" placeholder="7~20자리">
 			</div>
 			<div class="chagnePw--pw">
-				신규 비밀번호 확인 &nbsp;&nbsp; <input type="password" name="newPasswordCheck" placeholder="8~20자리">
+				신규 비밀번호 확인 &nbsp;&nbsp; <input type="password" name="newPasswordCheck" placeholder="7~20자리">
 			</div>
 		</div>
 

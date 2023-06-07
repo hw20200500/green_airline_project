@@ -57,11 +57,11 @@ public class InFlightServiceController {
 		return "/in_flight/inFlightSvSearch";
 	}
 
-	// inFlightServiceSpecialSearch?name=값
-	@GetMapping("/inFlightServiceSpecialSearch")
-	public String inFlightServiceSearch2(@RequestParam String name) {
-		return "/in_flight/inFlightServiceSpecial";
-	}
+//	// inFlightServiceSpecialSearch?name=값
+//	@GetMapping("/inFlightServiceSpecialSearch")
+//	public String inFlightServiceSearch2(@RequestParam String name) {
+//		return "/in_flight/inFlightServiceSpecial";
+//	}
 
 	// 특별 기내식 페이지
 	@GetMapping("/inFlightServiceSpecial")
@@ -73,18 +73,6 @@ public class InFlightServiceController {
 
 		List<InFlightMeal> flightMeals = inFlightSvService.readInFlightMealCategory();
 		model.addAttribute("flightMeals", flightMeals);
-
-		List<InFlightMealDetail> babyMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.BABYMEAL);
-		List<InFlightMealDetail> veganMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.VEGANMEAL);
-		List<InFlightMealDetail> religionMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.RELIGIONMEAL);
-		List<InFlightMealDetail> etcMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.ETCMEAL);
-		List<InFlightMealDetail> lowfatMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.LOWFATMEAL);
-
-		model.addAttribute("babyMeal", babyMeal);
-		model.addAttribute("veganMeal", veganMeal);
-		model.addAttribute("religionMeal", religionMeal);
-		model.addAttribute("etcMeal", etcMeal);
-		model.addAttribute("lowfatMeal", lowfatMeal);
 
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 
@@ -157,9 +145,4 @@ public class InFlightServiceController {
 		return "/in_flight/inFlightSvSpecialRequest";
 	}
 	
-	@PostMapping("/inFlightSpecialReqProc")
-	public String inFlightSpecialReqProc() {
-		
-		return "";
-	}
 }
