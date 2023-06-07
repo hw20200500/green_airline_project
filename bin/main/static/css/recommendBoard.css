@@ -1,6 +1,6 @@
 @charset "UTF-8";
 .container {
-	max-width: 1230px; /* 원하는 너비 값으로 변경해주세요 */
+	max-width: 1180px; /* 원하는 너비 값으로 변경해주세요 */
 	margin: 0 auto; /* 가운데 정렬을 위해 margin을 auto로 설정합니다 */
 	justify-content: center;
 	width: 100%;
@@ -25,23 +25,18 @@
 }
 
 .img {
-	width: 380px;
+	width: 375px;
 	height: 235px;
-}
-
-.popular--img {
-	width: 380px;
-	height: 235px;
+	padding: 5px 10px;
 }
 
 .td--img {
-	padding: 5px 10px;
 	align-items: center;
 	justify-content: center;
 }
 
 .td--board {
-	padding: 10px 10px;
+	padding: 5px 10px;
 }
 
 .board--table.d-flex {
@@ -70,7 +65,7 @@
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	width: 300px;
+	width: 280px;
 }
 
 .popular--h1 {
@@ -113,11 +108,11 @@
 }
 
 .popular--board--content {
-	width: 295px;
+	width: 280px;
 }
 
 .popular--img {
-	width: 295px;
+	width: 290px;
 	height: 235px;
-	padding: 10px;
+	padding: 5px 10px;
 }
