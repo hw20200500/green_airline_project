@@ -4,18 +4,16 @@ import java.net.BindException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.security.auth.login.LoginException;
-import javax.validation.ConstraintViolationException;
-
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 
 import com.green.airline.handler.exception.ApiErrorResponse;
 import com.green.airline.handler.exception.CustomPathException;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.handler.exception.ExceptionFieldMessage;
+import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
 
 @RestControllerAdvice // 예외클래스를 받아 주는 녀석으로 동작하는 녀석
 public class RestfullExceptionHandler {
@@ -43,7 +41,7 @@ public class RestfullExceptionHandler {
 	 */
 	@ExceptionHandler(CustomPathException.class)
 	public String customPathException(CustomPathException e) {
-		
+
 		StringBuffer sb = new StringBuffer();
 		sb.append("<script>");
 		sb.append("alert('" + e.getMessage() + "');");
@@ -60,12 +58,38 @@ public class RestfullExceptionHandler {
 		return ApiErrorResponse.builder().statusCode(HttpStatus.BAD_REQUEST.value()).code("-1").resultCode("fail")
 				.message("잘못된 요청입니다.").exceptionFieldMessages(errorList).build();
 	}
-	
+
+	// 파일업로드 초과 예외처리
+	@ExceptionHandler(MaxUploadSizeExceededException.class)
+	public String handleMaxSizeException(MaxUploadSizeExceededException e) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("<script>");
+		sb.append("alert('" + "파일용량이 너무 큽니다." + "');");
+		sb.append("history.back();");
+		sb.append("</script>");
+
+		return sb.toString();
+	}
+
+	// 글작성시 내용이 너무 길때 예외처리
+	@ExceptionHandler(MysqlDataTruncation.class)
+	public String handleMysqlDataTruncation(MysqlDataTruncation e) {
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("<script>");
+		sb.append("alert('" + "글자 수 제한 (20,000자 초과)" + "');");
+		sb.append("history.back();");
+		sb.append("</script>");
+
+		return sb.toString();
+	}
+
 	// BindException
 	@ExceptionHandler(BindException.class)
 	public String bindException(BindException e) {
 		System.out.println("11111");
-		
+
 		return "test";
 	}
 }

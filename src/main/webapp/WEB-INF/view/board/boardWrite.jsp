@@ -12,38 +12,48 @@
 </c:choose>
 
 <style>
-.form-control {
+.form--control {
 	width: 1110px;
-	margin-left: 70px;
+}
+
+.board--write {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.container {
+	margin-bottom: 30px;
 }
 </style>
 <main>
 	<h2 class="page--title">여행일지</h2>
 	<hr>
 	<br>
+	<div class="board--write">
+		<form action="/board/insert" method="post"
+			enctype="multipart/form-data">
 
-	<form action="/board/insert" method="post"
-		enctype="multipart/form-data">
-
-		<table class="table">
-			<tr>
-				<td><input class="form-control" id="title" type="text"
-					name="title" placeholder="제목"></td>
-			</tr>
-		</table>
-		<div class="container">
-			<textarea class="summernote" id="content" rows="10" name="content"></textarea>
-		</div>
-		<div class="custom-file">
-			<input type="file" class="custom-file-input" id="customFile"
-				accept=".jpg, .jpeg, .png" name="file"> <label
-				class="custom-file-label" for="customFile">썸네일용 이미지</label>
-		</div>
-		<div class="modal-footer">
-			<button type="submit" class="btn btn-primary">작성하기</button>
-			<button onclick="history.back();" class="btn btn-primary">뒤로가기</button>
-		</div>
-	</form>
+			<table class="table">
+				<tr>
+					<td><input class="form-control" id="title" type="text"
+						name="title" placeholder="제목"></td>
+				</tr>
+			</table>
+			<div class="container">
+				<textarea class="summernote" id="content" rows="10" name="content"></textarea>
+			</div>
+			<div class="custom-file">
+				<input type="file" class="custom-file-input" id="customFile"
+					accept=".jpg, .jpeg, .png" name="file"> <label
+					class="custom-file-label" for="customFile">썸네일용 이미지</label>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-primary">작성하기</button>
+				<button class="btn btn-primary" id="backPage">뒤로가기</button>
+			</div>
+		</form>
+	</div>
 </main>
 <script>
 	$('.summernote').summernote({
@@ -87,6 +97,22 @@
 				$(this).siblings(".custom-file-label").addClass("selected")
 						.html(fileName);
 			});
+
+	// 뒤로가기 버튼
+	$(document).ready(function() {
+		$("#backPage").on("click", function() {
+			// form 제출 동작 중지
+			event.preventDefault();
+
+			var boardId = $("input[name='boardId']").val();
+			var backConfirm = confirm("작성중인 게시글이 저장되지 않습니다.\n정말 나가시겠습니까?");
+			if (backConfirm) {
+				window.history.back();
+			} else {
+				return false;
+			}
+		});
+	});
 </script>
 
 <input type="hidden" name="menuName" id="menuName" value="여행일지">

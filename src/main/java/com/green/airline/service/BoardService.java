@@ -20,16 +20,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.green.airline.dto.BoardDto;
 import com.green.airline.dto.BoardUpdateDto;
-import com.green.airline.dto.response.NoticeResponseDto;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.interfaces.BoardRepository;
-import com.green.airline.repository.interfaces.NoticeRepository;
 import com.green.airline.repository.model.Board;
 import com.green.airline.repository.model.LoveHeart;
-import com.green.airline.repository.model.NoticeCategory;
 import com.green.airline.repository.model.User;
 import com.green.airline.utils.Define;
-import com.green.airline.utils.PagingObj;
 
 /**
  * @author 치승 추천 여행지 게시글
@@ -40,9 +36,6 @@ public class BoardService {
 	@Autowired
 	private BoardRepository boardRepository;
 	
-	@Autowired
-	private NoticeRepository noticeRepository;
-
 	@Autowired
 	private HttpSession session;
 
@@ -62,6 +55,7 @@ public class BoardService {
 
 		// 인기 게시물의 평균값을 계산하기 위한 리스트
 		List<Board> popularBoardList = new ArrayList<>();
+		
 
 		// 게시물의 수
 		int totalItemCount = boardList.size();
@@ -80,9 +74,9 @@ public class BoardService {
 		// 평균값이 높은 순으로 정렬
 		popularBoardList.sort(Comparator.comparingDouble(Board::getAverage).reversed());
 		
-		// 상위 5개의 인기 게시물만 반환
-		if (popularBoardList.size() > 3) {
-			return popularBoardList.subList(0, 3);
+		// 상위 4개의 인기 게시물만 반환
+		if (popularBoardList.size() > 4) {
+			return popularBoardList.subList(0, 4);
 		} else {
 			return popularBoardList;
 		}
@@ -96,7 +90,7 @@ public class BoardService {
 		boardDto.setUserId(user.getId());
 
 		int result = boardRepository.insertByBoard(boardDto);
-
+		
 		if (result != 1) {
 			throw new CustomRestfullException("잘못된 요청입니다.", HttpStatus.BAD_REQUEST);
 		}
@@ -227,11 +221,6 @@ public class BoardService {
 		return registration;
 	}
 	
-	public int readNoticeCount() {
-		int resultCount = noticeRepository.selectNoticeCount();
-		return resultCount;
-	}
-
 	// 페이징용
 	public List<Board> readBoardListLimit(Integer index, Integer limitCount) {
 		return boardRepository.selectBoardListLimit(index, limitCount);

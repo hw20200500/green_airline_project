@@ -16,22 +16,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.green.airline.dto.BoardDto;
 import com.green.airline.dto.BoardUpdateDto;
-import com.green.airline.dto.response.NoticeResponseDto;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.interfaces.BoardRepository;
 import com.green.airline.repository.model.Board;
 import com.green.airline.repository.model.LoveHeart;
-import com.green.airline.repository.model.NoticeCategory;
 import com.green.airline.repository.model.User;
 import com.green.airline.service.BoardService;
 import com.green.airline.utils.Define;
-import com.green.airline.utils.PagingObj;
 
 /**
  * @author 치승 추천 여행지 게시글
@@ -56,20 +52,20 @@ public class BoardController {
 
 		// 일반 게시물 (전체)
 		List<Board> allBoardList = boardService.readByBoardList();
-		
+
 		// 페이지 개수
 		Integer pageCount = (int) Math.ceil(allBoardList.size() / 9.0);
 		model.addAttribute("pageCount", pageCount);
-		
+
 		// 현재 페이지에 따라 인덱스 계산
 		Integer index = (page - 1) * 9;
-		
+
 		// 보여줄 게시글 (페이징)
 		List<Board> boardList = boardService.readBoardListLimit(index, 9);
-		
+
 		// 추천 게시물
 		List<Board> popularBoard = boardService.readPopularBoardList();
-		
+
 		if (boardList.isEmpty()) {
 			model.addAttribute("boardList", null);
 			model.addAttribute("popularBoard", null);
@@ -77,7 +73,7 @@ public class BoardController {
 			model.addAttribute("boardList", boardList);
 			model.addAttribute("popularBoard", popularBoard);
 		}
-		
+
 		return "/board/recommendBoard";
 	}
 
@@ -93,10 +89,10 @@ public class BoardController {
 	public String boardWirtePage(BoardDto boardDto) {
 
 		if (boardDto.getTitle() == null || boardDto.getTitle().isEmpty()) {
-			throw new CustomRestfullException("제목을 입력해주세요", HttpStatus.BAD_REQUEST);
+			throw new CustomRestfullException("제목을 입력해주세요.", HttpStatus.BAD_REQUEST);
 		}
 		if (boardDto.getContent() == null || boardDto.getContent().isEmpty()) {
-			throw new CustomRestfullException("내용을 입력해주세요", HttpStatus.BAD_REQUEST);
+			throw new CustomRestfullException("내용을 입력해주세요.", HttpStatus.BAD_REQUEST);
 		}
 
 		MultipartFile file = boardDto.getFile();
@@ -130,7 +126,7 @@ public class BoardController {
 				file.transferTo(destination);
 
 				boardDto.setOriginName(file.getOriginalFilename());
-				boardDto.setFileName(fileName);
+				boardDto.setFileName("/uploadImage/" + fileName);
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -139,7 +135,7 @@ public class BoardController {
 
 		boardService.insertByBoard(boardDto);
 
-		return "redirect:/board/list";
+		return "redirect:/board/list/1";
 	}
 
 	// 게시글 수정하기
@@ -155,6 +151,14 @@ public class BoardController {
 	// 게시글 수정하기
 	@PostMapping("/update/{id}")
 	public String updateByBoardPage(@PathVariable("id") Integer id, BoardUpdateDto boardUpdateDto) {
+
+		if (boardUpdateDto.getTitle() == null || boardUpdateDto.getTitle().isEmpty()) {
+			throw new CustomRestfullException("제목을 입력해주세요.", HttpStatus.BAD_REQUEST);
+		}
+		if (boardUpdateDto.getContent() == null || boardUpdateDto.getContent().isEmpty()) {
+			throw new CustomRestfullException("내용을 입력해주세요.", HttpStatus.BAD_REQUEST);
+		}
+
 		MultipartFile file = boardUpdateDto.getFile();
 
 		if (!file.isEmpty()) {
@@ -186,14 +190,14 @@ public class BoardController {
 				file.transferTo(destination);
 
 				boardUpdateDto.setOriginName(file.getOriginalFilename());
-				boardUpdateDto.setFileName(fileName);
+				boardUpdateDto.setFileName("/uploadImage/" + fileName);
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		boardService.updateByBoard(id, boardUpdateDto);
-		return "redirect:/board/list";
+		return "redirect:/board/list/1";
 	}
 
 	// 게시글 삭제하기
@@ -202,7 +206,7 @@ public class BoardController {
 
 		boardService.deleteByBoard(id);
 
-		return "redirect:/board/list";
+		return "redirect:/board/list/1";
 	}
 
 	// 추천여행지 상세 보기
@@ -249,6 +253,4 @@ public class BoardController {
 
 		return heartCount;
 	}
-	
 }
-

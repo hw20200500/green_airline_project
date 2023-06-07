@@ -11,112 +11,8 @@
 	</c:otherwise>
 </c:choose>
 
-<style>
-.container {
-	max-width: 1230px; /* 원하는 너비 값으로 변경해주세요 */
-	margin: 0 auto; /* 가운데 정렬을 위해 margin을 auto로 설정합니다 */
-	justify-content: center;
-	width: 100%;
-}
+<link rel="stylesheet" href="/css/recommendBoard.css">
 
-.popular--board {
-	width: 100%;
-	align-items: center;
-}
-
-.modal-dialog.modal-fullsize {
-	width: 100%;
-	height: 100%;
-	margin: 0;
-	padding: 0;
-}
-
-.modal-content.modal-fullsize {
-	height: auto;
-	min-height: 100%;
-	border-radius: 0;
-}
-
-.img {
-	width: 380px;
-	height: 235px;
-}
-
-.popular--img {
-	width: 380px;
-	height: 235px;
-}
-
-.td--img {
-	padding: 5px 10px;
-	align-items: center;
-	justify-content: center;
-}
-
-.td--board {
-	padding: 10px 10px;
-}
-
-.board--table.d-flex {
-	flex-wrap: wrap;
-}
-
-.modal--header {
-	border-bottom: none;
-}
-
-.modal--title {
-	font-weight: bolder;
-}
-
-.modal-body {
-	padding-top: 0;
-}
-
-.btn--write {
-	width: 100%;
-}
-
-.board--title {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	width: 300px;
-}
-
-.popular--h1 {
-	text-align: left;
-	padding: 5px 20px;
-}
-
-.board--user--date {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: right;
-	height: 5px;
-	margin-top: 0;
-}
-
-.board--table {
-	white-space: nowrap;
-	width: 100%;
-	display: block;
-}
-
-.h4--title {
-	justify-content: left;
-	display: flex;
-	margin-left: 10px;
-}
-
-.basic--board {
-	align-items: center;
-}
-
-.board--content {
-	padding: 30px;
-}
-</style>
 <main>
 	<h2 class="page--title">여행일지</h2>
 	<hr>
@@ -125,16 +21,19 @@
 	<div class="container">
 		<div class="popular--board">
 			<h4 class="h4--title">인기 게시물</h4>
-			<div class="board--table d-flex" id="popularBoardSlider">
-				<c:forEach var="board" items="${popularBoard}" varStatus="loop">
-					<div class="tr--boardList" data-toggle="modal" data-target="#modalDetail" id="boardDetail${board.id}" style="cursor: pointer;">
-						<div class="td--img">
-							<img src="<c:url value="${board.thumbnailImage()}"/>" alt="" class="popular--img">
-						</div>
-						<div class="td--board">
-							<div class="board--title">${board.title}</div>
-							<div>
-								<img src="/images/like/eye.png">${board.numberFormat()}</div>
+			<div class="board--table d-flex">
+				<c:forEach var="board" items="${popularBoard}">
+					<div class="popular--board--content">
+						<div class="tr--boardList" data-toggle="modal" data-target="#modalDetail" id="boardDetail${board.id}" style="cursor: pointer;">
+							<div class="td--img">
+								<img src="<c:url value="${board.thumbnailImage()}"/>" alt="" class="popular--img">
+							</div>
+							<div class="td--board">
+								<div class="board--title">${board.title}</div>
+								<div>
+									<img src="/images/like/eye.png">&ensp;${board.numberFormat()}
+								</div>
+							</div>
 						</div>
 					</div>
 				</c:forEach>
@@ -142,7 +41,7 @@
 
 		</div>
 		<div class="basic--board">
-			<h4 class="h4--title" style="margin-top: 50px;">여행일기</h4>
+			<h4 class="h4--title" style="margin-top: 50px;">여행일지</h4>
 			<c:choose>
 				<c:when test="${boardList != null && not empty boardList}">
 					<div class="board--table d-flex">
@@ -184,10 +83,10 @@
 				<c:forEach var="i" begin="1" end="${pageCount}" step="1">
 					<c:choose>
 						<c:when test="${i == page}">
-							<li><a href="/board/list/${i}" style="font-weight: 700; color: #007bff">${i}</a>									
+							<li><a href="/board/list/${i}" style="font-weight: 700; color: #007bff">${i}</a>
 						</c:when>
 						<c:otherwise>
-							<li><a href="/board/list/${i}">${i}</a>									
+							<li><a href="/board/list/${i}">${i}</a>
 						</c:otherwise>
 					</c:choose>
 				</c:forEach>
@@ -235,7 +134,7 @@
 
 				<%-- 비동기통신으로 값 넘겨주기 --%>
 				<input type="hidden" id="userRole" value="${principal.userRole}"> <input type="hidden" id="managerRole" value="관리자"> <input type="hidden" id="loginUserId" value="${principal.id}">
-				<br> <br> <br> <br> <br> <br> <br> <br>
+				<br> <br> <br> <br> <br> <br>
 				<div class="modal--upDelete">
 					<button type="button" class="btn btn-primary" id="updateButton" style="display: none; margin-right: 10px;">수정하기</button>
 					<button type="button" class="btn btn-primary" id="deleteButton" style="display: none;">삭제하기</button>
@@ -269,6 +168,7 @@
 	<script>
 		$(".board--heartCount").on("click", function() {
 			let loginConfirm = confirm('로그인이 필요한 서비스입니다.\n로그인 하시겠습니까?');
+			
 			if (loginConfirm) {
 				location.href = '/login';
 			} else {
