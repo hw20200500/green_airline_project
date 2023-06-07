@@ -296,9 +296,13 @@ main {
 	padding: 10px;
 }
   
-  .progress-bar {
-  	background-color: #7CB2D5;
-  }
+.progress-bar {
+	background-color: #7CB2D5;
+}
+
+.mileageListTable td, .mileageListTable th {
+	font-size: 16px;
+}
 </style>
 
 
@@ -343,14 +347,14 @@ main {
 						<c:when test="${mileage2.balanceNumber() != null}">
 							<p>
 								적립 예정 마일리지 <a href="/mileage/selectAll"><span
-									class="material-symbols-outlined">add_circle</span></a>
+									class="material-symbols-outlined" id="add--circle">add_circle</span></a>
 							</p>
 							<p>${mileage2.balanceNumber()}</p>
 						</c:when>
 						<c:otherwise>
 
 							<p>적립 예정 마일리지</p>
-							<p>예정인 마일리지가 없습니다</p>
+							<p>예정인 마일리지가 없습니다.</p>
 						</c:otherwise>
 					</c:choose>
 				</div>
@@ -425,8 +429,6 @@ main {
 										</p>
 									</div>
 									<div class="progress">
-										<div class="progress-bar"
-											style="width: <fmt:formatNumber type="number" maxFractionDigits="0"  value="${sumNowMileage.totalMileage * 100 / 500000}"/>%;"></div>
 									</div>
 									<img alt="" src="../images/rank.png" class="rankImg">
 									<span class="material-symbols-outlined trip--origin ">

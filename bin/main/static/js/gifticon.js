@@ -98,12 +98,12 @@ $("#gifticon--search")
 				$("#gifticonList--tr--thead").empty();
 				let body = '';
 				 body += '<tr>';
-				    body += '<th style="background-color: #f2f2f2;">' + "체크" + '</th>';
-				    body += '<th style="background-color: #f2f2f2;">' + "브랜드" + '</th>';
-				    body += '<th style="background-color: #f2f2f2;">' + "이름" + '</th>';
-				    body += '<th style="background-color: #f2f2f2;">' + "발급날짜" + '</th>';
-				    body += '<th style="background-color: #f2f2f2;">' + "유효기간" + '</th>';
-				    body += '<th style="background-color: #f2f2f2;">' + "가격" + '</th>';
+				    body += '<th>' + "체크" + '</th>';
+				    body += '<th>' + "브랜드" + '</th>';
+				    body += '<th>' + "이름" + '</th>';
+				    body += '<th>' + "발급날짜" + '</th>';
+				    body += '<th>' + "유효기간" + '</th>';
+				    body += '<th>' + "가격" + '</th>';
 				    body += '</tr>';
 				$("#gifticonList--tr--thead").append(body);
 			} else {
@@ -112,10 +112,10 @@ $("#gifticon--search")
 				$('.deleteBtn').hide();
 				let body = '';
 				body += '<tr>';
-				body += '<th style="background-color: #f2f2f2;">' + "브랜드" + '</th>';
-				body += '<th style="background-color: #f2f2f2;">' + "이름" + '</th>';
-				body += '<th style="background-color: #f2f2f2;">' + "취소날짜" + '</th>';
-				body += '<th style="background-color: #f2f2f2;">' + "가격" + '</th>';
+				body += '<th>' + "브랜드" + '</th>';
+				body += '<th>' + "이름" + '</th>';
+				body += '<th>' + "취소날짜" + '</th>';
+				body += '<th>' + "가격" + '</th>';
 				body += '</tr>';
 				$("#gifticonList--tr--thead").append(body);
 			}
@@ -154,13 +154,13 @@ $("#gifticon--search")
 									+ response[i].name
 									+ '</td>';
 								body += '<td>'
-									+ response[i].startDate
+									+ (response[i].startDate)
 									+ '</td>';
 								body += '<td>'
-									+ response[i].endDate
+									+ response[i].endDate.toString().substr(0, 10)
 									+ '</td>';
 								body += '<td>'
-									+ response[i].price* response[i].amount
+									+ (response[i].price * response[i].amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 									+ '</td>';
 								body += '</tr>';
 								$("#gifticonList--tr--tbody")
@@ -176,10 +176,10 @@ $("#gifticon--search")
 									+ response[i].name
 									+ '</td>';
 								body += '<td>'
-									+ response[i].revokeDate
+									+ response[i].revokeDate.toString().substr(0, 10)
 									+ '</td>';
 								body += '<td>'
-									+ response[i].price * response[i].amount
+									+ (response[i].price * response[i].amount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 									+ '</td>';
 								body += '</tr>';
 								$("#gifticonList--tr--tbody")
@@ -217,8 +217,19 @@ function refundGifticon() {
 	$("#gifticonBrand").val(gifticonBrandArray.join(","));
 	console.log(gifticonIdArray)
 	console.log(gifticonAmountArray)
-	// 폼을 제출하여 컨트롤러로 데이터 전송
-	$("form").submit();
+	
+	if (gifticonIdArray.length != 0) {
+		let delConfirm = confirm('환불을 원하시면 확인을 눌러주세요.');		
+		if (delConfirm) {			
+		  	alert('환불되었습니다.');
+		}
+		else {
+		   alert('취소되었습니다.');
+		   return false;
+		}
+	} else {
+		return false;
+	}
 }
 
 $(function() {
@@ -236,13 +247,4 @@ $(function() {
       // 추가적인 옵션 설정
     });
   });
- $('.deleteBtn').on('click',function(){
-	let delConfirm = confirm('환불을 원하시면 확인을 눌러주세요.');
-	  if (delConfirm) {
-	     alert('환불되었습니다.');
-	  }
-	  else {
-	     alert('취소되었습니다.');
-	  }
-}) 
   

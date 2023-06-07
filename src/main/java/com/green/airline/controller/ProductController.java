@@ -36,6 +36,7 @@ import com.green.airline.repository.model.User;
 import com.green.airline.service.EmailService;
 import com.green.airline.service.MileageService;
 import com.green.airline.service.ProductService;
+import com.green.airline.service.UserService;
 import com.green.airline.utils.Define;
 
 @Controller
@@ -51,8 +52,12 @@ public class ProductController {
 
 	@Autowired
 	private MileageService mileageService;
+	
 	@Autowired
 	private EmailService emailService;
+	
+	@Autowired
+	private UserService userService;
 
 	/**
 	 * 정다운 메인 페이지에 상품 리스트 출력
@@ -204,45 +209,45 @@ public class ProductController {
 		 * CustomRestfullException("기프티콘 이미지를 선택하세요", HttpStatus.BAD_REQUEST); }
 		 */
 
-		MultipartFile file = shopProduct.getFile();
-		MultipartFile file2 = shopProduct.getFile2();
-		if (file.isEmpty() == false) {
-
-			try {
-				// 파일 저장 기능 구현 - 업로드 파일은 HOST 컴퓨터 다른 폴더로 관리
-				String saveDirectory = Define.UPLOAD_DIRECTORY;
-				// 폴더가 없다면 오류 발생 (파일 생성 시)
-				File dir = new File(saveDirectory);
-				if (dir.exists() == false) {
-					dir.mkdirs(); // 폴더가 없으면 폴더 생성
-				}
-				String fileName = file.getOriginalFilename();
-				String fileName2 = file2.getOriginalFilename();
-				// 전체 경로를 지정
-				String uploadPath = Define.UPLOAD_DIRECTORY + File.separator + fileName;
-				String uploadPath2 = Define.UPLOAD_DIRECTORY + File.separator + fileName2;
-				File destination = new File(uploadPath);
-				File destination2 = new File(uploadPath2);
-
-				// 좀 더 간편한 방법 사용해 보기
-				file.transferTo(destination);
-				file2.transferTo(destination2);
-
-				// 객체 상태 변경(dto)
-				shopProduct.setProductImage(file.getOriginalFilename());
-				shopProduct.setGifticonImage(file2.getOriginalFilename());
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+//		MultipartFile file = shopProduct.getFile();
+//		MultipartFile file2 = shopProduct.getFile2();
+//		if (file.isEmpty() == false) {
+//
+//			try {
+//				// 파일 저장 기능 구현 - 업로드 파일은 HOST 컴퓨터 다른 폴더로 관리
+//				String saveDirectory = Define.UPLOAD_DIRECTORY;
+//				// 폴더가 없다면 오류 발생 (파일 생성 시)
+//				File dir = new File(saveDirectory);
+//				if (dir.exists() == false) {
+//					dir.mkdirs(); // 폴더가 없으면 폴더 생성
+//				}
+//				String fileName = file.getOriginalFilename();
+//				String fileName2 = file2.getOriginalFilename();
+//				// 전체 경로를 지정
+//				String uploadPath = Define.UPLOAD_DIRECTORY + File.separator + fileName;
+//				String uploadPath2 = Define.UPLOAD_DIRECTORY + File.separator + fileName2;
+//				File destination = new File(uploadPath);
+//				File destination2 = new File(uploadPath2);
+//
+//				// 좀 더 간편한 방법 사용해 보기
+//				file.transferTo(destination);
+//				file2.transferTo(destination2);
+//
+//				// 객체 상태 변경(dto)
+//				shopProduct.setProductImage(file.getOriginalFilename());
+//				shopProduct.setGifticonImage(file2.getOriginalFilename());
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
 		productService.productUpdate(shopProduct);
-		return "redirect:/product/productMain";
+		return "redirect:/product/productMain/clasic";
 	}
 
 	@GetMapping("/delete/{id}")
 	public String productDelete(@PathVariable int id) {
 		productService.productDelete(id);
-		return "redirect:/product/productMain";
+		return "redirect:/product/productMain/clasic";
 	}
 
 	/**
@@ -256,13 +261,15 @@ public class ProductController {
 	public String productDetailPage(@PathVariable int id, Model model) {
 		Mileage mileage = new Mileage();
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
-		System.out.println(principal);
+		
 		ShopProduct shopProduct = productService.productDetail(id);
 		model.addAttribute(shopProduct);
 		
 		if (principal != null && principal.getUserRole().equals("관리자") == false) {
 			mileage = productService.readMileage(principal.getId());
 			model.addAttribute(mileage);
+			String email = userService.readById(principal.getId()).getEmail();
+			model.addAttribute("email", email);
 		}
 		
 		return "/mileage/detailPage";
