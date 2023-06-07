@@ -19,6 +19,8 @@ public interface BoardRepository {
 	public int insertByBoard(BoardDto boardDto);
 	// 게시물 수정
 	public int updateByBoard(@Param("id") Integer id, @Param("boardUpdateDto") BoardUpdateDto boardUpdateDto);
+	// 게시물 썸네일 안올렸을 때 수정
+	public int updateByBoardJustThumbnail(@Param("id") Integer id, @Param("boardUpdateDto") BoardUpdateDto boardUpdateDto);
 	// 게시물 삭제
 	public int deleteByBoard(Integer id);
 	// 게시물 상세 보기

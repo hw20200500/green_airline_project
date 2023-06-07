@@ -53,7 +53,8 @@
 								<div class="td--board">
 									<div class="board--title">${board.title}</div>
 									<div>
-										<img src="/images/like/eye.png">&nbsp;${board.numberFormat()}</div>
+										<img src="/images/like/eye.png">&nbsp;${board.numberFormat()}
+									</div>
 								</div>
 							</div>
 						</c:forEach>
@@ -111,7 +112,7 @@
 				<input type="hidden" name="boardId">
 				<div class="board--user--date">
 
-					<p style="color: #808080;">작성자 &ensp;</p>
+					<p style="color: #808080;">작성자&ensp;</p>
 					<div class="board--userId" style="justify-content: right; padding-right: 5px; color: #808080;"></div>
 
 					<div class="board--date" style="justify-content: right; padding-right: 5px; color: #808080;"></div>
@@ -168,7 +169,7 @@
 	<script>
 		$(".board--heartCount").on("click", function() {
 			let loginConfirm = confirm('로그인이 필요한 서비스입니다.\n로그인 하시겠습니까?');
-			
+
 			if (loginConfirm) {
 				location.href = '/login';
 			} else {

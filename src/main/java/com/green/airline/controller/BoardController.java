@@ -190,13 +190,17 @@ public class BoardController {
 				file.transferTo(destination);
 
 				boardUpdateDto.setOriginName(file.getOriginalFilename());
-				boardUpdateDto.setFileName("/uploadImage/" + fileName);
-
+				if (file.getOriginalFilename() == null) {
+					boardService.updateByBoardJustThumbnail(id, boardUpdateDto);
+				} else {
+					boardUpdateDto.setFileName("/uploadImage/" + fileName);
+					boardService.updateByBoard(id, boardUpdateDto);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		boardService.updateByBoard(id, boardUpdateDto);
+		
 		return "redirect:/board/list/1";
 	}
 

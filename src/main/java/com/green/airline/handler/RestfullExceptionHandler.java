@@ -78,7 +78,7 @@ public class RestfullExceptionHandler {
 
 		StringBuffer sb = new StringBuffer();
 		sb.append("<script>");
-		sb.append("alert('" + "글자 수 제한 (20,000자 초과)" + "');");
+		sb.append("alert('" + "글자 수 제한(제목 또는 내용이 너무 깁니다.)" + "');");
 		sb.append("history.back();");
 		sb.append("</script>");
 
