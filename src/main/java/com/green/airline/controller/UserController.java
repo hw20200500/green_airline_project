@@ -80,13 +80,13 @@ public class UserController {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
+
 	@Autowired
 	private NoticeService noticeService;
 
 	@Autowired
 	private FaqService faqService;
-	
+
 	private InFlightSvService inFlightSvService;
 
 	@Autowired
@@ -98,8 +98,9 @@ public class UserController {
 	private BoardService boardService;
 	@Autowired
 	private VocService vocService;
+
 	/**
-	 * @author 서영 
+	 * @author 서영
 	 * @return 메인 페이지
 	 */
 	@GetMapping("")
@@ -109,43 +110,43 @@ public class UserController {
 
 		List<Airport> regionList = airportService.readRegion();
 		model.addAttribute("regionList", regionList);
-		
+
 		// 공지사항 최근순 5개
 		List<NoticeResponseDto> noticeList = noticeService.readOrderByCreatedAtDescLimitN(5);
 		model.addAttribute("noticeList", noticeList);
-		
+
 		// 자주 묻는 질문 전체
 		List<FaqResponseDto> allFaqList = faqService.readFaqAll();
-		model.addAttribute("faqList", allFaqList);		
-		
+		model.addAttribute("faqList", allFaqList);
+
 		// 인덱스 5개를 랜덤으로 정함
-        int[] indexArr = new int[5];
-        Random r = new Random();  
-        for (int i = 0; i < indexArr.length; i++) {
-        	// 0 ~ 자주 묻는 질문 개수 내에서 랜덤 정수 뽑음
-            indexArr[i] = r.nextInt(allFaqList.size());
-            // 중복 제거
-            for (int j = 0; j < i; j++) {
-                if (indexArr[i] == indexArr[j]) {
-                    i--; // 이번 반복을 취소하고 다시 하도록 함
-                }
-            }
-        }
-        model.addAttribute("indexArr", indexArr);	
-		
+		int[] indexArr = new int[5];
+		Random r = new Random();
+		for (int i = 0; i < indexArr.length; i++) {
+			// 0 ~ 자주 묻는 질문 개수 내에서 랜덤 정수 뽑음
+			indexArr[i] = r.nextInt(allFaqList.size());
+			// 중복 제거
+			for (int j = 0; j < i; j++) {
+				if (indexArr[i] == indexArr[j]) {
+					i--; // 이번 반복을 취소하고 다시 하도록 함
+				}
+			}
+		}
+		model.addAttribute("indexArr", indexArr);
+
 		return "/mainPage";
 	}
 
 	/**
-	 * @author 서영 
+	 * @author 서영
 	 * @return 로그인 페이지
 	 */
 	@GetMapping("/login")
 	public String loginPage(Model model) {
-		
+
 		int notCategory = 1;
 		model.addAttribute("notCategory", notCategory);
-		
+
 		return "/user/login";
 	}
 
@@ -167,8 +168,6 @@ public class UserController {
 				return "redirect:/manager/dashboard";
 			}
 		}
-		
-		System.out.println(principal.getJoinAt());
 
 		if (principal.getStatus() == 1) {
 			throw new CustomRestfullException("탈퇴한 회원입니다.", HttpStatus.BAD_REQUEST);
@@ -199,10 +198,10 @@ public class UserController {
 	// 일반 회원 로그인 페이지
 	@GetMapping("/join")
 	public String joinPage(Model model) {
-		
+
 		ArrayList<String> countryNm = nationalityApi();
 		model.addAttribute("countryNm", countryNm);
-		
+
 		int notCategory = 1;
 		model.addAttribute("notCategory", notCategory);
 
@@ -266,10 +265,10 @@ public class UserController {
 		model.addAttribute("id", id);
 		model.addAttribute("email", email);
 		model.addAttribute("gender", gender);
-		
+
 		int notCategory = 1;
 		model.addAttribute("notCategory", notCategory);
-		
+
 		return "/user/socialJoin";
 	}
 
@@ -496,7 +495,7 @@ public class UserController {
 		MemberInfoDto member = userService.readMemberById(memberId);
 		GifticonDto gifticonCount = gifticonService.readGifticonCount(memberId);
 		BoardDto boardDto = boardService.readBoardCountByMemberId(memberId);
-		VocInfoDto infoDto =  vocService.readVocCountAndAnserCountByMemberId(memberId);
+		VocInfoDto infoDto = vocService.readVocCountAndAnserCountByMemberId(memberId);
 		List<Mileage> mileages = mileageService.readMileageTbOrderByMileageDateByMemberId(memberId);
 		model.addAttribute("sumNowMileage", sumNowMileage);
 		model.addAttribute("mileage", mileage);
@@ -518,50 +517,48 @@ public class UserController {
 
 		List<MemberGrade> memberGradeList = userService.readMemberGradeList();
 		model.addAttribute("memberGradeList", memberGradeList);
-		
+
 		return "/user/memberGrade";
 	}
-	
+
 	/**
 	 * @author 서영
 	 * @return 회원용 고객센터
 	 */
 	@GetMapping("/customerCenter")
 	public String customerCenterPage(Model model) {
-		
-		
-		
+
 		return "/user/customerCenter";
 	}
-	
+
 	@GetMapping("/userIdSearch")
 	public String userIdSearchPage() {
 
 		return "/user/userIdSearch";
 	}
+
 	@GetMapping("/userPwSearch")
 	public String userPwSearchPage() {
 
 		return "/user/userPwSearch";
 	}
 
-	
-	
 	/**
-	 *정다운
-	 * 비밀번호 변경
+	 * 정다운 비밀번호 변경
+	 * 
 	 * @return
 	 */
 	@PostMapping("/updatePassword")
-public String updatePasswordById(String password,String userId) {
-	userService.updateyPassword(password, userId);
-	return "/user/login";
-}
+	public String updatePasswordById(String password, String userId) {
+		userService.updateyPassword(password, userId);
+		return "/user/login";
+	}
+
 	@PostMapping("/findByUserId")
 	public String findByUserId(Model model, Member member) {
 		Member response = userService.readByKorNameandEmailAndBirthDate(member);
 		model.addAttribute("response", response);
 		return "/user/userIdSearch";
 	}
-	
+
 }
