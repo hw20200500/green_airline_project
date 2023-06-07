@@ -496,6 +496,8 @@ public class UserController {
 		BoardDto boardDto = boardService.readBoardCountByMemberId(memberId);
 		VocInfoDto infoDto =  vocService.readVocCountAndAnserCountByMemberId(memberId);
 		List<Mileage> mileages = mileageService.readMileageTbOrderByMileageDateByMemberId(memberId);
+		System.out.println("mileages : " + mileages);
+		System.out.println("mileages2 : " + mileages);
 		model.addAttribute("sumNowMileage", sumNowMileage);
 		model.addAttribute("mileage", mileage);
 		model.addAttribute("mileage2", mileage2);

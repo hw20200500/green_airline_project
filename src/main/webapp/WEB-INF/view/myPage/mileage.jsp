@@ -157,7 +157,7 @@ margin-bottom2px;
 		<h4 class="hidden" id="tab_title">적립/사용 상세내역조회</h4>
 		<form action="mileageList" method="post" id="form">
 			<div id="checkboxList">
-				<strong class="sortation">구분</strong> <input type="checkbox" class="searchKind" id="mileageType0" name="isAllSearch" value="isAllSearch" /> <label for="mileageType0">전체</label> <input
+				<strong class="sortation">구분</strong> <input type="checkbox" class="searchKind" id="mileageType0" name="isAllSearch" value="isAllSearch"/> <label for="mileageType0">전체</label> <input
 					type="checkbox" class="searchKind" id="mileageType1" name="isUpSearch" value="isUpSearch" /> <label for="mileageType1">적립</label> <input type="checkbox" class="searchKind" id="mileageType2"
 					name="isUseSearch" value="isUseSearch" /> <label for="mileageType2">사용</label> <input type="checkbox" class="searchKind" id="mileageType3" name="isExpireSearch" value="isExpireSearch" /> <label
 					for="mileageType3">소멸</label>

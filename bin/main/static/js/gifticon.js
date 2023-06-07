@@ -1,3 +1,7 @@
+$(document).ready(function() {
+$('#liPeriod1').trigger('click');
+})
+
 /*기간별 조회 기능 1개뤟*/
 $('#liPeriod1').on("click", function() {
 

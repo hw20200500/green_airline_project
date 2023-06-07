@@ -9,8 +9,9 @@
 		resultType="com.green.airline.dto.SaveMileageDto">
 		<!-- select sum(balance)as balance from mileage_tb where member_id =
 		#{memberId} and now() &lt; expiration_date; -->
-		select sum(balance)as balance,(select sum(save_mileage) from mileage_tb)as totalMileage from mileage_tb where member_id =
-		#{memberId} and now() &lt; expiration_date;
+		select sum(balance)as balance,(select sum(save_mileage) from mileage_tb where member_id =
+		#{memberId} and now() > mileage_date )as totalMileage from mileage_tb where member_id =
+		#{memberId} and now() > mileage_date and expiration_date > now();
 	</select>
 	
 	<select id="selectAllSaveMileage" resultType="com.green.airline.repository.model.Mileage">
@@ -26,7 +27,7 @@
 	</select>
 	<!-- 마이페이지 마일리지 리스트 -->
 	<select id="selectMileageTbOrderByMileageDateByMemberId" resultType="com.green.airline.repository.model.Mileage">
-		SELECT * FROM MILEAGE_TB where member_id = #{memberId} order by id desc limit 5
+		SELECT * FROM MILEAGE_TB where member_id = #{memberId} and now() > mileage_date order by id desc limit 5
 	</select>
 	<!-- 소멸 마일리지 합 -->
 	<select id="selectExtinctionMileage"
@@ -67,14 +68,14 @@
 	<insert id="insertMileage">
 		<if test="saveMileageDto.saveMileage2 == null">
 			insert into
-			mileage_tb(mileage_date,expiration_date,save_mileage,balance,member_id,ticket_id)
-			values(#{saveMileageDto.departureDate},#{saveMileageDto.expirationDate},#{saveMileageDto.saveMileage},#{saveMileageDto.saveMileage},#{saveMileageDto.memberId},#{saveMileageDto.ticketId})
+			mileage_tb(mileage_date,expiration_date,save_mileage,balance,member_id,ticket_id,description)
+			values(#{saveMileageDto.departureDate},#{saveMileageDto.expirationDate},#{saveMileageDto.saveMileage},#{saveMileageDto.saveMileage},#{saveMileageDto.memberId},#{saveMileageDto.ticketId},"티켓구매")
 		</if>
 		<if test="saveMileageDto.saveMileage2 != null">
 			insert into
-			mileage_tb(mileage_date,expiration_date,save_mileage,balance,member_id,ticket_id)
+			mileage_tb(mileage_date,expiration_date,save_mileage,balance,member_id,ticket_id,description)
 			values(#{saveMileageDto.departureDate},#{saveMileageDto.expirationDate},#{saveMileageDto.saveMileage},#{saveMileageDto.saveMileage},#{saveMileageDto.memberId},#{saveMileageDto.ticketId}),
-			(#{saveMileageDto.departureDate},#{saveMileageDto.expirationDate},#{saveMileageDto.saveMileage2},#{saveMileageDto.saveMileage2},#{saveMileageDto.memberId},#{saveMileageDto.ticketId})
+			(#{saveMileageDto.departureDate},#{saveMileageDto.expirationDate},#{saveMileageDto.saveMileage2},#{saveMileageDto.saveMileage2},#{saveMileageDto.memberId},#{saveMileageDto.ticketId},"티켓구매")
 		</if>
 	</insert>
 

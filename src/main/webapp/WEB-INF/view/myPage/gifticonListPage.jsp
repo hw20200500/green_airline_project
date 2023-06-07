@@ -123,7 +123,7 @@ margin-right: 15px;
 			<dl>
 				
 				<dd>
-					<strong class="sortation"></strong><input type="radio" name="chk" value="buy" ><span class="buy">구매내역</span><input type="radio" name="chk" value="revoke">취소내역
+					<strong class="sortation"></strong><input type="radio" name="chk" value="buy" checked="checked"><span class="buy">구매내역</span><input type="radio" name="chk" value="revoke">취소내역
 				</dd>
 			</dl>
 			<dl>

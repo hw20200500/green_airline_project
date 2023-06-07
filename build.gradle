@@ -32,7 +32,9 @@ dependencies {
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.1'
+
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	//implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.1'
 	implementation 'org.springframework:spring-context-support'
 	implementation group: 'net.nurigo', name: 'javaSDK', version: '2.2'
 	
