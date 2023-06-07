@@ -58,11 +58,11 @@ public class BoardService {
 		
 
 		// 게시물의 수
-		int totalItemCount = boardList.size();
+		double totalItemCount = boardList.size();
 
 		for (Board board : boardList) {
-			int viewCount = board.getViewCount();
-			int heartCount = board.getHeartCount();
+			double viewCount = board.getViewCount();
+			double heartCount = board.getHeartCount();
 
 			// 평균값 계산
 			double average = (viewCount + heartCount) / totalItemCount;

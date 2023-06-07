@@ -75,7 +75,8 @@ $(document).ready(function() {
 	$(".btn--search").on("click", function() {
 		// 공항이 선택됬는지 확인
 		let selectedAirport = $("#id--selectAirport").val();
-		if (selectedAirport === "") {
+		console.log(selectedAirport);
+		if (selectedAirport == "" || selectedAirport == null) {
 			alert("공항을 선택해주세요.");
 			return;
 		}

@@ -46,7 +46,7 @@
 
 	<div class="choice--airport">
 		<div class="visual--banner">
-			취항지 공항의 카운터 위치 및 시설 정보, 공항서비스를<br> 확인하실 수 있습니다.
+			취항지 공항의 위치 및 시설 정보, 주변 시설 정보를<br> 확인하실 수 있습니다.
 		</div>
 	</div>
 
@@ -55,7 +55,7 @@
 			<div class="form-group col-sm-5">
 				<label for="selectContinent">지역</label> <select class="form-control"
 					name="selectContinent" id="id--selectContinent">
-					<option>공항을 선택해주세요</option>
+					<option value="">공항을 선택해주세요</option>
 					<option value="대한민국">대한민국</option>
 					<option value="동북아시아">동북아시아</option>
 					<option value="동남아시아/서남아시아">동남아시아/서남아시아</option>

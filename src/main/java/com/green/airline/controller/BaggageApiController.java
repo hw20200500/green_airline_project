@@ -24,7 +24,7 @@ public class BaggageApiController {
 	
 	@Autowired
 	private BaggageRequestService baggageRequestService;
-
+	
 	// 운송 제한 품목의 휴대 반입 액체류 안내
 	@GetMapping("/limitLiquids")
 	public CarryOnLiquids limitLiquids(@RequestParam String name) {
