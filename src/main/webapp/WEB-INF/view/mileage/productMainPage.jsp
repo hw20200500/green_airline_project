@@ -86,22 +86,39 @@
 	width: 200px;
 	height: 200px
 }
-#selectBoxId{
-background-color: rgb(243, 243, 243);
-	border: none;	
+
+#selectBoxId {
+	background-color: rgb(243, 243, 243);
+	border: none;
 }
-#searchProduct{
-background-color: rgb(243, 243, 243);
+
+#searchProduct {
+	background-color: rgb(243, 243, 243);
 	border: 1px solid #ccc;
 	margin: 5px 0px 5px 5px;
 }
-#searchButton{
-	height: 28px;
-	padding:3px;
+
+#searchButton {
+	height: 33px;
+	padding: 3px;
 	margin-bottom: 3px;
 	width: 80px;
+	    border-radius: 9px;
 }
 
+.form--div {
+	display: flex;
+	justify-content: space-between;
+}
+
+.registration {
+	 background-color: rgb(243, 243, 243);
+	 padding: 5px;
+	     border-radius: 9px;
+}
+.registration a{
+	padding: 10px;
+}
 </style>
 
 <main>
@@ -116,14 +133,24 @@ background-color: rgb(243, 243, 243);
 				<option value="DESC">마일리지순 높은 순</option>
 			</select>
 		</div>
-		<div>
+		<div class="form--div">
 			<form action="/product/productSearch" method="get">
 				<select title="상품 선택 검색" class="white gifticon-order" id="selectBoxId" name="searchOption">
 					<option value="brand">브랜드</option>
 					<option value="name">이름</option>
 				</select> <input type="text" name="searchProduct" id="searchProduct">
 				<button type="submit" id="searchButton" class=" btn btn-light">검색</button>
+				
 			</form>
+			<c:choose>
+				<c:when test="${\"관리자\".equals(principal.userRole)}">
+				<div class="registration">
+					<a href="/product/registration">등록 페이지</a>
+				</div>
+				</c:when>
+				
+			</c:choose>
+			
 		</div>
 
 
@@ -150,46 +177,28 @@ background-color: rgb(243, 243, 243);
 			</c:forEach>
 		</div>
 
-		<h2>
-			<a href="/product/registration">등록 페이지</a>
-		</h2>
-		<!--/* 페이지네이션 렌더링 영역 */-->
-		<%-- <div class="paging">
-			<a href="/product/productMain?curPage=1">&laquo;</a> <a href="/product/productMain?curPage=${paging.curPage-1 }">&lt;</a>
-			<c:forEach begin="${paging.firstPage }" end="${paging.lastPage }" var="i">
-				<a href="/product/productMain?curPage=${i }"> <c:if test="${i eq paging.curPage }">
-						<span style="color: red"> ${i } </span>
-					</c:if> <c:if test="${i ne paging.curPage }">  ${i } </c:if>
+
+		<div class="paging">
+			<c:set var="prevPage" value="${paging.curPage - 1}" />
+			<c:set var="nextPage" value="${paging.curPage + 1}" />
+			<c:choose>
+				<c:when test="${prevPage < 1}">
+					<c:set var="prevPage" value="1" />
+				</c:when>
+				<c:when test="${nextPage > paging.totalPageCount}">
+					<c:set var="nextPage" value="${paging.totalPageCount}" />
+				</c:when>
+			</c:choose>
+			<a href="/product/productMain/${searchOrder}?curPage=1">&laquo;</a> <a href="/product/productMain/${searchOrder}?curPage=${prevPage}">&lt;</a>
+			<c:forEach begin="${paging.firstPage}" end="${paging.lastPage}" var="i">
+				<a href="/product/productMain/${searchOrder}?curPage=${i}"> <c:if test="${i eq paging.curPage}">
+						<span style="color: red">${i}</span>
+					</c:if> <c:if test="${i ne paging.curPage}">${i}</c:if>
 				</a>
 			</c:forEach>
-			<a href="/product/productMain?curPage=${paging.curPage+1 }">&gt;</a> <a href="/product/productMain?curPage=${paging.totalPageCount }">&raquo;</a>
+			<a href="/product/productMain/DESC?curPage=${nextPage}">&gt;</a> <a href="/product/productMain/DESC?curPage=${paging.totalPageCount}">&raquo;</a>
+		</div>
 
-		</div> --%>
-<div class="paging">
-    <c:set var="prevPage" value="${paging.curPage - 1}" />
-    <c:set var="nextPage" value="${paging.curPage + 1}" />
-    <c:choose>
-        <c:when test="${prevPage < 1}">
-            <c:set var="prevPage" value="1" />
-        </c:when>
-        <c:when test="${nextPage > paging.totalPageCount}">
-            <c:set var="nextPage" value="${paging.totalPageCount}" />
-        </c:when>
-    </c:choose>
-    <a href="/product/productMain/${searchOrder}?curPage=1">&laquo;</a>
-    <a href="/product/productMain/${searchOrder}?curPage=${prevPage}">&lt;</a>
-    <c:forEach begin="${paging.firstPage}" end="${paging.lastPage}" var="i">
-        <a href="/product/productMain/${searchOrder}?curPage=${i}">
-            <c:if test="${i eq paging.curPage}">
-                <span style="color: red">${i}</span>
-            </c:if>
-            <c:if test="${i ne paging.curPage}">${i}</c:if>
-        </a>
-    </c:forEach>
-    <a href="/product/productSearch?curPage=${nextPage}&">&gt;</a>
-    <a href="/product/productSearch?curPage=${paging.totalPageCount}">&raquo;</a>
-</div>
- 
 
 		<div class="announcement">
 			<h3>이용안내</h3>
@@ -208,7 +217,7 @@ background-color: rgb(243, 243, 243);
 			</p>
 
 			<h5>■ 마일리지 사용몰 이용시 마일리지 비밀번호 설정</h5>
-			<p>- 마이아시아나 &gt; 회원정보 &gt; 마일리지 비밀번호 등록/변경 메뉴 이동</p>
+			<p>- 마이그린항공 &gt; 회원정보 &gt; 마일리지 비밀번호 등록/변경 메뉴 이동</p>
 
 			<h5>■ 일일기준 상품당 최대 5개로 구매수량 제한</h5>
 			<p>- 적용일 (2020년 4월 8일부)</p>
@@ -221,25 +230,35 @@ background-color: rgb(243, 243, 243);
 		<div class="asd">
 			<h6>마일리지는 '본인' 사용 원칙입니다.</h6>
 
-			* 아시아나 기내면세점 및 로고샵은 가족마일리지 합산 가능합니다.
+			* 그린항공 기내면세점 및 로고샵은 가족마일리지 합산 가능합니다.
 
 			<h6>마일리지 비밀번호 설정이 불가한 외국인 또는 해외거주 회원의 이용이 제한됩니다.</h6>
 
-			* 아시아나기내면세점은 마일리지 비밀번호 없이 구매 가능합니다.
+			* 그린항공기내면세점은 마일리지 비밀번호 없이 구매 가능합니다.
 		</div>
 	</div>
 </main>
 <script>
-$(document).ready(function(){
-		$("#searchButton").on("click",()=>{
-	let searchProduct = $("#searchProduct").val();
-	if(searchProduct == ' '||searchProduct == ''){
-		$('#searchButton').attr("type","button");
-	}else{
-		$('#searchButton').attr("type","submit");
-	}
-		});
+
+$("#searchButton").on("click", function() {
+    let search = $("#searchProduct").val().replaceAll(" ","");
+    if (search === "") {
+        alert("입력된 검색어가 없습니다.");
+        console.log("입력된 검색어가 없습니다.");
+        return false;			
+    }
 });
+
+$("#searchProduct").on("keyup", function(e) {
+    let search = $("#searchProduct").val().replaceAll(" ","");
+    if (e.keyCode === 13) {
+        if (search === "") {
+            e.preventDefault();
+        }
+    }
+});
+
+
      
 $(document).ready(function(){
     $(".gifticon-order").on("change", () => {
@@ -248,6 +267,7 @@ $(document).ready(function(){
          if (value === "ASC" || value === "DESC") {
             window.location.href = "/product/productMain/"+value;
         } 
+         
         // Ajax 요청 처리
        /*  $.ajax({
             type: "get",

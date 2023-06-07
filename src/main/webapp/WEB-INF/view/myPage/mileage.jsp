@@ -147,7 +147,7 @@ margin-bottom2px;
 					<td>${saveMileage.totalMileage}</td>
 					<td>${useMileage.useMileage}</td>
 					<td>${extinctionMileage.extinctionMileage}</td>
-					<td>${saveMileage.balance - useMileage.useMileage}</td>
+					<td>${saveMileage.totalMileage - useMileage.useMileage - extinctionMileage.extinctionMileage}</td>
 				</tr>
 
 			</tbody>
@@ -230,8 +230,13 @@ margin-bottom2px;
 </main>
 
 
+
+
 <script src="/js/mileage.js"></script>
 
 <input type="hidden" name="menuName" id="menuName" value="마일리지 조회">
 
+
+<script src="/js/mileage.js">
+</script>
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

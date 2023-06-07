@@ -14,7 +14,7 @@ form {
 	border: 1px solid #ccc;
 	padding: 50px;
 }
-input[type=text], input[type=file]{
+input[type=text], input[type=file],input[type=number]{
 	border: none;
 	border-bottom: 1px solid #ebebeb;
 	width: 600px;
@@ -23,7 +23,7 @@ input[type=text], input[type=file]{
 	position: relative;
 	margin-bottom: 8px;
 }
-input[type=text]:focus, input[type=file]:focus {
+input[type=text]:focus, input[type=file]:focus,input[type=number] {
 	border: none;
 	border-bottom: 1px solid #ebebeb;
 	width: 600px;
@@ -51,17 +51,23 @@ input[type=text]:focus, input[type=file]:focus {
 			<br>
 			<span >가격 :</span>
 			<br>
-			<input type="text" name="price" value="1234" placeholder="가격"> 
+			<input type="number" name="price" value="1234" placeholder="가격" min="1" maxlength="10" oninput="maxLengthCheck(this)"> 
 			<br>
 			<span >수량 :</span>
 			<br>
-			<input type="text" name="count"value="100" placeholder="수량">
-			<input type="file" class="form-control-file border" name="file"value="productImage">
-			<input type="file" class="form-control-file border" name="file2"value="gifticonImage">
+			<input type="number" name="count"value="100" placeholder="수량" min="1" maxlength="4" oninput="maxLengthCheck(this)">
+			<br>
+			<span >상품 이미지 :</span>
+			<br>
+			<input type="file" class="form-control-file border" name="file"value="productImage" placeholder="상품 이미지">
+			<span >기프티콘 이미지 :</span>
+			<br>
+			<input type="file" class="form-control-file border" name="file2"value="gifticonImage" placeholder="기프티콘 이미지">
 			<button type="submit" class="btn btn-right">제품 등록</button>
 		</form>
 	</main>
 
+</div>
 <!-- <script>
 
 // Add the following code if you want the name of the file appear on select
@@ -70,7 +76,13 @@ $(".custom-file-input").on("change", function() {
   $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
 });
 </script> -->
-
+<script type="text/javascript">
+function maxLengthCheck(object){
+    if (object.value.length > object.maxLength){
+      object.value = object.value.slice(0, object.maxLength);
+    }    
+  }
+</script>
 <input type="hidden" name="menuName" id="menuName" value="상품 등록">
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

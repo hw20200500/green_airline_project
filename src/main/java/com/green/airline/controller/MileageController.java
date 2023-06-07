@@ -43,6 +43,9 @@ public class MileageController {
 		UseMileageDto useMileage = mileageService.readUseMileage(memberId);
 		SaveMileageDto extinctionMileage = mileageService.readExtinctionMileage(memberId);
 		List<Mileage> mileages = mileageService.readMileageTbOrderByMileageDateByMemberId(memberId);
+		System.out.println("saveMileage" + saveMileage);
+		System.out.println("useMileage"+useMileage);
+		System.out.println("extinctionMileage"+extinctionMileage);
 		model.addAttribute("saveMileage", saveMileage);
 		model.addAttribute("useMileage", useMileage);
 		model.addAttribute("extinctionMileage", extinctionMileage);

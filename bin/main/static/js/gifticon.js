@@ -77,7 +77,18 @@ $("#gifticon--search")
 			let form = $("form").serialize();
 			let startTime = $("#sCalendar01").val();
 			let endTime = $("#sCalendar02").val();
+			
+			
 			let radio = $("input[name=chk]:checked").val();
+			if(startTime == ''){
+				alert("시작 날짜를 선택 해주세요");
+			}
+			if(endTime == ''){
+				alert("종료 날짜를 선택 해주세요");
+			}
+			if(radio == ''){
+				alert("내역을 선택 해주세요");
+			}
 			if (radio == 'buy') {
 				$("#gifticonList--tr--tbody").empty();
 				$("#gifticonList--tr--thead").empty();
@@ -145,7 +156,7 @@ $("#gifticon--search")
 									+ response[i].endDate
 									+ '</td>';
 								body += '<td>'
-									+ response[i].price
+									+ response[i].price* response[i].amount
 									+ '</td>';
 								body += '</tr>';
 								$("#gifticonList--tr--tbody")
@@ -164,7 +175,7 @@ $("#gifticon--search")
 									+ response[i].revokeDate
 									+ '</td>';
 								body += '<td>'
-									+ response[i].price
+									+ response[i].price * response[i].amount
 									+ '</td>';
 								body += '</tr>';
 								$("#gifticonList--tr--tbody")
@@ -173,7 +184,7 @@ $("#gifticon--search")
 
 						}
 					}).fail(function(error) {
-						alert("실패");
+						location.reload();
 					});
 		});
 function refundGifticon() {
@@ -205,3 +216,29 @@ function refundGifticon() {
 	// 폼을 제출하여 컨트롤러로 데이터 전송
 	$("form").submit();
 }
+
+$(function() {
+    $("#sCalendar01").datepicker({
+      dateFormat: "yy.mm.dd",
+      changeMonth: true,
+      changeYear: true
+      // 추가적인 옵션 설정
+    });
+
+    $("#sCalendar02").datepicker({
+      dateFormat: "yy.mm.dd",
+      changeMonth: true,
+      changeYear: true
+      // 추가적인 옵션 설정
+    });
+  });
+ $('.deleteBtn').on('click',function(){
+	let delConfirm = confirm('환불을 원하시면 확인을 눌러주세요.');
+	  if (delConfirm) {
+	     alert('환불되었습니다.');
+	  }
+	  else {
+	     alert('취소되었습니다.');
+	  }
+}) 
+  
