@@ -160,11 +160,11 @@ $(document).ready(function() {
 			savehead += '<th>' + '유효기간' + '</td>';
 			savehead += '</tr>';
 			$("#savemileageList--tr--thead").append(savehead);
-			let body = '';
-			body += '<tr>';
-			body += '<td colspan="3">' +'조회할 데이터가 없습니다.'+ '</td>';
-			body += '</tr>';
-			$("#savemileageList--tr--tbody").append(body);
+			let savebody = '';
+			savebody += '<tr>';
+			savebody += '<td colspan="3">' +'조회할 데이터가 없습니다.'+ '</td>';
+			savebody += '</tr>';
+			$("#savemileageList--tr--tbody").append(savebody);
 
 			var usehead = '';
 			usehead += '<tr>';
@@ -173,10 +173,11 @@ $(document).ready(function() {
 			usehead += '<th>' + '사용처' + '</td>';
 			usehead += '</tr>';
 			$("#usemileageList--tr--thead").append(usehead);
-			body += '<tr>';
-			body += '<td colspan="3">' +'조회할 데이터가 없습니다.'+ '</td>';
-			body += '</tr>';
-			$("#usemileageList--tr--tbody").append(body);
+			let usebody = '';
+			usebody += '<tr>';
+			usebody += '<td colspan="3">' +'조회할 데이터가 없습니다.'+ '</td>';
+			usebody += '</tr>';
+			$("#usemileageList--tr--tbody").append(usebody);
 
 			var expirationDatehead = '';
 			expirationDatehead += '<tr>';
@@ -184,10 +185,11 @@ $(document).ready(function() {
 			expirationDatehead += '<th>' + '소멸 일자' + '</td>';
 			expirationDatehead += '</tr>';
 			$("#expirationDatemileageList--tr--thead").append(expirationDatehead);
-			body += '<tr>';
-			body += '<td colspan="3">' +'조회할 데이터가 없습니다.'+ '</td>';
-			body += '</tr>';
-			$("#expirationDatemileageList--tr--tbody").append(body);
+			let expirationDatebody = '';
+			expirationDatebody += '<tr>';
+			expirationDatebody += '<td colspan="3">' +'조회할 데이터가 없습니다.'+ '</td>';
+			expirationDatebody += '</tr>';
+			$("#expirationDatemileageList--tr--tbody").append(expirationDatebody);
 			
 			let chk_arr = [];
 			$("input[type=checkbox]:checked").each(function() {
@@ -196,7 +198,6 @@ $(document).ready(function() {
 			});
 			
 				
-				console.log('isAllSearch')
 				if ($.inArray('isUpSearch', chk_arr) === -1) {
     $("#savemileageList--tr--thead").empty();
     console.log('savemileageList');
@@ -224,6 +225,9 @@ if ($.inArray('isExpireSearch', chk_arr) === -1) {
 				if (response[i].saveMileage !== null && response[i].saveMileage !== 0) {
 					if (chk_arr[0] == 'isUpSearch' || chk_arr[0] == 'isAllSearch') {
 						if (startDate1 < saveDate && saveDate < endDate1) {
+							    $("#savemileageList--tr--tbody").empty();
+   
+  
 							let body = '';
 							body += '<tr>';
 							body += '<td>' + addComma(response[i].saveMileage) + '</td>';
@@ -242,6 +246,7 @@ if ($.inArray('isExpireSearch', chk_arr) === -1) {
 					if (chk_arr[0] == 'isUseSearch' || chk_arr[0] == 'isAllSearch' || chk_arr[1] == 'isUseSearch') {
 						let body = '';
 						if (startDate1 < useDate1 && useDate1 < endDate1) {
+							 $("#usemileageList--tr--tbody").empty();
 							body += '<tr>';
 							body += '<td>' + addComma(response[i].useMileage) + '</td>';
 							body += '<td>' + (response[i].mileageDate).split('T')[0] + '</td>';
@@ -257,6 +262,7 @@ if ($.inArray('isExpireSearch', chk_arr) === -1) {
 				if (response[i].expirationDate != null) {
 					if (chk_arr[0] == 'isExpireSearch' || chk_arr[0] == 'isAllSearch' || chk_arr[1] == 'isExpireSearch' || chk_arr[2] == 'isExpireSearch') {
 						if (endDate >= expirationDate) {
+							  $("#expirationDatemileageList--tr--tbody").empty();
 							let body = '';
 							body += '<tr>';
 							body += '<td>' + addComma(response[i].saveMileage) + '</td>';

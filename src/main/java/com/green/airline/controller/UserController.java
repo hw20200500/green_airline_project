@@ -492,7 +492,6 @@ public class UserController {
 		Mileage mileage = mileageService.readExprirationBalanceByMemberId(memberId, ts);
 		Mileage mileage2 = mileageService.readSaveBalanceByMemberId(memberId, ts);
 		MemberInfoDto member = userService.readMemberById(memberId);
-		
 		GifticonDto gifticonCount = gifticonService.readGifticonCount(memberId);
 		BoardDto boardDto = boardService.readBoardCountByMemberId(memberId);
 		VocInfoDto infoDto =  vocService.readVocCountAndAnserCountByMemberId(memberId);

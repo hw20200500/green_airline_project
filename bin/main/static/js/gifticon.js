@@ -156,7 +156,7 @@ $("#gifticon--search")
 									+ response[i].endDate
 									+ '</td>';
 								body += '<td>'
-									+ response[i].price
+									+ response[i].price* response[i].amount
 									+ '</td>';
 								body += '</tr>';
 								$("#gifticonList--tr--tbody")
@@ -175,7 +175,7 @@ $("#gifticon--search")
 									+ response[i].revokeDate
 									+ '</td>';
 								body += '<td>'
-									+ response[i].price
+									+ response[i].price * response[i].amount
 									+ '</td>';
 								body += '</tr>';
 								$("#gifticonList--tr--tbody")

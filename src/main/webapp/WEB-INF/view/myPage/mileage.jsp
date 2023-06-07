@@ -150,7 +150,7 @@ margin-bottom2px;
 					<td>${saveMileage.totalMileage}</td>
 					<td>${useMileage.useMileage}</td>
 					<td>${extinctionMileage.extinctionMileage}</td>
-					<td>${saveMileage.balance - useMileage.useMileage}</td>
+					<td>${saveMileage.totalMileage - useMileage.useMileage - extinctionMileage.extinctionMileage}</td>
 				</tr>
 
 			</tbody>

@@ -255,7 +255,7 @@ width: 160px;
 								<dd>
 									<strong class="total--mileage">총 필요 마일리지</strong> <span class="num" id="spanPrice"><fmt:formatNumber value="${shopProduct.price}" pattern="#,###" /> </span> 마일
 									<!-- input hidden 으로 변경된 값 넣어서 xml에 보내기  useMileage -> productPrice로 변경-->
-									<input type="hidden" value="${shopProduct.price}" name="productPrice" id="productPrice">
+									<input type="text" value="${shopProduct.price}" name="productPrice" id="productPrice">
 
 								</dd>
 							</dl>
@@ -621,7 +621,10 @@ width: 160px;
 				let hiddenCount = document
 				.querySelector('input[name="hiddenCount"]');
 				
-				if(parseInt(myMileage) < parseInt(total*amount) || email == null|| exptext.test(email)==false){
+				if(parseInt(myMileage) < parseInt(total) || email == null|| exptext.test(email)==false){
+					console.log(myMileage)
+					console.log(total*amount)
+					
 					alert('마일리지가 부족 합니다');
 					 event.preventDefault();
 					 location.reload();
