@@ -77,7 +77,7 @@ p {
 		<div>
 			<h4>환승 수하물</h4>
 			<p>수하물 연결 수속은 경유지 공항 사정 및 연결편 항공사에 따라 제한될 수 있으니 유형에 맞게 확인하여 주세요.</p>
-			<img alt="" src="/images/baggage/transitBaggage1.png" style="width: 1200px; height: 450px;">
+			<img alt="" src="/images/baggage/transitBaggage1.png" style="width: 1180px; height: 450px;">
 		</div>
 		<div class="transitBaggage--national--wrap">
 			<h4>국제선 - 국제선 연결 시</h4>
