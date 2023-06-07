@@ -167,6 +167,8 @@ public class UserController {
 				return "redirect:/manager/dashboard";
 			}
 		}
+		
+		System.out.println(principal.getJoinAt());
 
 		if (principal.getStatus() == 1) {
 			throw new CustomRestfullException("탈퇴한 회원입니다.", HttpStatus.BAD_REQUEST);
