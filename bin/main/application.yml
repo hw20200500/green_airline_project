@@ -29,6 +29,7 @@ spring:
       suffix: .jsp # 확장자
   servlet:
     multipart:
+      resolve-lazily: 'true'
       max-file-size: 20MB #최대 20MB()
   datasource: # DB 설정 (MYSQL으로 마이그레이션하기) ***
     url: jdbc:mysql://localhost:3306/airline_db?serverTimezone=Asia/Seoul # bank2는 DB

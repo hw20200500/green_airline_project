@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
 <style>
 
@@ -115,10 +114,8 @@ margin-right: 15px;
 </style>
 <!-- 여기 안에 쓰기 -->
 <main>
-	<h2 class="page--title">마일리지샵 이용 내역</h2>
-	<hr>
-	<br>
 
+	<h1 class="title">기프티콘 구매/환불 리스트</h1>
 	<div class="container">
 		<form action="mileageList" method="get" id="form">
 			<div id="checkboxList"></div>
@@ -155,6 +152,7 @@ margin-right: 15px;
 								<button id="gifticon--search" type="button" class="btn btn-light">조회하기</button>
 						</div>
 					</div>
+					
 				</dd>
 			</dl>
 		</form>
@@ -177,6 +175,15 @@ margin-right: 15px;
 <script src="/js/gifticon.js">
 	
 </script>
+
+
+
+
+
+
+
+
+
 
 <input type="hidden" name="menuName" id="menuName" value="마일리지샵 이용 내역">
 

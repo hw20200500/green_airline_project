@@ -288,7 +288,7 @@ public class ProductController {
 		gifticonDto.setOrderId(productService.readShopOrder(principal.getId()).getId());
 		productService.createGifticon(gifticonDto);
 		
-		int totalPrice = shopProductDto.getProductPrice() * shopOrderDto.getAmount();
+		int totalPrice = shopProductDto.getProductPrice();
 		
 		
 		useMileageDto.setUseMileage(totalPrice);

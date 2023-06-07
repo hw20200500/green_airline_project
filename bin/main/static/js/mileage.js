@@ -1,5 +1,19 @@
 $(document).ready(function() {
+	$(function() {
+	    $("#sCalendar01").datepicker({
+	      dateFormat: "yy.mm.dd",
+	      changeMonth: true,
+	      changeYear: true
+	      // 추가적인 옵션 설정
+	    });
 
+	    $("#sCalendar02").datepicker({
+	      dateFormat: "yy.mm.dd",
+	      changeMonth: true,
+	      changeYear: true
+	      // 추가적인 옵션 설정
+	    });
+	  });
 
 	/* 체크박스 전체 선택시 전체 선택 */
 	$("#checkboxList #mileageType0").on("click", function() {
@@ -133,7 +147,6 @@ $(document).ready(function() {
 			traditional: true,
 
 		}).done(function(response) {
-			console.log(response);
 			$("#savemileageList--tr--thead").empty();
 			$("#savemileageList--tr--tbody").empty();
 			$("#usemileageList--tr--thead").empty();
@@ -147,6 +160,11 @@ $(document).ready(function() {
 			savehead += '<th>' + '유효기간' + '</td>';
 			savehead += '</tr>';
 			$("#savemileageList--tr--thead").append(savehead);
+			let savebody = '';
+			savebody += '<tr>';
+			savebody += '<td colspan="3">' +'조회할 데이터가 없습니다.'+ '</td>';
+			savebody += '</tr>';
+			$("#savemileageList--tr--tbody").append(savebody);
 
 			var usehead = '';
 			usehead += '<tr>';
@@ -155,6 +173,11 @@ $(document).ready(function() {
 			usehead += '<th>' + '사용처' + '</td>';
 			usehead += '</tr>';
 			$("#usemileageList--tr--thead").append(usehead);
+			let usebody = '';
+			usebody += '<tr>';
+			usebody += '<td colspan="3">' +'조회할 데이터가 없습니다.'+ '</td>';
+			usebody += '</tr>';
+			$("#usemileageList--tr--tbody").append(usebody);
 
 			var expirationDatehead = '';
 			expirationDatehead += '<tr>';
@@ -162,6 +185,11 @@ $(document).ready(function() {
 			expirationDatehead += '<th>' + '소멸 일자' + '</td>';
 			expirationDatehead += '</tr>';
 			$("#expirationDatemileageList--tr--thead").append(expirationDatehead);
+			let expirationDatebody = '';
+			expirationDatebody += '<tr>';
+			expirationDatebody += '<td colspan="3">' +'조회할 데이터가 없습니다.'+ '</td>';
+			expirationDatebody += '</tr>';
+			$("#expirationDatemileageList--tr--tbody").append(expirationDatebody);
 			
 			let chk_arr = [];
 			$("input[type=checkbox]:checked").each(function() {
@@ -170,33 +198,36 @@ $(document).ready(function() {
 			});
 			
 				
-				console.log('isAllSearch')
 				if ($.inArray('isUpSearch', chk_arr) === -1) {
     $("#savemileageList--tr--thead").empty();
     console.log('savemileageList');
 }
 if ($.inArray('isUseSearch', chk_arr) === -1) {
     $("#usemileageList--tr--thead").empty();
-    console.log('usemileageList');
 }
 if ($.inArray('isExpireSearch', chk_arr) === -1) {
     $("#expirationDatemileageList--tr--thead").empty();
-    console.log('expirationDatemileageList');
 }
 			
 				
 
 			for (i = 0; i < response.length; i++) {
 				function addComma(value) {
-				    return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-				}
+					if (value === null) {
+					    return ""; // null인 경우 빈 문자열("") 반환
+					  }
+					  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+				  }
 				let startDate1 = new Date($("#sCalendar01").val());
 				let endDate1 = new Date($("#sCalendar02").val());
 				let saveDate = new Date(response[i].mileageDate);
 				/* 적립 마일리지 조회 */
-				if (response[i].saveMileage != 0) {
+				if (response[i].saveMileage !== null && response[i].saveMileage !== 0) {
 					if (chk_arr[0] == 'isUpSearch' || chk_arr[0] == 'isAllSearch') {
 						if (startDate1 < saveDate && saveDate < endDate1) {
+							    $("#savemileageList--tr--tbody").empty();
+   
+  
 							let body = '';
 							body += '<tr>';
 							body += '<td>' + addComma(response[i].saveMileage) + '</td>';
@@ -210,10 +241,12 @@ if ($.inArray('isExpireSearch', chk_arr) === -1) {
 				/* 사용 마일리지 조회 */
 
 				let useDate1 = new Date(response[i].mileageDate);
-				if (response[i].useMileage != 0) {
+				if (response[i].useMileage !== null && response[i].useMileage !== 'null') {
+					console.log(response[i])
 					if (chk_arr[0] == 'isUseSearch' || chk_arr[0] == 'isAllSearch' || chk_arr[1] == 'isUseSearch') {
 						let body = '';
 						if (startDate1 < useDate1 && useDate1 < endDate1) {
+							 $("#usemileageList--tr--tbody").empty();
 							body += '<tr>';
 							body += '<td>' + addComma(response[i].useMileage) + '</td>';
 							body += '<td>' + (response[i].mileageDate).split('T')[0] + '</td>';
@@ -229,7 +262,7 @@ if ($.inArray('isExpireSearch', chk_arr) === -1) {
 				if (response[i].expirationDate != null) {
 					if (chk_arr[0] == 'isExpireSearch' || chk_arr[0] == 'isAllSearch' || chk_arr[1] == 'isExpireSearch' || chk_arr[2] == 'isExpireSearch') {
 						if (endDate >= expirationDate) {
-							console.log('asdasdasdasd')
+							  $("#expirationDatemileageList--tr--tbody").empty();
 							let body = '';
 							body += '<tr>';
 							body += '<td>' + addComma(response[i].saveMileage) + '</td>';
