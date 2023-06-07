@@ -45,4 +45,8 @@ public class Define {
 	// 마일리지 결제 시 마일리지 금액은 기존 금액의 0.02
 	public final static double MILES_TICKET_RATE = 0.005;
 	
+	// 서영 : 192.168.0.187
+	// 민정 : 192.168.0.126
+	public final static String IP_ADDRESS = "192.168.0.187";
+	
 }

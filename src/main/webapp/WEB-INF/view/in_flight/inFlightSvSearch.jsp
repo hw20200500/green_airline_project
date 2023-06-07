@@ -433,7 +433,7 @@ main {
 						</div>
 						<div class="modal--cancel--btn">
 							<button type="button" id="start--modal--btn" class="btn btn--primary" data-dismiss="modal">확인</button>
-							<button type="button" class="btn btn--danger" data-dismiss="modal">닫기</button>
+							<button type="button" class="btn btn--danger" data-dismiss="modal" style="background-color: gray" >닫기</button>
 						</div>
 					</div>
 				</div>
@@ -471,7 +471,7 @@ main {
 					<div class="modal-footer">
 						<div class="modal--cancel--btn">
 							<button type="button" id="start--modal--btn modal--start--btn" class="btn btn--primary" data-dismiss="modal" style="text-align: right;">확인</button>
-							<button type="button" class="btn btn--danger" data-dismiss="modal">닫기</button>
+							<button type="button" class="btn btn--danger" data-dismiss="modal" style="background-color: gray">닫기</button>
 						</div>
 					</div>
 				</div>
@@ -501,7 +501,7 @@ main {
 						</div>
 						<div class="modal--cancel--btn">
 							<button type="button" id="arrival--modal--btn" class="btn btn--primary" data-dismiss="modal">확인</button>
-							<button type="button" class="btn btn--danger" data-dismiss="modal">닫기</button>
+							<button type="button" class="btn btn--danger" style="background-color: gray" data-dismiss="modal">닫기</button>
 						</div>
 					</div>
 				</div>
@@ -539,7 +539,7 @@ main {
 					<div class="modal-footer">
 						<div class="modal--cancel--btn">
 							<button type="button" id="arrival--modal--btn" class="btn btn--primary" data-dismiss="modal" style="text-align: right;">확인</button>
-							<button type="button" class="btn btn--danger" data-dismiss="modal">닫기</button>
+							<button type="button" class="btn btn--danger" style="background-color: gray;" data-dismiss="modal">닫기</button>
 						</div>
 					</div>
 				</div>

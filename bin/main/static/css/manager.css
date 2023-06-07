@@ -64,7 +64,7 @@
 	margin-bottom: 0;
 }
 
-.filter--div input {
+.filter--div input, .filter--div select {
 	margin-right: 10px;
 	border-radius: 5px;
 	border-width: 1px;

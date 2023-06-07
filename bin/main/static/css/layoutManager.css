@@ -232,7 +232,7 @@ nav {
 
 .sub--menu--button, .menu--button {
 	background: none;
-	width: 220px;
+	width: 240px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -482,3 +482,4 @@ ul {
 	color: #464e57;
 	margin: 0 !important;
 }
+

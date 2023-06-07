@@ -1,3 +1,4 @@
+<%@page import="com.green.airline.utils.Define"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -137,7 +138,7 @@ input[type=text], input[type=password] {
 				<div class="login--idPwSearch--class">
 						<a href="/userIdSearch" style="font-size: 15px;">아이디/비밀번호 찾기 </a> 
 					<div>
-						<a href="https://kauth.kakao.com/oauth/authorize?client_id=91cf28839247e9924114aeb1a23b8852&redirect_uri=http://localhost:80/auth/kakao/callback&response_type=code">
+						<a href="https://kauth.kakao.com/oauth/authorize?client_id=9761c68538850881c74f5d9643d99c09&redirect_uri=http://${Define.IP_ADDRESS}/auth/kakao/callback&response_type=code">
 						<img alt="" src="/images/kakao_login_medium.png" style="margin-left: 70px;"> </a>
 					</div>
 					<div>

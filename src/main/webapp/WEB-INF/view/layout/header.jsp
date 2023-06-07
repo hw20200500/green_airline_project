@@ -122,6 +122,7 @@
 							<div class="nav--split"></div>
 							<ul>
 								<li><a href="/product/productMain/clasic">마일리지샵</a>
+								<li><a href="/gifticon/list">마일리지샵 이용 내역</a>
 								<li><a href="/memberGrade">회원 안내</a>
 							</ul>
 							<div class="nav--split"></div>
@@ -175,5 +176,9 @@
 				</div>
 			</div>
 		</c:if>
+
+<script>
+	let userRole = `${principal.userRole}`;
+</script>
 
 		<script src="/js/layout.js"></script>

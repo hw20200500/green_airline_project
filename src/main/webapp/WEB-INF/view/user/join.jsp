@@ -168,17 +168,15 @@ main {
 					<%-- validation에 걸려서 돌아왔을 때 --%>
 					<c:when test="${joinFormDto != null}">
 						<div class="join--id--class">
-							<div class="join--id--class2">
-								아이디 <br>
-								<div class="join--input--btn--class">
-									<div style="position: relative;">
-										<input type="text" name="id" id="member--id" value="${joinFormDto.id}" class="join--id--class" placeholder="7~20자">
-										<button type="button" id="exists--id" class="btn btn--primary" style="position: absolute; right: 5px; top: -14px; width: 90px; height: 38px;">중복 확인</button>
-										<div class="validation--check" style="font-size: 16px;">
-											<c:if test="${idValid != null}">
-											${idValid}
-											</c:if>
-										</div>
+							아이디
+							<div class="join--input--btn--class">
+								<div style="position: relative;">
+									<input type="text" name="id" id="member--id" value="${joinFormDto.id}" placeholder="7 ~ 20자">
+									<button type="button" id="exists--id" class="btn btn--primary" style="position: absolute; right: 5px; top: -14px; width: 90px; height: 38px;">중복 확인</button>
+									<div class="validation--check" style="font-size: 16px;">
+										<c:if test="${idValid != null}">
+										${idValid}
+										</c:if>
 									</div>
 								</div>
 							</div>
@@ -187,13 +185,11 @@ main {
 					<%-- 일반 회원가입 처리 --%>
 					<c:otherwise>
 						<div class="join--id--class">
-							<div class="join--id--class2">
-								아이디 <br>
-								<div class="join--input--btn--class">
-									<div style="position: relative;">
-										<input type="text" name="id" id="member--id" placeholder="7~20자" class="join--id--class">
-										<button type="button" class="btn btn--primary" id="exists--id" style="position: absolute; right: 5px; top: -14px; width: 90px; height: 38px;">중복 확인</button>
-									</div>
+							아이디
+							<div class="join--input--btn--class">
+								<div style="position: relative;">
+									<input type="text" name="id" id="member--id" placeholder="7 ~ 20자">
+									<button type="button" class="btn btn--primary" id="exists--id" style="position: absolute; right: 5px; top: -14px; width: 90px; height: 38px;">중복 확인</button>
 								</div>
 							</div>
 						</div>
@@ -208,10 +204,10 @@ main {
 							</div>
 							<div class="validation--check">
 								<c:if test="${passwordValid != null}">
-							${passwordValid}
-							</c:if>
+									${passwordValid}
+								</c:if>
 							</div>
-							<div>
+							<div style="margin-top: 20px">
 								비밀번호 확인 <br> <input type="password" required="required" id="password--check">
 							</div>
 						</div>
@@ -221,7 +217,7 @@ main {
 							<div>
 								비밀번호 <br> <input type="password" name="password" required="required" id="password" placeholder="7~20자">
 							</div>
-							<div>
+							<div style="margin-top: 20px">
 								비밀번호 확인 <br> <input type="password" required="required" id="password--check">
 							</div>
 						</div>
@@ -285,21 +281,21 @@ main {
 					<c:choose>
 						<c:when test="${joinFormDto != null}">
 							<div class="gender--wrap">
-								성별 <label> <input type="radio" name="gender" value="M" required="required" value="${joinFormDto.gender}" class="gender--input"> 남
-								</label> <label> <input type="radio" name="gender" value="F" required="required" value="${joinFormDto.gender}" class="gender--input"> 여
-								</label>
+								성별<br>
+								<label><input type="radio" name="gender" value="M" required="required" value="${joinFormDto.gender}" class="gender--input">&nbsp;남성</label>
+								<label><input type="radio" name="gender" value="F" required="required" value="${joinFormDto.gender}" class="gender--input">&nbsp;여성</label>
 								<div class="validation--check">
 									<c:if test="${genderValid != null}">
-							${genderValid}
-							</c:if>
+										${genderValid}
+									</c:if>
 								</div>
 							</div>
 						</c:when>
 						<c:otherwise>
 							<div class="gender--wrap">
-								성별 <label> <input type="radio" name="gender" value="M" required="required"> 남
-								</label> <label> <input type="radio" name="gender" value="F" required="required"> 여
-								</label>
+								성별<br>
+								<label><input type="radio" name="gender" value="M" required="required">&nbsp;남성</label>
+								<label><input type="radio" name="gender" value="F" required="required">&nbsp;여성</label>
 							</div>
 						</c:otherwise>
 					</c:choose>

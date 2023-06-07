@@ -76,22 +76,23 @@ main {
 }
 
 .my--detail {
-	padding: 10px 300px;
 	display: block;
 	display: flex;
+	justify-content: center;
 	flex-wrap: wrap;
 }
 
 .bottom--my--info {
-	padding: 20px 0 100px;
-	margin: 0 auto;
+	display: flex;
+	justify-content: center;
 	background-color: #f0f0f0;
-	height: 710px;
+	align-items: flex-start;
 }
 
 .my--detail--top {
+	margin-left: 20px;
+	width: 1180px;
 	padding: 20px 0 30px;
-	margin: 0 auto;
 	background-color: #f0f0f0;
 	display: flex;
 }
@@ -99,7 +100,7 @@ main {
 .my--detail--top a {
 	display: flex;
 	padding: 38px;
-	width: 290px;
+	width: 285px;
 	height: 163px;
 	background-color: white;
 	display: block;
@@ -123,7 +124,7 @@ main {
 
 #my--detail--gray {
 	display: inline-block;
-	width: 280px;
+	width: 283px;
 	height: 165px;
 	padding: 22px 0 0 24px;
 	margin-left: 20px;
@@ -138,15 +139,17 @@ main {
 
 .text--top {
 	background-color: white;
+	height: 378px;
 	padding: 35px 40px 20px 40px;
 }
 
 .my--detail--bottom {
+	margin-left: 20px;
+	margin-bottom: 20px;
+	width: 1180px;
 	display: flex;
-	float: left;
-	    width: 1183px;
-    height: 466px;
-	margin-left: 70px;
+	justify-content:space-between;
+	align-items: flex-start;
 }
 
 .my--detail--left {
@@ -192,8 +195,7 @@ main {
 
 .my--mileage--list {
 	background-color: white;
-	    width: 579px;
-    height: 460px;
+	width: 579px;
 	padding: 35px 39px 35px 37px;
 }
 
@@ -220,53 +222,39 @@ main {
 	color: white;
 }
 
-.add {
-	margin-left: 150px;
-}
-
-.mileageListTable th {
-	padding: 10px;
-	padding-left: 50px;
-}
-
-.mileageListTable td {
-	padding-left: 50px;
-}
-
 .balloon_03 {
 	position: relative;
 	margin: 44px 35px;
 	width: 400px;
-	height: 70px;
 	background: white;
 	border-radius: 10px;
 	border: 3px solid #ccc;
 }
 
 .balloon_03:after {
-	border-top: 30px solid #ccc;
+	border-top: 20px solid #ccc;
 	border-left: 0px solid transparent;
 	border-right: 15px solid transparent;
 	border-bottom: 0px solid transparent;
 	content: "";
 	position: absolute;
 	background-color: white;
-	top: 65px;
+	top: 57px;
 	left: 10px;
 }
 
 .bulloonText {
 	margin: 15px;
-	margin-left: 20px;
 }
 
 .trip--origin {
 	font-size: 30px;
+	color: #808080;
 	margin-left: 465px;
 	position: relative;
 	Transform: translateX(-200%);
 	Transform: translateY(-240%);
-	font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+	font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
 }
 
 .rankImg {
@@ -280,20 +268,20 @@ main {
 
 .progress {
 	height: 10px;
-	width: 430px;
-	margin-left: 50px;
+	width: 417px;
+	margin-left: 51px;
 }
 
 .imgText {
 	color: white;
 	position: relative;
-	margin-left: 12px;
-	margin-left: 15px;
+	margin-left: 16px;
+	margin-top: 1px;
 	Transform: translateY(-250%);
 }
 
 .help {
-	margin-top: 3px;
+	font-size: 19px;
 }
 .mileage--inquiry{
     height: 40px;
@@ -307,27 +295,9 @@ main {
 .mileage--inquiry a{
 	padding: 10px;
 }
-.mileageListTable {
-    border-collapse: collapse;
-    width: 100%;
-    height: 90%;
-  }
   
-  .mileageListTable th, .mileageListTable td {
-    padding: 8px;
-    text-align: center;
-  }
-  
-  .mileageListTable th {
-    background-color: #f2f2f2;
-  }
-  
-  .mileageListTable tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .mileageListTable tr:hover {
-    background-color: #f5f5f5;
+  .progress-bar {
+  	background-color: #7CB2D5;
   }
 </style>
 
@@ -391,11 +361,16 @@ main {
 				<div class="my--detail--top">
 					<a href="#"><span class="my--detail--tit">작성한 여행 일지</span> <br>
 						<span class="num">${boardDto.count}</span> 
-						<span class="material-symbols-outlined" id="edit--calendar">edit_calendar</span></a>
+						<span class="material-symbols-outlined" id="edit--calendar">edit_calendar</span>
+					</a>
+					<span style="margin: 0 5px;"></span>
 					<a href="#"><span> 답변/고객의 말씀</span> <br> <span class="num">${infoDto.answerCount}/${infoDto.vocCount}</span>
-						<span class="material-symbols-outlined" id="clinical--notes">clinical_notes</span></a>
+						<span class="material-symbols-outlined" id="clinical--notes">clinical_notes</span>
+					</a>
+					<span style="margin: 0 5px;"></span>
 					<a href="/gifticon/list"><span>구매한 기프티콘 조회</span> <br> <span class="num">${gifticonCount.count}</span>
-						<span class="material-symbols-outlined" id="barcode--scanner">shopping_cart_checkout</span></a>
+						<span class="material-symbols-outlined" id="barcode--scanner">shopping_cart_checkout</span>
+					</a>
 					<a href="/ticket/list/1" class="my--detail--gray"
 						id="my--detail--gray"><span>항공권 예약 현황</span> <br> 
 						<span class="material-symbols-outlined" id="airplane--ticket">airplane_ticket
@@ -404,13 +379,13 @@ main {
 				<div class="my--detail--bottom">
 					<div class="my--detail--left">
 						<div class="text--top">
-							누적 적립 마일리지를 <a href="#"><span class="material-symbols-outlined help"> help
+							누적 적립 마일리지 <a href="/memberGrade"><span class="material-symbols-outlined help"> help
 							</span></a> <br>
 							<c:choose>
 								<c:when test="${sumNowMileage.totalMileage < 100000}">
-									<span><fmt:formatNumber type="number"
+									<span class="important--span"><fmt:formatNumber type="number"
 											maxFractionDigits="3"
-											value="${100000 - sumNowMileage.totalMileage}" /></span>마일 적립 그린항공 <strong>Gold</strong>회원으로 승급됩니다.<br>
+											value="${100000 - sumNowMileage.totalMileage}" /></span> 마일 이상 적립 시 <strong>Gold</strong> 회원으로 승급됩니다.<br>
 											<div class="mileage--inquiry">
 									<a href="/mileage/selectAll" >마일리지 조회하러 가기</a>
 									</div>
@@ -429,15 +404,15 @@ main {
 											style="width: <fmt:formatNumber type="number" maxFractionDigits="0"  value="${sumNowMileage.totalMileage * 100 / 100000}"/>%"></div>
 									</div>
 									<img alt="" src="../images/rank.png" class="rankImg">
-									<span class="material-symbols-outlined trip--origin ">
-										trip_origin </span>
+									<span class="material-symbols-outlined trip--origin">
+										radio_button_checked</span>
 									<h1 class="imgText">S</h1>
 								</c:when>
 								<c:when
 									test="${sumNowMileage.totalMileage > 100000 && sumNowMileage.totalMileage < 500000}">
-										<span><fmt:formatNumber type="number"
+										<span class="important--span"><fmt:formatNumber type="number"
 											maxFractionDigits="3"
-											value="${500000 - sumNowMileage.totalMileage}" /></span>마일 적립 그린항공 <strong>Platinum</strong>회원으로 승급됩니다.<br>
+											value="${500000 - sumNowMileage.totalMileage}" /></span> 마일 이상 적립 시 <strong>Platinum</strong> 회원으로 승급됩니다.<br>
 									<a href="/mileage/selectAll">마일리지 조회</a>
 									<hr>
 									<div class="balloon_03">
@@ -451,18 +426,18 @@ main {
 									</div>
 									<div class="progress">
 										<div class="progress-bar"
-											style="width: <fmt:formatNumber type="number" maxFractionDigits="0"  value="${sumNowMileage.totalMileage * 100 / 500000}"/>%"></div>
+											style="width: <fmt:formatNumber type="number" maxFractionDigits="0"  value="${sumNowMileage.totalMileage * 100 / 500000}"/>%;"></div>
 									</div>
 									<img alt="" src="../images/rank.png" class="rankImg">
 									<span class="material-symbols-outlined trip--origin ">
-										trip_origin </span>
+										radio_button_checked</span>
 									<h1 class="imgText">G</h1>
 								</c:when>
 								<c:when
 									test="${sumNowMileage.totalMileage > 500000 && sumNowMileage.totalMileage < 1000000}">
-									<span><fmt:formatNumber type="number"
+									<span class="important--span"><fmt:formatNumber type="number"
 											maxFractionDigits="3"
-											value="${1000000 - sumNowMileage.totalMileage}" /></span>마일 적립 그린항공 <strong>Diamond</strong>회원으로 승급됩니다.<br>
+											value="${1000000 - sumNowMileage.totalMileage}" /></span> 마일 이상 적립 시 <strong>Diamond</strong> 회원으로 승급됩니다.<br>
 									<a href="/mileage/selectAll">마일리지 조회</a>
 									<hr>
 									<div class="balloon_03">
@@ -480,7 +455,7 @@ main {
 									</div>
 									<img alt="" src="../images/rank.png" class="rankImg">
 									<span class="material-symbols-outlined trip--origin ">
-										trip_origin </span>
+										radio_button_checked</span>
 									<h1 class="imgText">P</h1>
 								</c:when>
 							</c:choose>
@@ -490,12 +465,14 @@ main {
 					</div>
 					<div class="my--detail--right">
 						<div class="my--mileage--list">
-							<h3>
-								최근 마일리지 현황 <a href="/mileage/selectAll"><span
-									class="material-symbols-outlined add"> add </span></a>
+							<h3 class="d-flex justify-content-between align-items-end">
+								<span>최근 마일리지 현황</span>
+								<a href="/mileage/selectAll" class="d-flex align-items-end">
+									<span class="material-symbols-outlined add">add</span>
+								</a>
 							</h3>
-							<hr width="100%" color="#ccc" noshade />
-							<table class="mileageListTable">
+							<br>
+							<table class="mileageListTable list--table" border="1">
 								<tr>
 									<th>날짜</th>
 									<th>가격</th>
