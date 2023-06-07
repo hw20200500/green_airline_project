@@ -28,10 +28,8 @@ public class GifticonApiController {
 	public List<GifticonDto> gifticonList( Model model,@RequestParam String startTime,@RequestParam String endTime,@RequestParam String radio) {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		String memberId = principal.getId();
-		System.out.println(memberId);
 		List<GifticonDto> gifticonDtos = gifticonService.readGifticonListById(memberId,startTime,endTime,radio);
 		model.addAttribute("gifticonDtos",gifticonDtos);
-		System.out.println("gifticonDtos : " + gifticonDtos);
 		return gifticonDtos;
 	}
 	@GetMapping("/api/managerGifticonList")

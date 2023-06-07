@@ -28,10 +28,10 @@
 			<li><span class="material-symbols-outlined">add_business</span>
 			<li>상품 등록
 		</ul>
-		<ul class="service--ul" onclick="location.href='/manager/productBuyList'">
+<!-- 		<ul class="service--ul" onclick="location.href='/manager/productBuyList'">
 			<li><span class="material-symbols-outlined">shopping_cart</span>
 			<li>상품 판매 내역
-		</ul>
+		</ul> -->
 	</div>
 
 </main>
