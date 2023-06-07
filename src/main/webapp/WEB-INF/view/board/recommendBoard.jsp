@@ -31,7 +31,7 @@
 							<div class="td--board">
 								<div class="board--title">${board.title}</div>
 								<div>
-									<img src="/images/like/eye.png">&ensp;${board.numberFormat()}
+									<img src="/images/like/eye.png">&nbsp;${board.numberFormat()}
 								</div>
 							</div>
 						</div>
@@ -53,7 +53,7 @@
 								<div class="td--board">
 									<div class="board--title">${board.title}</div>
 									<div>
-										<img src="/images/like/eye.png">${board.numberFormat()}</div>
+										<img src="/images/like/eye.png">&nbsp;${board.numberFormat()}</div>
 								</div>
 							</div>
 						</c:forEach>

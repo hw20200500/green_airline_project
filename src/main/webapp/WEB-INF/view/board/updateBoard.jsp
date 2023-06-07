@@ -1,11 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/view/layout/header.jsp"%>
-<link
-	href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
-	rel="stylesheet">
-<script
-	src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 <style>
 .form--control {
 	width: 1110px;
@@ -26,22 +22,19 @@
 	<hr>
 	<br>
 
-	<form action="/board/update/${id}" method="post"
-		enctype="multipart/form-data">
+	<form action="/board/update/${id}" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="id" value="${id}">
 		<table class="table">
 			<tr>
-				<td><input class="form-control" id="title" type="text"
-					name="title" placeholder="제목"></td>
+				<td><input class="form-control" id="title" type="text" name="title" value="${boardDto.title}"></td>
 			</tr>
 		</table>
 		<div class="container">
 			<textarea class="summernote" id="summernote" name="content">${boardDto.content}</textarea>
 		</div>
 		<div class="custom-file">
-			<input type="file" class="custom-file-input" id="customFile"
-				accept=".jpg, .jpeg, .png" name="file"> <label
-				class="custom-file-label" for="customFile">썸네일용 이미지</label>
+			<input type="file" class="custom-file-input" id="customFile" accept=".jpg, .jpeg, .png" name="file"> 
+			<label class="custom-file-label" for="customFile">Thumbnail Image</label>
 		</div>
 		<div class="modal-footer">
 			<button type="submit" class="btn btn-primary">작성하기</button>
@@ -53,13 +46,22 @@
 	$(document).ready(function() {
 		$('#summernote').summernote({
 			height : 500,
+			tabsize : 2,
 			minHeight : null,
 			maxHeight : null,
 			focus : true,
 			lang : 'ko-KR'
 		});
 	});
-	
+
+	$(".custom-file-input").on(
+			"change",
+			function() {
+				var fileName = $(this).val().split("\\").pop();
+				$(this).siblings(".custom-file-label").addClass("selected")
+						.html(fileName);
+			});
+
 	// 뒤로가기 버튼
 	$(document).ready(function() {
 		$("#backPage").on("click", function() {
