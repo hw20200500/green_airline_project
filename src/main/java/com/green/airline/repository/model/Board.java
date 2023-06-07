@@ -40,7 +40,7 @@ public class Board {
 
 	// 썸네일 이미지 경로
 	public String thumbnailImage() {
-		return fileName == null ? "/images/board/noImage.png" : fileName;
+		return fileName == null ? "/images/board/default.png" : fileName;
 	}
 
 }
