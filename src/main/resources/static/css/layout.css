@@ -254,7 +254,7 @@ nav {
 
 .sub--menu--button, .menu--button {
 	background: none;
-	width: 230px;
+	width: 240px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -527,4 +527,48 @@ ul {
 .page--title--description {
 	margin-top: 8px;
 	color: #707070;	
+}
+
+.important--span {
+	font-weight: 600;
+	color: #4973b0;
+}
+
+.filter--div {
+	margin-bottom: 50px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.filter--div form {
+	display: flex;
+}
+
+.filter--div form div {
+	background-color: buttonshadow;
+	padding: 13px 13px 13px 10px;
+}
+
+.filter--div label {
+	margin-right: 5px;
+	margin-bottom: 0;
+}
+
+.filter--div input, .filter--div select {
+	margin-right: 10px;
+	border-radius: 5px;
+	border-width: 1px;
+	padding: 3px;
+	border: 1px solid #ccc;
+	outline: none;
+}
+
+.filter--div form button {
+	background-color: gray;
+	padding: 2px 6px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	height: 28px;
 }

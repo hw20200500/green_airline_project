@@ -95,11 +95,11 @@ public class PaymentController {
 		// 비과세 금액
 		params.add("tax_free_amount", "0");
 		// 성공 시 url
-		params.add("approval_url", "http://localhost/payment/success");
+		params.add("approval_url", "http://" + Define.IP_ADDRESS + "/payment/success"); // ip 고치기
 		// 취소 시 url
-		params.add("cancel_url", "http://localhost/payment/cancel");
+		params.add("cancel_url", "http://" + Define.IP_ADDRESS + "/payment/cancel");
 		// 실패 시 url
-		params.add("fail_url", "http://localhost/payment/fail");
+		params.add("fail_url", "http://" + Define.IP_ADDRESS + "/payment/fail");
 		
 		HttpEntity<MultiValueMap<String, String>> reqEntity = new HttpEntity<>(params, headers);
 		
@@ -110,10 +110,6 @@ public class PaymentController {
 		ticketDto.setTid(responseDto.getBody().getTid());
 		
 		String userId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
-		if(userId == null) {
-			// 수정 할 것
-			throw new CustomRestfullException("로그인 안됨", HttpStatus.BAD_REQUEST);
-		}
 		
 		// 예약 처리 (결제 성공 시 그대로 남고, 결제 실패/취소 시 삭제)
 		// 해당 유저의 가장 최근 예약 내역을 가져오면 예약 ID를 가져올 수 있음
@@ -137,6 +133,7 @@ public class PaymentController {
 	 */
 	@GetMapping("/success")
 	public String reserveTicketPage(@RequestParam String pg_token, Model model) {
+		System.out.println("로그인 여부" + (User) session.getAttribute(Define.PRINCIPAL));
 		
 		String userId = ((User) session.getAttribute(Define.PRINCIPAL)).getId();
 		MemberInfoDto member = userService.readMemberById(userId);

@@ -15,11 +15,15 @@
 <style>
 /* .product_card.soldout::before{content: '';display: block;position: absolute;width: 210px;height: 210px;border: 6px solid #a9a9a9;background-repeat: no-repeat;background-color: rgba(255,255,255,.7);z-index: 10;box-sizing: border-box;} */
 .product_card.soldout::before {
-	content: '';
+	content: '품절';
+	padding: 68px 65px;
+	font-size: 30px;
+	font-weight: 600;
+	color: gray;
 	display: block;
 	position: absolute;
-	width: 210px;
-	height: 210px;
+	width: 200px;
+	height: 200px;
 	border: 6px solid #a9a9a9;
 	background-repeat: no-repeat;
 	background-color: rgba(255, 255, 255, .7);
@@ -31,11 +35,13 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: flex-start;
+	width: 1180px;
+	padding-left: 20px;
 }
 
 .product_card {
-	width: 25%;
-	margin-bottom: 20px;
+	width: 230px;
+	margin: 0 30px;
 }
 
 .link-button {
@@ -47,11 +53,11 @@
 .announcement {
 	font-family: Arial, sans-serif;
 	line-height: 1.5;
-	color: #333;
+	color: #404040;
 	font-size: 15px;
-	background-color: #e6e2df;
-	padding: 10px;
-	margin-bottom: 30px;
+	background-color: #eee;
+	padding: 20px;
+	margin-top: 50px;
 }
 
 .announcement h5 {
@@ -60,64 +66,66 @@
 
 .announcement ul {
 	margin-bottom: 20px;
-}
-
-.announcement ul {
 	list-style-type: disc;
 	margin-left: 20px;
 }
-
-.asd {
-	background-color: #f7f7f7;
-}
-
-.paging {
-	display: flex;
-	justify-content: center;
-	margin-top: 20px;
-}
-
-.paging a {
-	margin: 0 5px;
-}
-
 
 .imgClass {
 	width: 200px;
 	height: 200px
 }
 
-#selectBoxId {
+.registration {
 	background-color: rgb(243, 243, 243);
-	border: none;
+	padding: 5px;
+	border-radius: 9px;
 }
 
-#searchProduct {
-	background-color: rgb(243, 243, 243);
-	border: 1px solid #ccc;
-	margin: 5px 0px 5px 5px;
+.registration a {
+	padding: 10px;
 }
 
-#searchButton {
-	height: 33px;
-	padding: 3px;
-	margin-bottom: 3px;
-	width: 80px;
-	    border-radius: 9px;
-}
-
-.form--div {
+.filter--div {
+	margin-bottom: 50px;
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 }
 
-.registration {
-	 background-color: rgb(243, 243, 243);
-	 padding: 5px;
-	     border-radius: 9px;
+.filter--div form {
+	display: flex;
+	align-items: center;
 }
-.registration a{
-	padding: 10px;
+
+.filter--div>div:first-of-type {
+	background-color: buttonshadow;
+	padding: 13px 13px 13px 10px;
+}
+
+.filter--div input, .filter--div select {
+	margin-right: 10px;
+	border-radius: 5px;
+	border-width: 1px;
+	padding: 3px;
+	border: 1px solid #ccc;
+	outline: none;
+}
+
+.filter--div form button {
+	background-color: gray;
+	padding: 2px 6px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	height: 28px;
+}
+
+.prd_info {
+	margin-top: 10px;
+}
+
+.product_card:first-of-type {
+	margin-bottom: 40px;
 }
 </style>
 
@@ -125,45 +133,46 @@
 	<h2 class="page--title">마일리지샵</h2>
 	<hr>
 	<br>
-	<div class="container">
-		<div class="sort_area">
-			<select title="상품 정렬 순서" class="white gifticon-order" id="selectBoxId">
-				<option value="basic">옵션 선택</option>
-				<option value="ASC">마일리지순 낮은 순</option>
-				<option value="DESC">마일리지순 높은 순</option>
-			</select>
+	<div class="filter--div">
+		<div>
+			<div class="form--div">
+				<form action="/product/productSearch" method="get">
+					<select title="상품 선택 검색" class="white" id="searchOption" name="searchOption">
+						<option value="brand">브랜드</option>
+						<option value="name">이름</option>
+					</select> <input type="text" name="searchProduct" id="searchProduct">
+					<!-- 검색 버튼 -->
+					<button type="submit" id="searchButton">
+						<ul class="d-flex justify-content-center" style="margin: 0;">
+							<li style="height: 24px; margin-right: 2px;">조회
+							<li style="height: 24px;"><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 18px; padding-top: 4px;">search</span></li>
+						</ul>
+					</button>
+				</form>
+			</div>
 		</div>
-		<div class="form--div">
-			<form action="/product/productSearch" method="get">
-				<select title="상품 선택 검색" class="white gifticon-order" id="selectBoxId" name="searchOption">
-					<option value="brand">브랜드</option>
-					<option value="name">이름</option>
-				</select> <input type="text" name="searchProduct" id="searchProduct">
-				<button type="submit" id="searchButton" class=" btn btn-light">검색</button>
-				
-			</form>
-			<c:choose>
-				<c:when test="${\"관리자\".equals(principal.userRole)}">
-				<div class="registration">
-					<a href="/product/registration">등록 페이지</a>
-				</div>
-				</c:when>
-				
-			</c:choose>
-			
+		<div>
+			<div class="sort_area">
+				<select title="상품 정렬 순서" class="white gifticon-order" id="selectBoxId">
+					<option value="basic">옵션 선택</option>
+					<option value="ASC">마일리지순 낮은 순</option>
+					<option value="DESC">마일리지순 높은 순</option>
+				</select>
+			</div>
 		</div>
-
-
+	</div>
+	
+	<div>
 		<!-- 상품 메인 페이지 -->
 		<div class="product--empty">
 			<c:forEach var="productList" items="${productList}">
 				<div class="product_card" id="product">
 					<div class="prd_img">
-						<a href="/product/productdetail/${productList.id}" class="aTagImage"><img class="imgClass" alt="prd_img" src="/uploadImage/${productList.productImage}"></a>
+						<a href="/product/productdetail/${productList.id}" class="aTagImage"><img class="imgClass" alt="prd_img" src="${productList.productImage}"></a>
 					</div>
 					<dl class="prd_info">
-						<dt>
-							<p class="tit">[${productList.brand}]${productList.name}</p>
+						<dt style="margin-bottom: 5px;">
+							[${productList.brand}]&nbsp;${productList.name}
 						</dt>
 						<dd>
 							<div class="price">
@@ -177,64 +186,43 @@
 			</c:forEach>
 		</div>
 
-
-		<div class="paging">
-			<c:set var="prevPage" value="${paging.curPage - 1}" />
-			<c:set var="nextPage" value="${paging.curPage + 1}" />
-			<c:choose>
-				<c:when test="${prevPage < 1}">
-					<c:set var="prevPage" value="1" />
-				</c:when>
-				<c:when test="${nextPage > paging.totalPageCount}">
-					<c:set var="nextPage" value="${paging.totalPageCount}" />
-				</c:when>
-			</c:choose>
-			<a href="/product/productMain/${searchOrder}?curPage=1">&laquo;</a> <a href="/product/productMain/${searchOrder}?curPage=${prevPage}">&lt;</a>
+		<ul class="page--list">
 			<c:forEach begin="${paging.firstPage}" end="${paging.lastPage}" var="i">
-				<a href="/product/productMain/${searchOrder}?curPage=${i}"> <c:if test="${i eq paging.curPage}">
-						<span style="color: red">${i}</span>
-					</c:if> <c:if test="${i ne paging.curPage}">${i}</c:if>
-				</a>
+				<li>
+					<a href="/product/productMain/${searchOrder}?curPage=${i}">
+					<c:if test="${i eq paging.curPage}">
+						<span style="font-weight: 700; color: #007bff">${i}</span>
+					</c:if>
+					<c:if test="${i ne paging.curPage}">${i}</c:if>
+					</a>
+				</li>
 			</c:forEach>
-			<a href="/product/productMain/DESC?curPage=${nextPage}">&gt;</a> <a href="/product/productMain/DESC?curPage=${paging.totalPageCount}">&raquo;</a>
-		</div>
-
+		</ul>
+		
+		<c:if test="${\"관리자\".equals(principal.userRole)}">
+			<div style="width: 100%; text-align: right">
+				<button type="button" class="blue--btn--small" onclick="location.href='/product/registration'">
+					<ul class="d-flex justify-content-center" style="margin: 0;">
+						<li style="margin-right: 4px;">상품 등록
+						<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">add</span>
+					</ul>
+				</button>
+			</div>
+		</c:if>
 
 		<div class="announcement">
 			<h3>이용안내</h3>
-			<h5>■ 상품연장 및 환불</h5>
+			<h5>■ 상품 연장 및 환불</h5>
 			<ul>
-				<li>유효기간 만료 전 : 마일리지 사용몰 &gt; 구매내역 &gt; 주문상세</li>
+				<li>유효기간 만료 전 : 마일리지 사용몰 &gt; 구매내역</li>
 				<li>유효기간 만료 후 : 연장 불가, 환불 가능</li>
-				<ul>
-					<li>단 환불 시 유효기간이 지난 마일리지는 자동소멸되오니 유의 부탁 드립니다.</li>
-				</ul>
+				<li>단 환불 시 유효기간이 지난 마일리지는 자동 소멸되오니 유의 해주시기 바랍니다.</li>
 			</ul>
 
-			<h5>■ 쿠폰 수신내역 조회 및 재발송</h5>
-			<p>
-				<a href="http://gishow.kr/voc" class="link-button">쿠폰 수신내역 조회 및 재발송</a>
-			</p>
+			<h5>■ 판매 상품은 준비된 수량의 소진 속도에 따라 판매 기한 내에 조기 매진될 수 있습니다.</h5>
+			
+			<h5>■ 마일리지는 '본인' 사용 원칙입니다.</h5>
 
-			<h5>■ 마일리지 사용몰 이용시 마일리지 비밀번호 설정</h5>
-			<p>- 마이그린항공 &gt; 회원정보 &gt; 마일리지 비밀번호 등록/변경 메뉴 이동</p>
-
-			<h5>■ 일일기준 상품당 최대 5개로 구매수량 제한</h5>
-			<p>- 적용일 (2020년 4월 8일부)</p>
-
-			<h5>■ 판매 예정상품은 차주 월요일 오전 9시부터 판매 시작</h5>
-
-			<h5>■ 판매 상품은 준비된 수량의 소진 속도에 따라 판매기한 내에 조기 매진될 수 있습니다.</h5>
-		</div>
-
-		<div class="asd">
-			<h6>마일리지는 '본인' 사용 원칙입니다.</h6>
-
-			* 그린항공 기내면세점 및 로고샵은 가족마일리지 합산 가능합니다.
-
-			<h6>마일리지 비밀번호 설정이 불가한 외국인 또는 해외거주 회원의 이용이 제한됩니다.</h6>
-
-			* 그린항공기내면세점은 마일리지 비밀번호 없이 구매 가능합니다.
 		</div>
 	</div>
 </main>
@@ -242,8 +230,8 @@
 
 $("#searchButton").on("click", function() {
     let search = $("#searchProduct").val().replaceAll(" ","");
-    if (search === "") {
-        alert("입력된 검색어가 없습니다.");
+    console.log(search);
+    if (search == "") {
         console.log("입력된 검색어가 없습니다.");
         return false;			
     }
@@ -251,85 +239,31 @@ $("#searchButton").on("click", function() {
 
 $("#searchProduct").on("keyup", function(e) {
     let search = $("#searchProduct").val().replaceAll(" ","");
-    if (e.keyCode === 13) {
-        if (search === "") {
+	console.log(search);
+    if (e.keyCode == "13") {
+        if (search == "") {
             e.preventDefault();
         }
     }
 });
 
-
-     
 $(document).ready(function(){
+        console.log(`${searchOrder}`);
+        
+		if ("ASC" == `${searchOrder}`) {
+			$("#selectBoxId option").eq(1).prop("selected", "true");
+		} else if ("DESC" == `${searchOrder}`) {
+			$("#selectBoxId option").eq(2).val("DESC").prop("selected", "true");
+		}
+		
     $(".gifticon-order").on("change", () => {
         let selectBox = document.getElementById("selectBoxId");
         let value = selectBox.options[selectBox.selectedIndex].value;
          if (value === "ASC" || value === "DESC") {
-            window.location.href = "/product/productMain/"+value;
+            location.href = "/product/productMain/"+value;
         } 
          
-        // Ajax 요청 처리
-       /*  $.ajax({
-            type: "get",
-            url: "/product/list/"+value,
-            contentType: "application/json",
-        }).done(function(response){
-            
-            for(i = 0; i < response.length; i++){
-                if (response[i].count != '0') {
-                    $(".product_card").eq(i).removeClass("soldout");
-                } else {
-                    $(".product_card").eq(i).addClass("soldout");
-                }
-                let price = response[i].price;
-                let priceReplace = price.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-                $(".tit").eq(i).text("["+response[i].brand+"]"+response[i].name);
-                $(".num").eq(i).text(priceReplace);
-                $(".count").eq(i).val(response[i].count);
-                $(".aTagImage").eq(i).prop('href',"productdetail/"+response[i].id);
-                $(".imgClass").eq(i).prop('src',"/product/"+response[i].productImage);
-            } 
-            var pagingDiv = $(".paging");
-            var curPage = ${paging.curPage};
-            var firstPage = ${paging.firstPage};
-            var lastPage = ${paging.lastPage};
-            var totalPageCount = ${paging.totalPageCount};
 
-            // 이전 페이지 링크
-            var prevPageLink = $("<a></a>")
-              .attr("href", "/product/productMain?curPage=" + (curPage - 1))
-              .html("&lt;");
-            pagingDiv.append(prevPageLink);
-
-            // 페이지 번호 링크
-            for (var i = firstPage; i <= lastPage; i++) {
-              var pageLink;
-              if (i === curPage) {
-                pageLink = $("<span></span>")
-                  .text(i)
-                  .css("color", "red");
-              } else {
-                pageLink = $("<a></a>")
-                  .attr("href", "/product/list?curPage=" + i)
-                  .text(i);
-              }
-              pagingDiv.append(pageLink);
-            }
-
-            // 다음 페이지 링크
-            var nextPageLink = $("<a></a>")
-              .attr("href", "/product/productMain?curPage=" + (curPage + 1))
-              .html("&gt;ㅁㅁㅁ");
-            pagingDiv.append(nextPageLink);
-
-            // 마지막 페이지 링크
-            var lastPageLink = $("<a></a>")
-              .attr("href", "/product/productMain?curPage=" + totalPageCount)
-              .html("&raquo;");
-            pagingDiv.append(lastPageLink);
-        }).fail(function(error){
-            alert("서버오류");
-        }); */
     });
     
     let count = document.getElementsByClassName('count');

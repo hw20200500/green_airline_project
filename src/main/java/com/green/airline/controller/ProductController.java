@@ -143,8 +143,8 @@ public class ProductController {
 				file2.transferTo(destination2);
 
 				// 객체 상태 변경(dto)
-				shopProduct.setOriginFileName(fileName);
-				shopProduct.setOriginFileName2(fileName2);
+				shopProduct.setOriginFileName("/uploadImage/" + fileName);
+				shopProduct.setOriginFileName2("/uploadImage/" + fileName2);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

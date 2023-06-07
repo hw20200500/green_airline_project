@@ -276,7 +276,9 @@ $("#selectSeatBtn").on("click", function() {
 	if (type == 2) {
 		
 		let sch1Id = $("input[name=\"schedule1\"]:checked").val().split("_")[1];
+		console.log(sch1Id);
 		let sch2Id = $("input[name=\"schedule2\"]:checked").val().split("_")[1];
+		console.log(sch2Id);
 		
 		let data = {
 			scheduleId1: sch1Id,

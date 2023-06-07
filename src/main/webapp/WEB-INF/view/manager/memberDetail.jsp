@@ -90,7 +90,7 @@
 					<li>회원 목록
 				</ul>
 			</button>
-			<c:if test="${member.status == 0 && member.userRole.equals(\"소셜회원\") == false}">
+			<c:if test="${member.status == 0}">
 				<button type="button" class="blue--btn--small" id="withdrawBtn" style="padding-left: 9px; background-color: #911614; margin: 0 20px">
 					<ul class="d-flex justify-content-center" style="margin: 0;">
 						<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px; margin-right: 5px;">close</span>

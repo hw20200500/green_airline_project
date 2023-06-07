@@ -10,28 +10,27 @@
 	</c:otherwise>
 </c:choose>
 <style>
-form {
-	border: 1px solid #ccc;
-	padding: 50px;
-}
-input[type=text], input[type=file],input[type=number]{
+
+input[type="text"], input[type="file"], input[type="number"] {
 	border: none;
-	border-bottom: 1px solid #ebebeb;
-	width: 600px;
-	background: #f8f9fc;
-	padding: 10px;
-	position: relative;
-	margin-bottom: 8px;
-}
-input[type=text]:focus, input[type=file]:focus,input[type=number] {
-	border: none;
-	border-bottom: 1px solid #ebebeb;
-	width: 600px;
-	background: #f8f9fc;
 	outline: none;
+	padding: 3px 5px;
+	border-radius: 5px;
+	width: 100%;
 }
+
 .btn-right{
 	width: 150px;
+}
+
+.list--table--reverse th {
+	width: 30%;
+}
+
+.list--table--reverse td {
+	width: 70%;
+	padding: 0 10px;
+	height: 45px;
 }
 </style>
 
@@ -41,33 +40,51 @@ input[type=text]:focus, input[type=file]:focus,input[type=number] {
 		<br>
 	
 		<form action="/product/insert" method="post" enctype="multipart/form-data">
-			<span >브랜드 이름 :</span>
-			<br>
-			<input type="text" name="brand" id="brand" value="brand" placeholder="브랜드 이름"> 
-			<br>
-			<span >제품 이름 :</span>
-			<br>
-			<input type="text" name="name" id="name" value="name" placeholder="상품 이름"> 
-			<br>
-			<span >가격 :</span>
-			<br>
-			<input type="number" name="price" value="1234" placeholder="가격" min="1" maxlength="10" oninput="maxLengthCheck(this)"> 
-			<br>
-			<span >수량 :</span>
-			<br>
-			<input type="number" name="count"value="100" placeholder="수량" min="1" maxlength="4" oninput="maxLengthCheck(this)">
-			<br>
-			<span >상품 이미지 :</span>
-			<br>
-			<input type="file" class="form-control-file border" name="file"value="productImage" placeholder="상품 이미지">
-			<span >기프티콘 이미지 :</span>
-			<br>
-			<input type="file" class="form-control-file border" name="file2"value="gifticonImage" placeholder="기프티콘 이미지">
-			<button type="submit" class="btn btn-right">제품 등록</button>
+			<div class="d-flex flex-column align-items-center">
+				<table class="list--table--reverse" border="1" style="width: 800px;">
+					<tr>
+						<th>브랜드명</th>
+						<td><input type="text" name="brand" id="brand"> </td>
+					</tr>
+					<tr>
+						<th>상품명</th>
+						<td><input type="text" name="name" id="name"></td>
+					</tr>
+					<tr>
+						<th>가격</th>
+						<td><input type="number" name="price" min="1" maxlength="10" oninput="maxLengthCheck(this)"></td>
+					</tr>
+					<tr>
+						<th>수량</th>
+						<td><input type="number" name="count" min="1" maxlength="4" oninput="maxLengthCheck(this)"></td>
+					</tr>
+					<tr>
+						<th>상품 이미지</th>
+						<td><input type="file" class="form-control-file" name="file"></td>
+					</tr>
+					<tr>
+						<th>기프티콘 이미지</th>
+						<td><input type="file" class="form-control-file" name="file2"></td>
+					</tr>
+				</table>
+				<div style="margin-top: 40px" class="d-flex align-items-end">
+					<button type="button" class="blue--btn--small" style="padding-left: 9px; background-color: gray; margin: 0 20px" onclick="location.href='/product/productMain/clasic'">
+						<ul class="d-flex justify-content-center" style="margin: 0;">
+							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px; margin-right: 5px;">keyboard_backspace</span>
+							<li>취소
+						</ul>
+					</button>
+					<button type="submit" class="blue--btn--small" id="regBtn">
+						<ul class="d-flex justify-content-center" style="margin: 0;">
+							<li style="margin-right: 4px;">입력 완료
+							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">done</span>
+						</ul>
+					</button>
+				</div>
+			</div>
 		</form>
 	</main>
 
-</div>
 <!-- <script>
 
 // Add the following code if you want the name of the file appear on select

@@ -122,8 +122,8 @@ main {
 }
 	
 #salesChart {
-	width: 620px;
-	height: 230px;
+	width: 620px !important;
+	height: 230px !important;
 	margin-left: -9px;
 }
 
@@ -137,13 +137,13 @@ main {
 #routeChart {
 	margin-left: -10px;
 	margin-top: 25px;
-	width: 320px;
-	height: 185px;
+	width: 320px !important;
+	height: 185px !important;
 }
 
 #brandChart {
 	margin-left: -5px;
 	margin-top: 30px;
-	width: 300px;
-	height: 180px;
+	width: 300px !important;
+	height: 180px !important;
 }

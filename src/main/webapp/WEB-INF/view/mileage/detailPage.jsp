@@ -183,7 +183,7 @@ width: 160px;
 		<div class="prd_detail mar_to50">
 			<!-- 상품 정보영역 -->
 			<div class="prd_info">
-				<img alt="" class="productImg" src="/uploadImage/${shopProduct.productImage}">
+				<img alt="" class="productImg" src="${shopProduct.productImage}">
 				<div class="left--container">
 					<h1 class="title">[${shopProduct.brand}] ${shopProduct.name}</h1>
 					<hr>

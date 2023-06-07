@@ -282,7 +282,6 @@ input[type=text]:focus, input[type=password]:focus {
 
 	<script src="/js/userUpdate.js"></script>
 </main>
-
 <input type="hidden" name="menuName" id="menuName" value="회원정보 변경">
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

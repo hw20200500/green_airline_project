@@ -179,9 +179,14 @@
 					if (res.data[i].subMenu == res.data[i].mainMenu) {
 						btn.text("메인");
 						$("#currentSubMenu").text("메인");
-					} else {	
-						btn.text(res.data[i].subMenu);
-						$("#currentSubMenu").text(res.data[i].subMenu);
+					} else {
+						// 소셜회원은 회원정보 변경, 비밀번호 변경 메뉴 뜨지 않게 설정
+						if (userRole == '소셜회원' && (res.data[i].subMenu == '회원정보 변경' || res.data[i].subMenu == '비밀번호 변경')) {
+							continue;
+						} else {					
+							btn.text(res.data[i].subMenu);
+							$("#currentSubMenu").text(res.data[i].subMenu);
+						}
 					}
 					li.append(btn);
 					$("#dropMenu2").append(li);
