@@ -172,6 +172,9 @@ public class PaymentController {
 		
 		model.addAttribute("ticketList", ticketList);
 		
+		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		System.out.println(principal.getId());
+		System.out.println();
 		return "/ticket/paymentSuccess";
 	}
 	
