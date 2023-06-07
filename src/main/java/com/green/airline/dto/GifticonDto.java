@@ -1,6 +1,7 @@
 package com.green.airline.dto;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 import lombok.Data;
 
@@ -8,7 +9,7 @@ import lombok.Data;
 public class GifticonDto {
 
 	private Date startDate;
-	private Date endDate;
+	private Timestamp endDate;
 	private int orderId;
 	private int amount;
 	private String brand;

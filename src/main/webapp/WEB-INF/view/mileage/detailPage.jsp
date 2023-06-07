@@ -173,6 +173,9 @@ width: 160px;
     margin-right: 20px;
         height: 50px;
 }
+#productPrice{
+	border: none;
+}
 </style>
 
 
@@ -257,7 +260,7 @@ width: 160px;
 								<dd>
 									<strong class="total--mileage">총 필요 마일리지</strong> <span class="num" id="spanPrice"><fmt:formatNumber value="${shopProduct.price}" pattern="#,###" /> </span> 마일
 									<!-- input hidden 으로 변경된 값 넣어서 xml에 보내기  useMileage -> productPrice로 변경-->
-									<input type="text" value="${shopProduct.price}" name="productPrice" id="productPrice">
+									<input type="text" value="${shopProduct.price}" name="productPrice" id="productPrice" readonly="readonly">
 
 								</dd>
 							</dl>
@@ -269,7 +272,7 @@ width: 160px;
 								<c:choose>
 									<c:when test="${principal != null}">
 										<div id="inputEmail">
-											<input type="text" name="email" placeholder="이메일을 입력 해주세요" class="email"> <input type="hidden" name="gifticonImageName" value="${shopProduct.gifticonImage}">
+											<input type="text" name="email" placeholder="이메일을 입력 해주세요"id = "inputEmail" class="email"> <input type="hidden" name="gifticonImageName" value="${shopProduct.gifticonImage}">
 										</div>
 
 										<br>
@@ -604,12 +607,16 @@ width: 160px;
 				let hiddenCount = document.querySelector('input[name="hiddenCount"]');
 				
 
-				if(parseInt(myMileage) < parseInt(total) || email == null|| exptext.test(email)==false){
+				if(parseInt(myMileage) < parseInt(total)){
 					console.log(myMileage)
 					console.log(total*amount)
 					
 					alert('마일리지가 부족 합니다');
 					 event.preventDefault();
+					 location.reload();
+				}else if(email == null|| exptext.test(email)==false){
+					alert("이메일형식이 올바르지 않습니다.");
+					event.preventDefault();
 					 location.reload();
 				}
 				/* if(email == null){

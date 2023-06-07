@@ -218,7 +218,7 @@ main {
 	margin: 5px;
 }
 
-.add--circle {
+#add--circle {
 	color: white;
 }
 
@@ -324,7 +324,7 @@ main {
 						<c:when test="${mileage.balanceNumber() != null}">
 							<p>
 								소멸 예정 마일리지 <a href="/mileage/selectAll"><span
-									class="material-symbols-outlined add--circle">add_circle</span></a>
+									class="material-symbols-outlined" id="add--circle">add_circle</span></a>
 							</p>
 							<p>${mileage.balanceNumber()}</p>
 						</c:when>
@@ -475,8 +475,8 @@ main {
 							<table class="mileageListTable list--table" border="1">
 								<tr>
 									<th>날짜</th>
-									<th>가격</th>
-									<th>사용처</th>
+									<th>마일리지</th>
+									<th>비고</th>
 								</tr>
 								<c:forEach items="${mileages}" var="mileages">
 									<tr>
@@ -486,7 +486,7 @@ main {
 												value="${mileages.mileageDate}" pattern="YYYY-MM-dd"
 												type="date" /></td>
 										<c:choose>
-											<c:when test="${mileages.useMileage != 0}">
+											<c:when test="${mileages.useMileage != null}">
 												<td>- ${mileages.useMileage}</td>
 											</c:when>
 											<c:otherwise>

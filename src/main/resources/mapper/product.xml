@@ -75,7 +75,7 @@
 	<!-- values(date_add(now(),INTERVAL 365 DAY),#{orderId}); -->
 	<insert id="insertGifticonDto">
 		insert into gifticon_tb(end_date,order_id)
-		values(now(),#{orderId});
+		values(#{endDate},#{orderId});
 	</insert>
 	<!-- 구매내역 조회 -->
 	<select id="selectShopOrder" resultType="com.green.airline.repository.model.ShopOrder">

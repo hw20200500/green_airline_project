@@ -41,7 +41,6 @@ public class EmailService {
     }
 
     public MimeMessage createMessage(String to,String gifticonImageName) throws MessagingException, UnsupportedEncodingException, IOException {
-    	System.out.println("gifticonImageName : " + gifticonImageName);
         MimeMessage message = emailsender.createMimeMessage();
         to = "ekdns8276@naver.com";
         MimeMessageHelper helper = new MimeMessageHelper(message, true);

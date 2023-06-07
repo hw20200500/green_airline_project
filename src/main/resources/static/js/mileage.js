@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	$('#liPeriod1').trigger('click');
 	$(function() {
 	    $("#sCalendar01").datepicker({
 	      dateFormat: "yy.mm.dd",
@@ -125,6 +126,7 @@ $(document).ready(function() {
 
 	/* 마일리지 조회 form으로 ajax 보내기 */
 	$('#mileage--search').on("click", function() {
+		
 		let chkArr = [];
 		$("input[type=checkbox]:checked").each(function() {
 			let chk = $(this).val()

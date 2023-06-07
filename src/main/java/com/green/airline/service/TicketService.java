@@ -197,7 +197,7 @@ public class TicketService {
 			saveMileageDto.setSaveMileage((long) (ticketPayment.getAmount1() * memberGrade.getMileageRate()));
 			 
 			Calendar cal = Calendar.getInstance();
-			cal.add(Calendar.DATE, +365);
+			cal.add(Calendar.DATE, +3650);
 			Timestamp date = new Timestamp(cal.getTimeInMillis());
 			saveMileageDto.setExpirationDate(date);
 			if(ticketPayment.getAmount2() != null) {

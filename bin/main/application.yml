@@ -11,16 +11,16 @@ server:
       enabled: false
       
 spring: 
-  mail:
-    host: smtp.naver.com
-    port: 465
-    username: ekdns8276@naver.com
-    password: ekqls2113!
-    properties:
-      mail.smtp.auth: true
-      mail.smtp.ssl.enable: true
-      mail.smtp.ssl.trust: smtp.naver.com
-      mail.smtp.starttls.enable: true
+#  mail:
+#    host: smtp.naver.com
+#    port: 465
+#    username: ekdns8276@naver.com
+#    password: ekqls2113!
+#    properties:
+#      mail.smtp.auth: true
+#      mail.smtp.ssl.enable: true
+#      mail.smtp.ssl.trust: smtp.naver.com
+#      mail.smtp.starttls.enable: true
   mvc:
     throw-exception-if-no-handler-found: true
     dispatch-options-request: false
@@ -35,7 +35,7 @@ spring:
     url: jdbc:mysql://localhost:3306/airline_db?serverTimezone=Asia/Seoul # bank2는 DB
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root # 유저 이름
-    password: asd1234 # 비밀번호 (비워두면 비밀번호 X)
+    password: root # 비밀번호 (비워두면 비밀번호 X)
   sql: 
     init: # 초기 sql 파일 읽기 
       schema-locations: # 스키마 (테이블 생성 등)

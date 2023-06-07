@@ -1,6 +1,8 @@
 package com.green.airline.controller;
 
 import java.io.File;
+import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -254,6 +256,7 @@ public class ProductController {
 	public String productDetailPage(@PathVariable int id, Model model) {
 		Mileage mileage = new Mileage();
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		System.out.println(principal);
 		ShopProduct shopProduct = productService.productDetail(id);
 		model.addAttribute(shopProduct);
 		
@@ -277,7 +280,14 @@ public class ProductController {
 		GifticonDto gifticonDto = new GifticonDto();
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		String memberId = principal.getId();
-		
+		String code;
+		try {
+			code = emailService.sendSimpleMessage(email, gifticonImageName);
+			System.out.println("email : " + email);
+			System.out.println("인증코드 : " + code);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		shopOrderDto.setMemberId(principal.getId());
 		// 구매 내역
 		mileage.setMemberId(principal.getId());
@@ -286,6 +296,10 @@ public class ProductController {
 		productService.createByUserId(shopOrderDto);
 		
 		gifticonDto.setOrderId(productService.readShopOrder(principal.getId()).getId());
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, +365);
+		Timestamp date = new Timestamp(cal.getTimeInMillis());
+		gifticonDto.setEndDate(date);
 		productService.createGifticon(gifticonDto);
 		
 		int totalPrice = shopProductDto.getProductPrice();
@@ -301,17 +315,11 @@ public class ProductController {
 		if (email == null || email.isEmpty()) {
 			throw new CustomRestfullException("이메일을 입력하세요", HttpStatus.BAD_REQUEST);
 		}
+		System.out.println("email : " + email);
 		// 기프티콘 이메일 전송
-		String code;
 		
 		
-		try {
-			code = emailService.sendSimpleMessage(email, gifticonImageName);
-			System.out.println("email : " + email);
-			System.out.println("인증코드 : " + code);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 		return "redirect:/product/productMain/clasic";
 	}
 }
