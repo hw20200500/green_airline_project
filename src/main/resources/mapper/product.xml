@@ -90,7 +90,7 @@
 	<!-- 마일리지 조회 -->
 	<select id="selectMileage" resultType="com.green.airline.repository.model.Mileage">
 
-		select sum(balance) as balance from mileage_tb where member_id = #{member_id} and expiration_date > now();
+		select sum(balance) as balance from mileage_tb where member_id = #{member_id} and expiration_date > now() and now() >= mileage_date;
 
 
 	</select>

@@ -24,6 +24,10 @@
 .container {
 	margin-bottom: 30px;
 }
+
+.table td {
+	border-top: none;
+}
 </style>
 <main>
 	<h2 class="page--title">여행일지</h2>

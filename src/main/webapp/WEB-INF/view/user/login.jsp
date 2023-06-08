@@ -38,6 +38,10 @@ main {
 	margin-top: -30px;
 }
 
+.join--btn:hover {
+    color: white;
+}
+
 .login--wrap {
 	display: flex;
 	flex-direction: column;
