@@ -215,11 +215,9 @@ public List<Mileage> readMileageTbOrderByMileageDateByMemberId(String memberId) 
 									.description("항공권 환불")
 									.expirationDate(expirationDate)
 									.memberId(memberId)
+									.ticketId(ticketId)
 									.build();
 				mileageRepository.insertRefundMiles(refundMiles);
-				
-				// 환불된 후, 사용 상세 내역 삭제
-				mileageRepository.deleteUseMileageDetailByMilesId(u.getBuyMileageId());
 				
 			// 환불 잔여 마일리지보다 해당 적립 내역에 돌려주어야 하는 마일리지가 크다면
 			// 환불 수수료가 부과되었다는 의미 (반복 종료)
@@ -235,14 +233,12 @@ public List<Mileage> readMileageTbOrderByMileageDateByMemberId(String memberId) 
 									.description("항공권 환불")
 									.expirationDate(expirationDate)
 									.memberId(memberId)
+									.ticketId(ticketId)
 									.build();
 				mileageRepository.insertRefundMiles(refundMiles);
 				
 				// 환불 잔여 마일리지 차감
 				refundAmount = (long) 0;
-				
-				// 환불된 후, 사용 상세 내역 삭제
-				mileageRepository.deleteUseMileageDetailByMilesId(u.getBuyMileageId());
 				
 				break;
 			}

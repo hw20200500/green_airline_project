@@ -19,6 +19,7 @@ public class SaveMileageDto {
 	private Timestamp insertTime;
 	private String memberId;
 	private String ticketId;
+	private String ticketId2;
 	private Long amount1;
 	private Long amount2;
 	public Long totalMileage;

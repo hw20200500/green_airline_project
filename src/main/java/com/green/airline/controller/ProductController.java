@@ -329,6 +329,6 @@ public class ProductController {
 		
 		
 		
-		return "redirect:/product/productMain/clasic";
+		return "redirect:/gifticon/list";
 	}
 }

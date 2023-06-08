@@ -75,7 +75,7 @@
 			insert into
 			mileage_tb(mileage_date,expiration_date,save_mileage,balance,member_id,ticket_id,description)
 			values(#{saveMileageDto.departureDate},#{saveMileageDto.expirationDate},#{saveMileageDto.saveMileage},#{saveMileageDto.saveMileage},#{saveMileageDto.memberId},#{saveMileageDto.ticketId}, "항공권 예매"),
-			(#{saveMileageDto.departureDate},#{saveMileageDto.expirationDate},#{saveMileageDto.saveMileage2},#{saveMileageDto.saveMileage2},#{saveMileageDto.memberId},#{saveMileageDto.ticketId},"항공권 예매")
+			(#{saveMileageDto.departureDate},#{saveMileageDto.expirationDate},#{saveMileageDto.saveMileage2},#{saveMileageDto.saveMileage2},#{saveMileageDto.memberId},#{saveMileageDto.ticketId2},"항공권 예매")
 		</if>
 	</insert>
 
@@ -161,13 +161,17 @@ and g.id = #{gifticonId};
 	</delete>
 	
 	<insert id="insertRefundMiles">
-		INSERT INTO mileage_tb (mileage_date, description, expiration_date, save_mileage, balance, member_id)
-		VALUES (now(), #{description}, #{expirationDate}, #{saveMileage}, #{balance}, #{memberId})
+		INSERT INTO mileage_tb (mileage_date, description, expiration_date, save_mileage, balance, member_id, ticket_id)
+		VALUES (now(), #{description}, #{expirationDate}, #{saveMileage}, #{balance}, #{memberId}, #{ticketId})
 	</insert>
 	
 	<select id="selectById" resultType="com.green.airline.repository.model.Mileage">
 		SELECT * FROM mileage_tb WHERE id = #{id}	
 	</select>
+	
+	<delete id="deleteByTicketId">
+		DELETE FROM mileage_tb WHERE ticket_id = #{ticketId}
+	</delete>
 	
 </mapper>
 

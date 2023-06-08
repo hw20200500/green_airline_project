@@ -69,7 +69,7 @@ public interface MileageRepository {
 	 * @author 서영
 	 * 환불 후 사용 상세 내역은 삭제
 	 */
-	public Integer deleteUseMileageDetailByMilesId(Integer id);
+	public Integer deleteUseMileageDetailByTicketId(Integer id);
 	
 	/**
 	 * @author 서영
@@ -78,4 +78,6 @@ public interface MileageRepository {
 	public Integer insertRefundMiles(Mileage mileage);
 	
 	public Mileage selectById(Integer id);
+	
+	public Integer deleteByTicketId(String ticketId);
 }

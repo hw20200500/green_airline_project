@@ -201,6 +201,7 @@ public class TicketService {
 			Timestamp date = new Timestamp(cal.getTimeInMillis());
 			saveMileageDto.setExpirationDate(date);
 			if(ticketPayment.getAmount2() != null) {
+				saveMileageDto.setTicketId2(ticketId2);
 				saveMileageDto.setSaveMileage2((long) (ticketPayment.getAmount2() * memberGrade.getMileageRate()));
 			}
 			// 로그인 할 때 업데이트 하는걸로 바꿔야함
@@ -367,6 +368,9 @@ public class TicketService {
 		
 		// 기내식 신청 내역 삭제
 		inFlightServiceRepository.deleteByTicketId(ticketId);
+		
+		// 적립 예정 마일리지 삭제
+		mileageRepository.deleteByTicketId(ticketId);
 	}
 	
 	/**

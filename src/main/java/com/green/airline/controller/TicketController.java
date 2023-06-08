@@ -341,13 +341,11 @@ public class TicketController {
 	@GetMapping("/detail/{id}")
 	public String ticketDetailPage(Model model, @PathVariable String id) {
 		
-		
 		TicketAllInfoDto ticket = ticketService.readTicketAllInfoByTicketId(id);
 		model.addAttribute("ticket", ticket);
 		
-		
 		Integer type = null;
-		if (ticket.getId().length() == 9 && ticket.getId().substring(0, 8).equals("B")) {
+		if (ticket.getId().length() == 9 && ticket.getId().substring(8).equals("B")) {
 			type = 2;
 		} else {
 			type = 1;
