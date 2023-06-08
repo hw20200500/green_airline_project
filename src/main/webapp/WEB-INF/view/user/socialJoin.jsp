@@ -252,8 +252,8 @@ main {
 					<c:choose>
 						<c:when test="${socialJoinFormDto != null}">
 							<div class="gender--wrap">
-								성별 <label> <input type="radio" name="gender" value="M" required="required" class="gender--input"> 남
-								</label> <label> <input type="radio" name="gender" required="required" value="F" class="gender--input"> 여
+								성별 <label> <input type="radio" name="gender" value="M" required="required" class="gender--input"> 남성
+								</label> <label> <input type="radio" name="gender" required="required" value="F" class="gender--input"> 여성
 								</label>
 								<div style="color: red;">
 									<c:if test="${genderValid != null}">

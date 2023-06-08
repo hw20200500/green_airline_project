@@ -122,7 +122,7 @@ input[type=text], input[type=password] {
 					<label for="id">아이디</label>
 				</div>
 				<div class="login--id--input--class">
-					<input type="text" id="id" name="id" value="abc">
+					<input type="text" id="id" name="id">
 				</div>
 			</div>
 			<br>
@@ -131,7 +131,7 @@ input[type=text], input[type=password] {
 					<label for="password">비밀번호</label> <br>
 				</div>
 				<div>
-					<input type="password" id="password" name="password" value="1234">
+					<input type="password" id="password" name="password">
 				</div>
 			</div>
 			<br>

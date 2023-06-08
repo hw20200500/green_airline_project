@@ -225,7 +225,8 @@ public class UserService {
 	}
 
 	public int updateyPassword(String password, String userId) {
-		int result = userRepository.updateUserPwById(password, userId);
+		String isPwdMatched = passwordEncoder.encode(password);
+		int result = userRepository.updateUserPwById(isPwdMatched, userId);
 		return result;
 	}
 

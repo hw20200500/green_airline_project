@@ -165,7 +165,7 @@ public class PaymentController {
 									reqEntity, PayApproveDto.class);
 		
 		// 예약 완료 메시지 발송 (문자 건 수 제한 때문에 지금은 주석)
-		coolSmsService.completeMessage(tel, name, ticketList.get(0).getId());
+		// coolSmsService.completeMessage(tel, name, ticketList.get(0).getId());
 		
 		model.addAttribute("ticketList", ticketList);
 		

@@ -134,6 +134,8 @@ input[type=text]:focus, input[type=password]:focus {
       if (password != checkPassword) {
          e.preventDefault();
          alert("비밀번호를 확인해 주세요");
+      } else {
+         alert("비밀번호가 변경 되었습니다.");
       }
    });
 </script>
