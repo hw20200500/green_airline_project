@@ -48,7 +48,7 @@ public class AuthController {
 		// 바디 만듦
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("grant_type", "authorization_code");
-		params.add("client_id", "91cf28839247e9924114aeb1a23b8852");
+		params.add("client_id", "9761c68538850881c74f5d9643d99c09");
 		params.add("redirect_uri", "http://" + Define.IP_ADDRESS + "/auth/kakao/callback");
 		params.add("code", code);
 

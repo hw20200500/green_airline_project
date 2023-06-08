@@ -44,9 +44,19 @@
 				<input type="file" class="custom-file-input" id="customFile" accept=".jpg, .jpeg, .png" name="file"> 
 				<label class="custom-file-label" for="customFile">썸네일용 이미지</label>
 			</div>
-			<div class="modal-footer">
-				<button type="submit" class="btn btn-primary">작성하기</button>
-				<button class="btn btn-primary" id="backPage">뒤로가기</button>
+			<div style="margin-top: 40px;" class="d-flex justify-content-center">
+				<button type="button" id="backPage" class="blue--btn--small" style="margin-right: 60px; padding-left: 9px; background-color: gray" onclick="location.href='/board/list/1'">
+					<ul class="d-flex justify-content-center" style="margin: 0;">
+						<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px; margin-right: 5px;">keyboard_backspace</span>
+						<li>취소
+					</ul>
+				</button>
+				<button type="submit" class="blue--btn--small" id="writeBtn">
+					<ul class="d-flex justify-content-center" style="margin: 0;">
+						<li style="margin-right: 4px;">입력 완료
+						<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">done</span>
+					</ul>
+				</button>
 			</div>
 		</form>
 	</div>

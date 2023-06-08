@@ -111,7 +111,9 @@ main {
 .my--detail--tit {
 	display: inline-block;
 	width: 160px;
-	font-size: 15px;
+	font-size: 16px;
+	font-weight: 500;
+	color: #404040;
 }
 
 .num {
@@ -288,7 +290,7 @@ main {
     padding-top: 7px;
     margin-top: 11px;
     margin-bottom: 3px;
-    width: 178px;
+    width: 145px;
     border-radius: 9px;
     background-color: rgb(240, 240, 240);
 }
@@ -363,16 +365,16 @@ main {
 		<div class="bottom--my--info">
 			<div class="my--detail">
 				<div class="my--detail--top">
-					<a href="#"><span class="my--detail--tit">작성한 여행 일지</span> <br>
+					<a href="/board/list/1"><span class="my--detail--tit">작성한 여행 일지</span> <br>
 						<span class="num">${boardDto.count}</span> 
 						<span class="material-symbols-outlined" id="edit--calendar">edit_calendar</span>
 					</a>
 					<span style="margin: 0 5px;"></span>
-					<a href="#"><span> 답변/고객의 말씀</span> <br> <span class="num">${infoDto.answerCount}/${infoDto.vocCount}</span>
+					<a href="/voc/list/1"><span class="my--detail--tit">작성한 고객의 말씀 수</span> <br> <span class="num">${infoDto.vocCount}</span>
 						<span class="material-symbols-outlined" id="clinical--notes">clinical_notes</span>
 					</a>
 					<span style="margin: 0 5px;"></span>
-					<a href="/gifticon/list"><span>구매한 기프티콘 조회</span> <br> <span class="num">${gifticonCount.count}</span>
+					<a href="/gifticon/list"><span class="my--detail--tit">구매한 기프티콘 조회</span> <br> <span class="num">${gifticonCount.count}</span>
 						<span class="material-symbols-outlined" id="barcode--scanner">shopping_cart_checkout</span>
 					</a>
 					<a href="/ticket/list/1" class="my--detail--gray"
@@ -391,7 +393,7 @@ main {
 											maxFractionDigits="3"
 											value="${100000 - sumNowMileage.totalMileage}" /></span> 마일 이상 적립 시 <strong>Gold</strong> 회원으로 승급됩니다.<br>
 											<div class="mileage--inquiry">
-									<a href="/mileage/selectAll" >마일리지 조회하러 가기</a>
+									<a href="/mileage/selectAll" >마일리지 조회하기</a>
 									</div>
 									<hr>
 									<div class="balloon_03">
@@ -400,7 +402,7 @@ main {
 											Gold 등급 까지
 											<fmt:formatNumber type="number" maxFractionDigits="3"
 												value="${100000 - sumNowMileage.totalMileage}" />
-											마일 남았습니다
+											마일 남았습니다.
 										</p>
 									</div>
 									<div class="progress">
@@ -425,7 +427,7 @@ main {
 											Platinum 등급 까지
 											<fmt:formatNumber type="number" maxFractionDigits="3"
 												value="${500000 - sumNowMileage.totalMileage}" />
-											마일 남았습니다
+											마일 남았습니다.
 										</p>
 									</div>
 									<div class="progress">
@@ -448,7 +450,7 @@ main {
 											Diamond 등급 까지
 											<fmt:formatNumber type="number" maxFractionDigits="3"
 												value="${1000000 - sumNowMileage.totalMileage}" />
-											마일 남았습니다
+											마일 남았습니다.
 										</p>
 									</div>
 									<div class="progress">

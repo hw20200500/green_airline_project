@@ -535,14 +535,16 @@ public class UserController {
 	}
 
 	@GetMapping("/userIdSearch")
-	public String userIdSearchPage() {
-
+	public String userIdSearchPage(Model model) {
+		int notCategory = 1;
+		model.addAttribute("notCategory", notCategory);
 		return "/user/userIdSearch";
 	}
 
 	@GetMapping("/userPwSearch")
-	public String userPwSearchPage() {
-
+	public String userPwSearchPage(Model model) {
+		int notCategory = 1;
+		model.addAttribute("notCategory", notCategory);
 		return "/user/userPwSearch";
 	}
 
@@ -557,10 +559,15 @@ public class UserController {
 		return "/user/login";
 	}
 
-	@PostMapping("/findByUserId")
+	@GetMapping("/findByUserId")
 	public String findByUserId(Model model, Member member) {
 		Member response = userService.readByKorNameandEmailAndBirthDate(member);
 		model.addAttribute("response", response);
+		if (response == null) {
+	         throw new CustomRestfullException("입력 정보를 다시 확인하세요.", HttpStatus.BAD_REQUEST);
+	     }
+		int notCategory = 1;
+		model.addAttribute("notCategory", notCategory);
 		return "/user/userIdSearch";
 	}
 

@@ -26,7 +26,7 @@
 }
 
 .img {
-	width: 375px;
+	width: 382px;
 	height: 235px;
 	padding: 5px 10px;
 }
@@ -63,6 +63,13 @@
 }
 
 .board--title {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 360px;
+}
+
+.popular--board--title {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -107,7 +114,8 @@
 }
 
 .popular--board--content {
-	width: 280px;
+	width: 283px;
+	margin: 0 1px;
 }
 
 .popular--img {

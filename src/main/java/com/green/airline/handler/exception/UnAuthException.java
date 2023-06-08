@@ -10,5 +10,5 @@ public class UnAuthException extends RuntimeException{
 		super(message);
 		this.status = status;
 	}
-
+	
 }

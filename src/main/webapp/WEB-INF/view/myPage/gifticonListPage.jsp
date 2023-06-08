@@ -9,16 +9,10 @@
 	cursor: pointer;
 }
 
-.title {
-	text-align: center;
-}
-
 #tab_title {
 	text-align: center;
 	margin-top: 20px;
 }
-
-
 
 .sortation {
 	margin-left: 300px;
@@ -84,15 +78,13 @@ h4#tab_title {
 }
 
 .btn-light {
-	padding-top: 0; margin-bottom2px;
+	padding-top: 0; 
+	margin-bottom: 2px;
 	height: 30px;
 	text-align: center;
 }
 #gifticonList{
 	background-color: white;
-}
-.title{
-	text-align: center;
 }
 .buy{
 margin-right: 15px;
@@ -114,7 +106,9 @@ label {
 <!-- 여기 안에 쓰기 -->
 <main>
 
-	<h1 class="title">기프티콘 구매/환불 리스트</h1>
+	<h2 class="page--title">마일리지샵 이용 내역</h2>
+	<hr>
+	<br>
 	<div class="container">
 		<form action="mileageList" method="get" id="form">
 			<div id="checkboxList"></div>
@@ -160,7 +154,7 @@ label {
 				</dd>
 			</dl>
 		</form>
-		<form action="/gifticon/deleteGifticonById" method="post" id ="gifticonList">
+		<form action="/gifticon/deleteGifticonById" method="post" id ="gifticonList" style="display: none;">
 			<table class="table table-bordered list--table">
 				<thead id="gifticonList--tr--thead">
 
@@ -169,10 +163,17 @@ label {
 
 				</tbody>
 			</table>
-			<button onclick="refundGifticon()" class="btn btn-light deleteBtn">환불</button>
+			<br>
+			<button onclick="refundGifticon();" class="blue--btn--small deleteBtn" style="background-color: gray;">
+				<ul class="d-flex justify-content-center" style="margin: 0;">
+					<li style="margin-right: 4px;">환불
+					<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 21px; margin-top: 3px;">attach_money</span>
+				</ul>
+			</button>
 			<input type="hidden" name="gifticonId" value="" id="gifticonId"> <input type="hidden" name="productId" value="" id="productId"> <input type="hidden" name="amount" value=""
 				id="gifticonAmount"> <input type="hidden" name="name" value="" id="gifticonName"> <input type="hidden" name="brand" value="" id="gifticonBrand">
 		</form>
+		<p class="no--list--p" style="display: none; margin: 30px 0">조회 결과가 없습니다.</p>
 	</div>
 </main>
 

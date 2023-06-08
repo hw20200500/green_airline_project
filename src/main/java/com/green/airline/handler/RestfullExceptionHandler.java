@@ -13,6 +13,7 @@ import com.green.airline.handler.exception.ApiErrorResponse;
 import com.green.airline.handler.exception.CustomPathException;
 import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.handler.exception.ExceptionFieldMessage;
+import com.green.airline.handler.exception.UnAuthException;
 import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
 
 @RestControllerAdvice // 예외클래스를 받아 주는 녀석으로 동작하는 녀석
@@ -91,5 +92,15 @@ public class RestfullExceptionHandler {
 		System.out.println("11111");
 
 		return "test";
+	}
+	
+	@ExceptionHandler(UnAuthException.class)
+	public String unAuthorizedException(UnAuthException e) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("<script>");
+		sb.append("alert('"+ e.getMessage() +"');"); 
+		sb.append("location.href='/login';");
+		sb.append("</script>");
+		return sb.toString();
 	}
 }
