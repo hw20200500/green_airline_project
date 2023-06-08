@@ -20,23 +20,6 @@
 	font-size: 20px;
 }
 
-.list--searchOpt .btn--search {
-	position: relative;
-	right: auto;
-	top: auto;
-	width: 100%;
-	height: 40px;
-	background-color: #7CB2D5;
-	margin: 0;
-	padding: 0;
-	border: none;
-	cursor: pointer;
-	color: white;
-	margin-bottom: 30px;
-	border-radius: 5px;
-	font-weight: 500;
-	font-size: 17px;
-}
 </style>
 
 <main>
@@ -74,7 +57,7 @@
 						<option value="">전체</option>
 					</select>
 				</div>
-				<button type="submit" class="blue--btn--small" id="selectSeatBtn">
+				<button type="button" class="btn--search blue--btn--small" id="searchAirport">
 					<ul class="d-flex justify-content-center" style="margin: 0;">
 						<li style="margin-right: 4px;">조회
 						<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 20px; margin-top: 3px;">search</span>
