@@ -107,11 +107,13 @@ p {
 	background-color: #8ABBE2;
 	color: white;
 	width: 80px;
+	margin-top: 5px;
 }
 .btn--primary:hover {
 	background-color: #8ABBE2;
 	color: white;
 	width: 80px;
+	margin-top: 5px;
 }
 
 .delete--checkbox--class {
@@ -151,6 +153,12 @@ p {
 
 .search--btn{
 	font-size: 22px;
+}
+
+.btn--danger{
+background: #c0c0c0;
+color: white;
+margin-top: 5px;
 }
 </style>
 
@@ -227,8 +235,8 @@ p {
 										</div>
 
 										<div class="modal-footer">
-											<button type="button" class="btn btn--primary faq--update--btn" data-dismiss="modal" onclick="updateFaq(${faqResponseDtos.id})">Submit</button>
-											<button type="button" class="btn btn--danger" data-dismiss="modal">Close</button>
+											<button type="button" class="btn btn--primary faq--update--btn" data-dismiss="modal" onclick="updateFaq(${faqResponseDtos.id})">확인</button>
+											<button type="button" class="btn btn--danger" data-dismiss="modal">닫기</button>
 										</div>
 
 									</div>
@@ -242,7 +250,7 @@ p {
 			<div>
 				<c:if test="${principal.userRole.equals(\"관리자\")}">
 					<div>
-						<button class="btn btn--danger" id="remove--check--btn" name="id" type="button">삭제</button>
+						<button class="btn btn--danger" id="remove--check--btn" name="id" type="button" onclick="confirm('정말 삭제하시겠습니까?')">삭제</button>
 						<button class="btn btn--primary" onclick="location.href='/notice/noticeInsert'">글 작성</button>
 					</div>
 				</c:if>

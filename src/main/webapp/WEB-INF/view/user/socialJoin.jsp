@@ -208,7 +208,7 @@ main {
 					</c:when>
 					<c:otherwise>
 						<div class="korName--wrap">
-							한국 이름 <input type="text" name="korName" required="required" value="ㅇㅇ">
+							한국 이름 <input type="text" name="korName" required="required">
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -226,7 +226,7 @@ main {
 					</c:when>
 					<c:otherwise>
 						<div class="engName--wrap">
-							영어 이름 <input type="text" name="engName" required="required" value="DDD">
+							영어 이름 <input type="text" name="engName" required="required">
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -243,7 +243,7 @@ main {
 					</c:when>
 					<c:otherwise>
 						<div class="birthDate--wrap">
-							생년월일 <input type="text" id="datepicker" name="birthDate" required="required" value="2000-01-18">
+							생년월일 <input type="text" id="datepicker" name="birthDate" required="required">
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -291,7 +291,7 @@ main {
 					</c:when>
 					<c:otherwise>
 						<div class="phoneNumber--wrap">
-							휴대전화 <input type="text" name="phoneNumber" placeholder="예:010-0000-0000" required="required" value="010-1234-123">
+							휴대전화 <input type="text" name="phoneNumber" placeholder="예:010-0000-0000" required="required">
 						</div>
 					</c:otherwise>
 				</c:choose>
@@ -333,9 +333,9 @@ main {
 					</c:when>
 					<c:otherwise>
 						<div style="position: relative;" class="address--wrap">
-							주소 <input type="text" id="address" name="address" placeholder="주소" required="required" value="부산 사상구 가야대로 1"> <input type="button" class="btn--primary" onclick="execDaumPostcode()"
+							주소 <input type="text" id="address" name="address" placeholder="주소" required="required"> <input type="button" class="btn--primary" onclick="execDaumPostcode()"
 								value="주소 찾기" required="required" style="position: absolute; right: -33px; top: 13px; width: 90px; height: 38px;"> <br> <input type="text" id="detailAddress" name="detailAddress"
-								placeholder="상세주소" value="1">
+								placeholder="상세주소">
 						</div>
 					</c:otherwise>
 				</c:choose>

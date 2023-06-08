@@ -46,7 +46,7 @@ public class Define {
 	public final static double MILES_TICKET_RATE = 0.005;
 	
 	// 서영 : 192.168.0.187
-	// 민정 : 192.168.0.126
-	public final static String IP_ADDRESS = "192.168.0.187";
+	// 민정 : 192.168.0.126 / 192.168.0.2
+	public final static String IP_ADDRESS = "localhost";
 	
 }

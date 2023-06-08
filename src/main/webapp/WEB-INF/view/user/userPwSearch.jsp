@@ -36,24 +36,19 @@ main {
 	height: 100px;
 	padding: 30px;
 }
-
 </style>
 
 <!-- 여기 안에 쓰기 -->
 <main>
 	<div>
 		<h2 class="title">
-			<a href="/userIdSearch">아이디 찾기</a>
-			&nbsp;ㅣ&nbsp;
-			<a href="/userPwSearch">비밀번호 찾기</a>
+			<a href="/userIdSearch">아이디 찾기</a> &nbsp;ㅣ&nbsp; <a href="/userPwSearch">비밀번호 찾기</a>
 		</h2>
 
-		<form action="">
-			<div class="form-group">
-				<label for="id">id:</label> <input type="text" class="form-control" id="id" value="abc" name="id"> <label for="email">email:</label> <input type="text" class="form-control" id="email"
-					value="ekdns8276@naver.com" name="email">
-			</div>
-		</form>
+		<div class="form-group">
+			<label for="id">id:</label> <input type="text" class="form-control" id="id" value="abc" name="id"> <label for="email">email:</label> <input type="text" class="form-control" id="email"
+				value="ekdns8276@naver.com" name="email">
+		</div>
 		<button id="findPassword" class="btn btn-light">전송</button>
 		<div class="form-group" id="checkCode" style="display: none;">
 			<label for="code">인증 확인:</label> <input type="text" class="form-control" id="code" value="" name="code">
