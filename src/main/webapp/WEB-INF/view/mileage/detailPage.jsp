@@ -73,8 +73,8 @@
 }
 
 .productImg {
-	width: 400px;
-	height: 400px;
+	width: 350px;
+	height: 350px;
 }
 
 .small {
@@ -187,7 +187,7 @@ input[name="email"] {
 			<!-- 상품 정보영역 -->
 			<div class="prd_info">
 				<img alt="" class="productImg" src="${shopProduct.productImage}">
-				<div class="left--container">
+				<div class="left--container" style="min-width: 552px">
 					<h1 class="title">[${shopProduct.brand}] ${shopProduct.name}</h1>
 					<hr>
 					<%-- <img alt="" class="productImg" src="/uploadImage/${shopProduct.productImage}"> --%>
