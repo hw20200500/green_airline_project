@@ -52,29 +52,36 @@
 
 	<div class="list--searchOpt">
 		<form action="/map" method="post">
-			<div class="form-group col-sm-5">
-				<label for="selectContinent">지역</label> <select class="form-control"
-					name="selectContinent" id="id--selectContinent">
-					<option value="">공항을 선택해주세요</option>
-					<option value="대한민국">대한민국</option>
-					<option value="동북아시아">동북아시아</option>
-					<option value="동남아시아/서남아시아">동남아시아/서남아시아</option>
-					<option value="미국">미국</option>
-					<option value="유럽">유럽</option>
-					<option value="대양주/괌">대양주/괌</option>
-					<option value="러시아/몽골/중앙아시아">러시아/몽골/중앙아시아</option>
-					<option value="중동/아프리카">중동/아프리카</option>
-				</select>
+			<div class="d-flex justify-content-center align-items-end" style="margin-bottom: 40px;">
+				<div class="form-group" style="width: 300px; margin: 0 30px">
+					<label for="selectContinent">지역</label> <select class="form-control"
+						name="selectContinent" id="id--selectContinent">
+						<option value="">공항을 선택해주세요</option>
+						<option value="대한민국">대한민국</option>
+						<option value="동북아시아">동북아시아</option>
+						<option value="동남아시아/서남아시아">동남아시아/서남아시아</option>
+						<option value="미국">미국</option>
+						<option value="유럽">유럽</option>
+						<option value="대양주/괌">대양주/괌</option>
+						<option value="러시아/몽골/중앙아시아">러시아/몽골/중앙아시아</option>
+						<option value="중동/아프리카">중동/아프리카</option>
+					</select>
+				</div>
+	
+				<div class="form-group" style="width: 300px; margin: 0 30px">
+					<label for="airport">공항</label> 
+					<select name="selectAirport" class="form-control" id="id--selectAirport">
+						<option value="">전체</option>
+					</select>
+				</div>
+				<button type="submit" class="blue--btn--small" id="selectSeatBtn">
+					<ul class="d-flex justify-content-center" style="margin: 0;">
+						<li style="margin-right: 4px;">조회
+						<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 20px; margin-top: 3px;">search</span>
+					</ul>
+				</button>
+				<br>
 			</div>
-
-			<div class="form-group col-sm-5">
-				<label for="airport">공항</label> <select name="selectAirport"
-					class="form-control" id="id--selectAirport">
-					<option value="">전체</option>
-				</select>
-
-			</div>
-			<button type="button" class="btn--search" id="searchAirport">조회</button>
 			<div id="result"></div>
 		</form>
 	</div>

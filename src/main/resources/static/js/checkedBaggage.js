@@ -31,7 +31,7 @@ $(document).ready(function() {
 		let selectVal = $("#modal--id--departuredate").val();
 		console.log(selectVal);
 		if (selectVal == null || selectVal == undefined) {
-			alert("구매한 항공권이 없습니다.");
+			alert("신청 가능한 항공권 예약 내역이 없습니다.");
 			return false;
 		} else {
 			$.ajax({
@@ -41,7 +41,7 @@ $(document).ready(function() {
 			}).done(function(data) {
 				console.log(data);
 				if (data.statusCode == 400) {
-					alert("구매한 항공권이 없습니다.");
+					alert("신청 가능한 항공권 예약 내역이 없습니다.");
 					return false;
 				}
 			}).fail(function(error) {

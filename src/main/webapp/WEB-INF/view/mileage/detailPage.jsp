@@ -159,7 +159,7 @@
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
-	align-items: flex-end;
+	align-items: center;
 }
 
 .selected_prd {
@@ -200,7 +200,7 @@ input[name="email"] {
 								<c:choose>
 									<c:when test="${principal == null}">
 										<p class="desc">
-											<b><a href="/login" class="btn_arrow flow-action-login">로그인</a></b>을 하시면 마일리지를 확인하실 수 있습니다.
+											<b><a href="/login" class="btn_arrow flow-action-login important--span">로그인</a></b>을 하시면 마일리지를 확인하실 수 있습니다.
 
 										</p>
 									</c:when>
@@ -290,9 +290,6 @@ input[name="email"] {
 											</c:otherwise>
 										</c:choose>
 									</c:when>
-									<c:otherwise>
-										<a href="/login" class="btn_arrow flow-action-login">로그인 페이지로 이동</a>
-									</c:otherwise>
 								</c:choose>
 
 							</div>
@@ -395,7 +392,7 @@ input[name="email"] {
 						</table>
 					</div>
 				</div>
-				<div id="tab2" class="tab_cont">
+				<div id="tab2" class="tab_cont" style="display: none">
 					<div class="inner">
 						<!-- 사용안내 내용 -->
 						<table class="tbl_prdinfo list--table" border="1">
@@ -421,7 +418,7 @@ input[name="email"] {
 						</table>
 					</div>
 				</div>
-				<div id="tab3" class="tab_cont">
+				<div id="tab3" class="tab_cont" style="display: none">
 					<div class="inner">
 						<!-- 상품 정보제공 고시 내용 -->
 						<table class="tbl_prdinfo list--table" border="1">
@@ -457,7 +454,7 @@ input[name="email"] {
 						</table>
 					</div>
 				</div>
-				<div id="tab4" class="tab_cont">
+				<div id="tab4" class="tab_cont" style="display: none">
 					<div class="inner">
 						<!-- 연장/환불 안내 내용 -->
 						<table class="tbl_prdinfo list--table">

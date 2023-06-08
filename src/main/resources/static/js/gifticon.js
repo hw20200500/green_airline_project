@@ -72,12 +72,11 @@ $("#liPeriods").on("click", function() {
 	$("#sCalendar01").val("");
 	$("#sCalendar02").val("");
 });
-$('.deleteBtn').hide();
+
 $("#gifticon--search")
 	.on(
 		"click",
 		function() {
-			$('.deleteBtn').show();
 			let form = $("form").serialize();
 			let startTime = $("#sCalendar01").val();
 			let endTime = $("#sCalendar02").val();
@@ -93,11 +92,14 @@ $("#gifticon--search")
 			if(radio == ''){
 				alert("내역을 선택 해주세요");
 			}
+			
+			let body = '';
+			
 			if (radio == 'buy') {
 				$("#gifticonList--tr--tbody").empty();
 				$("#gifticonList--tr--thead").empty();
-				let body = '';
-				 body += '<tr>';
+				body = '';
+				body += '<tr>';
 				    body += '<th>' + "체크" + '</th>';
 				    body += '<th>' + "브랜드" + '</th>';
 				    body += '<th>' + "이름" + '</th>';
@@ -105,22 +107,19 @@ $("#gifticon--search")
 				    body += '<th>' + "유효기간" + '</th>';
 				    body += '<th>' + "가격" + '</th>';
 				    body += '</tr>';
-				$("#gifticonList--tr--thead").append(body);
 			} else {
 				$("#gifticonList--tr--tbody").empty();
 				$("#gifticonList--tr--thead").empty();
 				$('.deleteBtn').hide();
-				let body = '';
+				body = '';
 				body += '<tr>';
 				body += '<th>' + "브랜드" + '</th>';
 				body += '<th>' + "이름" + '</th>';
 				body += '<th>' + "취소날짜" + '</th>';
 				body += '<th>' + "가격" + '</th>';
 				body += '</tr>';
-				$("#gifticonList--tr--thead").append(body);
 			}
-			$
-				.ajax(
+			$.ajax(
 					{
 						url: "/api/gifticonList",
 						type: "get",
@@ -134,9 +133,17 @@ $("#gifticon--search")
 					})
 				.done(
 					function(response) {
-						console.log(response)
+					
+						if (response.length == 0) {
+							$(".no--list--p").show();
+							$("#gifticonList").hide();
+						} else {
+							$(".no--list--p").hide();
+							$("#gifticonList").show();
+							$("#gifticonList--tr--thead").append(body);
+						}
+						
 						for (i = 0; i < response.length; i++) {
-							console.log(response[i]);
 							if (radio == 'buy') {
 
 								let body = '';
@@ -154,7 +161,7 @@ $("#gifticon--search")
 									+ response[i].name
 									+ '</td>';
 								body += '<td>'
-									+ (response[i].startDate)
+									+ response[i].startDate
 									+ '</td>';
 								body += '<td>'
 									+ response[i].endDate.toString().substr(0, 10)

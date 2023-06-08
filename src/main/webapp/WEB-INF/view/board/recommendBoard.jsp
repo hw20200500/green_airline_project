@@ -20,7 +20,7 @@
 
 	<div class="container">
 		<div class="popular--board">
-			<h4 class="h4--title">인기 게시물</h4>
+			<h4 class="h4--title middle--title">인기 게시물</h4>
 			<div class="board--table d-flex">
 				<c:forEach var="board" items="${popularBoard}">
 					<div class="popular--board--content">
@@ -29,19 +29,20 @@
 								<img src="<c:url value="${board.thumbnailImage()}"/>" alt="" class="popular--img">
 							</div>
 							<div class="td--board">
-								<div class="board--title">${board.title}</div>
+								<div class="popular--board--title">${board.title}</div>
 								<div>
-									<img src="/images/like/eye.png">&nbsp;${board.numberFormat()}
+									<img src="/images/like/eye.png" style="margin-bottom: 2px;">&nbsp;${board.numberFormat()}
 								</div>
 							</div>
 						</div>
 					</div>
 				</c:forEach>
 			</div>
+			<div style="width: 100%; height: 2px; background-color: #eee; margin: 20px 0"></div>
 
 		</div>
 		<div class="basic--board">
-			<h4 class="h4--title" style="margin-top: 50px;">여행일지</h4>
+			<h4 class="h4--title middle--title" style="margin-top: 50px;">여행일지</h4>
 			<c:choose>
 				<c:when test="${boardList != null && not empty boardList}">
 					<div class="board--table d-flex">
@@ -52,8 +53,8 @@
 								</div>
 								<div class="td--board">
 									<div class="board--title">${board.title}</div>
-									<div>
-										<img src="/images/like/eye.png">&nbsp;${board.numberFormat()}
+									<div class="d-flex align-items-center">
+										<img src="/images/like/eye.png" style="margin-top: 2px;">&nbsp;${board.numberFormat()}
 									</div>
 								</div>
 							</div>
@@ -67,12 +68,16 @@
 		</div>
 		<c:choose>
 			<c:when test="${principal != null and !\"관리자\".equals(principal.userRole)}">
-				<div class="btn--write d-flex flex-row-reverse" style="padding: 20px;">
-					<button type="button" class="btn btn-primary p-2" onclick="location.href='/board/insert'">글 쓰기</button>
+				<div class="d-flex justify-content-end">
+					<button type="button" class="blue--btn--small" onclick="location.href='/board/insert'" style="margin: 10px 13px 0;">
+						<ul class="d-flex justify-content-center" style="margin: 0;">
+							<li style="margin-right: 4px;">게시글 작성
+							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">edit</span>
+						</ul>
+					</button>
 				</div>
 			</c:when>
 			<c:otherwise>
-
 			</c:otherwise>
 		</c:choose>
 	</div>
@@ -113,21 +118,23 @@
 				<div class="board--user--date">
 
 					<p style="color: #808080;">작성자&ensp;</p>
-					<div class="board--userId" style="justify-content: right; padding-right: 5px; color: #808080;"></div>
-
-					<div class="board--date" style="justify-content: right; padding-right: 5px; color: #808080;"></div>
+					<div class="board--userId" style="justify-content: right; color: #808080;"></div>
+					<span style="color: #808080; margin: 0 10px;">ㅣ</span>
+					<p style="color: #808080;">작성일자&ensp;</p>
+					<div class="board--date" style="justify-content: right; color: #808080;"></div>
 				</div>
-				<div class="board--heart-eye d-flex align-items-center">
+				<div class="board--heart-eye d-flex align-items-center justify-content-between">
 
-					<h2 class="board--title--modal p-2 mr-auto"></h2>
-
-					<div>
-						<img src="/images/like/eye.png">
+					<h2 class="board--title--modal p-2"></h2>
+					<div class="d-flex align-items-center" style="width: 105px">
+						<div>
+							<img src="/images/like/eye.png">
+						</div>
+						<div class="board--viewCount p-2"></div>
+	
+						<img src="/images/like/like.png" class="board--heartCount d-flex jflex-row-reverse" style="cursor: pointer; width: 20px; height: 18px; margin-top: 1px">
+						<div class="board--heartCount p-2"></div>
 					</div>
-					<div class="board--viewCount p-2"></div>
-
-					<img src="/images/like/like.png" class="board--heartCount d-flex jflex-row-reverse" style="cursor: pointer; width: 25px; height: 25px;">
-					<div class="board--heartCount p-2"></div>
 				</div>
 
 				<div class="board--content" style="text-align: center;"></div>
@@ -137,8 +144,18 @@
 				<input type="hidden" id="userRole" value="${principal.userRole}"> <input type="hidden" id="managerRole" value="관리자"> <input type="hidden" id="loginUserId" value="${principal.id}">
 				<br> <br> <br> <br> <br> <br>
 				<div class="modal--upDelete">
-					<button type="button" class="btn btn-primary" id="updateButton" style="display: none; margin-right: 10px;">수정하기</button>
-					<button type="button" class="btn btn-primary" id="deleteButton" style="display: none;">삭제하기</button>
+					<button type="button" id="updateButton" class="blue--btn--small" style="display: none; margin: 0 10px" onclick="location.href='/voc/update/${id}'">
+						<ul class="d-flex justify-content-center" style="margin: 0;">
+							<li style="margin-right: 4px;">수정
+							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">edit</span>
+						</ul>
+					</button>
+					<button type="button" id="deleteButton" class="blue--btn--small" id="vocDeleteBtn" style="margin: 0 10px; display: none; background-color: gray">
+						<ul class="d-flex justify-content-center" style="margin: 0;">
+							<li style="margin-right: 4px;">삭제
+							<li><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 22px; margin-top: 3px;">delete_forever</span>
+						</ul>
+					</button>
 				</div>
 			</div>
 		</div>

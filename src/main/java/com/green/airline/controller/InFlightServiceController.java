@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import com.green.airline.dto.request.InFlightReqRequestDto;
 import com.green.airline.dto.response.InFlightMealResponseDto;
 import com.green.airline.dto.response.SpecialMealResponseDto;
 import com.green.airline.enums.MealDetail;
+import com.green.airline.handler.exception.CustomRestfullException;
 import com.green.airline.repository.model.Airport;
 import com.green.airline.repository.model.InFlightMeal;
 import com.green.airline.repository.model.InFlightMealDetail;
@@ -124,8 +126,14 @@ public class InFlightServiceController {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 		List<SpecialMealResponseDto> specialMealResponseDtos = inFlightSvService
 				.readRequestMealByMemberId(principal.getId());
+		
+		
 		List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService
 				.readInFlightMealSchedule(principal.getId());
+		
+		if (inFlightServiceResponseDtos.isEmpty()) {
+			throw new CustomRestfullException("신청 가능한 항공권 예약 내역이 없습니다.", HttpStatus.BAD_REQUEST);
+		}
 		
 		List<InFlightMealDetail> babyMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.BABYMEAL);
 		List<InFlightMealDetail> veganMeal = inFlightSvService.readInFlightMealByMealId(MealDetail.VEGANMEAL);

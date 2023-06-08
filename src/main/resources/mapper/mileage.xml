@@ -69,13 +69,13 @@
 		<if test="saveMileageDto.saveMileage2 == null">
 			insert into
 			mileage_tb(mileage_date,expiration_date,save_mileage,balance,member_id,ticket_id,description)
-			values(#{saveMileageDto.departureDate},#{saveMileageDto.expirationDate},#{saveMileageDto.saveMileage},#{saveMileageDto.saveMileage},#{saveMileageDto.memberId},#{saveMileageDto.ticketId},"티켓구매")
+			values(#{saveMileageDto.departureDate},#{saveMileageDto.expirationDate},#{saveMileageDto.saveMileage},#{saveMileageDto.saveMileage},#{saveMileageDto.memberId},#{saveMileageDto.ticketId},"항공권 예매")
 		</if>
 		<if test="saveMileageDto.saveMileage2 != null">
 			insert into
 			mileage_tb(mileage_date,expiration_date,save_mileage,balance,member_id,ticket_id,description)
-			values(#{saveMileageDto.departureDate},#{saveMileageDto.expirationDate},#{saveMileageDto.saveMileage},#{saveMileageDto.saveMileage},#{saveMileageDto.memberId},#{saveMileageDto.ticketId}),
-			(#{saveMileageDto.departureDate},#{saveMileageDto.expirationDate},#{saveMileageDto.saveMileage2},#{saveMileageDto.saveMileage2},#{saveMileageDto.memberId},#{saveMileageDto.ticketId},"티켓구매")
+			values(#{saveMileageDto.departureDate},#{saveMileageDto.expirationDate},#{saveMileageDto.saveMileage},#{saveMileageDto.saveMileage},#{saveMileageDto.memberId},#{saveMileageDto.ticketId}, "항공권 예매"),
+			(#{saveMileageDto.departureDate},#{saveMileageDto.expirationDate},#{saveMileageDto.saveMileage2},#{saveMileageDto.saveMileage2},#{saveMileageDto.memberId},#{saveMileageDto.ticketId},"항공권 예매")
 		</if>
 	</insert>
 

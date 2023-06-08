@@ -5,10 +5,7 @@
 <style>
 .tab_wrap6 li {
 	float: left;
-}
-
-.title {
-	text-align: center;
+	cursor: pointer;
 }
 
 #tab_title {
@@ -16,10 +13,8 @@
 	margin-top: 20px;
 }
 
-
-
 .sortation {
-	margin-left: 450px;
+	margin-left: 300px;
 }
 
 #checkboxList {
@@ -36,21 +31,6 @@ form {
 	margin-top: 20px;
 }
 
-table.table-bordered {
-	border-collapse: collapse;
-	width: 100%;
-}
-
-table.table-bordered th, table.table-bordered td {
-	border: 1px solid #ddd;
-	padding: 8px;
-	text-align: center;
-}
-
-table#gifticonList th.table-bordered {
-  background-color: #f2f2f2;
-}
-
 .mileage--list {
 	margin-top: 20px;
 }
@@ -64,14 +44,6 @@ h4#tab_title {
 	width: 17px;
 	height: 14px;
 }
-
-table#gifticonList--tr--thead{
-	border-collapse: collapse;
-	width: 100%;
-	margin-top: 20px;
-}
-
-
 
 .li--period, .li--period--s {
 	width: 105px;
@@ -101,21 +73,34 @@ table#gifticonList--tr--thead{
 	text-align: center;
 	width: 121px;
 }
-#gifticon--search{
-	margin-left: 182px;
+#gifticon--search {
+	background-color: gray;
+	padding: 2px 6px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	height: 28px;
+	margin-left: 10px;
 }
 #gifticonList{
 	background-color: white;
 }
-.title{
+label {
+	cursor: pointer;
+}
+
+.buy{
+	margin-right: 15px;
+}
+
+
+#sCalendar01, #sCalendar02, #searchMemberId {
+	width: 120px;
 	text-align: center;
-}
-label{
-margin-right:8px;
-}
-#sCalendar01,#sCalendar02,#searchMemberId{
-width:128px;
 	border: 1px solid #ccc;
+	outline: none;
+	border-radius: 5px;
+	padding: 2px 2px;
 }
 
 </style>
@@ -132,7 +117,8 @@ width:128px;
 			<dl>
 				
 				<dd>
-					<strong class="sortation"></strong><input type="radio" name="chk" value="buy"><label>구매내역</label> <input type="radio" name="chk" value="revoke"><label>취소내역</label>
+					<strong class="sortation"></strong><label><input type="radio" name="chk" value="buy" checked="checked"><span class="buy">&nbsp;구매내역</span></label>
+					<label><input type="radio" name="chk" value="revoke">&nbsp;취소내역</label>
 				</dd>
 			</dl>
 			<dl>
@@ -144,7 +130,6 @@ width:128px;
 							<li id="liPeriod6" class="li--period"><a>6개월</a></li>
 							<li id="liPeriod12" class="li--period"><a>1년</a></li>
 							<li id="liPeriods" class="li--period--s"><a>직접 선택</a></li>
-							<br>
 						</ul>
 					</div>
 				</dd>
@@ -155,21 +140,24 @@ width:128px;
 					<div class="relative_calendar">
 						<div class="calendar_wrap">
 							<input type="text" name="startTime" title="시작일" id="sCalendar01" class="datepicker input_cal" placeholder="시작일 선택" data-dateformat="y.mm.dd D" data-type="single_infinite">
-							<span class="mid_txt">부터 ~</span>
+							<span class="mid_txt">&nbsp;~&nbsp;</span>
 							<input type="text" name="endTime" title="종료일" id="sCalendar02" class="datepicker input_cal" placeholder="종료일 선택" data-dateformat="y.mm.dd D" data-type="single_infinite_last"> <a
 								href="#none" class="btn_airport type2 calendar_focus"></a>
-								<label>회원 이름 : </label>
-								<input type="text" name="memberId" class="mamberId" id="searchMemberId" placeholder="회원 이름">
-								<div class="btnDiv">
-								<button id="gifticon--search" type="button" class="btn btn-light">조회하기</button>
-								</div>
+							<label style="margin-left: 20px;">회원 아이디</label>
+							<input type="text" name="memberId" class="mamberId" id="searchMemberId" placeholder="회원 아이디">
+							<button type="button" id="gifticon--search">
+								<ul class="d-flex justify-content-center" style="margin: 0;">
+									<li style="height: 24px; margin-right: 2px;">조회
+									<li style="height: 24px;"><span class="material-symbols-outlined material-symbols-outlined-white" style="font-size: 18px; padding-top: 4px;">search</span></li>
+								</ul>
+							</button>
 						</div>
 					</div>
 				</dd>
 			</dl>
 		</form>
 		<form action="/gifticon/deleteGifticonById" method="post" id ="gifticonList">
-			<table class="table table-bordered">
+			<table class="table table-bordered list--table">
 				<thead id="gifticonList--tr--thead">
 
 				</thead>
