@@ -319,10 +319,24 @@ main {
 			</div>
 			<div class="my--centor">
 				<h2>현재 마일리지</h2>
-				<h4>${sumNowMileage.balanceNumber()}</h4>
-				<br>
-				<h2>누적 마일리지</h2>
-				<h4>${sumNowMileage.totalMileageNumber()}</h4>
+	            <c:choose>
+	               <c:when test="${sumNowMileage.balanceNumber() != null}">
+	            		<h4>${sumNowMileage.balanceNumber()}</h4>
+	               </c:when>
+	               <c:otherwise>
+	                  <h4>0</h4>
+	               </c:otherwise>
+           		</c:choose>
+	            <br>
+	            <h2>누적 마일리지</h2>
+	            <c:choose>
+	            	<c:when test="${sumNowMileage.totalMileageNumber() != null}">
+	           			<h4>${sumNowMileage.totalMileageNumber()}</h4>
+	            	</c:when>
+	            	<c:otherwise>
+	                	<h4>0</h4>
+	            	</c:otherwise>
+	            </c:choose>
 			</div>
 			<div class="my--right">
 				<div class="mileage">
