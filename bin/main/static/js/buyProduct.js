@@ -1,3 +1,22 @@
+$(document).ready(function() {
+   $('#liPeriod1').trigger('click');
+   $(function() {
+       $("#sCalendar01").datepicker({
+         dateFormat: "yy-mm-dd",
+         changeMonth: true,
+         changeYear: true
+         // 추가적인 옵션 설정
+       });
+
+       $("#sCalendar02").datepicker({
+         dateFormat: "yy-mm-dd",
+         changeMonth: true,
+         changeYear: true
+         // 추가적인 옵션 설정
+       });
+   });
+});
+
 /*기간별 조회 기능 1개뤟*/
 $('#liPeriod1').on("click", function() {
 
