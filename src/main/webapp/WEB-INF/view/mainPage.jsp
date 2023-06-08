@@ -247,7 +247,7 @@
 			<li><span class="material-symbols-outlined">flight</span>
 			<li>기내 서비스 조회
 		</ul>
-		<ul class="service--ul" onclick="location.href='/board/list'">
+		<ul class="service--ul" onclick="location.href='/board/list/1'">
 			<li><span class="material-symbols-outlined">luggage</span>
 			<li>여행지 추천
 		</ul>
