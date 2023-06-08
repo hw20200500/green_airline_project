@@ -267,7 +267,9 @@ public class ProductController {
 		
 		if (principal != null && principal.getUserRole().equals("관리자") == false) {
 			mileage = productService.readMileage(principal.getId());
-			model.addAttribute(mileage);
+			if (mileage != null) {
+				model.addAttribute(mileage);
+			}
 			String email = userService.readById(principal.getId()).getEmail();
 			model.addAttribute("email", email);
 		}

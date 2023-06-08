@@ -382,8 +382,6 @@ public class TicketService {
 	
 	public TicketAllInfoDto readByTicketId(String id) {
 		TicketAllInfoDto allInfoDto = ticketRepository.selectByTicketId(id);
-		System.out.println("id : " + id);
-		System.out.println("service : " + allInfoDto);
 		return allInfoDto;
 	}
 	// 마일리지 신청 유무 변경

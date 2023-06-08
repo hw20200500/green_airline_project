@@ -192,31 +192,37 @@ input[name="email"] {
 					<hr>
 					<%-- <img alt="" class="productImg" src="/uploadImage/${shopProduct.productImage}"> --%>
 
-					<div class="mileage">
-						<c:choose>
-							<c:when test="${principal.userRole == '관리자'}">
-							</c:when>
-							<c:otherwise>
-								<c:choose>
-									<c:when test="${principal == null}">
-										<p class="desc">
-											<b><a href="/login" class="btn_arrow flow-action-login important--span">로그인</a></b>을 하시면 마일리지를 확인하실 수 있습니다.
-
-										</p>
-									</c:when>
-									<c:otherwise>
-										<p>
-											현재 마일리지 : <span class="">${mileage.balanceNumber()}</span>
-										</p>
-										<span class="myMileage" style="display: none">${mileage.balance}</span>
-									</c:otherwise>
-								</c:choose>
-							</c:otherwise>
-						</c:choose>
-
-
-
-					</div>
+				<div class="mileage">
+                  <c:choose>
+                     <c:when test="${principal.userRole == '관리자'}">
+                     </c:when>
+                     <c:otherwise>
+                        <c:choose>
+                           <c:when test="${principal == null}">
+                              <p class="desc">
+                                 <a href="/login" class="btn_arrow flow-action-login">로그인</a> 을 하시면 마일리지를 확인하실 수 있습니다.
+                              </p>
+                           </c:when>
+                           <c:otherwise>
+                              <c:choose>
+                                 <c:when test="${mileage.balance != null}">
+                                    <p>
+                                       현재 마일리지 : <span class="">${mileage.balanceNumber()}</span>
+                                    </p>
+                                    <span class="myMileage" style="display: none">${mileage.balance}</span>
+                                 </c:when>
+                                 <c:otherwise>
+                                    <p>
+                                       현재 마일리지 : <span class="">0</span>
+                                    </p>
+                                    <span class="myMileage" style="display: none">0</span>
+                                 </c:otherwise>
+                              </c:choose>
+                           </c:otherwise>
+                        </c:choose>
+                     </c:otherwise>
+                  </c:choose>
+               </div>
 
 					<!-- 상품 선택영역 -->
 					<form name="frmDefault" id="frmDefault" method="post" action="/product/buyProduct">
