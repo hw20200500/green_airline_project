@@ -146,7 +146,7 @@
 		</div>
 
 		<!-- 페이지 숫자(< 3 4 5 >) -->
-		<div style="display: block; text-align: center;">
+		<div style="display: block; text-align: center; padding: 10px; color: #174481;">
 			<c:if test="${paging.startPage != 1}">
 				<a href="/notice/noticeList?nowPage=${paging.startPage - 1}&cntPerPage=${paging.cntPerPage}">&lt;</a>
 			</c:if>
@@ -156,7 +156,7 @@
 						<b>${p}</b>
 					</c:when>
 					<c:when test="${p != paging.nowPage}">
-						<a href="/notice/noticeList?nowPage=${p}&cntPerPage=${paging.cntPerPage}">${p}</a>
+						<a href="/notice/noticeList?nowPage=${p}&cntPerPage=${paging.cntPerPage}" style="padding: 10px; color: #174481;">${p}</a>
 					</c:when>
 				</c:choose>
 			</c:forEach>
