@@ -94,7 +94,8 @@
 
 <br>
 <br>
-![ERD Model](https://github.com/moon335/tenco_shop_project/assets/124985978/d588157c-bad1-4aa5-a4ae-c7286910af93)
+
+![ERD Model](https://github.com/seoyounglee0105/green_airline_project/assets/124985978/bf555cc6-78af-4216-868e-4a3a9d152968)
 
 
 <br>
