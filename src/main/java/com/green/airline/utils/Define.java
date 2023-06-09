@@ -47,7 +47,7 @@ public class Define {
 	
 	// 서영 : 192.168.0.187
 	// 민정 : 192.168.0.126 / 192.168.0.2
-	public final static String IP_ADDRESS = "localhost";
+	public final static String IP_ADDRESS = "192.168.0.187";
 	
 	// 인터셉터
 	// 로그인이 필요한 경로

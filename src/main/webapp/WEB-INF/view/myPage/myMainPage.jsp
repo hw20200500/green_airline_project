@@ -351,7 +351,7 @@ main {
 						<c:otherwise>
 							<p>
 								소멸 예정 마일리지 <a href="/mileage/selectAll"><span
-									class="material-symbols-outlined">add_circle</span></a>
+									class="material-symbols-outlined" id="add--circle">add_circle</span></a>
 							</p>
 							<p>예정인 마일리지가 없습니다</p>
 						</c:otherwise>
