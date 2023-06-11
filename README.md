@@ -96,7 +96,7 @@
 <br>
 <br>
 
-![ERD Model](https://github.com/seoyounglee0105/green_airline_project/assets/124985978/bf555cc6-78af-4216-868e-4a3a9d152968)
+![ERD Model](https://github.com/seoyounglee0105/green_airline_project/assets/124985978/3dc47f53-61da-4115-9644-3d19a8e3f185)
 
 
 <br>
