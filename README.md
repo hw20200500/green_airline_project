@@ -141,27 +141,27 @@
 </tr>
 <tr>
 <td>기내 서비스 조회</td>
-<td>특별 기내식</td>
+<td>특별 기내식 신청</td>
 </tr>
 <tr>
 <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/79470ee8-9b6d-42e3-877b-5b8e07bd3f84"></td>
-<td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/d075854e-8ebc-46ce-b78a-1fa218e5fd9c"></td>
-</tr>
-<tr>
-<td>특별 기내식 신청</td>
-<td>위탁 수하물 신청</td>
-</tr>
-<tr>
 <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/897ce8bb-06c2-4429-ad19-eb41716b5cd4"></td>
-<td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/c07b2977-7795-47e1-b2ba-b796f8d009ef"></td>
 </tr>
- <tr>
+<tr>
+<td>위탁 수하물 신청</td>
 <td>공지사항</td>
-<td>자주 묻는 질문</td>
+</tr>
+<tr>
+<td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/c07b2977-7795-47e1-b2ba-b796f8d009ef"></td>
+<td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/14721b13-882e-411b-b08a-00f1e11cbbc6"></td>
 </tr>
  <tr>
-<td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/14721b13-882e-411b-b08a-00f1e11cbbc6"></td>
+<td>자주 묻는 질문</td>
+<td></td>
+</tr>
+ <tr>
 <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/3caecebf-071d-44c8-b5a2-bec30083b58c"></td>
+<td><img src=""></td>
  </tr>
 <tr>
 <td></td>
