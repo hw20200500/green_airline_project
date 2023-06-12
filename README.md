@@ -128,7 +128,7 @@
 <td>Manager</td>
 </tr>
 <tr>
-<td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/469488af-35a3-4e38-8e88-68cda497a88d"></td>
+<td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/7b04e3ed-8920-453a-9dee-beff992deab5"></td>
 <td><img src="https://github.com/moon335/tenco_shop_project/assets/124985978/934db446-eec0-4f8d-bbcb-b34ec7a8e3a5"></td>
 </tr>
  <tr>
