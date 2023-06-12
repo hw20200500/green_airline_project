@@ -1,4 +1,4 @@
-![로고](https://github.com/seoyounglee0105/green_airline_project/assets/106488607/980711af-8884-408f-a5a9-61d19bb8add2)
+![로고](https://github.com/seoyounglee0105/green_airline_project/assets/106488607/81619211-2df6-4214-8cca-e997bf13eff1)
 
 
 <br>
