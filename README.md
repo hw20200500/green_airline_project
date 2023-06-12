@@ -108,11 +108,11 @@
 
 <table>
 <tr>
- <td>카카오 소셜 로그인</td>
- <td></td>
+ <td>User</td>
+ <td>Manager</td>
  </tr>
 <tr>
-<td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/469488af-35a3-4e38-8e88-68cda497a88d"></td>
+<td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/872e19cf-262f-48aa-bd3a-338e88208be6"></td>
 <td><img src="https://github.com/moon335/tenco_shop_project/assets/124985978/934db446-eec0-4f8d-bbcb-b34ec7a8e3a5"></td>
 </tr>
 </table>
@@ -124,11 +124,11 @@
 
 <table>
 <tr>
-<td>User</td>
+<td>카카오 소셜 로그인</td>
 <td>Manager</td>
 </tr>
 <tr>
-<td><img src="![Uploading admin_faq.gif…]()">a</td>
+<td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/469488af-35a3-4e38-8e88-68cda497a88d"></td>
 <td><img src="https://github.com/moon335/tenco_shop_project/assets/124985978/934db446-eec0-4f8d-bbcb-b34ec7a8e3a5"></td>
 </tr>
  <tr>
