@@ -138,15 +138,15 @@
   <td>비밀번호 찾기 (이메일 SMTP)</td>
 </tr>
 <tr>
+  <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/8b4dbb54-cb86-4e52-9b80-9795dc45cfd1/img.gif"></td>
   <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/106488607/fac17342-cb00-4329-8f1f-06a7d4fa94f8/img.gif"></td>
-  <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/65af6941-116b-443b-bf6a-022582240feb/img.gif"></td>
 </tr>
 <tr>
   <td>비밀번호 변경</td>
   <td>회원 정보 수정</td>
 </tr>
 <tr>
-  <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/8b4dbb54-cb86-4e52-9b80-9795dc45cfd1/img.gif"></td>
+  <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/65af6941-116b-443b-bf6a-022582240feb/img.gif"></td>
   <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/9fa448ae-b9d3-44d2-82e6-e0b535ad7033a/img.gif"></td>
 </tr>
 <tr>
