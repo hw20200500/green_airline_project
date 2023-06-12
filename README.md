@@ -125,11 +125,11 @@
 <table>
 <tr>
 <td>카카오 소셜 로그인</td>
-<td>Manager</td>
+<td>자주 묻는 질문</td>
 </tr>
 <tr>
 <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/65be0376-8ca8-47da-8905-03d7c3dd7d30"></td>
-<td><img src="https://github.com/moon335/tenco_shop_project/assets/124985978/934db446-eec0-4f8d-bbcb-b34ec7a8e3a5"></td>
+<td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/4ed3f196-8e4e-4e36-9aab-cd940663f65b"></td>
 </tr>
  <tr>
 <td><img src="https://github.com/moon335/tenco_shop_project/assets/124985978/9349f65c-7f44-4e72-9452-de666038db3a"></td>
