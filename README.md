@@ -1,4 +1,4 @@
-![logo](https://github.com/moon335/tenco_shop_project/assets/124985978/d5eca6a3-8cd6-4ea6-a4a7-5ebc1776fcfe)
+![로고](https://github.com/seoyounglee0105/green_airline_project/assets/106488607/980711af-8884-408f-a5a9-61d19bb8add2)
 
 
 <br>
