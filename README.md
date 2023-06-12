@@ -1,4 +1,4 @@
-![로고](https://github.com/seoyounglee0105/green_airline_project/assets/106488607/81619211-2df6-4214-8cca-e997bf13eff1)
+![로고2](https://github.com/seoyounglee0105/green_airline_project/assets/106488607/c91d95d8-6242-426e-a494-82a6a4d2806b)
 
 
 <br>
@@ -139,7 +139,7 @@
 </tr>
 <tr>
 <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/2dc43728-7f23-4543-94af-499a3ff0488f/img.gif"></td>
-<td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/65af6941-116b-443b-bf6a-022582240feb/img.gif"></td>
+<td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/106488607/0241460a-590b-4b0a-9b68-f32060f35c3b/img.gif"></td>
 </tr>
 <tr>
 <td>비밀번호 변경</td>
