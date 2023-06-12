@@ -108,11 +108,11 @@
 
 <table>
 <tr>
-<td>User</td>
-<td>Manager</td>
-</tr>
+ <td>카카오 소셜 로그인</td>
+ <td></td>
+ </tr>
 <tr>
-<td><img src="https://github.com/moon335/tenco_shop_project/assets/124985978/9349f65c-7f44-4e72-9452-de666038db3a"></td>
+<td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/469488af-35a3-4e38-8e88-68cda497a88d"></td>
 <td><img src="https://github.com/moon335/tenco_shop_project/assets/124985978/934db446-eec0-4f8d-bbcb-b34ec7a8e3a5"></td>
 </tr>
 </table>
