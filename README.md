@@ -128,7 +128,7 @@
 <td>Manager</td>
 </tr>
 <tr>
-<td><img src="![Uploading admin_faq.gif…]()"></td>
+<td><img src="![Uploading admin_faq.gif…]()">a</td>
 <td><img src="https://github.com/moon335/tenco_shop_project/assets/124985978/934db446-eec0-4f8d-bbcb-b34ec7a8e3a5"></td>
 </tr>
  <tr>
