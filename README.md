@@ -3,6 +3,9 @@
 
 <br>
 ## [👋 프로젝트 소개 README](https://github.com/seoyounglee0105/green_airline_project/wiki)
+
+
+## [👋 프로젝트 소개 README](https://github.com/seoyounglee0105/green_airline_project/wiki/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%86%8C%EA%B0%9C-README)
 <br>
 
 ## 1️⃣ 프로젝트 구조
