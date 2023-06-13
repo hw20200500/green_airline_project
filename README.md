@@ -6,6 +6,59 @@
 
 ## [👋 프로젝트 소개 README](https://github.com/seoyounglee0105/green_airline_project/wiki)
 
+## 🚀 프로젝트 개요
+- *모든 팀원이 풀스택으로 개발에 참여했으며, 주 포지션은 아래와 같습니다.*
+<br>
+
+|   Name   | 이서영 | 강민정 | 이치승 | 정다운 
+| :------: | --- | --- | --- | --- |
+| Position | 팀장 & 예약기능 | 여행준비관련기능 | 여행일지 관련 기능 | 마일리지 관련 기능 | Backend & UI |
+
+- 프로젝트 기간: 2023년 5월 15일 ~ 2023년 6월 7일
+- 소개 및 시연 영상: https://youtu.be/TZmGoEAzEio
+
+<br> 
+
+## 🎮 기술 스택
+
+### ✨ Front-End
+
+<details>
+    <summary>⚡️ FE 자세히 살펴보기</summary>
+    <ul>
+        <li>bootstrap : 4.6.2 </li>
+        <li>HTML5 </li>
+        <li>CSS3 </li>
+        <li>JavaScript : 1.16.1 </li>
+        <li>JQuery : 3.6.4 </li>
+        <li>Chart.js </li>
+        <li>summernote : 0.8.18 </li>
+    </ul>
+</details>
+
+### 💻 Back-End
+
+<details>
+      <summary>⚡️ BE 자세히 살펴보기</summary>
+      <ul>
+          <li>springboot : 4.18.0 </li>
+          <li>MySQL : 8.0.32 </li>
+          <li>jdk : 11.0.17 </li>
+          <li>lombok </li>
+          <li>MyBatis </li>
+          <li>JSP </li>
+          <li>BCrypt HASH </li>
+          <li>H2 </li>
+          <li>Apache Tomcat : 9.0 </li>
+      </ul>
+  </details>
+  
+
+### 🙌🏻 Collaboration
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=Jira&logoColor=white"/> <img src="https://img.shields.io/badge/SpringBoot-6DB33F?style=flat&logo=Slack&logoColor=white"/> <img src="https://img.shields.io/badge/Github-181717?style=flat&logo=Github&logoColor=white"/> <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=Notion&logoColor=white"/> <img src="https://img.shields.io/badge/Char.js-FF6384?style=flat&logo=Notion&logoColor=white"/> <img src="https://img.shields.io/badge/Eclipse-2C2255?style=flat&logo=Notion&logoColor=white"/> <img src="https://img.shields.io/badge/Jira-0052CC?style=flat&logo=Notion&logoColor=white"/> <br><img src="https://img.shields.io/badge/JQuery-0769AD?style=flat&logo=Notion&logoColor=white"/> <img src="https://img.shields.io/badge/Gradle-02303A?style=flat&logo=Notion&logoColor=white"/> <img src="https://img.shields.io/badge/Tomcat-F8DC75?style=flat&logo=Notion&logoColor=white"/> <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=Notion&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=Notion&logoColor=white"/> <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=Notion&logoColor=white"/>
+
+<br>
+
 <br>
 
 ## 1️⃣ 프로젝트 구조
