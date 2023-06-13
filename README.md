@@ -245,6 +245,8 @@ implementation 'commons-fileupload:commons-fileupload:1.3.1'
 - 탑승객 정보 입력
 - 카카오페이 또는 마일리지로 결제 가능
 - 결제 완료 시 문자 발송 (CoolSMS API)
+- 회원 등급에 따른 적립 비율로 적립 예정 마일리지 추가
+- 적립된 마일리지는 탑승일 다음 날부터 사용 가능
 
 #### 항공권 환불
 - 탑승일 이전인 경우 환불 신청 가능
