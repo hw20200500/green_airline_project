@@ -88,6 +88,8 @@ implementation 'commons-fileupload:commons-fileupload:1.3.1'
 
 ## 1️⃣ 프로젝트 구조
 
+<details>
+    <summary>⚡️ 구조 자세히 살펴보기</summary>
 ```bash
 📦src
  ┗ 📂main
@@ -146,7 +148,8 @@ implementation 'commons-fileupload:commons-fileupload:1.3.1'
          ┗ 📂voc
 
 ```
-
+</details>
+    
 <br>
 
 ## 2️⃣ 프로젝트 개요
