@@ -131,8 +131,8 @@
   <td>마일리지샵 구매 (이메일 SMTP)</td>
 </tr>
 <tr>
-  <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/106488607/1cea9615-b5ed-414a-992b-1ed53594bb7e/img.gif"></td>
-  <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/106488607/2c1a8a68-983d-4b57-9cdf-378a63d1fc4e/img.gif"></td>
+  <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/106488607/cf703de6-2818-4fa8-a6da-e869bd48dc96/img.gif"></td>
+  <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/106488607/6cb32543-ba0b-4c3d-8ed2-0940ed638089/img.gif"></td>
 </tr>
 </table>
 
