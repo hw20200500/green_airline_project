@@ -1,4 +1,5 @@
-![logo](https://github.com/moon335/tenco_shop_project/assets/124985978/d5eca6a3-8cd6-4ea6-a4a7-5ebc1776fcfe)
+![로고2](https://github.com/seoyounglee0105/green_airline_project/assets/106488607/45885ada-932d-4640-93a8-4a84d451bb9c)
+
 
 
 <br>
@@ -119,9 +120,25 @@
 </tr>
 </table>
 
+<br>
 
-## 5️⃣ 기능 - 회원
+## 5️⃣ 주요 기능
+<br>
 
+<table>
+<tr>
+  <td>항공권 예약/환불 (카카오페이)</td>
+  <td>마일리지샵 구매 (이메일 SMTP)</td>
+</tr>
+<tr>
+  <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/106488607/1cea9615-b5ed-414a-992b-1ed53594bb7e/img.gif"></td>
+  <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/106488607/2c1a8a68-983d-4b57-9cdf-378a63d1fc4e/img.gif"></td>
+</tr>
+</table>
+
+<br>
+
+## 6️⃣ 기능 - 회원
 <br>
 
 <table>
@@ -207,8 +224,9 @@
  </tr>
 </table>
 
+<br>
 
-## 6️⃣ 기능 - 관리자
+## 7️⃣ 기능 - 관리자
 <br>
 
 <table>
