@@ -6,6 +6,8 @@
 
 ## [👋 프로젝트 소개 README](https://github.com/seoyounglee0105/green_airline_project/wiki)
 
+<br>
+
 ## 🚀 프로젝트 개요
 - *모든 팀원이 풀스택으로 개발에 참여했으며, 주 포지션은 아래와 같습니다.*
 <br>
