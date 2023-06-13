@@ -90,63 +90,64 @@ implementation 'commons-fileupload:commons-fileupload:1.3.1'
 
 <details>
     <summary>⚡️ 구조 자세히 살펴보기</summary>
-```bash
-📦src
- ┗ 📂main
-   ┣ 📂java
-   ┃ ┗ 📂com
-   ┃   ┗ 📂green
-   ┃     ┗ 📂airline
-   ┃       ┃ ┣ 📂config
-   ┃       ┃ ┗ 📂controller
-   ┃       ┣ 📂dto
-   ┃       ┃ ┣ 📂kakao
-   ┃       ┃ ┣ 📂nation
-   ┃       ┃ ┣ 📂request
-   ┃       ┃ ┗ 📂response
-   ┃       ┣ 📂enums
-   ┃       ┣ 📂handler
-   ┃       ┃ ┗ 📂exception
-   ┃       ┣ 📂repository
-   ┃       ┃ ┣ 📂interfaces
-   ┃       ┃ ┗ 📂model
-   ┃       ┣ 📂service
-   ┃       ┗ 📂utils
-   ┣ 📂resources
-   ┃ ┣ 📂db
-   ┃ ┣ 📂mapper
-   ┃ ┗ 📂static
-   ┃   ┣ 📂css
-   ┃   ┃ ┗ 📂summerNote
-   ┃   ┃   ┗ 📂font
-   ┃   ┣ 📂images
-   ┃   ┃ ┣ 📂airplane
-   ┃   ┃ ┣ 📂baggage
-   ┃   ┃ ┣ 📂board
-   ┃   ┃ ┣ 📂gifticon
-   ┃   ┃ ┣ 📂in_flight
-   ┃   ┃ ┣ 📂like
-   ┃   ┃ ┣ 📂product
-   ┃   ┃ ┗ 📂ticket
-   ┃   ┗ 📂js
-   ┃     ┗ 📂summerNote
-   ┃       ┗ 📂lang
-   ┗ 📂webapp
-     ┗ 📂WEB-INF
-       ┗ 📂view
-         ┣ 📂baggage
-         ┣ 📂board
-         ┣ 📂faq
-         ┣ 📂in_flight
-         ┣ 📂layout
-         ┣ 📂manager
-         ┣ 📂mileage
-         ┣ 📂myPage
-         ┣ 📂notice
-         ┣ 📂ticket
-         ┣ 📂user
-         ┗ 📂voc
-```
+    
+        ```bash
+        📦src
+         ┗ 📂main
+           ┣ 📂java
+           ┃ ┗ 📂com
+           ┃   ┗ 📂green
+           ┃     ┗ 📂airline
+           ┃       ┃ ┣ 📂config
+           ┃       ┃ ┗ 📂controller
+           ┃       ┣ 📂dto
+           ┃       ┃ ┣ 📂kakao
+           ┃       ┃ ┣ 📂nation
+           ┃       ┃ ┣ 📂request
+           ┃       ┃ ┗ 📂response
+           ┃       ┣ 📂enums
+           ┃       ┣ 📂handler
+           ┃       ┃ ┗ 📂exception
+           ┃       ┣ 📂repository
+           ┃       ┃ ┣ 📂interfaces
+           ┃       ┃ ┗ 📂model
+           ┃       ┣ 📂service
+           ┃       ┗ 📂utils
+           ┣ 📂resources
+           ┃ ┣ 📂db
+           ┃ ┣ 📂mapper
+           ┃ ┗ 📂static
+           ┃   ┣ 📂css
+           ┃   ┃ ┗ 📂summerNote
+           ┃   ┃   ┗ 📂font
+           ┃   ┣ 📂images
+           ┃   ┃ ┣ 📂airplane
+           ┃   ┃ ┣ 📂baggage
+           ┃   ┃ ┣ 📂board
+           ┃   ┃ ┣ 📂gifticon
+           ┃   ┃ ┣ 📂in_flight
+           ┃   ┃ ┣ 📂like
+           ┃   ┃ ┣ 📂product
+           ┃   ┃ ┗ 📂ticket
+           ┃   ┗ 📂js
+           ┃     ┗ 📂summerNote
+           ┃       ┗ 📂lang
+           ┗ 📂webapp
+             ┗ 📂WEB-INF
+               ┗ 📂view
+                 ┣ 📂baggage
+                 ┣ 📂board
+                 ┣ 📂faq
+                 ┣ 📂in_flight
+                 ┣ 📂layout
+                 ┣ 📂manager
+                 ┣ 📂mileage
+                 ┣ 📂myPage
+                 ┣ 📂notice
+                 ┣ 📂ticket
+                 ┣ 📂user
+                 ┗ 📂voc
+        ```
     
 </details>
     
