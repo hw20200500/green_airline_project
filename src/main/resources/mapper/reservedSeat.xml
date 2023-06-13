@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.airline.repository.interfaces.ReservedSeatRepository">
+
+<select id="selectByScheduleId" resultType="com.green.airline.repository.model.ReservedSeat">
+	SELECT * FROM reserved_seat_tb WHERE schedule_id = #{scheduleId}
+</select>
+
+<insert id="insert">
+	INSERT INTO reserved_seat_tb
+	VALUES (#{scheduleId}, #{seatName}, #{ticketId});
+</insert>
+
+<select id="selectByTicketId" resultType="com.green.airline.repository.model.ReservedSeat">
+	SELECT * FROM reserved_seat_tb WHERE ticket_id = #{ticketId}
+</select>
+
+<delete id="deleteByTicketId">
+	DELETE FROM reserved_seat_tb WHERE ticket_id = #{ticketId}
+</delete>
+
+</mapper>

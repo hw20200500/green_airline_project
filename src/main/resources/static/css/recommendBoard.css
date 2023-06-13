@@ -1,0 +1,125 @@
+@charset "UTF-8";
+
+.container {
+	max-width: 1180px; /* 원하는 너비 값으로 변경해주세요 */
+	margin: 0 auto; /* 가운데 정렬을 위해 margin을 auto로 설정합니다 */
+	justify-content: center;
+	width: 100%;
+}
+
+.popular--board {
+	width: 100%;
+	align-items: center;
+}
+
+.modal-dialog.modal-fullsize {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+.modal-content.modal-fullsize {
+	height: auto;
+	min-height: 100%;
+	border-radius: 0;
+}
+
+.img {
+	width: 382px;
+	height: 235px;
+	padding: 5px 10px;
+}
+
+.td--img {
+	align-items: center;
+	justify-content: center;
+}
+
+.td--board {
+	padding: 5px 10px;
+}
+
+.board--table.d-flex {
+	flex-wrap: wrap;
+}
+
+.modal-header {
+	border-bottom: none;
+	padding-bottom: 0;
+	margin-left: 10px;
+}
+
+.modal-title {
+	font-weight: bolder;
+}
+
+.modal-body {
+	padding-top: 20px;
+}
+
+.btn--write {
+	width: 100%;
+}
+
+.board--title {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 360px;
+}
+
+.popular--board--title {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 280px;
+}
+
+.popular--h1 {
+	text-align: left;
+	padding: 5px 20px;
+}
+
+.board--user--date {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: right;
+	height: 8px;
+}
+
+.board--table {
+	white-space: nowrap;
+	width: 100%;
+	display: block;
+}
+
+.h4--title {
+	justify-content: left;
+	display: flex;
+	margin-left: 10px;
+}
+
+.basic--board {
+	align-items: center;
+}
+
+.board--content {
+	padding: 30px;
+}
+
+.modal--upDelete {
+	display: flex;
+	justify-content: center;
+}
+
+.popular--board--content {
+	width: 283px;
+	margin: 0 1px;
+}
+
+.popular--img {
+	width: 290px;
+	height: 235px;
+	padding: 5px 10px;
+}

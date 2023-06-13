@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.airline.repository.interfaces.GifticonRepository">
+
+	<select id="selectGifticonList" resultType="com.green.airline.dto.GifticonDto">
+		<if test="radio == 'revoke'">
+			<!-- select * FROM gifticon_revoke_tb where -->
+			select * from gifticon_revoke_tb as r
+			left join gifticon_tb as g
+			on r.gifticon_id = g.id
+			left join shop_order_tb as s
+			on g.order_id = s.id
+			left join shop_product_tb as p
+			on s.product_id = p.id
+			where
+			s.member_id = #{id}
+			and r.revoke_date >= #{startTime} and #{endTime} >= r.revoke_date
+
+		</if>
+		<if test="radio == 'buy'">
+			select * FROM gifticon_tb as g join shop_order_tb as s
+			on
+			g.order_id = s.id
+			join shop_product_tb as sp
+			on s.product_id = sp.id
+			where
+			s.member_id = #{id} and g.start_date >= #{startTime} and
+			#{endTime}
+			>=
+			g.start_date and status = 0
+		</if>
+	</select>
+
+
+<select id="selectGifticonListForManager" resultType="com.green.airline.dto.GifticonDto">
+		<if test="radio == 'revoke'">
+			<!-- select * FROM gifticon_revoke_tb where -->
+			select * from gifticon_revoke_tb as r
+			left join gifticon_tb as g
+			on r.gifticon_id = g.id
+			left join shop_order_tb as s
+			on g.order_id = s.id
+			left join shop_product_tb as p
+			on s.product_id = p.id
+			where
+			s.member_id = #{id}
+			and r.revoke_date >= #{startTime} and #{endTime} >= r.revoke_date
+
+		</if>
+		<if test="radio == 'buy'">
+			select * FROM gifticon_tb as g join shop_order_tb as s
+			on
+			g.order_id = s.id
+			join shop_product_tb as sp
+			on s.product_id = sp.id
+			where
+			s.member_id = #{id} and g.start_date >= #{startTime} and
+			#{endTime}
+			>=
+			g.start_date and status = 0
+		</if>
+	</select>
+
+	<update id="updateGifticonStatusChange2">
+		update gifticon_tb set status = 1 where id= #{gifticonId};
+	</update>
+	<insert id="insertRevokeGifticon">
+		INSERT INTO gifticon_revoke_tb(gifticon_id)
+		VALUES(#{gifticonId})
+
+	</insert>
+	<select id="selectGifticonLimit" resultType="com.green.airline.dto.GifticonDto">
+		select * from gifticon_tb order by id desc limit 1;
+	</select>
+	<update id="updateGifticonStatus">
+		update gifticon_tb set status = 1 where id = #{gifticonId}
+	</update>
+
+	<!-- 마이페이지 구매한 기프티콘 수량 조회 -->
+	<select id="selectGifticonCount" resultType="com.green.airline.dto.GifticonDto">
+		select count(*) as count from gifticon_tb as g
+		join shop_order_tb as s
+		on g.order_id = s.id
+		where s.member_id = #{memberId} and g.status = 0;
+	</select>
+
+</mapper>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.green.airline.repository.interfaces.TicketRepository">
+
+	<select id="selectById"
+		resultType="com.green.airline.repository.model.Ticket">
+		SELECT * FROM ticket_tb WHERE id = #{id}
+	</select>
+
+
+<insert id="insert">
+	INSERT INTO ticket_tb 
+	VALUES (#{id}, #{adultCount}, #{childCount}, #{infantCount}, #{seatGrade}, #{memberId}, #{scheduleId}, now(),  #{paymentType}) 
+</insert>
+ 
+ <delete id="deleteById">
+ 	DELETE FROM ticket_tb WHERE id = #{id}
+ </delete>
+ 
+ <select id="selectByUserIdOrderByDate" resultType="com.green.airline.repository.model.Ticket">
+ 	SELECT * FROM ticket_tb WHERE member_id = #{memberId} ORDER BY reserved_date DESC
+ </select>
+ 
+ <select id="selectAllInfoById" resultType="com.green.airline.dto.response.TicketAllInfoDto">
+ 	<!-- 1번째 일정 -->
+ 	<if test="type == 1">
+		SELECT t.*, departure_date, arrival_date, reserved_date, departure, destination, flight_time, a.name AS airplane_name, tid, amount1 AS amount, status1 AS status, r.type AS schedule_type, payment_type
+		FROM ticket_tb AS t
+		JOIN schedule_tb AS s
+		ON t.schedule_id = s.id
+		JOIN route_tb AS r
+		ON r.id = s.route_id
+		JOIN airplane_tb AS a
+		ON s.airplane_id = a.id
+		LEFT JOIN ticket_payment_tb AS tp
+		ON t.id = tp.ticket_id1
+		WHERE t.id = #{id};
+ 	</if>
+ 	
+ 	<!-- 2번째 일정 -->
+ 	<if test="type == 2">
+		SELECT t.*, departure_date, arrival_date, reserved_date, departure, destination, flight_time, a.name AS airplane_name, tid, amount2 AS amount, status2 AS status, r.type AS schedule_type, payment_type
+		FROM ticket_tb AS t
+		JOIN schedule_tb AS s
+		ON t.schedule_id = s.id
+		JOIN route_tb AS r
+		ON r.id = s.route_id
+		JOIN airplane_tb AS a
+		ON s.airplane_id = a.id
+		LEFT JOIN ticket_payment_tb AS tp
+		ON t.id = tp.ticket_id2
+		WHERE t.id = #{id};
+ 	</if>
+ 	
+ </select>
+ 
+ <update id="updateReservedDate">
+ 	UPDATE ticket_tb SET reserved_date = now()
+ 	WHERE id = #{id}
+ </update>
+ 
+ <select id="selectTicketListByMemberId" resultType="com.green.airline.dto.response.TicketAllInfoDto">
+	SELECT t.*, departure_date, arrival_date, departure, destination, flight_time, a.name AS airplane_name, tid, r.type AS schedule_type,
+	        CASE 
+				WHEN t.id = tp.ticket_id1 THEN amount1 
+	            WHEN t.id = tp.ticket_id2 THEN amount2
+			END AS amount,
+			CASE
+				WHEN t.id = tp.ticket_id1 THEN status1
+	            WHEN t.id = tp.ticket_id2 THEN status2
+			END AS status
+	FROM ticket_tb AS t
+	JOIN schedule_tb AS s
+	ON t.schedule_id = s.id
+	JOIN route_tb AS r
+	ON r.id = s.route_id
+	JOIN airplane_tb AS a
+	ON s.airplane_id = a.id
+	JOIN ticket_payment_tb AS tp
+	ON t.id IN (tp.ticket_id1, tp.ticket_id2)
+	WHERE t.member_id = #{memberId} AND (status1 != 0 OR status2 != 0)
+	ORDER BY reserved_date DESC;
+ </select>
+ 
+ <select id="selectTicketListByMemberIdLimit" resultType="com.green.airline.dto.response.TicketAllInfoDto">
+	SELECT t.*, departure_date, arrival_date, departure, destination, flight_time, a.name AS airplane_name, tid, r.type AS schedule_type,
+	        CASE 
+				WHEN t.id = tp.ticket_id1 THEN amount1 
+	            WHEN t.id = tp.ticket_id2 THEN amount2
+			END AS amount,
+			CASE
+				WHEN t.id = tp.ticket_id1 THEN status1
+	            WHEN t.id = tp.ticket_id2 THEN status2
+			END AS status
+	FROM ticket_tb AS t
+	JOIN schedule_tb AS s
+	ON t.schedule_id = s.id
+	JOIN route_tb AS r
+	ON r.id = s.route_id
+	JOIN airplane_tb AS a
+	ON s.airplane_id = a.id
+	JOIN ticket_payment_tb AS tp
+	ON t.id IN (tp.ticket_id1, tp.ticket_id2)
+	WHERE t.member_id = #{memberId} AND (status1 != 0 OR status2 != 0)
+	ORDER BY reserved_date DESC
+	LIMIT #{index}, 10
+ </select>
+ 
+
+
+	<select id="selectByTicketId"
+		resultType="com.green.airline.dto.response.TicketAllInfoDto">
+		select
+		t.id,t.seat_grade,t.member_id,s.departure_date,r.departure,r.destination,a.name
+		as airplaneName, m.status as reqstatus from ticket_tb as t
+		left join
+		schedule_tb as s
+		on t.schedule_id = s.id
+		left join route_tb as r
+		on s.route_id =
+		r.id
+		left join airplane_tb as a
+		on s.airplane_id = a.id
+		left join
+		mileage_request_tb as m
+		on t.id = m.ticket_id
+		where t.id = #{id};
+	</select>
+
+	<!-- 마일리지 신청 할 때 필요한 select -->
+	<select id="selectTicketList"
+		resultType="com.green.airline.dto.response.TicketAllInfoDto">
+		<if test="type == 0">
+			select
+			t.id,t.seat_grade,t.member_id,s.departure_date,r.departure,r.destination,a.name
+			as airplaneName, m.status as req_status from ticket_tb as t
+			left join
+			schedule_tb as s
+			on t.schedule_id = s.id
+			left join route_tb as r
+			on s.route_id =
+			r.id
+			left join airplane_tb as a
+			on s.airplane_id = a.id
+			left join
+			mileage_request_tb as m
+			on t.id = m.ticket_id
+			where t.member_id = #{memberId}
+			and m.ticket_id is null
+			;
+		</if>
+		<if test="type == 1">
+			select
+			t.id,t.seat_grade,t.member_id,s.departure_date,r.departure,r.destination,a.name
+			as airplaneName, m.status as req_status from ticket_tb as t
+			left join
+			schedule_tb as s
+			on t.schedule_id = s.id
+			left join route_tb as r
+			on s.route_id =
+			r.id
+			left join airplane_tb as a
+			on s.airplane_id = a.id
+			left join
+			mileage_request_tb as m
+			on t.id = m.ticket_id
+			where t.member_id = #{memberId}
+			and m.status = 0;
+		</if>
+	</select>
+	<!-- 신청 입력 --> 
+	<insert id="inserticketIdById">
+		insert into mileage_request_tb(ticket_id)
+		values(#{id});
+	</insert>
+
+ <select id="selectTicketListAll" resultType="com.green.airline.dto.response.TicketAllInfoDto">
+	SELECT t.*, departure_date, arrival_date, departure, destination, flight_time, a.name AS airplane_name, tid, r.type AS schedule_type,
+	        CASE 
+				WHEN t.id = tp.ticket_id1 THEN amount1 
+	            WHEN t.id = tp.ticket_id2 THEN amount2
+			END AS amount,
+			CASE
+				WHEN t.id = tp.ticket_id1 THEN status1
+	            WHEN t.id = tp.ticket_id2 THEN status2
+			END AS status
+	FROM ticket_tb AS t
+	JOIN schedule_tb AS s
+	ON t.schedule_id = s.id
+	JOIN route_tb AS r
+	ON r.id = s.route_id
+	JOIN airplane_tb AS a
+	ON s.airplane_id = a.id
+	JOIN ticket_payment_tb AS tp
+	ON t.id IN (tp.ticket_id1, tp.ticket_id2)
+	WHERE status1 != 0 OR status2 != 0
+	ORDER BY reserved_date DESC;
+ </select>
+ 
+ <select id="selectTicketListAllLimit" resultType="com.green.airline.dto.response.TicketAllInfoDto">
+	SELECT t.*, departure_date, arrival_date, departure, destination, flight_time, a.name AS airplane_name, tid, r.type AS schedule_type,
+	        CASE 
+				WHEN t.id = tp.ticket_id1 THEN amount1 
+	            WHEN t.id = tp.ticket_id2 THEN amount2
+			END AS amount,
+			CASE
+				WHEN t.id = tp.ticket_id1 THEN status1
+	            WHEN t.id = tp.ticket_id2 THEN status2
+			END AS status
+	FROM ticket_tb AS t
+	JOIN schedule_tb AS s
+	ON t.schedule_id = s.id
+	JOIN route_tb AS r
+	ON r.id = s.route_id
+	JOIN airplane_tb AS a
+	ON s.airplane_id = a.id
+	JOIN ticket_payment_tb AS tp
+	ON t.id IN (tp.ticket_id1, tp.ticket_id2)
+	WHERE status1 != 0 OR status2 != 0
+	ORDER BY reserved_date DESC
+	LIMIT #{index}, 10
+ </select>
+
+</mapper>

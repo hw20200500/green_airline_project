@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.airline.repository.interfaces.FaqRepository">
+
+	<select id="selectFaqCategory"
+		resultType="com.green.airline.repository.model.FaqCategory">
+		select * from faq_category_tb
+	</select>
+
+	<select id="selectFaqByCategoryId"
+		resultType="com.green.airline.dto.response.FaqResponseDto">
+		<if test="categoryId == 1">
+			select f.id, f.title, f.content, f.category_id, fc.name
+			from faq_tb as f
+			join faq_category_tb as fc
+			on fc.id = f.category_id
+		</if>
+		
+		<if test="categoryId != 1">
+			select f.id, f.title, f.content, f.category_id, fc.name
+			from faq_tb as f
+			join faq_category_tb as fc
+			on fc.id = f.category_id
+			where f.category_id = #{categoryId}
+		</if>
+	</select>
+	
+	<select id="selectFaqByKeyword" resultType="com.green.airline.dto.response.FaqResponseDto">
+			select * 
+			from faq_tb as f
+			join faq_category_tb as fc
+			on fc.id = f.category_id
+			where f.title like #{keyword}
+	</select>
+	
+	<delete id="deleteFaqById">
+		delete from faq_tb where id = #{id}
+	</delete>
+	
+	<update id="updateFaqById">
+		update faq_tb
+		set title=#{faq.title}, content=#{faq.content}, category_id=#{faq.categoryId}
+		where id = #{id}
+	</update>
+	
+	<select id="selectFaqByIdList" resultType="com.green.airline.dto.response.FaqResponseDto">
+		select *
+		from faq_tb as f
+		join faq_category_tb as fc
+		on fc.id = f.category_id
+		where f.id = #{id}
+	</select>
+	
+	<select id="selectFaqById" resultType="com.green.airline.dto.response.FaqResponseDto">
+		select *
+		from faq_tb as f
+		join faq_category_tb as fc
+		on fc.id = f.category_id
+		where f.id = #{id}
+	</select>
+	
+	<select id="selectFaqAll" resultType="com.green.airline.dto.response.FaqResponseDto">
+			select f.id, f.title, f.content, f.category_id, fc.name
+			from faq_tb as f
+			join faq_category_tb as fc
+			on fc.id = f.category_id
+	</select>
+	
+	
+</mapper>
