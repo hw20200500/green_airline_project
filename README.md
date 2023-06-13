@@ -200,7 +200,6 @@ implementation 'commons-fileupload:commons-fileupload:1.3.1'
 <br>
 
 ## 6️⃣ 주요 기능
-<br>
 
 #### 항공권 예약 - 스케줄 선택
 - 왕복/편도 선택
@@ -251,7 +250,6 @@ implementation 'commons-fileupload:commons-fileupload:1.3.1'
 <br>
 
 ## 7️⃣ 기능 - 회원
-<br>
 
 #### 회원가입
 - 아이디 중복 확인
@@ -383,7 +381,6 @@ implementation 'commons-fileupload:commons-fileupload:1.3.1'
 <br>
 
 ## 8️⃣ 기능 - 관리자
-<br>
 
 #### 대시보드
 - chart.js 활용
