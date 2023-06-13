@@ -159,8 +159,10 @@ implementation 'commons-fileupload:commons-fileupload:1.3.1'
 * 핵심 기능이 많으며 실무에서 활용할 수 있는 기능이 포함된 것들 중, 예약, 환불, 외부 API를 활용할 수 있는 항공권 예약 사이트로 주제 선정
 * 현행 시스템 벤치마킹 (아시아나 항공, 대한 항공 등)
 
+<br>
 
-### 기능 구분
+## 3️⃣ 기능 구분
+
 #### Member
 
 * 소셜 로그인 API, 항공권 예매 기능, 결제 및 환불 API
@@ -173,7 +175,7 @@ implementation 'commons-fileupload:commons-fileupload:1.3.1'
 
 <br>
 
-## 3️⃣ ERD & 테이블 명세서
+## 4️⃣ ERD & 테이블 명세서
 테이블 명세서 : https://docs.google.com/spreadsheets/d/1oaUxJ4CWKrVUvi02h9mYOwBL-raDCLswAQ5Qllws7Xw/edit#gid=0
 
 <br>
@@ -186,7 +188,7 @@ implementation 'commons-fileupload:commons-fileupload:1.3.1'
 <br>
 
 
-## 4️⃣ SiteMap
+## 5️⃣ SiteMap
 <br>
 
 <table>
@@ -202,7 +204,7 @@ implementation 'commons-fileupload:commons-fileupload:1.3.1'
 
 <br>
 
-## 5️⃣ 주요 기능
+## 6️⃣ 주요 기능
 <br>
 
 <table>
@@ -218,7 +220,7 @@ implementation 'commons-fileupload:commons-fileupload:1.3.1'
 
 <br>
 
-## 6️⃣ 기능 - 회원
+## 7️⃣ 기능 - 회원
 <br>
 
 <table>
@@ -306,7 +308,7 @@ implementation 'commons-fileupload:commons-fileupload:1.3.1'
 
 <br>
 
-## 7️⃣ 기능 - 관리자
+## 8️⃣ 기능 - 관리자
 <br>
 
 <table>
