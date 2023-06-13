@@ -61,7 +61,7 @@
 
 <br>
 
-## 의존성
+## ⚙ 의존성
 ```java
 implementation 'org.apache.tomcat.embed:tomcat-embed-jasper' // JSP
 implementation 'javax.servlet:jstl' // JSTL
