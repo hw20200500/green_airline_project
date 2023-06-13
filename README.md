@@ -63,26 +63,26 @@
 
 ## 의존성
 ```java
-    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper' // JSP
-    implementation 'javax.servlet:jstl' // JSTL
-	implementation 'org.springframework.boot:spring-boot-starter-aop'
-	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.security:spring-security-crypto'
-	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	//runtimeOnly 'com.h2database:h2
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
-	runtimeOnly 'com.mysql:mysql-connector-j'
-	annotationProcessor 'org.projectlombok:lombok'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.springframework.boot:spring-boot-starter-mail'
-	//implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.1'
-	implementation 'org.springframework:spring-context-support'
-	implementation group: 'net.nurigo', name: 'javaSDK', version: '2.2'
-    implementation 'commons-io:commons-io:2.6'
-    implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'commons-fileupload:commons-fileupload:1.3.1'
+implementation 'org.apache.tomcat.embed:tomcat-embed-jasper' // JSP
+implementation 'javax.servlet:jstl' // JSTL
+implementation 'org.springframework.boot:spring-boot-starter-aop'
+implementation 'org.springframework.boot:spring-boot-starter-validation'
+implementation 'org.springframework.boot:spring-boot-starter-web'
+implementation 'org.springframework.security:spring-security-crypto'
+compileOnly 'org.projectlombok:lombok'
+developmentOnly 'org.springframework.boot:spring-boot-devtools'
+//runtimeOnly 'com.h2database:h2
+implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
+runtimeOnly 'com.mysql:mysql-connector-j'
+annotationProcessor 'org.projectlombok:lombok'
+testImplementation 'org.springframework.boot:spring-boot-starter-test'
+implementation 'org.springframework.boot:spring-boot-starter-mail'
+//implementation 'org.springframework.boot:spring-boot-starter-mail:2.7.1'
+implementation 'org.springframework:spring-context-support'
+implementation group: 'net.nurigo', name: 'javaSDK', version: '2.2'
+implementation 'commons-io:commons-io:2.6'
+implementation 'com.google.code.gson:gson:2.8.6'
+implementation 'commons-fileupload:commons-fileupload:1.3.1'
 ```
 
 <br>
