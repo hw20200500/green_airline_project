@@ -25,6 +25,7 @@
 
 <details>
     <summary>⚡️ FE 자세히 살펴보기</summary>
+    <br>
     <ul>
         <li>bootstrap : 4.6.2 </li>
         <li>HTML5 </li>
@@ -40,6 +41,7 @@
 
 <details>
       <summary>⚡️ BE 자세히 살펴보기</summary>
+      <br>
       <ul>
           <li>springboot : 4.18.0 </li>
           <li>H2 Database → MySQL : 8.0.32 </li>
@@ -56,6 +58,7 @@
 
 <details>
       <summary>⚡️ API 자세히 살펴보기</summary>
+      <br>
       <ul>
           <li>카카오 소셜 로그인 API (OAuth 2.0 프로토콜)</li>
           <li>카카오페이 API</li>
