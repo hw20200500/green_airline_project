@@ -2,7 +2,6 @@
 
 
 
-## [👋 프로젝트 소개 Wiki](https://github.com/seoyounglee0105/green_airline_project/wiki)
 
 <br>
 
