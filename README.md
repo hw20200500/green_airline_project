@@ -368,7 +368,7 @@ implementation 'commons-fileupload:commons-fileupload:1.3.1'
 </tr>
 <tr>
   <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/d075854e-8ebc-46ce-b78a-1fa218e5fd9c/img.gif"></td>
-  <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/c2e6e1e1-f602-4e6f-bfcd-ff94063a6396/img.gif"></td>
+  <td><img src="https://github.com/seoyounglee0105/green_airline_project/assets/105858187/dc56d0aa-5aff-4b47-963c-df326b674579/img.gif"></td>
 </tr>
 <tr>
   <td>여행일지</td>
