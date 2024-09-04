@@ -16,7 +16,7 @@
 				right: 20px; /* 화면 오른쪽에서 20px 떨어지게 설정 */
 				width: 60px;
 				height: 60px;
-				background-color: #007bff;
+				background-color: #8abbe1;
 				color: white;
 				border: none;
 				border-radius: 50%;
@@ -42,7 +42,7 @@
 				z-index: 1000; /* 챗봇을 다른 요소 위에 표시 */
 			}
 			.chatbot-header {
-				background-color: #007bff;
+				background-color: #8abbe1;
 				color: white;
 				padding: 15px;
 				text-align: center;
@@ -79,7 +79,7 @@
 			}
 			.input-group button {
 				padding: 12px;
-				background-color: #007bff;
+				background-color: #8abbe1;
 				border: none;
 				color: white;
 				cursor: pointer;
