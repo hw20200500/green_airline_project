@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.green.airline.repository.interfaces.RouteRepository">
+	
+	<!-- 기내 서비스 조회를 위한 출발지 도착지 조회 -->
+	<select id="selectByDestAndDepa" resultType="com.green.airline.repository.model.Route">
+		select r.destination, r.departure, r.flight_time  
+		from route_tb as r
+		where r.destination=#{destination} and r.departure=#{departure}
+	</select>
+	
+	<select id="selectGroupByDestinationLimitN" resultType="com.green.airline.dto.response.DestinationCountDto">
+		SELECT destination, SUM(adult_count + child_count + infant_count) AS count
+		FROM route_tb AS r
+		JOIN schedule_tb AS s
+		ON r.id = s.route_id
+		JOIN ticket_tb AS t
+		ON s.id = t.schedule_id
+		GROUP BY destination
+		ORDER BY count DESC
+		LIMIT #{limitCount}
+	</select>
+	
+	<select id="selectById" resultType="com.green.airline.repository.model.Route">
+		select * from route_tb where id = #{id}
+	</select>
+	
+</mapper>

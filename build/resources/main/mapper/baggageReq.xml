@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.green.airline.repository.interfaces.BaggageRequestRepository">
+	
+	<insert id="insertBaggageReq">
+		insert into baggage_request_tb(amount, member_id, ticket_id)
+		values(#{amount}, #{memberId}, #{ticketId})
+	</insert>
+	
+	<update id="updateBaggageReq">
+		update baggage_request_tb 
+		set amount = #{amount}
+		where id = #{id}
+	</update>
+	
+	<delete id="deleteBaggageReqById">
+		delete from baggage_request_tb
+		where id = #{id}
+	</delete>
+	
+	<select id="selectBaggageReqByMemberId" resultType="com.green.airline.dto.response.BaggageReqResponseDto">
+		select bre.amount, r.departure, r.destination, sg.name as seat_grade_name, bre.id as baggage_id
+		from baggage_request_tb as bre
+		join ticket_tb as t
+		on bre.ticket_id = t.id
+        join schedule_tb as sc
+        on t.schedule_id = sc.id
+		join route_tb as r 
+		on r.id = sc.route_id
+		join seat_grade_tb as sg
+		on sg.name = t.seat_grade
+		join member_tb as m
+		on bre.member_id = m.id
+		where bre.member_id=#{memberId};
+	</select>
+	
+	<select id="selectBaggageReqByMemberIdAndAmount" resultType="com.green.airline.dto.response.BaggageReqResponseDto">
+		select bre.amount, r.departure, r.destination, sg.name as seat_grade_name, bre.id as baggage_id, sc.departure_date
+		from baggage_request_tb as bre
+		join ticket_tb as t
+		on bre.ticket_id = t.id
+        join schedule_tb as sc
+        on t.schedule_id = sc.id
+		join route_tb as r 
+		on r.id = sc.route_id
+		join seat_grade_tb as sg
+		on sg.name = t.seat_grade
+		join member_tb as m
+		on bre.member_id = m.id
+		where bre.member_id=#{memberId} and bre.amount>0
+		ORDER BY bre.id DESC;
+	</select>
+	
+	<select id="selectBaggageReqGroupBySection" resultType="com.green.airline.dto.response.BaggageReqResponseDto">
+		select section
+		from checked_baggage_tb
+		group by section
+	</select>
+	
+	<select id="selectBaggageReqPossibleTicket" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
+		SELECT s.departure_date, r.departure, r.destination, (t.adult_count + t.child_count) as seat_count, t.id as ticket_id, t.seat_grade as seat_grade_name
+			FROM ticket_tb AS t
+			JOIN (
+		      SELECT t.id AS ticket_id, ifnull(SUM(amount), 0) AS amount
+		      FROM baggage_request_tb AS b
+		      RIGHT JOIN ticket_tb AS t
+		      ON b.ticket_id = t.id
+		      WHERE t.member_id = #{memberId}
+		      GROUP BY t.id
+		    ) AS ta
+			ON ta.ticket_id = t.id
+			JOIN schedule_tb as s
+			ON t.schedule_id = s.id
+			JOIN route_tb as r
+			ON r.id = route_id
+			WHERE (adult_count + child_count + infant_count) > amount AND departure_date > now();
+	</select>
+	
+	<select id="selectBaggageReqCount" resultType="Integer">
+		select count(*) from baggage_request_tb where amount != 0
+	</select>
+	
+	<select id="selectBaggageReqForManager" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
+		select *
+		from(
+			SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM, A.* 
+		        FROM (
+					SELECT t.member_id, s.departure_date, r.departure, r.destination, (t.adult_count + t.child_count) as seat_count, t.id as ticket_id, t.seat_grade as seat_grade_name, b.amount
+					FROM ticket_tb AS t
+					JOIN baggage_request_tb as b
+					ON b.ticket_id = t.id
+					JOIN schedule_tb as s
+					ON t.schedule_id = s.id
+					JOIN route_tb as r
+					ON r.id = route_id
+					where b.amount != 0
+		            ORDER BY b.id DESC
+		            ) A, 
+		        (SELECT @ROWNUM := 0 ) B
+		        ) as C
+		where C.ROWNUM BETWEEN #{start} AND #{end}
+	</select>
+	
+	<delete id="deleteByTicketId">
+		DELETE FROM baggage_request_tb WHERE ticket_id = #{ticketId}
+	</delete>
+	
+	
+	
+</mapper>

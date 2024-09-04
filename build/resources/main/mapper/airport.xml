@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.green.airline.repository.interfaces.AirportRepository">
+
+	<select id="selectAll"
+		resultType="com.green.airline.repository.model.Airport">
+		SELECT * FROM airport_tb
+	</select>
+
+	<!-- MySQL로 바꾸면 CONCAT으로 바꿔야 함 -->
+	<select id="selectByLikeName"
+		resultType="com.green.airline.repository.model.Airport">
+		SELECT * FROM airport_tb WHERE name LIKE CONCAT("%", #{name}, "%")
+	</select>
+
+	<select id="selectRegion"
+		resultType="com.green.airline.repository.model.Airport">
+		SELECT DISTINCT region FROM airport_tb
+	</select>
+
+	<select id="selectByRegion"
+		resultType="com.green.airline.repository.model.Airport">
+		SELECT * FROM airport_tb WHERE region = #{region}
+	</select>
+
+</mapper>
