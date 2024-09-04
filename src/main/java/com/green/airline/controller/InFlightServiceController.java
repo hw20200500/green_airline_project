@@ -70,9 +70,11 @@ public class InFlightServiceController {
 	public String inFlightServiceSpecialPage(Model model,
 			@RequestParam(name = "name", defaultValue = "유아식 및 아동식", required = false) String name) {
 
+		System.out.println("inFlightName: "+name);
 		List<InFlightMealResponseDto> inFlightMeals = inFlightSvService.readInFlightMealByName(name);
+		System.out.println("inFlightMealList: "+inFlightMeals);
 		model.addAttribute("inFlightMeals", inFlightMeals);
-
+		
 		List<InFlightMeal> flightMeals = inFlightSvService.readInFlightMealCategory();
 		model.addAttribute("flightMeals", flightMeals);
 
@@ -101,7 +103,9 @@ public class InFlightServiceController {
 	// 특별 기내식 신청 내역 페이지
 	@GetMapping("/myServiceReq")
 	public String myServiceReqPage(Model model) {
+		System.out.println("myServicereq Start");
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
+		System.out.println("myservice: "+principal);
 		List<SpecialMealResponseDto> specialMealResponseDtos = inFlightSvService
 				.readRequestMealByMemberId(principal.getId());
 		List<InFlightMealResponseDto> inFlightServiceResponseDtos = inFlightSvService

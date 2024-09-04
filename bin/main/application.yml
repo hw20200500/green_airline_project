@@ -1,5 +1,5 @@
 server:
-  port: 80 # 포트 번호
+  port: 8080 # 포트 번호
   servlet: 
     encoding:
       charset: utf-8 
@@ -35,7 +35,7 @@ spring:
     url: jdbc:mysql://localhost:3306/airline_db?serverTimezone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root # 유저 이름
-    password: asd1234 # 비밀번호 (비워두면 비밀번호 X)
+    password: 1234 # 비밀번호 (비워두면 비밀번호 X)
   sql: 
     init: # 초기 sql 파일 읽기 
       schema-locations: # 스키마 (테이블 생성 등)

@@ -167,7 +167,7 @@
 
 		<c:if test="${principal.userRole.equals(\"관리자\")}">
 			<div>
-				<button class="btn btn--primary" onclick="location.href='/notice/noticeInsert'">글 작성</button>
+				<button class="btn btn--primary" onclick="location.href='/notice/write'">글 작성</button>
 			</div>
 		</c:if>
 	</main>

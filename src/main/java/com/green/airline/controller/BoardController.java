@@ -124,6 +124,8 @@ public class BoardController {
 				File destination = new File(uploadPath);
 
 				file.transferTo(destination);
+				System.out.println("upload file:"+file);
+				System.out.println("file destination:"+destination);
 
 				boardDto.setOriginName(file.getOriginalFilename());
 				boardDto.setFileName("/uploadImage/" + fileName);

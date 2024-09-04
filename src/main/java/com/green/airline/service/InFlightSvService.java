@@ -37,8 +37,10 @@ public class InFlightSvService {
 		return inFlightServices;
 	}
 
-	public List<InFlightMealResponseDto> readInFlightMealByName(String type) {
-		List<InFlightMealResponseDto> inFlightMeals = inFlightServiceRepository.selectInFlightMealByName(type);
+	public List<InFlightMealResponseDto> readInFlightMealByName(String name) {
+		System.out.println("SvInFlightMealName: "+name);
+		List<InFlightMealResponseDto> inFlightMeals = inFlightServiceRepository.selectInFlightMealByName(name);
+		System.out.println("SvInFlightMeal: "+inFlightMeals);
 		return inFlightMeals;
 	}
 

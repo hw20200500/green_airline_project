@@ -27,12 +27,12 @@ public class NoticeController {
 	private NoticeService noticeService;
 
 	// 관리자 측 공지사항 작성 페이지
-	@GetMapping("/noticeInsert")
+	@GetMapping("/write")
 	public String noticeInsertPage(NoticeCategory noticeCategory, Model model) {
 		List<NoticeCategory> categoryList = noticeService.readNoticeCategory();
 		model.addAttribute("categoryList", categoryList);
 
-		return "/notice/noticeInsert";
+		return "/notice/write";
 	}
 
 	// 관리자 측 공지사항 작성 기능

@@ -23,7 +23,8 @@
 		inner join in_flight_meal_detail_tb as ifmd
 		on ifm.id = ifmd.meal_id
 		where ifm.name=#{name}
-		group by ifmd.name
+		group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
+
 		</if>
 		<if test="name=='야채식'">
 		select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
@@ -31,7 +32,8 @@
 		inner join in_flight_meal_detail_tb as ifmd
 		on ifm.id = ifmd.meal_id
 		where ifm.name=#{name}
-		group by ifmd.name
+		group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
+
 		</if>
 		<if test="name=='식사 조절식'">
 		select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
@@ -39,7 +41,7 @@
 		inner join in_flight_meal_detail_tb as ifmd
 		on ifm.id = ifmd.meal_id
 		where ifm.name=#{name}
-		group by ifmd.name
+		group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
 		</if>
 		<if test="name=='종교식'">
 		select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
@@ -47,7 +49,7 @@
 		inner join in_flight_meal_detail_tb as ifmd
 		on ifm.id = ifmd.meal_id
 		where ifm.name=#{name}
-		group by ifmd.name
+		group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
 		</if>
 		<if test="name=='기타 특별식'">
 		select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
@@ -55,7 +57,7 @@
 		inner join in_flight_meal_detail_tb as ifmd
 		on ifm.id = ifmd.meal_id
 		where ifm.name=#{name}
-		group by ifmd.name
+		group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
 		</if>
 	</select>
 
@@ -87,7 +89,7 @@
 	</select>
 	
 	<insert id="insertInFlightMealRequest">
-		insert into request_meal_tb(amount, meal_detail_id, ticket_id)
+		insert into request_meal_tb(amount, meal_id, ticket_id)
 		values(#{amount}, #{mealDetailId}, #{ticketId})
 	</insert>
 	
@@ -129,7 +131,7 @@
 		select rm.id as rm_id, rm.amount as rm_amount, t.id as ticket_id, ifm.name as ifm_name, s.departure_date, s. arrival_date, r.departure, r.destination, ifmd.name
 		from request_meal_tb as rm
 		join in_flight_meal_detail_tb as ifmd
-		on rm.meal_detail_id = ifmd.id
+		on rm.meal_id = ifmd.id
 		join in_flight_meal_tb as ifm
 		on ifmd.meal_id = ifm.id
 		join ticket_tb as t
@@ -172,7 +174,7 @@
 					select rm.id as rm_id, rm.amount as rm_amount, t.id as ticket_id, ifm.name as ifm_name, s.departure_date, s. arrival_date, r.departure, r.destination, t.member_id, ifmd.name as name
 					from request_meal_tb as rm
 					join in_flight_meal_detail_tb as ifmd
-					on rm.meal_detail_id = ifmd.id
+					on rm.meal_id = ifmd.id
 					join in_flight_meal_tb as ifm
 					on ifmd.meal_id = ifm.id
 					join ticket_tb as t

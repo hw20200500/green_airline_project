@@ -61,6 +61,7 @@ public class BaggageController {
 	@GetMapping("/checkedBaggage")
 	public String checkedBaggagePage(Model model) {
 		List<CheckedBaggage> baggage = baggageService.readCheckedBaggage();
+		System.out.println("baggage: "+baggage);
 		model.addAttribute("baggage", baggage);
 
 		List<CheckedBaggage> checkedBaggages = baggageService.readCheckedBaggageBySection(baggage.get(0).getSection());
@@ -72,13 +73,17 @@ public class BaggageController {
 		User principal = (User) session.getAttribute(Define.PRINCIPAL);
 
 		if (principal == null) {
+			System.out.println("principal null");
 			model.addAttribute("baggageReqResponses", null); // 로그인이 안되어 있을 시 데이터 출력이 안되도록 하기 위해 --> 인증처리(인터셉터)
 			model.addAttribute("inFlightServiceResponseDtos", null); // 좌석 수에 따라 수량을 가져오기 위해
 
 		} else {
+			System.out.println("principal not null:"+principal.getId());
 			List<InFlightMealResponseDto> inFlightServiceResponseDtos = baggageRequestService
 					.readBaggageReqPossibleTicket(principal.getId());
+			System.out.println("baggageList : "+inFlightServiceResponseDtos);
 			model.addAttribute("inFlightServiceResponseDtos", inFlightServiceResponseDtos);
+			
 		}
 
 		return "/baggage/checkedBaggage";

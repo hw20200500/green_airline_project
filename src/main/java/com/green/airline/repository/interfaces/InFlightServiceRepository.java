@@ -24,7 +24,7 @@ public interface InFlightServiceRepository {
 	List<InFlightService> selectInFlightServiceByName(String keyword);
 	
 	// 특별 기내식 상세 정보 name 기반 특별 기내식 조회 기능 
-	List<InFlightMealResponseDto> selectInFlightMealByName(String name);
+	List<InFlightMealResponseDto> selectInFlightMealByName(@Param("name") String name);
 	
 	// 특별 기내식 조회 기능
 	List<InFlightMealResponseDto> selectInFlightDetailMeal();
