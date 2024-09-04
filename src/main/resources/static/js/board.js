@@ -11,7 +11,7 @@ $(document).ready(function() {
 			url: `/board/detail/${boardId}`,
 			contentType: "application/json; charset=utf-8"
 		})
-			.done(function(board) {
+			.done(function(board){
 				if ($("#userRole").val() == $("#managerRole").val()) {
 					$("#deleteButton").show();
 				} else if (board.userId == $("#loginUserId").val()) {
@@ -25,7 +25,8 @@ $(document).ready(function() {
 
 				$(".board--content").html(board.content); // 태그들 태그로 인식 처리
 				$(".board--userId").text(board.userId);
-				$(".board--viewCount").text(board.viewCount);
+				$(".board--viewCount").text(board.viewCount); //dto 받아오기?
+				$(".board--fileName").text(board.fileName);
 
 				if (board.statement) {
 					$(".board--heartCount").attr("src", "/images/like/like.png");
@@ -67,6 +68,13 @@ $(document).on("click", ".board--heartCount", function() {
 		.fail(function(error) {
 			console.log(error);
 		});
+});
+
+// 파일 다운로드
+const button = document.getElementById('fileDown');
+// 버튼 클릭 시 호출할 함수 정의
+button.addEventListener('click', () => {
+    console.log('버튼이 클릭되었습니다!'); // 콘솔에 메시지 출력
 });
 
 // 게시글 수정

@@ -221,7 +221,9 @@ public class BoardController {
 
 		// 좋아요 수 조회
 		BoardDto loveHeart = boardService.selectLoveHeart(id);
-
+		System.out.println("@@@@@@@@@@@@@@@@@@@");
+		System.out.println("fileName : " + loveHeart.getFileName());
+		System.out.println("@@@@@@@@@@@@@@@@@@@");
 		// 쿠키 추가, 조회수 증가
 		boolean viewUp = boardService.updateViewCountCookie(id, request, response);
 
@@ -244,6 +246,7 @@ public class BoardController {
 
 		return loveHeart;
 	}
+
 
 	// 좋아요 버튼 클릭
 	@ResponseBody
