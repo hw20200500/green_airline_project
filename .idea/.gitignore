@@ -1,0 +1,9 @@
+# 디폴트 무시된 파일
+/shelf/
+/workspace.xml
+/compiler.xml
+/gradle.xml
+/jarRepositories.xml
+/misc.xml
+/vcs.xml
+
