@@ -1,0 +1,60 @@
+server:
+  port: 80 # 포트 번호
+  servlet: 
+    encoding:
+      charset: utf-8 
+      force: true
+  error:
+    include-exception: true
+    include-stacktrace: always
+    whitelabel:
+      enabled: false
+      
+spring: 
+#  mail:
+#    host: smtp.naver.com
+#    port: 465
+#    username: ekdns8276@naver.com
+#    password: ekqls2113!
+#    properties:
+#      mail.smtp.auth: true
+#      mail.smtp.ssl.enable: true
+#      mail.smtp.ssl.trust: smtp.naver.com
+#      mail.smtp.starttls.enable: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+    dispatch-options-request: false
+    view: # JSP 사용 설정
+      prefix: /WEB-INF/view/ # jsp 파일 경로
+      suffix: .jsp # 확장자
+  servlet:
+    multipart:
+      resolve-lazily: 'true'
+      max-file-size: 20MB #최대 20MB()
+  datasource: # DB 설정 (MYSQL으로 마이그레이션하기) ***
+    url: jdbc:mysql://localhost:3306/airline_db?serverTimezone=Asia/Seoul
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root # 유저 이름
+    password: asd1234 # 비밀번호 (비워두면 비밀번호 X)
+  sql: 
+    init: # 초기 sql 파일 읽기 
+      schema-locations: # 스키마 (테이블 생성 등)
+      - classpath:db/table.sql # 콜론 띄어쓰기 X, db 폴더 아래 table.sql 파일 읽으라는 뜻
+      data-locations: # 샘플 데이터
+      - classpath:db/data.sql
+  h2: # H2 Database 설정
+    console: 
+      enabled: true
+  output: 
+    ansi: # 쿼리문 표준
+      enabled: always
+ 
+mybatis:
+  mapper-locations:         # **.xml : 해당 경로 아래 모든 xml 파일
+  - classpath:mapper/**.xml # classpath는 src/main/resources/ 아래부터 시작
+  configuration:
+    map-underscore-to-camel-case: true
+    
+green:
+  key: 28F0116EF42BF718324946F13D787A1D41274A08335D52EE833D5B577F02A32A!
+

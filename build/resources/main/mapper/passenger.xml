@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.airline.repository.interfaces.PassengerRepository">
+
+<insert id="insert">
+	INSERT INTO passenger_tb
+	VALUES (#{name}, #{gender}, #{birthDate}, #{ticketId})
+</insert>
+
+<select id="selectByTicketId" resultType="com.green.airline.repository.model.Passenger">
+	SELECT * FROM passenger_tb WHERE ticket_id = #{ticketId}
+</select>
+
+<delete id="deleteByTicketId">
+	DELETE FROM passenger_tb WHERE ticket_id = #{ticketId}
+</delete>
+
+</mapper>

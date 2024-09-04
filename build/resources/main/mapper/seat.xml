@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.airline.repository.interfaces.SeatRepository">
+
+<select id="selectSeatInfoByNameAndScheduleId" resultType="com.green.airline.dto.response.SeatInfoResponseDto">
+
+	SELECT s.id AS schedule_id, flight_time, s.airplane_id, seat.name AS seat_name, seat.grade AS seat_grade
+	FROM schedule_tb AS s
+	JOIN route_tb AS r
+	ON s.route_id = r.id
+	JOIN seat_tb AS seat
+	ON seat.airplane_id = s.airplane_id
+	JOIN seat_grade_tb AS sg
+	ON sg.name = seat.grade
+	WHERE seat.name = #{seatName} AND s.id = #{scheduleId};
+
+</select>
+
+<select id="selectSeatListByScheduleIdAndGrade" resultType="com.green.airline.dto.response.SeatStatusResponseDto">
+	SELECT s.*
+	FROM seat_tb AS s
+	JOIN airplane_tb AS a
+	ON s.airplane_id = a.id
+	JOIN schedule_tb AS sc
+	ON a.id = sc.airplane_id
+	WHERE sc.id = #{scheduleId} AND s.grade = #{grade}
+</select>
+
+<select id="selectByAirplaneId" resultType="com.green.airline.dto.response.AirplaneInfoDto">
+	SELECT a.id, a.name, s.grade, count(*) AS seat_count
+	FROM airplane_tb AS a
+	JOIN seat_tb AS s
+	ON a.id = s.airplane_id
+	WHERE a.id = #{airplaneId}
+	GROUP BY s.grade
+</select>
+
+</mapper>

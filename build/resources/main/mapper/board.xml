@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.green.airline.repository.interfaces.BoardRepository">
+
+	<!-- 게시물 목록보기 -->
+	<select id="selectByBoardList"
+		resultType="com.green.airline.repository.model.Board">
+		select * from recommend_board_tb;
+	</select>
+
+	<!-- 게시물 작성 -->
+	<insert id="insertByBoard">
+		insert into recommend_board_tb
+		(title, user_id,
+		content, view_count, origin_name, file_name)
+		values
+		(#{title},
+		#{userId}, #{content}, #{viewCount}, #{originName}, #{fileName});
+	</insert>
+
+	<!-- 게시물 수정 -->
+	<update id="updateByBoard">
+		update recommend_board_tb set title =
+		#{boardUpdateDto.title},
+		content = #{boardUpdateDto.content},
+		origin_name = #{boardUpdateDto.originName},
+		file_name =
+		#{boardUpdateDto.fileName} where id = #{id};
+	</update>
+	
+	<!-- 게시물 썸네일 안올렸을 때 수정 -->
+	<update id="updateByBoardJustThumbnail">
+		update recommend_board_tb set title =
+		#{boardUpdateDto.title},
+		content = #{boardUpdateDto.content}
+		where id = #{id};
+	</update>
+
+	<!-- 게시물 삭제 -->
+	<delete id="deleteByBoard">
+		delete from recommend_board_tb where id = #{id};
+	</delete>
+
+	<!-- 게시물 삭제시 좋아요 삭제 -->
+	<delete id="deleteHeartByBoard">
+		delete from like_heart_tb
+		where
+		board_id = #{id}
+	</delete>
+
+	<!-- 게시물 상세보기 -->
+	<select id="selectByBoardDetail"
+		resultType="com.green.airline.dto.BoardDto">
+		select *
+		from recommend_board_tb
+		where id = #{id};
+	</select>
+
+	<!-- 게시물 조회수 증가 -->
+	<update id="updateByViewCount">
+		update recommend_board_tb
+		set view_count = view_count
+		+ 1
+		where id = #{id};
+	</update>
+
+	<!-- 좋아요 증가 -->
+	<insert id="insertByHeart">
+		insert into like_heart_tb (board_id, user_id)
+		values
+		(#{id}, #{userId});
+	</insert>
+
+	<!-- 좋아요 취소 -->
+	<delete id="deleteByHeart">
+		delete from like_heart_tb
+		where
+		board_id = #{id}
+		and
+		user_id = #{userId}
+	</delete>
+
+	<!-- 좋아요한 유저찾기 -->
+	<select id="selectByLikeUser"
+		resultType="com.green.airline.repository.model.LoveHeart">
+		select * from like_heart_tb
+		where
+		board_id = #{id}
+	</select>
+
+	<!-- 게시물에 좋아요를 누른 유저인지 찾기 -->
+	<select id="selectByBoardIdAndLikeUser"
+		resultType="com.green.airline.repository.model.LoveHeart">
+		select * from like_heart_tb
+		where
+		board_id = #{id}
+		and
+		user_id
+		= #{userId}
+	</select>
+
+	<!-- 게시물 목록보기 페이징용 -->
+	<select id="selectBoardListLimit"
+		resultType="com.green.airline.repository.model.Board">
+		select *
+		FROM recommend_board_tb
+		ORDER BY created_at DESC
+		LIMIT #{index}, #{limitCount}
+	</select>
+
+<!-- 본인 계시글 수량 -->
+	<select id="selectBoardCountByMemberId" resultType="com.green.airline.dto.BoardDto">
+		select count(*) as count from recommend_board_tb where user_id =#{memberId}; 
+	</select>
+
+</mapper>
