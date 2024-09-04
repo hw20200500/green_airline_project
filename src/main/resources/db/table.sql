@@ -334,14 +334,25 @@ CREATE TABLE gifticon_tb(
 
 -- 기프티콘 환불
 CREATE TABLE gifticon_revoke_tb(
+<<<<<<< HEAD
    id int PRIMARY KEY auto_increment,
    revoke_date DATE DEFAULT (CURRENT_DATE),
    gifticon_id INT NOT NULL,
    FOREIGN KEY (gifticon_id) REFERENCES gifticon_tb (id)
    );
-
+   
+-- 마일리지
+CREATE TABLE mileage_tb(
+=======
+	id int PRIMARY KEY auto_increment,
+	revoke_date DATE DEFAULT (CURRENT_DATE),
+	amount Bigint not null,
+	brand VARCHAR(20) not null,
+	name VARCHAR(50) not null
+	);
 -- 마일리지
 create table mileage_tb(
+>>>>>>> feature/myPage2
 id int primary key auto_increment,
 mileage_date DATE NOT NULL,
 use_mileage BIGINT,

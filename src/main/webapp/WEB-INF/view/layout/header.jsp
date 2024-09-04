@@ -7,7 +7,6 @@
 <title>그린항공ㅣGREEN AIRLINES</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="/css/layout.css">
-<link rel="stylesheet" href="/css/chatbot.css">
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
@@ -26,20 +25,7 @@
 </head>
 
 <body>
-    <!-- 챗봇 버튼 -->
-    <button class="chatbot-button" onclick="toggleChat()">💬</button>
 
-    <!-- 챗봇 팝업 -->
-    <div class="chatbot-container" id="chatbot-container">
-      <div class="chatbot-header" onclick="toggleChat()">Chatbot</div>
-      <div class="chat-container">
-        <div class="chat-box" id="chat-box"></div>
-        <div class="input-group">
-          <input type="text" id="user-input" placeholder="Type a message..." onkeypress="checkEnter(event)" />
-          <button onclick="sendMessage()">Send</button>
-        </div>
-      </div>
-    </div>
 	<div class="page--container">
 		<header>
 			<div class="header--top">
@@ -194,5 +180,5 @@
 <script>
 	let userRole = `${principal.userRole}`;
 </script>
-<script src="/js/chatbot.js"></script>
+
 		<script src="/js/layout.js"></script>
