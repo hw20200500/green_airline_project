@@ -21,7 +21,7 @@ def chatbot_response(user_input):
         return "오늘 날씨는 맑음입니다. 우산은 필요 없을 것 같아요!"
     elif "항공권" in user_input:
         return f"항공권에 대한 정보를 찾고 계신가요? 항공권 예약은 여기를 클릭하세요: <a href='http://localhost/ticket/selectSchedule'>예약 페이지</a>"
-    elif "기내 서비스" or "서비스" in user_input:
+    elif "기내 서비스" in user_input or "서비스" in user_input:
         return f"기내 서비스 정보를 찾고 계신가요? <a href='http://localhost/inFlightService/inFlightServiceSearch'>기내 서비스 페이지로 이동</a>"
     else:
         # 파이썬 cmd 명령어 실행 및 출력 코드 :
