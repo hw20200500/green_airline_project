@@ -11,12 +11,16 @@ CORS(app, supports_credentials=True)  # CORS 설정
 # 간단한 챗봇 응답 함수
 def chatbot_response(user_input):
     # 간단한 질문에 대한 응답
+    ticket_url = "http://localhost/ticket/selectSchedule"
+
     if "안녕" in user_input:
         return "안녕하세요! 무엇을 도와드릴까요?"
     elif "만나서 반가워" in user_input:
         return "저도 반가워요!"
     elif "날씨" in user_input:
         return "오늘 날씨는 맑음입니다. 우산은 필요 없을 것 같아요!"
+    elif "항공권" in user_input:
+        return f"항공권에 대한 정보를 찾고 계신가요? 항공권 예약은 여기를 클릭하세요: <a href='http://localhost/ticket/selectSchedule'>예약 페이지</a>"
     else:
         # 파이썬 cmd 명령어 실행 및 출력 코드 :
         # subprocess.check_output('명령어', shell=True, stderr=subprocess.STDOUT, text=True)
