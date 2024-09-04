@@ -1,0 +1,149 @@
+@charset "UTF-8";
+
+body {
+	background-color: #eee;
+}
+
+main {
+	width: 1320px;
+	margin: 20px 0;
+	height: 750px;
+	padding: 0;
+}
+
+.small--board {
+	background-color: white;
+	height: 80px;
+	width: 315px;
+	box-shadow: 0 0 3px 3px #e5e5e5;
+	padding: 15px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.icon--div {
+	border-radius: 50%;
+	background-color: #f0f0f0;
+	width: 50px;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.icon--div span {
+	font-size: 27px;
+	color: #657788;
+	cursor: default;
+}
+
+.icon--div span:hover {
+	color: #657788;
+}
+
+.middle--board {
+	background-color: white;
+	height: 270px;
+	width: 315px;
+	box-shadow: 0 0 3px 3px #e5e5e5;
+	padding: 12px;
+}
+
+.long--board {
+	background-color: white;
+	height: 270px;
+	width: 650px;
+	box-shadow: 0 0 3px 3px #e5e5e5;
+	padding: 12px;
+}
+
+#dashboardTitle {
+	font-weight: 600;
+	margin-bottom: 20px;
+	color: #475462;
+}
+
+.board--title {
+	font-size: 17px;
+	font-weight: 600;
+	color: #404040;
+	margin-bottom: 10px;
+}
+
+.small--board--title {
+	font-size: 15px;
+	color: gray;
+}
+
+#memoArea {
+	resize: none;
+	height: 207px;
+	width: 280px;
+	margin-left: 5px;
+	margin-top: 5px;
+	outline: none;
+	border: 1px solid #ccc;
+	padding: 10px 13px;
+}
+
+.number--value--p {
+	font-size: 18px;
+	margin-left: -1px;
+	font-weight: 500;
+}
+
+.list--table tbody tr:hover {
+	font-weight: 500;
+	cursor: pointer;
+}
+
+.list--table th, .list--table td {
+	font-size: 15px;
+	padding: 2px;
+	color: #404040;
+}
+
+.important--span {
+	font-weight: 600;
+	color: #4973b0;
+}
+
+.description--p {
+	margin-bottom: 10px;
+}
+
+.description--p a {
+	color: #636363;
+}
+
+.description--p a:hover {
+	font-weight: 500;
+}
+	
+#salesChart {
+	width: 620px !important;
+	height: 230px !important;
+	margin-left: -9px;
+}
+
+#vocChart {
+	width: 288px !important;
+	height: 288px !important;
+	margin-top: -37px;
+	margin-left: 5px;
+}
+
+#routeChart {
+	margin-left: -10px;
+	margin-top: 25px;
+	width: 320px !important;
+	height: 185px !important;
+}
+
+#brandChart {
+	margin-left: -5px;
+	margin-top: 30px;
+	width: 300px !important;
+	height: 180px !important;
+}

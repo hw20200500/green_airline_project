@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.airline.repository.interfaces.ScheduleRepository">
+
+<!-- MySQL로 바꾸면 LIKE문 수정 -->
+<!-- h2 : ''||#{flightDate}||'%' -->
+
+<select id="selectByAirportAndDepartureDate" resultType="com.green.airline.dto.response.ScheduleInfoResponseDto">
+	SELECT s.id, departure_date, arrival_date, ap1.region AS departure_region, ap1.name AS departure_airport, ap2.region AS destination_region, ap2.name AS destination_airport, flight_time, a.name AS airplane_name
+	FROM schedule_tb AS s
+	JOIN route_tb AS r
+	ON s.route_id = r.id
+	JOIN airplane_tb AS a
+	ON s.airplane_id = a.id
+	JOIN airport_tb AS ap1
+	ON r.departure = ap1.name
+	JOIN airport_tb AS ap2
+	ON r.destination = ap2.name
+	WHERE departure_date LIKE CONCAT(#{flightDate}, "%")
+	AND r.departure = #{departure}
+	AND r.destination = #{destination}
+</select>
+
+<select id="selectDtoByScheduleId" resultType="com.green.airline.dto.response.ScheduleInfoResponseDto">
+	SELECT s.id, departure_date, arrival_date, flight_time, airplane_id, a.name AS airplane_name, ap1.region AS departure_region, ap1.name AS departure_airport, ap2.region AS destination_region, ap2.name AS destination_airport, type
+	FROM schedule_tb AS s
+	JOIN route_tb AS r
+	ON s.route_id = r.id
+	JOIN airplane_tb AS a
+	ON s.airplane_id = a.id
+	JOIN airport_tb AS ap1
+	ON r.departure = ap1.name
+	JOIN airport_tb AS ap2
+	ON r.destination = ap2.name
+	WHERE s.id = #{scheduleId}
+</select>
+
+<select id="selectByScheduleId" resultType="com.green.airline.repository.model.Schedule">
+	SELECT * FROM schedule_tb WHERE id = #{scheduleId}
+</select>
+	
+</mapper>

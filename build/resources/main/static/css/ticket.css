@@ -1,0 +1,497 @@
+@charset "UTF-8";
+
+.ticket--type {
+	display: flex;
+	border: 1px solid #ccc;
+	align-items: center;
+	width: 250px;
+	font-size: 17px;
+	color: rgba(0, 0, 0, 0.8);
+	border-radius: 3px;
+}
+
+.ticket--type li {
+	cursor: pointer;
+	background-color: white;
+	flex: 1;
+	text-align: center;
+	padding: 10px 0;
+}
+
+.selected--type {
+	background-color: #8abbe1 !important;
+	color: white !important;
+}
+
+#departure, #destination, #flightDate {
+	text-align: center;
+	padding: 20px 5px;
+	font-size: 30px;
+	width: 300px;
+	font-weight: 600;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+#flightDate {
+	cursor: pointer;
+}
+
+.flight--date--inserted {
+	font-size: 23px !important;
+	padding: 25.25px 5px !important;
+}
+
+#flightDateDiv {
+	margin-left: 58px;
+}
+
+#airportSwapBtn {
+	/*border: 1px solid rgba(0, 0, 0, 0.2);*/
+	border: none;
+	background-color: white;
+	height: 25px;
+	border-radius: 20px;
+	margin: 30px 15px;
+} 
+
+.airport--div, .datepicker--div--type1, .datepicker--div--type2 {
+	border: 1px solid #ccc;
+	width: 300px;
+	position: absolute;
+	padding: 15px 20px 20px;
+	display: none;
+	background-color: white;
+}
+
+.datepicker--div--type1, .datepicker--div--type2 {
+	padding: 15px 20px 10px;	
+}
+
+.airport--div h5, .datepicker--div--type1 h5, .datepicker--div--type1 h5 {
+	margin-top: 10px;
+	font-size: 18px;
+	margin-bottom: 0;
+}
+
+.autocomplete--list {
+	width: 100%;
+	background-color: #f3f3f3;
+	min-height: 44px;
+	max-height: 210px;
+	margin: 0 0 15px;
+	padding: 0px 10px;
+	overflow: auto; /* max-height 넘으면 스크롤 생김 */
+}
+
+.autocomplete--list li {
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+}
+
+.departure--airport--li, .destination--airport--li {
+	padding: 8px;
+	border-bottom: 1px solid buttonhighlight;
+}
+
+.autocomplete--list li:last-of-type, 
+.departure--airport--li:last-of-type, .destination--airport--li:last-of-type {
+	border-bottom: hidden;
+}
+
+.departure--li:hover, .destination--li:hover, 
+.departure--airport--li:hover, .destination--airport--li:hover {
+	cursor: pointer;
+	font-weight: 600;
+	color: #3163aa;
+}
+
+.all--airport, .age--calculater {
+	color: rgba(0, 0, 0, 0.7);
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: white;
+	padding: 5px 7px 1px 3px;
+}
+
+.all--airport--modal, .age--calculater--modal, .refund--modal {
+	margin-top: 200px;
+}
+
+.search--btn {
+	background-color: gray;
+	padding: 2px 6px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	height: 28px;
+}
+
+.age--calculater--modal input {
+	padding: 0px 3px 1px;
+	width: 120px;
+}
+
+.modal--title--div {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+	background-color: #ccc;
+}
+
+.modal--title {
+	margin: 0;
+}
+
+.region--li {
+	padding: 10px;
+	border-right: 1px solid white;
+	border-bottom: 1px solid white;
+	background-color: #f3f3f3;
+	cursor: pointer;
+}
+
+.region--li--selected {
+	background-color: #BCE3F6;
+}
+
+.airport--ul {
+	margin: 0;
+	max-height: 300px;
+	overflow: auto;
+}
+
+.datepicker {
+	text-align: center;
+	padding: 0px 0 1px;
+	width: 130px;
+}
+
+.datepicker--div:first-of-type {
+	margin-bottom: 10px;
+}
+
+.datepicker--div label {
+	margin-right: 15px;
+	margin-bottom: 0;
+}
+
+.datepicker--div input {
+	cursor: pointer;
+}
+
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.age--type--div {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 300px;
+	background-color: buttonshadow;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+.age--type--div input {
+	border: none;
+	background: none;
+	outline: none; /*선택 시 나오는 테두리 없애기*/
+	width: 80px;
+	text-align: center;
+	font-size: 30px;
+}
+
+.minus--button, .plus--button {
+	border: none;
+	font-size: 30px;
+	width: 45px;
+	height: 45px;
+	background-color: white;
+}
+
+#ageTypeDiv {
+	display: flex;
+}
+
+#calculaterResult {
+	text-align: center;
+	height: 40px;
+	margin-top: 30px;
+}
+
+#calculaterResult span:first-of-type {
+	color: gray;
+}
+
+#calculaterResult span:last-of-type {
+	color: #314f79;
+	font-weight: 600;
+}
+
+.schedule--list--div {
+	width: 100%;
+	display: none;
+	flex-direction: column;
+	align-items: center;
+}
+
+.schedule--list--div table {
+	border-color: #ddd;
+	width: 1016px;
+	text-align: center;
+}
+
+.schedule--list--div thead th {
+	color: white;
+}
+
+.schedule--list--div thead th:nth-of-type(1) {
+	width: 37%;
+	height: 50px;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+.schedule--list--div thead th:nth-of-type(2) {
+	width: 12%;
+	background-color: rgba(0, 0, 0, 0.4);
+}
+.schedule--list--div thead th:nth-of-type(3), .schedule--list--div thead th:nth-of-type(4), 
+.schedule--list--div thead th:nth-of-type(5) {
+	width: 17%;
+	background-color: #8abbe1;
+	
+}
+
+.td--seat {
+	padding: 15px 0;
+	height: 115px;
+}
+
+.td--seat span:first-of-type {
+	font-size: 15px;
+	color: rgba(0, 0, 0, 0.8);
+}
+
+.td--seat span:nth-of-type(2) {
+	font-size: 21px;
+	font-weight: 600;
+}
+
+.td--seat span:nth-of-type(3) {
+	font-size: 14px;
+	color: gray;
+}
+
+.td--seat input {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.td--seat input:disabled, .td--disabled--seat {
+  cursor: default !important;
+}
+
+.td--seat label {
+  margin-top: -3px;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.ul--flight--time {
+	margin: 0 auto 10px;
+	width: 285px;
+}
+
+.ul--flight--time li:nth-of-type(1){
+	font-size: 30px; 
+	font-weight: 600; 
+	display: table-cell; 
+	vertical-align: bottom;
+}
+
+.ul--flight--time li:nth-of-type(2) {
+	display: table-cell; 
+	vertical-align: middle;
+}
+
+.ul--flight--time li:nth-of-type(2) > div  > div {
+	margin-bottom: -7px; 
+	margin-right: 10px;
+}
+
+.ul--flight--time li:nth-of-type(2) > div  > div ul {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 0 0 -7px 0;
+}
+
+.ul--flight--time li:nth-of-type(2) > div  > div ul span {
+	font-size: 16px; 
+	padding-top: 4px;
+	color: gray;
+}
+
+.ul--flight--time li:nth-of-type(2) > div  > div ul li:last-of-type {
+	text-align: center; 
+	font-size: 15px;
+	color: gray;
+	margin-top: 7px;
+}
+
+.ul--flight--time li div img {
+	width: 110px; 
+	height: 20px; 
+	margin:0 7px 10px;
+}
+
+.ul--flight--time li:nth-of-type(3) {
+	font-size: 30px; 
+	font-weight: 600; 
+	display: table-cell; 
+	vertical-align: bottom;
+}
+
+.td--none--seat {
+	background-color: #F4F4F4 !important;
+	color: gray !important;
+}
+
+#selectSeatBtnDiv {
+	width: 100%;
+	display: none;
+	margin: 50px auto 20px;
+	text-align: center;
+}
+
+.none--result {
+	text-align: center;
+	margin: 30px;
+	color: gray;
+	font-size: 20px;
+	font-weight: 500;
+}
+
+#ticketBackground {
+	background-image: url("/images/ticket/ticket2.png");
+	width: 1000px;
+	height: 285px;
+	padding: 80px 0 13px 35px;
+	display: flex;
+}
+
+#ticketBackground div:last-of-type {
+	margin-top: -4px;
+}
+
+#ticketBackground div:last-of-type p {
+	color: #474747;
+	margin-bottom: 5px;
+}
+
+p {
+	margin: 0;
+}
+
+#passengerTable th:nth-of-type(1) {
+	width: 15%;
+}
+
+#passengerTable th:nth-of-type(2) {
+	width: 21%;
+}
+
+#passengerTable th:nth-of-type(3) {
+	width: 32%;
+}
+
+#passengerTable th:nth-of-type(4) {
+	width: 32%;
+}
+
+#paymentTable th:nth-of-type(1) {
+	width: 20%;
+}
+
+#paymentTable th:nth-of-type(2) {
+	width: 30%;
+}
+
+#paymentTable th:nth-of-type(3) {
+	width: 30%;
+}
+
+#paymentTable th:nth-of-type(4) {
+	width: 20%;
+}
+
+.var--span {
+	font-size: 15px;
+	color: #595959;
+}
+
+.var--span--eng {
+	font-size: 15px;
+	color: #595959;
+	font-style: italic;
+	margin-right: 15px;
+}
+
+.var--span--eng--s {
+	font-size: 14px;
+	color: #595959;
+	font-style: italic;
+	margin-right: 10px;
+}
+
+.value--span {
+	font-weight: 500;
+	font-size: 18px;
+	color: #474747;
+}
+
+.value--span--s {
+	font-weight: 500;
+	font-size: 15px;
+	color: #474747;
+}
+
+.grade--p {
+	text-align: center;
+	font-size: 20px;
+	font-weight: 600;
+	margin-bottom: 12px !important;
+}
+
+#feeTable {
+	width: 302px;
+}
+
+#feeTable th, #feeTable td:first-of-type {
+	text-align: center;
+}
+
+#feeTable td:last-of-type {
+	text-align: right;
+}
+
+#feeTable td {
+	font-size: 16px;
+}
+
+.target--fee {
+	background-color: #CDEDF9;
+}
+
+label {
+	margin: 0;
+}
