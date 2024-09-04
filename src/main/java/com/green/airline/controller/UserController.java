@@ -119,23 +119,27 @@ public class UserController {
 		List<FaqResponseDto> allFaqList = faqService.readFaqAll();
 		model.addAttribute("faqList", allFaqList);
 
-		// 인덱스 5개를 랜덤으로 정함
-		int[] indexArr = new int[5];
-		Random r = new Random();
-		for (int i = 0; i < indexArr.length; i++) {
-			// 0 ~ 자주 묻는 질문 개수 내에서 랜덤 정수 뽑음
-			indexArr[i] = r.nextInt(allFaqList.size());
-			// 중복 제거
-			for (int j = 0; j < i; j++) {
-				if (indexArr[i] == indexArr[j]) {
-					i--; // 이번 반복을 취소하고 다시 하도록 함
+		int[] indexArr = null;
+
+		// allFaqList가 비어 있는지 확인
+		if (allFaqList.size() > 0) {
+			indexArr = new int[5];
+			Random r = new Random();
+			for (int i = 0; i < indexArr.length; i++) {
+				indexArr[i] = r.nextInt(allFaqList.size());
+				for (int j = 0; j < i; j++) {
+					if (indexArr[i] == indexArr[j]) {
+						i--;
+					}
 				}
 			}
 		}
+
 		model.addAttribute("indexArr", indexArr);
 
 		return "/mainPage";
 	}
+
 
 	/**
 	 * @author 서영

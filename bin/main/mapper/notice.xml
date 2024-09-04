@@ -78,6 +78,7 @@
 						inner join
 						notice_category_tb as nc
 		  				on nc.id = n.category_id
+		  				where title like CONCAT ('%', '${keyword}', '%')
 		  				where title like CONCAT ('%', '${keyword}', '%') 
         	    		order by n.id desc
      	       ) A, 

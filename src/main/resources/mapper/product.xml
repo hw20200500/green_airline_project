@@ -11,23 +11,24 @@
 
 	<!-- 상품 리스트 조회 -->
 	<select id="selectProductList" resultType="com.green.airline.repository.model.ShopProduct">
-		<if test="searchOrder == 'clasic'">
-			SELECT * FROM SHOP_PRODUCT_TB LIMIT #{paging.firstRow},8
-		</if>
-		<if test="searchOrder == 'DESC'">
-			<!-- 높은순 -->
-			SELECT * FROM SHOP_PRODUCT_TB order by price DESC LIMIT #{paging.firstRow},8
-
-		</if>
-		<if test="searchOrder == 'ASC'">
-			<!-- 낮은순 -->
-			SELECT * FROM SHOP_PRODUCT_TB order by price ASC LIMIT #{paging.firstRow},8
-		</if>
-		<if test="searchOrder == null">
-		 SELECT * FROM SHOP_PRODUCT_TB
-		
-		</if>
+		<choose>
+			<when test="searchOrder == 'clasic'">
+				SELECT * FROM SHOP_PRODUCT_TB LIMIT #{paging.firstRow},8
+			</when>
+			<when test="searchOrder == 'DESC'">
+				<!-- 높은순 -->
+				SELECT * FROM SHOP_PRODUCT_TB ORDER BY price DESC LIMIT #{paging.firstRow},8
+			</when>
+			<when test="searchOrder == 'ASC'">
+				<!-- 낮은순 -->
+				SELECT * FROM SHOP_PRODUCT_TB ORDER BY price ASC LIMIT #{paging.firstRow},8
+			</when>
+			<otherwise>
+				SELECT * FROM SHOP_PRODUCT_TB
+			</otherwise>
+		</choose>
 	</select>
+
 
 	
 

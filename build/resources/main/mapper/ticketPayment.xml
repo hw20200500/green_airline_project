@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.airline.repository.interfaces.TicketPaymentRepository">
+
+<insert id="insert">
+	INSERT INTO ticket_payment_tb
+	VALUES (#{tid}, #{ticketId1}, #{ticketId2}, #{amount1}, #{amount2}, #{status1}, #{status2});
+</insert>
+
+<update id="updateStatus">
+	UPDATE ticket_payment_tb SET status1 = #{status1}, status2 = #{status2}
+	WHERE ticket_id1 = #{ticketId} OR ticket_id2 = #{ticketId}
+</update>
+
+
+<update id="updateStatusByTid">
+	
+	<if test="type == 1">
+		UPDATE ticket_payment_tb SET status1 = #{status}
+		WHERE tid = #{tid}
+	</if>
+	<if test="type == 2">
+		UPDATE ticket_payment_tb SET status2 = #{status}
+		WHERE tid = #{tid}
+	</if>
+
+</update>
+
+
+<select id="selectByTicketId" resultType="com.green.airline.repository.model.TicketPayment">
+	SELECT * 
+	FROM ticket_tb AS t
+	JOIN ticket_payment_tb AS tp
+	ON t.id IN (tp.ticket_id1, tp.ticket_id2)
+	WHERE t.id = #{id}
+
+</select>
+
+<select id="selectSalesGroupByDate" resultType="com.green.airline.dto.response.MonthlySalesForChartDto">
+	SELECT `year`, `month`, SUM(amount) AS sales
+	FROM (
+			(SELECT YEAR(reserved_date) AS `year`, 
+			MONTH(reserved_date) AS `month`, 
+			sum(amount1) AS amount
+			FROM ticket_payment_tb AS p
+			JOIN ticket_tb AS t
+			ON p.ticket_id1 = t.id
+			WHERE status1 = 1 AND #{date} > reserved_date 
+			GROUP BY `year`, `month`
+			ORDER BY `year` DESC, `month` DESC
+			LIMIT 11)
+			
+			UNION
+			
+			(SELECT YEAR(reserved_date) AS `year`, 
+			MONTH(reserved_date) AS `month`, 
+			sum(amount2) AS amount
+			FROM ticket_payment_tb AS p
+			JOIN ticket_tb AS t
+			ON p.ticket_id1 = t.id
+			WHERE status2 = 1 AND #{date} > reserved_date
+			GROUP BY `year`, `month`
+			ORDER BY `year` DESC, `month` DESC
+			LIMIT 11) 
+	) AS s
+	GROUP BY `year`, `month`
+    ORDER BY `year` , `month`
+</select>
+
+<select id="selectSalesByThisMonth" resultType="com.green.airline.dto.response.MonthlySalesForChartDto">
+	SELECT `year`, `month`, SUM(amount) AS sales
+	FROM (
+			(SELECT YEAR(reserved_date) AS `year`, 
+			MONTH(reserved_date) AS `month`, 
+			sum(amount1) AS amount
+			FROM ticket_payment_tb AS p
+			JOIN ticket_tb AS t
+			ON p.ticket_id1 = t.id
+			WHERE status1 = 1
+			GROUP BY `year`, `month`)
+			
+			UNION
+			
+			(SELECT YEAR(reserved_date) AS `year`, 
+			MONTH(reserved_date) AS `month`, 
+			sum(amount2) AS amount
+			FROM ticket_payment_tb AS p
+			JOIN ticket_tb AS t
+			ON p.ticket_id1 = t.id
+			WHERE status2 = 1
+			GROUP BY `year`, `month`) 
+	) AS s
+	WHERE `year` = #{year} AND `month` = #{month}
+	GROUP BY `year`, `month`
+</select>
+
+</mapper>

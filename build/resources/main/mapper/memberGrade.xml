@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.green.airline.repository.interfaces.MemberGradeRepository">
+
+<select id="selectAll" resultType="com.green.airline.repository.model.MemberGrade">
+	SELECT * FROM member_grade_tb ORDER BY rank_up_mileage
+</select>
+
+</mapper>
