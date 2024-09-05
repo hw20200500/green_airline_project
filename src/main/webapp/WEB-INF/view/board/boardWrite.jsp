@@ -45,8 +45,8 @@
 				<textarea class="summernote" id="content" rows="10" name="content"></textarea>
 			</div>
 			<div class="custom-file">
-				<input type="file" class="custom-file-input" id="customFile" accept=".jpg, .jpeg, .png" name="file"> 
-				<label class="custom-file-label" for="customFile">썸네일용 이미지</label>
+				<input type="file" class="custom-file-input" id="customFile" name="file">
+				<label class="custom-file-label" for="customFile">첨부 파일</label>
 			</div>
 			<div style="margin-top: 40px;" class="d-flex justify-content-center">
 				<button type="button" id="backPage" class="blue--btn--small" style="margin-right: 60px; padding-left: 9px; background-color: gray" onclick="location.href='/board/list/1'">

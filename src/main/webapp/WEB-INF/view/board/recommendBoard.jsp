@@ -138,11 +138,19 @@
 				</div>
 
 				<div class="board--content" style="text-align: center;"></div>
+                <br> <br> <br> <br> <br> <br>
 
+                <div>
+                    첨부파일 |
+                        <div class="board--fileName"> </div>
+                            <button id="fileDown">파일 다운로드</button>
+                            <script src="/js/board.js"></script>
+                </div>
 
 				<%-- 비동기통신으로 값 넘겨주기 --%>
 				<input type="hidden" id="userRole" value="${principal.userRole}"> <input type="hidden" id="managerRole" value="관리자"> <input type="hidden" id="loginUserId" value="${principal.id}">
-				<br> <br> <br> <br> <br> <br>
+                <br> <br> <br> <br> <br> <br>
+				<br>
 				<div class="modal--upDelete">
 					<button type="button" id="updateButton" class="blue--btn--small" style="display: none; margin: 0 10px" onclick="location.href='/voc/update/${id}'">
 						<ul class="d-flex justify-content-center" style="margin: 0;">
