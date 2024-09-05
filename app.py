@@ -52,7 +52,7 @@ def chatbot_response(user_input):
             """
         cur.execute(sql)
         rows = cur.fetchall()
-        response = "현재 예약 가능한 항공권은 다음과 같습니다."
+        response = "<br>현재 예약 가능한 항공권은 다음과 같습니다."
         for row in rows:
             출발지 = row[0]
             도착지 = row[1]
