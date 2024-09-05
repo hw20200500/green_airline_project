@@ -27,11 +27,23 @@ def chatbot_response(user_input):
         response = "저도 반가워요!"
     elif "날씨" in user_input:
         response = "오늘 날씨는 맑음입니다. 우산은 필요 없을 것 같아요!"
-    elif "환불" in user_input:
+    elif any(keyword in user_input for keyword in ["환불", "ghksqnf"]) in user_input:
         response = """<br>항공권 환불 페이지 입니다! <a href='http://localhost/ticket/list/1'><cite>항공권 환불</cite></a><br>
         기프티콘 환불 페이지 입니다! <a href='http://localhost/gifticon/list'><cite>기프티콘 환불</cite></a>
         """
-    elif any(keyword in user_input for keyword in ["항공권", "예매", "항공", "예약"]):
+    elif any(
+        keyword in user_input
+        for keyword in [
+            "항공권",
+            "예매",
+            "항공",
+            "예약",
+            "gkdrhdrnjs",
+            "dPao",
+            "gkdrhd",
+            "dPdir",
+        ]
+    ):
         response = ""
         sql = """SELECT rb.departure, rb.destination, sb.departure_date, sb.arrival_date 
                  FROM (route_tb as rb JOIN schedule_tb as sb ON rb.id = sb.id)
@@ -47,7 +59,10 @@ def chatbot_response(user_input):
             도착시간 = row[3].strftime("%Y-%m-%d %H:%M")
             response += f"<br>출발지: {출발지}<br>도착지: {도착지}<br>출발 시간: {출발시간}<br>도착 시간: {도착시간}<br>==============="
 
-    elif "기내 서비스" in user_input or "서비스" in user_input:
+    elif any(
+        keyword in user_input
+        for keyword in ["기내 서비스", "서비스", "rlso tjqltm", "tjqltm", "service"]
+    ):
         response = f"기내 서비스 정보를 찾고 계신가요? <br><a href='http://localhost/inFlightService/inFlightServiceSearch'><cite>기내 서비스 페이지</cite></a>"
     # 기내식 서비스 조회 -> DB 연동
     elif any(
@@ -91,8 +106,8 @@ def chatbot_response(user_input):
             response = f"그린항공의 기내식은 {', '.join(result)}이 있습니다."
 
     # 마일리지
-    elif any(keyword in user_input for keyword in ["마일리지", "mileage"]):
-        if any(keyword in user_input for keyword in ["샵", "사용처"]):
+    elif any(keyword in user_input for keyword in ["마일리지", "mileage", "akdlfflwl"]):
+        if any(keyword in user_input for keyword in ["샵", "사용처", "shop", "tiq"]):
             response = (
                 "마일리지는 해당 페이지에서 이용하실 수 있습니다.\n"
                 + "<a href='http://localhost/product/productMain/clasic'><cite>마일리지샵</cite></a>"
