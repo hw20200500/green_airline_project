@@ -27,7 +27,7 @@ def chatbot_response(user_input):
         response = "저도 반가워요!"
     elif "날씨" in user_input:
         response = "오늘 날씨는 맑음입니다. 우산은 필요 없을 것 같아요!"
-    elif any(keyword in user_input for keyword in ["환불", "ghksqnf"]) in user_input:
+    elif any(keyword in user_input for keyword in ["환불", "ghksqnf"]):
         response = """<br>항공권 환불 페이지 입니다! <a href='http://localhost/ticket/list/1'><cite>항공권 환불</cite></a><br>
         기프티콘 환불 페이지 입니다! <a href='http://localhost/gifticon/list'><cite>기프티콘 환불</cite></a>
         """
