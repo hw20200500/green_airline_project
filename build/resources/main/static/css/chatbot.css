@@ -5,7 +5,7 @@
     right: 20px;
     width: 60px;
     height: 60px;
-    background-color: #007bff;
+    background-color: #8ABBE2;
     color: white;
     border: none;
     border-radius: 50%;
@@ -23,17 +23,19 @@
     bottom: 80px;
     right: 20px;
     width: 300px;
-    height: 400px;
+    height: 80%;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     display: none;
     flex-direction: column;
     z-index: 1000;
+    border-radius: 10px;
 }
 
 .chatbot-header {
-    background-color: #007bff;
+    border-radius: 10px 10px 0px 0px;
+    background-color: #8ABBE2;
     color: white;
     padding: 15px;
     text-align: center;
@@ -45,6 +47,7 @@
 .chat-container {
     display: flex;
     flex-direction: column;
+    
     height: 100%;
 }
 
@@ -53,6 +56,7 @@
     overflow-y: auto;
     border-top: 1px solid #ddd;
     padding: 15px;
+    
     background-color: #f9f9f9;
     font-size: 14px;
 }
@@ -62,6 +66,7 @@
     border-top: 1px solid #ddd;
     background-color: #fff;
     padding: 10px;
+    border-radius: 0px 0px 10px 10px;
     box-sizing: border-box;
 }
 
@@ -75,7 +80,7 @@
 
 .input-group button {
     padding: 12px;
-    background-color: #007bff;
+    background-color: #8ABBE2;
     border: none;
     color: white;
     cursor: pointer;

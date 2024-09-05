@@ -16,16 +16,16 @@ function sendMessage() {
         chatBox.innerHTML += userMessage;
 
         // Flask 서버로 메시지 전송
-        fetch("/get_response", {
+        fetch("http://localhost:5000/get_response", {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: JSON.stringify({ message: userInput })
+            body: 'message=' + encodeURIComponent(userInput)
         })
-        .then(response => response.text())
+        .then(response => response.json())
         .then(data => {
-            var botMessage = "<div class='bot-message'><strong>Bot:</strong> " + data + "</div>";
+            var botMessage = "<div class='bot-message'><strong>Bot:</strong> " + data.response + "</div>";
             chatBox.innerHTML += botMessage;
             chatBox.scrollTop = chatBox.scrollHeight;
         });
