@@ -23,7 +23,7 @@
 }
 
 td#contentCell{
-    white-space: pre-wrap;
+    white-space: pre-line;
 }
 
 .list--table--reverse th {
