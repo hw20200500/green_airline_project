@@ -31,7 +31,7 @@ def chatbot_response(user_input):
         response = """<br>항공권 환불 페이지 입니다! <a href='http://localhost/ticket/list/1'><cite>항공권 환불</cite></a><br>
         기프티콘 환불 페이지 입니다! <a href='http://localhost/gifticon/list'><cite>기프티콘 환불</cite></a>
         """
-    elif any(keyword in user_input for keyword in ["항공권", "예매", "항공"]):
+    elif any(keyword in user_input for keyword in ["항공권", "예매", "항공", "예약"]):
         response = ""
         sql = """SELECT rb.departure, rb.destination, sb.departure_date, sb.arrival_date 
                  FROM (route_tb as rb JOIN schedule_tb as sb ON rb.id = sb.id)
