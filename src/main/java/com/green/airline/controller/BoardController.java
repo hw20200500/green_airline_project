@@ -1,6 +1,7 @@
 package com.green.airline.controller;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,11 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.green.airline.dto.BoardDto;
@@ -271,17 +268,19 @@ public class BoardController {
 		return Define.UPLOAD_DIRECTORY + boardDto.getFileName().substring(12);
 
 	}*/
-	@GetMapping("/download/{boardId}")
-	public ResponseEntity<FileSystemResource> fileDownload(@PathVariable Integer boardId) {
+	@GetMapping("/download")
+	public ResponseEntity<FileSystemResource> fileDownload(@RequestParam("id") Integer boardId, @RequestParam("fileName") String fileName)
+			throws UnsupportedEncodingException {
 		BoardDto boardDto = boardRepository.selectByBoardDetail(boardId);
 		String filePath = Define.UPLOAD_DIRECTORY + boardDto.getFileName().substring(12);
-
-		FileSystemResource file = new FileSystemResource(filePath);
+		File file = new File(filePath);
+		fileName = file.getName(); // 확장자 깨지던 것 해결
 
 		HttpHeaders headers = new HttpHeaders();
-		headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + boardDto.getFileName());
+		String encodedFileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1"); // 파일에 한글있으면 확장자 깨지던 것 해결
+		headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + encodedFileName + "\"");
 		headers.add(HttpHeaders.CONTENT_TYPE, "application/octet-stream");
 
-		return new ResponseEntity<>(file, headers, HttpStatus.OK);
+		return new ResponseEntity<>(new FileSystemResource(filePath), headers, HttpStatus.OK);
 	}
 }
