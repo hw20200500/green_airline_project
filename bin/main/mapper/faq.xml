@@ -22,7 +22,7 @@
 			from faq_tb as f
 			join faq_category_tb as fc
 			on fc.id = f.category_id
-			where f.category_id = '${categoryId}'
+			where f.category_id = #{categoryId}
 		</if>
 	</select>
 	
@@ -31,17 +31,17 @@
 			from faq_tb as f
 			join faq_category_tb as fc
 			on fc.id = f.category_id
-			where f.title like '${keyword}'
+			where f.title like #{keyword}
 	</select>
 	
 	<delete id="deleteFaqById">
-		delete from faq_tb where id = '${id}'
+		delete from faq_tb where id = #{id}
 	</delete>
 	
 	<update id="updateFaqById">
 		update faq_tb
-		set title='${faq.title}', content='${faq.content}', category_id='${faq.categoryId}'
-		where id = '${id}'
+		set title=#{faq.title}, content=#{faq.content}, category_id=#{faq.categoryId}
+		where id = #{id}
 	</update>
 	
 	<select id="selectFaqByIdList" resultType="com.green.airline.dto.response.FaqResponseDto">
@@ -49,7 +49,7 @@
 		from faq_tb as f
 		join faq_category_tb as fc
 		on fc.id = f.category_id
-		where f.id = '${id}'
+		where f.id = #{id}
 	</select>
 	
 	<select id="selectFaqById" resultType="com.green.airline.dto.response.FaqResponseDto">
@@ -57,7 +57,7 @@
 		from faq_tb as f
 		join faq_category_tb as fc
 		on fc.id = f.category_id
-		where f.id = '${id}'
+		where f.id = #{id}
 	</select>
 	
 	<select id="selectFaqAll" resultType="com.green.airline.dto.response.FaqResponseDto">

@@ -22,10 +22,6 @@
 	padding: 10px 5px 10px 20px;
 }
 
-td#contentCell{
-    white-space: pre-line;
-}
-
 .list--table--reverse th {
 	width: 300px;
 	height: 52.5px;
@@ -139,8 +135,8 @@ textarea[name="content"] {
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td id="contentCell">
-						${voc.content}
+					<td>
+						<textarea id="contentArea" readonly>${voc.content}</textarea>
 					</td>
 				</tr>
 				<c:if test="${voc.ticketId != null}">

@@ -9,10 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -226,9 +223,7 @@ public class BoardController {
 
 		// 좋아요 수 조회
 		BoardDto loveHeart = boardService.selectLoveHeart(id);
-		System.out.println("@@@@@@@@@@@@@@@@@@@");
-		System.out.println("fileName : " + loveHeart.getFileName());
-		System.out.println("@@@@@@@@@@@@@@@@@@@");
+
 		// 쿠키 추가, 조회수 증가
 		boolean viewUp = boardService.updateViewCountCookie(id, request, response);
 
@@ -252,7 +247,6 @@ public class BoardController {
 		return loveHeart;
 	}
 
-
 	// 좋아요 버튼 클릭
 	@ResponseBody
 	@PostMapping("/detail/{id}")
@@ -264,26 +258,5 @@ public class BoardController {
 		Integer heartCount = boardService.selectLoveHeart(id).getHeartCount();
 
 		return heartCount;
-	}
-	/*@ResponseBody
-	@GetMapping("/download/{boardId}")
-	public String fileDownload(@PathVariable Integer boardId) {
-
-		BoardDto boardDto = boardRepository.selectByBoardDetail(boardId);
-		return Define.UPLOAD_DIRECTORY + boardDto.getFileName().substring(12);
-
-	}*/
-	@GetMapping("/download/{boardId}")
-	public ResponseEntity<FileSystemResource> fileDownload(@PathVariable Integer boardId) {
-		BoardDto boardDto = boardRepository.selectByBoardDetail(boardId);
-		String filePath = Define.UPLOAD_DIRECTORY + boardDto.getFileName().substring(12);
-
-		FileSystemResource file = new FileSystemResource(filePath);
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + boardDto.getFileName());
-		headers.add(HttpHeaders.CONTENT_TYPE, "application/octet-stream");
-
-		return new ResponseEntity<>(file, headers, HttpStatus.OK);
 	}
 }

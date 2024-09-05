@@ -73,71 +73,68 @@ input[type=text]:focus, input[type=password]:focus {
          <label for="code">인증 확인 : </label> <input type="text" class="form-control" id="code" value="" name="code">
          <button id="codeCheck" class="btn ">인증</button>
       </div>
-      <div id="passwordInput" style="display: none;">
-         <form action="updatePassword" method="post" id="updateForm">
-            <label>변경할 비밀번호:</label> <input type="password" class="form-control" id="password" value="wjdekdns" name="password"> <label for="checkPassword">비밀번호 확인:</label> <input type="password"
-               class="form-control" id="checkPassword" value="wjdekdns" name="checkPassword"> <input type="hidden" id="userId" name="userId">
-            <button id="updatePwBtn" class="btn ">변경하기</button>
-         </form>
-      </div>
    </div>
 </main>
 <script type="text/javascript">
-   $("#findPassword").on("click", function() {
-      let form = $("form").serialize();
+$("#findPassword").on("click", function() {
+   let form = $("form").serialize();
 
-      $.ajax({
-         url : "/searchId?" + form,
-         type : "get",
-         dataType : "text"
-      }).done(function(response1) {
-         console.log("response1: " + response1);
-         $("#password").attr('type', 'text');
-         $("#id").attr('readonly', 'readonly');
-         $("#email").attr('readonly', 'readonly');
-         $("#findPassword").attr("disabled", true);
-         if (response1 == 0) {
-            $.ajax({
-               url : "/sendNewPw?" + form,
-               type : "get",
-               dataType : 'text'
+   $.ajax({
+      url : "/searchId?" + form,
+      type : "get",
+      dataType : "text"
+   }).done(function(response1) {
+      console.log("response1: " + response1);
+      $("#id").attr('readonly', 'readonly');
+      $("#email").attr('readonly', 'readonly');
+      $("#findPassword").attr("disabled", true);
 
-            }).done(function(response) {
-               $("#checkCode").show();
-               $("#codeCheck").on("click", function() {
-                  let writeCode = $("#code").val();
-                  if (response == writeCode) {
-                     $("#passwordInput").show();
-                     $("#code").attr('readonly', 'readonly');
-                     $("#codeCheck").attr("disabled", true);
-                     let id = $("#id").val();
-                     $("#userId").val(id);
-                  } else {
-                     alert("인증 코드를 확인하세요.");
-                  }
-               });
-            }).fail(function(error) {
-               alert("서버 오류");
+      if (response1 == 0) {
+         $.ajax({
+            url : "/sendNewPw?" + form,
+            type : "get",
+            dataType : 'text'
+
+         }).done(function(response) {
+            $("#checkCode").show();
+            $("#codeCheck").on("click", function() {
+               let writeCode = $("#code").val();
+               if (response == writeCode) {
+                  
+                  let newPassword = Math.floor(100000 + Math.random() * 900000).toString();
+
+                  $.ajax({
+                     url: "/updatePassword",
+                     type: "post",
+                     data: {
+                        userId: $("#id").val(),
+                        password: newPassword
+                     }
+                  }).done(function() {
+                     alert("비밀번호가 변경 되었습니다. 새로운 비밀번호: " + newPassword);
+                     window.location.href = "/login";
+                  }).fail(function(error) {
+                     alert("비밀번호 변경 중 오류가 발생했습니다.");
+                  });
+
+                  $("#checkCode").attr("disabled", true);
+               } else {
+                  alert("인증 코드를 확인하세요.");
+               }
             });
-         } else {
-            alert("아이디를 확인하세요.");
-            location.reload();
-         }
-      }).fail(function(error) {
-         alert("서버 오류");
-      });
-   });
-
-   $("#updateForm").on("submit", function(e) {
-      let checkPassword = $("#checkPassword").val();
-      let password = $("#password").val();
-      if (password != checkPassword) {
-         e.preventDefault();
-         alert("비밀번호를 확인해 주세요");
+         }).fail(function(error) {
+            alert("서버 오류");
+         });
       } else {
-         alert("비밀번호가 변경 되었습니다.");
+         alert("아이디를 확인하세요.");
+         location.reload();
       }
+   }).fail(function(error) {
+      alert("서버 오류");
    });
+});
+
+
 </script>
 <input type="hidden" name="menuName" id="menuName" value="">
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

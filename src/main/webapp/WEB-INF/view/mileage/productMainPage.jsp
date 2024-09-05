@@ -13,7 +13,7 @@
 </c:choose>
 
 <style>
-/* .product_card.soldout::before{content: '';display: block;position: absolute;width: 210px;height: 210px;border: 6px solid #a9a9a9;background-repeat: no-repeat;background-color: rgba(255,255,255,.7);z-index: 10;box-sizing: border-box;} */
+/* .product_card.soldout::before{content: '';display: block;position: absolute;width: 210px;height: 210px;border: 6px solid $a9a9a9;background-repeat: no-repeat;background-color: rgba(255,255,255,.7);z-index: 10;box-sizing: border-box;} */
 .product_card.soldout::before {
 	content: '품절';
 	padding: 68px 65px;
@@ -24,7 +24,7 @@
 	position: absolute;
 	width: 200px;
 	height: 200px;
-	border: 6px solid #a9a9a9;
+	border: 6px solid $a9a9a9;
 	background-repeat: no-repeat;
 	background-color: rgba(255, 255, 255, .7);
 	z-index: 10;
@@ -53,9 +53,9 @@
 .announcement {
 	font-family: Arial, sans-serif;
 	line-height: 1.5;
-	color: #404040;
+	color: $404040;
 	font-size: 15px;
-	background-color: #eee;
+	background-color: $eee;
 	padding: 20px;
 	margin-top: 50px;
 }
@@ -107,7 +107,7 @@
 	border-radius: 5px;
 	border-width: 1px;
 	padding: 3px;
-	border: 1px solid #ccc;
+	border: 1px solid $ccc;
 	outline: none;
 }
 
@@ -191,7 +191,7 @@
 				<li>
 					<a href="/product/productMain/${searchOrder}?curPage=${i}">
 					<c:if test="${i eq paging.curPage}">
-						<span style="font-weight: 700; color: #007bff">${i}</span>
+						<span style="font-weight: 700; color: $007bff">${i}</span>
 					</c:if>
 					<c:if test="${i ne paging.curPage}">${i}</c:if>
 					</a>
@@ -228,8 +228,8 @@
 </main>
 <script>
 
-$("#searchButton").on("click", function() {
-    let search = $("#searchProduct").val().replaceAll(" ","");
+$("$searchButton").on("click", function() {
+    let search = $("$searchProduct").val().replaceAll(" ","");
     console.log(search);
     if (search == "") {
         console.log("입력된 검색어가 없습니다.");
@@ -237,8 +237,8 @@ $("#searchButton").on("click", function() {
     }
 });
 
-$("#searchProduct").on("keyup", function(e) {
-    let search = $("#searchProduct").val().replaceAll(" ","");
+$("$searchProduct").on("keyup", function(e) {
+    let search = $("$searchProduct").val().replaceAll(" ","");
 	console.log(search);
     if (e.keyCode == "13") {
         if (search == "") {
@@ -251,9 +251,9 @@ $(document).ready(function(){
         console.log(`${searchOrder}`);
         
 		if ("ASC" == `${searchOrder}`) {
-			$("#selectBoxId option").eq(1).prop("selected", "true");
+			$("$selectBoxId option").eq(1).prop("selected", "true");
 		} else if ("DESC" == `${searchOrder}`) {
-			$("#selectBoxId option").eq(2).val("DESC").prop("selected", "true");
+			$("$selectBoxId option").eq(2).val("DESC").prop("selected", "true");
 		}
 		
     $(".gifticon-order").on("change", () => {

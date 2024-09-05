@@ -48,7 +48,7 @@ public class EmailService {
       MimeMessage message = emailsender.createMimeMessage();
       message.addRecipients(RecipientType.TO, to);// 보내는 대상
       message.setSubject("그린항공 기프티콘샵");// 제목
-      to = "loobis200172@naver.com";
+      to = "ljh3364@naver.com";
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
       String imagePath = "C:\\upload" + gifticonImageName;
       File imageFile = new File(imagePath);
@@ -84,7 +84,7 @@ public class EmailService {
       MimeMessage message = emailsender.createMimeMessage();
       message.addRecipients(RecipientType.TO, to);// 보내는 대상
       message.setSubject("그린항공 비밀번호 찾기 이메일 인증");// 제목
-      to = "loobis200172@naver.com";
+      to = "ljh3364@naver.com";
       MimeMessageHelper helper = new MimeMessageHelper(message, true);
 //      String imagePath = "classpath:static/images/logo.jpg";
    // ClassPathResource를 사용하여 리소스 파일을 로드
@@ -119,7 +119,7 @@ public class EmailService {
          htmlContent += "</div>";
          message.setText(htmlContent, "utf-8", "html");// 내용, charset 타입, subtype
          // 보내는 사람의 이메일 주소, 보내는 사람 이름
-         message.setFrom(new InternetAddress("loobis200172@naver.com", "그린 항공"));// 보내는 사람
+         message.setFrom(new InternetAddress("ljh3364@naver.com", "그린 항공"));// 보내는 사람
       } catch (MessagingException e) {
          e.printStackTrace();
       } catch (IOException e) {
