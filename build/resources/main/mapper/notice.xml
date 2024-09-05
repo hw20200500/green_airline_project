@@ -5,7 +5,7 @@
 	namespace="com.green.airline.repository.interfaces.NoticeRepository">
 	<insert id="insertNotice">
 		insert into notice_tb (title, content, category_id)
-		values(#{title}, #{content}, #{categoryId})
+		values('${title}', '${content}', '${categoryId}')
 	</insert>
 	
 	<!-- 총 공지글 개수 세는 기능 -->
@@ -19,11 +19,11 @@
 		inner join notice_category_tb
 		as nc
 		on nc.id = n.category_id
-		where nc.id=#{categoryId}
+		where nc.id='${categoryId}'
 	</select>
 	
 	<select id="selectNoticeByKeywordCount" resultType="int">
-		select count(*) from notice_tb where title like CONCAT ('%', #{keyword}, '%')
+		select count(*) from notice_tb where title like CONCAT ('%', '${keyword}', '%')
 	</select>
 
 	<select id="selectNotice"
@@ -49,7 +49,7 @@
      	       ) A, 
         		(SELECT @ROWNUM := 0 ) B
         	) as C
-		WHERE C.ROWNUM BETWEEN #{start} AND #{end}
+		WHERE C.ROWNUM BETWEEN '${start}' AND '${end}'
 		
 	</select>
 
@@ -60,7 +60,7 @@
 		from notice_tb as n
 		inner join notice_category_tb as nc
 		on nc.id = n.category_id
-		where title like #{keyword} -->
+		where title like '${keyword}' -->
 		
 		SELECT * 
 		from (
@@ -83,7 +83,7 @@
      	       ) A, 
         		(SELECT @ROWNUM := 0 ) B
         	) as C
-		WHERE C.ROWNUM BETWEEN #{obj.start} AND #{obj.end}
+		WHERE C.ROWNUM BETWEEN '${obj.start}' AND '${obj.end}'
 		
 	</select>
 
@@ -94,7 +94,7 @@
 		from notice_tb as n
 		inner join notice_category_tb as nc
 		on nc.id = n.category_id
-		where n.id=#{id}
+		where n.id='${id}'
 	</select>
 
 	<select id="selectNoticeByCategoryId"
@@ -125,7 +125,7 @@
      	       ) A, 
         		(SELECT @ROWNUM := 0 ) B
         	) as C
-		WHERE C.ROWNUM BETWEEN #{obj.start} AND #{obj.end}
+		WHERE C.ROWNUM BETWEEN '${obj.start}' AND '${obj.end}'
 			
 		</if>
 
@@ -135,7 +135,7 @@
 			inner join notice_category_tb
 			as nc
 			on nc.id = n.category_id
-			where nc.id=#{categoryId} -->
+			where nc.id='${categoryId}' -->
 			
 			SELECT * 
 		from (
@@ -150,25 +150,25 @@
 						inner join notice_category_tb
 						as nc
 						on nc.id = n.category_id
-						where nc.id=#{categoryId}
+						where nc.id='${categoryId}'
         	    		order by n.id desc
      	       ) A, 
         		(SELECT @ROWNUM := 0 ) B
         	) as C
-		WHERE C.ROWNUM BETWEEN #{obj.start} AND #{obj.end}
+		WHERE C.ROWNUM BETWEEN '${obj.start}' AND '${obj.end}'
 			
 		</if>
 	</select>
 	
 	<delete id="deleteNoticeById">
 		delete from notice_tb
-		where id = #{id}
+		where id = '${id}'
 	</delete>
 
 	<update id="updateNoticeById">
 		update notice_tb
-		set title = #{title}, content = #{content}, category_id = #{categoryId}
-		where id = #{id}
+		set title = '${title}', content = '${content}', category_id = '${categoryId}'
+		where id = '${id}'
 	</update>
 	
 	<select id="selectNoticeCategory" resultType="com.green.airline.repository.model.NoticeCategory">
@@ -182,7 +182,7 @@
 		inner join notice_category_tb as nc
 		on nc.id = n.category_id
 		ORDER BY id DESC
-		LIMIT #{limitCount}
+		LIMIT ${limitCount}
 	</select>
 
 </mapper>
