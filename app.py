@@ -21,7 +21,7 @@ def chatbot_response(user_input):
     cur = con.cursor()
     # 간단한 질문에 대한 응답
 
-    if any(keyword in user_input for keyword in ["hi", "안녕", "하이"]) in user_input:
+    if any(keyword in user_input for keyword in ["hi", "안녕", "하이"]):
         response = "안녕하세요! 무엇을 도와드릴까요?"
     elif "만나서 반가워" in user_input:
         response = "저도 반가워요!"
