@@ -1,4 +1,4 @@
-/* chatbot.css */
+/* Modern Chatbot CSS */
 .chatbot-button {
     position: fixed;
     bottom: 20px;
@@ -9,91 +9,152 @@
     color: white;
     border: none;
     border-radius: 50%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
+    font-size: 28px;
     cursor: pointer;
+    transition: transform 0.2s ease-in-out;
     z-index: 1000;
+}
+
+.chatbot-button:hover {
+    transform: scale(1.1);
 }
 
 .chatbot-container {
     position: fixed;
-    bottom: 80px;
+    bottom: 80px; /* 챗봇 버튼과 입력창 사이의 간격 */
     right: 20px;
-    width: 300px;
-    height: 80%;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    width: 350px;
+    height: 500px; /* 이전 높이로 조정 */
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     display: none;
     flex-direction: column;
     z-index: 1000;
-    border-radius: 10px;
+    overflow: hidden;
 }
 
 .chatbot-header {
-    border-radius: 10px 10px 0px 0px;
     background-color: #8ABBE2;
     color: white;
-    padding: 15px;
+    padding: 20px;
     text-align: center;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
+    border-bottom: 1px solid #ddd;
 }
 
 .chat-container {
     display: flex;
     flex-direction: column;
-    
-    height: 100%;
+    height: calc(100% - 60px); /* 60px은 입력창과 버튼의 높이 */
+    overflow: hidden;
 }
 
 .chat-box {
     flex-grow: 1;
     overflow-y: auto;
-    border-top: 1px solid #ddd;
     padding: 15px;
-    
-    background-color: #f9f9f9;
-    font-size: 14px;
+    background-color: #f4f6f9;
+    font-size: 16px;
+    line-height: 1.5;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* 메시지 사이의 간격 */
+}
+
+.chat-box::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-box::-webkit-scrollbar-track {
+    background-color: #f4f6f9; /* 스크롤 트랙 색상 */
+    border-radius: 10px;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+    background-color: #8ABBE2; /* 스크롤 thumb 색상 */
+    border-radius: 10px;
+    border: 2px solid #f4f6f9; /* thumb의 테두리 색상과 두께 */
 }
 
 .input-group {
-    display: flex;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    padding: 15px;
     border-top: 1px solid #ddd;
-    background-color: #fff;
-    padding: 10px;
-    border-radius: 0px 0px 10px 10px;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
 }
 
 .input-group input {
     flex: 1;
     padding: 12px;
-    border: none;
-    border-radius: 0;
+    border: 1px solid #ddd;
+    border-radius: 20px;
     font-size: 14px;
 }
 
+.input-group input:focus {
+    border-color: #8ABBE2;
+}
+
 .input-group button {
-    padding: 12px;
+    padding: 10px 20px;
+    margin-left: 10px;
     background-color: #8ABBE2;
     border: none;
     color: white;
     cursor: pointer;
-    border-radius: 0;
-    font-size: 14px;
+    border-radius: 25px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.input-group button:hover {
+    background-color: #4f7fa7;
 }
 
 .user-message {
-    text-align: right;
-    margin-bottom: 10px;
+    align-self: flex-end; /* 오른쪽 정렬 */
+    background-color: #e0f7e9;
+    padding: 10px 15px;
+    border-radius: 20px;
+    display: inline-block;
+    max-width: 80%;
+    word-wrap: break-word;
 }
 
 .bot-message {
-    text-align: left;
-    margin-bottom: 10px;
+    align-self: flex-start; /* 왼쪽 정렬 */
+    background-color: #e9ecef;
+    padding: 10px 15px;
+    border-radius: 20px;
+    display: inline-block;
+    max-width: 80%;
+    word-wrap: break-word;
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+    .chatbot-container {
+        width: 90%;
+        bottom: 15px;
+        right: 5%;
+        height: 450px; /* 모바일 화면에서는 조금 더 짧게 */
+    }
+
+    .chatbot-button {
+        bottom: 10px;
+        right: 10px;
+    }
 }

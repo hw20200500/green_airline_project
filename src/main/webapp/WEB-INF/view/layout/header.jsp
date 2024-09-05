@@ -31,11 +31,11 @@
 
     <!-- 챗봇 팝업 -->
     <div class="chatbot-container" id="chatbot-container">
-      <div class="chatbot-header" onclick="toggleChat()">Chatbot</div>
+      <div class="chatbot-header" onclick="toggleChat()">그린이</div>
       <div class="chat-container">
         <div class="chat-box" id="chat-box"></div>
         <div class="input-group">
-          <input type="text" id="user-input" placeholder="Type a message..." onkeypress="checkEnter(event)" />
+          <input type="text" id="user-input" placeholder="메시지를 입력해주세요." onkeypress="checkEnter(event)" />
           <button onclick="sendMessage()">Send</button>
         </div>
       </div>
