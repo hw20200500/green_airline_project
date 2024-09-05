@@ -21,12 +21,14 @@ def chatbot_response(user_input):
     cur = con.cursor()
     # 간단한 질문에 대한 응답
 
-    if "안녕" in user_input:
+    if any(keyword in user_input for keyword in ["hi", "안녕", "하이"]) in user_input:
         response = "안녕하세요! 무엇을 도와드릴까요?"
     elif "만나서 반가워" in user_input:
         response = "저도 반가워요!"
     elif "날씨" in user_input:
         response = "오늘 날씨는 맑음입니다. 우산은 필요 없을 것 같아요!"
+    elif "?" in user_input:
+        response = "자주 묻는 질문 페이지를 확인해주세요!<br><a href='http://localhost/faq/faqLis'><cite>F&Q 페이지</cite></a>"
     elif any(keyword in user_input for keyword in ["환불", "ghksqnf"]):
         response = """<br>항공권 환불 페이지 입니다! <a href='http://localhost/ticket/list/1'><cite>항공권 환불</cite></a><br>
         기프티콘 환불 페이지 입니다! <a href='http://localhost/gifticon/list'><cite>기프티콘 환불</cite></a>
@@ -50,7 +52,6 @@ def chatbot_response(user_input):
             """
         cur.execute(sql)
         rows = cur.fetchall()
-        print(rows)
         response = "현재 예약 가능한 항공권은 다음과 같습니다."
         for row in rows:
             출발지 = row[0]
@@ -113,7 +114,7 @@ def chatbot_response(user_input):
                 + "<a href='http://localhost/product/productMain/clasic'><cite>마일리지샵</cite></a>"
             )
         else:
-            response = ""
+            response = "<br>마일리지 관련 정보입니다!<br>"
             sql = "SELECT name, rank_up_mileage FROM member_grade_tb"
             cur.execute(sql)
             rows = cur.fetchall()
