@@ -1,5 +1,5 @@
 package com.green.airline.controller;
-
+import javax.servlet.ServletContext;
 import java.io.File;
 import java.util.List;
 import java.util.UUID;
@@ -39,7 +39,8 @@ import com.green.airline.utils.Define;
 @Controller
 @RequestMapping("/board")
 public class BoardController {
-
+	@Autowired
+    private ServletContext context;
 	@Autowired
 	private BoardService boardService;
 
@@ -108,7 +109,7 @@ public class BoardController {
 
 			try {
 				// 파일 저장 기능
-				String saveDirectory = Define.UPLOAD_DIRECTORY;
+				String saveDirectory = context.getRealPath(Define.UPLOAD_DIRECTORY);
 
 				File dir = new File(saveDirectory);
 
@@ -122,7 +123,7 @@ public class BoardController {
 				String fileName = uuid + "_" + file.getOriginalFilename();
 
 				// 전체 경로 지정
-				String uploadPath = Define.UPLOAD_DIRECTORY + File.separator + fileName;
+				String uploadPath = context.getRealPath(Define.UPLOAD_DIRECTORY) + File.separator + fileName;
 
 				File destination = new File(uploadPath);
 
@@ -131,7 +132,7 @@ public class BoardController {
 				System.out.println("file destination:"+destination);
 
 				boardDto.setOriginName(file.getOriginalFilename());
-				boardDto.setFileName("/uploadImage/" + fileName);
+				boardDto.setFileName("/images/upload/" + fileName);
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -174,7 +175,7 @@ public class BoardController {
 
 			try {
 				// 파일 저장 기능
-				String saveDirectory = Define.UPLOAD_DIRECTORY;
+				String saveDirectory = context.getRealPath(Define.UPLOAD_DIRECTORY);
 
 				File dir = new File(saveDirectory);
 
@@ -188,7 +189,7 @@ public class BoardController {
 				String fileName = uuid + "_" + file.getOriginalFilename();
 
 				// 전체 경로 지정
-				String uploadPath = Define.UPLOAD_DIRECTORY + File.separator + fileName;
+				String uploadPath = context.getRealPath(Define.UPLOAD_DIRECTORY) + File.separator + fileName;
 
 				File destination = new File(uploadPath);
 
@@ -198,7 +199,7 @@ public class BoardController {
 				if (file.getOriginalFilename() == null) {
 					boardService.updateByBoardJustThumbnail(id, boardUpdateDto);
 				} else {
-					boardUpdateDto.setFileName("/uploadImage/" + fileName);
+					boardUpdateDto.setFileName("/images/upload/" + fileName);
 					boardService.updateByBoard(id, boardUpdateDto);
 				}
 			} catch (Exception e) {
@@ -276,7 +277,7 @@ public class BoardController {
 	@GetMapping("/download/{boardId}")
 	public ResponseEntity<FileSystemResource> fileDownload(@PathVariable Integer boardId) {
 		BoardDto boardDto = boardRepository.selectByBoardDetail(boardId);
-		String filePath = Define.UPLOAD_DIRECTORY + boardDto.getFileName().substring(12);
+		String filePath = context.getRealPath(Define.UPLOAD_DIRECTORY) + boardDto.getFileName().substring(12);
 
 		FileSystemResource file = new FileSystemResource(filePath);
 
