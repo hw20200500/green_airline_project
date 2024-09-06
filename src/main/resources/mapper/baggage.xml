@@ -12,19 +12,19 @@
 	<select id="selectLiquidsByName" resultType="com.green.airline.repository.model.CarryOnLiquids">
 		select * 
 		from carry_on_liquids_tb
-		where name=#{name}
+		where name='${name}'
 	</select>
 	
 	<select id="selectCheckedBaggageBySection" resultType="com.green.airline.repository.model.CheckedBaggage">
 		select *
 		from checked_baggage_tb
-		where section=#{section}
+		where section='${section}'
 	</select>
 	
 	<select id="selectCheckedBaggageBySectionAndGradeId" resultType="com.green.airline.repository.model.CheckedBaggage">
 		select *
 		from checked_baggage_tb
-		where section=#{section.section} and grade_id=#{gradeId}
+		where section=#{section.section} and grade_id='${gradeId}'
 	</select>
 	
 	<select id="selectCheckedBaggage" resultType="com.green.airline.repository.model.CheckedBaggage">

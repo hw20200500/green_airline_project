@@ -5,15 +5,15 @@
 
 <insert id="insert">
 	INSERT INTO passenger_tb
-	VALUES (#{name}, #{gender}, #{birthDate}, #{ticketId})
+	VALUES ('${name}', '${gender}', '${birthDate}', '${ticketId}')
 </insert>
 
 <select id="selectByTicketId" resultType="com.green.airline.repository.model.Passenger">
-	SELECT * FROM passenger_tb WHERE ticket_id = #{ticketId}
+	SELECT * FROM passenger_tb WHERE ticket_id = '${ticketId}'
 </select>
 
 <delete id="deleteByTicketId">
-	DELETE FROM passenger_tb WHERE ticket_id = #{ticketId}
+	DELETE FROM passenger_tb WHERE ticket_id = '${ticketId}'
 </delete>
 
 </mapper>

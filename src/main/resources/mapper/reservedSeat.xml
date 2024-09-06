@@ -4,20 +4,20 @@
 <mapper namespace="com.green.airline.repository.interfaces.ReservedSeatRepository">
 
 <select id="selectByScheduleId" resultType="com.green.airline.repository.model.ReservedSeat">
-	SELECT * FROM reserved_seat_tb WHERE schedule_id = #{scheduleId}
+	SELECT * FROM reserved_seat_tb WHERE schedule_id = '${scheduleId}'
 </select>
 
 <insert id="insert">
 	INSERT INTO reserved_seat_tb
-	VALUES (#{scheduleId}, #{seatName}, #{ticketId});
+	VALUES ('${scheduleId}', '${seatName}', '${ticketId}');
 </insert>
 
 <select id="selectByTicketId" resultType="com.green.airline.repository.model.ReservedSeat">
-	SELECT * FROM reserved_seat_tb WHERE ticket_id = #{ticketId}
+	SELECT * FROM reserved_seat_tb WHERE ticket_id = '${ticketId}'
 </select>
 
 <delete id="deleteByTicketId">
-	DELETE FROM reserved_seat_tb WHERE ticket_id = #{ticketId}
+	DELETE FROM reserved_seat_tb WHERE ticket_id = '${ticketId}'
 </delete>
 
 </mapper>

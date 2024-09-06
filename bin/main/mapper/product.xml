@@ -6,22 +6,22 @@
 	<!-- 상품 등록 -->
 	<insert id="insert">
 		insert into shop_product_tb(brand,name,price,count,product_image,gifticon_image)
-		values(#{brand},#{name},#{price},#{count},#{originFileName},#{originFileName2});
+		values('${brand}','${name}','${price}','${count}','${originFileName}','${originFileName2}');
 	</insert>
 
 	<!-- 상품 리스트 조회 -->
 	<select id="selectProductList" resultType="com.green.airline.repository.model.ShopProduct">
 		<choose>
 			<when test="searchOrder == 'clasic'">
-				SELECT * FROM SHOP_PRODUCT_TB LIMIT #{paging.firstRow},8
+				SELECT * FROM SHOP_PRODUCT_TB LIMIT ${paging.firstRow},8
 			</when>
 			<when test="searchOrder == 'DESC'">
 				<!-- 높은순 -->
-				SELECT * FROM SHOP_PRODUCT_TB ORDER BY price DESC LIMIT #{paging.firstRow},8
+				SELECT * FROM SHOP_PRODUCT_TB ORDER BY price DESC LIMIT ${paging.firstRow},8
 			</when>
 			<when test="searchOrder == 'ASC'">
 				<!-- 낮은순 -->
-				SELECT * FROM SHOP_PRODUCT_TB ORDER BY price ASC LIMIT #{paging.firstRow},8
+				SELECT * FROM SHOP_PRODUCT_TB ORDER BY price ASC LIMIT ${paging.firstRow},8
 			</when>
 			<otherwise>
 				SELECT * FROM SHOP_PRODUCT_TB
@@ -40,7 +40,7 @@
 		SELECT count(*) as totalRowCount FROM SHOP_PRODUCT_TB
 	</select>
 	<select id="ProductListTest"  resultType= "com.green.airline.repository.model.ShopProduct">
-		SELECT * FROM SHOP_PRODUCT_TB order by id DESC LIMIT #{firstRow},8
+		SELECT * FROM SHOP_PRODUCT_TB order by id DESC LIMIT '${firstRow}',8
 		
 	</select>
 	
@@ -52,73 +52,73 @@
 	
 	<!-- 상품 상세 조회 -->
 	<select id="selectById" resultType="com.green.airline.repository.model.ShopProduct">
-		SELECT * FROM SHOP_PRODUCT_TB WHERE id = #{id};
+		SELECT * FROM SHOP_PRODUCT_TB WHERE id = '${id}';
 	</select>
 
 	<!-- 상품정보 업데이트 -->
 	<update id="updateProduct">
-		update shop_product_tb set brand = #{brand},name=#{name},price=#{price},count=#{count}
-		where id = #{id};
+		update shop_product_tb set brand = '${brand}',name='${name}',price='${price}',count='${count}'
+		where id = '${id}';
 	</update>
 	<!-- 상품 삭제 -->
 	<delete id="deleteProduct">
-		delete from shop_product_tb where id = #{id};
+		delete from shop_product_tb where id = '${id}';
 	</delete>
 
 	<!-- 구매내역 입력 -->
 	<insert id="insertShopProductDto">
 		insert into shop_order_tb(amount,product_id,member_id)
-		values(#{amount},#{productId},#{memberId});
+		values('${amount}','${productId}','${memberId}');
 	</insert>
 
 
 	<!-- now() 함수 mysql 넣을때 바꿔야함 -->
-	<!-- values(date_add(now(),INTERVAL 365 DAY),#{orderId}); -->
+	<!-- values(date_add(now(),INTERVAL 365 DAY),'${orderId}'); -->
 	<insert id="insertGifticonDto">
 		insert into gifticon_tb(end_date,order_id)
-		values(#{endDate},#{orderId});
+		values('${endDate}','${orderId}');
 	</insert>
 	<!-- 구매내역 조회 -->
 	<select id="selectShopOrder" resultType="com.green.airline.repository.model.ShopOrder">
 		select id from shop_order_tb
-		where member_id =#{memberId} order by id desc limit 1;
+		where member_id ='${memberId}' order by id desc limit 1;
 	</select>
 	<!-- 마일리지 사용할때 insert -->
 	<insert id="insertMileage"> insert into mileage_tb(mileage_date,use_mileage,member_id, description)
-		values(now(),#{useMileage},#{memberId},#{description})
+		values(now(),'${useMileage}','${memberId}','${description}')
 	</insert>
 
 	<!-- 마일리지 조회 -->
 	<select id="selectMileage" resultType="com.green.airline.repository.model.Mileage">
 
-		select sum(balance) as balance from mileage_tb where member_id = #{member_id} and expiration_date > now() and now() >= mileage_date;
+		select sum(balance) as balance from mileage_tb where member_id = '${member_id}' and expiration_date > now() and now() >= mileage_date;
 
 
 	</select>
 	<!-- 재고 수량 변경 -->
 	<update id="updateShopProductDto">
-		update shop_product_tb set count = #{hiddenCount} where id = #{productId};
+		update shop_product_tb set count = '${hiddenCount}' where id = '${productId}';
 	</update>
 	<!-- 상품 검색 -->
 	 <select id="selectProductByName" resultType="com.green.airline.repository.model.ShopProduct">
-	 <!-- h2에서 mysql로 변경할 때 바꿔야함 -> '%#{searchProduct}%' -->
+	 <!-- h2에서 mysql로 변경할 때 바꿔야함 -> '%'${searchProduct}'%' -->
 	 <if test="searchOption == 'brand'">			
-	select * from shop_product_tb where brand like concat("%",#{searchProduct},"%") LIMIT #{paging.firstRow},8;
+	select * from shop_product_tb where brand like concat("%",'${searchProduct}',"%") LIMIT #{paging.firstRow},8;
 	 </if>
 	 <if test="searchOption == 'name'">
-	select * from shop_product_tb where name like concat("%",#{searchProduct},"%") LIMIT #{paging.firstRow},8;
+	select * from shop_product_tb where name like concat("%",'${searchProduct}',"%") LIMIT #{paging.firstRow},8;
 	 </if>
 	</select>
 	
 	
 	
 	 <select id="getSerchTotalRowCount" resultType="int" parameterType="com.green.airline.dto.PagingVO">
-	 <!-- h2에서 mysql로 변경할 때 바꿔야함 -> '%#{searchProduct}%' -->
+	 <!-- h2에서 mysql로 변경할 때 바꿔야함 -> '%'${searchProduct}'%' -->
 	 <if test="searchOption == 'brand'">
-	select count(*) as totalRowCount from shop_product_tb where brand like concat("%",#{searchProduct},"%");
+	select count(*) as totalRowCount from shop_product_tb where brand like concat("%",'${searchProduct}',"%");
 	 </if>
 	 <if test="searchOption == 'name'">
-	select count(*) as totalRowCount from shop_product_tb where name like concat("%",#{searchProduct},"%");
+	select count(*) as totalRowCount from shop_product_tb where name like concat("%",'${searchProduct}',"%");
 	 </if>
 	</select>
 	
@@ -129,7 +129,7 @@
 		ON o.product_id = p.id
 		GROUP BY brand
 		ORDER BY order_amount DESC
-		LIMIT #{limitCount}
+		LIMIT ${limitCount}
 	</select>
 	
 </mapper>

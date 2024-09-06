@@ -9,7 +9,7 @@
 
 <insert id="insert">
 	INSERT INTO voc_tb (phone_number, email, type, title, content, category_id, member_id, ticket_id)
-	VALUES (#{phoneNumber}, #{email}, #{type}, #{title}, #{content}, #{categoryId}, #{memberId}, #{ticketId})
+	VALUES ('${phoneNumber}', '${email}', '${type}', '${title}', '${content}', '${categoryId}', '${memberId}', '${ticketId}')
 </insert>
 
 <select id="selectByMemberId" resultType="com.green.airline.dto.response.VocInfoDto">
@@ -19,7 +19,7 @@
 	ON v.category_id = c.id
 	LEFT JOIN voc_answer_tb AS a
 	ON v.id = a.voc_id
-	WHERE member_id = #{memberId}
+	WHERE member_id = '${memberId}'
 	ORDER BY v.id DESC	
 </select>
 
@@ -30,9 +30,9 @@
 	ON v.category_id = c.id
 	LEFT JOIN voc_answer_tb AS a
 	ON v.id = a.voc_id
-	WHERE member_id = #{memberId}
+	WHERE member_id = '${memberId}'
 	ORDER BY v.id DESC	
-	LIMIT #{index}, 10
+	LIMIT ${index}, 10
 </select>
 
 <select id="selectAll" resultType="com.green.airline.dto.response.VocInfoDto">
@@ -72,7 +72,7 @@
 		ON v.id = a.voc_id
 		WHERE a.id IS NULL
 		ORDER BY v.id DESC	
-		LIMIT #{index}, #{limitCount}
+		LIMIT ${index}, ${limitCount}
 	</if>
 	
 	<!-- 처리된 -->
@@ -85,7 +85,7 @@
 		ON v.id = a.voc_id
 		WHERE a.id IS NOT NULL
 		ORDER BY v.id DESC	
-		LIMIT #{index}, #{limitCount}
+		LIMIT ${index}, ${limitCount}
 	</if>
 </select>
 
@@ -96,20 +96,20 @@
 	ON v.category_id = c.id
 	LEFT JOIN voc_answer_tb AS a
 	ON v.id = a.voc_id
-	WHERE v.id = #{id}
+	WHERE v.id = '${id}'
 	ORDER BY v.id DESC	
 </select>
 
 <delete id="deleteById">
-	DELETE FROM voc_tb WHERE id = #{id}
+	DELETE FROM voc_tb WHERE id = '${id}'
 </delete>
 
 <update id="updateById">
 	UPDATE voc_tb 
-	SET phone_number = #{phoneNumber}, email = #{email}, type = #{type},
-		title = #{title}, content = #{content}, category_id = #{categoryId},
-		ticket_id = #{ticketId}
-	WHERE id = #{id}
+	SET phone_number = '${phoneNumber}', email = '${email}', type = '${type}',
+		title = '${title}', content = '${content}', category_id = '${categoryId}',
+		ticket_id = '${ticketId}'
+	WHERE id = '${id}'
 </update>
 
 <select id="selectFormList" resultType="com.green.airline.repository.model.VocAnswerForm">
@@ -118,27 +118,27 @@
 
 <insert id="insertAnswer">
 	INSERT INTO voc_answer_tb (content, voc_id)
-	VALUES (#{content}, #{vocId})
+	VALUES ('${content}', '${vocId}')
 </insert>
 
 <select id="selectCountByMonth" resultType="com.green.airline.dto.response.CountByYearAndMonthDto">
 	SELECT YEAR(created_at) AS `year`, MONTH(created_at) AS `month`, COUNT(*) AS count
 	FROM voc_tb
-	WHERE YEAR(created_at) = #{year} AND MONTH(created_at) = #{month}
+	WHERE YEAR(created_at) = '${year}' AND MONTH(created_at) = '${month}'
 	GROUP BY `year`, `month`
 </select>
 
 <select id="selectCountByMonthGroupByType" resultType="com.green.airline.dto.response.VocCountByTypeDto">
 	SELECT type, count(*) AS count
 	FROM voc_tb
-	WHERE YEAR(created_at) = #{year} AND MONTH(created_at) = #{month}
+	WHERE YEAR(created_at) = '${year}' AND MONTH(created_at) = '${month}'
 	GROUP BY type
 	ORDER BY count DESC
 </select>
 <select id="selectVocCountAndAnserCountByMemberId" resultType="com.green.airline.dto.response.VocInfoDto">
 	select count(*) as answerCount,(select count(*) from voc_tb) as vocCount from voc_tb as v
 left join voc_answer_tb as van
-on v.id = van.voc_id where v.member_id = #{memberId}  and van.voc_id is  not null;
+on v.id = van.voc_id where v.member_id = '${memberId}'  and van.voc_id is  not null;
 </select>
 
 </mapper>

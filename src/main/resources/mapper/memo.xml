@@ -4,17 +4,17 @@
 <mapper namespace="com.green.airline.repository.interfaces.MemoRepository">
 
 <select id="selectByManagerId" resultType="com.green.airline.repository.model.Memo">
-	SELECT * FROM memo_tb WHERE manager_id = #{managerId}
+	SELECT * FROM memo_tb WHERE manager_id = '${managerId}'
 </select>
 
 <insert id="insert">
 	INSERT INTO memo_tb
-	VALUES (#{managerId}, #{content})
+	VALUES ('${managerId}', '${content}')
 </insert>
 
 <update id="update">
-	UPDATE memo_tb SET content = #{content}
-	WHERE manager_id = #{managerId}
+	UPDATE memo_tb SET content = '${content}'
+	WHERE manager_id = '${managerId}'
 </update>
 
 </mapper>

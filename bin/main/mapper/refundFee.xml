@@ -5,11 +5,11 @@
 
 <select id="selectByCriterionAndType" resultType="Long">
 	SELECT fee FROM refund_fee_tb
-	WHERE criterion = #{criterion} AND type = #{type}
+	WHERE criterion = '${criterion}' AND type = '${type}'
 </select>
 
 <select id="selectByType" resultType="com.green.airline.repository.model.RefundFee">
-	SELECT * FROM refund_fee_tb WHERE type = #{type}
+	SELECT * FROM refund_fee_tb WHERE type = '${type}'
 </select>
 
 </mapper>

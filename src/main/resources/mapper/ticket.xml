@@ -6,21 +6,21 @@
 
 	<select id="selectById"
 		resultType="com.green.airline.repository.model.Ticket">
-		SELECT * FROM ticket_tb WHERE id = #{id}
+		SELECT * FROM ticket_tb WHERE id = '${id}'
 	</select>
 
 
 <insert id="insert">
 	INSERT INTO ticket_tb 
-	VALUES (#{id}, #{adultCount}, #{childCount}, #{infantCount}, #{seatGrade}, #{memberId}, #{scheduleId}, now(),  #{paymentType}) 
+	VALUES ('${id}', '${adultCount}', '${childCount}', '${infantCount}', '${seatGrade}', '${memberId}', '${scheduleId}', now(),  '${paymentType}') 
 </insert>
  
  <delete id="deleteById">
- 	DELETE FROM ticket_tb WHERE id = #{id}
+ 	DELETE FROM ticket_tb WHERE id = '${id}'
  </delete>
  
  <select id="selectByUserIdOrderByDate" resultType="com.green.airline.repository.model.Ticket">
- 	SELECT * FROM ticket_tb WHERE member_id = #{memberId} ORDER BY reserved_date DESC
+ 	SELECT * FROM ticket_tb WHERE member_id = '${memberId}' ORDER BY reserved_date DESC
  </select>
  
  <select id="selectAllInfoById" resultType="com.green.airline.dto.response.TicketAllInfoDto">
@@ -36,7 +36,7 @@
 		ON s.airplane_id = a.id
 		LEFT JOIN ticket_payment_tb AS tp
 		ON t.id = tp.ticket_id1
-		WHERE t.id = #{id};
+		WHERE t.id = '${id}';
  	</if>
  	
  	<!-- 2번째 일정 -->
@@ -51,14 +51,14 @@
 		ON s.airplane_id = a.id
 		LEFT JOIN ticket_payment_tb AS tp
 		ON t.id = tp.ticket_id2
-		WHERE t.id = #{id};
+		WHERE t.id = '${id}';
  	</if>
  	
  </select>
  
  <update id="updateReservedDate">
  	UPDATE ticket_tb SET reserved_date = now()
- 	WHERE id = #{id}
+ 	WHERE id = '${id}'
  </update>
  
  <select id="selectTicketListByMemberId" resultType="com.green.airline.dto.response.TicketAllInfoDto">
@@ -80,7 +80,7 @@
 	ON s.airplane_id = a.id
 	JOIN ticket_payment_tb AS tp
 	ON t.id IN (tp.ticket_id1, tp.ticket_id2)
-	WHERE t.member_id = #{memberId} AND (status1 != 0 OR status2 != 0)
+	WHERE t.member_id = '${memberId}' AND (status1 != 0 OR status2 != 0)
 	ORDER BY reserved_date DESC;
  </select>
  
@@ -103,9 +103,9 @@
 	ON s.airplane_id = a.id
 	JOIN ticket_payment_tb AS tp
 	ON t.id IN (tp.ticket_id1, tp.ticket_id2)
-	WHERE t.member_id = #{memberId} AND (status1 != 0 OR status2 != 0)
+	WHERE t.member_id = '${memberId}' AND (status1 != 0 OR status2 != 0)
 	ORDER BY reserved_date DESC
-	LIMIT #{index}, 10
+	LIMIT ${index}, 10
  </select>
  
 
@@ -126,7 +126,7 @@
 		left join
 		mileage_request_tb as m
 		on t.id = m.ticket_id
-		where t.id = #{id};
+		where t.id = '${id}';
 	</select>
 
 	<!-- 마일리지 신청 할 때 필요한 select -->
@@ -147,7 +147,7 @@
 			left join
 			mileage_request_tb as m
 			on t.id = m.ticket_id
-			where t.member_id = #{memberId}
+			where t.member_id = '${memberId}'
 			and m.ticket_id is null
 			;
 		</if>
@@ -166,14 +166,14 @@
 			left join
 			mileage_request_tb as m
 			on t.id = m.ticket_id
-			where t.member_id = #{memberId}
+			where t.member_id = '${memberId}'
 			and m.status = 0;
 		</if>
 	</select>
 	<!-- 신청 입력 --> 
 	<insert id="inserticketIdById">
 		insert into mileage_request_tb(ticket_id)
-		values(#{id});
+		values('${id}');
 	</insert>
 
  <select id="selectTicketListAll" resultType="com.green.airline.dto.response.TicketAllInfoDto">
@@ -220,7 +220,7 @@
 	ON t.id IN (tp.ticket_id1, tp.ticket_id2)
 	WHERE status1 != 0 OR status2 != 0
 	ORDER BY reserved_date DESC
-	LIMIT #{index}, 10
+	LIMIT ${index}, 10
  </select>
 
 </mapper>

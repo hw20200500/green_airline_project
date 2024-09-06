@@ -8,10 +8,10 @@
 	<select id="selectSaveMileage"
 		resultType="com.green.airline.dto.SaveMileageDto">
 		<!-- select sum(balance)as balance from mileage_tb where member_id =
-		#{memberId} and now() &lt; expiration_date; -->
+		'${memberId}' and now() &lt; expiration_date; -->
 		select sum(balance)as balance,(select sum(save_mileage) from mileage_tb where member_id =
-		#{memberId} and now() > mileage_date )as totalMileage from mileage_tb where member_id =
-		#{memberId} and now() > mileage_date and expiration_date > now();
+		'${memberId}' and now() > mileage_date )as totalMileage from mileage_tb where member_id =
+		'${memberId}' and now() > mileage_date and expiration_date > now();
 	</select>
 	
 	<select id="selectAllSaveMileage" resultType="com.green.airline.repository.model.Mileage">
@@ -19,21 +19,21 @@
 	</select>
 	<!-- 마이 페이지에 서멸 예정 마일리지 조회 -->
 	<select id="selectExprirationBalanceByMemberId" resultType="com.green.airline.repository.model.Mileage">
-		select sum(balance) as balance from mileage_tb where member_id = #{memberId} and EXPIRATION_DATE > now() and #{ts} > EXPIRATION_DATE;
+		select sum(balance) as balance from mileage_tb where member_id = '${memberId}' and EXPIRATION_DATE > now() and '${ts}' > EXPIRATION_DATE;
 	</select>
 	<!-- 마이 페이지에 적립 예정 마일리지 조회 -->
 	<select id="selectSaveBalanceByMemberId" resultType="com.green.airline.repository.model.Mileage">
-		select sum(balance) as balance from mileage_tb where member_id = #{memberId} and mileage_date > now() and #{ts} > mileage_date and save_mileage is not null 
+		select sum(balance) as balance from mileage_tb where member_id = '${memberId}' and mileage_date > now() and '${ts}' > mileage_date and save_mileage is not null 
 	</select>
 	<!-- 마이페이지 마일리지 리스트 -->
 	<select id="selectMileageTbOrderByMileageDateByMemberId" resultType="com.green.airline.repository.model.Mileage">
-		SELECT * FROM MILEAGE_TB where member_id = #{memberId} and now() > mileage_date order by id desc limit 5
+		SELECT * FROM MILEAGE_TB where member_id = '${memberId}' and now() > mileage_date order by id desc limit 5
 	</select>
 	<!-- 소멸 마일리지 합 -->
 	<select id="selectExtinctionMileage"
 		resultType="com.green.airline.dto.SaveMileageDto">
 		select sum(balance)as extinctionMileage from mileage_tb where member_id =
-		#{memberId} and<![CDATA[  now() > expiration_date ]]>;
+		'${memberId}' and<![CDATA[  now() > expiration_date ]]>;
 	</select>
 
 
@@ -41,7 +41,7 @@
 	<select id="selectUseMileage"
 		resultType="com.green.airline.dto.UseMileageDto">
 		select sum(use_mileage) as use_mileage from mileage_tb where
-		member_id = #{memberId};
+		member_id = '${memberId}';
 	</select>
 
 
@@ -59,7 +59,7 @@
 	<!-- 사용 마일리지 리스트 조회 -->
 	<select id="selectUseMileageList"
 		resultType="com.green.airline.repository.model.UseMileage">
-		select * from mileage_tb where member_id = #{memberId} and save_date
+		select * from mileage_tb where member_id = '${memberId}' and save_date
 		is not null;
 	</select>
 
@@ -81,14 +81,14 @@
 
 	<select id="selectNowMileage"
 		resultType="com.green.airline.repository.model.Mileage">
-		select * from mileage_tb where member_id = #{memberId}
+		select * from mileage_tb where member_id = '${memberId}'
 		and
 		expiration_date is not null and expiration_date > now() order by
 		expiration_date asc;
 	</select>
 	<!-- 상품 구매시 balance 변 -->
 	<update id="updateBalance">
-		update mileage_tb set balance = #{balance} where id = #{id};
+		update mileage_tb set balance = '${balance}' where id = '${id}';
 	</update>
 	<update id="update">
 
@@ -97,7 +97,7 @@
 	<insert id="insertUseDataList">
 		insert into
 		use_mileage_list_tb(mileage_from_balance,buy_mileage_id,gifticon_id)
-		values(#{mileageFromBalance},#{id},#{gifticonId});
+		values('${mileageFromBalance}','${id}','${gifticonId}');
 
 	</insert>
 	<!-- 회원 등급 조회 -->
@@ -106,16 +106,16 @@
 		select * from member_tb as m
 		join member_grade_tb as g
 		on m.grade =
-		g.name where m.id = #{memberId}
+		g.name where m.id = '${memberId}'
 	</select>
 	<select id="selectSumSaveMileageByMemberId" resultType="Long">
 		select
-		sum(save_mileage) as saveMileage from MILEAGE_TB where member_id = #{memberId}
+		sum(save_mileage) as saveMileage from MILEAGE_TB where member_id = '${memberId}'
 		and now() >= mileage_date;
 	</select>
 	<select id="selectMileageByMemberId"
 		resultType="com.green.airline.repository.model.Mileage">
-		select * from mileage_tb where member_id= #{memberId} order by id
+		select * from mileage_tb where member_id= '${memberId}' order by id
 		desc limit 1 ;
 	</select>
 	<select id="selectUseDataListTb"
@@ -127,50 +127,50 @@ on u.GIFTICON_ID = g.id
 join MILEAGE_TB  as m
 on u.BUY_MILEAGE_ID = m.id
 where g.status = 0
-and m.member_id = #{memberId}
-and g.id = #{gifticonId};
+and m.member_id = '${memberId}'
+and g.id = '${gifticonId}';
 
 	</select>
 	<update id="updateBalanceById">
-		update mileage_tb set balance = #{mileage.balance} where id = #{id}
+		update mileage_tb set balance = #{mileage.balance} where id = '${id}'
 	</update>
 	
 	<!-- mileage_tb에 티켓 관련 사용 내역 추가 -->
 	<insert id="insertUseMileageByTicket">
 		INSERT INTO mileage_tb (mileage_date, use_mileage, description, member_id, ticket_id)
-		VALUES (now(), #{useMileage}, #{description}, #{memberId}, #{ticketId})
+		VALUES (now(), '${useMileage}', '${description}', '${memberId}', '${ticketId}')
 	</insert>
 	
 	<insert id="insertUseMileageDetailByTicket">
 		INSERT INTO use_mileage_list_tb (mileage_from_balance, buy_mileage_id, ticket_id)
-		VALUES (#{mileageFromBalance}, #{buyMileageId}, #{ticketId})
+		VALUES ('${mileageFromBalance}', '${buyMileageId}', '${ticketId}')
 	</insert>
 	
 	<select id="selectUseMileageDataDetailByTicketId" resultType="com.green.airline.repository.model.UseMileage">
 		SELECT *
 		FROM use_mileage_list_tb
-		WHERE ticket_id = #{ticketId}
+		WHERE ticket_id = '${ticketId}'
 	</select>
 	
 	<update id="updateBalanceByRefund">
-		UPDATE mileage_tb SET balance = balance + #{balance} WHERE id = #{id};
+		UPDATE mileage_tb SET balance = balance + '${balance}' WHERE id = '${id}';
 	</update>
 	
 	<delete id="deleteUseMileageDetailByMilesId">
-		DELETE FROM use_mileage_list_tb WHERE buy_mileage_id = #{id}
+		DELETE FROM use_mileage_list_tb WHERE buy_mileage_id = '${id}'
 	</delete>
 	
 	<insert id="insertRefundMiles">
 		INSERT INTO mileage_tb (mileage_date, description, expiration_date, save_mileage, balance, member_id, ticket_id)
-		VALUES (now(), #{description}, #{expirationDate}, #{saveMileage}, #{balance}, #{memberId}, #{ticketId})
+		VALUES (now(), '${description}', '${expirationDate}', '${saveMileage}', '${balance}', '${memberId}', '${ticketId}')
 	</insert>
 	
 	<select id="selectById" resultType="com.green.airline.repository.model.Mileage">
-		SELECT * FROM mileage_tb WHERE id = #{id}	
+		SELECT * FROM mileage_tb WHERE id = '${id}'	
 	</select>
 	
 	<delete id="deleteByTicketId">
-		DELETE FROM mileage_tb WHERE ticket_id = #{ticketId}
+		DELETE FROM mileage_tb WHERE ticket_id = '${ticketId}'
 	</delete>
 	
 </mapper>

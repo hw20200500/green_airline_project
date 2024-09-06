@@ -14,8 +14,8 @@
 			left join shop_product_tb as p
 			on s.product_id = p.id
 			where
-			s.member_id = #{id}
-			and r.revoke_date >= #{startTime} and #{endTime} >= r.revoke_date
+			s.member_id = '${id}'
+			and r.revoke_date >= '${startTime}' and '${endTime}' >= r.revoke_date
 
 		</if>
 		<if test="radio == 'buy'">
@@ -25,8 +25,8 @@
 			join shop_product_tb as sp
 			on s.product_id = sp.id
 			where
-			s.member_id = #{id} and g.start_date >= #{startTime} and
-			#{endTime}
+			s.member_id = '${id}' and g.start_date >= '${startTime}' and
+			'${endTime}'
 			>=
 			g.start_date and status = 0
 		</if>
@@ -44,8 +44,8 @@
 			left join shop_product_tb as p
 			on s.product_id = p.id
 			where
-			s.member_id = #{id}
-			and r.revoke_date >= #{startTime} and #{endTime} >= r.revoke_date
+			s.member_id = '${id}'
+			and r.revoke_date >= '${startTime}' and '${endTime}' >= r.revoke_date
 
 		</if>
 		<if test="radio == 'buy'">
@@ -55,26 +55,26 @@
 			join shop_product_tb as sp
 			on s.product_id = sp.id
 			where
-			s.member_id = #{id} and g.start_date >= #{startTime} and
-			#{endTime}
+			s.member_id = '${id}' and g.start_date >= '${startTime}' and
+			'${endTime}'
 			>=
 			g.start_date and status = 0
 		</if>
 	</select>
 
 	<update id="updateGifticonStatusChange2">
-		update gifticon_tb set status = 1 where id= #{gifticonId};
+		update gifticon_tb set status = 1 where id= '${gifticonId}';
 	</update>
 	<insert id="insertRevokeGifticon">
 		INSERT INTO gifticon_revoke_tb(gifticon_id)
-		VALUES(#{gifticonId})
+		VALUES('${gifticonId}')
 
 	</insert>
 	<select id="selectGifticonLimit" resultType="com.green.airline.dto.GifticonDto">
 		select * from gifticon_tb order by id desc limit 1;
 	</select>
 	<update id="updateGifticonStatus">
-		update gifticon_tb set status = 1 where id = #{gifticonId}
+		update gifticon_tb set status = 1 where id = '${gifticonId}'
 	</update>
 
 	<!-- 마이페이지 구매한 기프티콘 수량 조회 -->
@@ -82,7 +82,7 @@
 		select count(*) as count from gifticon_tb as g
 		join shop_order_tb as s
 		on g.order_id = s.id
-		where s.member_id = #{memberId} and g.status = 0;
+		where s.member_id = '${memberId}' and g.status = 0;
 	</select>
 
 </mapper>

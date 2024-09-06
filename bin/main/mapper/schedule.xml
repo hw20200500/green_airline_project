@@ -4,7 +4,7 @@
 <mapper namespace="com.green.airline.repository.interfaces.ScheduleRepository">
 
 <!-- MySQL로 바꾸면 LIKE문 수정 -->
-<!-- h2 : ''||#{flightDate}||'%' -->
+<!-- h2 : ''||'${flightDate}'||'%' -->
 
 <select id="selectByAirportAndDepartureDate" resultType="com.green.airline.dto.response.ScheduleInfoResponseDto">
 	SELECT s.id, departure_date, arrival_date, ap1.region AS departure_region, ap1.name AS departure_airport, ap2.region AS destination_region, ap2.name AS destination_airport, flight_time, a.name AS airplane_name
@@ -17,9 +17,9 @@
 	ON r.departure = ap1.name
 	JOIN airport_tb AS ap2
 	ON r.destination = ap2.name
-	WHERE departure_date LIKE CONCAT(#{flightDate}, "%")
-	AND r.departure = #{departure}
-	AND r.destination = #{destination}
+	WHERE departure_date LIKE CONCAT('${flightDate}', "%")
+	AND r.departure = '${departure}'
+	AND r.destination = '${destination}'
 </select>
 
 <select id="selectDtoByScheduleId" resultType="com.green.airline.dto.response.ScheduleInfoResponseDto">
@@ -33,11 +33,11 @@
 	ON r.departure = ap1.name
 	JOIN airport_tb AS ap2
 	ON r.destination = ap2.name
-	WHERE s.id = #{scheduleId}
+	WHERE s.id = '${scheduleId}'
 </select>
 
 <select id="selectByScheduleId" resultType="com.green.airline.repository.model.Schedule">
-	SELECT * FROM schedule_tb WHERE id = #{scheduleId}
+	SELECT * FROM schedule_tb WHERE id = '${scheduleId}'
 </select>
 	
 </mapper>

@@ -12,7 +12,7 @@
 		resultType="com.green.airline.dto.response.InFlightServiceResponseDto">
 		select * from in_flight_service_tb
 		where name like
-		#{keyword}
+		'${keyword}'
 	</select>
 
 	<select id="selectInFlightMealByName"
@@ -22,7 +22,7 @@
 			from in_flight_meal_tb as ifm
 			inner join in_flight_meal_detail_tb as ifmd
 			on ifm.id = ifmd.meal_id
-			where ifm.name=#{name}
+			where ifm.name='${name}'
 			group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
 
 		</if>
@@ -31,7 +31,7 @@
 			from in_flight_meal_tb as ifm
 			inner join in_flight_meal_detail_tb as ifmd
 			on ifm.id = ifmd.meal_id
-			where ifm.name=#{name}
+			where ifm.name='${name}'
 			group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
 
 		</if>
@@ -40,7 +40,7 @@
 			from in_flight_meal_tb as ifm
 			inner join in_flight_meal_detail_tb as ifmd
 			on ifm.id = ifmd.meal_id
-			where ifm.name=#{name}
+			where ifm.name='${name}'
 			group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
 		</if>
 		<if test="name=='종교식'">
@@ -48,7 +48,7 @@
 			from in_flight_meal_tb as ifm
 			inner join in_flight_meal_detail_tb as ifmd
 			on ifm.id = ifmd.meal_id
-			where ifm.name=#{name}
+			where ifm.name='${name}'
 			group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
 		</if>
 		<if test="name=='기타 특별식'">
@@ -56,7 +56,7 @@
 			from in_flight_meal_tb as ifm
 			inner join in_flight_meal_detail_tb as ifmd
 			on ifm.id = ifmd.meal_id
-			where ifm.name=#{name}
+			where ifm.name='${name}'
 			group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
 		</if>
 	</select>
@@ -79,19 +79,18 @@
 		from ticket_tb as t
 		inner join schedule_tb as s
 		on t.schedule_id=s.id
-		where t.member_id=#{memberId} and s.departure_date=#{departureDate}
+		where t.member_id='${memberId}' and s.departure_date='${departureDate}'
 	</select>
 	
 	<select id="selectInFlightMealDetailByName" resultType="com.green.airline.repository.model.InFlightMealDetail">
 		select *
 		from in_flight_meal_detail_tb
-		where name=#{name}
+		where name='${name}'
 	</select>
 	
 	<insert id="insertInFlightMealRequest">
 		insert into request_meal_tb(amount, meal_id, ticket_id)
-		insert into request_meal_tb(amount, meal_id, ticket_id)
-		values(#{amount}, #{mealDetailId}, #{ticketId})
+		values('${amount}', '${mealDetailId}', '${ticketId}')
 	</insert>
 	
 	<select id="selectInFlightScheduleByMemberId" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
@@ -102,7 +101,7 @@
 	      FROM request_meal_tb AS r
 	      RIGHT JOIN ticket_tb AS t
 	      ON r.ticket_id = t.id
-	      WHERE t.member_id = #{memberId}
+	      WHERE t.member_id = '${memberId}'
 	      GROUP BY t.id
 	    ) AS ta
 		ON ta.ticket_id = t.id
@@ -117,7 +116,7 @@
 	<select id="selectInFlightRequestForSeatCount" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
 		select (t.adult_count + t.child_count) as seat_count 
 		from ticket_tb as t
-		where t.member_id=#{memberId} and t.id = #{ticketId} 
+		where t.member_id='${memberId}' and t.id = '${ticketId}' 
 	</select>
 	
 	<select id="selectAvailableServiceByFlightHours" resultType="com.green.airline.dto.response.InFlightServiceResponseDto">
@@ -125,7 +124,7 @@
 		from available_service_tb as ast
 		join in_flight_service_tb as ifs
 		on ast.service_id=ifs.id
-		where flight_hours=#{flightHours};
+		where flight_hours='${flightHours}';
 	</select>
 	
 	<select id="selectRequestMealByMemberId" resultType="com.green.airline.dto.response.SpecialMealResponseDto">
@@ -143,7 +142,7 @@
 		on t.schedule_id = s.id
 		join route_tb as r
 		on s.route_id = r.id
-		where m.id = #{memberId}
+		where m.id = '${memberId}'
 		ORDER BY rm.id DESC;
 	</select>
 	
@@ -154,17 +153,17 @@
 		on t.schedule_id = s.id
 		inner join route_tb as r
 		on r.id = route_id
-		where t.member_id=#{memberId} and t.id =#{ticketId}
+		where t.member_id='${memberId}' and t.id ='${ticketId}'
 	</select> -->
 	
 	<delete id="deleteRequestMealById">
-		delete from request_meal_tb where id = #{id}
+		delete from request_meal_tb where id = '${id}'
 	</delete>
 	
 	<select id="selectInFlightMealByMealId" resultType="com.green.airline.repository.model.InFlightMealDetail">
 		select *
 		from in_flight_meal_detail_tb
-		where meal_id=#{mealDetail}
+		where meal_id='${mealDetail}'
 	</select>
 	
 	<select id="selectInFlightMealForManager" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
@@ -195,7 +194,7 @@
 	</select>
 	
 	<delete id="deleteByTicketId">
-		DELETE FROM request_meal_tb WHERE ticket_id = #{ticketId}
+		DELETE FROM request_meal_tb WHERE ticket_id = '${ticketId}'
 	</delete>
 	
 </mapper>

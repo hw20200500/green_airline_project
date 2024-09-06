@@ -8,7 +8,7 @@
 	FROM sub_menu_tb AS s
 	JOIN main_menu_tb AS m
 	ON s.main_id = m.id
-	WHERE m.id = #{mainId}
+	WHERE m.id = '${mainId}'
 </select>
 
 <select id="selectBySubMenuAndType" resultType="com.green.airline.dto.response.MenuDto">
@@ -16,7 +16,7 @@
 	FROM sub_menu_tb AS s
 	JOIN main_menu_tb AS m
 	ON s.main_id = m.id
-	WHERE s.menu = #{subMenu} AND m.type = #{type}
+	WHERE s.menu = '${subMenu}' AND m.type = '${type}'
 </select>
 
 </mapper>

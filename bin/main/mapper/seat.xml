@@ -13,7 +13,7 @@
 	ON seat.airplane_id = s.airplane_id
 	JOIN seat_grade_tb AS sg
 	ON sg.name = seat.grade
-	WHERE seat.name = #{seatName} AND s.id = #{scheduleId};
+	WHERE seat.name = '${seatName}' AND s.id = '${scheduleId}';
 
 </select>
 
@@ -24,7 +24,7 @@
 	ON s.airplane_id = a.id
 	JOIN schedule_tb AS sc
 	ON a.id = sc.airplane_id
-	WHERE sc.id = #{scheduleId} AND s.grade = #{grade}
+	WHERE sc.id = '${scheduleId}' AND s.grade = '${grade}'
 </select>
 
 <select id="selectByAirplaneId" resultType="com.green.airline.dto.response.AirplaneInfoDto">
@@ -32,7 +32,7 @@
 	FROM airplane_tb AS a
 	JOIN seat_tb AS s
 	ON a.id = s.airplane_id
-	WHERE a.id = #{airplaneId}
+	WHERE a.id = '${airplaneId}'
 	GROUP BY s.grade
 </select>
 
