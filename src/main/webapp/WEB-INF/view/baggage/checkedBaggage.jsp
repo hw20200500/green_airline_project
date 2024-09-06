@@ -319,6 +319,6 @@ p {
 	</div>
 </main>
 
-<input type="hidden" name="menuName" id="menuName" value="수하물 이용 안내">
+<input type="hidden" name="menuName" id="menuName" value="위탁 수하물 신청">
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

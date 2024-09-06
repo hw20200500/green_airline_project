@@ -73,39 +73,20 @@ $(document).on("click", ".board--heartCount", function() {
 
 // 파일 다운로드
 const button = document.getElementById('fileDown');
-// 버튼 클릭 시 호출할 함수 정의
-//button.addEventListener('click', () => {
-//    //console.log('버튼이 클릭되었습니다!'); // 콘솔에 메시지 출력
-//    let boardId = $("input[name='boardId']").val();
-//    //console.log(boardId);
-//    // REST API 호출하기 (예: GET 요청)
-//        fetch(`/board/download/${boardId}`, { // API 엔드포인트 URL
-//            method: 'GET', // 또는 'POST', 'PUT', 'DELETE' 등 HTTP 메서드를 지정
-//            headers: {
-//                'Content-Type': 'application/json', // 요청의 Content-Type
-//                // 필요한 경우, 인증 토큰 등 추가 헤더 설정
-//            }
-//        })
-//        .then(response => {
-//            if (!response.ok) {
-//                throw new Error('네트워크 응답에 문제가 있습니다: ' + response.statusText);
-//            }
-//            return response.blob(); // JSON 형식의 응답을 파싱
-//        })
-//        .then(data => {
-//            console.log('API 응답 데이터:', data); // 응답 데이터 처리
-//        })
-//        .catch(error => {
-//            console.error('API 호출 중 오류 발생:', error); // 오류 처리
-//        });
-//});
+
 button.addEventListener('click', () => {
     let boardId = $("input[name='boardId']").val();
+    let fileName = document.querySelector('.board--fileName').innerText.trim(); //240905 수정
 
-    fetch(`/board/download/${boardId}`, { // API 엔드포인트 URL
-        method: 'GET', // HTTP 메서드
+    // URL에 쿼리 파라미터를 추가합니다.
+    const url = new URL('/board/download', window.location.origin);
+    url.searchParams.append('id', boardId);
+    url.searchParams.append('fileName', fileName);
+
+    fetch(url, { // 수정된 URL 사용
+        method: 'GET',
         headers: {
-            'Content-Type': 'application/json' // 요청의 Content-Type
+            'Content-Type': 'application/json'
         }
     })
     .then(response => {
@@ -139,6 +120,7 @@ button.addEventListener('click', () => {
         console.error('API 호출 중 오류 발생:', error); // 오류 처리
     });
 });
+
 
 // 게시글 수정
 $(document).ready(function() {

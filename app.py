@@ -14,7 +14,7 @@ def chatbot_response(user_input):
     con = pymysql.connect(
         host="127.0.0.1",
         user="root",
-        password="123123",
+        password="1234",
         db="airline_db",
         charset="utf8",
     )
@@ -48,7 +48,7 @@ def chatbot_response(user_input):
     ):
         response = ""
         sql = """SELECT rb.departure, rb.destination, sb.departure_date, sb.arrival_date 
-                 FROM (route_tb as rb JOIN schedule_tb as sb ON rb.id = sb.id)
+                 FROM (route_tb as rb JOIN schedule_tb as sb ON rb.id = sb.route_id) where sb.departure_date >now()
             """
         cur.execute(sql)
         rows = cur.fetchall()
