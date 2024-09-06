@@ -144,7 +144,7 @@ button.blue {
 
 				</div>
 				<div class="btn--wrap2">
-					<button type="button" class="btn--M blue" onclick="location.href='http://localhost:80/'">Green Airlines Home</button>
+					<button type="button" class="btn--M blue" onclick="location.href='/'">Green Airlines Home</button>
 				</div>
 			</div>
 		</div>
