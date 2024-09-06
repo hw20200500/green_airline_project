@@ -1,5 +1,5 @@
 server:
-  port: 8080 # 포트 번호
+  port: 80 # 포트 번호
   servlet: 
     encoding:
       charset: utf-8 
