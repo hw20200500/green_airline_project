@@ -115,6 +115,6 @@
 
 </main>
 
-<input type="hidden" name="menuName" id="menuName" value="항공권 환불 안내">
+<input type="hidden" name="menuName" id="menuName" value="환불 안내">
 
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>
