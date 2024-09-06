@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-GreenAirlineApplication<green_airline_project>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.green.airline.GreenAirlineApplication",
+            "projectName": "green_airline_project",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
