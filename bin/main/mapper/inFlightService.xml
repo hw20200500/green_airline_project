@@ -18,46 +18,46 @@
 	<select id="selectInFlightMealByName"
 			resultType="com.green.airline.dto.response.InFlightMealResponseDto">
 		<if test="name=='유아식 및 아동식'">
-		select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
-		from in_flight_meal_tb as ifm
-		inner join in_flight_meal_detail_tb as ifmd
-		on ifm.id = ifmd.meal_id
-		where ifm.name=#{name}
-		group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
+			select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
+			from in_flight_meal_tb as ifm
+			inner join in_flight_meal_detail_tb as ifmd
+			on ifm.id = ifmd.meal_id
+			where ifm.name=#{name}
+			group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
 
 		</if>
 		<if test="name=='야채식'">
-		select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
-		from in_flight_meal_tb as ifm
-		inner join in_flight_meal_detail_tb as ifmd
-		on ifm.id = ifmd.meal_id
-		where ifm.name=#{name}
-		group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
+			select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
+			from in_flight_meal_tb as ifm
+			inner join in_flight_meal_detail_tb as ifmd
+			on ifm.id = ifmd.meal_id
+			where ifm.name=#{name}
+			group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
 
 		</if>
 		<if test="name=='식사 조절식'">
-		select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
-		from in_flight_meal_tb as ifm
-		inner join in_flight_meal_detail_tb as ifmd
-		on ifm.id = ifmd.meal_id
-		where ifm.name=#{name}
-		group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
+			select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
+			from in_flight_meal_tb as ifm
+			inner join in_flight_meal_detail_tb as ifmd
+			on ifm.id = ifmd.meal_id
+			where ifm.name=#{name}
+			group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
 		</if>
 		<if test="name=='종교식'">
-		select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
-		from in_flight_meal_tb as ifm
-		inner join in_flight_meal_detail_tb as ifmd
-		on ifm.id = ifmd.meal_id
-		where ifm.name=#{name}
-		group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
+			select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
+			from in_flight_meal_tb as ifm
+			inner join in_flight_meal_detail_tb as ifmd
+			on ifm.id = ifmd.meal_id
+			where ifm.name=#{name}
+			group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
 		</if>
 		<if test="name=='기타 특별식'">
-		select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
-		from in_flight_meal_tb as ifm
-		inner join in_flight_meal_detail_tb as ifmd
-		on ifm.id = ifmd.meal_id
-		where ifm.name=#{name}
-		group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
+			select ifm.id as id, ifmd.meal_id, ifm.name as ifm_name, ifmd.name as ifmd_name, ifm.description as ifm_description, ifmd.description as ifmd_description, image
+			from in_flight_meal_tb as ifm
+			inner join in_flight_meal_detail_tb as ifmd
+			on ifm.id = ifmd.meal_id
+			where ifm.name=#{name}
+			group by ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
 		</if>
 	</select>
 
