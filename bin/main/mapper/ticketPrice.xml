@@ -4,7 +4,7 @@
 <mapper namespace="com.green.airline.repository.interfaces.TicketPriceRepository">
 
 <select id="selectByHours" resultType="com.green.airline.repository.model.TicketPrice">
-	SELECT * FROM TICKET_PRICE_TB WHERE flight_hours = #{flightHours};
+	SELECT * FROM TICKET_PRICE_TB WHERE flight_hours = '${flightHours}';
 </select>
 
 </mapper>

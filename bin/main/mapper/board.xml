@@ -16,8 +16,8 @@
 		(title, user_id,
 		content, view_count, origin_name, file_name)
 		values
-		(#{title},
-		#{userId}, #{content}, #{viewCount}, #{originName}, #{fileName});
+		('${title}',
+		'${userId}', '${content}', '${viewCount}', '${originName}', '${fileName}');
 	</insert>
 
 	<!-- 게시물 수정 -->
@@ -27,7 +27,7 @@
 		content = #{boardUpdateDto.content},
 		origin_name = #{boardUpdateDto.originName},
 		file_name =
-		#{boardUpdateDto.fileName} where id = #{id};
+		#{boardUpdateDto.fileName} where id = '${id}';
 	</update>
 	
 	<!-- 게시물 썸네일 안올렸을 때 수정 -->
@@ -35,19 +35,19 @@
 		update recommend_board_tb set title =
 		#{boardUpdateDto.title},
 		content = #{boardUpdateDto.content}
-		where id = #{id};
+		where id = '${id}';
 	</update>
 
 	<!-- 게시물 삭제 -->
 	<delete id="deleteByBoard">
-		delete from recommend_board_tb where id = #{id};
+		delete from recommend_board_tb where id = '${id}';
 	</delete>
 
 	<!-- 게시물 삭제시 좋아요 삭제 -->
 	<delete id="deleteHeartByBoard">
 		delete from like_heart_tb
 		where
-		board_id = #{id}
+		board_id = '${id}'
 	</delete>
 
 	<!-- 게시물 상세보기 -->
@@ -55,7 +55,7 @@
 		resultType="com.green.airline.dto.BoardDto">
 		select *
 		from recommend_board_tb
-		where id = #{id};
+		where id = '${id}';
 	</select>
 
 	<!-- 게시물 조회수 증가 -->
@@ -63,23 +63,23 @@
 		update recommend_board_tb
 		set view_count = view_count
 		+ 1
-		where id = #{id};
+		where id = '${id}';
 	</update>
 
 	<!-- 좋아요 증가 -->
 	<insert id="insertByHeart">
 		insert into like_heart_tb (board_id, user_id)
 		values
-		(#{id}, #{userId});
+		('${id}', '${userId}');
 	</insert>
 
 	<!-- 좋아요 취소 -->
 	<delete id="deleteByHeart">
 		delete from like_heart_tb
 		where
-		board_id = #{id}
+		board_id = '${id}'
 		and
-		user_id = #{userId}
+		user_id = '${userId}'
 	</delete>
 
 	<!-- 좋아요한 유저찾기 -->
@@ -87,7 +87,7 @@
 		resultType="com.green.airline.repository.model.LoveHeart">
 		select * from like_heart_tb
 		where
-		board_id = #{id}
+		board_id = '${id}'
 	</select>
 
 	<!-- 게시물에 좋아요를 누른 유저인지 찾기 -->
@@ -95,10 +95,10 @@
 		resultType="com.green.airline.repository.model.LoveHeart">
 		select * from like_heart_tb
 		where
-		board_id = #{id}
+		board_id = '${id}'
 		and
 		user_id
-		= #{userId}
+		= '${userId}'
 	</select>
 
 	<!-- 게시물 목록보기 페이징용 -->
@@ -107,12 +107,12 @@
 		select *
 		FROM recommend_board_tb
 		ORDER BY created_at DESC
-		LIMIT #{index}, #{limitCount}
+		LIMIT ${index}, ${limitCount}
 	</select>
 
 <!-- 본인 계시글 수량 -->
 	<select id="selectBoardCountByMemberId" resultType="com.green.airline.dto.BoardDto">
-		select count(*) as count from recommend_board_tb where user_id =#{memberId}; 
+		select count(*) as count from recommend_board_tb where user_id ='${memberId}'; 
 	</select>
 
 </mapper>

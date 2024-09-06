@@ -5,24 +5,24 @@
 
 <insert id="insert">
 	INSERT INTO ticket_payment_tb
-	VALUES (#{tid}, #{ticketId1}, #{ticketId2}, #{amount1}, #{amount2}, #{status1}, #{status2});
+	VALUES ('${tid}', '${ticketId1}', '${ticketId2}', '${amount1}', '${amount2}', '${status1}', '${status2}');
 </insert>
 
 <update id="updateStatus">
-	UPDATE ticket_payment_tb SET status1 = #{status1}, status2 = #{status2}
-	WHERE ticket_id1 = #{ticketId} OR ticket_id2 = #{ticketId}
+	UPDATE ticket_payment_tb SET status1 = '${status1}', status2 = '${status2}'
+	WHERE ticket_id1 = '${ticketId}' OR ticket_id2 = '${ticketId}'
 </update>
 
 
 <update id="updateStatusByTid">
 	
 	<if test="type == 1">
-		UPDATE ticket_payment_tb SET status1 = #{status}
-		WHERE tid = #{tid}
+		UPDATE ticket_payment_tb SET status1 = '${status}'
+		WHERE tid = '${tid}'
 	</if>
 	<if test="type == 2">
-		UPDATE ticket_payment_tb SET status2 = #{status}
-		WHERE tid = #{tid}
+		UPDATE ticket_payment_tb SET status2 = '${status}'
+		WHERE tid = '${tid}'
 	</if>
 
 </update>
@@ -33,7 +33,7 @@
 	FROM ticket_tb AS t
 	JOIN ticket_payment_tb AS tp
 	ON t.id IN (tp.ticket_id1, tp.ticket_id2)
-	WHERE t.id = #{id}
+	WHERE t.id = '${id}'
 
 </select>
 
@@ -46,7 +46,7 @@
 			FROM ticket_payment_tb AS p
 			JOIN ticket_tb AS t
 			ON p.ticket_id1 = t.id
-			WHERE status1 = 1 AND #{date} > reserved_date 
+			WHERE status1 = 1 AND '${date}' > reserved_date 
 			GROUP BY `year`, `month`
 			ORDER BY `year` DESC, `month` DESC
 			LIMIT 11)
@@ -59,7 +59,7 @@
 			FROM ticket_payment_tb AS p
 			JOIN ticket_tb AS t
 			ON p.ticket_id1 = t.id
-			WHERE status2 = 1 AND #{date} > reserved_date
+			WHERE status2 = 1 AND '${date}' > reserved_date
 			GROUP BY `year`, `month`
 			ORDER BY `year` DESC, `month` DESC
 			LIMIT 11) 
@@ -91,7 +91,7 @@
 			WHERE status2 = 1
 			GROUP BY `year`, `month`) 
 	) AS s
-	WHERE `year` = #{year} AND `month` = #{month}
+	WHERE `year` = '${year}' AND `month` = '${month}'
 	GROUP BY `year`, `month`
 </select>
 

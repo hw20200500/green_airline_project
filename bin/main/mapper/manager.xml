@@ -6,7 +6,7 @@
 	<select id="selectById" resultType="com.green.airline.repository.model.Manager">
 		SELECT * 
 		FROM manager_tb
-		WHERE m.id = #{id}
+		WHERE m.id = '${id}'
 	</select>
 
 	<select id="selectManagerListAll" resultType="com.green.airline.repository.model.Manager">
@@ -20,7 +20,7 @@
 		JOIN user_tb AS u
 		ON m.id = u.id
 		ORDER BY u.join_at DESC
-		LIMIT #{index}, 10
+		LIMIT ${index}, 10
 	</select>
 	
 	<select id="selectManagerListSearch" resultType="com.green.airline.repository.model.Manager">
@@ -28,13 +28,13 @@
 		FROM manager_tb AS m
 		JOIN user_tb AS u
 		ON m.id = u.id
-		WHERE m.id LIKE CONCAT("%", #{search}, "%")
+		WHERE m.id LIKE CONCAT("%", '${search}', "%")
 		ORDER BY u.join_at DESC
 	</select>
 	
 	<insert id="insert">
 		INSERT INTO manager_tb
-		VALUES (#{id}, #{name}, #{birthDate}, #{gender}, #{phoneNumber}, #{email})
+		VALUES ('${id}', '${name}', '${birthDate}', '${gender}', '${phoneNumber}', '${email}')
 	</insert>
 	
 </mapper>

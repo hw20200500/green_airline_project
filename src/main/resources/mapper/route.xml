@@ -8,7 +8,7 @@
 	<select id="selectByDestAndDepa" resultType="com.green.airline.repository.model.Route">
 		select r.destination, r.departure, r.flight_time  
 		from route_tb as r
-		where r.destination=#{destination} and r.departure=#{departure}
+		where r.destination='${destination}' and r.departure='${departure}'
 	</select>
 	
 	<select id="selectGroupByDestinationLimitN" resultType="com.green.airline.dto.response.DestinationCountDto">
@@ -20,11 +20,11 @@
 		ON s.id = t.schedule_id
 		GROUP BY destination
 		ORDER BY count DESC
-		LIMIT #{limitCount}
+		LIMIT ${limitCount}
 	</select>
 	
 	<select id="selectById" resultType="com.green.airline.repository.model.Route">
-		select * from route_tb where id = #{id}
+		select * from route_tb where id = '${id}'
 	</select>
 	
 </mapper>

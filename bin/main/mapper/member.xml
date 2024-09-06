@@ -9,23 +9,23 @@
 		FROM member_tb AS m 
 		JOIN user_tb AS u
 		ON m.id = u.id
-		WHERE m.id = #{id}
+		WHERE m.id = '${id}'
 	</select>
 
 	<select id="selectBySocialUserInfo"
 		resultType="com.green.airline.dto.kakao.SocialDto">
 		SELECT *
 		FROM member_tb
-		WHERE id=#{id}
+		WHERE id='${id}'
 	</select>
 
 	<insert id="insertMember">
 		INSERT INTO member_tb(id, kor_name, eng_name,
 		birth_date, gender,
 		phone_number, email, address, nationality)
-		VALUES(#{id}, #{korName}, #{engName}, #{birthDate}, #{gender},
-		#{phoneNumber},
-		#{email}, #{address}, #{nationality})
+		VALUES('${id}', '${korName}', '${engName}', '${birthDate}', '${gender}',
+		'${phoneNumber}',
+		'${email}', '${address}', '${nationality}')
 	</insert>
 
 	<!-- Todo 삭제 -->
@@ -33,32 +33,32 @@
 		INSERT INTO member_tb(id, kor_name, eng_name,
 		birth_date, gender,
 		phone_number, email, address, nationality)
-		VALUES(#{id}, #{korName}, #{engName}, #{birthDate}, #{gender},
-		#{phoneNumber},
-		#{email}, #{address}, #{nationality})
+		VALUES('${id}', '${korName}', '${engName}', '${birthDate}', '${gender}',
+		'${phoneNumber}',
+		'${email}', '${address}', '${nationality}')
 	</insert>
 	
 	<insert id="insertBySocialDto">
 		INSERT INTO member_tb(id, kor_name, email, gender)
-		VALUES(#{id}, #{nickname}, #{email}, #{gender})
+		VALUES('${id}', '${nickname}', '${email}', '${gender}')
 	</insert>
 	
 	<select id="existsById" resultType="com.green.airline.repository.model.Member">
-		SELECT * FROM member_tb WHERE id = #{id}
+		SELECT * FROM member_tb WHERE id = '${id}'
 	</select>
 	
 	<select id="selectByKorNameandEmailAndBirthDate" resultType="com.green.airline.repository.model.Member">
-		SELECT * FROM MEMBER_TB where kor_name = #{korName} and email = #{email} and birth_date = #{birthDate}
+		SELECT * FROM MEMBER_TB where kor_name = '${korName}' and email = '${email}' and birth_date = '${birthDate}'
 	</select>
 
 	<update id="updateMemberById">
 		update member_tb
 		set kor_name = #{member.korName}, eng_name = #{member.engName}, birth_date = #{member.birthDate}, gender = #{member.gender}, phone_number = #{member.phoneNumber}, email = #{member.email}, address = #{member.address}, nationality = #{member.nationality}
-		where id = #{id}
+		where id = '${id}'
 	</update>
 	
 	<delete id="deleteSocialMemberById">
-		delete member_tb from where id = #{id}
+		delete member_tb from where id = '${id}'
 	</delete>
 	
 	<select id="selectMemberListAll" resultType="com.green.airline.repository.model.Member">
@@ -71,7 +71,7 @@
 		JOIN user_tb AS u
 		ON m.id = u.id
 		ORDER BY u.join_at DESC
-		LIMIT #{index}, 10
+		LIMIT ${index}, 10
 	</select>
 	
 	<select id="selectMemberListSearch" resultType="com.green.airline.dto.response.MemberInfoDto">
@@ -79,7 +79,7 @@
 		FROM member_tb AS m 
 		JOIN user_tb AS u
 		ON m.id = u.id
-		WHERE m.id LIKE CONCAT("%", #{search}, "%")
+		WHERE m.id LIKE CONCAT("%", '${search}', "%")
 		ORDER BY u.join_at DESC
 	</select>
 	

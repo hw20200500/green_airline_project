@@ -6,18 +6,18 @@
 	
 	<insert id="insertBaggageReq">
 		insert into baggage_request_tb(amount, member_id, ticket_id)
-		values(#{amount}, #{memberId}, #{ticketId})
+		values('${amount}', '${memberId}', '${ticketId}')
 	</insert>
 	
 	<update id="updateBaggageReq">
 		update baggage_request_tb 
-		set amount = #{amount}
-		where id = #{id}
+		set amount = '${amount}'
+		where id = '${id}'
 	</update>
 	
 	<delete id="deleteBaggageReqById">
 		delete from baggage_request_tb
-		where id = #{id}
+		where id = '${id}'
 	</delete>
 	
 	<select id="selectBaggageReqByMemberId" resultType="com.green.airline.dto.response.BaggageReqResponseDto">
@@ -33,7 +33,7 @@
 		on sg.name = t.seat_grade
 		join member_tb as m
 		on bre.member_id = m.id
-		where bre.member_id=#{memberId};
+		where bre.member_id='${memberId}';
 	</select>
 	
 	<select id="selectBaggageReqByMemberIdAndAmount" resultType="com.green.airline.dto.response.BaggageReqResponseDto">
@@ -49,7 +49,7 @@
 		on sg.name = t.seat_grade
 		join member_tb as m
 		on bre.member_id = m.id
-		where bre.member_id=#{memberId} and bre.amount>0
+		where bre.member_id='${memberId}' and bre.amount>0
 		ORDER BY bre.id DESC;
 	</select>
 	
@@ -67,7 +67,7 @@
 		      FROM baggage_request_tb AS b
 		      RIGHT JOIN ticket_tb AS t
 		      ON b.ticket_id = t.id
-		      WHERE t.member_id = #{memberId}
+		      WHERE t.member_id = '${memberId}'
 		      GROUP BY t.id
 		    ) AS ta
 			ON ta.ticket_id = t.id
@@ -100,11 +100,11 @@
 		            ) A, 
 		        (SELECT @ROWNUM := 0 ) B
 		        ) as C
-		where C.ROWNUM BETWEEN #{start} AND #{end}
+		where C.ROWNUM BETWEEN '${start}' AND '${end}'
 	</select>
 	
 	<delete id="deleteByTicketId">
-		DELETE FROM baggage_request_tb WHERE ticket_id = #{ticketId}
+		DELETE FROM baggage_request_tb WHERE ticket_id = '${ticketId}'
 	</delete>
 	
 	

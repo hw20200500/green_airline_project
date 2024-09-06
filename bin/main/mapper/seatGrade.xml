@@ -4,7 +4,7 @@
 <mapper namespace="com.green.airline.repository.interfaces.SeatGradeRepository">
 
 		<select id="selectByName" resultType="com.green.airline.repository.model.SeatGrade">
-		SELECT * FROM seat_grade_tb WHERE name = #{name}
+		SELECT * FROM seat_grade_tb WHERE name = '${name}'
 	</select>
 
 
