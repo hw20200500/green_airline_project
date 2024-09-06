@@ -189,6 +189,7 @@
                 </div>
             </div>
         </form>
+        <script src="/js/ticket.js"></script>
     </div>
 </div>
 

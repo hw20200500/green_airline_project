@@ -168,29 +168,24 @@
 	</select>
 	
 	<select id="selectInFlightMealForManager" resultType="com.green.airline.dto.response.InFlightMealResponseDto">
-		select *
-		from(
-			SELECT @ROWNUM := @ROWNUM + 1 AS ROWNUM, A.* 
-		        FROM (
-					select rm.id as rm_id, rm.amount as rm_amount, t.id as ticket_id, ifm.name as ifm_name, s.departure_date, s. arrival_date, r.departure, r.destination, t.member_id, ifmd.name as name
-					from request_meal_tb as rm
-					join in_flight_meal_detail_tb as ifmd
-					on rm.meal_detail_id = ifmd.id
-					join in_flight_meal_tb as ifm
-					on ifmd.meal_id = ifm.id
-					join ticket_tb as t
-					on rm.ticket_id = t.id
-					join member_tb as m
-					on t.member_id = m.id
-					join schedule_tb as s
-					on t.schedule_id = s.id
-					join route_tb as r
-					on s.route_id = r.id
-		            ORDER BY rm.id DESC
-		            ) A, 
-		        (SELECT @ROWNUM := 0 ) B
-		        ) as C
-		where C.ROWNUM BETWEEN #{start} AND #{end}
+		SELECT
+		ifm.id AS id,
+		ifmd.meal_id,
+		ifm.name AS ifm_name,
+		ifmd.name AS ifmd_name,
+		ifm.description AS ifm_description,
+		ifmd.description AS ifmd_description,
+		image
+		FROM
+		in_flight_meal_tb AS ifm
+		INNER JOIN
+		in_flight_meal_detail_tb AS ifmd
+		ON
+		ifm.id = ifmd.meal_id
+		WHERE
+		ifm.name = ?
+		GROUP BY
+		ifm.id, ifmd.meal_id, ifm.name, ifmd.name, ifm.description, ifmd.description, image;
 
 
 	</select>
