@@ -22,7 +22,6 @@ $(document).ready(function() {
 				// 모달창
 				$(".board--title--modal").text(board.title); // 문자열로 값 렌더링 처리
 				$(".board--date").text(board.createdAt.substr(0, 10) + " " + board.createdAt.substr(11, 0));
-
                 var textArea = document.createElement('textarea');
                 textArea.innerHTML = board.content;
 				$(".board--content").html(textArea.value); // 태그들 태그로 인식 처리
