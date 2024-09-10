@@ -2,12 +2,12 @@ import os
 import subprocess
 
 import pymysql
-from flask import Flask, jsonify, render_template, render_template_string, request
+from flask import Flask, jsonify, render_template, render_template_string, request, abort, Response
 from flask_cors import CORS  # 추가된 부분
+import json
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True)  # CORS 설정
-
+CORS(app, supports_credentials=True, resources={r"/get_response": {"origins": "http://localhost:8080"}})  # CORS 설정
 
 # 간단한 챗봇 응답 함수
 def chatbot_response(user_input):
@@ -134,16 +134,21 @@ def chatbot_response(user_input):
 
 @app.route("/get_response", methods=["POST"])
 def get_response():
-    # os.system('ls')
-    user_message = request.form["message"]
+    # user_message = request.form["message"]
+    user_message = request.json.get('message', '')
 
     # 매우 취약한 코드: 사용자 입력을 필터링 없이 템플릿으로 렌더링
     # 취약점: 사용자 입력을 필터링 없이 템플릿으로 렌더링
     bot_response = chatbot_response(
         render_template_string(user_message, subprocess=subprocess)
     )
-    my_res = jsonify({"response": bot_response})
-    return my_res
+
+    # UTF-8 인코딩으로 응답 생성
+    response_data = json.dumps({"response": bot_response}, ensure_ascii=False)
+    response = Response(response=response_data, status=200, mimetype='application/json')
+    response.headers['Content-Type'] = 'application/json; charset=utf-8'
+
+    return response
 
 
 if __name__ == "__main__":

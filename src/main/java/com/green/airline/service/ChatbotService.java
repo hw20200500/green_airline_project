@@ -17,12 +17,12 @@ public class ChatbotService {
 
     private final ObjectMapper objectMapper;
 
-    public String sendToFlask(ChatRequest dto) throws JsonProcessingException {
+    public String sendToFlask(String result) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
 
-        String param = objectMapper.writeValueAsString(dto);
+        String param = objectMapper.writeValueAsString(result);
         HttpEntity<String> entity = new HttpEntity<>(param, headers);
 
         String url = "http://localhost:5000/get_response";
