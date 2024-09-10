@@ -64,8 +64,8 @@ input[type=text]:focus, input[type=password]:focus {
 
       <form action="">
          <div class="form-group">
-            <label for="id">id:</label> <input type="text" class="form-control" id="id" value="abc" name="id"> <label for="email">email:</label> <input type="text" class="form-control" id="email"
-               value="ekdns8276@naver.com" name="email">
+            <label for="id">id:</label> <input type="text" class="form-control" id="id" value="" name="id"> <label for="email">email:</label> <input type="text" class="form-control" id="email"
+               value="" name="email">
          </div>
       </form>
       <button id="findPassword" class="btn ">이메일 전송</button>
@@ -76,65 +76,68 @@ input[type=text]:focus, input[type=password]:focus {
    </div>
 </main>
 <script type="text/javascript">
-$("#findPassword").on("click", function() {
-   let form = $("form").serialize();
-
-   $.ajax({
-      url : "/searchId?" + form,
-      type : "get",
-      dataType : "text"
-   }).done(function(response1) {
-      console.log("response1: " + response1);
-      $("#id").attr('readonly', 'readonly');
-      $("#email").attr('readonly', 'readonly');
-      $("#findPassword").attr("disabled", true);
-
-      if (response1 == 0) {
-         $.ajax({
-            url : "/sendNewPw?" + form,
-            type : "get",
-            dataType : 'text'
-
-         }).done(function(response) {
-            $("#checkCode").show();
-            $("#codeCheck").on("click", function() {
-               let writeCode = $("#code").val();
-               if (response == writeCode) {
-                  
-                  let newPassword = Math.floor(100000 + Math.random() * 900000).toString();
-
-                  $.ajax({
-                     url: "/updatePassword",
-                     type: "post",
-                     data: {
-                        userId: $("#id").val(),
-                        password: newPassword
-                     }
-                  }).done(function() {
-                     alert("비밀번호가 변경 되었습니다. 새로운 비밀번호: " + newPassword);
-                     window.location.href = "/login";
-                  }).fail(function(error) {
-                     alert("비밀번호 변경 중 오류가 발생했습니다.");
-                  });
-
-                  $("#checkCode").attr("disabled", true);
-               } else {
-                  alert("인증 코드를 확인하세요.");
-               }
+   $("#findPassword").on("click", function() {
+      let form = $("form").serialize();
+   
+      $.ajax({
+         url : "/searchId?" + form,
+         type : "get",
+         dataType : "text"
+      }).done(function(response1) {
+         console.log("response1: " + response1);
+         $("#id").attr('readonly', 'readonly');
+         $("#email").attr('readonly', 'readonly');
+         $("#findPassword").attr("disabled", true);
+   
+         if (response1 == 0) {
+            $.ajax({
+               url : "/sendNewPw?" + form,
+               type : "get",
+               dataType : 'text'
+   
+            }).done(function(response) {
+               $("#checkCode").show();
+               $("#codeCheck").on("click", function() {
+                  let writeCode = $("#code").val();
+                  if (response == writeCode) {
+   
+                     let now = new Date();
+                     let newPassword = ('0' + (now.getMonth() + 1)).slice(-2) + 
+                                       ('0' + now.getDate()).slice(-2) + 
+                                       ('0' + now.getHours()).slice(-2) + 
+                                       ('0' + now.getMinutes()).slice(-2);
+   
+                     $.ajax({
+                        url: "/updatePassword",
+                        type: "post",
+                        data: {
+                           userId: $("#id").val(),
+                           password: newPassword
+                        }
+                     }).done(function() {
+                        alert("비밀번호가 변경 되었습니다. 새로운 비밀번호: " + newPassword);
+                        window.location.href = "/login";
+                     }).fail(function(error) {
+                        alert("비밀번호 변경 중 오류가 발생했습니다.");
+                     });
+   
+                     $("#checkCode").attr("disabled", true);
+                  } else {
+                     alert("인증 코드를 확인하세요.");
+                  }
+               });
+            }).fail(function(error) {
+               alert("서버 오류");
             });
-         }).fail(function(error) {
-            alert("서버 오류");
-         });
-      } else {
-         alert("아이디를 확인하세요.");
-         location.reload();
-      }
-   }).fail(function(error) {
-      alert("서버 오류");
+         } else {
+            alert("아이디를 확인하세요.");
+            location.reload();
+         }
+      }).fail(function(error) {
+         alert("서버 오류");
+      });
    });
-});
-
-
-</script>
+   </script>
+   
 <input type="hidden" name="menuName" id="menuName" value="">
 <%@ include file="/WEB-INF/view/layout/footer.jsp"%>

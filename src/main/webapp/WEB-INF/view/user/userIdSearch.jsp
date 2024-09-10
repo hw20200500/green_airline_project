@@ -67,14 +67,14 @@ input[type=text]:focus, input[type=password]:focus {
             <a href="userPwSearch" style="color: gray">비밀번호 찾기</a>
          </h2>
          <div class="form-group">
-            <label for="usr">회원이름</label> <input type="text" class="form-control" id="korName" value="정다운" name="korName">
+            <label for="usr">회원이름</label> <input type="text" class="form-control" id="korName" value="" name="korName">
          </div>
 
          <div class="form-group">
-            <label for="usr">이메일</label> <input type="text" class="form-control" id="email" value="ekdns8276@naver.com" name="email">
+            <label for="usr">이메일</label> <input type="text" class="form-control" id="email" value="" name="email">
          </div>
          <div class="form-group">
-            <label for="usr">생년월일</label> <input type="text" class="form-control" id="birthDate" value="1998-12-16" name="birthDate" class="datepicker input_cal" placeholder="생년월일 " data-dateformat="y.mm.dd D" data-type="single_infinite">
+            <label for="usr">생년월일</label> <input type="text" class="form-control" id="birthDate" value="" name="birthDate" class="datepicker input_cal" placeholder="생년월일 " data-dateformat="y.mm.dd D" data-type="single_infinite">
          </div>
          <button type="submit"class="btn">아이디 찾기</button>
       </div>
