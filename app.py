@@ -7,7 +7,7 @@ from flask_cors import CORS  # 추가된 부분
 import json
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True, resources={r"/get_response": {"origins": "http://localhost:8080"}})  # CORS 설정
+CORS(app, supports_credentials=True, resources={r"/get_response": {"origins": "http://localhost:80"}})  # CORS 설정
 
 # 간단한 챗봇 응답 함수
 def chatbot_response(user_input):

@@ -23,11 +23,14 @@ public class BoardDto {
 	private int count; // 계시글 count
 
 	private MultipartFile file;
+	private MultipartFile contentfile;
 
 	// 원래 이미지 명
 	private String originName;
 	// 실제 업로드 된 이미지 명
 	private String fileName;
+	
+	private String content_file_name;
 
 	// 날짜 YYYY-MM-DD
 	public String formatDate() {

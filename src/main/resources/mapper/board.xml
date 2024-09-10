@@ -14,10 +14,10 @@
 	<insert id="insertByBoard">
 		insert into recommend_board_tb
 		(title, user_id,
-		content, view_count, origin_name, file_name)
+		content, view_count, origin_name, file_name, content_file_name)
 		values
 		('${title}',
-		'${userId}', '${content}', '${viewCount}', '${originName}', '${fileName}');
+		'${userId}', '${content}', '${viewCount}', '${originName}', '${fileName}', '${content_file_name}');
 	</insert>
 
 	<!-- 게시물 수정 -->

@@ -129,7 +129,7 @@ public class BoardController {
 				System.out.println("file destination:"+destination);
 
 				boardDto.setOriginName(file.getOriginalFilename());
-				boardDto.setFileName("/images/upload/" + fileName);
+				boardDto.setFileName("/uploadImage/" + fileName);
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -196,7 +196,7 @@ public class BoardController {
 				if (file.getOriginalFilename() == null) {
 					boardService.updateByBoardJustThumbnail(id, boardUpdateDto);
 				} else {
-					boardUpdateDto.setFileName("/images/upload/" + fileName);
+					boardUpdateDto.setFileName("/uploadImage/" + fileName);
 					boardService.updateByBoard(id, boardUpdateDto);
 				}
 			} catch (Exception e) {
@@ -274,6 +274,7 @@ public class BoardController {
 	@GetMapping("/download")
 	public ResponseEntity<FileSystemResource> fileDownload(@RequestParam("fileName") String fileName)
 			throws UnsupportedEncodingException {
+		fileName=fileName.replace("/uploadImage", "/images/upload");
 		String filePath = context.getRealPath(fileName);
 		System.out.println("filePath::"+filePath);
 		FileSystemResource file = new FileSystemResource(filePath);

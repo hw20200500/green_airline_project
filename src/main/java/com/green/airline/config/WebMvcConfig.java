@@ -1,5 +1,7 @@
 package com.green.airline.config;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +18,8 @@ import com.green.airline.utils.Define;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer{
-	
+	@Autowired
+    private ServletContext context;
 	@Autowired
 	private AuthInterceptor authInterceptor;
 	
@@ -26,7 +29,7 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	 // 학원 이미지 경로
 	  @Override public void addResourceHandlers(ResourceHandlerRegistry registry) {
 	  registry.addResourceHandler("/uploadImage/**")
-	  .addResourceLocations("file:///C:\\upload/");
+	  .addResourceLocations("file:"+context.getRealPath(Define.UPLOAD_DIRECTORY));
 	  
 	  	// 맥북 이미지 경로인데 남겨두면 도움이 될지도?? -정다운-
 	/*
