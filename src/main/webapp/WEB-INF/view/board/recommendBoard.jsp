@@ -26,7 +26,7 @@
 					<div class="popular--board--content">
 						<div class="tr--boardList" data-toggle="modal" data-target="#modalDetail" id="boardDetail${board.id}" style="cursor: pointer;">
 							<div class="td--img">
-								<img src="<c:url value="${board.thumbnailImage()}"/>" alt="" class="popular--img">
+								<img src="<c:url value="${board.thumbnailImage()}"/>" onerror="this.onerror=null; this.src='/images/main1.jpg'" alt="" class="popular--img">
 							</div>
 							<div class="td--board">
 								<div class="popular--board--title">${board.title}</div>
@@ -49,7 +49,7 @@
 						<c:forEach var="board" items="${boardList}">
 							<div class="tr--boardList" data-toggle="modal" data-target="#modalDetail" id="boardDetail${board.id}" style="cursor: pointer;">
 								<div class="td--img">
-									<img src="<c:url value="${board.thumbnailImage()}"/>" alt="" class="img">
+									<img src="<c:url value="${board.thumbnailImage()}"/>" onerror="this.onerror=null; this.src='/images/main1.jpg'" alt="" class="img">
 								</div>
 								<div class="td--board">
 									<div class="board--title">${board.title}</div>
