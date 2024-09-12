@@ -51,7 +51,7 @@ public class EmailService {
       
       // 수신자와 발신자 설정
       helper.setTo(to); // 받는 사람
-      helper.setFrom(new InternetAddress("ekdns8276@naver.com", "그린항공")); // 발신자 명시
+      helper.setFrom(new InternetAddress("ljh3364@naver.com", "그린항공")); // 발신자 명시
 
       helper.setSubject("그린항공 기프티콘샵");// 제목
       
@@ -85,7 +85,7 @@ public class EmailService {
       
       // 수신자와 발신자 설정
       helper.setTo(to); // 받는 사람
-      helper.setFrom(new InternetAddress("loobis200172@naver.com", "그린항공")); // 발신자 명시
+      helper.setFrom(new InternetAddress("ljh3364@naver.com", "그린항공")); // 발신자 명시
 
       helper.setSubject("그린항공 비밀번호 찾기 이메일 인증");// 제목
 
