@@ -25,7 +25,7 @@ VALUES
 
 INSERT INTO shop_product_tb (brand,name,price,count,product_image,gifticon_image)
 VALUES 
-	('bbq','후다리이 치킨',10000, 10, '/images/product/bbq.png','/images/gifticon/gifticon_1.png'),
+	('bbq','후라이드 치킨',10000, 10, '/images/product/bbq.png','/images/gifticon/gifticon_1.png'),
     	('pizamaru','피자',10000, 10, '/images/product/product_2.jpg','/images/gifticon/gifticon_2.png'),
     	('melon cake','멜론케잌',10000, 10, '/images/product/product_3.jpg','/images/gifticon/gifticon_3.png'),
     	('gs25','gs25만원상품권',10000, 10, '/images/product/product_4.jpg','/images/gifticon/gifticon_4.png'),
