@@ -1151,15 +1151,6 @@ INSERT INTO baggage_request_tb(amount, br_id, member_id)
 	VALUES (1, 1, 'abc'),
 	(1, 2, 'abc');	
 
--- 추천여행지 샘플 데이터
-INSERT INTO recommend_board_tb
-(title, user_id, content, view_count, origin_name, file_name)
-VALUES
-('제목', 'abc', '게시글내용', 0, '이미지이름', '이미지이름'),
-('제목2', 'a123', '게시글내용2', 0, '이미지이름', '이미지이름'),
-('제목3', 'a123', '게시글내용3', 0, '이미지이름', '이미지이름'),
-('제목4', 'abc', '게시글내용4', 0, '이미지이름', '이미지이름');
-
 -- 좋아요 샘플 데이터
 INSERT INTO like_heart_tb (board_id, user_id)
 VALUES 
