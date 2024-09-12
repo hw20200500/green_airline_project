@@ -7,7 +7,7 @@ server:
     keyStoreType: PKCS12  # keystore 형식 (PKCS12 또는 JKS)
     keyAlias: bootsecurity  # 인증서 별칭
   http:
-    port: 80
+    port: 8080
   servlet: 
     encoding:
       charset: utf-8 

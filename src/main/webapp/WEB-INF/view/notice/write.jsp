@@ -107,11 +107,43 @@ input[type=text]:focus {
 							[ 'para', [ 'ul', 'ol', 'paragraph' ] ],
 							[ 'table', [ 'table' ] ],
 							[ 'insert', [ 'link', 'picture', 'video' ] ],
-							[ 'view', [ 'fullscreen', 'codeview', 'help' ] ] ]
+							[ 'view', [ 'fullscreen', 'codeview', 'help' ] ] ],
+            focus: true,
+            lang: 'ko-KR',
+            callbacks: {
+                onImageUpload: function(files) {
+                    // 파일을 선택하면 sendImg 함수를 호출하여 이미지 업로드 처리
+                    sendImg(files[0]);
+                },
+                onInit: function(c) {
+                    c.editable.html('');
+                }
+            }
 				});
 		$(document).ready(function() {
 			$('#summernote').summernote();
 		});
+
+		// 이미지 업로드 함수
+        function sendImg(file) {
+            var data = new FormData();
+            data.append('file', file);
+
+            $.ajax({
+                url: '/uploadImage', // 서버에서 이미지를 처리할 엔드포인트
+                type: 'POST',
+                data: data,
+                contentType: false,
+                processData: false,
+                success: function(imageUrl) {
+                    // 서버에서 반환된 이미지 URL을 Summernote 에디터에 삽입
+                    $('#content').summernote('insertImage', imageUrl);
+                },
+                error: function() {
+                    alert('이미지 업로드 중 오류가 발생했습니다.');
+                }
+            });
+        }
 
 		$(".custom-file-input").on(
 				"change",
