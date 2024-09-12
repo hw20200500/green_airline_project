@@ -1,5 +1,13 @@
 server:
-  port: 8080 # 포트 번호
+  port: 443 # 포트 번호
+  ssl:
+    enabled: true
+    key-store: src/main/resources/bootsecurity.p12  # SSL 인증서 경로
+    key-store-password: 123456  # keystore 비밀번호
+    keyStoreType: PKCS12  # keystore 형식 (PKCS12 또는 JKS)
+    keyAlias: bootsecurity  # 인증서 별칭
+  http:
+    port: 80
   servlet: 
     encoding:
       charset: utf-8 
