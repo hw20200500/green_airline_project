@@ -9,7 +9,7 @@
 
 <insert id="insert">
 	INSERT INTO voc_tb (phone_number, email, type, title, content, category_id, member_id, ticket_id)
-	VALUES ('${phoneNumber}', '${email}', '${type}', '${title}', '${content}', '${categoryId}', '${memberId}', NULLIF('${ticketId}', ''))
+	VALUES ('${phoneNumber}', '${email}', '${type}', '${title}', #{content}, '${categoryId}', '${memberId}', NULLIF('${ticketId}', ''))
 </insert>
 
 <select id="selectByMemberId" resultType="com.green.airline.dto.response.VocInfoDto">
@@ -107,7 +107,7 @@
 <update id="updateById">
 	UPDATE voc_tb 
 	SET phone_number = '${phoneNumber}', email = '${email}', type = '${type}',
-		title = '${title}', content = '${content}', category_id = '${categoryId}',
+		title = '${title}', content = #{content}, category_id = '${categoryId}',
 		ticket_id = NULLIF('${ticketId}', '')
 	WHERE id = '${id}'
 </update>
