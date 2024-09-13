@@ -5,7 +5,7 @@
 	namespace="com.green.airline.repository.interfaces.NoticeRepository">
 	<insert id="insertNotice">
 		insert into notice_tb (title, content, category_id)
-		values('${title}', '${content}', '${categoryId}')
+		values('${title}', #{content}, '${categoryId}')
 	</insert>
 	
 	<!-- 총 공지글 개수 세는 기능 -->
@@ -167,7 +167,7 @@
 
 	<update id="updateNoticeById">
 		update notice_tb
-		set title = '${title}', content = '${content}', category_id = '${categoryId}'
+		set title = '${title}', content = #{content}, category_id = '${categoryId}'
 		where id = '${id}'
 	</update>
 	
