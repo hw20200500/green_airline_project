@@ -118,7 +118,7 @@
 
 <insert id="insertAnswer">
 	INSERT INTO voc_answer_tb (content, voc_id)
-	VALUES ('${content}', '${vocId}')
+	VALUES (#{content}, '${vocId}')
 </insert>
 
 <select id="selectCountByMonth" resultType="com.green.airline.dto.response.CountByYearAndMonthDto">
