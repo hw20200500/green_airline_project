@@ -17,7 +17,7 @@
 		content, view_count, origin_name, file_name)
 		values
 		('${title}',
-		'${userId}', '${content}', '${viewCount}', '${originName}', '${fileName}');
+		'${userId}', #{content}, '${viewCount}', '${originName}', '${fileName}');
 	</insert>
 
 	<!-- 게시물 수정 -->
