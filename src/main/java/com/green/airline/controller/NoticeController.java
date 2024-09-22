@@ -2,6 +2,8 @@ package com.green.airline.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import com.green.airline.repository.model.Notice;
 import com.green.airline.repository.model.NoticeCategory;
 import com.green.airline.service.NoticeService;
 import com.green.airline.utils.PagingObj;
+import com.green.airline.utils.Define;
 
 @Controller
 @RequestMapping("/notice")
@@ -25,6 +28,9 @@ public class NoticeController {
 
 	@Autowired
 	private NoticeService noticeService;
+	
+	@Autowired
+	private HttpSession session;
 
 	// 관리자 측 공지사항 작성 페이지
 	@GetMapping("/write")
@@ -120,7 +126,10 @@ public class NoticeController {
 
 	@GetMapping("/noticeDelete")
 	public String noticeDelete(@RequestParam Integer id) {
-		noticeService.deleteNoticeById(id);
+		if(session.getAttribute(Define.PRINCIPAL).toString().contains("관리자"))
+		{
+			noticeService.deleteNoticeById(id);
+		}
 		return "redirect:/notice/noticeList";
 	}
 
