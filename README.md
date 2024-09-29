@@ -107,5 +107,5 @@
 
 ## 4️⃣ 환경구축 가이드
 <a href="https://github.com/hw20200500/green_airline_project/blob/main/%EC%9C%88%EB%8F%84%EC%9A%B0%20%ED%99%98%EA%B2%BD%EA%B5%AC%EC%B6%95%20%EA%B0%80%EC%9D%B4%EB%93%9C.pdf">윈도우 환경구축 가이드</a>
-<br>
+
 <a href=https://github.com/hw20200500/green_airline_project/blob/main/%EB%A6%AC%EB%88%85%EC%8A%A4%20%ED%99%98%EA%B2%BD%EA%B5%AC%EC%B6%95%20%EA%B0%80%EC%9D%B4%EB%93%9C.pdf"">리눅스 환경구축 가이드</a>
