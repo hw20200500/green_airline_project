@@ -25,16 +25,13 @@ VALUES
 
 INSERT INTO shop_product_tb (brand,name,price,count,product_image,gifticon_image)
 VALUES 
-	('컴포즈','바닐라 라떼',1234,3,'image.png','image2.png'),
-	('스타벅스','아이스 아메리카노',10000,4,'image2.png','image.png'),
-	('메가커피','바닐라 라떼',100,0,'image.png','image2.png'),
-	('파스쿠찌','바닐라 라떼',200,3,'image.png','image2.png'),
-	('빽다방','바닐라 라떼',300,3,'image.png','image2.png'),
-	('할리스','바닐라 라떼',400,3,'image.png','image2.png'),
-	('6번','바닐라 라떼',500,3,'image.png','image2.png'),
-	('7번','바닐라 라떼',600,3,'image.png','image2.png'),
-	('8번','바닐라 라떼',700,3,'image.png','image2.png'),
-	('9번','바닐라 라떼',800,3,'image.png','image2.png');
+	('bbq','후라이드 치킨',10000, 10, '/images/product/bbq.png','/images/gifticon/gifticon_1.png'),
+    	('pizamaru','피자',10000, 10, '/images/product/product_2.jpg','/images/gifticon/gifticon_2.png'),
+    	('melon cake','멜론케잌',10000, 10, '/images/product/product_3.jpg','/images/gifticon/gifticon_3.png'),
+    	('gs25','gs25만원상품권',10000, 10, '/images/product/product_4.jpg','/images/gifticon/gifticon_4.png'),
+    	('bugerKing','버거킹',10000, 10, '/images/product/product_6.jpg','/images/gifticon/gifticon_6.png'),
+    	('fanta','환타 오렌지맛',10000, 10, '/images/product/product_7.jpg','/images/gifticon/gifticon_7.png'),
+    	('coffee','스타박스 아메리카노',10000, 10, '/images/product/product_8.jpg','/images/gifticon/gifticon_8.png');
 
 
 insert into mileage_tb(mileage_date,save_mileage,expiration_date,balance,member_id)

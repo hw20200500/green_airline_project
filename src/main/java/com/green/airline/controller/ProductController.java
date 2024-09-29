@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.ServletContext;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 import javax.websocket.server.PathParam;
@@ -44,6 +45,8 @@ import com.green.airline.utils.Define;
 @RequestMapping("/product")
 public class ProductController {
 
+	@Autowired
+    private ServletContext context;
 	@Autowired
 	private ProductService productService;
 
@@ -130,7 +133,7 @@ public class ProductController {
 
 			try {
 				// 파일 저장 기능 구현 - 업로드 파일은 HOST 컴퓨터 다른 폴더로 관리
-				String saveDirectory = Define.UPLOAD_DIRECTORY;
+				String saveDirectory = context.getRealPath(Define.UPLOAD_DIRECTORY);
 				// 폴더가 없다면 오류 발생 (파일 생성 시)
 				File dir = new File(saveDirectory);
 				if (dir.exists() == false) {
@@ -140,8 +143,8 @@ public class ProductController {
 				String fileName = uuid + "_" + file.getOriginalFilename();
 				String fileName2 = uuid + "_" + file2.getOriginalFilename();
 				// 전체 경로를 지정
-				String uploadPath = Define.UPLOAD_DIRECTORY + File.separator + fileName;
-				String uploadPath2 = Define.UPLOAD_DIRECTORY + File.separator + fileName2;
+				String uploadPath = saveDirectory + File.separator + fileName;
+				String uploadPath2 = saveDirectory + File.separator + fileName2;
 				File destination = new File(uploadPath);
 				File destination2 = new File(uploadPath2);
 

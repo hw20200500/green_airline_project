@@ -2,13 +2,19 @@ package com.green.airline;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;
+import org.apache.catalina.core.StandardHost;
+import org.apache.coyote.http11.AbstractHttp11Protocol;
 import org.apache.tomcat.util.descriptor.web.SecurityCollection;
 import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.server.WebServerFactoryCustomizer;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+
+import com.green.airline.handler.exception.CustomErrorReportValve;
 
 @SpringBootApplication
 public class GreenAirlineApplication {
@@ -46,10 +52,37 @@ public class GreenAirlineApplication {
     private Connector httpToHttpsRedirectConnector() {
         Connector connector = new Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL);
         connector.setScheme("http");
-        connector.setPort(80);
+        connector.setPort(8080);
         connector.setSecure(false);
         connector.setRedirectPort(443);
         return connector;
+    }
+    
+    @Component
+    public class TomcatCustomizer implements WebServerFactoryCustomizer<TomcatServletWebServerFactory> {
+
+        @Override
+        public void customize(TomcatServletWebServerFactory factory) {
+            factory.addContextCustomizers((context) -> {
+                if (context.getParent() instanceof StandardHost parent) {
+                    // CustomErrorReportValve 설정
+                    parent.setErrorReportValveClass(CustomErrorReportValve.class.getName());
+                    parent.addValve(new CustomErrorReportValve());
+                }
+            });
+
+            // Connector 관련 설정
+            factory.addConnectorCustomizers(connector -> {
+                if (connector.getProtocolHandler() instanceof AbstractHttp11Protocol) {
+                    AbstractHttp11Protocol<?> protocolHandler = (AbstractHttp11Protocol<?>) connector.getProtocolHandler();
+                    protocolHandler.setKeepAliveTimeout(80000);
+                    protocolHandler.setMaxKeepAliveRequests(50);
+                    protocolHandler.setUseKeepAliveResponseHeader(true);
+                    protocolHandler.setRelaxedPathChars("<>[\\\\]^`{|}");
+                    protocolHandler.setRelaxedQueryChars("<>[\\\\]^`{|}");
+                }
+            });
+        }
     }
 
 }

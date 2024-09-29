@@ -15,9 +15,11 @@ server:
   error:
     include-exception: true
     include-stacktrace: always
+    include-message: always
+    include-binding-errors: always
     whitelabel:
       enabled: false
-      
+     
 spring: 
 #  mail:
 #    host: smtp.naver.com

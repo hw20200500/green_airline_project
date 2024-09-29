@@ -17,11 +17,14 @@ import com.green.airline.dto.response.NoticeResponseDto;
 import com.green.airline.repository.model.Notice;
 import com.green.airline.repository.model.NoticeCategory;
 import com.green.airline.service.NoticeService;
+import com.green.airline.service.XssSanitizerService;
 import com.green.airline.utils.PagingObj;
 
 @Controller
 @RequestMapping("/notice")
 public class NoticeController {
+	@Autowired
+    private XssSanitizerService xssSanitizerService;
 
 	@Autowired
 	private NoticeService noticeService;
@@ -39,7 +42,22 @@ public class NoticeController {
 	@PostMapping("/noticeInsert")
 	public String noticeInsert(Notice notice) {
 		noticeService.createdNotice(notice);
-
+		try {
+            // Step 1: src 속성의 위험한 값이 있는지 검증
+            xssSanitizerService.sanitizeHtmlContent(notice.getContent());
+            
+            // Step 2: 정상적인 경우 HTML 그대로 저장 (예시)
+            // postService.save(postContent);
+            
+        } catch (IllegalArgumentException e) {
+            // Step 3: 위험한 src 값이 있는 경우 alert 창 출력
+            return "<html><body>" +
+                   "<script>" +
+                   "alert('" + e.getMessage() + "');" +
+                   "window.history.back();" + // 이전 페이지로 돌아가도록 설정
+                   "</script>" +
+                   "</body></html>";
+        }
 		return "redirect:/notice/noticeList";
 	}
 

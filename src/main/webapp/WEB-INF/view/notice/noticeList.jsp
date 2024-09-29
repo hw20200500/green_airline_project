@@ -11,7 +11,18 @@
 </c:choose>
 
 <input type="hidden" name="menuName" id="menuName" value="공지사항">
+<script>
+	window.onload = function() {
+    const currentURL = window.location.href;
+    const cleanURL = currentURL.replace(/%[sdnfx]/g, ''); // %s, %d 등과 같은 잘못된 포맷 문자열 제거
+    
+    // 만약 URL이 수정되었다면, 수정된 URL로 리다이렉트
+    if (currentURL !== cleanURL) {
+        window.location.replace(cleanURL);
+    }
+}
 
+	</script>
 <style>
 .btn--primary {
 	border: none;

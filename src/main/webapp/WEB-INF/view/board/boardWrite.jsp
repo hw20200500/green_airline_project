@@ -62,9 +62,9 @@
                 </button>
             </div>
         </form>
+        
     </div>
 </main>
-
 <script>
     $(document).ready(function() {
         // Summernote 초기화 및 이미지 업로드 콜백 설정

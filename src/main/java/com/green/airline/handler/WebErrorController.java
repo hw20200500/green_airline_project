@@ -33,6 +33,8 @@ public class WebErrorController implements ErrorController {
 			// FORBIDDEN : 권한 거절
 			
 			return "layout/errorPage";
+		} else if (status!=null && Integer.parseInt(status.toString())==HttpStatus.BAD_REQUEST.value()) {
+			return "layout/errorPage";
 		}
 		return "layout/errorPage";
 	}
