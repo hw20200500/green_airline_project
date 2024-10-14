@@ -1,7 +1,14 @@
 package com.green.airline.controller;
 import javax.servlet.ServletContext;
+
+import static org.hamcrest.CoreMatchers.containsString;
+
 import java.io.File;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -273,17 +280,30 @@ public class BoardController {
 	}*/
 	@GetMapping("/download")
 	public ResponseEntity<FileSystemResource> fileDownload(@RequestParam("fileName") String fileName)
-			throws UnsupportedEncodingException {
-		fileName=fileName.replace("/uploadImage", "/images/upload");
-		String filePath = context.getRealPath(fileName);
-		System.out.println("filePath::"+filePath);
-		FileSystemResource file = new FileSystemResource(filePath);
+	        throws UnsupportedEncodingException {
+	    
+	    // 파일 경로 수정: webapp에서 상위 경로 접근을 허용하도록 절대 경로를 사용할 수 있게 함
+	    String filePath;
+	    
+	    // 특정 경로를 대체하는 처리 (예: /uploadImage -> /images/upload)
+	    fileName = fileName.replace("/uploadImage/", "src/main/webapp/images/upload/");
 
-		HttpHeaders headers = new HttpHeaders();
-		String encodedFileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1"); // 파일에 한글있으면 확장자 깨지던 것 해결
-		headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + encodedFileName + "\"");
-		headers.add(HttpHeaders.CONTENT_TYPE, "application/octet-stream");
+//	    fileName = context.getRealPath(fileName);
+	 // 경로를 명시적으로 설정하여 webapp 상위 폴더 접근을 허용
+        filePath = Paths.get("").toAbsolutePath().toString() + File.separator + fileName;
+        System.out.println("filePath::" + filePath);
 
-		return new ResponseEntity<>(new FileSystemResource(filePath), headers, HttpStatus.OK);
+        FileSystemResource file = new FileSystemResource(filePath);
+
+        if (!file.exists()) {
+            return ResponseEntity.badRequest().body(null);  // 파일이 없을 경우 400 Bad Request 처리
+        }
+
+        HttpHeaders headers = new HttpHeaders();
+        String encodedFileName = new String(fileName.getBytes("UTF-8"), "ISO-8859-1"); // 한글 파일명 처리
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + encodedFileName + "\"");
+        headers.add(HttpHeaders.CONTENT_TYPE, "application/octet-stream");
+
+        return new ResponseEntity<>(file, headers, HttpStatus.OK);
 	}
 }
